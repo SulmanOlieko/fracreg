@@ -6,3 +6,4 @@
 *.tar.gz
 *.Rcheck/
 .Rcheck
+fracreg_manual.pdf
