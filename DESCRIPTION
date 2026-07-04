@@ -12,5 +12,6 @@ Date: 2026-07-05
 Packaged: 2026-07-05 12:38:54 UTC; Sulman
 NeedsCompilation: no
 Repository: CRAN
+URL: https://SulmanOlieko.github.io/fracreg
 Suggests: knitr, rmarkdown
 VignetteBuilder: knitr

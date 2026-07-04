@@ -4,6 +4,11 @@ template:
   bootswatch: flatly
 
 reference:
+  - title: "Package Overview"
+    desc: "General package description and help."
+    contents:
+      - fracreg-package
+
   - title: "Base Fractional Estimators"
     desc: "Functions for cross-sectional, hurdle, and double-inflated models."
     contents:
