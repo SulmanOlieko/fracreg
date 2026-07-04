@@ -1,0 +1,26 @@
+url: https://SulmanOlieko.github.io/fracreg/
+template:
+  bootstrap: 5
+  bootswatch: flatly
+
+reference:
+  - title: "Base Fractional Estimators"
+    desc: "Functions for cross-sectional, hurdle, and double-inflated models."
+    contents:
+      - fracreg
+      - fracreg.pe
+
+  - title: "Panel Data & Endogeneity"
+    desc: "Functions for panel data, unobserved heterogeneity, and endogenous regressors."
+    contents:
+      - fracregpd
+      - fracreghet
+      - fracreghet.pe
+
+  - title: "Specification Testing & Diagnostics"
+    desc: "Tools for testing functional form, link specification, and non-nested models."
+    contents:
+      - fracreg.ggoff
+      - fracreg.reset
+      - fracreg.ptest
+      - fracreghet.reset

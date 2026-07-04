@@ -1,0 +1,121 @@
+# fracreg: Fractional Regression Models in R
+
+[![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
+[![](https://img.shields.io/badge/R->=%203.5.0-blue.svg)](https://cran.r-project.org/)
+[![](https://img.shields.io/github/last-commit/SulmanOlieko/fracreg.svg)](https://github.com/SulmanOlieko/fracreg/commits/main)
+[![](https://img.shields.io/github/issues/SulmanOlieko/fracreg.svg)](https://github.com/SulmanOlieko/fracreg/issues)
+[![](https://img.shields.io/badge/license-GPL--3-blue)](https://github.com/SulmanOlieko/fracreg)
+[![CRAN Total Downloads](https://cranlogs.r-pkg.org/badges/grand-total/fracreg)](https://cran.r-project.org/package=fracreg)
+
+> **The Ultimate Toolkit for Fractional Data**
+
+An advanced R package for the estimation, specification analysis, and interpretation of fractional regression models. It handles univariate proportions, participation rates, and bounded data ($0 \le y \le 1$), providing state-of-the-art estimators for single-part, two-part (hurdle), and three-part (double-inflated) models.
+
+## Features
+
+`fracreg` is fully equipped to handle complex data structures commonly found in econometrics and biostatistics:
+
+1. **Univariate Fractional Models (`fracreg`)**: Fit standard 1-part models, hurdle 2-part models (mass at 0 or 1), and double-inflated 3-part models.
+2. **Panel Data Models (`fracregpd`)**: Estimate fractional models with fixed-T longitudinal data, supporting Correlated Random Effects (CRE) to handle unobserved individual heterogeneity.
+3. **Endogeneity & Heteroskedasticity (`fracreghet`)**: Correct for endogenous covariates using Instrumental Variables (IV) via Control Function and GMM approaches.
+4. **Diagnostic Testing**: Includes generalized goodness-of-functional-form (`fracreg.ggoff`), RESET (`fracreg.reset`), and non-nested P-tests (`fracreg.ptest`).
+5. **Analytical Partial Effects**: Compute exact marginal effects for all model types (including 3-part composite effects) via the Delta method using `fracreg.pe()`.
+
+---
+
+## Installation
+
+You can install the released version of `fracreg` from CRAN with:
+
+```r
+install.packages("fracreg")
+library("fracreg")
+```
+
+Or install the development version from GitHub:
+
+```r
+# install.packages("devtools")
+devtools::install_github("SulmanOlieko/fracreg")
+```
+
+---
+
+## Usage Examples
+
+The following sections provide examples covering the three primary estimation functions.
+
+### 1. The Core Estimator (`fracreg`)
+The main `fracreg()` function fits cross-sectional models.
+
+```r
+library(fracreg)
+
+# 1-Part Model (Standard Fractional)
+model_1p <- fracreg(y ~ x1 + x2, data = my_data, type = "1P", link = "logit")
+
+# 2-Part Hurdle Model (Inflation at 0)
+model_2p <- fracreg(
+  y ~ x1 + x2, 
+  data = my_data, 
+  type = "2P", 
+  inflation = 0,
+  linkbin = "logit", 
+  linkfrac = "logit"
+)
+
+# 3-Part Double-Inflated Model (Inflation at both 0 and 1)
+model_3p <- fracreg(
+  y ~ x1 + x2, 
+  data = my_data, 
+  type = "3P", 
+  linkbin = c("logit", "logit"), 
+  linkfrac = "logit"
+)
+
+# Calculate analytical Partial Effects
+pe_3p <- fracreg.pe(model_3p)
+summary(pe_3p)
+```
+
+---
+
+### 2. Panel Data (`fracregpd`)
+For longitudinal datasets, `fracregpd` incorporates individual unobserved heterogeneity.
+
+```r
+# Estimate a Correlated Random Effects (CRE) Model
+model_pd <- fracregpd(
+  id = panel_id, 
+  time = panel_time, 
+  y = y_var, 
+  x = cbind(x1, x2), 
+  type = "QMLcre", 
+  link = "logit"
+)
+```
+
+---
+
+### 3. Endogeneity & Heteroskedasticity (`fracreghet`)
+Use instrumental variables (`z`) to correct for endogenous covariates via a control function.
+
+```r
+# Estimate QML with control function
+model_het <- fracreghet(
+  y = y_var, 
+  x = cbind(1, x1, endog_var), 
+  z = cbind(1, x1, instrument_z), 
+  var.endog = endog_var,
+  type = "QMLxv", 
+  link = "logit"
+)
+```
+
+---
+
+## References
+
+Ramalho, E.A., J.J.S. Ramalho and J.M.R. Murteira (2011), "Alternative estimating and testing empirical strategies for fractional regression models", *Journal of Economic Surveys*, 25(1), 19-68.
+
+Papke, L.E. and J.M. Wooldridge (1996), "Econometric methods for fractional response variables with an application to 401(k) plan participation rates", *Journal of Applied Econometrics*, 11(6), 619-632.
