@@ -1,0 +1,237 @@
+---
+output:
+  github_document:
+    html_preview: false
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+
+local({
+  hook_output <- knitr::knit_hooks$get("output")
+  knitr::knit_hooks$set(output = function(x, options) {
+    paste0("\n<details><summary>Toggle to see the output</summary>\n\n",
+           hook_output(x, options),
+           "\n</details>\n")
+  })
+})
+```
+
+# fracreg: Fractional Regression Models in R
+
+[![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
+[![](https://img.shields.io/badge/R->=%203.5.0-blue.svg)](https://cran.r-project.org/)
+[![](https://img.shields.io/github/last-commit/SulmanOlieko/fracreg.svg)](https://github.com/SulmanOlieko/fracreg/commits/main)
+[![](https://img.shields.io/github/issues/SulmanOlieko/fracreg.svg)](https://github.com/SulmanOlieko/fracreg/issues)
+[![](https://img.shields.io/badge/license-GPL--3-blue)](https://github.com/SulmanOlieko/fracreg)
+[![CRAN Total Downloads](https://cranlogs.r-pkg.org/badges/grand-total/fracreg)](https://cran.r-project.org/package=fracreg)
+
+> **The Ultimate Toolkit for Fractional Data**
+
+An advanced R package for the estimation, specification analysis, and interpretation of fractional regression models. It handles univariate proportions, participation rates, and bounded data ($0 \le y \le 1$), providing state-of-the-art estimators for single-part, two-part (hurdle), and three-part (double-inflated) models.
+
+## Features
+
+`fracreg` is fully equipped to handle complex data structures commonly found in econometrics and biostatistics:
+
+1. **Univariate Fractional Models (`fracreg`)**: Fit standard 1-part models, hurdle 2-part models (mass at 0 or 1), and double-inflated 3-part models.
+2. **Panel Data Models (`fracregpd`)**: Estimate fractional models with fixed-T longitudinal data, supporting Correlated Random Effects (CRE) to handle unobserved individual heterogeneity.
+3. **Endogeneity & Heteroskedasticity (`fracreghet`)**: Correct for endogenous covariates using Instrumental Variables (IV) via Control Function and GMM approaches.
+4. **Diagnostic Testing**: Includes generalized goodness-of-functional-form (`fracreg.ggoff`), RESET (`fracreg.reset`), and non-nested P-tests (`fracreg.ptest`).
+5. **Analytical Partial Effects**: Compute exact marginal effects for all model types (including 3-part composite effects) via the Delta method using `fracreg.pe()`.
+
+---
+
+## Installation
+
+You can install the released version of `fracreg` from CRAN with:
+
+```r
+install.packages("fracreg")
+library("fracreg")
+```
+
+Or install the development version from GitHub:
+
+```r
+# install.packages("devtools")
+devtools::install_github("SulmanOlieko/fracreg")
+```
+
+---
+
+## Usage Examples
+
+The following sections provide examples covering the three primary estimation functions.
+
+```{r load-package}
+library(fracreg)
+```
+
+### 1. The Core Estimator (`fracreg`)
+
+The main `fracreg()` function fits cross-sectional models.
+
+#### 1.1 Simulating the Data
+
+```{r data-sim}
+set.seed(123)
+N <- 1000
+x1 <- rnorm(N)
+x2 <- runif(N)
+
+# Generating a fractional dependent variable with inflation at 0 and 1
+XB <- -0.5 + 0.8 * x1 + 1.2 * x2 + rnorm(N)
+y_latent <- exp(XB) / (1 + exp(XB))
+
+y <- y_latent
+# Inflate at boundaries
+y[y_latent < 0.2] <- 0
+y[y_latent > 0.8] <- 1
+
+data <- data.frame(y = y, x1 = x1, x2 = x2)
+head(data)
+```
+
+#### 1.2 The Standard 1-Part Model (1P)
+
+```{r one-part}
+model_1p <- fracreg(
+  y = data$y, 
+  x = cbind(x1 = data$x1, x2 = data$x2), 
+  type = "1P", 
+  linkfrac = "logit"
+)
+summary(model_1p)
+```
+
+#### 1.3 Partial Effects (1P)
+
+```{r pe-1p}
+pe_1p <- fracreg.pe(model_1p)
+summary(pe_1p)
+```
+
+#### 1.4 The Two-Part Hurdle Model (2P)
+
+```{r two-part}
+# We use inflation=0 to indicate we are modeling the mass at zero
+model_2p <- fracreg(
+  y = data$y, 
+  x = cbind(x1 = data$x1, x2 = data$x2), 
+  type = "2P", 
+  inflation = 0,
+  linkbin = "logit", 
+  linkfrac = "logit"
+)
+summary(model_2p)
+```
+
+```{r pe-2p}
+pe_2p <- fracreg.pe(model_2p)
+summary(pe_2p)
+```
+
+#### 1.5 The Three-Part Double-Inflated Model (3P)
+
+```{r three-part}
+# Linkbin takes a vector of two links for the two binary hurdles
+model_3p <- fracreg(
+  y = data$y, 
+  x = cbind(x1 = data$x1, x2 = data$x2), 
+  type = "3P", 
+  linkbin = c("logit", "logit"), 
+  linkfrac = "logit"
+)
+summary(model_3p)
+```
+
+```{r pe-3p}
+pe_3p <- fracreg.pe(model_3p)
+summary(pe_3p)
+```
+
+---
+
+### 2. Hypothesis Testing and Specification Diagnostics
+
+#### 2.1 Generalized Goodness-Of-Functional-Form (GGOFF)
+
+```{r ggoff}
+# Perform the GGOFF test on the 1P model
+fracreg.ggoff(model_1p, version = "LM")
+```
+
+#### 2.2 RESET Test
+
+```{r reset}
+# Standard RESET test for functional form misspecification
+fracreg.reset(model_1p)
+```
+
+---
+
+### 3. Endogeneity & Heteroskedasticity (`fracreghet`)
+
+Use instrumental variables (`z`) to correct for endogenous covariates via a control function.
+
+```{r endogeneity}
+# Simulating an endogenous variable (var.endog) and an instrument (z)
+z <- rnorm(N)
+u <- 0.5 * z + rnorm(N)
+var.endog <- 0.8 * z + u
+y_endog <- exp(0.5 * x1 + 1.2 * var.endog + u) / (1 + exp(0.5 * x1 + 1.2 * var.endog + u))
+
+# Estimate QML with control function for cross-sectional data
+model_het <- fracreghet(
+  y = y_endog, 
+  x = cbind(x1, var.endog), 
+  z = cbind(x1, z), 
+  var.endog = var.endog,
+  type = "QMLxv", 
+  link = "logit"
+)
+summary(model_het)
+```
+
+---
+
+### 4. Panel Data Fractional Models (`fracregpd`)
+
+For longitudinal or panel data where unobserved heterogeneity is a concern, `fracregpd()` provides fixed-T panel estimators. 
+
+```{r panel-data}
+# Simulating Panel Data
+id <- rep(1:200, each = 5)
+time <- rep(1:5, times = 200)
+x_panel <- rnorm(1000)
+# Unobserved individual effect (CRE)
+c_i <- rep(rnorm(200), each = 5) 
+y_panel <- exp(x_panel + c_i) / (1 + exp(x_panel + c_i))
+
+# Estimate a Correlated Random Effects (CRE) Model
+model_pd <- fracregpd(
+  id = id, 
+  time = time, 
+  y = y_panel, 
+  x = cbind(x_panel = x_panel), 
+  type = "QMLcre", 
+  link = "probit"
+)
+summary(model_pd)
+```
+
+---
+
+## References
+
+Ramalho, E.A., J.J.S. Ramalho and J.M.R. Murteira (2011), "Alternative estimating and testing empirical strategies for fractional regression models", *Journal of Economic Surveys*, 25(1), 19-68.
+
+Papke, L.E. and J.M. Wooldridge (1996), "Econometric methods for fractional response variables with an application to 401(k) plan participation rates", *Journal of Applied Econometrics*, 11(6), 619-632.

@@ -107,71 +107,451 @@
 <h2 id="usage-examples">Usage Examples<a class="anchor" aria-label="anchor" href="#usage-examples"></a>
 </h2>
 <p>The following sections provide examples covering the three primary estimation functions.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://SulmanOlieko.github.io/fracreg">fracreg</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; =========================================================</span></span>
+<span><span class="co">#&gt;  fracreg: Fractional Regression Models</span></span>
+<span><span class="co">#&gt; =========================================================</span></span>
+<span><span class="co">#&gt;  For a comprehensive guide and tutorials, please visit:</span></span>
+<span><span class="co">#&gt;  https://SulmanOlieko.github.io/fracreg</span></span>
+<span><span class="co">#&gt; ---------------------------------------------------------</span></span>
+<span><span class="co">#&gt;  To cite fracreg in publications, please type:</span></span>
+<span><span class="co">#&gt;  citation("fracreg")</span></span>
+<span><span class="co">#&gt; =========================================================</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="id_1-the-core-estimator-fracreg">1. The Core Estimator (<code>fracreg</code>)<a class="anchor" aria-label="anchor" href="#id_1-the-core-estimator-fracreg"></a>
 </h3>
 <p>The main <code><a href="reference/fracreg.html">fracreg()</a></code> function fits cross-sectional models.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://SulmanOlieko.github.io/fracreg">fracreg</a></span><span class="op">)</span></span>
+<div class="section level4">
+<h4 id="id_11-simulating-the-data">1.1 Simulating the Data<a class="anchor" aria-label="anchor" href="#id_11-simulating-the-data"></a>
+</h4>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
+<span><span class="va">N</span> <span class="op">&lt;-</span> <span class="fl">1000</span></span>
+<span><span class="va">x1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">N</span><span class="op">)</span></span>
+<span><span class="va">x2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="va">N</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># 1-Part Model (Standard Fractional)</span></span>
-<span><span class="va">model_1p</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/fracreg.html">fracreg</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x1</span> <span class="op">+</span> <span class="va">x2</span>, data <span class="op">=</span> <span class="va">my_data</span>, type <span class="op">=</span> <span class="st">"1P"</span>, link <span class="op">=</span> <span class="st">"logit"</span><span class="op">)</span></span>
+<span><span class="co"># Generating a fractional dependent variable with inflation at 0 and 1</span></span>
+<span><span class="va">XB</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">0.5</span> <span class="op">+</span> <span class="fl">0.8</span> <span class="op">*</span> <span class="va">x1</span> <span class="op">+</span> <span class="fl">1.2</span> <span class="op">*</span> <span class="va">x2</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">N</span><span class="op">)</span></span>
+<span><span class="va">y_latent</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="va">XB</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="fl">1</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="va">XB</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># 2-Part Hurdle Model (Inflation at 0)</span></span>
+<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">y_latent</span></span>
+<span><span class="co"># Inflate at boundaries</span></span>
+<span><span class="va">y</span><span class="op">[</span><span class="va">y_latent</span> <span class="op">&lt;</span> <span class="fl">0.2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">0</span></span>
+<span><span class="va">y</span><span class="op">[</span><span class="va">y_latent</span> <span class="op">&gt;</span> <span class="fl">0.8</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">1</span></span>
+<span></span>
+<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">y</span>, x1 <span class="op">=</span> <span class="va">x1</span>, x2 <span class="op">=</span> <span class="va">x2</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span></code></pre></div>
+<details><summary>
+Toggle to see the output
+</summary><div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="co">#&gt;           y          x1        x2</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="co">#&gt; 1 0.0000000 -0.56047565 0.1596740</span></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="co">#&gt; 2 0.3061926 -0.23017749 0.1445159</span></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="co">#&gt; 3 0.5059710  1.55870831 0.1491804</span></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="co">#&gt; 4 0.6901448  0.07050839 0.5144343</span></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="co">#&gt; 5 0.7883783  0.12928774 0.4928273</span></span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a><span class="co">#&gt; 6 1.0000000  1.71506499 0.6163428</span></span></code></pre></div>
+</details>
+</div>
+<div class="section level4">
+<h4 id="id_12-the-standard-1-part-model-1p">1.2 The Standard 1-Part Model (1P)<a class="anchor" aria-label="anchor" href="#id_12-the-standard-1-part-model-1p"></a>
+</h4>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">model_1p</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/fracreg.html">fracreg</a></span><span class="op">(</span></span>
+<span>  y <span class="op">=</span> <span class="va">data</span><span class="op">$</span><span class="va">y</span>, </span>
+<span>  x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span>x1 <span class="op">=</span> <span class="va">data</span><span class="op">$</span><span class="va">x1</span>, x2 <span class="op">=</span> <span class="va">data</span><span class="op">$</span><span class="va">x2</span><span class="op">)</span>, </span>
+<span>  type <span class="op">=</span> <span class="st">"1P"</span>, </span>
+<span>  linkfrac <span class="op">=</span> <span class="st">"logit"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<details><summary>
+Toggle to see the output
+</summary><div class="sourceCode" id="cb7"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="co">#&gt; *** Fractional logit regression model ***</span></span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a><span class="co">#&gt;            Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a><span class="co">#&gt; INTERCEPT -0.569685   0.067502  -8.440    0.000 ***</span></span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a><span class="co">#&gt; x1         0.788220   0.040145  19.634    0.000 ***</span></span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a><span class="co">#&gt; x2         1.356110   0.118992  11.397    0.000 ***</span></span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a><span class="co">#&gt; Note: robust standard errors</span></span>
+<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a><span class="co">#&gt; Number of observations: 1000 </span></span>
+<span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a><span class="co">#&gt; R-squared: 0.39</span></span></code></pre></div>
+</details><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">model_1p</span><span class="op">)</span></span></code></pre></div>
+<details><summary>
+Toggle to see the output
+</summary><div class="sourceCode" id="cb9"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="co">#&gt;           Length Class   Mode     </span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="co">#&gt; class        1   -none-  character</span></span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a><span class="co">#&gt; formula      3   formula call     </span></span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a><span class="co">#&gt; type         1   -none-  character</span></span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a><span class="co">#&gt; link         1   -none-  character</span></span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a><span class="co">#&gt; method       1   -none-  character</span></span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a><span class="co">#&gt; p            3   -none-  numeric  </span></span>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a><span class="co">#&gt; yhat      1000   -none-  numeric  </span></span>
+<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a><span class="co">#&gt; xbhat     1000   -none-  numeric  </span></span>
+<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a><span class="co">#&gt; converged    1   -none-  numeric  </span></span>
+<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a><span class="co">#&gt; x.names      3   -none-  character</span></span>
+<span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a><span class="co">#&gt; p.var        9   -none-  numeric  </span></span>
+<span id="cb9-13"><a href="#cb9-13" tabindex="-1"></a><span class="co">#&gt; var.type     1   -none-  character</span></span>
+<span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a><span class="co">#&gt; var.eim      1   -none-  logical  </span></span>
+<span id="cb9-15"><a href="#cb9-15" tabindex="-1"></a><span class="co">#&gt; dfc          1   -none-  logical</span></span></code></pre></div>
+</details>
+</div>
+<div class="section level4">
+<h4 id="id_13-partial-effects-1p">1.3 Partial Effects (1P)<a class="anchor" aria-label="anchor" href="#id_13-partial-effects-1p"></a>
+</h4>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">pe_1p</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/fracreg.pe.html">fracreg.pe</a></span><span class="op">(</span><span class="va">model_1p</span><span class="op">)</span></span></code></pre></div>
+<details><summary>
+Toggle to see the output
+</summary><div class="sourceCode" id="cb11"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a><span class="co">#&gt; *** Average partial effects ***</span></span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a><span class="co">#&gt; Fractional logit model</span></span>
+<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a><span class="co">#&gt;    Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
+<span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a><span class="co">#&gt; x1   0.1682     0.0068  24.694    0.000 ***</span></span>
+<span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a><span class="co">#&gt; x2   0.2894     0.0239  12.132    0.000 ***</span></span></code></pre></div>
+</details><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">pe_1p</span><span class="op">)</span></span></code></pre></div>
+<details><summary>
+Toggle to see the output
+</summary><div class="sourceCode" id="cb13"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="co">#&gt;       Length Class  Mode   </span></span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a><span class="co">#&gt; PE.p  2      -none- numeric</span></span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a><span class="co">#&gt; PE.sd 2      -none- numeric</span></span></code></pre></div>
+</details>
+</div>
+<div class="section level4">
+<h4 id="id_14-the-two-part-hurdle-model-2p">1.4 The Two-Part Hurdle Model (2P)<a class="anchor" aria-label="anchor" href="#id_14-the-two-part-hurdle-model-2p"></a>
+</h4>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># We use inflation=0 to indicate we are modeling the mass at zero</span></span>
 <span><span class="va">model_2p</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/fracreg.html">fracreg</a></span><span class="op">(</span></span>
-<span>  <span class="va">y</span> <span class="op">~</span> <span class="va">x1</span> <span class="op">+</span> <span class="va">x2</span>, </span>
-<span>  data <span class="op">=</span> <span class="va">my_data</span>, </span>
+<span>  y <span class="op">=</span> <span class="va">data</span><span class="op">$</span><span class="va">y</span>, </span>
+<span>  x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span>x1 <span class="op">=</span> <span class="va">data</span><span class="op">$</span><span class="va">x1</span>, x2 <span class="op">=</span> <span class="va">data</span><span class="op">$</span><span class="va">x2</span><span class="op">)</span>, </span>
 <span>  type <span class="op">=</span> <span class="st">"2P"</span>, </span>
 <span>  inflation <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  linkbin <span class="op">=</span> <span class="st">"logit"</span>, </span>
 <span>  linkfrac <span class="op">=</span> <span class="st">"logit"</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># 3-Part Double-Inflated Model (Inflation at both 0 and 1)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<details><summary>
+Toggle to see the output
+</summary><div class="sourceCode" id="cb15"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a><span class="co">#&gt; *** Binary component of a two-part model - logit specification ***</span></span>
+<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a><span class="co">#&gt;           Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
+<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a><span class="co">#&gt; INTERCEPT 1.463769   0.193283   7.573    0.000 ***</span></span>
+<span id="cb15-6"><a href="#cb15-6" tabindex="-1"></a><span class="co">#&gt; x1        1.185749   0.128710   9.213    0.000 ***</span></span>
+<span id="cb15-7"><a href="#cb15-7" tabindex="-1"></a><span class="co">#&gt; x2        2.227886   0.393191   5.666    0.000 ***</span></span>
+<span id="cb15-8"><a href="#cb15-8" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb15-9"><a href="#cb15-9" tabindex="-1"></a><span class="co">#&gt; Number of observations: 1000 </span></span>
+<span id="cb15-10"><a href="#cb15-10" tabindex="-1"></a><span class="co">#&gt; R-squared: 0.145 </span></span>
+<span id="cb15-11"><a href="#cb15-11" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb15-12"><a href="#cb15-12" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb15-13"><a href="#cb15-13" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb15-14"><a href="#cb15-14" tabindex="-1"></a><span class="co">#&gt; *** Fractional component of a two-part model - logit specification ***</span></span>
+<span id="cb15-15"><a href="#cb15-15" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb15-16"><a href="#cb15-16" tabindex="-1"></a><span class="co">#&gt;            Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
+<span id="cb15-17"><a href="#cb15-17" tabindex="-1"></a><span class="co">#&gt; INTERCEPT -0.173232   0.057863  -2.994    0.003 ***</span></span>
+<span id="cb15-18"><a href="#cb15-18" tabindex="-1"></a><span class="co">#&gt; x1         0.612050   0.035541  17.221    0.000 ***</span></span>
+<span id="cb15-19"><a href="#cb15-19" tabindex="-1"></a><span class="co">#&gt; x2         1.005089   0.107030   9.391    0.000 ***</span></span>
+<span id="cb15-20"><a href="#cb15-20" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb15-21"><a href="#cb15-21" tabindex="-1"></a><span class="co">#&gt; Note: robust standard errors</span></span>
+<span id="cb15-22"><a href="#cb15-22" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb15-23"><a href="#cb15-23" tabindex="-1"></a><span class="co">#&gt; Number of observations: 881 </span></span>
+<span id="cb15-24"><a href="#cb15-24" tabindex="-1"></a><span class="co">#&gt; R-squared: 0.324 </span></span>
+<span id="cb15-25"><a href="#cb15-25" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb15-26"><a href="#cb15-26" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb15-27"><a href="#cb15-27" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb15-28"><a href="#cb15-28" tabindex="-1"></a><span class="co">#&gt; *** Two-part model - binary logit + fractional logit  ***</span></span>
+<span id="cb15-29"><a href="#cb15-29" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb15-30"><a href="#cb15-30" tabindex="-1"></a><span class="co">#&gt; R-squared: 0.386</span></span></code></pre></div>
+</details><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">model_2p</span><span class="op">)</span></span></code></pre></div>
+<details><summary>
+Toggle to see the output
+</summary><div class="sourceCode" id="cb17"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="co">#&gt;           Length Class  Mode     </span></span>
+<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a><span class="co">#&gt; resBIN      15   -none- list     </span></span>
+<span id="cb17-3"><a href="#cb17-3" tabindex="-1"></a><span class="co">#&gt; resFRAC     14   -none- list     </span></span>
+<span id="cb17-4"><a href="#cb17-4" tabindex="-1"></a><span class="co">#&gt; class        1   -none- character</span></span>
+<span id="cb17-5"><a href="#cb17-5" tabindex="-1"></a><span class="co">#&gt; type         1   -none- character</span></span>
+<span id="cb17-6"><a href="#cb17-6" tabindex="-1"></a><span class="co">#&gt; ybase     1000   -none- numeric  </span></span>
+<span id="cb17-7"><a href="#cb17-7" tabindex="-1"></a><span class="co">#&gt; x2base    3000   -none- numeric  </span></span>
+<span id="cb17-8"><a href="#cb17-8" tabindex="-1"></a><span class="co">#&gt; yhat2P    1000   -none- numeric  </span></span>
+<span id="cb17-9"><a href="#cb17-9" tabindex="-1"></a><span class="co">#&gt; converged    1   -none- numeric</span></span></code></pre></div>
+</details><div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">pe_2p</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/fracreg.pe.html">fracreg.pe</a></span><span class="op">(</span><span class="va">model_2p</span><span class="op">)</span></span></code></pre></div>
+<details><summary>
+Toggle to see the output
+</summary><div class="sourceCode" id="cb19"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb19-3"><a href="#cb19-3" tabindex="-1"></a><span class="co">#&gt; *** Average partial effects ***</span></span>
+<span id="cb19-4"><a href="#cb19-4" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb19-5"><a href="#cb19-5" tabindex="-1"></a><span class="co">#&gt; Binary logit + Fractional logit two-part model</span></span>
+<span id="cb19-6"><a href="#cb19-6" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb19-7"><a href="#cb19-7" tabindex="-1"></a><span class="co">#&gt;    Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
+<span id="cb19-8"><a href="#cb19-8" tabindex="-1"></a><span class="co">#&gt; x1   0.1666     0.0067  24.804    0.000 ***</span></span>
+<span id="cb19-9"><a href="#cb19-9" tabindex="-1"></a><span class="co">#&gt; x2   0.2848     0.0245  11.612    0.000 ***</span></span></code></pre></div>
+</details><div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">pe_2p</span><span class="op">)</span></span></code></pre></div>
+<details><summary>
+Toggle to see the output
+</summary><div class="sourceCode" id="cb21"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="co">#&gt;       Length Class  Mode   </span></span>
+<span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a><span class="co">#&gt; PE.p  2      -none- numeric</span></span>
+<span id="cb21-3"><a href="#cb21-3" tabindex="-1"></a><span class="co">#&gt; PE.sd 2      -none- numeric</span></span></code></pre></div>
+</details>
+</div>
+<div class="section level4">
+<h4 id="id_15-the-three-part-double-inflated-model-3p">1.5 The Three-Part Double-Inflated Model (3P)<a class="anchor" aria-label="anchor" href="#id_15-the-three-part-double-inflated-model-3p"></a>
+</h4>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Linkbin takes a vector of two links for the two binary hurdles</span></span>
 <span><span class="va">model_3p</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/fracreg.html">fracreg</a></span><span class="op">(</span></span>
-<span>  <span class="va">y</span> <span class="op">~</span> <span class="va">x1</span> <span class="op">+</span> <span class="va">x2</span>, </span>
-<span>  data <span class="op">=</span> <span class="va">my_data</span>, </span>
+<span>  y <span class="op">=</span> <span class="va">data</span><span class="op">$</span><span class="va">y</span>, </span>
+<span>  x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span>x1 <span class="op">=</span> <span class="va">data</span><span class="op">$</span><span class="va">x1</span>, x2 <span class="op">=</span> <span class="va">data</span><span class="op">$</span><span class="va">x2</span><span class="op">)</span>, </span>
 <span>  type <span class="op">=</span> <span class="st">"3P"</span>, </span>
 <span>  linkbin <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"logit"</span>, <span class="st">"logit"</span><span class="op">)</span>, </span>
 <span>  linkfrac <span class="op">=</span> <span class="st">"logit"</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Calculate analytical Partial Effects</span></span>
-<span><span class="va">pe_3p</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/fracreg.pe.html">fracreg.pe</a></span><span class="op">(</span><span class="va">model_3p</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">pe_3p</span><span class="op">)</span></span></code></pre></div>
-<hr>
+<span><span class="op">)</span></span></code></pre></div>
+<details><summary>
+Toggle to see the output
+</summary><div class="sourceCode" id="cb23"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb23-2"><a href="#cb23-2" tabindex="-1"></a><span class="co">#&gt; *** First binary component of a three-part model - logit specification ***</span></span>
+<span id="cb23-3"><a href="#cb23-3" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb23-4"><a href="#cb23-4" tabindex="-1"></a><span class="co">#&gt;           Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
+<span id="cb23-5"><a href="#cb23-5" tabindex="-1"></a><span class="co">#&gt; INTERCEPT 1.463769   0.193283   7.573    0.000 ***</span></span>
+<span id="cb23-6"><a href="#cb23-6" tabindex="-1"></a><span class="co">#&gt; x1        1.185749   0.128710   9.213    0.000 ***</span></span>
+<span id="cb23-7"><a href="#cb23-7" tabindex="-1"></a><span class="co">#&gt; x2        2.227886   0.393191   5.666    0.000 ***</span></span>
+<span id="cb23-8"><a href="#cb23-8" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb23-9"><a href="#cb23-9" tabindex="-1"></a><span class="co">#&gt; Number of observations: 1000 </span></span>
+<span id="cb23-10"><a href="#cb23-10" tabindex="-1"></a><span class="co">#&gt; R-squared: 0.145 </span></span>
+<span id="cb23-11"><a href="#cb23-11" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb23-12"><a href="#cb23-12" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb23-13"><a href="#cb23-13" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb23-14"><a href="#cb23-14" tabindex="-1"></a><span class="co">#&gt; *** Second binary component of a three-part model - logit specification ***</span></span>
+<span id="cb23-15"><a href="#cb23-15" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb23-16"><a href="#cb23-16" tabindex="-1"></a><span class="co">#&gt;            Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
+<span id="cb23-17"><a href="#cb23-17" tabindex="-1"></a><span class="co">#&gt; INTERCEPT -2.953982   0.243671 -12.123    0.000 ***</span></span>
+<span id="cb23-18"><a href="#cb23-18" tabindex="-1"></a><span class="co">#&gt; x1         1.168175   0.116745  10.006    0.000 ***</span></span>
+<span id="cb23-19"><a href="#cb23-19" tabindex="-1"></a><span class="co">#&gt; x2         1.831493   0.345480   5.301    0.000 ***</span></span>
+<span id="cb23-20"><a href="#cb23-20" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb23-21"><a href="#cb23-21" tabindex="-1"></a><span class="co">#&gt; Number of observations: 881 </span></span>
+<span id="cb23-22"><a href="#cb23-22" tabindex="-1"></a><span class="co">#&gt; R-squared: 0.188 </span></span>
+<span id="cb23-23"><a href="#cb23-23" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb23-24"><a href="#cb23-24" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb23-25"><a href="#cb23-25" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb23-26"><a href="#cb23-26" tabindex="-1"></a><span class="co">#&gt; *** Fractional component of a three-part model - logit specification ***</span></span>
+<span id="cb23-27"><a href="#cb23-27" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb23-28"><a href="#cb23-28" tabindex="-1"></a><span class="co">#&gt;            Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
+<span id="cb23-29"><a href="#cb23-29" tabindex="-1"></a><span class="co">#&gt; INTERCEPT -0.267629   0.045393  -5.896    0.000 ***</span></span>
+<span id="cb23-30"><a href="#cb23-30" tabindex="-1"></a><span class="co">#&gt; x1         0.361985   0.024539  14.751    0.000 ***</span></span>
+<span id="cb23-31"><a href="#cb23-31" tabindex="-1"></a><span class="co">#&gt; x2         0.585047   0.079687   7.342    0.000 ***</span></span>
+<span id="cb23-32"><a href="#cb23-32" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb23-33"><a href="#cb23-33" tabindex="-1"></a><span class="co">#&gt; Note: robust standard errors</span></span>
+<span id="cb23-34"><a href="#cb23-34" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb23-35"><a href="#cb23-35" tabindex="-1"></a><span class="co">#&gt; Number of observations: 715 </span></span>
+<span id="cb23-36"><a href="#cb23-36" tabindex="-1"></a><span class="co">#&gt; R-squared: 0.243 </span></span>
+<span id="cb23-37"><a href="#cb23-37" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb23-38"><a href="#cb23-38" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb23-39"><a href="#cb23-39" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb23-40"><a href="#cb23-40" tabindex="-1"></a><span class="co">#&gt; *** Three-part model - binary logit , binary logit + fractional logit  ***</span></span>
+<span id="cb23-41"><a href="#cb23-41" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb23-42"><a href="#cb23-42" tabindex="-1"></a><span class="co">#&gt; R-squared: 0.389</span></span></code></pre></div>
+</details><div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">model_3p</span><span class="op">)</span></span></code></pre></div>
+<details><summary>
+Toggle to see the output
+</summary><div class="sourceCode" id="cb25"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a><span class="co">#&gt;           Length Class  Mode     </span></span>
+<span id="cb25-2"><a href="#cb25-2" tabindex="-1"></a><span class="co">#&gt; resBIN0     13   -none- list     </span></span>
+<span id="cb25-3"><a href="#cb25-3" tabindex="-1"></a><span class="co">#&gt; resBIN1     13   -none- list     </span></span>
+<span id="cb25-4"><a href="#cb25-4" tabindex="-1"></a><span class="co">#&gt; resFRAC     12   -none- list     </span></span>
+<span id="cb25-5"><a href="#cb25-5" tabindex="-1"></a><span class="co">#&gt; class        1   -none- character</span></span>
+<span id="cb25-6"><a href="#cb25-6" tabindex="-1"></a><span class="co">#&gt; type         1   -none- character</span></span>
+<span id="cb25-7"><a href="#cb25-7" tabindex="-1"></a><span class="co">#&gt; ybase     1000   -none- numeric  </span></span>
+<span id="cb25-8"><a href="#cb25-8" tabindex="-1"></a><span class="co">#&gt; x2base    3000   -none- numeric  </span></span>
+<span id="cb25-9"><a href="#cb25-9" tabindex="-1"></a><span class="co">#&gt; yhat3P    1000   -none- numeric  </span></span>
+<span id="cb25-10"><a href="#cb25-10" tabindex="-1"></a><span class="co">#&gt; converged    1   -none- numeric</span></span></code></pre></div>
+</details><div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">pe_3p</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/fracreg.pe.html">fracreg.pe</a></span><span class="op">(</span><span class="va">model_3p</span><span class="op">)</span></span></code></pre></div>
+<details><summary>
+Toggle to see the output
+</summary><div class="sourceCode" id="cb27"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb27-2"><a href="#cb27-2" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb27-3"><a href="#cb27-3" tabindex="-1"></a><span class="co">#&gt; *** Average partial effects ***</span></span>
+<span id="cb27-4"><a href="#cb27-4" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb27-5"><a href="#cb27-5" tabindex="-1"></a><span class="co">#&gt; Three-part model - binary logit , binary logit + fractional logit</span></span>
+<span id="cb27-6"><a href="#cb27-6" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb27-7"><a href="#cb27-7" tabindex="-1"></a><span class="co">#&gt;    Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
+<span id="cb27-8"><a href="#cb27-8" tabindex="-1"></a><span class="co">#&gt; x1   0.1663     0.0066  25.127    0.000 ***</span></span>
+<span id="cb27-9"><a href="#cb27-9" tabindex="-1"></a><span class="co">#&gt; x2   0.2789     0.0249  11.186    0.000 ***</span></span></code></pre></div>
+</details><div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">pe_3p</span><span class="op">)</span></span></code></pre></div>
+<details><summary>
+Toggle to see the output
+</summary><div class="sourceCode" id="cb29"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a><span class="co">#&gt;       Length Class  Mode   </span></span>
+<span id="cb29-2"><a href="#cb29-2" tabindex="-1"></a><span class="co">#&gt; PE.p  2      -none- numeric</span></span>
+<span id="cb29-3"><a href="#cb29-3" tabindex="-1"></a><span class="co">#&gt; PE.sd 2      -none- numeric</span></span></code></pre></div>
+</details><hr>
+</div>
 </div>
 <div class="section level3">
-<h3 id="id_2-panel-data-fracregpd">2. Panel Data (<code>fracregpd</code>)<a class="anchor" aria-label="anchor" href="#id_2-panel-data-fracregpd"></a>
+<h3 id="id_2-hypothesis-testing-and-specification-diagnostics">2. Hypothesis Testing and Specification Diagnostics<a class="anchor" aria-label="anchor" href="#id_2-hypothesis-testing-and-specification-diagnostics"></a>
 </h3>
-<p>For longitudinal datasets, <code>fracregpd</code> incorporates individual unobserved heterogeneity.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Estimate a Correlated Random Effects (CRE) Model</span></span>
-<span><span class="va">model_pd</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/fracregpd.html">fracregpd</a></span><span class="op">(</span></span>
-<span>  id <span class="op">=</span> <span class="va">panel_id</span>, </span>
-<span>  time <span class="op">=</span> <span class="va">panel_time</span>, </span>
-<span>  y <span class="op">=</span> <span class="va">y_var</span>, </span>
-<span>  x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">x1</span>, <span class="va">x2</span><span class="op">)</span>, </span>
-<span>  type <span class="op">=</span> <span class="st">"QMLcre"</span>, </span>
-<span>  link <span class="op">=</span> <span class="st">"logit"</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<hr>
+<div class="section level4">
+<h4 id="id_21-generalized-goodness-of-functional-form-ggoff">2.1 Generalized Goodness-Of-Functional-Form (GGOFF)<a class="anchor" aria-label="anchor" href="#id_21-generalized-goodness-of-functional-form-ggoff"></a>
+</h4>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Perform the GGOFF test on the 1P model</span></span>
+<span><span class="fu"><a href="reference/fracreg.ggoff.html">fracreg.ggoff</a></span><span class="op">(</span><span class="va">model_1p</span>, version <span class="op">=</span> <span class="st">"LM"</span><span class="op">)</span></span></code></pre></div>
+<details><summary>
+Toggle to see the output
+</summary><div class="sourceCode" id="cb31"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb31-2"><a href="#cb31-2" tabindex="-1"></a><span class="co">#&gt; *** GGOFF test ***</span></span>
+<span id="cb31-3"><a href="#cb31-3" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb31-4"><a href="#cb31-4" tabindex="-1"></a><span class="co">#&gt; H0:  Fractional logit model</span></span>
+<span id="cb31-5"><a href="#cb31-5" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb31-6"><a href="#cb31-6" tabindex="-1"></a><span class="co">#&gt;   Test Version Statistic p-value </span></span>
+<span id="cb31-7"><a href="#cb31-7" tabindex="-1"></a><span class="co">#&gt;  GOFF1      LM     0.640   0.424 </span></span>
+<span id="cb31-8"><a href="#cb31-8" tabindex="-1"></a><span class="co">#&gt;  GOFF2      LM     0.485   0.486 </span></span>
+<span id="cb31-9"><a href="#cb31-9" tabindex="-1"></a><span class="co">#&gt;  GGOFF      LM     0.814   0.666</span></span></code></pre></div>
+</details>
+</div>
+<div class="section level4">
+<h4 id="id_22-reset-test">2.2 RESET Test<a class="anchor" aria-label="anchor" href="#id_22-reset-test"></a>
+</h4>
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Standard RESET test for functional form misspecification</span></span>
+<span><span class="fu"><a href="reference/fracreg.reset.html">fracreg.reset</a></span><span class="op">(</span><span class="va">model_1p</span><span class="op">)</span></span></code></pre></div>
+<details><summary>
+Toggle to see the output
+</summary><div class="sourceCode" id="cb33"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb33-2"><a href="#cb33-2" tabindex="-1"></a><span class="co">#&gt; *** RESET test ***</span></span>
+<span id="cb33-3"><a href="#cb33-3" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb33-4"><a href="#cb33-4" tabindex="-1"></a><span class="co">#&gt; H0:  Fractional logit model</span></span>
+<span id="cb33-5"><a href="#cb33-5" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb33-6"><a href="#cb33-6" tabindex="-1"></a><span class="co">#&gt;  Version Statistic p-value </span></span>
+<span id="cb33-7"><a href="#cb33-7" tabindex="-1"></a><span class="co">#&gt;    LM(3)     0.852   0.653</span></span></code></pre></div>
+</details><hr>
+</div>
 </div>
 <div class="section level3">
 <h3 id="id_3-endogeneity--heteroskedasticity-fracreghet">3. Endogeneity &amp; Heteroskedasticity (<code>fracreghet</code>)<a class="anchor" aria-label="anchor" href="#id_3-endogeneity--heteroskedasticity-fracreghet"></a>
 </h3>
 <p>Use instrumental variables (<code>z</code>) to correct for endogenous covariates via a control function.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Estimate QML with control function</span></span>
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Simulating an endogenous variable (var.endog) and an instrument (z)</span></span>
+<span><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">N</span><span class="op">)</span></span>
+<span><span class="va">u</span> <span class="op">&lt;-</span> <span class="fl">0.5</span> <span class="op">*</span> <span class="va">z</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">N</span><span class="op">)</span></span>
+<span><span class="va">var.endog</span> <span class="op">&lt;-</span> <span class="fl">0.8</span> <span class="op">*</span> <span class="va">z</span> <span class="op">+</span> <span class="va">u</span></span>
+<span><span class="va">y_endog</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="fl">0.5</span> <span class="op">*</span> <span class="va">x1</span> <span class="op">+</span> <span class="fl">1.2</span> <span class="op">*</span> <span class="va">var.endog</span> <span class="op">+</span> <span class="va">u</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="fl">1</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="fl">0.5</span> <span class="op">*</span> <span class="va">x1</span> <span class="op">+</span> <span class="fl">1.2</span> <span class="op">*</span> <span class="va">var.endog</span> <span class="op">+</span> <span class="va">u</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Estimate QML with control function for cross-sectional data</span></span>
 <span><span class="va">model_het</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/fracreghet.html">fracreghet</a></span><span class="op">(</span></span>
-<span>  y <span class="op">=</span> <span class="va">y_var</span>, </span>
-<span>  x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">x1</span>, <span class="va">endog_var</span><span class="op">)</span>, </span>
-<span>  z <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">x1</span>, <span class="va">instrument_z</span><span class="op">)</span>, </span>
-<span>  var.endog <span class="op">=</span> <span class="va">endog_var</span>,</span>
+<span>  y <span class="op">=</span> <span class="va">y_endog</span>, </span>
+<span>  x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">x1</span>, <span class="va">var.endog</span><span class="op">)</span>, </span>
+<span>  z <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">x1</span>, <span class="va">z</span><span class="op">)</span>, </span>
+<span>  var.endog <span class="op">=</span> <span class="va">var.endog</span>,</span>
 <span>  type <span class="op">=</span> <span class="st">"QMLxv"</span>, </span>
 <span>  link <span class="op">=</span> <span class="st">"logit"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<hr>
+<details><summary>
+Toggle to see the output
+</summary><div class="sourceCode" id="cb35"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb35-2"><a href="#cb35-2" tabindex="-1"></a><span class="co">#&gt; *** Fractional logit regression model ***</span></span>
+<span id="cb35-3"><a href="#cb35-3" tabindex="-1"></a><span class="co">#&gt; *** Estimator: QMLxv</span></span>
+<span id="cb35-4"><a href="#cb35-4" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb35-5"><a href="#cb35-5" tabindex="-1"></a><span class="co">#&gt;            Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
+<span id="cb35-6"><a href="#cb35-6" tabindex="-1"></a><span class="co">#&gt; INTERCEPT -0.012887   0.018543  -0.695    0.487    </span></span>
+<span id="cb35-7"><a href="#cb35-7" tabindex="-1"></a><span class="co">#&gt; x1         0.521281   0.018894  27.589    0.000 ***</span></span>
+<span id="cb35-8"><a href="#cb35-8" tabindex="-1"></a><span class="co">#&gt; var.endog  1.611308   0.012726 126.614    0.000 ***</span></span>
+<span id="cb35-9"><a href="#cb35-9" tabindex="-1"></a><span class="co">#&gt; vhat       0.588692   0.012726  46.259    0.000 ***</span></span>
+<span id="cb35-10"><a href="#cb35-10" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb35-11"><a href="#cb35-11" tabindex="-1"></a><span class="co">#&gt; Reduced form:</span></span>
+<span id="cb35-12"><a href="#cb35-12" tabindex="-1"></a><span class="co">#&gt;              Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
+<span id="cb35-13"><a href="#cb35-13" tabindex="-1"></a><span class="co">#&gt; Z_INTERCEPT -0.021891   0.031491  -0.695    0.487    </span></span>
+<span id="cb35-14"><a href="#cb35-14" tabindex="-1"></a><span class="co">#&gt; Z_x1         0.036150   0.032150   1.124    0.261    </span></span>
+<span id="cb35-15"><a href="#cb35-15" tabindex="-1"></a><span class="co">#&gt; Z_z          1.358944   0.029377  46.259    0.000 ***</span></span>
+<span id="cb35-16"><a href="#cb35-16" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb35-17"><a href="#cb35-17" tabindex="-1"></a><span class="co">#&gt; Note: robust standard errors</span></span>
+<span id="cb35-18"><a href="#cb35-18" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb35-19"><a href="#cb35-19" tabindex="-1"></a><span class="co">#&gt; Number of observations: 1000</span></span></code></pre></div>
+</details><div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">model_het</span><span class="op">)</span></span></code></pre></div>
+<details><summary>
+Toggle to see the output
+</summary><div class="sourceCode" id="cb37"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" tabindex="-1"></a><span class="co">#&gt;           Length Class   Mode     </span></span>
+<span id="cb37-2"><a href="#cb37-2" tabindex="-1"></a><span class="co">#&gt; class        1   -none-  character</span></span>
+<span id="cb37-3"><a href="#cb37-3" tabindex="-1"></a><span class="co">#&gt; formula      3   formula call     </span></span>
+<span id="cb37-4"><a href="#cb37-4" tabindex="-1"></a><span class="co">#&gt; type         1   -none-  character</span></span>
+<span id="cb37-5"><a href="#cb37-5" tabindex="-1"></a><span class="co">#&gt; link         1   -none-  character</span></span>
+<span id="cb37-6"><a href="#cb37-6" tabindex="-1"></a><span class="co">#&gt; adjust       1   -none-  numeric  </span></span>
+<span id="cb37-7"><a href="#cb37-7" tabindex="-1"></a><span class="co">#&gt; p            7   -none-  numeric  </span></span>
+<span id="cb37-8"><a href="#cb37-8" tabindex="-1"></a><span class="co">#&gt; Hy        1000   -none-  numeric  </span></span>
+<span id="cb37-9"><a href="#cb37-9" tabindex="-1"></a><span class="co">#&gt; xbhat     1000   -none-  numeric  </span></span>
+<span id="cb37-10"><a href="#cb37-10" tabindex="-1"></a><span class="co">#&gt; converged    1   -none-  logical  </span></span>
+<span id="cb37-11"><a href="#cb37-11" tabindex="-1"></a><span class="co">#&gt; x.names      3   -none-  character</span></span>
+<span id="cb37-12"><a href="#cb37-12" tabindex="-1"></a><span class="co">#&gt; p.var       49   -none-  numeric  </span></span>
+<span id="cb37-13"><a href="#cb37-13" tabindex="-1"></a><span class="co">#&gt; var.type     1   -none-  character</span></span></code></pre></div>
+</details><hr>
+</div>
+<div class="section level3">
+<h3 id="id_4-panel-data-fractional-models-fracregpd">4. Panel Data Fractional Models (<code>fracregpd</code>)<a class="anchor" aria-label="anchor" href="#id_4-panel-data-fractional-models-fracregpd"></a>
+</h3>
+<p>For longitudinal or panel data where unobserved heterogeneity is a concern, <code><a href="reference/fracregpd.html">fracregpd()</a></code> provides fixed-T panel estimators.</p>
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Simulating Panel Data</span></span>
+<span><span class="va">id</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">200</span>, each <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
+<span><span class="va">time</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, times <span class="op">=</span> <span class="fl">200</span><span class="op">)</span></span>
+<span><span class="va">x_panel</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">1000</span><span class="op">)</span></span>
+<span><span class="co"># Unobserved individual effect (CRE)</span></span>
+<span><span class="va">c_i</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">200</span><span class="op">)</span>, each <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> </span>
+<span><span class="va">y_panel</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="va">x_panel</span> <span class="op">+</span> <span class="va">c_i</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="fl">1</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="va">x_panel</span> <span class="op">+</span> <span class="va">c_i</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Estimate a Correlated Random Effects (CRE) Model</span></span>
+<span><span class="va">model_pd</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/fracregpd.html">fracregpd</a></span><span class="op">(</span></span>
+<span>  id <span class="op">=</span> <span class="va">id</span>, </span>
+<span>  time <span class="op">=</span> <span class="va">time</span>, </span>
+<span>  y <span class="op">=</span> <span class="va">y_panel</span>, </span>
+<span>  x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span>x_panel <span class="op">=</span> <span class="va">x_panel</span><span class="op">)</span>, </span>
+<span>  type <span class="op">=</span> <span class="st">"QMLcre"</span>, </span>
+<span>  link <span class="op">=</span> <span class="st">"probit"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<details><summary>
+Toggle to see the output
+</summary><div class="sourceCode" id="cb39"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb39-2"><a href="#cb39-2" tabindex="-1"></a><span class="co">#&gt; *** Fractional probit regression model ***</span></span>
+<span id="cb39-3"><a href="#cb39-3" tabindex="-1"></a><span class="co">#&gt; *** Estimator: QMLcre</span></span>
+<span id="cb39-4"><a href="#cb39-4" tabindex="-1"></a><span class="co">#&gt; *** Exogeneity: TRUE</span></span>
+<span id="cb39-5"><a href="#cb39-5" tabindex="-1"></a><span class="co">#&gt; *** Use first lag of instruments: FALSE</span></span>
+<span id="cb39-6"><a href="#cb39-6" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb39-7"><a href="#cb39-7" tabindex="-1"></a><span class="co">#&gt;                 Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
+<span id="cb39-8"><a href="#cb39-8" tabindex="-1"></a><span class="co">#&gt; x_panel         0.512705   0.008692  58.985    0.000 ***</span></span>
+<span id="cb39-9"><a href="#cb39-9" tabindex="-1"></a><span class="co">#&gt; INTERCEPT_mean  0.013508   0.037058   0.365    0.715    </span></span>
+<span id="cb39-10"><a href="#cb39-10" tabindex="-1"></a><span class="co">#&gt; x_panel_mean   -0.122045   0.081551  -1.497    0.135    </span></span>
+<span id="cb39-11"><a href="#cb39-11" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb39-12"><a href="#cb39-12" tabindex="-1"></a><span class="co">#&gt; Note: cluster standard errors</span></span>
+<span id="cb39-13"><a href="#cb39-13" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb39-14"><a href="#cb39-14" tabindex="-1"></a><span class="co">#&gt; Number of observations (initial): 1000 </span></span>
+<span id="cb39-15"><a href="#cb39-15" tabindex="-1"></a><span class="co">#&gt; Number of observations (for estimation): 1000 </span></span>
+<span id="cb39-16"><a href="#cb39-16" tabindex="-1"></a><span class="co">#&gt; Number of cross-sectional units (initial): 200 </span></span>
+<span id="cb39-17"><a href="#cb39-17" tabindex="-1"></a><span class="co">#&gt; Number of cross-sectional units (for estimation): 200 </span></span>
+<span id="cb39-18"><a href="#cb39-18" tabindex="-1"></a><span class="co">#&gt; Average number of time periods per cross-sectional unit (initial): 5 </span></span>
+<span id="cb39-19"><a href="#cb39-19" tabindex="-1"></a><span class="co">#&gt; Average number of time periods per cross-sectional unit (for estimation): 5</span></span></code></pre></div>
+</details><div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">model_pd</span><span class="op">)</span></span></code></pre></div>
+<details><summary>
+Toggle to see the output
+</summary><div class="sourceCode" id="cb41"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" tabindex="-1"></a><span class="co">#&gt;           Length Class  Mode     </span></span>
+<span id="cb41-2"><a href="#cb41-2" tabindex="-1"></a><span class="co">#&gt; type         1   -none- character</span></span>
+<span id="cb41-3"><a href="#cb41-3" tabindex="-1"></a><span class="co">#&gt; link         1   -none- character</span></span>
+<span id="cb41-4"><a href="#cb41-4" tabindex="-1"></a><span class="co">#&gt; Hy        1000   -none- numeric  </span></span>
+<span id="cb41-5"><a href="#cb41-5" tabindex="-1"></a><span class="co">#&gt; p            3   -none- numeric  </span></span>
+<span id="cb41-6"><a href="#cb41-6" tabindex="-1"></a><span class="co">#&gt; converged    1   -none- numeric  </span></span>
+<span id="cb41-7"><a href="#cb41-7" tabindex="-1"></a><span class="co">#&gt; p.var        9   -none- numeric  </span></span>
+<span id="cb41-8"><a href="#cb41-8" tabindex="-1"></a><span class="co">#&gt; var.type     1   -none- character</span></span></code></pre></div>
+</details><hr>
 </div>
 </div>
 <div class="section level2">
