@@ -238,7 +238,7 @@ model_pd <- fracregpd(
   y = y_panel, 
   x = cbind(x_panel = x_panel), 
   type = "QMLcre", 
-  link = "logit"
+  link = "probit"
 )
 #> Error in `fracregpd()`:
 #> ! could not find function "fracregpd"
