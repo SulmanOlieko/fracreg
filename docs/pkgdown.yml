@@ -1,0 +1,9 @@
+pandoc: 3.6.3
+pkgdown: 2.2.0
+pkgdown_sha: ~
+articles:
+  fracreg_tutorial: fracreg_tutorial.html
+last_built: 2026-07-04T17:50Z
+urls:
+  reference: https://SulmanOlieko.github.io/fracreg/reference
+  article: https://SulmanOlieko.github.io/fracreg/articles
