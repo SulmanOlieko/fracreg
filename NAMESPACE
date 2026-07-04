@@ -1,0 +1,6 @@
+export(fracreg,fracreg.reset,fracreg.ggoff,fracreg.ptest,fracreg.pe,fracregpd,fracreghet,fracreghet.reset,fracreghet.pe)
+importFrom("stats", "binomial", "cor", "dcauchy", "dlogis", "dnorm",
+           "glm", "lm", "logLik", "median", "model.frame",
+           "model.matrix", "model.response", "pcauchy", "pchisq",
+           "plogis", "pnorm", "pt", "qcauchy", "qlogis", "qnorm",
+           "quasibinomial", "Gamma", "nlminb", "var")

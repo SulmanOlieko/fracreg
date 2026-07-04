@@ -1,0 +1,15 @@
+Version: 1.0.0
+Type: Package
+Title: Fractional Regression Models
+Package: fracreg
+Authors@R: person(given = c("Sulman", "Olieko"),
+                   family = "Owili",
+                   role = c("aut", "cre"),
+                   email = "oliekosulman@gmail.com")
+License: GPL-3
+Description: Estimation and specification analysis of one- and two-part fractional regression models and calculation of partial effects.
+Date: 2026-07-05
+Packaged: 2026-07-05 12:38:54 UTC; Sulman
+NeedsCompilation: no
+Repository: CRAN
+Date/Publication: 2026-07-06 02:16:35 UTC
