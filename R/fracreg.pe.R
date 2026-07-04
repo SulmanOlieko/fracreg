@@ -39,7 +39,7 @@ fracreg.pe <- function(object,APE=TRUE,CPE=FALSE,at=NULL,which.x=NULL,variance=T
 
 	type <- object$type
 
-	if(type!="2P")
+	if(type!="2P" & type!="3P")
 	{
 		linka <- object$link
 		pa <- object$p
@@ -131,6 +131,8 @@ fracreg.pe <- function(object,APE=TRUE,CPE=FALSE,at=NULL,which.x=NULL,variance=T
 			yhata <- object$resBIN0$yhat
 			if(any(x.names=="INTERCEPT")) p.pe2 <- matrix(rep(pb[-1],each=n),ncol=k) else p.pe2 <- matrix(rep(pb,each=n),ncol=k)
 			if(any(x.names=="INTERCEPT")) p.pe3 <- matrix(rep(pc[-1],each=n),ncol=k) else p.pe3 <- matrix(rep(pc,each=n),ncol=k)
+			dimnames(p.pe2) <- list(NULL,xvar.names)
+			dimnames(p.pe3) <- list(NULL,xvar.names)
 			
 			xbhatb <- as.vector(x%*%pb)
 			gb <- fracreg.links(linkb)$mu.eta(xbhatb)

@@ -298,7 +298,7 @@ fracreg.pe.var <- function(x,npar,which.x,x.names,xvar.names,type,pa,xbhata,ga,l
 	gda <- fracreg.links(linka)$gd(xbhata)
 	PE1.sd <- matrix(NA,nrow=npar,ncol=npar)
 
-	if(type!="2P")
+	if(type!="2P" & type!="3P")
 	{
 		for(i in 1:npar)
 		{
