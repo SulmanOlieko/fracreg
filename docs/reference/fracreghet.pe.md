@@ -6,8 +6,8 @@ effects in fractional regression models under unobserved heterogeneity.
 ## Usage
 
 ``` r
-fracreghet.pe(object, smearing = T, APE = T, CPE = F, at = NULL, which.x = NULL,
-  table = T, variance = T)
+fracreghet.pe(object, smearing = T, APE = T, CPE = F, at = NULL, 
+              which.x = NULL, table = T, variance = T)
 ```
 
 ## Arguments
@@ -63,7 +63,7 @@ compute average or conditional partial effects. These partial effects
 may be conditional only on observables, using the smearing estimator, or
 also on unobservables, setting the error term to zero. For calculating
 standard errors, it is taken into account the option that was previously
-chosen for estimating the model. See Ramalho and Ramalho (2016) for
+chosen for estimating the model. See Ramalho and Ramalho (2017) for
 details on the computation of partial effects for fractional regression
 models under unobserved heterogeneity.
 
@@ -88,10 +88,10 @@ prefixes `ape` and `cpe`.
 
 ## References
 
-Ramalho, E.A. and J.J.S. Ramalho (2016), "Moment-based estimation of
+Ramalho, E. A., & Ramalho, J. J. S. (2017), "Moment-based estimation of
 nonlinear regression models with boundary outcomes and endogeneity, with
 applications to nonnegative and fractional responses", *Econometric
-Reviews*, forthcoming (DOI: 10.1080/07474938.2014.976531).
+Reviews*, 36(4), 397-420.
 
 ## Author
 

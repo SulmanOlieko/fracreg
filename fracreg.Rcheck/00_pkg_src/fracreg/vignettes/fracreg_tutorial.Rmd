@@ -1,7 +1,7 @@
 ---
 title: "A Comprehensive Guide to Fractional Regression Models with fracreg"
 author: "Sulman Olieko Owili"
-date: "2026-07-04"
+date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{A Comprehensive Guide to Fractional Regression Models with fracreg}
@@ -9,7 +9,13 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  collapse  = TRUE,
+  comment   = "#>",
+  eval      = TRUE
+)
+```
 
 ## Introduction
 
@@ -23,11 +29,8 @@ The **`fracreg`** package is the most comprehensive tool available in R for esti
 
 This vignette walks you through simulated examples demonstrating each estimator.
 
-
-``` r
+```{r load-package}
 library(fracreg)
-#> Error in `library()`:
-#> ! there is no package called 'fracreg'
 ```
 
 ---
@@ -38,8 +41,7 @@ The core `fracreg()` function is designed for univariate models where the depend
 
 ### 1.1 Simulating the Data
 
-
-``` r
+```{r data-sim}
 set.seed(123)
 N <- 1000
 x1 <- rnorm(N)
@@ -56,46 +58,29 @@ y[y_latent > 0.8] <- 1
 
 data <- data.frame(y = y, x1 = x1, x2 = x2)
 head(data)
-#>           y          x1        x2
-#> 1 0.0000000 -0.56047565 0.1596740
-#> 2 0.3061926 -0.23017749 0.1445159
-#> 3 0.5059710  1.55870831 0.1491804
-#> 4 0.6901448  0.07050839 0.5144343
-#> 5 0.7883783  0.12928774 0.4928273
-#> 6 1.0000000  1.71506499 0.6163428
 ```
 
 ### 1.2 The Standard 1-Part Model (1P)
 
 If you assume a single process governs the entire distribution of `y`, the standard one-part model is the natural choice. This corresponds to the Papke and Wooldridge (1996) quasi-likelihood estimator.
 
-
-``` r
+```{r one-part}
 model_1p <- fracreg(
   y = data$y, 
   x = cbind(x1 = data$x1, x2 = data$x2), 
   type = "1P", 
   linkfrac = "logit"
 )
-#> Error in `fracreg()`:
-#> ! could not find function "fracreg"
 summary(model_1p)
-#> Error:
-#> ! object 'model_1p' not found
 ```
 
 ### 1.3 Partial Effects (1P)
 
 Raw coefficients from fractional models are not directly interpretable as marginal effects. Use `fracreg.pe()` to compute the **Average Partial Effects (APE)** using the analytical delta method:
 
-
-``` r
+```{r pe-1p}
 pe_1p <- fracreg.pe(model_1p)
-#> Error in `fracreg.pe()`:
-#> ! could not find function "fracreg.pe"
 summary(pe_1p)
-#> Error:
-#> ! object 'pe_1p' not found
 ```
 
 ### 1.4 The Two-Part Hurdle Model (2P)
@@ -107,8 +92,7 @@ Often, fractional data (e.g., participation rates, insurance coverage, expenditu
 
 The overall conditional expectation is then $E(y \mid x) = \Pr(y > 0) \cdot E(y \mid y > 0)$.
 
-
-``` r
+```{r two-part}
 # We use inflation=0 to indicate we are modeling the mass at zero
 model_2p <- fracreg(
   y = data$y, 
@@ -118,25 +102,16 @@ model_2p <- fracreg(
   linkbin = "logit", 
   linkfrac = "logit"
 )
-#> Error in `fracreg()`:
-#> ! could not find function "fracreg"
 summary(model_2p)
-#> Error:
-#> ! object 'model_2p' not found
 ```
 
 #### Partial Effects for the Two-Part Model
 
 The `fracreg.pe()` command natively accounts for the product rule when computing APEs for combined two-part models:
 
-
-``` r
+```{r pe-2p}
 pe_2p <- fracreg.pe(model_2p)
-#> Error in `fracreg.pe()`:
-#> ! could not find function "fracreg.pe"
 summary(pe_2p)
-#> Error:
-#> ! object 'pe_2p' not found
 ```
 
 ### 1.5 The Three-Part Double-Inflated Model (3P)
@@ -147,8 +122,7 @@ When data has substantial clustering at **both** boundaries (0 and 1) simultaneo
 2. $\Pr(y = 1 \mid y > 0, x)$ — second binary hurdle
 3. $E(y \mid 0 < y < 1, x)$ — fractional component
 
-
-``` r
+```{r three-part}
 # Linkbin takes a vector of two links for the two binary hurdles
 model_3p <- fracreg(
   y = data$y, 
@@ -157,25 +131,16 @@ model_3p <- fracreg(
   linkbin = c("logit", "logit"), 
   linkfrac = "logit"
 )
-#> Error in `fracreg()`:
-#> ! could not find function "fracreg"
 summary(model_3p)
-#> Error:
-#> ! object 'model_3p' not found
 ```
 
 #### Partial Effects for the Three-Part Model
 
 The analytical delta method is natively supported for the 3P model, correctly accounting for all three components:
 
-
-``` r
+```{r pe-3p}
 pe_3p <- fracreg.pe(model_3p)
-#> Error in `fracreg.pe()`:
-#> ! could not find function "fracreg.pe"
 summary(pe_3p)
-#> Error:
-#> ! object 'pe_3p' not found
 ```
 
 ---
@@ -188,44 +153,33 @@ summary(pe_3p)
 
 The GGOFF test (Ramalho and Ramalho, 2012) tests whether the chosen link function is adequate for the data. A significant result suggests the link may be misspecified.
 
-
-``` r
+```{r ggoff}
 # Perform the GGOFF test on the 1P model
 # Tests if the logit link is appropriate
 fracreg.ggoff(model_1p, version = "LM")
-#> Error in `fracreg.ggoff()`:
-#> ! could not find function "fracreg.ggoff"
 ```
 
 ### 2.2 RESET Test
 
 The RESET test detects general functional form misspecification by testing whether powers of the fitted values have explanatory power:
 
-
-``` r
+```{r reset}
 # Standard RESET test for functional form misspecification
 fracreg.reset(model_1p)
-#> Error in `fracreg.reset()`:
-#> ! could not find function "fracreg.reset"
 ```
 
 ### 2.3 P-Test for Non-Nested Models
 
 You can compare non-nested models (e.g., `logit` vs. `cloglog` link) using the Davidson-MacKinnon P-test:
 
-
-``` r
+```{r ptest}
 model_1p_clog <- fracreg(
   y = data$y, 
   x = cbind(x1 = data$x1, x2 = data$x2), 
   type = "1P", 
   linkfrac = "cloglog"
 )
-#> Error in `fracreg()`:
-#> ! could not find function "fracreg"
 summary(model_1p_clog)
-#> Error:
-#> ! object 'model_1p_clog' not found
 
 # fracreg.ptest(model_1p, model_1p_clog) # Uncomment to run non-nested test
 ```
@@ -240,8 +194,7 @@ When you suspect that one of your covariates is endogenous, or that the variance
 
 The control function approach adds the first-stage residual as an additional regressor in the fractional model, providing a Hausman-type test for endogeneity.
 
-
-``` r
+```{r endogeneity}
 # Simulating an endogenous variable (var.endog) and an instrument (z)
 z <- rnorm(N)
 u <- 0.5 * z + rnorm(N)
@@ -257,11 +210,7 @@ model_het <- fracreghet(
   type = "QMLxv", 
   link = "logit"
 )
-#> Error in `fracreghet()`:
-#> ! could not find function "fracreghet"
 summary(model_het)
-#> Error:
-#> ! object 'model_het' not found
 ```
 
 ---
@@ -272,8 +221,7 @@ For longitudinal or panel data where unobserved heterogeneity is a concern, `fra
 
 ### 4.1 Correlated Random Effects (QMLcre)
 
-
-``` r
+```{r panel-data}
 # Simulating Panel Data
 id <- rep(1:200, each = 5)
 time <- rep(1:5, times = 200)
@@ -291,11 +239,7 @@ model_pd <- fracregpd(
   type = "QMLcre", 
   link = "probit"
 )
-#> Error in `fracregpd()`:
-#> ! could not find function "fracregpd"
 summary(model_pd)
-#> Error:
-#> ! object 'model_pd' not found
 ```
 
 ---

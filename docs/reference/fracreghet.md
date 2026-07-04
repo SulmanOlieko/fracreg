@@ -8,8 +8,9 @@ endogeneity issues.
 ## Usage
 
 ``` r
-fracreghet(y, x, z = x, var.endog, start, type = "GMMx", link = "logit", intercept = T,
-  table = T, variance = T, var.type = "robust", var.cluster, adjust = 0, ...)
+fracreghet(y, x, z = x, var.endog, start, type = "GMMx", link = "logit", 
+           intercept = T, table = T, variance = T, 
+           var.type = "robust", var.cluster, adjust = 0, ...)
 ```
 
 ## Arguments
@@ -92,19 +93,21 @@ fracreghet(y, x, z = x, var.endog, start, type = "GMMx", link = "logit", interce
 ## Details
 
 `fracreghet` computes the GMM estimators proposed in Ramalho and Ramalho
-(2016) for fractional regression models with unobserved heterogeneity:
+(2017) for fractional regression models with unobserved heterogeneity:
 GMMx, which allows for neglected heterogeneity but not for endogeneity;
 GMMxv, which allows both issues and assumes a linear reduced form for
 the endogeneous covariate (or for a transformation of it); and GMMz,
 which also allows for both issues but does not require the assumption of
 a reduced form for the endogenous covariate. In addition, `fracreghet`
 also computes three linearized estimators (LINx, LINxv and LINz) that
-have similar features to their GMM counterparts as well as a QML
-estimator that allows for endogeneity but not for neglected
-heterogeneity (QMLxv); see Ramalho and Ramalho (2016) for details on
-each estimator. For overidentified models, `fracreghet` calculates
-Hansen's J statistic. For `GMMx` and `LINx`, `fracreghet` stores the
-information needed to implement the RESET test
+have similar features to their GMM counterparts. It also provides a QML
+estimator (QMLxv) that addresses endogeneity using a Control Function
+(CF) approach, which includes the first-stage reduced-form residuals as
+an additional regressor in the main fractional equation, providing a
+Hausman-type test for endogeneity. See Ramalho and Ramalho (2017) for
+details on each estimator. For overidentified models, `fracreghet`
+calculates Hansen's J statistic. For `GMMx` and `LINx`, `fracreghet`
+stores the information needed to implement the RESET test
 ([fracreghet.reset](https://SulmanOlieko.github.io/fracreg/reference/fracreghet.reset.md)).
 For all estimators, `fracreghet` stores the information needed to
 calculate partial effects
@@ -183,10 +186,10 @@ If `var.type = "cluster"`, the list also contains the following element:
 
 ## References
 
-Ramalho, E.A. and J.J.S. Ramalho (2016), "Moment-based estimation of
+Ramalho, E. A., & Ramalho, J. J. S. (2017), "Moment-based estimation of
 nonlinear regression models with boundary outcomes and endogeneity, with
 applications to nonnegative and fractional responses", *Econometric
-Reviews*, forthcoming (DOI: 10.1080/07474938.2014.976531).
+Reviews*, 36(4), 397-420.
 
 ## Author
 

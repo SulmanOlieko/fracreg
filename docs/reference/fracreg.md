@@ -3,14 +3,15 @@
 `fracreg` is used to fit fractional regression models, which are
 appropriate for responses that are proportions, percentages, or
 fractions restricted to the \[0, 1\] interval. It supports standard
-one-part models as well as two-part models for modeling boundary values.
+one-part models, two-part hurdle models for modeling boundary values at
+0 or 1, and three-part models for double inflation at both 0 and 1.
 
 ## Usage
 
 ``` r
-fracreg(y, x, x2 = x, linkbin, linkfrac, type = "1P", inflation = 0, intercept = TRUE,
-  table = TRUE, variance = TRUE, var.type = "default", var.eim = TRUE, var.cluster,
-  dfc = FALSE,...)
+fracreg(y, x, x2 = x, linkbin, linkfrac, type = "1P", inflation = 0, 
+        intercept = TRUE, table = TRUE, variance = TRUE, var.type = "default", 
+        var.eim = TRUE, var.cluster, dfc = FALSE, ...)
 ```
 
 ## Arguments
@@ -33,8 +34,10 @@ fracreg(y, x, x2 = x, linkbin, linkfrac, type = "1P", inflation = 0, intercept =
 - linkbin:
 
   a description of the link function to use in the binary component of a
-  two-part fractional regression model. Available options: `logit`,
-  `probit`, `cauchit`, `loglog`, `cloglog`.
+  two-part fractional regression model, or a vector of two link
+  functions for the two binary components of a three-part model (e.g.
+  `c("logit", "probit")`). Available options: `logit`, `probit`,
+  `cauchit`, `loglog`, `cloglog`.
 
 - linkfrac:
 
@@ -107,20 +110,22 @@ fracreg(y, x, x2 = x, linkbin, linkfrac, type = "1P", inflation = 0, intercept =
 
 ## Details
 
-`fracreg` estimates one- and two-part fractional regression models; see
-Ramalho, Ramalho and Murteira (2011) for details on those models. The
-one-part models and the fractional component of two-part models are
-estimated by Bernoulli-based quasi-maximum likelihood, while the binary
-component of two-part models is estimated by maximum likelihood.
-`fracreg` uses the standard [glm](https://rdrr.io/r/stats/glm.html)
-command to perform the estimations. Therefore, `fracreg` is essentially
-a convenience command, allowing estimation of several alternative
-fractional regression models using the same command. In addition,
-`fracreg` provides an R-squared measure for all models (calculated as
-the square of the correlation coefficient between the actual and fitted
-values of the dependent variable), calculates the fitted values of the
-dependent variable in two-part models and stores the information needed
-to implement some very useful commands for fractional regression models:
+`fracreg` estimates one-part, two-part hurdle, and three-part
+double-inflated fractional regression models; see Ramalho, Ramalho and
+Murteira (2011) and Fang and Ma (2013) for details on those models. The
+one-part models and the fractional component of two- and three-part
+models are estimated by Bernoulli-based quasi-maximum likelihood, while
+the binary components of two- and three-part models are estimated by
+maximum likelihood. `fracreg` uses the standard
+[glm](https://rdrr.io/r/stats/glm.html) command to perform the
+estimations. Therefore, `fracreg` is essentially a convenience command,
+allowing estimation of several alternative fractional regression models
+using the same command. In addition, `fracreg` provides an R-squared
+measure for all models (calculated as the square of the correlation
+coefficient between the actual and fitted values of the dependent
+variable), calculates the fitted values of the dependent variable in
+two-part models and stores the information needed to implement some very
+useful commands for fractional regression models:
 [fracreg.reset](https://SulmanOlieko.github.io/fracreg/reference/fracreg.reset.md)
 (RESET test),
 [fracreg.ptest](https://SulmanOlieko.github.io/fracreg/reference/fracreg.ptest.md)
@@ -154,7 +159,7 @@ following elements:
 - method:
 
   estimation method. Currently, "QML" (quasi-maximum likelihood) for
-  fractional components or models and "ML" (maximum likelihood) for the
+  fractional components or models and"ML" (maximum likelihood) for the
   binary component of two-part models.
 
 - p:
@@ -239,11 +244,48 @@ prefixes `resBIN` and `resFRAC`, and the following additional elements:
   logical. Were the algorithms judged to have converged in both parts of
   the model?
 
+When `type = "3P"`, `fracreg` returns the previous lists, indexed by the
+prefixes `resBIN0`, `resBIN1`, and `resFRAC`, and the following
+additional elements:
+
+- class:
+
+  "fracreg".
+
+- type:
+
+  "3P".
+
+- ybase:
+
+  a numeric vector containing the values of the response variable.
+
+- x2base:
+
+  a numeric matrix containing the values of the covariates.
+
+- yhat3P:
+
+  the overall fitted mean values.
+
+- converged:
+
+  logical. Were the algorithms judged to have converged in all parts of
+  the model?
+
 ## References
+
+Papke, L. E. and Wooldridge, J. M. (1996), "Econometric methods for
+fractional response variables with an application to 401(k) plan
+participation rates", *Journal of Applied Econometrics*, 11(6), 619-632.
 
 Ramalho, E.A., J.J.S. Ramalho and J.M.R. Murteira (2011), "Alternative
 estimating and testing empirical strategies for fractional regression
 models", *Journal of Economic Surveys*, 25(1), 19-68.
+
+Fang, K., & Ma, S. (2013), "Three-part model for fractional response
+variables with application to Chinese household health insurance
+coverage", *Journal of Applied Statistics*, 40(5), 925-940.
 
 ## Author
 

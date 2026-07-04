@@ -15,6 +15,15 @@ knitr::opts_chunk$set(
   comment   = "#>",
   eval      = TRUE
 )
+
+local({
+  hook_output <- knitr::knit_hooks$get("output")
+  knitr::knit_hooks$set(output = function(x, options) {
+    paste0("\n<details><summary>Toggle to see the output</summary>\n\n",
+           hook_output(x, options),
+           "\n</details>\n")
+  })
+})
 ```
 
 ## Introduction

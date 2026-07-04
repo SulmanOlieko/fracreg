@@ -45,7 +45,7 @@ regression models estimated via `fracreghet` using the options `GMMx` or
 validity of the link specification and the transformation applied to the
 response variable by each estimator. It is taken into account the option
 that was chosen for computing standard errors in the model under
-evaluation. See Ramalho and Ramalho and Ramalho (2016) for details.
+evaluation. See Ramalho and Ramalho (2017) for details.
 
 ## Value
 
@@ -53,10 +53,10 @@ evaluation. See Ramalho and Ramalho and Ramalho (2016) for details.
 
 ## References
 
-Ramalho, E.A. and J.J.S. Ramalho (2016), "Moment-based estimation of
+Ramalho, E. A., & Ramalho, J. J. S. (2017), "Moment-based estimation of
 nonlinear regression models with boundary outcomes and endogeneity, with
 applications to nonnegative and fractional responses", *Econometric
-Reviews*, forthcoming (DOI: 10.1080/07474938.2014.976531).
+Reviews*, 36(4), 397-420.
 
 ## Author
 

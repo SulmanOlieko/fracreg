@@ -6,17 +6,21 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>A Comprehensive Guide to Fractional Regression Models with fracreg • fracreg</title>
-<script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Inter-0.4.10/font.css" rel="stylesheet">
+<link href="../deps/JetBrains_Mono-0.4.10/font.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="A Comprehensive Guide to Fractional Regression Models with fracreg">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
+<meta property="og:title" content="A Comprehensive Guide to Fractional Regression Models with fracreg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
-    <nav class="navbar navbar-expand-lg fixed-top bg-primary" data-bs-theme="dark" aria-label="Site navigation"><div class="container">
+    <nav class="navbar navbar-expand-lg fixed-top " aria-label="Site navigation"><div class="container">
 
     <a class="navbar-brand me-2" href="../index.html">fracreg</a>
 
@@ -29,18 +33,26 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
-<li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="active nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
 <li><a class="dropdown-item" href="../articles/fracreg_tutorial.html">A Comprehensive Guide to Fractional Regression Models with fracreg</a></li>
   </ul>
 </li>
+<li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
       </ul>
 <ul class="navbar-nav">
 <li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
 </form></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-lightswitch" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Light switch"><span class="fa fa-sun"></span></button>
+  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-lightswitch">
+<li><button class="dropdown-item" data-bs-theme-value="light"><span class="fa fa-sun"></span> Light</button></li>
+    <li><button class="dropdown-item" data-bs-theme-value="dark"><span class="fa fa-moon"></span> Dark</button></li>
+    <li><button class="dropdown-item" data-bs-theme-value="auto"><span class="fa fa-adjust"></span> Auto</button></li>
+  </ul>
+</li>
       </ul>
 </div>
 
@@ -58,7 +70,7 @@
                         <h4 data-toc-skip class="author">Sulman Olieko
 Owili</h4>
             
-            <h4 data-toc-skip class="date">2026-07-04</h4>
+            <h4 data-toc-skip class="date">2026-07-05</h4>
       
 
       <div class="d-none name"><code>fracreg_tutorial.Rmd</code></div>
@@ -71,14 +83,30 @@ Owili</h4>
 </h2>
 <p>The <strong><code>fracreg</code></strong> package is the most
 comprehensive tool available in R for estimating, diagnosing, and
-interpreting fractional regression models. It supports: - Univariate
-fractional models (1P) - Hurdle two-part fractional models (2P) -
-Double-inflated three-part fractional models (3P) - Fractional models
-with panel data (<code>fracregpd</code>) - Fractional models with
-endogenous covariates or heteroskedasticity
-(<code>fracreghet</code>)</p>
-<p>This vignette will walk you through simulated examples to demonstrate
-how to use each of these powerful estimators.</p>
+interpreting fractional regression models. It supports:</p>
+<ul>
+<li>
+<strong>One-part models (1P)</strong>: A single process governs the
+entire distribution of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>∈</mo><mrow><mo stretchy="true" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="true" form="postfix">]</mo></mrow></mrow><annotation encoding="application/x-tex">y \in [0, 1]</annotation></semantics></math>.</li>
+<li>
+<strong>Two-part hurdle models (2P)</strong>: Separately models the
+binary hurdle
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">y &gt; 0</annotation></semantics></math>)
+and the continuous fractional part
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><mi>y</mi><mo>≤</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">0 &lt; y \le 1</annotation></semantics></math>).</li>
+<li>
+<strong>Three-part double-inflated models (3P)</strong>: Handles
+inflation at <strong>both</strong> 0 and 1.</li>
+<li>
+<strong>Panel data models</strong> (<code>fracregpd</code>): CRE,
+QML, and GMM approaches for longitudinal data.</li>
+<li>
+<strong>Endogeneity correction</strong> (<code>fracreghet</code>):
+Control function and IV-GMM approaches.</li>
+</ul>
+<p>This vignette walks you through simulated examples demonstrating each
+estimator.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://SulmanOlieko.github.io/fracreg">fracreg</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; =========================================================</span></span>
@@ -90,17 +118,16 @@ how to use each of these powerful estimators.</p>
 <span><span class="co">#&gt;  To cite fracreg in publications, please type:</span></span>
 <span><span class="co">#&gt;  citation("fracreg")</span></span>
 <span><span class="co">#&gt; =========================================================</span></span></code></pre></div>
+<hr>
 </div>
 <div class="section level2">
 <h2 id="cross-sectional-fractional-models-fracreg">1. Cross-Sectional Fractional Models (<code>fracreg</code>)<a class="anchor" aria-label="anchor" href="#cross-sectional-fractional-models-fracreg"></a>
 </h2>
-<p>The core <code><a href="../reference/fracreg.html">fracreg()</a></code> function is designed to handle
-univariate models where the dependent variable is bounded between 0 and
-1 inclusive
-(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>≤</mo><mi>y</mi><mo>≤</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">0 \le y \le 1</annotation></semantics></math>).
-We will simulate some data to demonstrate its usage.</p>
+<p>The core <code><a href="../reference/fracreg.html">fracreg()</a></code> function is designed for univariate
+models where the dependent variable is bounded between 0 and 1 inclusive
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>≤</mo><mi>y</mi><mo>≤</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">0 \le y \le 1</annotation></semantics></math>).</p>
 <div class="section level3">
-<h3 id="simulating-the-data">Simulating the Data<a class="anchor" aria-label="anchor" href="#simulating-the-data"></a>
+<h3 id="simulating-the-data">1.1 Simulating the Data<a class="anchor" aria-label="anchor" href="#simulating-the-data"></a>
 </h3>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
@@ -118,28 +145,35 @@ We will simulate some data to demonstrate its usage.</p>
 <span><span class="va">y</span><span class="op">[</span><span class="va">y_latent</span> <span class="op">&gt;</span> <span class="fl">0.8</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">1</span></span>
 <span></span>
 <span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">y</span>, x1 <span class="op">=</span> <span class="va">x1</span>, x2 <span class="op">=</span> <span class="va">x2</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
-<span><span class="co">#&gt;           y          x1        x2</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span></code></pre></div>
+<details><summary>
+Toggle to see the output
+</summary><pre><code><span><span class="co">#&gt;           y          x1        x2</span></span>
 <span><span class="co">#&gt; 1 0.0000000 -0.56047565 0.1596740</span></span>
 <span><span class="co">#&gt; 2 0.3061926 -0.23017749 0.1445159</span></span>
 <span><span class="co">#&gt; 3 0.5059710  1.55870831 0.1491804</span></span>
 <span><span class="co">#&gt; 4 0.6901448  0.07050839 0.5144343</span></span>
 <span><span class="co">#&gt; 5 0.7883783  0.12928774 0.4928273</span></span>
-<span><span class="co">#&gt; 6 1.0000000  1.71506499 0.6163428</span></span></code></pre></div>
+<span><span class="co">#&gt; 6 1.0000000  1.71506499 0.6163428</span></span></code></pre>
+</details>
 </div>
 <div class="section level3">
-<h3 id="the-standard-1-part-model-1p">The Standard 1-Part Model (1P)<a class="anchor" aria-label="anchor" href="#the-standard-1-part-model-1p"></a>
+<h3 id="the-standard-1-part-model-1p">1.2 The Standard 1-Part Model (1P)<a class="anchor" aria-label="anchor" href="#the-standard-1-part-model-1p"></a>
 </h3>
 <p>If you assume a single process governs the entire distribution of
-<code>y</code>, you can use the standard one-part model.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code>y</code>, the standard one-part model is the natural choice. This
+corresponds to the Papke and Wooldridge (1996) quasi-likelihood
+estimator.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">model_1p</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreg.html">fracreg</a></span><span class="op">(</span></span>
 <span>  y <span class="op">=</span> <span class="va">data</span><span class="op">$</span><span class="va">y</span>, </span>
 <span>  x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span>x1 <span class="op">=</span> <span class="va">data</span><span class="op">$</span><span class="va">x1</span>, x2 <span class="op">=</span> <span class="va">data</span><span class="op">$</span><span class="va">x2</span><span class="op">)</span>, </span>
 <span>  type <span class="op">=</span> <span class="st">"1P"</span>, </span>
 <span>  linkfrac <span class="op">=</span> <span class="st">"logit"</span></span>
-<span><span class="op">)</span></span>
-<span><span class="co">#&gt; </span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<details><summary>
+Toggle to see the output
+</summary><pre><code><span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; *** Fractional logit regression model ***</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;            Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
@@ -150,9 +184,12 @@ We will simulate some data to demonstrate its usage.</p>
 <span><span class="co">#&gt; Note: robust standard errors</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Number of observations: 1000 </span></span>
-<span><span class="co">#&gt; R-squared: 0.39</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">model_1p</span><span class="op">)</span></span>
-<span><span class="co">#&gt;           Length Class   Mode     </span></span>
+<span><span class="co">#&gt; R-squared: 0.39</span></span></code></pre>
+</details><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">model_1p</span><span class="op">)</span></span></code></pre></div>
+<details><summary>
+Toggle to see the output
+</summary><pre><code><span><span class="co">#&gt;           Length Class   Mode     </span></span>
 <span><span class="co">#&gt; class        1   -none-  character</span></span>
 <span><span class="co">#&gt; formula      3   formula call     </span></span>
 <span><span class="co">#&gt; type         1   -none-  character</span></span>
@@ -166,18 +203,21 @@ We will simulate some data to demonstrate its usage.</p>
 <span><span class="co">#&gt; p.var        9   -none-  numeric  </span></span>
 <span><span class="co">#&gt; var.type     1   -none-  character</span></span>
 <span><span class="co">#&gt; var.eim      1   -none-  logical  </span></span>
-<span><span class="co">#&gt; dfc          1   -none-  logical</span></span></code></pre></div>
+<span><span class="co">#&gt; dfc          1   -none-  logical</span></span></code></pre>
+</details>
 </div>
 <div class="section level3">
-<h3 id="partial-effects-1p">Partial Effects (1P)<a class="anchor" aria-label="anchor" href="#partial-effects-1p"></a>
+<h3 id="partial-effects-1p">1.3 Partial Effects (1P)<a class="anchor" aria-label="anchor" href="#partial-effects-1p"></a>
 </h3>
-<p>To interpret the coefficients in terms of their marginal impact on
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>y</mi><annotation encoding="application/x-tex">y</annotation></semantics></math>,
-you can compute the partial effects using the <code><a href="../reference/fracreg.pe.html">fracreg.pe()</a></code>
-command:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">pe_1p</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreg.pe.html">fracreg.pe</a></span><span class="op">(</span><span class="va">model_1p</span><span class="op">)</span></span>
-<span><span class="co">#&gt; </span></span>
+<p>Raw coefficients from fractional models are not directly
+interpretable as marginal effects. Use <code><a href="../reference/fracreg.pe.html">fracreg.pe()</a></code> to
+compute the <strong>Average Partial Effects (APE)</strong> using the
+analytical delta method:</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">pe_1p</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreg.pe.html">fracreg.pe</a></span><span class="op">(</span><span class="va">model_1p</span><span class="op">)</span></span></code></pre></div>
+<details><summary>
+Toggle to see the output
+</summary><pre><code><span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; *** Average partial effects ***</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -185,23 +225,33 @@ command:</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;    Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
 <span><span class="co">#&gt; x1   0.1682     0.0068  24.694    0.000 ***</span></span>
-<span><span class="co">#&gt; x2   0.2894     0.0239  12.132    0.000 ***</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">pe_1p</span><span class="op">)</span></span>
-<span><span class="co">#&gt;       Length Class  Mode   </span></span>
+<span><span class="co">#&gt; x2   0.2894     0.0239  12.132    0.000 ***</span></span></code></pre>
+</details><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">pe_1p</span><span class="op">)</span></span></code></pre></div>
+<details><summary>
+Toggle to see the output
+</summary><pre><code><span><span class="co">#&gt;       Length Class  Mode   </span></span>
 <span><span class="co">#&gt; PE.p  2      -none- numeric</span></span>
-<span><span class="co">#&gt; PE.sd 2      -none- numeric</span></span></code></pre></div>
+<span><span class="co">#&gt; PE.sd 2      -none- numeric</span></span></code></pre>
+</details>
 </div>
 <div class="section level3">
-<h3 id="the-two-part-hurdle-model-2p">The Two-Part Hurdle Model (2P)<a class="anchor" aria-label="anchor" href="#the-two-part-hurdle-model-2p"></a>
+<h3 id="the-two-part-hurdle-model-2p">1.4 The Two-Part Hurdle Model (2P)<a class="anchor" aria-label="anchor" href="#the-two-part-hurdle-model-2p"></a>
 </h3>
-<p>Often, fractional data (like participation rates or test scores) have
-a large cluster of zeros. The two-part model estimates the binary
-“hurdle”
-(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">y&gt;0</annotation></semantics></math>)
-and the continuous fractional part
-(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><mi>y</mi><mo>≤</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">0 &lt; y \le 1</annotation></semantics></math>)
-sequentially, then combines them.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<p>Often, fractional data (e.g., participation rates, insurance
+coverage, expenditure shares) have a substantial mass of zeros. The
+two-part model estimates:</p>
+<ol style="list-style-type: decimal">
+<li>A <strong>binary</strong> component:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>Pr</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>y</mi><mo>&gt;</mo><mn>0</mn><mo>∣</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\Pr(y &gt; 0 \mid x)</annotation></semantics></math>
+</li>
+<li>A <strong>fractional</strong> component:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>y</mi><mo>∣</mo><mi>y</mi><mo>&gt;</mo><mn>0</mn><mo>,</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">E(y \mid y &gt; 0, x)</annotation></semantics></math>
+</li>
+</ol>
+<p>The overall conditional expectation is then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>y</mi><mo>∣</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mo>Pr</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>y</mi><mo>&gt;</mo><mn>0</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>⋅</mo><mi>E</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>y</mi><mo>∣</mo><mi>y</mi><mo>&gt;</mo><mn>0</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">E(y \mid x) = \Pr(y &gt; 0) \cdot E(y \mid y &gt; 0)</annotation></semantics></math>.</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># We use inflation=0 to indicate we are modeling the mass at zero</span></span>
 <span><span class="va">model_2p</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreg.html">fracreg</a></span><span class="op">(</span></span>
 <span>  y <span class="op">=</span> <span class="va">data</span><span class="op">$</span><span class="va">y</span>, </span>
@@ -210,8 +260,10 @@ sequentially, then combines them.</p>
 <span>  inflation <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  linkbin <span class="op">=</span> <span class="st">"logit"</span>, </span>
 <span>  linkfrac <span class="op">=</span> <span class="st">"logit"</span></span>
-<span><span class="op">)</span></span>
-<span><span class="co">#&gt; </span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<details><summary>
+Toggle to see the output
+</summary><pre><code><span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; *** Binary component of a two-part model - logit specification ***</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;           Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
@@ -240,9 +292,12 @@ sequentially, then combines them.</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; *** Two-part model - binary logit + fractional logit  ***</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; R-squared: 0.386</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">model_2p</span><span class="op">)</span></span>
-<span><span class="co">#&gt;           Length Class  Mode     </span></span>
+<span><span class="co">#&gt; R-squared: 0.386</span></span></code></pre>
+</details><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">model_2p</span><span class="op">)</span></span></code></pre></div>
+<details><summary>
+Toggle to see the output
+</summary><pre><code><span><span class="co">#&gt;           Length Class  Mode     </span></span>
 <span><span class="co">#&gt; resBIN      15   -none- list     </span></span>
 <span><span class="co">#&gt; resFRAC     14   -none- list     </span></span>
 <span><span class="co">#&gt; class        1   -none- character</span></span>
@@ -250,11 +305,17 @@ sequentially, then combines them.</p>
 <span><span class="co">#&gt; ybase     1000   -none- numeric  </span></span>
 <span><span class="co">#&gt; x2base    3000   -none- numeric  </span></span>
 <span><span class="co">#&gt; yhat2P    1000   -none- numeric  </span></span>
-<span><span class="co">#&gt; converged    1   -none- numeric</span></span>
-<span></span>
-<span><span class="co"># Calculate partial effects for the combined two-part model</span></span>
-<span><span class="va">pe_2p</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreg.pe.html">fracreg.pe</a></span><span class="op">(</span><span class="va">model_2p</span><span class="op">)</span></span>
-<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; converged    1   -none- numeric</span></span></code></pre>
+</details><div class="section level4">
+<h4 id="partial-effects-for-the-two-part-model">Partial Effects for the Two-Part Model<a class="anchor" aria-label="anchor" href="#partial-effects-for-the-two-part-model"></a>
+</h4>
+<p>The <code><a href="../reference/fracreg.pe.html">fracreg.pe()</a></code> command natively accounts for the
+product rule when computing APEs for combined two-part models:</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">pe_2p</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreg.pe.html">fracreg.pe</a></span><span class="op">(</span><span class="va">model_2p</span><span class="op">)</span></span></code></pre></div>
+<details><summary>
+Toggle to see the output
+</summary><pre><code><span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; *** Average partial effects ***</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -262,26 +323,35 @@ sequentially, then combines them.</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;    Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
 <span><span class="co">#&gt; x1   0.1666     0.0067  24.804    0.000 ***</span></span>
-<span><span class="co">#&gt; x2   0.2848     0.0245  11.612    0.000 ***</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">pe_2p</span><span class="op">)</span></span>
-<span><span class="co">#&gt;       Length Class  Mode   </span></span>
+<span><span class="co">#&gt; x2   0.2848     0.0245  11.612    0.000 ***</span></span></code></pre>
+</details><div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">pe_2p</span><span class="op">)</span></span></code></pre></div>
+<details><summary>
+Toggle to see the output
+</summary><pre><code><span><span class="co">#&gt;       Length Class  Mode   </span></span>
 <span><span class="co">#&gt; PE.p  2      -none- numeric</span></span>
-<span><span class="co">#&gt; PE.sd 2      -none- numeric</span></span></code></pre></div>
+<span><span class="co">#&gt; PE.sd 2      -none- numeric</span></span></code></pre>
+</details>
+</div>
 </div>
 <div class="section level3">
-<h3 id="the-three-part-double-inflated-model-3p">The Three-Part Double-Inflated Model (3P)<a class="anchor" aria-label="anchor" href="#the-three-part-double-inflated-model-3p"></a>
+<h3 id="the-three-part-double-inflated-model-3p">1.5 The Three-Part Double-Inflated Model (3P)<a class="anchor" aria-label="anchor" href="#the-three-part-double-inflated-model-3p"></a>
 </h3>
-<p>When your data has substantial clustering at <strong>both</strong>
-boundaries (0 and 1) simultaneously, the 3-part model decomposes the
-process into three stages: 1. The probability of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">y &gt; 0</annotation></semantics></math>
-2. The probability of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">y = 1</annotation></semantics></math>
-given
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">y &gt; 0</annotation></semantics></math>
-3. The fractional outcome
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><mi>y</mi><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">0 &lt; y &lt; 1</annotation></semantics></math></p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<p>When data has substantial clustering at <strong>both</strong>
+boundaries (0 and 1) simultaneously, the three-part model decomposes the
+process into:</p>
+<ol style="list-style-type: decimal">
+<li>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>Pr</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>y</mi><mo>&gt;</mo><mn>0</mn><mo>∣</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\Pr(y &gt; 0 \mid x)</annotation></semantics></math>
+— first binary hurdle</li>
+<li>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>Pr</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>y</mi><mo>=</mo><mn>1</mn><mo>∣</mo><mi>y</mi><mo>&gt;</mo><mn>0</mn><mo>,</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\Pr(y = 1 \mid y &gt; 0, x)</annotation></semantics></math>
+— second binary hurdle</li>
+<li>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>y</mi><mo>∣</mo><mn>0</mn><mo>&lt;</mo><mi>y</mi><mo>&lt;</mo><mn>1</mn><mo>,</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">E(y \mid 0 &lt; y &lt; 1, x)</annotation></semantics></math>
+— fractional component</li>
+</ol>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Linkbin takes a vector of two links for the two binary hurdles</span></span>
 <span><span class="va">model_3p</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreg.html">fracreg</a></span><span class="op">(</span></span>
 <span>  y <span class="op">=</span> <span class="va">data</span><span class="op">$</span><span class="va">y</span>, </span>
@@ -289,8 +359,10 @@ given
 <span>  type <span class="op">=</span> <span class="st">"3P"</span>, </span>
 <span>  linkbin <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"logit"</span>, <span class="st">"logit"</span><span class="op">)</span>, </span>
 <span>  linkfrac <span class="op">=</span> <span class="st">"logit"</span></span>
-<span><span class="op">)</span></span>
-<span><span class="co">#&gt; </span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<details><summary>
+Toggle to see the output
+</summary><pre><code><span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; *** First binary component of a three-part model - logit specification ***</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;           Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
@@ -331,9 +403,12 @@ given
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; *** Three-part model - binary logit , binary logit + fractional logit  ***</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; R-squared: 0.389</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">model_3p</span><span class="op">)</span></span>
-<span><span class="co">#&gt;           Length Class  Mode     </span></span>
+<span><span class="co">#&gt; R-squared: 0.389</span></span></code></pre>
+</details><div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">model_3p</span><span class="op">)</span></span></code></pre></div>
+<details><summary>
+Toggle to see the output
+</summary><pre><code><span><span class="co">#&gt;           Length Class  Mode     </span></span>
 <span><span class="co">#&gt; resBIN0     13   -none- list     </span></span>
 <span><span class="co">#&gt; resBIN1     13   -none- list     </span></span>
 <span><span class="co">#&gt; resFRAC     12   -none- list     </span></span>
@@ -342,11 +417,17 @@ given
 <span><span class="co">#&gt; ybase     1000   -none- numeric  </span></span>
 <span><span class="co">#&gt; x2base    3000   -none- numeric  </span></span>
 <span><span class="co">#&gt; yhat3P    1000   -none- numeric  </span></span>
-<span><span class="co">#&gt; converged    1   -none- numeric</span></span>
-<span></span>
-<span><span class="co"># The analytical delta method is natively supported for the 3P model!</span></span>
-<span><span class="va">pe_3p</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreg.pe.html">fracreg.pe</a></span><span class="op">(</span><span class="va">model_3p</span><span class="op">)</span></span>
-<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; converged    1   -none- numeric</span></span></code></pre>
+</details><div class="section level4">
+<h4 id="partial-effects-for-the-three-part-model">Partial Effects for the Three-Part Model<a class="anchor" aria-label="anchor" href="#partial-effects-for-the-three-part-model"></a>
+</h4>
+<p>The analytical delta method is natively supported for the 3P model,
+correctly accounting for all three components:</p>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">pe_3p</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreg.pe.html">fracreg.pe</a></span><span class="op">(</span><span class="va">model_3p</span><span class="op">)</span></span></code></pre></div>
+<details><summary>
+Toggle to see the output
+</summary><pre><code><span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; *** Average partial effects ***</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -354,27 +435,36 @@ given
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;    Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
 <span><span class="co">#&gt; x1   0.1663     0.0066  25.127    0.000 ***</span></span>
-<span><span class="co">#&gt; x2   0.2789     0.0249  11.186    0.000 ***</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">pe_3p</span><span class="op">)</span></span>
-<span><span class="co">#&gt;       Length Class  Mode   </span></span>
+<span><span class="co">#&gt; x2   0.2789     0.0249  11.186    0.000 ***</span></span></code></pre>
+</details><div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">pe_3p</span><span class="op">)</span></span></code></pre></div>
+<details><summary>
+Toggle to see the output
+</summary><pre><code><span><span class="co">#&gt;       Length Class  Mode   </span></span>
 <span><span class="co">#&gt; PE.p  2      -none- numeric</span></span>
-<span><span class="co">#&gt; PE.sd 2      -none- numeric</span></span></code></pre></div>
-<hr>
+<span><span class="co">#&gt; PE.sd 2      -none- numeric</span></span></code></pre>
+</details><hr>
+</div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="hypothesis-testing-and-specification-diagnostics">2. Hypothesis Testing and Specification Diagnostics<a class="anchor" aria-label="anchor" href="#hypothesis-testing-and-specification-diagnostics"></a>
 </h2>
 <p><code>fracreg</code> includes state-of-the-art specification tests to
-check whether your functional form and link functions are adequate.</p>
+validate your model’s functional form and link function assumptions.</p>
 <div class="section level3">
-<h3 id="generalized-goodness-of-functional-form-ggoff">Generalized Goodness-Of-Functional-Form (GGOFF)<a class="anchor" aria-label="anchor" href="#generalized-goodness-of-functional-form-ggoff"></a>
+<h3 id="generalized-goodness-of-functional-form-ggoff">2.1 Generalized Goodness-Of-Functional-Form (GGOFF)<a class="anchor" aria-label="anchor" href="#generalized-goodness-of-functional-form-ggoff"></a>
 </h3>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<p>The GGOFF test (Ramalho and Ramalho, 2012) tests whether the chosen
+link function is adequate for the data. A significant result suggests
+the link may be misspecified.</p>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Perform the GGOFF test on the 1P model</span></span>
 <span><span class="co"># Tests if the logit link is appropriate</span></span>
-<span><span class="fu"><a href="../reference/fracreg.ggoff.html">fracreg.ggoff</a></span><span class="op">(</span><span class="va">model_1p</span>, version <span class="op">=</span> <span class="st">"LM"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; </span></span>
+<span><span class="fu"><a href="../reference/fracreg.ggoff.html">fracreg.ggoff</a></span><span class="op">(</span><span class="va">model_1p</span>, version <span class="op">=</span> <span class="st">"LM"</span><span class="op">)</span></span></code></pre></div>
+<details><summary>
+Toggle to see the output
+</summary><pre><code><span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; *** GGOFF test ***</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; H0:  Fractional logit model</span></span>
@@ -382,31 +472,43 @@ check whether your functional form and link functions are adequate.</p>
 <span><span class="co">#&gt;   Test Version Statistic p-value </span></span>
 <span><span class="co">#&gt;  GOFF1      LM     0.640   0.424 </span></span>
 <span><span class="co">#&gt;  GOFF2      LM     0.485   0.486 </span></span>
-<span><span class="co">#&gt;  GGOFF      LM     0.814   0.666</span></span></code></pre></div>
+<span><span class="co">#&gt;  GGOFF      LM     0.814   0.666</span></span></code></pre>
+</details>
 </div>
 <div class="section level3">
-<h3 id="reset-test">RESET Test<a class="anchor" aria-label="anchor" href="#reset-test"></a>
+<h3 id="reset-test">2.2 RESET Test<a class="anchor" aria-label="anchor" href="#reset-test"></a>
 </h3>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<p>The RESET test detects general functional form misspecification by
+testing whether powers of the fitted values have explanatory power:</p>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Standard RESET test for functional form misspecification</span></span>
-<span><span class="fu"><a href="../reference/fracreg.reset.html">fracreg.reset</a></span><span class="op">(</span><span class="va">model_1p</span><span class="op">)</span></span>
-<span><span class="co">#&gt; </span></span>
+<span><span class="fu"><a href="../reference/fracreg.reset.html">fracreg.reset</a></span><span class="op">(</span><span class="va">model_1p</span><span class="op">)</span></span></code></pre></div>
+<details><summary>
+Toggle to see the output
+</summary><pre><code><span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; *** RESET test ***</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; H0:  Fractional logit model</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;  Version Statistic p-value </span></span>
-<span><span class="co">#&gt;    LM(3)     0.852   0.653</span></span></code></pre></div>
+<span><span class="co">#&gt;    LM(3)     0.852   0.653</span></span></code></pre>
+</details>
 </div>
 <div class="section level3">
-<h3 id="p-test-for-non-nested-models">P-Test for Non-Nested Models<a class="anchor" aria-label="anchor" href="#p-test-for-non-nested-models"></a>
+<h3 id="p-test-for-non-nested-models">2.3 P-Test for Non-Nested Models<a class="anchor" aria-label="anchor" href="#p-test-for-non-nested-models"></a>
 </h3>
-<p>You can test non-nested models (e.g., comparing a
-<code>cloglog</code> link against a <code>logit</code> link) using
-<code><a href="../reference/fracreg.ptest.html">fracreg.ptest()</a></code>.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">model_1p_clog</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreg.html">fracreg</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">data</span><span class="op">$</span><span class="va">y</span>, x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span>x1 <span class="op">=</span> <span class="va">data</span><span class="op">$</span><span class="va">x1</span>, x2 <span class="op">=</span> <span class="va">data</span><span class="op">$</span><span class="va">x2</span><span class="op">)</span>, type <span class="op">=</span> <span class="st">"1P"</span>, linkfrac <span class="op">=</span> <span class="st">"cloglog"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; </span></span>
+<p>You can compare non-nested models (e.g., <code>logit</code>
+vs. <code>cloglog</code> link) using the Davidson-MacKinnon P-test:</p>
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">model_1p_clog</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreg.html">fracreg</a></span><span class="op">(</span></span>
+<span>  y <span class="op">=</span> <span class="va">data</span><span class="op">$</span><span class="va">y</span>, </span>
+<span>  x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span>x1 <span class="op">=</span> <span class="va">data</span><span class="op">$</span><span class="va">x1</span>, x2 <span class="op">=</span> <span class="va">data</span><span class="op">$</span><span class="va">x2</span><span class="op">)</span>, </span>
+<span>  type <span class="op">=</span> <span class="st">"1P"</span>, </span>
+<span>  linkfrac <span class="op">=</span> <span class="st">"cloglog"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<details><summary>
+Toggle to see the output
+</summary><pre><code><span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; *** Fractional cloglog regression model ***</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;            Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
@@ -417,7 +519,28 @@ check whether your functional form and link functions are adequate.</p>
 <span><span class="co">#&gt; Note: robust standard errors</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Number of observations: 1000 </span></span>
-<span><span class="co">#&gt; R-squared: 0.388</span></span>
+<span><span class="co">#&gt; R-squared: 0.388</span></span></code></pre>
+</details><div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">model_1p_clog</span><span class="op">)</span></span></code></pre></div>
+<details><summary>
+Toggle to see the output
+</summary><pre><code><span><span class="co">#&gt;           Length Class   Mode     </span></span>
+<span><span class="co">#&gt; class        1   -none-  character</span></span>
+<span><span class="co">#&gt; formula      3   formula call     </span></span>
+<span><span class="co">#&gt; type         1   -none-  character</span></span>
+<span><span class="co">#&gt; link         1   -none-  character</span></span>
+<span><span class="co">#&gt; method       1   -none-  character</span></span>
+<span><span class="co">#&gt; p            3   -none-  numeric  </span></span>
+<span><span class="co">#&gt; yhat      1000   -none-  numeric  </span></span>
+<span><span class="co">#&gt; xbhat     1000   -none-  numeric  </span></span>
+<span><span class="co">#&gt; converged    1   -none-  numeric  </span></span>
+<span><span class="co">#&gt; x.names      3   -none-  character</span></span>
+<span><span class="co">#&gt; p.var        9   -none-  numeric  </span></span>
+<span><span class="co">#&gt; var.type     1   -none-  character</span></span>
+<span><span class="co">#&gt; var.eim      1   -none-  logical  </span></span>
+<span><span class="co">#&gt; dfc          1   -none-  logical</span></span></code></pre>
+</details><div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
 <span><span class="co"># fracreg.ptest(model_1p, model_1p_clog) # Uncomment to run non-nested test</span></span></code></pre></div>
 <hr>
 </div>
@@ -427,13 +550,17 @@ check whether your functional form and link functions are adequate.</p>
 (<code>fracreghet</code>)<a class="anchor" aria-label="anchor" href="#endogeneity-heteroskedasticity-fracreghet"></a>
 </h2>
 <p>When you suspect that one of your covariates is endogenous, or that
-the variance is heteroskedastic, you can use <code>fracreghet</code>. It
-natively supports instrumental variables (IV) through a Control Function
-approach or GMM estimation.</p>
+the variance is heteroskedastic, <code><a href="../reference/fracreghet.html">fracreghet()</a></code> provides
+instrumental variable correction. It natively supports IV through a
+<strong>Control Function (CF)</strong> approach or <strong>GMM</strong>
+estimation.</p>
 <div class="section level3">
-<h3 id="control-function-approach">Control Function Approach<a class="anchor" aria-label="anchor" href="#control-function-approach"></a>
+<h3 id="control-function-approach-qmlxv">3.1 Control Function Approach (QMLxv)<a class="anchor" aria-label="anchor" href="#control-function-approach-qmlxv"></a>
 </h3>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<p>The control function approach adds the first-stage residual as an
+additional regressor in the fractional model, providing a Hausman-type
+test for endogeneity.</p>
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Simulating an endogenous variable (var.endog) and an instrument (z)</span></span>
 <span><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">N</span><span class="op">)</span></span>
 <span><span class="va">u</span> <span class="op">&lt;-</span> <span class="fl">0.5</span> <span class="op">*</span> <span class="va">z</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">N</span><span class="op">)</span></span>
@@ -448,8 +575,10 @@ approach or GMM estimation.</p>
 <span>  var.endog <span class="op">=</span> <span class="va">var.endog</span>,</span>
 <span>  type <span class="op">=</span> <span class="st">"QMLxv"</span>, </span>
 <span>  link <span class="op">=</span> <span class="st">"logit"</span></span>
-<span><span class="op">)</span></span>
-<span><span class="co">#&gt; </span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<details><summary>
+Toggle to see the output
+</summary><pre><code><span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; *** Fractional logit regression model ***</span></span>
 <span><span class="co">#&gt; *** Estimator: QMLxv</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -467,17 +596,39 @@ approach or GMM estimation.</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Note: robust standard errors</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Number of observations: 1000</span></span></code></pre></div>
-<hr>
+<span><span class="co">#&gt; Number of observations: 1000</span></span></code></pre>
+</details><div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">model_het</span><span class="op">)</span></span></code></pre></div>
+<details><summary>
+Toggle to see the output
+</summary><pre><code><span><span class="co">#&gt;           Length Class   Mode     </span></span>
+<span><span class="co">#&gt; class        1   -none-  character</span></span>
+<span><span class="co">#&gt; formula      3   formula call     </span></span>
+<span><span class="co">#&gt; type         1   -none-  character</span></span>
+<span><span class="co">#&gt; link         1   -none-  character</span></span>
+<span><span class="co">#&gt; adjust       1   -none-  numeric  </span></span>
+<span><span class="co">#&gt; p            7   -none-  numeric  </span></span>
+<span><span class="co">#&gt; Hy        1000   -none-  numeric  </span></span>
+<span><span class="co">#&gt; xbhat     1000   -none-  numeric  </span></span>
+<span><span class="co">#&gt; converged    1   -none-  logical  </span></span>
+<span><span class="co">#&gt; x.names      3   -none-  character</span></span>
+<span><span class="co">#&gt; p.var       49   -none-  numeric  </span></span>
+<span><span class="co">#&gt; var.type     1   -none-  character</span></span></code></pre>
+</details><hr>
 </div>
 </div>
 <div class="section level2">
 <h2 id="panel-data-fractional-models-fracregpd">4. Panel Data Fractional Models (<code>fracregpd</code>)<a class="anchor" aria-label="anchor" href="#panel-data-fractional-models-fracregpd"></a>
 </h2>
 <p>For longitudinal or panel data where unobserved heterogeneity is a
-concern, <code><a href="../reference/fracregpd.html">fracregpd()</a></code> provides fixed-T panel estimators,
-including Correlated Random Effects (CRE).</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+concern, <code><a href="../reference/fracregpd.html">fracregpd()</a></code> provides fixed-T panel estimators. The
+Correlated Random Effects (CRE) approach adds individual-specific time
+averages of covariates to the model, allowing consistent estimation even
+when unobserved effects are correlated with regressors.</p>
+<div class="section level3">
+<h3 id="correlated-random-effects-qmlcre">4.1 Correlated Random Effects (QMLcre)<a class="anchor" aria-label="anchor" href="#correlated-random-effects-qmlcre"></a>
+</h3>
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Simulating Panel Data</span></span>
 <span><span class="va">id</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">200</span>, each <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
 <span><span class="va">time</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, times <span class="op">=</span> <span class="fl">200</span><span class="op">)</span></span>
@@ -494,8 +645,10 @@ including Correlated Random Effects (CRE).</p>
 <span>  x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span>x_panel <span class="op">=</span> <span class="va">x_panel</span><span class="op">)</span>, </span>
 <span>  type <span class="op">=</span> <span class="st">"QMLcre"</span>, </span>
 <span>  link <span class="op">=</span> <span class="st">"probit"</span></span>
-<span><span class="op">)</span></span>
-<span><span class="co">#&gt; </span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<details><summary>
+Toggle to see the output
+</summary><pre><code><span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; *** Fractional probit regression model ***</span></span>
 <span><span class="co">#&gt; *** Estimator: QMLcre</span></span>
 <span><span class="co">#&gt; *** Exogeneity: TRUE</span></span>
@@ -513,15 +666,35 @@ including Correlated Random Effects (CRE).</p>
 <span><span class="co">#&gt; Number of cross-sectional units (initial): 200 </span></span>
 <span><span class="co">#&gt; Number of cross-sectional units (for estimation): 200 </span></span>
 <span><span class="co">#&gt; Average number of time periods per cross-sectional unit (initial): 5 </span></span>
-<span><span class="co">#&gt; Average number of time periods per cross-sectional unit (for estimation): 5</span></span></code></pre></div>
+<span><span class="co">#&gt; Average number of time periods per cross-sectional unit (for estimation): 5</span></span></code></pre>
+</details><div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">model_pd</span><span class="op">)</span></span></code></pre></div>
+<details><summary>
+Toggle to see the output
+</summary><pre><code><span><span class="co">#&gt;           Length Class  Mode     </span></span>
+<span><span class="co">#&gt; type         1   -none- character</span></span>
+<span><span class="co">#&gt; link         1   -none- character</span></span>
+<span><span class="co">#&gt; Hy        1000   -none- numeric  </span></span>
+<span><span class="co">#&gt; p            3   -none- numeric  </span></span>
+<span><span class="co">#&gt; converged    1   -none- numeric  </span></span>
+<span><span class="co">#&gt; p.var        9   -none- numeric  </span></span>
+<span><span class="co">#&gt; var.type     1   -none- character</span></span></code></pre>
+</details><hr>
+</div>
 </div>
 <div class="section level2">
 <h2 id="conclusion">Conclusion<a class="anchor" aria-label="anchor" href="#conclusion"></a>
 </h2>
 <p>With <code>fracreg</code>, <code>fracreghet</code>, and
 <code>fracregpd</code>, you have a complete, mathematically robust
-toolkit for modeling fractional responses bounded between [0,1],
+toolkit for modeling fractional responses bounded between
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="true" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="true" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">[0,1]</annotation></semantics></math>,
 regardless of inflation, endogeneity, or unobserved panel effects.</p>
+<p>For more information, please visit the <a href="https://SulmanOlieko.github.io/fracreg">package website</a> or
+file an issue on <a href="https://github.com/SulmanOlieko/fracreg/issues" class="external-link">GitHub</a>.</p>
+<p>To cite this package in your research:</p>
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html" class="external-link">citation</a></span><span class="op">(</span><span class="st">"fracreg"</span><span class="op">)</span></span></code></pre></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

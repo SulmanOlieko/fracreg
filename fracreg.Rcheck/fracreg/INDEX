@@ -1,0 +1,13 @@
+fracreg                 Fitting Fractional Regression Models
+fracreg-package         Fractional Regression Models
+fracreg.ggoff           GGOFF Tests for Fractional Regression Models
+fracreg.pe              Fractional Regression Models - Partial Effects
+fracreg.ptest           P Test for Fractional Regression Models
+fracreg.reset           RESET Test for Fractional Regression Models
+fracreghet              Fitting Fractional Regression Models under
+                        Unobserved Heterogeneity
+fracreghet.pe           Fractional Regression Models under Unobserved
+                        Heterogeneity - Partial Effects
+fracreghet.reset        RESET Test for Fractional Regression Models
+                        under Neglected Heterogeneity
+fracregpd               Fitting Panel Data Fractional Regression Models

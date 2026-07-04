@@ -37,14 +37,15 @@ fracreg.ptest(object1, object2, version = "Wald", table = TRUE)
 MacKinnon (1981) to fractional regression models estimated via
 `fracreg`. `fracreg.ptest` may be used to test against each other two
 alternative specifications for the link function in: (i) one-part
-fractional regression models; (ii) the binary component of two-part
-fractional regression models; (iii) the fractional component of two-part
-fractional regression models; and (iv) two-part fractional regression
-models. In addition, `fracreg.ptest` may be used to test one-part models
-against two-part models and in cases where the link functions are the
-same but the regressors are non-nested. See Ramalho, Ramalho and
-Murteira (2011) for details on the application of the P test in the
-fractional regression framework.
+fractional regression models; (ii) the binary components of two-part and
+three-part fractional regression models; (iii) the fractional components
+of two-part and three-part fractional regression models; and (iv)
+two-part and three-part fractional regression models. In addition,
+`fracreg.ptest` may be used to test one-part models against two-part or
+three-part models and in cases where the link functions are the same but
+the regressors are non-nested. See Ramalho, Ramalho and Murteira (2011)
+for details on the application of the P test in the fractional
+regression framework.
 
 ## Value
 

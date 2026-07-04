@@ -55,13 +55,14 @@ fracreg.pe(object, APE = TRUE, CPE = FALSE, at = NULL, which.x = NULL,
 `fracreg.pe` calculates partial effects for fractional regression models
 estimated via `fracreg`. `fracreg.pe` may be used to compute average or
 conditional partial effects for: (i) one-part fractional regression
-models; (ii) the binary component of two-part fractional regression
-models; (iii) the fractional component of two-part fractional regression
-models; and (iv) two-part fractional regression models. For calculating
+models; (ii) the binary components of two-part and three-part fractional
+regression models; (iii) the fractional components of two-part and
+three-part fractional regression models; and (iv) two-part and
+three-part fractional regression models overall. For calculating
 standard errors, it is taken into account the option that was previously
 chosen for estimating the model. See Ramalho, Ramalho and Murteira
-(2011) for details on the computation of partial effects in the
-fractional regression framework.
+(2011) and Fang and Ma (2013) for details on the computation of partial
+effects in the fractional regression framework.
 
 ## Value
 
@@ -87,6 +88,10 @@ prefixes `ape` and `cpe`.
 Ramalho, E.A., J.J.S. Ramalho and J.M.R. Murteira (2011), "Alternative
 estimating and testing empirical strategies for fractional regression
 models", *Journal of Economic Surveys*, 25(1), 19-68.
+
+Fang, K., & Ma, S. (2013), "Three-part model for fractional response
+variables with application to Chinese household health insurance
+coverage", *Journal of Applied Statistics*, 40(5), 925-940.
 
 ## Author
 
@@ -161,4 +166,21 @@ fracreg.pe(res,APE=FALSE,CPE=TRUE,at="median",which.x="X2")
 #> 
 #> ------------------
 #> Note: covariates evaluated at median (or mode, for dummies) values
+
+#Computing average partial effects for a three-part double-inflated model
+y3p <- y
+y3p[1:20] <- 0
+y3p[21:40] <- 1
+res3p <- fracreg(y3p,X,linkbin=c("logit","probit"),linkfrac="logit",type="3P",table=FALSE)
+fracreg.pe(res3p)
+#> 
+#> 
+#> *** Average partial effects ***
+#> 
+#> Three-part model - binary logit , binary probit + fractional logit
+#> 
+#>    Estimate Std. Error t value Pr(>|t|)    
+#> X1   0.1355     0.0169   8.004    0.000 ***
+#> X2   0.1179     0.0181   6.526    0.000 ***
+#> 
 ```

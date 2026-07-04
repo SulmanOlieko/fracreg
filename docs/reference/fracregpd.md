@@ -121,13 +121,16 @@ fracregpd(id, time, y, x, z, var.endog, x.exogenous = T, lags, start, type,
 
 ## Details
 
-`fracregpd` computes the GMM estimators proposed in Ramalho and Ramalho
-(2016) for panel data fractional regression models with both
+`fracregpd` computes the GMM estimators proposed in Ramalho, Ramalho and
+Coelho (2018) for panel data fractional regression models with both
 time-variant and time-invariant unobserved heterogeneity and endogeneous
 covariates: GMMww, GMMc, GMMbgw, GMMpfe, GMMcre and GMMpre. In addition,
 `fracregpd` also computes QMLcre, which was proposed by Papke and
-Wooldridge (2008) and Wooldridge (2010). For overidentified models,
-`fracregpd` calculates Hansen's J statistic.
+Wooldridge (2008) and Wooldridge (2019). The Correlated Random Effects
+(CRE) approach models the unobserved individual-specific effects as a
+linear function of the time averages of covariates, allowing consistent
+estimation even when unobserved effects are correlated with regressors.
+For overidentified models, `fracregpd` calculates Hansen's J statistic.
 
 ## Value
 
@@ -178,12 +181,13 @@ Papke, L. and Wooldridge, J.M. (2008), "Panel data methods for
 fractional response variables with an application to test pass rates",
 *Journal of Econometrics*, 145(1-2), 121-233.
 
-Ramalho, E.A. and J.J.S. Ramalho (2016), "Exponential regression of
-fractional-response fixed-efects models with an application to firm
-capital structure", mimeo.
+Ramalho, E. A., Ramalho, J. J. S., & Coelho, L. M. S. (2018),
+"Exponential Regression of Fractional-Response Fixed-Effects Models with
+an Application to Firm Capital Structure", *Journal of Econometric
+Methods*, 7(1), 20150019.
 
-Wooldridge, J.M. (2010), "Correlated random effects models with
-unbalanced panels", mimeo.
+Wooldridge, J. M. (2019). Correlated random effects models with
+unbalanced panels. *Journal of Econometrics*, 211(1), 137-150.
 
 ## Author
 

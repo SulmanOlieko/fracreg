@@ -43,14 +43,15 @@ fracreg.reset(object, lastpower.vec = 3, version = "LM", table = TRUE, ...)
 `fracreg.reset` applies the RESET test statistic to fractional
 regression models estimated via `fracreg`. `fracreg.reset` may be used
 to test the link specification of: (i) one-part fractional regression
-models; (ii) the binary component of two-part fractional regression
-models; and (iii) the fractional component of two-part fractional
-regression models. When the `Wald` version is implemented, it is taken
-into account the option that was chosen for computing standard errors in
-the model under evaluation. For the `LM` version, a robust version is
-computed in cases (i) and (iii) and a conventional version in case (ii).
-See Ramalho, Ramalho and Murteira (2011) for details on the application
-of the RESET test in the fractional regression framework.
+models; (ii) the binary components of two-part and three-part fractional
+regression models; and (iii) the fractional components of two-part and
+three-part fractional regression models. When the `Wald` version is
+implemented, it is taken into account the option that was chosen for
+computing standard errors in the model under evaluation. For the `LM`
+version, a robust version is computed in cases (i) and (iii) and a
+conventional version in case (ii). See Ramalho, Ramalho and Murteira
+(2011) for details on the application of the RESET test in the
+fractional regression framework.
 
 ## Value
 

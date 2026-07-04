@@ -1,0 +1,202 @@
+Hmm ... looks like a package
+Converting parsed Rd's to LaTeX .
+Creating pdf output from LaTeX ...
+
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex)
+ restricted \write18 enabled.
+entering extended mode
+LaTeX2e <2025-11-01>
+L3 programming layer <2026-01-19>
+(./Rd2.tex
+(/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/base/book.cls
+Document Class: book 2025/01/22 v1.4n Standard LaTeX document class
+(/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/base/bk10.clo)) (/Library/Frameworks/R.framework/Resources/share/texmf/tex/latex/Rd.sty (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/base/ifthen.sty) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/generic/iftex/iftex.sty) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/tools/longtable.sty) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/tools/bm.sty) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/base/alltt.sty) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/tools/verbatim.sty) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/url/url.sty) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/base/textcomp.sty) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amsmath.sty
+For additional information on amsmath, use the `?' option.
+(/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amstext.sty (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amsgen.sty)) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amsbsy.sty) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amsopn.sty)) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/amsfonts.sty) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/amssymb.sty) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/eucal.sty) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/base/fontenc.sty) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/psnfss/times.sty) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/inconsolata/zi4.sty `inconsolata-zi4' v1.12, 2019/05/17 Text macros for Inconsolata (msharpe) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/xkeyval/xkeyval.sty (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/generic/xkeyval/xkeyval.tex (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/generic/xkeyval/xkvutils.tex (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/generic/xkeyval/keyval.tex))))) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/graphics/color.sty (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/graphics-cfg/color.cfg) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/graphics-def/pdftex.def) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/graphics/mathcolor.ltx)) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/hyperref/hyperref.sty (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/generic/pdfescape/pdfescape.sty (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/generic/infwarerr/infwarerr.sty))) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/hycolor/hycolor.sty) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/hyperref/nameref.sty (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/refcount/refcount.sty) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/kvoptions/kvoptions.sty))) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/etoolbox/etoolbox.sty) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/generic/stringenc/stringenc.sty) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/hyperref/pd1enc.def) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/generic/intcalc/intcalc.sty) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/hyperref/puenc.def) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/generic/bitset/bitset.sty (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty))) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/hyperref/hpdftex.def (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty)))) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/base/makeidx.sty)
+Writing index file Rd2.idx
+(/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/psnfss/t1ptm.fd) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def)
+No file Rd2.aux.
+(/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/inconsolata/t1zi4.fd) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd)
+No file Rd2.toc.
+[1{/Users/macbookpro/Library/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/Users/macbookpro/Library/TinyTeX/texmf-dist/fonts/enc/dvips/base/8r.enc}{/Users/macbookpro/Library/TinyTeX/texmf-dist/fonts/enc/dvips/inconsolata/i4-t1-0.enc}] [2]
+Overfull \hbox (3.48723pt too wide) in paragraph at lines 98--99
+[]\T1/ptm/m/n/10 a log-i-cal value in-di-cat-ing whether the vari-ance of the es-ti-mated pa-ram-e-ters should
+[3]
+Overfull \hbox (0.9286pt too wide) in paragraph at lines 166--168
+\T1/ptm/m/n/10 When []\T1/zi4/m/n/10 type = "2P"[]\T1/ptm/m/n/10 , []\T1/zi4/m/n/10 fracreg []\T1/ptm/m/n/10 re-turns the pre-vi-ous lists, in-dexed by the pre-fixes []\T1/zi4/m/n/10 resBIN []\T1/ptm/m/n/10 and []\T1/zi4/m/n/10 resFRAC[]\T1/ptm/m/n/10 ,
+[4] [5] [6] [7]
+Overfull \hbox (25.92706pt too wide) in paragraph at lines 378--379
+[]\T1/zi4/m/n/10 fracreg.pe []\T1/ptm/m/n/10 cal-cu-lates par-tial ef-fects for frac-tional re-gres-sion mod-els es-ti-mated via []\T1/zi4/m/n/10 fracreg[]\T1/ptm/m/n/10 . []\T1/zi4/m/n/10 fracreg.pe
+[8]
+Overfull \hbox (6.77475pt too wide) in paragraph at lines 446--446
+ []\T1/zi4/m/n/9 res3p <- fracreg(y3p,X,linkbin=c("logit","probit"),linkfrac="logit",type="3P",table=FALSE)[] 
+[9] [10] [11] [12]
+Overfull \hbox (3.48723pt too wide) in paragraph at lines 651--652
+[]\T1/ptm/m/n/10 a log-i-cal value in-di-cat-ing whether the vari-ance of the es-ti-mated pa-ram-e-ters should
+[13] [14]
+Overfull \hbox (3.02707pt too wide) in paragraph at lines 790--792
+[]\T1/zi4/m/n/10 fracreghet.pe []\T1/ptm/m/n/10 cal-cu-lates par-tial ef-fects for frac-tional re-gres-sion mod-els es-ti-mated via []\T1/zi4/m/n/10 fracreghet[]\T1/ptm/m/n/10 .
+[15]
+Underfull \hbox (badness 10000) in paragraph at lines 819--821
+
+[16] [17] [18]
+Overfull \hbox (3.47897pt too wide) in paragraph at lines 951--952
+[]\T1/ptm/m/n/10 a de-scrip-tion of the es-ti-ma-tor to com-pute: []\T1/zi4/m/n/10 GMMww[]\T1/ptm/m/n/10 , []\T1/zi4/m/n/10 GMMc[]\T1/ptm/m/n/10 , []\T1/zi4/m/n/10 GMMbgw[]\T1/ptm/m/n/10 , []\T1/zi4/m/n/10 GMMpfe[]\T1/ptm/m/n/10 , []\T1/zi4/m/n/10 GMMcre[]\T1/ptm/m/n/10 ,
+
+Overfull \hbox (3.48723pt too wide) in paragraph at lines 962--964
+[]\T1/ptm/m/n/10 a log-i-cal value in-di-cat-ing whether the vari-ance of the es-ti-mated pa-ram-e-ters should
+[19]
+Overfull \hbox (2.58781pt too wide) in paragraph at lines 1020--1021
+[]\T1/ptm/m/n/10 Ramalho, E. A., Ra-malho, J. J. S., & Coelho, L. M. S. (2018), "Ex-po-nen-tial Re-gres-sion of Fractional-
+
+Overfull \hbox (45.78088pt too wide) in paragraph at lines 1055--1055
+ []\T1/zi4/m/n/9 #fracregpd(id,time,y,X,Z,X[,1],x.exogenous=FALSE,type="QMLcre",link="probit",bootstrap=TRUE,B=100)[] 
+[20]
+No file Rd2.ind.
+[21] (/private/var/folders/9n/3z6s443x6qbclmb32_05hn_r0000gp/T/RtmpA7YhxP/Rd2pdff4b93b61237c/Rd2.aux)
+
+Package rerunfilecheck Warning: File `Rd2.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+ )
+(see the transcript file for additional information)
+pdfTeX warning (dest): name{Rfn.nlminb} has been referenced but does not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.glm} has been referenced but does not exist, replaced by a fixed one
+
+</Users/macbookpro/Library/TinyTeX/texmf-dist/fonts/type1/public/inconsolata/Inconsolata-zi4r.pfb></Users/macbookpro/Library/TinyTeX/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></Users/macbookpro/Library/TinyTeX/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></Users/macbookpro/Library/TinyTeX/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></Users/macbookpro/Library/TinyTeX/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on Rd2.pdf (21 pages, 120221 bytes).
+Transcript written on Rd2.log.
+This is makeindex, version 2.17 [TeX Live 2025] (kpathsea + Thai support).
+Scanning input file Rd2.idx....done (53 entries accepted, 0 rejected).
+Sorting entries....done (306 comparisons).
+Generating output file Rd2.ind....done (48 lines written, 2 warnings).
+Output written in Rd2.ind.
+Transcript written in Rd2.ilg.
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex)
+ restricted \write18 enabled.
+entering extended mode
+LaTeX2e <2025-11-01>
+L3 programming layer <2026-01-19>
+(./Rd2.tex
+(/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/base/book.cls
+Document Class: book 2025/01/22 v1.4n Standard LaTeX document class
+(/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/base/bk10.clo)) (/Library/Frameworks/R.framework/Resources/share/texmf/tex/latex/Rd.sty (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/base/ifthen.sty) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/generic/iftex/iftex.sty) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/tools/longtable.sty) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/tools/bm.sty) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/base/alltt.sty) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/tools/verbatim.sty) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/url/url.sty) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/base/textcomp.sty) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amsmath.sty
+For additional information on amsmath, use the `?' option.
+(/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amstext.sty (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amsgen.sty)) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amsbsy.sty) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amsopn.sty)) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/amsfonts.sty) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/amssymb.sty) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/eucal.sty) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/base/fontenc.sty) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/psnfss/times.sty) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/inconsolata/zi4.sty `inconsolata-zi4' v1.12, 2019/05/17 Text macros for Inconsolata (msharpe) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/xkeyval/xkeyval.sty (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/generic/xkeyval/xkeyval.tex (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/generic/xkeyval/xkvutils.tex (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/generic/xkeyval/keyval.tex))))) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/graphics/color.sty (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/graphics-cfg/color.cfg) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/graphics-def/pdftex.def) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/graphics/mathcolor.ltx)) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/hyperref/hyperref.sty (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/generic/pdfescape/pdfescape.sty (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/generic/infwarerr/infwarerr.sty))) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/hycolor/hycolor.sty) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/hyperref/nameref.sty (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/refcount/refcount.sty) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/kvoptions/kvoptions.sty))) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/etoolbox/etoolbox.sty) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/generic/stringenc/stringenc.sty) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/hyperref/pd1enc.def) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/generic/intcalc/intcalc.sty) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/hyperref/puenc.def) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/generic/bitset/bitset.sty (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty))) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/hyperref/hpdftex.def (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty)))) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/base/makeidx.sty)
+Writing index file Rd2.idx
+(/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/psnfss/t1ptm.fd) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def) (/private/var/folders/9n/3z6s443x6qbclmb32_05hn_r0000gp/T/RtmpA7YhxP/Rd2pdff4b93b61237c/Rd2.aux) (/private/var/folders/9n/3z6s443x6qbclmb32_05hn_r0000gp/T/RtmpA7YhxP/Rd2pdff4b93b61237c/Rd2.out) (/private/var/folders/9n/3z6s443x6qbclmb32_05hn_r0000gp/T/RtmpA7YhxP/Rd2pdff4b93b61237c/Rd2.out) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/inconsolata/t1zi4.fd) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd) (/private/var/folders/9n/3z6s443x6qbclmb32_05hn_r0000gp/T/RtmpA7YhxP/Rd2pdff4b93b61237c/Rd2.toc) [1{/Users/macbookpro/Library/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/Users/macbookpro/Library/TinyTeX/texmf-dist/fonts/enc/dvips/base/8r.enc}{/Users/macbookpro/Library/TinyTeX/texmf-dist/fonts/enc/dvips/inconsolata/i4-t1-0.enc}] [2]
+Overfull \hbox (3.48723pt too wide) in paragraph at lines 98--99
+[]\T1/ptm/m/n/10 a log-i-cal value in-di-cat-ing whether the vari-ance of the es-ti-mated pa-ram-e-ters should
+[3] [4]
+Overfull \hbox (0.9286pt too wide) in paragraph at lines 166--168
+\T1/ptm/m/n/10 When []\T1/zi4/m/n/10 type = "2P"[]\T1/ptm/m/n/10 , []\T1/zi4/m/n/10 fracreg []\T1/ptm/m/n/10 re-turns the pre-vi-ous lists, in-dexed by the pre-fixes []\T1/zi4/m/n/10 resBIN []\T1/ptm/m/n/10 and []\T1/zi4/m/n/10 resFRAC[]\T1/ptm/m/n/10 ,
+[5] [6] [7]
+Overfull \hbox (25.92706pt too wide) in paragraph at lines 378--379
+[]\T1/zi4/m/n/10 fracreg.pe []\T1/ptm/m/n/10 cal-cu-lates par-tial ef-fects for frac-tional re-gres-sion mod-els es-ti-mated via []\T1/zi4/m/n/10 fracreg[]\T1/ptm/m/n/10 . []\T1/zi4/m/n/10 fracreg.pe
+[8] [9]
+Overfull \hbox (6.77475pt too wide) in paragraph at lines 446--446
+ []\T1/zi4/m/n/9 res3p <- fracreg(y3p,X,linkbin=c("logit","probit"),linkfrac="logit",type="3P",table=FALSE)[] 
+[10] [11] [12]
+Overfull \hbox (3.48723pt too wide) in paragraph at lines 651--652
+[]\T1/ptm/m/n/10 a log-i-cal value in-di-cat-ing whether the vari-ance of the es-ti-mated pa-ram-e-ters should
+[13] [14] [15]
+Overfull \hbox (3.02707pt too wide) in paragraph at lines 790--792
+[]\T1/zi4/m/n/10 fracreghet.pe []\T1/ptm/m/n/10 cal-cu-lates par-tial ef-fects for frac-tional re-gres-sion mod-els es-ti-mated via []\T1/zi4/m/n/10 fracreghet[]\T1/ptm/m/n/10 .
+[16]
+Underfull \hbox (badness 10000) in paragraph at lines 819--821
+
+[17] [18]
+Overfull \hbox (3.47897pt too wide) in paragraph at lines 951--952
+[]\T1/ptm/m/n/10 a de-scrip-tion of the es-ti-ma-tor to com-pute: []\T1/zi4/m/n/10 GMMww[]\T1/ptm/m/n/10 , []\T1/zi4/m/n/10 GMMc[]\T1/ptm/m/n/10 , []\T1/zi4/m/n/10 GMMbgw[]\T1/ptm/m/n/10 , []\T1/zi4/m/n/10 GMMpfe[]\T1/ptm/m/n/10 , []\T1/zi4/m/n/10 GMMcre[]\T1/ptm/m/n/10 ,
+[19]
+Overfull \hbox (3.48723pt too wide) in paragraph at lines 962--964
+[]\T1/ptm/m/n/10 a log-i-cal value in-di-cat-ing whether the vari-ance of the es-ti-mated pa-ram-e-ters should
+[20]
+Overfull \hbox (2.58781pt too wide) in paragraph at lines 1020--1021
+[]\T1/ptm/m/n/10 Ramalho, E. A., Ra-malho, J. J. S., & Coelho, L. M. S. (2018), "Ex-po-nen-tial Re-gres-sion of Fractional-
+
+Overfull \hbox (45.78088pt too wide) in paragraph at lines 1055--1055
+ []\T1/zi4/m/n/9 #fracregpd(id,time,y,X,Z,X[,1],x.exogenous=FALSE,type="QMLcre",link="probit",bootstrap=TRUE,B=100)[] 
+(/private/var/folders/9n/3z6s443x6qbclmb32_05hn_r0000gp/T/RtmpA7YhxP/Rd2pdff4b93b61237c/Rd2.ind [21] [22]) (/private/var/folders/9n/3z6s443x6qbclmb32_05hn_r0000gp/T/RtmpA7YhxP/Rd2pdff4b93b61237c/Rd2.aux)
+
+Package rerunfilecheck Warning: File `Rd2.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+ )
+(see the transcript file for additional information)
+pdfTeX warning (dest): name{Rfn.nlminb} has been referenced but does not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.glm} has been referenced but does not exist, replaced by a fixed one
+
+</Users/macbookpro/Library/TinyTeX/texmf-dist/fonts/type1/public/inconsolata/Inconsolata-zi4r.pfb></Users/macbookpro/Library/TinyTeX/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></Users/macbookpro/Library/TinyTeX/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></Users/macbookpro/Library/TinyTeX/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></Users/macbookpro/Library/TinyTeX/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on Rd2.pdf (22 pages, 125772 bytes).
+Transcript written on Rd2.log.
+This is makeindex, version 2.17 [TeX Live 2025] (kpathsea + Thai support).
+Scanning input file Rd2.idx....done (53 entries accepted, 0 rejected).
+Sorting entries....done (309 comparisons).
+Generating output file Rd2.ind....done (47 lines written, 2 warnings).
+Output written in Rd2.ind.
+Transcript written in Rd2.ilg.
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex)
+ restricted \write18 enabled.
+entering extended mode
+LaTeX2e <2025-11-01>
+L3 programming layer <2026-01-19>
+(./Rd2.tex
+(/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/base/book.cls
+Document Class: book 2025/01/22 v1.4n Standard LaTeX document class
+(/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/base/bk10.clo)) (/Library/Frameworks/R.framework/Resources/share/texmf/tex/latex/Rd.sty (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/base/ifthen.sty) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/generic/iftex/iftex.sty) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/tools/longtable.sty) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/tools/bm.sty) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/base/alltt.sty) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/tools/verbatim.sty) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/url/url.sty) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/base/textcomp.sty) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amsmath.sty
+For additional information on amsmath, use the `?' option.
+(/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amstext.sty (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amsgen.sty)) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amsbsy.sty) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amsopn.sty)) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/amsfonts.sty) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/amssymb.sty) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/eucal.sty) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/base/fontenc.sty) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/psnfss/times.sty) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/inconsolata/zi4.sty `inconsolata-zi4' v1.12, 2019/05/17 Text macros for Inconsolata (msharpe) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/xkeyval/xkeyval.sty (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/generic/xkeyval/xkeyval.tex (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/generic/xkeyval/xkvutils.tex (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/generic/xkeyval/keyval.tex))))) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/graphics/color.sty (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/graphics-cfg/color.cfg) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/graphics-def/pdftex.def) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/graphics/mathcolor.ltx)) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/hyperref/hyperref.sty (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/generic/pdfescape/pdfescape.sty (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/generic/infwarerr/infwarerr.sty))) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/hycolor/hycolor.sty) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/hyperref/nameref.sty (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/refcount/refcount.sty) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/kvoptions/kvoptions.sty))) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/etoolbox/etoolbox.sty) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/generic/stringenc/stringenc.sty) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/hyperref/pd1enc.def) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/generic/intcalc/intcalc.sty) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/hyperref/puenc.def) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/generic/bitset/bitset.sty (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty))) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/hyperref/hpdftex.def (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty)))) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/base/makeidx.sty)
+Writing index file Rd2.idx
+(/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/psnfss/t1ptm.fd) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def) (/private/var/folders/9n/3z6s443x6qbclmb32_05hn_r0000gp/T/RtmpA7YhxP/Rd2pdff4b93b61237c/Rd2.aux) (/private/var/folders/9n/3z6s443x6qbclmb32_05hn_r0000gp/T/RtmpA7YhxP/Rd2pdff4b93b61237c/Rd2.out) (/private/var/folders/9n/3z6s443x6qbclmb32_05hn_r0000gp/T/RtmpA7YhxP/Rd2pdff4b93b61237c/Rd2.out) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/inconsolata/t1zi4.fd) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd) (/Users/macbookpro/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd) (/private/var/folders/9n/3z6s443x6qbclmb32_05hn_r0000gp/T/RtmpA7YhxP/Rd2pdff4b93b61237c/Rd2.toc) [1{/Users/macbookpro/Library/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/Users/macbookpro/Library/TinyTeX/texmf-dist/fonts/enc/dvips/base/8r.enc}{/Users/macbookpro/Library/TinyTeX/texmf-dist/fonts/enc/dvips/inconsolata/i4-t1-0.enc}] [2]
+Overfull \hbox (3.48723pt too wide) in paragraph at lines 98--99
+[]\T1/ptm/m/n/10 a log-i-cal value in-di-cat-ing whether the vari-ance of the es-ti-mated pa-ram-e-ters should
+[3] [4]
+Overfull \hbox (0.9286pt too wide) in paragraph at lines 166--168
+\T1/ptm/m/n/10 When []\T1/zi4/m/n/10 type = "2P"[]\T1/ptm/m/n/10 , []\T1/zi4/m/n/10 fracreg []\T1/ptm/m/n/10 re-turns the pre-vi-ous lists, in-dexed by the pre-fixes []\T1/zi4/m/n/10 resBIN []\T1/ptm/m/n/10 and []\T1/zi4/m/n/10 resFRAC[]\T1/ptm/m/n/10 ,
+[5] [6] [7]
+Overfull \hbox (25.92706pt too wide) in paragraph at lines 378--379
+[]\T1/zi4/m/n/10 fracreg.pe []\T1/ptm/m/n/10 cal-cu-lates par-tial ef-fects for frac-tional re-gres-sion mod-els es-ti-mated via []\T1/zi4/m/n/10 fracreg[]\T1/ptm/m/n/10 . []\T1/zi4/m/n/10 fracreg.pe
+[8] [9]
+Overfull \hbox (6.77475pt too wide) in paragraph at lines 446--446
+ []\T1/zi4/m/n/9 res3p <- fracreg(y3p,X,linkbin=c("logit","probit"),linkfrac="logit",type="3P",table=FALSE)[] 
+[10] [11] [12]
+Overfull \hbox (3.48723pt too wide) in paragraph at lines 651--652
+[]\T1/ptm/m/n/10 a log-i-cal value in-di-cat-ing whether the vari-ance of the es-ti-mated pa-ram-e-ters should
+[13] [14] [15]
+Overfull \hbox (3.02707pt too wide) in paragraph at lines 790--792
+[]\T1/zi4/m/n/10 fracreghet.pe []\T1/ptm/m/n/10 cal-cu-lates par-tial ef-fects for frac-tional re-gres-sion mod-els es-ti-mated via []\T1/zi4/m/n/10 fracreghet[]\T1/ptm/m/n/10 .
+[16]
+Underfull \hbox (badness 10000) in paragraph at lines 819--821
+
+[17] [18]
+Overfull \hbox (3.47897pt too wide) in paragraph at lines 951--952
+[]\T1/ptm/m/n/10 a de-scrip-tion of the es-ti-ma-tor to com-pute: []\T1/zi4/m/n/10 GMMww[]\T1/ptm/m/n/10 , []\T1/zi4/m/n/10 GMMc[]\T1/ptm/m/n/10 , []\T1/zi4/m/n/10 GMMbgw[]\T1/ptm/m/n/10 , []\T1/zi4/m/n/10 GMMpfe[]\T1/ptm/m/n/10 , []\T1/zi4/m/n/10 GMMcre[]\T1/ptm/m/n/10 ,
+[19]
+Overfull \hbox (3.48723pt too wide) in paragraph at lines 962--964
+[]\T1/ptm/m/n/10 a log-i-cal value in-di-cat-ing whether the vari-ance of the es-ti-mated pa-ram-e-ters should
+[20]
+Overfull \hbox (2.58781pt too wide) in paragraph at lines 1020--1021
+[]\T1/ptm/m/n/10 Ramalho, E. A., Ra-malho, J. J. S., & Coelho, L. M. S. (2018), "Ex-po-nen-tial Re-gres-sion of Fractional-
+
+Overfull \hbox (45.78088pt too wide) in paragraph at lines 1055--1055
+ []\T1/zi4/m/n/9 #fracregpd(id,time,y,X,Z,X[,1],x.exogenous=FALSE,type="QMLcre",link="probit",bootstrap=TRUE,B=100)[] 
+(/private/var/folders/9n/3z6s443x6qbclmb32_05hn_r0000gp/T/RtmpA7YhxP/Rd2pdff4b93b61237c/Rd2.ind [21] [22]) (/private/var/folders/9n/3z6s443x6qbclmb32_05hn_r0000gp/T/RtmpA7YhxP/Rd2pdff4b93b61237c/Rd2.aux) )
+(see the transcript file for additional information)
+pdfTeX warning (dest): name{Rfn.nlminb} has been referenced but does not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.glm} has been referenced but does not exist, replaced by a fixed one
+
+</Users/macbookpro/Library/TinyTeX/texmf-dist/fonts/type1/public/inconsolata/Inconsolata-zi4r.pfb></Users/macbookpro/Library/TinyTeX/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></Users/macbookpro/Library/TinyTeX/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></Users/macbookpro/Library/TinyTeX/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></Users/macbookpro/Library/TinyTeX/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on Rd2.pdf (22 pages, 125738 bytes).
+Transcript written on Rd2.log.
+Saving output to ‘fracreg-manual.pdf’ ...
+Done
+You may want to clean up by 'rm -Rf /var/folders/9n/3z6s443x6qbclmb32_05hn_r0000gp/T//RtmpA7YhxP/Rd2pdff4b93b61237c'
