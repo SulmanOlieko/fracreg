@@ -68,7 +68,7 @@ If you assume a single process governs the entire distribution of `y`, you can u
 ``` r
 model_1p <- fracreg(
   y = data$y, 
-  x = cbind(data$x1, data$x2), 
+  x = cbind(x1 = data$x1, x2 = data$x2), 
   type = "1P", 
   linkfrac = "logit"
 )
@@ -99,7 +99,7 @@ Often, fractional data (like participation rates or test scores) have a large cl
 # We use inflation=0 to indicate we are modeling the mass at zero
 model_2p <- fracreg(
   y = data$y, 
-  x = cbind(data$x1, data$x2), 
+  x = cbind(x1 = data$x1, x2 = data$x2), 
   type = "2P", 
   inflation = 0,
   linkbin = "logit", 
@@ -131,7 +131,7 @@ When your data has substantial clustering at **both** boundaries (0 and 1) simul
 # Linkbin takes a vector of two links for the two binary hurdles
 model_3p <- fracreg(
   y = data$y, 
-  x = cbind(data$x1, data$x2), 
+  x = cbind(x1 = data$x1, x2 = data$x2), 
   type = "3P", 
   linkbin = c("logit", "logit"), 
   linkfrac = "logit"
@@ -181,7 +181,7 @@ You can test non-nested models (e.g., comparing a `cloglog` link against a `logi
 
 
 ``` r
-model_1p_clog <- fracreg(y = data$y, x = cbind(data$x1, data$x2), type = "1P", linkfrac = "cloglog")
+model_1p_clog <- fracreg(y = data$y, x = cbind(x1 = data$x1, x2 = data$x2), type = "1P", linkfrac = "cloglog")
 #> Error in `fracreg()`:
 #> ! could not find function "fracreg"
 # fracreg.ptest(model_1p, model_1p_clog) # Uncomment to run non-nested test
@@ -236,7 +236,7 @@ model_pd <- fracregpd(
   id = id, 
   time = time, 
   y = y_panel, 
-  x = cbind(x_panel), 
+  x = cbind(x_panel = x_panel), 
   type = "QMLcre", 
   link = "logit"
 )
