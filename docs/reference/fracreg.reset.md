@@ -97,29 +97,34 @@ y[y > 0.9] <- 1
 res <- fracreg(y,X,linkfrac="logit",table=FALSE)
 fracreg.reset(res,2:3,c("Wald","LM"))
 #> 
-#> *** RESET test ***
-#> 
-#> H0:  Fractional logit model
-#> 
-#>  Version Statistic p-value  
-#>    LM(2)     3.389   0.066 *
-#>  Wald(2)     3.830   0.050 *
-#>    LM(3)     4.222   0.121  
-#>  Wald(3)     3.468   0.177  
-#> 
+#> -------------------------------------------------------------------------------- 
+#>                                    RESET test 
+#> -------------------------------------------------------------------------------- 
+#> H0: Fractional logit model 
+#> -------------------------------------------------------------------------------- 
+#>         Statistic p-value
+#> LM(2)       0.013   0.909
+#> Wald(2)     0.013   0.909
+#> LM(3)       0.042   0.979
+#> Wald(3)     0.045   0.978
+#> -------------------------------------------------------------------------------- 
+#>                          Run Date: 2026-07-05 03:17:42 
+#> -------------------------------------------------------------------------------- 
 
 #Testing the probit specification of the binary component of a two-part fractional
 #regression model using LR-based RESET tests with quadratic and cubic fitted 
 #powers of the linear predictor
 res <- fracreg(y,X,linkbin="probit",type="2Pbin",inf=1,table=FALSE)
 fracreg.reset(res,3,"LR")
-#> Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred
 #> 
-#> *** RESET test ***
-#> 
-#> H0:  Binary probit component of a two-part model
-#> 
-#>  Version Statistic p-value 
-#>    LR(3)     0.047   0.977 
-#> 
+#> -------------------------------------------------------------------------------- 
+#>                                    RESET test 
+#> -------------------------------------------------------------------------------- 
+#> H0: Binary probit component of a two-part model 
+#> -------------------------------------------------------------------------------- 
+#>       Statistic p-value
+#> LR(3)     0.528   0.768
+#> -------------------------------------------------------------------------------- 
+#>                          Run Date: 2026-07-05 03:17:42 
+#> -------------------------------------------------------------------------------- 
 ```

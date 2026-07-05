@@ -209,73 +209,137 @@ for fitting panel data fractional regression models.
 ## Examples
 
 ``` r
-N <- 250
-u <- rnorm(N)
+set.seed(123)
+N <- 1000
+x1 <- rnorm(N)
 
-X <- cbind(rnorm(N),rnorm(N))
-dimnames(X)[[2]] <- c("X1","X2")
+# Simulating an endogenous variable (var.endog) and an instrument (z1)
+z1 <- rnorm(N)
+u <- 0.5 * z1 + rnorm(N)
+var.endog <- 0.8 * z1 + u
+y_endog <- exp(0.5 * x1 + 1.2 * var.endog + u) / (1 + exp(0.5 * x1 + 1.2 * var.endog + u))
 
-Z <- cbind(rnorm(N),rnorm(N),rnorm(N))
-dimnames(Z)[[2]] <- c("Z1","Z2","Z3")
+# Avoid exact 0 or 1 boundaries for some estimators
+y_endog[y_endog <= 0] <- 0.01
+y_endog[y_endog >= 1] <- 0.99
 
-y <- exp(X[,1]+X[,2]+u)/(1+exp(X[,1]+X[,2]+u))
+X <- cbind(x1 = x1, var.endog = var.endog)
+Z <- cbind(x1 = x1, z1 = z1)
 
-#Exogeneity, GMMx estimator
-fracreghet(y,X,type="GMMx")
+# Exogeneity (assuming var.endog is exogenous for comparison), GMMx estimator
+fracreghet(y = y_endog, x = X, type = "GMMx", link = "logit")
 #> 
-#> *** Fractional logit regression model ***
-#> *** Estimator: GMMx
-#> 
-#>           Estimate Std. Error t value Pr(>|t|)    
-#> INTERCEPT 0.383211   0.071031   5.395    0.000 ***
-#> X1        0.915521   0.077771  11.772    0.000 ***
-#> X2        1.080971   0.061189  17.666    0.000 ***
-#> 
-#> Note: robust standard errors
-#> 
-#> Number of observations: 250 
-#> 
+#> -------------------------------------------------------------------------------- 
+#>                        Fractional logit regression model 
+#> -------------------------------------------------------------------------------- 
+#> Estimator:                                                                  GMMx 
+#> Number of observations:                                                     1000 
+#> Standard errors:                                                          robust 
+#> Convergence:                                                          Successful 
+#> -------------------------------------------------------------------------------- 
+#>                                 Final estimates 
+#> -------------------------------------------------------------------------------- 
+#>           Estimate Std. Error z value Pr(>|z|)    
+#> Constant  0.091323   0.015355   5.947 2.73e-09 ***
+#> x1        0.460767   0.015385  29.950  < 2e-16 ***
+#> var.endog 1.807916   0.009021 200.418  < 2e-16 ***
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> -------------------------------------------------------------------------------- 
+#>                          Run Date: 2026-07-05 03:17:43 
+#> -------------------------------------------------------------------------------- 
 #> 
 
-#Endogeneity, GMMz estimator
-fracreghet(y,X,Z,type="GMMz")
+# Endogeneity, GMMz estimator (does not require reduced form for endog)
+fracreghet(y = y_endog, x = X, z = Z, type = "GMMz", link = "logit")
 #> 
-#> *** Fractional logit regression model ***
-#> *** Estimator: GMMz
+#> -------------------------------------------------------------------------------- 
+#>                        Fractional logit regression model 
+#> -------------------------------------------------------------------------------- 
+#> Estimator:                                                                  GMMz 
+#> Number of observations:                                                     1000 
+#> Standard errors:                                                          robust 
+#> Convergence:                                                          Successful 
+#> -------------------------------------------------------------------------------- 
+#>                                 Final estimates 
+#> -------------------------------------------------------------------------------- 
+#>           Estimate Std. Error z value Pr(>|z|)    
+#> Constant   0.15277    0.02018   7.569 3.75e-14 ***
+#> x1         0.47947    0.02051  23.377  < 2e-16 ***
+#> var.endog  1.61252    0.01445 111.618  < 2e-16 ***
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> -------------------------------------------------------------------------------- 
+#>                          Run Date: 2026-07-05 03:17:44 
+#> -------------------------------------------------------------------------------- 
 #> 
-#>           Estimate Std. Error t value Pr(>|t|)    
-#> INTERCEPT 0.384353   0.092977   4.134    0.000 ***
-#> X1        1.002693   0.423179   2.369    0.018 ** 
-#> X2        1.006577   0.499748   2.014    0.044 ** 
-#> 
-#> Note: robust standard errors
-#> 
-#> Number of observations: 250 
-#> 
-#> J test of overidentifying moment conditions: 0.1297948 (p-value: 0.7186449 )
 
-#Endogeneity, GMMxv estimator
-fracreghet(y,X,Z,X[,1],type="GMMxv")
+# Endogeneity, GMMxv estimator (assumes linear reduced form for var.endog)
+fracreghet(y = y_endog, x = X, z = Z, var.endog = var.endog, type = "GMMxv", link = "logit")
+#> Warning: NaNs produced
 #> 
-#> *** Fractional logit regression model ***
-#> *** Estimator: GMMxv
+#> -------------------------------------------------------------------------------- 
+#>                        Fractional logit regression model 
+#> -------------------------------------------------------------------------------- 
+#> Estimator:                                                                 GMMxv 
+#> Number of observations:                                                     1000 
+#> Standard errors:                                                          robust 
+#> Convergence:                                                          Successful 
+#> -------------------------------------------------------------------------------- 
+#>                                 Final estimates 
+#> -------------------------------------------------------------------------------- 
+#>           Estimate Std. Error z value Pr(>|z|)    
+#> Constant  -0.01262    0.01859  -0.679    0.497    
+#> x1         0.48705    0.01884  25.853   <2e-16 ***
+#> var.endog  1.59737    0.01339 119.332   <2e-16 ***
+#> vhat       0.60263    0.01339  45.020   <2e-16 ***
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> 
-#>            Estimate Std. Error t value Pr(>|t|)    
-#> INTERCEPT  0.361853   0.110813   3.265    0.001 ***
-#> X1         1.133831   0.848603   1.336    0.182    
-#> X2         1.083086   0.060107  18.019    0.000 ***
-#> vhat      -0.221761   0.852539  -0.260    0.795    
+#>                                  Reduced form: 
+#> -------------------------------------------------------------------------------- 
+#>             Estimate Std. Error z value Pr(>|z|)    
+#> Z_INTERCEPT -0.02093    0.03082  -0.679    0.497    
+#> Z_x1        -0.02149    0.03132  -0.686    0.493    
+#> Z_z1         1.32751    0.02949  45.020   <2e-16 ***
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> -------------------------------------------------------------------------------- 
+#>                          Run Date: 2026-07-05 03:17:44 
+#> -------------------------------------------------------------------------------- 
 #> 
-#> Reduced form:
-#>              Estimate Std. Error t value Pr(>|t|)    
-#> Z_INTERCEPT  0.093652   0.058979   1.588    0.112    
-#> Z_Z1        -0.007289   0.053477  -0.136    0.892    
-#> Z_Z2         0.072459   0.051399   1.410    0.159    
-#> Z_Z3        -0.042023   0.066847  -0.629    0.530    
+
+# Endogeneity, QMLxv control function approach
+fracreghet(y = y_endog, x = X, z = Z, var.endog = var.endog, type = "QMLxv", link = "logit")
 #> 
-#> Note: robust standard errors
+#> -------------------------------------------------------------------------------- 
+#>                        Fractional logit regression model 
+#> -------------------------------------------------------------------------------- 
+#> Estimator:                                                                 QMLxv 
+#> Number of observations:                                                     1000 
+#> Standard errors:                                                          robust 
+#> Convergence:                                                          Successful 
+#> -------------------------------------------------------------------------------- 
+#>                                 Final estimates 
+#> -------------------------------------------------------------------------------- 
+#>           Estimate Std. Error z value Pr(>|z|)    
+#> Constant  -0.01262    0.01859  -0.679    0.497    
+#> x1         0.48705    0.01884  25.853   <2e-16 ***
+#> var.endog  1.59737    0.01339 119.332   <2e-16 ***
+#> vhat       0.60263    0.01339  45.020   <2e-16 ***
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> 
-#> Number of observations: 250 
-#> 
+#>                                  Reduced form: 
+#> -------------------------------------------------------------------------------- 
+#>             Estimate Std. Error z value Pr(>|z|)    
+#> Z_INTERCEPT -0.02093    0.03082  -0.679    0.497    
+#> Z_x1        -0.02149    0.03132  -0.686    0.493    
+#> Z_z1         1.32751    0.02949  45.020   <2e-16 ***
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> -------------------------------------------------------------------------------- 
+#>                          Run Date: 2026-07-05 03:17:44 
+#> -------------------------------------------------------------------------------- 
 #> 
 ```

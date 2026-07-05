@@ -125,32 +125,40 @@ res <- fracreghet(y,X,type="GMMx",table=FALSE)
 fracreghet.pe(res,which.x="X1")
 #> 
 #> 
-#> *** Average partial effects (conditional only on observables, based on the smearing estimator)
-#> 
-#> Fractional logit regression model
-#> Estimator: GMMx
-#> 
-#> 
-#>    Estimate Std. Error t value Pr(>|t|)    
-#> X1   0.1579     0.0109  14.514    0.000 ***
-#> 
+#> -------------------------------------------------------------------------------- 
+#> Average partial effects (conditional only on observables, based on the smearing estimator) 
+#> -------------------------------------------------------------------------------- 
+#>                        Fractional logit regression model 
+#>                                 Estimator: GMMx 
+#> -------------------------------------------------------------------------------- 
+#>    Estimate Std. Error z value Pr(>|z|)    
+#> X1  0.16698    0.00957   17.45   <2e-16 ***
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> -------------------------------------------------------------------------------- 
+#>                          Run Date: 2026-07-05 03:17:44 
+#> -------------------------------------------------------------------------------- 
 
 #Naive estimator of conditional partial effects for all covariates,
 #which are evaluated at X1=1 and X2=-1
 fracreghet.pe(res,smearing=FALSE,APE=FALSE,CPE=TRUE,at=c(1,-1))
 #> 
 #> 
-#> *** Conditional partial effects (conditional on both observables and unobservables, with error term = 0)
+#> -------------------------------------------------------------------------------- 
+#> Conditional partial effects (conditional on both observables and unobservables, with error term = 0) 
+#> -------------------------------------------------------------------------------- 
+#>                        Fractional logit regression model 
+#>                                 Estimator: GMMx 
+#> -------------------------------------------------------------------------------- 
+#>    Estimate Std. Error z value Pr(>|z|)    
+#> X1  0.22878    0.01322   17.31   <2e-16 ***
+#> X2  0.20655    0.01447   14.28   <2e-16 ***
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> -------------------------------------------------------------------------------- 
+#>                          Run Date: 2026-07-05 03:17:44 
+#> -------------------------------------------------------------------------------- 
 #> 
-#> Fractional logit regression model
-#> Estimator: GMMx
-#> 
-#> 
-#>    Estimate Std. Error t value Pr(>|t|)    
-#> X1   0.2407     0.0170  14.164    0.000 ***
-#> X2   0.2687     0.0145  18.571    0.000 ***
-#> 
-#> ------------------
 #> Note: covariates evaluated at the following values:
 #> 
 #> X1 X2 

@@ -204,92 +204,155 @@ heterogeneity.
 ## Examples
 
 ``` r
-id <- rep(1:50,each=5)
-time <- rep(1:5,50)
-NT <- 250
+set.seed(123)
+# Simulating Panel Data
+N <- 100
+T_periods <- 5
+id <- rep(1:N, each = T_periods)
+time <- rep(1:T_periods, times = N)
+x_panel <- rnorm(N * T_periods)
 
-XBu <- rnorm(NT)
-y <- exp(XBu)/(1+exp(XBu))
+# Unobserved individual effect (CRE)
+c_i <- rep(rnorm(N), each = T_periods) 
+y_panel <- exp(x_panel + c_i) / (1 + exp(x_panel + c_i))
 
-X <- cbind(rnorm(NT),rnorm(NT))
-dimnames(X)[[2]] <- c("X1","X2")
+X <- cbind(x_panel = x_panel)
 
-Z <- cbind(rnorm(NT),rnorm(NT),rnorm(NT))
-dimnames(Z)[[2]] <- c("Z1","Z2","Z3")
+# Endogenous variable and instrument simulation
+z_panel <- rnorm(N * T_periods)
+u_panel <- 0.5 * z_panel + rnorm(N * T_periods)
+var_endog <- 0.8 * z_panel + u_panel
+y_endog <- exp(x_panel + 1.2 * var_endog + c_i + u_panel) / 
+             (1 + exp(x_panel + 1.2 * var_endog + c_i + u_panel))
+
+X_endog <- cbind(x_panel = x_panel, var_endog = var_endog)
+Z_inst <- cbind(x_panel = x_panel, z_panel = z_panel)
+
+# Estimate a Correlated Random Effects (CRE) Model
+fracregpd(id=id, time=time, y=y_panel, x=X, type="QMLcre", link="probit")
+#> 
+#> -------------------------------------------------------------------------------- 
+#>                        Fractional probit regression model 
+#> -------------------------------------------------------------------------------- 
+#> Estimator:                                                                QMLcre 
+#> Exogeneity:                                                                 TRUE 
+#> Use first lag of instruments:                                              FALSE 
+#> Standard errors:                                                         cluster 
+#> -------------------------------------------------------------------------------- 
+#> Initial observations:                                                        500 
+#> Estimation observations:                                                     500 
+#> Initial cross-sectional units:                                               100 
+#> Estimation cross-sectional units:                                            100 
+#> Initial periods per unit (avg):                                                5 
+#> Estimation periods per unit (avg):                                             5 
+#> Convergence:                                                          Successful 
+#> -------------------------------------------------------------------------------- 
+#>                                 Final estimates 
+#> -------------------------------------------------------------------------------- 
+#>                Estimate Std. Error z value Pr(>|z|)    
+#> x_panel         0.52902    0.01143  46.300   <2e-16 ***
+#> INTERCEPT_mean -0.01246    0.04901  -0.254    0.799    
+#> x_panel_mean   -0.17409    0.13491  -1.290    0.197    
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> -------------------------------------------------------------------------------- 
+#>                          Run Date: 2026-07-05 03:17:47 
+#> -------------------------------------------------------------------------------- 
+#> 
 
 # Exogeneity, no lags, no time dummies, clustered standard errors, GMMbgw estimator
-fracregpd(id,time,y,X,type="GMMbgw")
+fracregpd(id=id, time=time, y=y_panel, x=X, type="GMMbgw")
 #> 
-#> *** Fractional logit regression model ***
-#> *** Estimator: GMMbgw
-#> *** Exogeneity: TRUE
-#> *** Use first lag of instruments: FALSE
-#> 
-#>     Estimate Std. Error t value Pr(>|t|)    
-#> X1 -0.033483   0.077734  -0.431    0.667    
-#> X2 -0.201427   0.072537  -2.777    0.005 ***
-#> 
-#> Note: cluster standard errors
-#> 
-#> Number of observations (initial): 250 
-#> Number of observations (for estimation): 250 
-#> Number of cross-sectional units (initial): 50 
-#> Number of cross-sectional units (for estimation): 50 
-#> Average number of time periods per cross-sectional unit (initial): 5 
-#> Average number of time periods per cross-sectional unit (for estimation): 5 
-#> 
+#> -------------------------------------------------------------------------------- 
+#>                        Fractional logit regression model 
+#> -------------------------------------------------------------------------------- 
+#> Estimator:                                                                GMMbgw 
+#> Exogeneity:                                                                 TRUE 
+#> Use first lag of instruments:                                              FALSE 
+#> Standard errors:                                                         cluster 
+#> -------------------------------------------------------------------------------- 
+#> Initial observations:                                                        500 
+#> Estimation observations:                                                     500 
+#> Initial cross-sectional units:                                               100 
+#> Estimation cross-sectional units:                                            100 
+#> Initial periods per unit (avg):                                                5 
+#> Estimation periods per unit (avg):                                             5 
+#> Convergence:                                                          Successful 
+#> -------------------------------------------------------------------------------- 
+#>                                 Final estimates 
+#> -------------------------------------------------------------------------------- 
+#>          Estimate Std. Error   z value Pr(>|z|)    
+#> x_panel 1.000e+00  1.431e-16 6.986e+15   <2e-16 ***
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> -------------------------------------------------------------------------------- 
+#>                          Run Date: 2026-07-05 03:17:49 
+#> -------------------------------------------------------------------------------- 
 #> 
 
 # Lagged covariates and instruments, robust standard errors, GMMww estimator
-fracregpd(id,time,y,X,lags=TRUE,type="GMMww",var.type="robust")
+fracregpd(id=id, time=time, y=y_panel, x=X, lags=TRUE, type="GMMww", var.type="robust")
 #> 
-#> *** Fractional logit regression model ***
-#> *** Estimator: GMMww
-#> *** Exogeneity: TRUE
-#> *** Use first lag of instruments: TRUE
-#> 
-#>     Estimate Std. Error t value Pr(>|t|)    
-#> X1 -0.125826   0.088486  -1.422    0.155    
-#> X2 -0.202961   0.071003  -2.858    0.004 ***
-#> 
-#> Note: robust standard errors
-#> 
-#> Number of observations (initial): 250 
-#> Number of observations (for estimation): 200 
-#> Number of cross-sectional units (initial): 50 
-#> Number of cross-sectional units (for estimation): 50 
-#> Average number of time periods per cross-sectional unit (initial): 5 
-#> Average number of time periods per cross-sectional unit (for estimation): 4 
-#> 
+#> -------------------------------------------------------------------------------- 
+#>                        Fractional logit regression model 
+#> -------------------------------------------------------------------------------- 
+#> Estimator:                                                                 GMMww 
+#> Exogeneity:                                                                 TRUE 
+#> Use first lag of instruments:                                               TRUE 
+#> Standard errors:                                                          robust 
+#> -------------------------------------------------------------------------------- 
+#> Initial observations:                                                        500 
+#> Estimation observations:                                                     400 
+#> Initial cross-sectional units:                                               100 
+#> Estimation cross-sectional units:                                            100 
+#> Initial periods per unit (avg):                                                5 
+#> Estimation periods per unit (avg):                                             4 
+#> Convergence:                                                          Successful 
+#> -------------------------------------------------------------------------------- 
+#>                                 Final estimates 
+#> -------------------------------------------------------------------------------- 
+#>          Estimate Std. Error   z value Pr(>|z|)    
+#> x_panel 1.000e+00  8.835e-17 1.132e+16   <2e-16 ***
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> -------------------------------------------------------------------------------- 
+#>                          Run Date: 2026-07-05 03:17:49 
+#> -------------------------------------------------------------------------------- 
 #> 
 
 # Endogeneity, time dummies, GMMpfe estimator
-fracregpd(id,time,y,X,Z,x.exogenous=FALSE,type="GMMpfe",tdummies=TRUE)
+fracregpd(id=id, time=time, y=y_endog, x=X_endog, z=Z_inst, 
+          x.exogenous=FALSE, type="GMMpfe", tdummies=TRUE)
 #> 
-#> *** Fractional logit regression model ***
-#> *** Estimator: GMMpfe
-#> *** Exogeneity: FALSE
-#> *** Use first lag of instruments: FALSE
+#> -------------------------------------------------------------------------------- 
+#>                        Fractional logit regression model 
+#> -------------------------------------------------------------------------------- 
+#> Estimator:                                                                GMMpfe 
+#> Exogeneity:                                                                FALSE 
+#> Use first lag of instruments:                                              FALSE 
+#> Standard errors:                                                         cluster 
+#> -------------------------------------------------------------------------------- 
+#> Initial observations:                                                        500 
+#> Estimation observations:                                                     500 
+#> Initial cross-sectional units:                                               100 
+#> Estimation cross-sectional units:                                            100 
+#> Initial periods per unit (avg):                                                5 
+#> Estimation periods per unit (avg):                                             5 
+#> Convergence:                                                          Successful 
+#> -------------------------------------------------------------------------------- 
+#>                                 Final estimates 
+#> -------------------------------------------------------------------------------- 
+#>           Estimate Std. Error z value Pr(>|z|)    
+#> x_panel    0.99602    0.03117  31.957   <2e-16 ***
+#> var_endog  1.57689    0.02524  62.474   <2e-16 ***
+#> time.2    -0.15363    0.09752  -1.575   0.1152    
+#> time.3    -0.04402    0.09147  -0.481   0.6303    
+#> time.4    -0.10609    0.09379  -1.131   0.2580    
+#> time.5    -0.19163    0.08917  -2.149   0.0316 *  
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> -------------------------------------------------------------------------------- 
+#>                          Run Date: 2026-07-05 03:17:50 
+#> -------------------------------------------------------------------------------- 
 #> 
-#>         Estimate Std. Error t value Pr(>|t|) 
-#> X1     -0.124274   0.435104  -0.286    0.775 
-#> X2     -0.563168   0.744593  -0.756    0.449 
-#> time.2  0.254132   0.401075   0.634    0.526 
-#> time.3 -0.093777   0.299719  -0.313    0.754 
-#> time.4 -0.266803   0.304761  -0.875    0.381 
-#> time.5 -0.294691   0.329488  -0.894    0.371 
-#> 
-#> Note: cluster standard errors
-#> 
-#> Number of observations (initial): 250 
-#> Number of observations (for estimation): 250 
-#> Number of cross-sectional units (initial): 50 
-#> Number of cross-sectional units (for estimation): 50 
-#> Average number of time periods per cross-sectional unit (initial): 5 
-#> Average number of time periods per cross-sectional unit (for estimation): 5 
-#> 
-#> J test of overidentifying moment conditions: 0.3391103 (p-value: 0.5603432 )
-
-# Standard errors based on 100 bootstrap samples, QMLcre estimator (not run)
-#fracregpd(id,time,y,X,Z,X[,1],x.exogenous=FALSE,type="QMLcre",link="probit",bootstrap=TRUE,B=100)
 ```

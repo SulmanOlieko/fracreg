@@ -119,20 +119,27 @@ estimating and testing empirical strategies for fractional regression models",
 <span class="r-in"><span><span class="va">res2</span> <span class="op">&lt;-</span> <span class="fu"><a href="fracreg.html">fracreg</a></span><span class="op">(</span><span class="va">y</span>,<span class="va">X</span>,linkfrac<span class="op">=</span><span class="st">"loglog"</span>,table<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">fracreg.ptest</span><span class="op">(</span><span class="va">res1</span>,<span class="va">res2</span>,<span class="st">"LM"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> *** P test ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> H0:  Fractional logit model</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> H1:  Fractional loglog model</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Version Statistic p-value  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       LM     0.930   0.335  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> H0:  Fractional loglog model</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> H1:  Fractional logit model</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Version Statistic p-value  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       LM     3.582   0.058 *</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                      P test </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> H0: Fractional logit model </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> H1: Fractional loglog model </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Statistic p-value  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> LM     4.157  0.0415 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> H0: Fractional loglog model </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> H1: Fractional logit model </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Statistic p-value   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> LM     9.806 0.00174 **</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-05 03:17:40 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#Testing a logit one-part fractional regression model versus a binary logit +</span></span></span>
 <span class="r-in"><span><span class="co">#fractional probit two-part model using a Wald version of the P test</span></span></span>
@@ -140,20 +147,27 @@ estimating and testing empirical strategies for fractional regression models",
 <span class="r-in"><span><span class="va">res2</span> <span class="op">&lt;-</span> <span class="fu"><a href="fracreg.html">fracreg</a></span><span class="op">(</span><span class="va">y</span>,<span class="va">X</span>,linkbin<span class="op">=</span><span class="st">"logit"</span>,linkfrac<span class="op">=</span><span class="st">"probit"</span>,type<span class="op">=</span><span class="st">"2P"</span>,inf<span class="op">=</span><span class="fl">1</span>,table<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">fracreg.ptest</span><span class="op">(</span><span class="va">res1</span>,<span class="va">res2</span>,<span class="st">"Wald"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> *** P test ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> H0:  Fractional logit model</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> H1:  Binary logit + Fractional probit two-part model</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Version Statistic p-value    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     Wald     2.194   0.029 ** </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> H0:  Binary logit + Fractional probit two-part model</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> H1:  Fractional logit model</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Version Statistic p-value    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     Wald    12.341   0.000 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                      P test </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> H0: Fractional logit model </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> H1: Binary logit + Fractional probit two-part model </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      Statistic p-value   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Wald    -2.715 0.00711 **</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> H0: Binary logit + Fractional probit two-part model </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> H1: Fractional logit model </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      Statistic p-value    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Wald     12.78  &lt;2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-05 03:17:41 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

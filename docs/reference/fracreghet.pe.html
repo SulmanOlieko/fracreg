@@ -133,32 +133,40 @@ Ramalho and Ramalho (2017) for details on the computation of partial effects for
 <span class="r-in"><span><span class="fu">fracreghet.pe</span><span class="op">(</span><span class="va">res</span>,which.x<span class="op">=</span><span class="st">"X1"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> *** Average partial effects (conditional only on observables, based on the smearing estimator)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Fractional logit regression model</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Estimator: GMMx</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Estimate Std. Error t value Pr(&gt;|t|)    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X1   0.1579     0.0109  14.514    0.000 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Average partial effects (conditional only on observables, based on the smearing estimator) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                        Fractional logit regression model </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                 Estimator: GMMx </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Estimate Std. Error z value Pr(&gt;|z|)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X1  0.16698    0.00957   17.45   &lt;2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-05 03:17:44 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#Naive estimator of conditional partial effects for all covariates,</span></span></span>
 <span class="r-in"><span><span class="co">#which are evaluated at X1=1 and X2=-1</span></span></span>
 <span class="r-in"><span><span class="fu">fracreghet.pe</span><span class="op">(</span><span class="va">res</span>,smearing<span class="op">=</span><span class="cn">FALSE</span>,APE<span class="op">=</span><span class="cn">FALSE</span>,CPE<span class="op">=</span><span class="cn">TRUE</span>,at<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> *** Conditional partial effects (conditional on both observables and unobservables, with error term = 0)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Conditional partial effects (conditional on both observables and unobservables, with error term = 0) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                        Fractional logit regression model </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                 Estimator: GMMx </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Estimate Std. Error z value Pr(&gt;|z|)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X1  0.22878    0.01322   17.31   &lt;2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X2  0.20655    0.01447   14.28   &lt;2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-05 03:17:44 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Fractional logit regression model</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Estimator: GMMx</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Estimate Std. Error t value Pr(&gt;|t|)    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X1   0.2407     0.0170  14.164    0.000 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X2   0.2687     0.0145  18.571    0.000 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Note: covariates evaluated at the following values:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> X1 X2 </span>

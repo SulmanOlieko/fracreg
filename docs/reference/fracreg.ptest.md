@@ -95,20 +95,27 @@ res1 <- fracreg(y,X,linkfrac="logit",table=FALSE)
 res2 <- fracreg(y,X,linkfrac="loglog",table=FALSE)
 fracreg.ptest(res1,res2,"LM")
 #> 
-#> *** P test ***
-#> 
-#> H0:  Fractional logit model
-#> H1:  Fractional loglog model
-#> 
-#>  Version Statistic p-value  
-#>       LM     0.930   0.335  
-#> 
-#> H0:  Fractional loglog model
-#> H1:  Fractional logit model
-#> 
-#>  Version Statistic p-value  
-#>       LM     3.582   0.058 *
-#> 
+#> -------------------------------------------------------------------------------- 
+#>                                      P test 
+#> -------------------------------------------------------------------------------- 
+#> H0: Fractional logit model 
+#> H1: Fractional loglog model 
+#> -------------------------------------------------------------------------------- 
+#>    Statistic p-value  
+#> LM     4.157  0.0415 *
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> -------------------------------------------------------------------------------- 
+#> H0: Fractional loglog model 
+#> H1: Fractional logit model 
+#> -------------------------------------------------------------------------------- 
+#>    Statistic p-value   
+#> LM     9.806 0.00174 **
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> -------------------------------------------------------------------------------- 
+#>                          Run Date: 2026-07-05 03:17:40 
+#> -------------------------------------------------------------------------------- 
 
 #Testing a logit one-part fractional regression model versus a binary logit +
 #fractional probit two-part model using a Wald version of the P test
@@ -116,18 +123,25 @@ res1 <- fracreg(y,X,linkfrac="logit",table=FALSE)
 res2 <- fracreg(y,X,linkbin="logit",linkfrac="probit",type="2P",inf=1,table=FALSE)
 fracreg.ptest(res1,res2,"Wald")
 #> 
-#> *** P test ***
-#> 
-#> H0:  Fractional logit model
-#> H1:  Binary logit + Fractional probit two-part model
-#> 
-#>  Version Statistic p-value    
-#>     Wald     2.194   0.029 ** 
-#> 
-#> H0:  Binary logit + Fractional probit two-part model
-#> H1:  Fractional logit model
-#> 
-#>  Version Statistic p-value    
-#>     Wald    12.341   0.000 ***
-#> 
+#> -------------------------------------------------------------------------------- 
+#>                                      P test 
+#> -------------------------------------------------------------------------------- 
+#> H0: Fractional logit model 
+#> H1: Binary logit + Fractional probit two-part model 
+#> -------------------------------------------------------------------------------- 
+#>      Statistic p-value   
+#> Wald    -2.715 0.00711 **
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> -------------------------------------------------------------------------------- 
+#> H0: Binary logit + Fractional probit two-part model 
+#> H1: Fractional logit model 
+#> -------------------------------------------------------------------------------- 
+#>      Statistic p-value    
+#> Wald     12.78  <2e-16 ***
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> -------------------------------------------------------------------------------- 
+#>                          Run Date: 2026-07-05 03:17:41 
+#> -------------------------------------------------------------------------------- 
 ```

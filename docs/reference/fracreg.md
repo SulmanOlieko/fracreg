@@ -308,152 +308,229 @@ with unobserved heterogeneity.
 ## Examples
 
 ``` r
-N <- 250
-u <- rnorm(N)
+set.seed(123)
+N <- 1000
+x1 <- rnorm(N)
+x2 <- runif(N)
 
-X <- cbind(rnorm(N),rnorm(N))
-dimnames(X)[[2]] <- c("X1","X2")
+# Generating a fractional dependent variable with inflation at 0 and 1
+XB <- -0.5 + 0.8 * x1 + 1.2 * x2 + rnorm(N)
+y_latent <- exp(XB) / (1 + exp(XB))
 
-ym <- exp(X[,1]+X[,2]+u)/(1+exp(X[,1]+X[,2]+u))
-y <- rbeta(N,ym*20,20*(1-ym))
-y[y > 0.9] <- 1
+y <- y_latent
+# Inflate at boundaries
+y[y_latent < 0.2] <- 0
+y[y_latent > 0.8] <- 1
 
-#fracreg estimation of a logit fractional regression model
-fracreg(y,X,linkfrac="logit")
-#> 
-#> *** Fractional logit regression model ***
-#> 
-#>           Estimate Std. Error t value Pr(>|t|)    
-#> INTERCEPT 0.086260   0.065448   1.318    0.188    
-#> X1        0.836328   0.073667  11.353    0.000 ***
-#> X2        0.862703   0.075733  11.391    0.000 ***
-#> 
-#> Note: robust standard errors
-#> 
-#> Number of observations: 250 
-#> R-squared: 0.551 
-#> 
-#> 
+X <- cbind(x1 = x1, x2 = x2)
 
-#fracreg estimation of the binary logit component of the two-part fractional
-#regression model with y=1 as the relevant boundary value
-fracreg(y,X,linkbin="logit",type="2Pbin",inf=1)
+# fracreg estimation of a logit fractional regression model
+fracreg(y, X, type="1P", linkfrac="logit")
 #> 
-#> *** Binary component of a two-part model - logit specification ***
-#> 
-#>            Estimate Std. Error t value Pr(>|t|)    
-#> INTERCEPT -3.191181   0.400029  -7.977    0.000 ***
-#> X1         1.551070   0.293556   5.284    0.000 ***
-#> X2         1.748795   0.331834   5.270    0.000 ***
-#> 
-#> Number of observations: 250 
-#> R-squared: 0.389 
-#> 
-#> 
-
-#fracreg estimation of the fractional component of the two-part fractional
-#regression model with y=1 as the relevant boundary value and using a
-#probit link function
-fracreg(y,X,linkfrac="probit",type="2Pfrac",inf=1)
-#> 
-#> *** Fractional component of a two-part model - probit specification ***
-#> 
-#>            Estimate Std. Error t value Pr(>|t|)    
-#> INTERCEPT -0.056614   0.037488  -1.510    0.131    
-#> X1         0.403554   0.040399   9.989    0.000 ***
-#> X2         0.416087   0.044353   9.381    0.000 ***
-#> 
-#> Note: robust standard errors
-#> 
-#> Number of observations: 220 
-#> R-squared: 0.434 
-#> 
+#> -------------------------------------------------------------------------------- 
+#>                Fractional regression model - logit specification 
+#> -------------------------------------------------------------------------------- 
+#> Estimator:                                                                   QML 
+#> Number of observations:                                                     1000 
+#> Pseudo R-squared:                                                         0.3903 
+#> Standard errors:                                                          robust 
+#> Small sample correction:                                                   FALSE 
+#> Convergence:                                                          Successful 
+#> -------------------------------------------------------------------------------- 
+#>                                 Final estimates 
+#> -------------------------------------------------------------------------------- 
+#>          Estimate Std. Error z value Pr(>|z|)    
+#> Constant -0.56969    0.06750   -8.44   <2e-16 ***
+#> x1        0.78822    0.04015   19.63   <2e-16 ***
+#> x2        1.35611    0.11899   11.40   <2e-16 ***
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> -------------------------------------------------------------------------------- 
+#>                          Run Date: 2026-07-05 03:17:37 
+#> -------------------------------------------------------------------------------- 
 #> 
 
-#fracreg estimation of both components of a two-part fractional regression model
-#with y=1 as the relevant boundary value and using a cloglog binary link
-#function and a logit fractional link function
-fracreg(y,X,linkbin="cloglog",linkfrac="logit",type="2P",inf=1)
+# fracreg estimation of the binary logit component of the two-part fractional
+# regression model with y=0 as the relevant boundary value
+fracreg(y, X, type="2Pbin", inflation=0, linkbin="logit")
 #> 
-#> *** Binary component of a two-part model - cloglog specification ***
-#> 
-#>            Estimate Std. Error t value Pr(>|t|)    
-#> INTERCEPT -3.095296   0.349232  -8.863    0.000 ***
-#> X1         1.247048   0.223632   5.576    0.000 ***
-#> X2         1.447821   0.245933   5.887    0.000 ***
-#> 
-#> Number of observations: 250 
-#> R-squared: 0.391 
-#> 
-#> 
-#> 
-#> *** Fractional component of a two-part model - logit specification ***
-#> 
-#>            Estimate Std. Error t value Pr(>|t|)    
-#> INTERCEPT -0.089035   0.061037  -1.459    0.145    
-#> X1         0.662234   0.068483   9.670    0.000 ***
-#> X2         0.681284   0.074740   9.115    0.000 ***
-#> 
-#> Note: robust standard errors
-#> 
-#> Number of observations: 220 
-#> R-squared: 0.434 
-#> 
-#> 
-#> 
-#> *** Two-part model - binary cloglog + fractional logit  ***
-#> 
-#> R-squared: 0.293 
-#> 
+#> -------------------------------------------------------------------------------- 
+#>            Binary component of a two-part model - logit specification 
+#> -------------------------------------------------------------------------------- 
+#> Estimator:                                                                    ML 
+#> Number of observations:                                                     1000 
+#> Pseudo R-squared:                                                        0.14527 
+#> Log-Likelihood:                                                        -295.2068 
+#> Small sample correction:                                                   FALSE 
+#> Convergence:                                                          Successful 
+#> -------------------------------------------------------------------------------- 
+#>                                 Final estimates 
+#> -------------------------------------------------------------------------------- 
+#>          Estimate Std. Error z value Pr(>|z|)    
+#> Constant   1.4638     0.1933   7.573 3.64e-14 ***
+#> x1         1.1857     0.1287   9.213  < 2e-16 ***
+#> x2         2.2279     0.3932   5.666 1.46e-08 ***
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> -------------------------------------------------------------------------------- 
 #> 
 
-#Three-part model (y has both 0s and 1s)
-y3p <- y
-y3p[1:20] <- 0
-y3p[21:40] <- 1
-fracreg(y3p,X,linkbin=c("logit","probit"),linkfrac="logit",type="3P")
+# fracreg estimation of the fractional component of the two-part fractional
+# regression model with y=0 as the relevant boundary value and using a
+# probit link function
+fracreg(y, X, type="2Pfrac", inflation=0, linkfrac="probit")
 #> 
-#> *** First binary component of a three-part model - logit specification ***
+#> -------------------------------------------------------------------------------- 
+#>         Fractional component of a two-part model - probit specification 
+#> -------------------------------------------------------------------------------- 
+#> Estimator:                                                                   QML 
+#> Number of observations:                                                      881 
+#> Pseudo R-squared:                                                        0.32474 
+#> Standard errors:                                                          robust 
+#> Small sample correction:                                                   FALSE 
+#> Convergence:                                                          Successful 
+#> -------------------------------------------------------------------------------- 
+#>                                 Final estimates 
+#> -------------------------------------------------------------------------------- 
+#>          Estimate Std. Error z value Pr(>|z|)    
+#> Constant -0.10334    0.03566  -2.898  0.00376 ** 
+#> x1        0.37512    0.02129  17.623  < 2e-16 ***
+#> x2        0.61326    0.06529   9.392  < 2e-16 ***
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> -------------------------------------------------------------------------------- 
 #> 
-#>            Estimate Std. Error t value Pr(>|t|)    
-#> INTERCEPT  2.469764   0.240642  10.263    0.000 ***
-#> X1         0.218908   0.229740   0.953    0.341    
-#> X2        -0.271501   0.245830  -1.104    0.269    
+
+# fracreg estimation of both components of a two-part fractional regression model
+# with y=0 as the relevant boundary value and using a cloglog binary link
+# function and a logit fractional link function
+fracreg(y, X, type="2P", inflation=0, linkbin="cloglog", linkfrac="logit")
 #> 
-#> Number of observations: 250 
-#> R-squared: 0.009 
-#> 
-#> 
-#> 
-#> *** Second binary component of a three-part model - probit specification ***
-#> 
-#>            Estimate Std. Error t value Pr(>|t|)    
-#> INTERCEPT -0.997159   0.115979  -8.598    0.000 ***
-#> X1         0.601432   0.113444   5.302    0.000 ***
-#> X2         0.646366   0.126233   5.120    0.000 ***
-#> 
-#> Number of observations: 230 
-#> R-squared: 0.305 
-#> 
-#> 
-#> 
-#> *** Fractional component of a three-part model - logit specification ***
-#> 
-#>            Estimate Std. Error t value Pr(>|t|)    
-#> INTERCEPT -0.087891   0.070593  -1.245    0.213    
-#> X1         0.638664   0.078939   8.091    0.000 ***
-#> X2         0.651209   0.088764   7.336    0.000 ***
-#> 
-#> Note: robust standard errors
-#> 
-#> Number of observations: 183 
-#> R-squared: 0.389 
+#> -------------------------------------------------------------------------------- 
+#>           Binary component of a two-part model - cloglog specification 
+#> -------------------------------------------------------------------------------- 
+#> Estimator:                                                                    ML 
+#> Number of observations:                                                     1000 
+#> Pseudo R-squared:                                                        0.14837 
+#> Log-Likelihood:                                                        -291.7986 
+#> Small sample correction:                                                   FALSE 
+#> Convergence:                                                          Successful 
+#> -------------------------------------------------------------------------------- 
+#>                                 Final estimates 
+#> -------------------------------------------------------------------------------- 
+#>          Estimate Std. Error z value Pr(>|z|)    
+#> Constant  0.43428    0.08825   4.921 8.60e-07 ***
+#> x1        0.55192    0.06009   9.184  < 2e-16 ***
+#> x2        1.05359    0.17403   6.054 1.41e-09 ***
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> -------------------------------------------------------------------------------- 
 #> 
 #> 
+#> -------------------------------------------------------------------------------- 
+#>          Fractional component of a two-part model - logit specification 
+#> -------------------------------------------------------------------------------- 
+#> Estimator:                                                                   QML 
+#> Number of observations:                                                      881 
+#> Pseudo R-squared:                                                        0.32412 
+#> Standard errors:                                                          robust 
+#> Small sample correction:                                                   FALSE 
+#> Convergence:                                                          Successful 
+#> -------------------------------------------------------------------------------- 
+#>                                 Final estimates 
+#> -------------------------------------------------------------------------------- 
+#>          Estimate Std. Error z value Pr(>|z|)    
+#> Constant -0.17323    0.05786  -2.994  0.00275 ** 
+#> x1        0.61205    0.03554  17.221  < 2e-16 ***
+#> x2        1.00509    0.10703   9.391  < 2e-16 ***
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> -------------------------------------------------------------------------------- 
 #> 
-#> *** Three-part model - binary logit , binary probit + fractional logit  ***
 #> 
-#> R-squared: 0.353 
+#> -------------------------------------------------------------------------------- 
+#>                Two-part model - binary cloglog + fractional logit 
+#> -------------------------------------------------------------------------------- 
+#> Pseudo R-squared:                                                        0.38829 
+#> Convergence:                                                          Successful 
+#> -------------------------------------------------------------------------------- 
+#>                          Run Date: 2026-07-05 03:17:37 
+#> -------------------------------------------------------------------------------- 
 #> 
+
+# Three-part double-inflated model (y has both 0s and 1s)
+fracreg(y, X, type="3P", linkbin=c("logit","probit"), linkfrac="logit")
+#> 
+#> -------------------------------------------------------------------------------- 
+#>        First binary component of a three-part model - logit specification 
+#> -------------------------------------------------------------------------------- 
+#> Estimator:                                                                    ML 
+#> Number of observations:                                                     1000 
+#> Pseudo R-squared:                                                        0.14527 
+#> Log-Likelihood:                                                        -295.2068 
+#> Small sample correction:                                                   FALSE 
+#> Convergence:                                                          Successful 
+#> -------------------------------------------------------------------------------- 
+#>                                 Final estimates 
+#> -------------------------------------------------------------------------------- 
+#>          Estimate Std. Error z value Pr(>|z|)    
+#> Constant   1.4638     0.1933   7.573 3.64e-14 ***
+#> x1         1.1857     0.1287   9.213  < 2e-16 ***
+#> x2         2.2279     0.3932   5.666 1.46e-08 ***
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> -------------------------------------------------------------------------------- 
+#> 
+#> 
+#> -------------------------------------------------------------------------------- 
+#>       Second binary component of a three-part model - probit specification 
+#> -------------------------------------------------------------------------------- 
+#> Estimator:                                                                    ML 
+#> Number of observations:                                                      881 
+#> Pseudo R-squared:                                                        0.18634 
+#> Log-Likelihood:                                                        -348.8644 
+#> Small sample correction:                                                   FALSE 
+#> Convergence:                                                          Successful 
+#> -------------------------------------------------------------------------------- 
+#>                                 Final estimates 
+#> -------------------------------------------------------------------------------- 
+#>          Estimate Std. Error z value Pr(>|z|)    
+#> Constant -1.71537    0.12933  -13.26  < 2e-16 ***
+#> x1        0.64810    0.06323   10.25  < 2e-16 ***
+#> x2        1.07752    0.19174    5.62 1.91e-08 ***
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> -------------------------------------------------------------------------------- 
+#> 
+#> 
+#> -------------------------------------------------------------------------------- 
+#>         Fractional component of a three-part model - logit specification 
+#> -------------------------------------------------------------------------------- 
+#> Estimator:                                                                   QML 
+#> Number of observations:                                                      715 
+#> Pseudo R-squared:                                                        0.24292 
+#> Standard errors:                                                          robust 
+#> Small sample correction:                                                   FALSE 
+#> Convergence:                                                          Successful 
+#> -------------------------------------------------------------------------------- 
+#>                                 Final estimates 
+#> -------------------------------------------------------------------------------- 
+#>          Estimate Std. Error z value Pr(>|z|)    
+#> Constant -0.26763    0.04539  -5.896 3.73e-09 ***
+#> x1        0.36198    0.02454  14.751  < 2e-16 ***
+#> x2        0.58505    0.07969   7.342 2.11e-13 ***
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> -------------------------------------------------------------------------------- 
+#> 
+#> 
+#> -------------------------------------------------------------------------------- 
+#>        Three-part model - binary logit , binary probit + fractional logit 
+#> -------------------------------------------------------------------------------- 
+#> Pseudo R-squared:                                                        0.38917 
+#> Convergence:                                                          Successful 
+#> -------------------------------------------------------------------------------- 
+#>                          Run Date: 2026-07-05 03:17:37 
+#> -------------------------------------------------------------------------------- 
 #> 
 ```

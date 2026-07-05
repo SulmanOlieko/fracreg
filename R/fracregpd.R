@@ -301,74 +301,74 @@ fracregpd.table <- function(p,p.var,x.names,x.exogenous,lags,type,link,converged
 {
 	if(converged==T)
 	{
-		stars <- rep("",length(p))
-
 		if(!is.character(p.var))
 		{
 			p.sd <- diag(p.var)^0.5
 			z.ratio <- p/p.sd
 			p.value <- 2*(1-pnorm(abs(z.ratio)))
-
-			stars[p.value<=0.01] <- "***"
-			stars[p.value>0.01 & p.value<=0.05] <- "**"
-			stars[p.value>0.05 & p.value<=0.1] <- "*"
-
-			p.sd <- formatC(p.sd,digits=6,format="f")
-			z.ratio <- formatC(z.ratio,digits=3,format="f")
-			p.value <- formatC(p.value,digits=3,format="f")
-			stars <- format(stars,justify="left")
+			res_table <- cbind(Estimate = p, `Std. Error` = p.sd, `z value` = z.ratio, `Pr(>|z|)` = p.value)
 		}
 		else
 		{
-			p.sd <- rep(".",length(p))
-			z.ratio <- rep(".",length(p))
-			p.value <- rep(".",length(p))
+			res_table <- cbind(Estimate = p, `Std. Error` = NA, `z value` = NA, `Pr(>|z|)` = NA)
 		}
-
-		p <- formatC(p,digits=6,format="f")
-		results <- data.frame(cbind(p,p.sd,z.ratio,p.value,stars),row.names=NULL)
-
-		namcol <- c("Estimate","Std. Error","t value","Pr(>|t|)","")
-		dimnames(results) <- list(x.names,namcol)
+		rownames(res_table) <- x.names
+		rownames(res_table)[rownames(res_table) == "INTERCEPT"] <- "Constant"
 
 		cat("\n")
-		cat("*** Fractional",link,"regression model ***")
-		cat("\n")
-		cat("*** Estimator:",type)
-		cat("\n")
-		cat("*** Exogeneity:",x.exogenous)
-		cat("\n")
-		cat("*** Use first lag of instruments:",lags)
-		cat("\n\n")
+		cat(.fracreg.sep(), "\n")
+		cat(.fracreg.center(paste("Fractional", link, "regression model")), "\n")
+		cat(.fracreg.sep(), "\n")
+		.fracreg.cat.right("Estimator:", type)
+		.fracreg.cat.right("Exogeneity:", x.exogenous)
+		.fracreg.cat.right("Use first lag of instruments:", lags)
+		if(bootstrap==F) .fracreg.cat.right("Standard errors:", var.type)
+		if(bootstrap==T) .fracreg.cat.right("Standard errors:", "bootstrap")
+		cat(.fracreg.sep(), "\n")
 
-		if(type!="QMLcre" | x.exogenous==T) print(results)
-		else
-		{
- 			print(results[1:k,])
-			cat("\n")
-			cat("Reduced form:")
-			cat("\n") 
-			print(results[-(1:k),])
-		}
+		.fracreg.cat.right("Initial observations:", NT.ini)
+		.fracreg.cat.right("Estimation observations:", NT)
+		.fracreg.cat.right("Initial cross-sectional units:", N.ini)
+		.fracreg.cat.right("Estimation cross-sectional units:", N)
+		.fracreg.cat.right("Initial periods per unit (avg):", round(NT.ini/N.ini, 1))
+		.fracreg.cat.right("Estimation periods per unit (avg):", round(NT/N, 1))
 
-		cat("\n")
-		if(bootstrap==F) cat("Note:",var.type,"standard errors")
-		if(bootstrap==T) cat("Note: bootstrap standard errors")
-		cat("\n\n")
-		cat("Number of observations (initial):",NT.ini,"\n")
-		cat("Number of observations (for estimation):",NT,"\n")
-		cat("Number of cross-sectional units (initial):",N.ini,"\n")
-		cat("Number of cross-sectional units (for estimation):",N,"\n")
-		cat("Average number of time periods per cross-sectional unit (initial):",NT.ini/N.ini,"\n")
-		cat("Average number of time periods per cross-sectional unit (for estimation):",NT/N,"\n")
-		cat("\n")
 		if(type!="QMLcre" & dfJ>0)
 		{
-			p.value <- 1-pchisq(J,dfJ)
-			cat("J test of overidentifying moment conditions:",J,"(p-value:",p.value,")")
+			p.value.J <- 1-pchisq(J,dfJ)
+			.fracreg.cat.right("J test (p-value):", paste0(round(J,4), " (", round(p.value.J,4), ")"))
 		}
+		.fracreg.cat.right("Convergence:", "Successful")
+		cat(.fracreg.sep(), "\n")
+
+		cat(.fracreg.center("Final estimates"), "\n")
+		cat(.fracreg.sep(), "\n")
+
+		if(type!="QMLcre" | x.exogenous==T) {
+			printCoefmat(res_table, P.values = TRUE, has.Pvalue = TRUE, digits = 4, signif.legend = TRUE)
+		}
+		else
+		{
+			printCoefmat(res_table[1:k, , drop=FALSE], P.values = TRUE, has.Pvalue = TRUE, digits = 4, signif.legend = TRUE)
+			cat("\n")
+			cat(.fracreg.center("Reduced form:"), "\n")
+			cat(.fracreg.sep(), "\n")
+			printCoefmat(res_table[-(1:k), , drop=FALSE], P.values = TRUE, has.Pvalue = TRUE, digits = 4, signif.legend = TRUE)
+		}
+
+		cat(.fracreg.sep(), "\n")
+		cat(.fracreg.center(paste("Run Date:", format(Sys.time(), "%Y-%m-%d %H:%M:%S"))), "\n")
+		cat(.fracreg.sep(), "\n")
 	}
-	else cat("ALGORITHM DID NOT CONVERGE")
+	else
+	{
+		cat("\n")
+		cat(.fracreg.sep(), "\n")
+		.fracreg.cat.right("Convergence:", "FAILED OR STOPPED AT BOUNDARY")
+		cat(.fracreg.sep(), "\n")
+		cat(.fracreg.center(paste("Run Date:", format(Sys.time(), "%Y-%m-%d %H:%M:%S"))), "\n")
+		cat(.fracreg.sep(), "\n")
+	}
 	cat("\n")
 }
 
@@ -873,6 +873,7 @@ fracregpd <- function(id,time,y,x,z,var.endog,x.exogenous=T,lags,start,type,GMMw
 
 	### 5. Return results
 
+	class(res) <- "fracregpd"
 	return(invisible(res))
 }
 

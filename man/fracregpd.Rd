@@ -106,28 +106,40 @@ Sulman Olieko Owili <oliekosulman@gmail.com>
 }
 
 \examples{
-id <- rep(1:50,each=5)
-time <- rep(1:5,50)
-NT <- 250
+set.seed(123)
+# Simulating Panel Data
+N <- 100
+T_periods <- 5
+id <- rep(1:N, each = T_periods)
+time <- rep(1:T_periods, times = N)
+x_panel <- rnorm(N * T_periods)
 
-XBu <- rnorm(NT)
-y <- exp(XBu)/(1+exp(XBu))
+# Unobserved individual effect (CRE)
+c_i <- rep(rnorm(N), each = T_periods) 
+y_panel <- exp(x_panel + c_i) / (1 + exp(x_panel + c_i))
 
-X <- cbind(rnorm(NT),rnorm(NT))
-dimnames(X)[[2]] <- c("X1","X2")
+X <- cbind(x_panel = x_panel)
 
-Z <- cbind(rnorm(NT),rnorm(NT),rnorm(NT))
-dimnames(Z)[[2]] <- c("Z1","Z2","Z3")
+# Endogenous variable and instrument simulation
+z_panel <- rnorm(N * T_periods)
+u_panel <- 0.5 * z_panel + rnorm(N * T_periods)
+var_endog <- 0.8 * z_panel + u_panel
+y_endog <- exp(x_panel + 1.2 * var_endog + c_i + u_panel) / 
+             (1 + exp(x_panel + 1.2 * var_endog + c_i + u_panel))
+
+X_endog <- cbind(x_panel = x_panel, var_endog = var_endog)
+Z_inst <- cbind(x_panel = x_panel, z_panel = z_panel)
+
+# Estimate a Correlated Random Effects (CRE) Model
+fracregpd(id=id, time=time, y=y_panel, x=X, type="QMLcre", link="probit")
 
 # Exogeneity, no lags, no time dummies, clustered standard errors, GMMbgw estimator
-fracregpd(id,time,y,X,type="GMMbgw")
+fracregpd(id=id, time=time, y=y_panel, x=X, type="GMMbgw")
 
 # Lagged covariates and instruments, robust standard errors, GMMww estimator
-fracregpd(id,time,y,X,lags=TRUE,type="GMMww",var.type="robust")
+fracregpd(id=id, time=time, y=y_panel, x=X, lags=TRUE, type="GMMww", var.type="robust")
 
 # Endogeneity, time dummies, GMMpfe estimator
-fracregpd(id,time,y,X,Z,x.exogenous=FALSE,type="GMMpfe",tdummies=TRUE)
-
-# Standard errors based on 100 bootstrap samples, QMLcre estimator (not run)
-#fracregpd(id,time,y,X,Z,X[,1],x.exogenous=FALSE,type="QMLcre",link="probit",bootstrap=TRUE,B=100)
+fracregpd(id=id, time=time, y=y_endog, x=X_endog, z=Z_inst, 
+          x.exogenous=FALSE, type="GMMpfe", tdummies=TRUE)
 }

@@ -92,18 +92,23 @@ y[y > 0.9] <- 1
 res <- fracreg(y,X,linkfrac="logit",table=FALSE)
 fracreg.ggoff(res,c("Wald","LM"))
 #> 
-#> *** GGOFF test ***
-#> 
-#> H0:  Fractional logit model
-#> 
-#>   Test Version Statistic p-value  
-#>  GOFF1      LM     0.043   0.835  
-#>  GOFF1    Wald     0.043   0.836  
-#>  GOFF2      LM     0.100   0.751  
-#>  GOFF2    Wald     0.101   0.751  
-#>  GGOFF      LM     5.524   0.063 *
-#>  GGOFF    Wald     4.973   0.083 *
-#> 
+#> -------------------------------------------------------------------------------- 
+#>                                    GGOFF test 
+#> -------------------------------------------------------------------------------- 
+#> H0: Fractional logit model 
+#> -------------------------------------------------------------------------------- 
+#>              Statistic p-value  
+#> GOFF1 - LM       0.060  0.8062  
+#> GOFF1 - Wald     0.060  0.8064  
+#> GOFF2 - LM       0.173  0.6777  
+#> GOFF2 - Wald     0.171  0.6791  
+#> GGOFF - LM       6.895  0.0318 *
+#> GGOFF - Wald     5.989  0.0501 .
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> -------------------------------------------------------------------------------- 
+#>                          Run Date: 2026-07-05 03:17:38 
+#> -------------------------------------------------------------------------------- 
 
 #Testing the probit specification of the binary component of a two-part fractional
 #regression model using a LR-based GGOFF test
@@ -111,13 +116,16 @@ res <- fracreg(y,X,linkbin="probit",type="2Pbin",inf=1,table=FALSE)
 fracreg.ggoff(res,"LR")
 #> Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred
 #> 
-#> *** GGOFF test ***
-#> 
-#> H0:  Binary probit component of a two-part model
-#> 
-#>   Test Version Statistic p-value 
-#>  GOFF1      LR     0.163   0.686 
-#>  GOFF2      LR     0.034   0.853 
-#>  GGOFF      LR     4.009   0.135 
-#> 
+#> -------------------------------------------------------------------------------- 
+#>                                    GGOFF test 
+#> -------------------------------------------------------------------------------- 
+#> H0: Binary probit component of a two-part model 
+#> -------------------------------------------------------------------------------- 
+#>            Statistic p-value
+#> GOFF1 - LR     0.002   0.964
+#> GOFF2 - LR     0.039   0.844
+#> GGOFF - LR     0.717   0.699
+#> -------------------------------------------------------------------------------- 
+#>                          Run Date: 2026-07-05 03:17:38 
+#> -------------------------------------------------------------------------------- 
 ```

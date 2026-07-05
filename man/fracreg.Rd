@@ -145,37 +145,40 @@ Sulman Olieko Owili <oliekosulman@gmail.com>
 }
 
 \examples{
-N <- 250
-u <- rnorm(N)
+set.seed(123)
+N <- 1000
+x1 <- rnorm(N)
+x2 <- runif(N)
 
-X <- cbind(rnorm(N),rnorm(N))
-dimnames(X)[[2]] <- c("X1","X2")
+# Generating a fractional dependent variable with inflation at 0 and 1
+XB <- -0.5 + 0.8 * x1 + 1.2 * x2 + rnorm(N)
+y_latent <- exp(XB) / (1 + exp(XB))
 
-ym <- exp(X[,1]+X[,2]+u)/(1+exp(X[,1]+X[,2]+u))
-y <- rbeta(N,ym*20,20*(1-ym))
-y[y > 0.9] <- 1
+y <- y_latent
+# Inflate at boundaries
+y[y_latent < 0.2] <- 0
+y[y_latent > 0.8] <- 1
 
-#fracreg estimation of a logit fractional regression model
-fracreg(y,X,linkfrac="logit")
+X <- cbind(x1 = x1, x2 = x2)
 
-#fracreg estimation of the binary logit component of the two-part fractional
-#regression model with y=1 as the relevant boundary value
-fracreg(y,X,linkbin="logit",type="2Pbin",inf=1)
+# fracreg estimation of a logit fractional regression model
+fracreg(y, X, type="1P", linkfrac="logit")
 
-#fracreg estimation of the fractional component of the two-part fractional
-#regression model with y=1 as the relevant boundary value and using a
-#probit link function
-fracreg(y,X,linkfrac="probit",type="2Pfrac",inf=1)
+# fracreg estimation of the binary logit component of the two-part fractional
+# regression model with y=0 as the relevant boundary value
+fracreg(y, X, type="2Pbin", inflation=0, linkbin="logit")
 
-#fracreg estimation of both components of a two-part fractional regression model
-#with y=1 as the relevant boundary value and using a cloglog binary link
-#function and a logit fractional link function
-fracreg(y,X,linkbin="cloglog",linkfrac="logit",type="2P",inf=1)
+# fracreg estimation of the fractional component of the two-part fractional
+# regression model with y=0 as the relevant boundary value and using a
+# probit link function
+fracreg(y, X, type="2Pfrac", inflation=0, linkfrac="probit")
 
-#Three-part model (y has both 0s and 1s)
-y3p <- y
-y3p[1:20] <- 0
-y3p[21:40] <- 1
-fracreg(y3p,X,linkbin=c("logit","probit"),linkfrac="logit",type="3P")
+# fracreg estimation of both components of a two-part fractional regression model
+# with y=0 as the relevant boundary value and using a cloglog binary link
+# function and a logit fractional link function
+fracreg(y, X, type="2P", inflation=0, linkbin="cloglog", linkfrac="logit")
+
+# Three-part double-inflated model (y has both 0s and 1s)
+fracreg(y, X, type="3P", linkbin=c("logit","probit"), linkfrac="logit")
 }
 

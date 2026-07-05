@@ -105,23 +105,32 @@ Sulman Olieko Owili <oliekosulman@gmail.com>
 }
 
 \examples{
-N <- 250
-u <- rnorm(N)
+set.seed(123)
+N <- 1000
+x1 <- rnorm(N)
 
-X <- cbind(rnorm(N),rnorm(N))
-dimnames(X)[[2]] <- c("X1","X2")
+# Simulating an endogenous variable (var.endog) and an instrument (z1)
+z1 <- rnorm(N)
+u <- 0.5 * z1 + rnorm(N)
+var.endog <- 0.8 * z1 + u
+y_endog <- exp(0.5 * x1 + 1.2 * var.endog + u) / (1 + exp(0.5 * x1 + 1.2 * var.endog + u))
 
-Z <- cbind(rnorm(N),rnorm(N),rnorm(N))
-dimnames(Z)[[2]] <- c("Z1","Z2","Z3")
+# Avoid exact 0 or 1 boundaries for some estimators
+y_endog[y_endog <= 0] <- 0.01
+y_endog[y_endog >= 1] <- 0.99
 
-y <- exp(X[,1]+X[,2]+u)/(1+exp(X[,1]+X[,2]+u))
+X <- cbind(x1 = x1, var.endog = var.endog)
+Z <- cbind(x1 = x1, z1 = z1)
 
-#Exogeneity, GMMx estimator
-fracreghet(y,X,type="GMMx")
+# Exogeneity (assuming var.endog is exogenous for comparison), GMMx estimator
+fracreghet(y = y_endog, x = X, type = "GMMx", link = "logit")
 
-#Endogeneity, GMMz estimator
-fracreghet(y,X,Z,type="GMMz")
+# Endogeneity, GMMz estimator (does not require reduced form for endog)
+fracreghet(y = y_endog, x = X, z = Z, type = "GMMz", link = "logit")
 
-#Endogeneity, GMMxv estimator
-fracreghet(y,X,Z,X[,1],type="GMMxv")
+# Endogeneity, GMMxv estimator (assumes linear reduced form for var.endog)
+fracreghet(y = y_endog, x = X, z = Z, var.endog = var.endog, type = "GMMxv", link = "logit")
+
+# Endogeneity, QMLxv control function approach
+fracreghet(y = y_endog, x = X, z = Z, var.endog = var.endog, type = "QMLxv", link = "logit")
 }

@@ -24,6 +24,8 @@ local({
            "\n</details>\n")
   })
 })
+
+library(fracreg)
 ```
 
 ## Introduction
@@ -80,7 +82,6 @@ model_1p <- fracreg(
   type = "1P", 
   linkfrac = "logit"
 )
-summary(model_1p)
 ```
 
 ### 1.3 Partial Effects (1P)
@@ -89,7 +90,6 @@ Raw coefficients from fractional models are not directly interpretable as margin
 
 ```{r pe-1p}
 pe_1p <- fracreg.pe(model_1p)
-summary(pe_1p)
 ```
 
 ### 1.4 The Two-Part Hurdle Model (2P)
@@ -111,7 +111,6 @@ model_2p <- fracreg(
   linkbin = "logit", 
   linkfrac = "logit"
 )
-summary(model_2p)
 ```
 
 #### Partial Effects for the Two-Part Model
@@ -120,7 +119,6 @@ The `fracreg.pe()` command natively accounts for the product rule when computing
 
 ```{r pe-2p}
 pe_2p <- fracreg.pe(model_2p)
-summary(pe_2p)
 ```
 
 ### 1.5 The Three-Part Double-Inflated Model (3P)
@@ -140,7 +138,6 @@ model_3p <- fracreg(
   linkbin = c("logit", "logit"), 
   linkfrac = "logit"
 )
-summary(model_3p)
 ```
 
 #### Partial Effects for the Three-Part Model
@@ -149,7 +146,6 @@ The analytical delta method is natively supported for the 3P model, correctly ac
 
 ```{r pe-3p}
 pe_3p <- fracreg.pe(model_3p)
-summary(pe_3p)
 ```
 
 ---
@@ -188,7 +184,6 @@ model_1p_clog <- fracreg(
   type = "1P", 
   linkfrac = "cloglog"
 )
-summary(model_1p_clog)
 
 # fracreg.ptest(model_1p, model_1p_clog) # Uncomment to run non-nested test
 ```
@@ -219,7 +214,6 @@ model_het <- fracreghet(
   type = "QMLxv", 
   link = "logit"
 )
-summary(model_het)
 ```
 
 ---
@@ -248,7 +242,6 @@ model_pd <- fracregpd(
   type = "QMLcre", 
   link = "probit"
 )
-summary(model_pd)
 ```
 
 ---

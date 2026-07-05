@@ -58,6 +58,19 @@ fracreg.links <- function(link)
 	structure(list(linkfun=linkfun,linkinv=linkinv,mu.eta=mu.eta,gd=gd,valideta=valideta,name=link),class="link-glm")
 }
 
+.fracreg.sep <- function(width = 80) paste0(rep("-", width), collapse = "")
+
+.fracreg.center <- function(text, width = 80) {
+    spaces <- max(0, floor((width - nchar(text)) / 2))
+    paste0(paste0(rep(" ", spaces), collapse = ""), text)
+}
+
+.fracreg.cat.right <- function(label, value, width = 80) {
+    val_str <- as.character(value)
+    spaces <- max(1, width - nchar(label) - nchar(val_str) - 2)
+    cat(label, paste0(rep(" ", spaces), collapse=""), val_str, "\n")
+}
+
 fracreg.est <- function(y,x,link,method,variance,var.type,var.eim,var.cluster,dfc,...)
 {
 	if(method=="ML") results <- glm(y ~ x-1,family=binomial(link=fracreg.links(link)),...)
@@ -140,7 +153,7 @@ fracreg.var <- function(y,x,yhat,xbhat,link,var.type,var.eim,var.cluster,dfc)
 	return(list(var=var))
 }
 
-fracreg.table <- function(y,yhat,p,p.var,x.names,type,link,converged,var.type)
+fracreg.table <- function(y,yhat,p,p.var,x.names,type,link,converged,var.type,R2=NA,LL=NULL,method=NULL,var.cluster=NULL,dfc=NULL)
 {
 	if(converged==TRUE)
 	{
@@ -154,53 +167,64 @@ fracreg.table <- function(y,yhat,p,p.var,x.names,type,link,converged,var.type)
 			z.ratio <- p/p.sd
 			p.value <- 2*(1-pnorm(abs(z.ratio)))
 
-			stars <- rep("",length(p))
-			stars[p.value<=0.01] <- "***"
-			stars[p.value>0.01 & p.value<=0.05] <- "**"
-			stars[p.value>0.05 & p.value<=0.1] <- "*"
-
-			p <- formatC(p,digits=6,format="f")
-			p.sd <- formatC(p.sd,digits=6,format="f")
-			z.ratio <- formatC(z.ratio,digits=3,format="f")
-			p.value <- formatC(p.value,digits=3,format="f")
-			stars <- format(stars,justify="left")
-
-			results <- data.frame(cbind(p,p.sd,z.ratio,p.value,stars),row.names=NULL)
-
-			namcol <- c("Estimate","Std. Error","t value","Pr(>|t|)","")
-			dimnames(results) <- list(x.names,namcol)
+			res <- cbind(Estimate = p, `Std. Error` = p.sd, `z value` = z.ratio, `Pr(>|z|)` = p.value)
+			rownames(res) <- x.names
+			rownames(res)[rownames(res) == "INTERCEPT"] <- "Constant"
 
 			cat("\n")
-			if(type=="2Pbin") cat("*** Binary component of a two-part model -",link,"specification ***")
-			if(type=="1P") cat("*** Fractional",link,"regression model ***")
-			if(type=="2Pfrac") cat("*** Fractional component of a two-part model -",link,"specification ***")
-			if(type=="3Pbin0") cat("*** First binary component of a three-part model -",link,"specification ***")
-			if(type=="3Pbin1") cat("*** Second binary component of a three-part model -",link,"specification ***")
-			if(type=="3Pfrac") cat("*** Fractional component of a three-part model -",link,"specification ***")
-			cat("\n\n")
+			cat(.fracreg.sep(), "\n")
+			if(type=="2Pbin") cat(.fracreg.center(paste("Binary component of a two-part model -", link, "specification")), "\n")
+			if(type=="1P") cat(.fracreg.center(paste("Fractional regression model -", link, "specification")), "\n")
+			if(type=="2Pfrac") cat(.fracreg.center(paste("Fractional component of a two-part model -", link, "specification")), "\n")
+			if(type=="3Pbin0") cat(.fracreg.center(paste("First binary component of a three-part model -", link, "specification")), "\n")
+			if(type=="3Pbin1") cat(.fracreg.center(paste("Second binary component of a three-part model -", link, "specification")), "\n")
+			if(type=="3Pfrac") cat(.fracreg.center(paste("Fractional component of a three-part model -", link, "specification")), "\n")
+			cat(.fracreg.sep(), "\n")
 
-			print(results)
-			cat("\n")
-			if(var.type!="standard")
-			{
-				cat("Note:",var.type,"standard errors")
-				cat("\n\n")
+			if(!is.null(method)) .fracreg.cat.right("Estimator:", method)
+			.fracreg.cat.right("Number of observations:", n)
+			if(!is.null(var.cluster) && var.type=="cluster") .fracreg.cat.right("Number of clusters:", length(unique(var.cluster)))
+			.fracreg.cat.right("Pseudo R-squared:", round(R2, 5))
+			if(!is.null(LL)) .fracreg.cat.right("Log-Likelihood:", round(LL, 4))
+			if(var.type!="standard") .fracreg.cat.right("Standard errors:", var.type)
+			if(is.null(dfc) || !dfc) {
+				.fracreg.cat.right("Small sample correction:", "FALSE")
+			} else {
+				.fracreg.cat.right("Small sample correction:", "TRUE")
 			}
-			cat("Number of observations:",n,"\n")
-			cat("R-squared:",round(R2,3),"\n")
-			cat("\n")
+			.fracreg.cat.right("Convergence:", "Successful")
+			
+			cat(.fracreg.sep(), "\n")
+			cat(.fracreg.center("Final estimates"), "\n")
+			cat(.fracreg.sep(), "\n")
+
+			stats::printCoefmat(res, P.values = TRUE, has.Pvalue = TRUE, digits = 4, signif.legend = TRUE)
+			
+			cat(.fracreg.sep(), "\n")
+			if(type == "1P") cat(.fracreg.center(paste("Run Date:", format(Sys.time(), "%Y-%m-%d %H:%M:%S"))), "\n")
+			if(type == "1P") cat(.fracreg.sep(), "\n")
 		}
 		else
 		{
 			cat("\n")
-		if(type=="2P") cat("*** Two-part model - binary",link[1],"+ fractional",link[2]," ***")
-			if(type=="3P") cat("*** Three-part model - binary",link[1],", binary",link[2],"+ fractional",link[3]," ***")
-			cat("\n\n")
-			cat("R-squared:",round(R2,3),"\n")
-			cat("\n")
+			cat(.fracreg.sep(), "\n")
+			if(type=="2P") cat(.fracreg.center(paste("Two-part model - binary", link[1], "+ fractional", link[2])) , "\n")
+			if(type=="3P") cat(.fracreg.center(paste("Three-part model - binary", link[1], ", binary", link[2], "+ fractional", link[3])) , "\n")
+			cat(.fracreg.sep(), "\n")
+			.fracreg.cat.right("Pseudo R-squared:", round(R2, 5))
+			.fracreg.cat.right("Convergence:", "Successful")
+			cat(.fracreg.sep(), "\n")
+			cat(.fracreg.center(paste("Run Date:", format(Sys.time(), "%Y-%m-%d %H:%M:%S"))), "\n")
+			cat(.fracreg.sep(), "\n")
 		}
 	}
-	else cat("ALGORITHM DID NOT CONVERGE OR STOPPED AT A BOUNDARY VALUE")
+	else {
+		cat(.fracreg.sep(), "\n")
+		.fracreg.cat.right("Convergence:", "FAILED OR STOPPED AT BOUNDARY")
+		cat(.fracreg.sep(), "\n")
+		if(type %in% c("1P", "2P", "3P")) cat(.fracreg.center(paste("Run Date:", format(Sys.time(), "%Y-%m-%d %H:%M:%S"))), "\n")
+		if(type %in% c("1P", "2P", "3P")) cat(.fracreg.sep(), "\n")
+	}
 	cat("\n")
 }
 
@@ -251,46 +275,40 @@ fracreg.tests.table <- function(test.which,S,Sp,ver,title1,title2=NA,n.ver=NA,te
 
 	if(all(is.na(S))) stop("NO WALD/LR TEST HAS ACHIEVED CONVERGENCE. USE OTHER TEST VERSIONS INSTEAD")
 
-	S <- formatC(S,digits=3,format="f")
-	Sp <- formatC(Sp,digits=3,format="f")
-	stars <- format(stars,justify="left")
-
-	if(test.which!="GGOFF")
-	{
-		results <- data.frame(cbind(ver,S,Sp,stars))
-		namcol <- c("Version","Statistic","p-value","")	}
-	else
-	{
-		results <- data.frame(cbind(test.ggoff,ver,S,Sp,stars))
-		namcol <- c("Test","Version","Statistic","p-value","")
+	res <- cbind(`Statistic` = S[-1], `p-value` = Sp[-1])
+	if(test.which != "GGOFF") {
+		rownames(res) <- ver[-1]
+	} else {
+		rownames(res) <- paste(test.ggoff[-1], ver[-1], sep=" - ")
 	}
 
-	results <- results[-1,]
-	dimnames(results) <- list(seq_len(nrow(results)),namcol)
-
 	cat("\n")
-	cat("***",test.which,"test ***")
-	cat("\n\n")
-	cat("H0: ",title1)
-	cat("\n")
-	if(test.which!="P")
+	cat(.fracreg.sep(), "\n")
+	cat(.fracreg.center(paste(test.which, "test")), "\n")
+	cat(.fracreg.sep(), "\n")
+	
+	if(test.which != "P")
 	{
-		cat("\n")
-		print(results,row.names=FALSE)
+		cat("H0:", title1, "\n")
+		cat(.fracreg.sep(), "\n")
+		printCoefmat(res, P.values = TRUE, has.Pvalue = TRUE, digits = 4, signif.legend = TRUE)
 	}
 	else
 	{
-		cat("H1: ",title2)
-		cat("\n\n")
-		print(results[1:n.ver,],row.names=FALSE)
-		cat("\n")
-		cat("H0: ",title2)
-		cat("\n")
-		cat("H1: ",title1)
-		cat("\n\n")
-		print(results[(n.ver+1):(2*n.ver),],row.names=FALSE)
+		cat("H0:", title1, "\n")
+		cat("H1:", title2, "\n")
+		cat(.fracreg.sep(), "\n")
+		stats::printCoefmat(res[1:n.ver, , drop = FALSE], P.values = TRUE, has.Pvalue = TRUE, digits = 4, signif.legend = TRUE)
+		
+		cat(.fracreg.sep(), "\n")
+		cat("H0:", title2, "\n")
+		cat("H1:", title1, "\n")
+		cat(.fracreg.sep(), "\n")
+		stats::printCoefmat(res[(n.ver+1):(2*n.ver), , drop = FALSE], P.values = TRUE, has.Pvalue = TRUE, digits = 4, signif.legend = TRUE)
 	}
-	cat("\n")
+	cat(.fracreg.sep(), "\n")
+	cat(.fracreg.center(paste("Run Date:", format(Sys.time(), "%Y-%m-%d %H:%M:%S"))), "\n")
+	cat(.fracreg.sep(), "\n")
 }
 
 fracreg.pe.var <- function(x,npar,which.x,x.names,xvar.names,type,pa,xbhata,ga,linka,pa.var,pb=NA,xbhatb=NA,gb=NA,linkb=NA,pb.var=NA,yhata=NA,yhatb=NA,pc=NA,xbhatc=NA,gc=NA,linkc=NA,pc.var=NA,yhatc=NA)
@@ -358,34 +376,27 @@ fracreg.pe.table <- function(PE.p,PE.sd,PE.type,which.x,xvar.names,title,at)
 	z.ratio <- PE.p/PE.sd
 	p.value <- 2*(1-pnorm(abs(z.ratio)))
 
-	stars <- rep("",length(PE.p))
-	stars[p.value<=0.01] <- "***"
-	stars[p.value>0.01 & p.value<=0.05] <- "**"
-	stars[p.value>0.05 & p.value<=0.1] <- "*"
-
-	PE.p <- formatC(PE.p,digits=4,format="f")
-	PE.sd <- formatC(PE.sd,digits=4,format="f")
-	z.ratio <- formatC(z.ratio,digits=3,format="f")
-	p.value <- formatC(p.value,digits=3,format="f")
-	stars <- format(stars,justify="left")
-
-	results <- data.frame(cbind(PE.p,PE.sd,z.ratio,p.value,stars),row.names=NULL)
-
-	namcol <- c("Estimate","Std. Error","t value","Pr(>|t|)","")
-	dimnames(results) <- list(which.x,namcol)
+	res <- cbind(Estimate = PE.p, `Std. Error` = PE.sd, `z value` = z.ratio, `Pr(>|z|)` = p.value)
+	rownames(res) <- which.x
+	rownames(res)[rownames(res) == "INTERCEPT"] <- "Constant"
 
 	cat("\n\n")
-	if(PE.type=="APE") cat("*** Average partial effects ***")
-	if(PE.type=="CPE") cat("*** Conditional partial effects ***")
-	cat("\n\n")
-	cat(title)
-	cat("\n\n")
-	print(results)
-	cat("\n")
+	cat(.fracreg.sep(), "\n")
+	if(PE.type=="APE") cat(.fracreg.center("Average partial effects"), "\n")
+	if(PE.type=="CPE") cat(.fracreg.center("Conditional partial effects"), "\n")
+	cat(.fracreg.sep(), "\n")
+	
+	cat(.fracreg.center(title), "\n")
+	cat(.fracreg.sep(), "\n")
+	
+	stats::printCoefmat(res, P.values = TRUE, has.Pvalue = TRUE, digits = 4, signif.legend = TRUE)
+	
+	cat(.fracreg.sep(), "\n")
+	cat(.fracreg.center(paste("Run Date:", format(Sys.time(), "%Y-%m-%d %H:%M:%S"))), "\n")
+	cat(.fracreg.sep(), "\n")
+	
 	if(PE.type=="CPE")
 	{
-		cat("------------------")
-
 		if(length(at)==1)
 		{
 			if(any(at==c("mean","median"))) cat("\nNote: covariates evaluated at",at,"(or mode, for dummies) values\n")
@@ -403,4 +414,34 @@ fracreg.pe.table <- function(PE.p,PE.sd,PE.type,which.x,xvar.names,title,at)
 			print(at)
 		}
 	}
+}
+
+#' @export
+print.fracreg <- function(x, ...) {
+    invisible(x)
+}
+
+#' @export
+summary.fracreg <- function(object, ...) {
+    invisible(object)
+}
+
+#' @export
+print.fracregpd <- function(x, ...) {
+    invisible(x)
+}
+
+#' @export
+summary.fracregpd <- function(object, ...) {
+    invisible(object)
+}
+
+#' @export
+print.fracreghet <- function(x, ...) {
+    invisible(x)
+}
+
+#' @export
+summary.fracreghet <- function(object, ...) {
+    invisible(object)
 }

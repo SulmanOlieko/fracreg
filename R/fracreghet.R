@@ -295,61 +295,62 @@ fracreghet.table <- function(p,p.var,x.names,type,link,converged,N,var.type,adju
 			p.sd <- diag(p.var)^0.5
 			z.ratio <- p/p.sd
 			p.value <- 2*(1-pnorm(abs(z.ratio)))
-
-			stars[p.value<=0.01] <- "***"
-			stars[p.value>0.01 & p.value<=0.05] <- "**"
-			stars[p.value>0.05 & p.value<=0.1] <- "*"
-
-			p.sd <- formatC(p.sd,digits=6,format="f")
-			z.ratio <- formatC(z.ratio,digits=3,format="f")
-			p.value <- formatC(p.value,digits=3,format="f")
-			stars <- format(stars,justify="left")
+			res <- cbind(Estimate = p, `Std. Error` = p.sd, `z value` = z.ratio, `Pr(>|z|)` = p.value)
 		}
 		else
 		{
-			p.sd <- rep(".",length(p))
-			z.ratio <- rep(".",length(p))
-			p.value <- rep(".",length(p))
+			res <- cbind(Estimate = p, `Std. Error` = rep(NA,length(p)), `z value` = rep(NA,length(p)), `Pr(>|z|)` = rep(NA,length(p)))
 		}
-
-		p <- formatC(p,digits=6,format="f")
-		results <- data.frame(cbind(p,p.sd,z.ratio,p.value,stars),row.names=NULL)
-
-		namcol <- c("Estimate","Std. Error","t value","Pr(>|t|)","")
-		dimnames(results) <- list(x.names,namcol)
+		rownames(res) <- x.names
+		rownames(res)[rownames(res) == "INTERCEPT"] <- "Constant"
 
 		cat("\n")
-		cat("*** Fractional",link,"regression model ***")
-		cat("\n")
-		cat("*** Estimator:",type)
+		cat(.fracreg.sep(), "\n")
+		cat(.fracreg.center(paste("Fractional", link, "regression model")), "\n")
+		cat(.fracreg.sep(), "\n")
+		
+		.fracreg.cat.right("Estimator:", type)
+		
 		if(adjust!=0)
 		{
-			cat("\n")
-			if(is.numeric(adjust)) cat("*** Adjustment:",adjust,"added to all observations")
-			else cat("*** Adjustment: all boundary observations dropped")
+			if(is.numeric(adjust)) .fracreg.cat.right("Adjustment:", paste(adjust,"added to all observations"))
+			else .fracreg.cat.right("Adjustment:", "all boundary observations dropped")
 		}
-		cat("\n\n")
-		if(all(type!=c("GMMxv","LINxv","QMLxv"))) print(results)
-		if(any(type==c("GMMxv","LINxv","QMLxv")))
-		{
- 			print(results[1:k,])
-			cat("\n")
-			cat("Reduced form:")
-			cat("\n") 
-			print(results[-(1:k),])
-		}
-		cat("\n")
-		cat("Note:",var.type,"standard errors")
-		cat("\n\n")
-		cat("Number of observations:",N,"\n")
-		cat("\n")
+		
+		.fracreg.cat.right("Number of observations:", N)
+		.fracreg.cat.right("Standard errors:", var.type)
+		
 		if(any(type==c("GMMz","LINz")) & dfJ>0)
 		{
 			p.value <- 1-pchisq(J,dfJ)
-			cat("J test of overidentifying moment conditions:",J,"(p-value:",p.value,")")
+			.fracreg.cat.right("J test (p-value):", paste0(round(J, 4), " (", round(p.value, 4), ")"))
 		}
+		.fracreg.cat.right("Convergence:", "Successful")
+		
+		cat(.fracreg.sep(), "\n")
+		cat(.fracreg.center("Final estimates"), "\n")
+		cat(.fracreg.sep(), "\n")
+		
+		if(all(type!=c("GMMxv","LINxv","QMLxv"))) printCoefmat(res, P.values = TRUE, has.Pvalue = TRUE, digits = 4, signif.legend = TRUE, na.print = ".")
+		if(any(type==c("GMMxv","LINxv","QMLxv")))
+		{
+			printCoefmat(res[1:k, , drop = FALSE], P.values = TRUE, has.Pvalue = TRUE, digits = 4, signif.legend = TRUE, na.print = ".")
+			cat("\n")
+			cat(.fracreg.center("Reduced form:"), "\n")
+			cat(.fracreg.sep(), "\n")
+			printCoefmat(res[-(1:k), , drop = FALSE], P.values = TRUE, has.Pvalue = TRUE, digits = 4, signif.legend = TRUE, na.print = ".")
+		}
+		cat(.fracreg.sep(), "\n")
+		cat(.fracreg.center(paste("Run Date:", format(Sys.time(), "%Y-%m-%d %H:%M:%S"))), "\n")
+		cat(.fracreg.sep(), "\n")
 	}
-	else cat("ALGORITHM DID NOT CONVERGE")
+	else {
+		cat(.fracreg.sep(), "\n")
+		.fracreg.cat.right("Convergence:", "FAILED")
+		cat(.fracreg.sep(), "\n")
+		cat(.fracreg.center(paste("Run Date:", format(Sys.time(), "%Y-%m-%d %H:%M:%S"))), "\n")
+		cat(.fracreg.sep(), "\n")
+	}
 	cat("\n")
 }
 
@@ -385,38 +386,30 @@ fracreghet.pe.table <- function(PE.p,PE.sd,PE.type,which.x,xvar.names,title,adju
 	z.ratio <- PE.p/PE.sd
 	p.value <- 2*(1-pnorm(abs(z.ratio)))
 
-	stars <- rep("",length(PE.p))
-	stars[p.value<=0.01] <- "***"
-	stars[p.value>0.01 & p.value<=0.05] <- "**"
-	stars[p.value>0.05 & p.value<=0.1] <- "*"
-
-	PE.p <- formatC(PE.p,digits=4,format="f")
-	PE.sd <- formatC(PE.sd,digits=4,format="f")
-	z.ratio <- formatC(z.ratio,digits=3,format="f")
-	p.value <- formatC(p.value,digits=3,format="f")
-	stars <- format(stars,justify="left")
-
-	results <- data.frame(cbind(PE.p,PE.sd,z.ratio,p.value,stars),row.names=NULL)
-
-	namcol <- c("Estimate","Std. Error","t value","Pr(>|t|)","")
-	dimnames(results) <- list(which.x,namcol)
+	res <- cbind(Estimate = PE.p, `Std. Error` = PE.sd, `z value` = z.ratio, `Pr(>|z|)` = p.value)
+	rownames(res) <- which.x
+	rownames(res)[rownames(res) == "INTERCEPT"] <- "Constant"
 
 	cat("\n\n")
-	if(PE.type=="APE") cat("*** Average partial effects",title[1])
-	if(PE.type=="CPE") cat("*** Conditional partial effects",title[1])
-	cat("\n\n")
-	cat(title[2])
-	cat("\n")
-	cat(title[3])
-	cat("\n")
-	if(adjust!=0) cat(title[4])
-	cat("\n\n")
-	print(results)
-	cat("\n")
+	cat(.fracreg.sep(), "\n")
+	if(PE.type=="APE") cat(.fracreg.center(paste("Average partial effects", title[1])), "\n")
+	if(PE.type=="CPE") cat(.fracreg.center(paste("Conditional partial effects", title[1])), "\n")
+	cat(.fracreg.sep(), "\n")
+	
+	cat(.fracreg.center(title[2]), "\n")
+	cat(.fracreg.center(title[3]), "\n")
+	
+	if(adjust!=0) cat(.fracreg.center(title[4]), "\n")
+	cat(.fracreg.sep(), "\n")
+	
+	printCoefmat(res, P.values = TRUE, has.Pvalue = TRUE, digits = 4, signif.legend = TRUE)
+	
+	cat(.fracreg.sep(), "\n")
+	cat(.fracreg.center(paste("Run Date:", format(Sys.time(), "%Y-%m-%d %H:%M:%S"))), "\n")
+	cat(.fracreg.sep(), "\n")
+	
 	if(PE.type=="CPE")
 	{
-		cat("------------------")
-
 		if(length(at)==1)
 		{
 			if(any(at==c("mean","median"))) cat("\nNote: covariates evaluated at",at,"(or mode, for dummies) values\n")
@@ -438,31 +431,23 @@ fracreghet.pe.table <- function(PE.p,PE.sd,PE.type,which.x,xvar.names,title,adju
 
 fracreghet.tests.table <- function(test.which,S,Sp,ver,title1,title2)
 {
-	stars <- rep("",length(S))
-	stars[Sp<=0.01] <- "***"
-	stars[Sp>0.01 & Sp<=0.05] <- "**"
-	stars[Sp>0.05 & Sp<=0.1] <- "*"
-
-	S <- formatC(S,digits=3,format="f")
-	Sp <- formatC(Sp,digits=3,format="f")
-	stars <- format(stars,justify="left")
-
-	results <- data.frame(cbind(ver,S,Sp,stars))
-	namcol <- c("Version","Statistic","p-value","")
-
-	results <- results[-1,]
-	dimnames(results) <- list(1:nrow(results),namcol)
+	res <- cbind(`Statistic` = S[-1], `p-value` = Sp[-1])
+	rownames(res) <- ver[-1]
 
 	cat("\n")
-	cat("***",test.which,"test ***")
-	cat("\n")
-	cat(title1)
-	cat("\n\n")
-	cat("H0: ",title2)
-	cat("\n")
-	cat("\n")
-	print(results,row.names=F)
-	cat("\n")
+	cat(.fracreg.sep(), "\n")
+	cat(.fracreg.center(paste(test.which, "test")), "\n")
+	cat(.fracreg.sep(), "\n")
+	cat(.fracreg.center(title1), "\n")
+	cat(.fracreg.sep(), "\n")
+	
+	cat("H0:", title2, "\n")
+	cat(.fracreg.sep(), "\n")
+	printCoefmat(res, P.values = TRUE, has.Pvalue = TRUE, digits = 4, signif.legend = TRUE)
+	
+	cat(.fracreg.sep(), "\n")
+	cat(.fracreg.center(paste("Run Date:", format(Sys.time(), "%Y-%m-%d %H:%M:%S"))), "\n")
+	cat(.fracreg.sep(), "\n")
 }
 
 fracreghet <- function(y,x,z=x,var.endog,start,type="GMMx",link="logit",intercept=T,table=T,variance=T,var.type="robust",var.cluster,adjust=0,...)
@@ -659,6 +644,7 @@ fracreghet <- function(y,x,z=x,var.endog,start,type="GMMx",link="logit",intercep
 
 	### 4. Return results
 
+	class(res) <- "fracreghet"
 	return(invisible(res))
 }
 

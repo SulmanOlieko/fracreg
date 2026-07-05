@@ -172,74 +172,138 @@ variables). Defaults to <code>x</code>.</p></dd>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">N</span> <span class="op">&lt;-</span> <span class="fl">250</span></span></span>
-<span class="r-in"><span><span class="va">u</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">N</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">N</span> <span class="op">&lt;-</span> <span class="fl">1000</span></span></span>
+<span class="r-in"><span><span class="va">x1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">N</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">X</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">N</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">N</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/dimnames.html" class="external-link">dimnames</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"X1"</span>,<span class="st">"X2"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Simulating an endogenous variable (var.endog) and an instrument (z1)</span></span></span>
+<span class="r-in"><span><span class="va">z1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">N</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">u</span> <span class="op">&lt;-</span> <span class="fl">0.5</span> <span class="op">*</span> <span class="va">z1</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">N</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">var.endog</span> <span class="op">&lt;-</span> <span class="fl">0.8</span> <span class="op">*</span> <span class="va">z1</span> <span class="op">+</span> <span class="va">u</span></span></span>
+<span class="r-in"><span><span class="va">y_endog</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="fl">0.5</span> <span class="op">*</span> <span class="va">x1</span> <span class="op">+</span> <span class="fl">1.2</span> <span class="op">*</span> <span class="va">var.endog</span> <span class="op">+</span> <span class="va">u</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="fl">1</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="fl">0.5</span> <span class="op">*</span> <span class="va">x1</span> <span class="op">+</span> <span class="fl">1.2</span> <span class="op">*</span> <span class="va">var.endog</span> <span class="op">+</span> <span class="va">u</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">Z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">N</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">N</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">N</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/dimnames.html" class="external-link">dimnames</a></span><span class="op">(</span><span class="va">Z</span><span class="op">)</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Z1"</span>,<span class="st">"Z2"</span>,<span class="st">"Z3"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Avoid exact 0 or 1 boundaries for some estimators</span></span></span>
+<span class="r-in"><span><span class="va">y_endog</span><span class="op">[</span><span class="va">y_endog</span> <span class="op">&lt;=</span> <span class="fl">0</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">0.01</span></span></span>
+<span class="r-in"><span><span class="va">y_endog</span><span class="op">[</span><span class="va">y_endog</span> <span class="op">&gt;=</span> <span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">0.99</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="va">X</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span><span class="op">+</span><span class="va">X</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span><span class="op">+</span><span class="va">u</span><span class="op">)</span><span class="op">/</span><span class="op">(</span><span class="fl">1</span><span class="op">+</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="va">X</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span><span class="op">+</span><span class="va">X</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span><span class="op">+</span><span class="va">u</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">X</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span>x1 <span class="op">=</span> <span class="va">x1</span>, var.endog <span class="op">=</span> <span class="va">var.endog</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">Z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span>x1 <span class="op">=</span> <span class="va">x1</span>, z1 <span class="op">=</span> <span class="va">z1</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co">#Exogeneity, GMMx estimator</span></span></span>
-<span class="r-in"><span><span class="fu">fracreghet</span><span class="op">(</span><span class="va">y</span>,<span class="va">X</span>,type<span class="op">=</span><span class="st">"GMMx"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Exogeneity (assuming var.endog is exogenous for comparison), GMMx estimator</span></span></span>
+<span class="r-in"><span><span class="fu">fracreghet</span><span class="op">(</span>y <span class="op">=</span> <span class="va">y_endog</span>, x <span class="op">=</span> <span class="va">X</span>, type <span class="op">=</span> <span class="st">"GMMx"</span>, link <span class="op">=</span> <span class="st">"logit"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> *** Fractional logit regression model ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> *** Estimator: GMMx</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           Estimate Std. Error t value Pr(&gt;|t|)    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> INTERCEPT 0.383211   0.071031   5.395    0.000 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X1        0.915521   0.077771  11.772    0.000 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X2        1.080971   0.061189  17.666    0.000 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Note: robust standard errors</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Number of observations: 250 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                        Fractional logit regression model </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Estimator:                                                                  GMMx </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Number of observations:                                                     1000 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Standard errors:                                                          robust </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Convergence:                                                          Successful </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                 Final estimates </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           Estimate Std. Error z value Pr(&gt;|z|)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Constant  0.091323   0.015355   5.947 2.73e-09 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x1        0.460767   0.015385  29.950  &lt; 2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> var.endog 1.807916   0.009021 200.418  &lt; 2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-05 03:17:43 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co">#Endogeneity, GMMz estimator</span></span></span>
-<span class="r-in"><span><span class="fu">fracreghet</span><span class="op">(</span><span class="va">y</span>,<span class="va">X</span>,<span class="va">Z</span>,type<span class="op">=</span><span class="st">"GMMz"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Endogeneity, GMMz estimator (does not require reduced form for endog)</span></span></span>
+<span class="r-in"><span><span class="fu">fracreghet</span><span class="op">(</span>y <span class="op">=</span> <span class="va">y_endog</span>, x <span class="op">=</span> <span class="va">X</span>, z <span class="op">=</span> <span class="va">Z</span>, type <span class="op">=</span> <span class="st">"GMMz"</span>, link <span class="op">=</span> <span class="st">"logit"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> *** Fractional logit regression model ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> *** Estimator: GMMz</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                        Fractional logit regression model </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Estimator:                                                                  GMMz </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Number of observations:                                                     1000 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Standard errors:                                                          robust </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Convergence:                                                          Successful </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                 Final estimates </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           Estimate Std. Error z value Pr(&gt;|z|)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Constant   0.15277    0.02018   7.569 3.75e-14 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x1         0.47947    0.02051  23.377  &lt; 2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> var.endog  1.61252    0.01445 111.618  &lt; 2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-05 03:17:44 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           Estimate Std. Error t value Pr(&gt;|t|)    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> INTERCEPT 0.384353   0.092977   4.134    0.000 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X1        1.002693   0.423179   2.369    0.018 ** </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X2        1.006577   0.499748   2.014    0.044 ** </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Note: robust standard errors</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Number of observations: 250 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> J test of overidentifying moment conditions: 0.1297948 (p-value: 0.7186449 )</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co">#Endogeneity, GMMxv estimator</span></span></span>
-<span class="r-in"><span><span class="fu">fracreghet</span><span class="op">(</span><span class="va">y</span>,<span class="va">X</span>,<span class="va">Z</span>,<span class="va">X</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span>,type<span class="op">=</span><span class="st">"GMMxv"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Endogeneity, GMMxv estimator (assumes linear reduced form for var.endog)</span></span></span>
+<span class="r-in"><span><span class="fu">fracreghet</span><span class="op">(</span>y <span class="op">=</span> <span class="va">y_endog</span>, x <span class="op">=</span> <span class="va">X</span>, z <span class="op">=</span> <span class="va">Z</span>, var.endog <span class="op">=</span> <span class="va">var.endog</span>, type <span class="op">=</span> <span class="st">"GMMxv"</span>, link <span class="op">=</span> <span class="st">"logit"</span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>NaNs produced</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> *** Fractional logit regression model ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> *** Estimator: GMMxv</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                        Fractional logit regression model </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Estimator:                                                                 GMMxv </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Number of observations:                                                     1000 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Standard errors:                                                          robust </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Convergence:                                                          Successful </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                 Final estimates </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           Estimate Std. Error z value Pr(&gt;|z|)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Constant  -0.01262    0.01859  -0.679    0.497    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x1         0.48705    0.01884  25.853   &lt;2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> var.endog  1.59737    0.01339 119.332   &lt;2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> vhat       0.60263    0.01339  45.020   &lt;2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            Estimate Std. Error t value Pr(&gt;|t|)    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> INTERCEPT  0.361853   0.110813   3.265    0.001 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X1         1.133831   0.848603   1.336    0.182    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X2         1.083086   0.060107  18.019    0.000 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> vhat      -0.221761   0.852539  -0.260    0.795    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                  Reduced form: </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             Estimate Std. Error z value Pr(&gt;|z|)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Z_INTERCEPT -0.02093    0.03082  -0.679    0.497    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Z_x1        -0.02149    0.03132  -0.686    0.493    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Z_z1         1.32751    0.02949  45.020   &lt;2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-05 03:17:44 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Reduced form:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>              Estimate Std. Error t value Pr(&gt;|t|)    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Z_INTERCEPT  0.093652   0.058979   1.588    0.112    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Z_Z1        -0.007289   0.053477  -0.136    0.892    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Z_Z2         0.072459   0.051399   1.410    0.159    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Z_Z3        -0.042023   0.066847  -0.629    0.530    </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Endogeneity, QMLxv control function approach</span></span></span>
+<span class="r-in"><span><span class="fu">fracreghet</span><span class="op">(</span>y <span class="op">=</span> <span class="va">y_endog</span>, x <span class="op">=</span> <span class="va">X</span>, z <span class="op">=</span> <span class="va">Z</span>, var.endog <span class="op">=</span> <span class="va">var.endog</span>, type <span class="op">=</span> <span class="st">"QMLxv"</span>, link <span class="op">=</span> <span class="st">"logit"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Note: robust standard errors</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                        Fractional logit regression model </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Estimator:                                                                 QMLxv </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Number of observations:                                                     1000 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Standard errors:                                                          robust </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Convergence:                                                          Successful </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                 Final estimates </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           Estimate Std. Error z value Pr(&gt;|z|)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Constant  -0.01262    0.01859  -0.679    0.497    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x1         0.48705    0.01884  25.853   &lt;2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> var.endog  1.59737    0.01339 119.332   &lt;2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> vhat       0.60263    0.01339  45.020   &lt;2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Number of observations: 250 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                  Reduced form: </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             Estimate Std. Error z value Pr(&gt;|z|)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Z_INTERCEPT -0.02093    0.03082  -0.679    0.497    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Z_x1        -0.02149    0.03132  -0.686    0.493    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Z_z1         1.32751    0.02949  45.020   &lt;2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-05 03:17:44 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 </code></pre></div>
     </div>

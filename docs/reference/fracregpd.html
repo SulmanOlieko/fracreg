@@ -173,94 +173,157 @@ instrumental variables). Only required in case of endogenous explanatory variabl
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">id</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">50</span>,each<span class="op">=</span><span class="fl">5</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">time</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,<span class="fl">50</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">NT</span> <span class="op">&lt;-</span> <span class="fl">250</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Simulating Panel Data</span></span></span>
+<span class="r-in"><span><span class="va">N</span> <span class="op">&lt;-</span> <span class="fl">100</span></span></span>
+<span class="r-in"><span><span class="va">T_periods</span> <span class="op">&lt;-</span> <span class="fl">5</span></span></span>
+<span class="r-in"><span><span class="va">id</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="va">N</span>, each <span class="op">=</span> <span class="va">T_periods</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">time</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="va">T_periods</span>, times <span class="op">=</span> <span class="va">N</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">x_panel</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">N</span> <span class="op">*</span> <span class="va">T_periods</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">XBu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">NT</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="va">XBu</span><span class="op">)</span><span class="op">/</span><span class="op">(</span><span class="fl">1</span><span class="op">+</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="va">XBu</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Unobserved individual effect (CRE)</span></span></span>
+<span class="r-in"><span><span class="va">c_i</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">N</span><span class="op">)</span>, each <span class="op">=</span> <span class="va">T_periods</span><span class="op">)</span> </span></span>
+<span class="r-in"><span><span class="va">y_panel</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="va">x_panel</span> <span class="op">+</span> <span class="va">c_i</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="fl">1</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="va">x_panel</span> <span class="op">+</span> <span class="va">c_i</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">X</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">NT</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">NT</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/dimnames.html" class="external-link">dimnames</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"X1"</span>,<span class="st">"X2"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">X</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span>x_panel <span class="op">=</span> <span class="va">x_panel</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">Z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">NT</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">NT</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">NT</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/dimnames.html" class="external-link">dimnames</a></span><span class="op">(</span><span class="va">Z</span><span class="op">)</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Z1"</span>,<span class="st">"Z2"</span>,<span class="st">"Z3"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Endogenous variable and instrument simulation</span></span></span>
+<span class="r-in"><span><span class="va">z_panel</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">N</span> <span class="op">*</span> <span class="va">T_periods</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">u_panel</span> <span class="op">&lt;-</span> <span class="fl">0.5</span> <span class="op">*</span> <span class="va">z_panel</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">N</span> <span class="op">*</span> <span class="va">T_periods</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">var_endog</span> <span class="op">&lt;-</span> <span class="fl">0.8</span> <span class="op">*</span> <span class="va">z_panel</span> <span class="op">+</span> <span class="va">u_panel</span></span></span>
+<span class="r-in"><span><span class="va">y_endog</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="va">x_panel</span> <span class="op">+</span> <span class="fl">1.2</span> <span class="op">*</span> <span class="va">var_endog</span> <span class="op">+</span> <span class="va">c_i</span> <span class="op">+</span> <span class="va">u_panel</span><span class="op">)</span> <span class="op">/</span> </span></span>
+<span class="r-in"><span>             <span class="op">(</span><span class="fl">1</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="va">x_panel</span> <span class="op">+</span> <span class="fl">1.2</span> <span class="op">*</span> <span class="va">var_endog</span> <span class="op">+</span> <span class="va">c_i</span> <span class="op">+</span> <span class="va">u_panel</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">X_endog</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span>x_panel <span class="op">=</span> <span class="va">x_panel</span>, var_endog <span class="op">=</span> <span class="va">var_endog</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">Z_inst</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span>x_panel <span class="op">=</span> <span class="va">x_panel</span>, z_panel <span class="op">=</span> <span class="va">z_panel</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Estimate a Correlated Random Effects (CRE) Model</span></span></span>
+<span class="r-in"><span><span class="fu">fracregpd</span><span class="op">(</span>id<span class="op">=</span><span class="va">id</span>, time<span class="op">=</span><span class="va">time</span>, y<span class="op">=</span><span class="va">y_panel</span>, x<span class="op">=</span><span class="va">X</span>, type<span class="op">=</span><span class="st">"QMLcre"</span>, link<span class="op">=</span><span class="st">"probit"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                        Fractional probit regression model </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Estimator:                                                                QMLcre </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Exogeneity:                                                                 TRUE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Use first lag of instruments:                                              FALSE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Standard errors:                                                         cluster </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Initial observations:                                                        500 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Estimation observations:                                                     500 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Initial cross-sectional units:                                               100 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Estimation cross-sectional units:                                            100 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Initial periods per unit (avg):                                                5 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Estimation periods per unit (avg):                                             5 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Convergence:                                                          Successful </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                 Final estimates </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                Estimate Std. Error z value Pr(&gt;|z|)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x_panel         0.52902    0.01143  46.300   &lt;2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> INTERCEPT_mean -0.01246    0.04901  -0.254    0.799    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x_panel_mean   -0.17409    0.13491  -1.290    0.197    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-05 03:17:47 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Exogeneity, no lags, no time dummies, clustered standard errors, GMMbgw estimator</span></span></span>
-<span class="r-in"><span><span class="fu">fracregpd</span><span class="op">(</span><span class="va">id</span>,<span class="va">time</span>,<span class="va">y</span>,<span class="va">X</span>,type<span class="op">=</span><span class="st">"GMMbgw"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">fracregpd</span><span class="op">(</span>id<span class="op">=</span><span class="va">id</span>, time<span class="op">=</span><span class="va">time</span>, y<span class="op">=</span><span class="va">y_panel</span>, x<span class="op">=</span><span class="va">X</span>, type<span class="op">=</span><span class="st">"GMMbgw"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> *** Fractional logit regression model ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> *** Estimator: GMMbgw</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> *** Exogeneity: TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> *** Use first lag of instruments: FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     Estimate Std. Error t value Pr(&gt;|t|)    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X1 -0.033483   0.077734  -0.431    0.667    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X2 -0.201427   0.072537  -2.777    0.005 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Note: cluster standard errors</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Number of observations (initial): 250 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Number of observations (for estimation): 250 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Number of cross-sectional units (initial): 50 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Number of cross-sectional units (for estimation): 50 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Average number of time periods per cross-sectional unit (initial): 5 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Average number of time periods per cross-sectional unit (for estimation): 5 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                        Fractional logit regression model </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Estimator:                                                                GMMbgw </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Exogeneity:                                                                 TRUE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Use first lag of instruments:                                              FALSE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Standard errors:                                                         cluster </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Initial observations:                                                        500 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Estimation observations:                                                     500 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Initial cross-sectional units:                                               100 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Estimation cross-sectional units:                                            100 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Initial periods per unit (avg):                                                5 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Estimation periods per unit (avg):                                             5 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Convergence:                                                          Successful </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                 Final estimates </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          Estimate Std. Error   z value Pr(&gt;|z|)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x_panel 1.000e+00  1.431e-16 6.986e+15   &lt;2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-05 03:17:49 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Lagged covariates and instruments, robust standard errors, GMMww estimator</span></span></span>
-<span class="r-in"><span><span class="fu">fracregpd</span><span class="op">(</span><span class="va">id</span>,<span class="va">time</span>,<span class="va">y</span>,<span class="va">X</span>,lags<span class="op">=</span><span class="cn">TRUE</span>,type<span class="op">=</span><span class="st">"GMMww"</span>,var.type<span class="op">=</span><span class="st">"robust"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">fracregpd</span><span class="op">(</span>id<span class="op">=</span><span class="va">id</span>, time<span class="op">=</span><span class="va">time</span>, y<span class="op">=</span><span class="va">y_panel</span>, x<span class="op">=</span><span class="va">X</span>, lags<span class="op">=</span><span class="cn">TRUE</span>, type<span class="op">=</span><span class="st">"GMMww"</span>, var.type<span class="op">=</span><span class="st">"robust"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> *** Fractional logit regression model ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> *** Estimator: GMMww</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> *** Exogeneity: TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> *** Use first lag of instruments: TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     Estimate Std. Error t value Pr(&gt;|t|)    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X1 -0.125826   0.088486  -1.422    0.155    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X2 -0.202961   0.071003  -2.858    0.004 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Note: robust standard errors</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Number of observations (initial): 250 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Number of observations (for estimation): 200 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Number of cross-sectional units (initial): 50 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Number of cross-sectional units (for estimation): 50 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Average number of time periods per cross-sectional unit (initial): 5 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Average number of time periods per cross-sectional unit (for estimation): 4 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                        Fractional logit regression model </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Estimator:                                                                 GMMww </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Exogeneity:                                                                 TRUE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Use first lag of instruments:                                               TRUE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Standard errors:                                                          robust </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Initial observations:                                                        500 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Estimation observations:                                                     400 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Initial cross-sectional units:                                               100 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Estimation cross-sectional units:                                            100 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Initial periods per unit (avg):                                                5 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Estimation periods per unit (avg):                                             4 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Convergence:                                                          Successful </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                 Final estimates </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          Estimate Std. Error   z value Pr(&gt;|z|)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x_panel 1.000e+00  8.835e-17 1.132e+16   &lt;2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-05 03:17:49 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Endogeneity, time dummies, GMMpfe estimator</span></span></span>
-<span class="r-in"><span><span class="fu">fracregpd</span><span class="op">(</span><span class="va">id</span>,<span class="va">time</span>,<span class="va">y</span>,<span class="va">X</span>,<span class="va">Z</span>,x.exogenous<span class="op">=</span><span class="cn">FALSE</span>,type<span class="op">=</span><span class="st">"GMMpfe"</span>,tdummies<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">fracregpd</span><span class="op">(</span>id<span class="op">=</span><span class="va">id</span>, time<span class="op">=</span><span class="va">time</span>, y<span class="op">=</span><span class="va">y_endog</span>, x<span class="op">=</span><span class="va">X_endog</span>, z<span class="op">=</span><span class="va">Z_inst</span>, </span></span>
+<span class="r-in"><span>          x.exogenous<span class="op">=</span><span class="cn">FALSE</span>, type<span class="op">=</span><span class="st">"GMMpfe"</span>, tdummies<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> *** Fractional logit regression model ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> *** Estimator: GMMpfe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> *** Exogeneity: FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> *** Use first lag of instruments: FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                        Fractional logit regression model </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Estimator:                                                                GMMpfe </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Exogeneity:                                                                FALSE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Use first lag of instruments:                                              FALSE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Standard errors:                                                         cluster </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Initial observations:                                                        500 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Estimation observations:                                                     500 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Initial cross-sectional units:                                               100 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Estimation cross-sectional units:                                            100 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Initial periods per unit (avg):                                                5 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Estimation periods per unit (avg):                                             5 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Convergence:                                                          Successful </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                 Final estimates </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           Estimate Std. Error z value Pr(&gt;|z|)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x_panel    0.99602    0.03117  31.957   &lt;2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> var_endog  1.57689    0.02524  62.474   &lt;2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> time.2    -0.15363    0.09752  -1.575   0.1152    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> time.3    -0.04402    0.09147  -0.481   0.6303    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> time.4    -0.10609    0.09379  -1.131   0.2580    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> time.5    -0.19163    0.08917  -2.149   0.0316 *  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-05 03:17:50 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         Estimate Std. Error t value Pr(&gt;|t|) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X1     -0.124274   0.435104  -0.286    0.775 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X2     -0.563168   0.744593  -0.756    0.449 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> time.2  0.254132   0.401075   0.634    0.526 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> time.3 -0.093777   0.299719  -0.313    0.754 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> time.4 -0.266803   0.304761  -0.875    0.381 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> time.5 -0.294691   0.329488  -0.894    0.371 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Note: cluster standard errors</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Number of observations (initial): 250 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Number of observations (for estimation): 250 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Number of cross-sectional units (initial): 50 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Number of cross-sectional units (for estimation): 50 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Average number of time periods per cross-sectional unit (initial): 5 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Average number of time periods per cross-sectional unit (for estimation): 5 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> J test of overidentifying moment conditions: 0.3391103 (p-value: 0.5603432 )</span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Standard errors based on 100 bootstrap samples, QMLcre estimator (not run)</span></span></span>
-<span class="r-in"><span><span class="co">#fracregpd(id,time,y,X,Z,X[,1],x.exogenous=FALSE,type="QMLcre",link="probit",bootstrap=TRUE,B=100)</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

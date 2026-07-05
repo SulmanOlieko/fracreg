@@ -66,15 +66,6 @@ estimation functions.
 
 ``` r
 library(fracreg)
-#> =========================================================
-#>  fracreg: Fractional Regression Models
-#> =========================================================
-#>  For a comprehensive guide and tutorials, please visit:
-#>  https://SulmanOlieko.github.io/fracreg
-#> ---------------------------------------------------------
-#>  To cite fracreg in publications, please type:
-#>  citation("fracreg")
-#> =========================================================
 ```
 
 ### 1. The Core Estimator (`fracreg`)
@@ -131,41 +122,27 @@ Toggle to see the output
 
 ``` R
 #> 
-#> *** Fractional logit regression model ***
-#> 
-#>            Estimate Std. Error t value Pr(>|t|)    
-#> INTERCEPT -0.569685   0.067502  -8.440    0.000 ***
-#> x1         0.788220   0.040145  19.634    0.000 ***
-#> x2         1.356110   0.118992  11.397    0.000 ***
-#> 
-#> Note: robust standard errors
-#> 
-#> Number of observations: 1000 
-#> R-squared: 0.39
-```
-
-``` r
-summary(model_1p)
-```
-
-Toggle to see the output
-
-``` R
-#>           Length Class   Mode     
-#> class        1   -none-  character
-#> formula      3   formula call     
-#> type         1   -none-  character
-#> link         1   -none-  character
-#> method       1   -none-  character
-#> p            3   -none-  numeric  
-#> yhat      1000   -none-  numeric  
-#> xbhat     1000   -none-  numeric  
-#> converged    1   -none-  numeric  
-#> x.names      3   -none-  character
-#> p.var        9   -none-  numeric  
-#> var.type     1   -none-  character
-#> var.eim      1   -none-  logical  
-#> dfc          1   -none-  logical
+#> -------------------------------------------------------------------------------- 
+#>                Fractional regression model - logit specification 
+#> -------------------------------------------------------------------------------- 
+#> Estimator:                                                                   QML 
+#> Number of observations:                                                     1000 
+#> Pseudo R-squared:                                                         0.3903 
+#> Standard errors:                                                          robust 
+#> Small sample correction:                                                   FALSE 
+#> Convergence:                                                          Successful 
+#> -------------------------------------------------------------------------------- 
+#>                                 Final estimates 
+#> -------------------------------------------------------------------------------- 
+#>          Estimate Std. Error z value Pr(>|z|)    
+#> Constant -0.56969    0.06750   -8.44   <2e-16 ***
+#> x1        0.78822    0.04015   19.63   <2e-16 ***
+#> x2        1.35611    0.11899   11.40   <2e-16 ***
+#> ---
+#> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+#> -------------------------------------------------------------------------------- 
+#>                          Run Date: 2026-07-05 03:16:55 
+#> --------------------------------------------------------------------------------
 ```
 
 #### 1.3 Partial Effects (1P)
@@ -179,25 +156,19 @@ Toggle to see the output
 ``` R
 #> 
 #> 
-#> *** Average partial effects ***
-#> 
-#> Fractional logit model
-#> 
-#>    Estimate Std. Error t value Pr(>|t|)    
-#> x1   0.1682     0.0068  24.694    0.000 ***
-#> x2   0.2894     0.0239  12.132    0.000 ***
-```
-
-``` r
-summary(pe_1p)
-```
-
-Toggle to see the output
-
-``` R
-#>       Length Class  Mode   
-#> PE.p  2      -none- numeric
-#> PE.sd 2      -none- numeric
+#> -------------------------------------------------------------------------------- 
+#>                             Average partial effects 
+#> -------------------------------------------------------------------------------- 
+#>                              Fractional logit model 
+#> -------------------------------------------------------------------------------- 
+#>    Estimate Std. Error z value Pr(>|z|)    
+#> x1 0.168231   0.006813   24.69   <2e-16 ***
+#> x2 0.289436   0.023856   12.13   <2e-16 ***
+#> ---
+#> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+#> -------------------------------------------------------------------------------- 
+#>                          Run Date: 2026-07-05 03:16:55 
+#> --------------------------------------------------------------------------------
 ```
 
 #### 1.4 The Two-Part Hurdle Model (2P)
@@ -218,53 +189,56 @@ Toggle to see the output
 
 ``` R
 #> 
-#> *** Binary component of a two-part model - logit specification ***
-#> 
-#>           Estimate Std. Error t value Pr(>|t|)    
-#> INTERCEPT 1.463769   0.193283   7.573    0.000 ***
-#> x1        1.185749   0.128710   9.213    0.000 ***
-#> x2        2.227886   0.393191   5.666    0.000 ***
-#> 
-#> Number of observations: 1000 
-#> R-squared: 0.145 
-#> 
-#> 
-#> 
-#> *** Fractional component of a two-part model - logit specification ***
-#> 
-#>            Estimate Std. Error t value Pr(>|t|)    
-#> INTERCEPT -0.173232   0.057863  -2.994    0.003 ***
-#> x1         0.612050   0.035541  17.221    0.000 ***
-#> x2         1.005089   0.107030   9.391    0.000 ***
-#> 
-#> Note: robust standard errors
-#> 
-#> Number of observations: 881 
-#> R-squared: 0.324 
+#> -------------------------------------------------------------------------------- 
+#>            Binary component of a two-part model - logit specification 
+#> -------------------------------------------------------------------------------- 
+#> Estimator:                                                                    ML 
+#> Number of observations:                                                     1000 
+#> Pseudo R-squared:                                                        0.14527 
+#> Log-Likelihood:                                                        -295.2068 
+#> Small sample correction:                                                   FALSE 
+#> Convergence:                                                          Successful 
+#> -------------------------------------------------------------------------------- 
+#>                                 Final estimates 
+#> -------------------------------------------------------------------------------- 
+#>          Estimate Std. Error z value Pr(>|z|)    
+#> Constant   1.4638     0.1933   7.573 3.64e-14 ***
+#> x1         1.1857     0.1287   9.213  < 2e-16 ***
+#> x2         2.2279     0.3932   5.666 1.46e-08 ***
+#> ---
+#> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+#> -------------------------------------------------------------------------------- 
 #> 
 #> 
+#> -------------------------------------------------------------------------------- 
+#>          Fractional component of a two-part model - logit specification 
+#> -------------------------------------------------------------------------------- 
+#> Estimator:                                                                   QML 
+#> Number of observations:                                                      881 
+#> Pseudo R-squared:                                                        0.32412 
+#> Standard errors:                                                          robust 
+#> Small sample correction:                                                   FALSE 
+#> Convergence:                                                          Successful 
+#> -------------------------------------------------------------------------------- 
+#>                                 Final estimates 
+#> -------------------------------------------------------------------------------- 
+#>          Estimate Std. Error z value Pr(>|z|)    
+#> Constant -0.17323    0.05786  -2.994  0.00275 ** 
+#> x1        0.61205    0.03554  17.221  < 2e-16 ***
+#> x2        1.00509    0.10703   9.391  < 2e-16 ***
+#> ---
+#> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+#> -------------------------------------------------------------------------------- 
 #> 
-#> *** Two-part model - binary logit + fractional logit  ***
 #> 
-#> R-squared: 0.386
-```
-
-``` r
-summary(model_2p)
-```
-
-Toggle to see the output
-
-``` R
-#>           Length Class  Mode     
-#> resBIN      15   -none- list     
-#> resFRAC     14   -none- list     
-#> class        1   -none- character
-#> type         1   -none- character
-#> ybase     1000   -none- numeric  
-#> x2base    3000   -none- numeric  
-#> yhat2P    1000   -none- numeric  
-#> converged    1   -none- numeric
+#> -------------------------------------------------------------------------------- 
+#>                 Two-part model - binary logit + fractional logit 
+#> -------------------------------------------------------------------------------- 
+#> Pseudo R-squared:                                                        0.38621 
+#> Convergence:                                                          Successful 
+#> -------------------------------------------------------------------------------- 
+#>                          Run Date: 2026-07-05 03:16:55 
+#> --------------------------------------------------------------------------------
 ```
 
 ``` r
@@ -276,25 +250,19 @@ Toggle to see the output
 ``` R
 #> 
 #> 
-#> *** Average partial effects ***
-#> 
-#> Binary logit + Fractional logit two-part model
-#> 
-#>    Estimate Std. Error t value Pr(>|t|)    
-#> x1   0.1666     0.0067  24.804    0.000 ***
-#> x2   0.2848     0.0245  11.612    0.000 ***
-```
-
-``` r
-summary(pe_2p)
-```
-
-Toggle to see the output
-
-``` R
-#>       Length Class  Mode   
-#> PE.p  2      -none- numeric
-#> PE.sd 2      -none- numeric
+#> -------------------------------------------------------------------------------- 
+#>                             Average partial effects 
+#> -------------------------------------------------------------------------------- 
+#>                  Binary logit + Fractional logit two-part model 
+#> -------------------------------------------------------------------------------- 
+#>    Estimate Std. Error z value Pr(>|z|)    
+#> x1 0.166600   0.006717   24.80   <2e-16 ***
+#> x2 0.284837   0.024530   11.61   <2e-16 ***
+#> ---
+#> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+#> -------------------------------------------------------------------------------- 
+#>                          Run Date: 2026-07-05 03:16:56 
+#> --------------------------------------------------------------------------------
 ```
 
 #### 1.5 The Three-Part Double-Inflated Model (3P)
@@ -314,66 +282,77 @@ Toggle to see the output
 
 ``` R
 #> 
-#> *** First binary component of a three-part model - logit specification ***
-#> 
-#>           Estimate Std. Error t value Pr(>|t|)    
-#> INTERCEPT 1.463769   0.193283   7.573    0.000 ***
-#> x1        1.185749   0.128710   9.213    0.000 ***
-#> x2        2.227886   0.393191   5.666    0.000 ***
-#> 
-#> Number of observations: 1000 
-#> R-squared: 0.145 
-#> 
-#> 
-#> 
-#> *** Second binary component of a three-part model - logit specification ***
-#> 
-#>            Estimate Std. Error t value Pr(>|t|)    
-#> INTERCEPT -2.953982   0.243671 -12.123    0.000 ***
-#> x1         1.168175   0.116745  10.006    0.000 ***
-#> x2         1.831493   0.345480   5.301    0.000 ***
-#> 
-#> Number of observations: 881 
-#> R-squared: 0.188 
+#> -------------------------------------------------------------------------------- 
+#>        First binary component of a three-part model - logit specification 
+#> -------------------------------------------------------------------------------- 
+#> Estimator:                                                                    ML 
+#> Number of observations:                                                     1000 
+#> Pseudo R-squared:                                                        0.14527 
+#> Log-Likelihood:                                                        -295.2068 
+#> Small sample correction:                                                   FALSE 
+#> Convergence:                                                          Successful 
+#> -------------------------------------------------------------------------------- 
+#>                                 Final estimates 
+#> -------------------------------------------------------------------------------- 
+#>          Estimate Std. Error z value Pr(>|z|)    
+#> Constant   1.4638     0.1933   7.573 3.64e-14 ***
+#> x1         1.1857     0.1287   9.213  < 2e-16 ***
+#> x2         2.2279     0.3932   5.666 1.46e-08 ***
+#> ---
+#> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+#> -------------------------------------------------------------------------------- 
 #> 
 #> 
+#> -------------------------------------------------------------------------------- 
+#>       Second binary component of a three-part model - logit specification 
+#> -------------------------------------------------------------------------------- 
+#> Estimator:                                                                    ML 
+#> Number of observations:                                                      881 
+#> Pseudo R-squared:                                                        0.18752 
+#> Log-Likelihood:                                                        -348.7582 
+#> Small sample correction:                                                   FALSE 
+#> Convergence:                                                          Successful 
+#> -------------------------------------------------------------------------------- 
+#>                                 Final estimates 
+#> -------------------------------------------------------------------------------- 
+#>          Estimate Std. Error z value Pr(>|z|)    
+#> Constant  -2.9540     0.2437 -12.123  < 2e-16 ***
+#> x1         1.1682     0.1167  10.006  < 2e-16 ***
+#> x2         1.8315     0.3455   5.301 1.15e-07 ***
+#> ---
+#> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+#> -------------------------------------------------------------------------------- 
 #> 
-#> *** Fractional component of a three-part model - logit specification ***
 #> 
-#>            Estimate Std. Error t value Pr(>|t|)    
-#> INTERCEPT -0.267629   0.045393  -5.896    0.000 ***
-#> x1         0.361985   0.024539  14.751    0.000 ***
-#> x2         0.585047   0.079687   7.342    0.000 ***
+#> -------------------------------------------------------------------------------- 
+#>         Fractional component of a three-part model - logit specification 
+#> -------------------------------------------------------------------------------- 
+#> Estimator:                                                                   QML 
+#> Number of observations:                                                      715 
+#> Pseudo R-squared:                                                        0.24292 
+#> Standard errors:                                                          robust 
+#> Small sample correction:                                                   FALSE 
+#> Convergence:                                                          Successful 
+#> -------------------------------------------------------------------------------- 
+#>                                 Final estimates 
+#> -------------------------------------------------------------------------------- 
+#>          Estimate Std. Error z value Pr(>|z|)    
+#> Constant -0.26763    0.04539  -5.896 3.73e-09 ***
+#> x1        0.36198    0.02454  14.751  < 2e-16 ***
+#> x2        0.58505    0.07969   7.342 2.11e-13 ***
+#> ---
+#> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+#> -------------------------------------------------------------------------------- 
 #> 
-#> Note: robust standard errors
 #> 
-#> Number of observations: 715 
-#> R-squared: 0.243 
-#> 
-#> 
-#> 
-#> *** Three-part model - binary logit , binary logit + fractional logit  ***
-#> 
-#> R-squared: 0.389
-```
-
-``` r
-summary(model_3p)
-```
-
-Toggle to see the output
-
-``` R
-#>           Length Class  Mode     
-#> resBIN0     13   -none- list     
-#> resBIN1     13   -none- list     
-#> resFRAC     12   -none- list     
-#> class        1   -none- character
-#> type         1   -none- character
-#> ybase     1000   -none- numeric  
-#> x2base    3000   -none- numeric  
-#> yhat3P    1000   -none- numeric  
-#> converged    1   -none- numeric
+#> -------------------------------------------------------------------------------- 
+#>        Three-part model - binary logit , binary logit + fractional logit 
+#> -------------------------------------------------------------------------------- 
+#> Pseudo R-squared:                                                        0.38893 
+#> Convergence:                                                          Successful 
+#> -------------------------------------------------------------------------------- 
+#>                          Run Date: 2026-07-05 03:16:56 
+#> --------------------------------------------------------------------------------
 ```
 
 ``` r
@@ -385,25 +364,19 @@ Toggle to see the output
 ``` R
 #> 
 #> 
-#> *** Average partial effects ***
-#> 
-#> Three-part model - binary logit , binary logit + fractional logit
-#> 
-#>    Estimate Std. Error t value Pr(>|t|)    
-#> x1   0.1663     0.0066  25.127    0.000 ***
-#> x2   0.2789     0.0249  11.186    0.000 ***
-```
-
-``` r
-summary(pe_3p)
-```
-
-Toggle to see the output
-
-``` R
-#>       Length Class  Mode   
-#> PE.p  2      -none- numeric
-#> PE.sd 2      -none- numeric
+#> -------------------------------------------------------------------------------- 
+#>                             Average partial effects 
+#> -------------------------------------------------------------------------------- 
+#>        Three-part model - binary logit , binary logit + fractional logit 
+#> -------------------------------------------------------------------------------- 
+#>    Estimate Std. Error z value Pr(>|z|)    
+#> x1 0.166267   0.006617   25.13   <2e-16 ***
+#> x2 0.278858   0.024929   11.19   <2e-16 ***
+#> ---
+#> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+#> -------------------------------------------------------------------------------- 
+#>                          Run Date: 2026-07-05 03:16:56 
+#> --------------------------------------------------------------------------------
 ```
 
 ------------------------------------------------------------------------
@@ -421,14 +394,18 @@ Toggle to see the output
 
 ``` R
 #> 
-#> *** GGOFF test ***
-#> 
-#> H0:  Fractional logit model
-#> 
-#>   Test Version Statistic p-value 
-#>  GOFF1      LM     0.640   0.424 
-#>  GOFF2      LM     0.485   0.486 
-#>  GGOFF      LM     0.814   0.666
+#> -------------------------------------------------------------------------------- 
+#>                                    GGOFF test 
+#> -------------------------------------------------------------------------------- 
+#> H0: Fractional logit model 
+#> -------------------------------------------------------------------------------- 
+#>            Statistic p-value
+#> GOFF1 - LM     0.640   0.424
+#> GOFF2 - LM     0.485   0.486
+#> GGOFF - LM     0.814   0.666
+#> -------------------------------------------------------------------------------- 
+#>                          Run Date: 2026-07-05 03:16:56 
+#> --------------------------------------------------------------------------------
 ```
 
 #### 2.2 RESET Test
@@ -442,12 +419,16 @@ Toggle to see the output
 
 ``` R
 #> 
-#> *** RESET test ***
-#> 
-#> H0:  Fractional logit model
-#> 
-#>  Version Statistic p-value 
-#>    LM(3)     0.852   0.653
+#> -------------------------------------------------------------------------------- 
+#>                                    RESET test 
+#> -------------------------------------------------------------------------------- 
+#> H0: Fractional logit model 
+#> -------------------------------------------------------------------------------- 
+#>       Statistic p-value
+#> LM(3)     0.852   0.653
+#> -------------------------------------------------------------------------------- 
+#>                          Run Date: 2026-07-05 03:16:56 
+#> --------------------------------------------------------------------------------
 ```
 
 ------------------------------------------------------------------------
@@ -479,46 +460,35 @@ Toggle to see the output
 
 ``` R
 #> 
-#> *** Fractional logit regression model ***
-#> *** Estimator: QMLxv
+#> -------------------------------------------------------------------------------- 
+#>                        Fractional logit regression model 
+#> -------------------------------------------------------------------------------- 
+#> Estimator:                                                                 QMLxv 
+#> Number of observations:                                                     1000 
+#> Standard errors:                                                          robust 
+#> Convergence:                                                          Successful 
+#> -------------------------------------------------------------------------------- 
+#>                                 Final estimates 
+#> -------------------------------------------------------------------------------- 
+#>           Estimate Std. Error z value Pr(>|z|)    
+#> Constant  -0.01289    0.01854  -0.695    0.487    
+#> x1         0.52128    0.01889  27.589   <2e-16 ***
+#> var.endog  1.61131    0.01273 126.614   <2e-16 ***
+#> vhat       0.58869    0.01273  46.259   <2e-16 ***
+#> ---
+#> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> 
-#>            Estimate Std. Error t value Pr(>|t|)    
-#> INTERCEPT -0.012887   0.018543  -0.695    0.487    
-#> x1         0.521281   0.018894  27.589    0.000 ***
-#> var.endog  1.611308   0.012726 126.614    0.000 ***
-#> vhat       0.588692   0.012726  46.259    0.000 ***
-#> 
-#> Reduced form:
-#>              Estimate Std. Error t value Pr(>|t|)    
-#> Z_INTERCEPT -0.021891   0.031491  -0.695    0.487    
-#> Z_x1         0.036150   0.032150   1.124    0.261    
-#> Z_z          1.358944   0.029377  46.259    0.000 ***
-#> 
-#> Note: robust standard errors
-#> 
-#> Number of observations: 1000
-```
-
-``` r
-summary(model_het)
-```
-
-Toggle to see the output
-
-``` R
-#>           Length Class   Mode     
-#> class        1   -none-  character
-#> formula      3   formula call     
-#> type         1   -none-  character
-#> link         1   -none-  character
-#> adjust       1   -none-  numeric  
-#> p            7   -none-  numeric  
-#> Hy        1000   -none-  numeric  
-#> xbhat     1000   -none-  numeric  
-#> converged    1   -none-  logical  
-#> x.names      3   -none-  character
-#> p.var       49   -none-  numeric  
-#> var.type     1   -none-  character
+#>                                  Reduced form: 
+#> -------------------------------------------------------------------------------- 
+#>             Estimate Std. Error z value Pr(>|z|)    
+#> Z_INTERCEPT -0.02189    0.03149  -0.695    0.487    
+#> Z_x1         0.03615    0.03215   1.124    0.261    
+#> Z_z          1.35894    0.02938  46.259   <2e-16 ***
+#> ---
+#> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+#> -------------------------------------------------------------------------------- 
+#>                          Run Date: 2026-07-05 03:16:56 
+#> --------------------------------------------------------------------------------
 ```
 
 ------------------------------------------------------------------------
@@ -554,41 +524,33 @@ Toggle to see the output
 
 ``` R
 #> 
-#> *** Fractional probit regression model ***
-#> *** Estimator: QMLcre
-#> *** Exogeneity: TRUE
-#> *** Use first lag of instruments: FALSE
-#> 
-#>                 Estimate Std. Error t value Pr(>|t|)    
-#> x_panel         0.512705   0.008692  58.985    0.000 ***
+#> -------------------------------------------------------------------------------- 
+#>                        Fractional probit regression model 
+#> -------------------------------------------------------------------------------- 
+#> Estimator:                                                                QMLcre 
+#> Exogeneity:                                                                 TRUE 
+#> Use first lag of instruments:                                              FALSE 
+#> Standard errors:                                                         cluster 
+#> -------------------------------------------------------------------------------- 
+#> Initial observations:                                                       1000 
+#> Estimation observations:                                                    1000 
+#> Initial cross-sectional units:                                               200 
+#> Estimation cross-sectional units:                                            200 
+#> Initial periods per unit (avg):                                                5 
+#> Estimation periods per unit (avg):                                             5 
+#> Convergence:                                                          Successful 
+#> -------------------------------------------------------------------------------- 
+#>                                 Final estimates 
+#> -------------------------------------------------------------------------------- 
+#>                 Estimate Std. Error z value Pr(>|z|)    
+#> x_panel         0.512705   0.008692  58.985   <2e-16 ***
 #> INTERCEPT_mean  0.013508   0.037058   0.365    0.715    
 #> x_panel_mean   -0.122045   0.081551  -1.497    0.135    
-#> 
-#> Note: cluster standard errors
-#> 
-#> Number of observations (initial): 1000 
-#> Number of observations (for estimation): 1000 
-#> Number of cross-sectional units (initial): 200 
-#> Number of cross-sectional units (for estimation): 200 
-#> Average number of time periods per cross-sectional unit (initial): 5 
-#> Average number of time periods per cross-sectional unit (for estimation): 5
-```
-
-``` r
-summary(model_pd)
-```
-
-Toggle to see the output
-
-``` R
-#>           Length Class  Mode     
-#> type         1   -none- character
-#> link         1   -none- character
-#> Hy        1000   -none- numeric  
-#> p            3   -none- numeric  
-#> converged    1   -none- numeric  
-#> p.var        9   -none- numeric  
-#> var.type     1   -none- character
+#> ---
+#> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+#> -------------------------------------------------------------------------------- 
+#>                          Run Date: 2026-07-05 03:16:57 
+#> --------------------------------------------------------------------------------
 ```
 
 ------------------------------------------------------------------------

@@ -126,14 +126,19 @@ res <- fracreg(y,X,linkfrac="logit",table=FALSE)
 fracreg.pe(res)
 #> 
 #> 
-#> *** Average partial effects ***
-#> 
-#> Fractional logit model
-#> 
-#>    Estimate Std. Error t value Pr(>|t|)    
-#> X1   0.1530     0.0118  12.935    0.000 ***
-#> X2   0.1453     0.0123  11.784    0.000 ***
-#> 
+#> -------------------------------------------------------------------------------- 
+#>                             Average partial effects 
+#> -------------------------------------------------------------------------------- 
+#>                              Fractional logit model 
+#> -------------------------------------------------------------------------------- 
+#>    Estimate Std. Error z value Pr(>|z|)    
+#> X1 0.178302   0.009269   19.24   <2e-16 ***
+#> X2 0.186834   0.011511   16.23   <2e-16 ***
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> -------------------------------------------------------------------------------- 
+#>                          Run Date: 2026-07-05 03:17:39 
+#> -------------------------------------------------------------------------------- 
 
 #Computing average partial effects for a binary logit + fractional probit
 #two-part model
@@ -141,14 +146,19 @@ res <- fracreg(y,X,linkbin="logit",linkfrac="probit",type="2P",inf=1,table=FALSE
 fracreg.pe(res)
 #> 
 #> 
-#> *** Average partial effects ***
-#> 
-#> Binary logit + Fractional probit two-part model
-#> 
-#>    Estimate Std. Error t value Pr(>|t|)    
-#> X1   0.0815     0.0147   5.549    0.000 ***
-#> X2   0.0706     0.0135   5.210    0.000 ***
-#> 
+#> -------------------------------------------------------------------------------- 
+#>                             Average partial effects 
+#> -------------------------------------------------------------------------------- 
+#>                 Binary logit + Fractional probit two-part model 
+#> -------------------------------------------------------------------------------- 
+#>    Estimate Std. Error z value Pr(>|z|)    
+#> X1  0.10841    0.01274   8.511   <2e-16 ***
+#> X2  0.12638    0.01486   8.502   <2e-16 ***
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> -------------------------------------------------------------------------------- 
+#>                          Run Date: 2026-07-05 03:17:40 
+#> -------------------------------------------------------------------------------- 
 
 #Computing conditional partial effects for X2 in the logit component
 #of a two-part fractional regression model, with the covariates evaluated
@@ -157,14 +167,19 @@ res <- fracreg(y,X,linkfrac="logit",type="2Pfrac",inf=1,table=FALSE)
 fracreg.pe(res,APE=FALSE,CPE=TRUE,at="median",which.x="X2")
 #> 
 #> 
-#> *** Conditional partial effects ***
+#> -------------------------------------------------------------------------------- 
+#>                           Conditional partial effects 
+#> -------------------------------------------------------------------------------- 
+#>                  Fractional logit component of a two-part model 
+#> -------------------------------------------------------------------------------- 
+#>    Estimate Std. Error z value Pr(>|z|)    
+#> X2  0.18783    0.01698   11.06   <2e-16 ***
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> -------------------------------------------------------------------------------- 
+#>                          Run Date: 2026-07-05 03:17:40 
+#> -------------------------------------------------------------------------------- 
 #> 
-#> Fractional logit component of a two-part model
-#> 
-#>    Estimate Std. Error t value Pr(>|t|)    
-#> X2   0.1539     0.0164   9.379    0.000 ***
-#> 
-#> ------------------
 #> Note: covariates evaluated at median (or mode, for dummies) values
 
 #Computing average partial effects for a three-part double-inflated model
@@ -175,12 +190,17 @@ res3p <- fracreg(y3p,X,linkbin=c("logit","probit"),linkfrac="logit",type="3P",ta
 fracreg.pe(res3p)
 #> 
 #> 
-#> *** Average partial effects ***
-#> 
-#> Three-part model - binary logit , binary probit + fractional logit
-#> 
-#>    Estimate Std. Error t value Pr(>|t|)    
-#> X1   0.1355     0.0169   8.004    0.000 ***
-#> X2   0.1179     0.0181   6.526    0.000 ***
-#> 
+#> -------------------------------------------------------------------------------- 
+#>                             Average partial effects 
+#> -------------------------------------------------------------------------------- 
+#>        Three-part model - binary logit , binary probit + fractional logit 
+#> -------------------------------------------------------------------------------- 
+#>    Estimate Std. Error z value Pr(>|z|)    
+#> X1  0.17427    0.01288   13.54   <2e-16 ***
+#> X2  0.16785    0.01545   10.86   <2e-16 ***
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> -------------------------------------------------------------------------------- 
+#>                          Run Date: 2026-07-05 03:17:40 
+#> -------------------------------------------------------------------------------- 
 ```
