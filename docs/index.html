@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>fracreg — Fractional Regression Models • fracreg</title>
+<title>fracreg — Fractional Response Models • fracreg</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
 <link rel="icon" type="”image/svg+xml”" href="favicon.svg">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
@@ -18,7 +18,7 @@
 <link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><link href="extra.css" rel="stylesheet">
-<meta property="og:title" content="fracreg — Fractional Regression Models">
+<meta property="og:title" content="fracreg — Fractional Response Models">
 <meta name="description" content="A comprehensive R package for estimation, specification testing, and interpretation of one-part, two-part hurdle, and three-part double-inflated fractional regression models. Supports panel data (CRE, GMM, QML) and endogeneity correction via control function and GMM approaches.
 ">
 <meta property="og:description" content="A comprehensive R package for estimation, specification testing, and interpretation of one-part, two-part hurdle, and three-part double-inflated fractional regression models. Supports panel data (CRE, GMM, QML) and endogeneity correction via control function and GMM approaches.
@@ -77,7 +77,7 @@
 </div>
 <p><img src="reference/figures/logo.png" align="right" height="139" alt="fracreg logo"></p>
 <p><a href="https://lifecycle.r-lib.org/articles/stages.html#stable" class="external-link"><img src="https://img.shields.io/badge/lifecycle-stable-brightgreen.svg" alt="Lifecycle: stable"></a> <a href="https://cran.r-project.org/" class="external-link"><img src="https://img.shields.io/badge/R-%3E=%203.5.0-blue.svg"></a> <a href="https://github.com/SulmanOlieko/fracreg/commits/main" class="external-link"><img src="https://img.shields.io/github/last-commit/SulmanOlieko/fracreg.svg"></a> <a href="https://github.com/SulmanOlieko/fracreg/issues" class="external-link"><img src="https://img.shields.io/github/issues/SulmanOlieko/fracreg.svg"></a> <a href="https://github.com/SulmanOlieko/fracreg" class="external-link"><img src="https://img.shields.io/badge/license-GPL--3-blue"></a> <a href="https://cran.r-project.org/package=fracreg" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/grand-total/fracreg" alt="CRAN Total Downloads"></a></p>
-<p>An advanced R package for the estimation, specification analysis, and interpretation of fractional response models. It handles univariate proportions, participation rates, and bounded data (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>≤</mo><mi>y</mi><mo>≤</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">0 \le y \le 1</annotation></semantics></math>), providing state-of-the-art estimators for single-part, two-part (hurdle), and three-part (double-inflated) models.</p>
+<p>An R package for fitting and testing specifications of fractional regression models. It handles fractional, univariate proportions, and bounded data (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>≤</mo><mi>y</mi><mo>≤</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">0 \le y \le 1</annotation></semantics></math>), and provides estimators for one-part, two-part (hurdle), and three-part (double-inflated) models.</p>
 <div class="section level2">
 <h2 id="features">Features<a class="anchor" aria-label="anchor" href="#features"></a>
 </h2>
@@ -182,7 +182,7 @@ Toggle to see the output
 <span id="cb7-18"><a href="#cb7-18" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
 <span id="cb7-19"><a href="#cb7-19" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span id="cb7-20"><a href="#cb7-20" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span id="cb7-21"><a href="#cb7-21" tabindex="-1"></a><span class="co">#&gt;                          Run Date: 2026-07-05 16:50:27 </span></span>
+<span id="cb7-21"><a href="#cb7-21" tabindex="-1"></a><span class="co">#&gt;                          Run Date: 2026-07-05 17:41:53 </span></span>
 <span id="cb7-22"><a href="#cb7-22" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre></div>
 </details>
 </div>
@@ -206,7 +206,7 @@ Toggle to see the output
 <span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
 <span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span id="cb9-13"><a href="#cb9-13" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a><span class="co">#&gt;                          Run Date: 2026-07-05 16:50:27 </span></span>
+<span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a><span class="co">#&gt;                          Run Date: 2026-07-05 17:41:53 </span></span>
 <span id="cb9-15"><a href="#cb9-15" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre></div>
 </details>
 </div>
@@ -274,7 +274,7 @@ Toggle to see the output
 <span id="cb11-47"><a href="#cb11-47" tabindex="-1"></a><span class="co">#&gt; Pseudo R-squared:                                                        0.38621 </span></span>
 <span id="cb11-48"><a href="#cb11-48" tabindex="-1"></a><span class="co">#&gt; Convergence:                                                          Successful </span></span>
 <span id="cb11-49"><a href="#cb11-49" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span id="cb11-50"><a href="#cb11-50" tabindex="-1"></a><span class="co">#&gt;                          Run Date: 2026-07-05 16:50:27 </span></span>
+<span id="cb11-50"><a href="#cb11-50" tabindex="-1"></a><span class="co">#&gt;                          Run Date: 2026-07-05 17:41:54 </span></span>
 <span id="cb11-51"><a href="#cb11-51" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre></div>
 </details><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pe_2p</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/fracreg.pe.html">fracreg.pe</a></span><span class="op">(</span><span class="va">model_2p</span><span class="op">)</span></span></code></pre></div>
@@ -293,7 +293,7 @@ Toggle to see the output
 <span id="cb13-11"><a href="#cb13-11" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
 <span id="cb13-12"><a href="#cb13-12" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span id="cb13-13"><a href="#cb13-13" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span id="cb13-14"><a href="#cb13-14" tabindex="-1"></a><span class="co">#&gt;                          Run Date: 2026-07-05 16:50:28 </span></span>
+<span id="cb13-14"><a href="#cb13-14" tabindex="-1"></a><span class="co">#&gt;                          Run Date: 2026-07-05 17:41:54 </span></span>
 <span id="cb13-15"><a href="#cb13-15" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre></div>
 </details>
 </div>
@@ -381,7 +381,7 @@ Toggle to see the output
 <span id="cb15-68"><a href="#cb15-68" tabindex="-1"></a><span class="co">#&gt; Pseudo R-squared:                                                        0.38893 </span></span>
 <span id="cb15-69"><a href="#cb15-69" tabindex="-1"></a><span class="co">#&gt; Convergence:                                                          Successful </span></span>
 <span id="cb15-70"><a href="#cb15-70" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span id="cb15-71"><a href="#cb15-71" tabindex="-1"></a><span class="co">#&gt;                          Run Date: 2026-07-05 16:50:28 </span></span>
+<span id="cb15-71"><a href="#cb15-71" tabindex="-1"></a><span class="co">#&gt;                          Run Date: 2026-07-05 17:41:54 </span></span>
 <span id="cb15-72"><a href="#cb15-72" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre></div>
 </details><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pe_3p</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/fracreg.pe.html">fracreg.pe</a></span><span class="op">(</span><span class="va">model_3p</span><span class="op">)</span></span></code></pre></div>
@@ -400,7 +400,7 @@ Toggle to see the output
 <span id="cb17-11"><a href="#cb17-11" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
 <span id="cb17-12"><a href="#cb17-12" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span id="cb17-13"><a href="#cb17-13" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span id="cb17-14"><a href="#cb17-14" tabindex="-1"></a><span class="co">#&gt;                          Run Date: 2026-07-05 16:50:28 </span></span>
+<span id="cb17-14"><a href="#cb17-14" tabindex="-1"></a><span class="co">#&gt;                          Run Date: 2026-07-05 17:41:54 </span></span>
 <span id="cb17-15"><a href="#cb17-15" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre></div>
 </details><hr>
 </div>
@@ -427,7 +427,7 @@ Toggle to see the output
 <span id="cb19-9"><a href="#cb19-9" tabindex="-1"></a><span class="co">#&gt; GOFF2 - LM     0.485   0.486</span></span>
 <span id="cb19-10"><a href="#cb19-10" tabindex="-1"></a><span class="co">#&gt; GGOFF - LM     0.814   0.666</span></span>
 <span id="cb19-11"><a href="#cb19-11" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span id="cb19-12"><a href="#cb19-12" tabindex="-1"></a><span class="co">#&gt;                          Run Date: 2026-07-05 16:50:28 </span></span>
+<span id="cb19-12"><a href="#cb19-12" tabindex="-1"></a><span class="co">#&gt;                          Run Date: 2026-07-05 17:41:55 </span></span>
 <span id="cb19-13"><a href="#cb19-13" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre></div>
 </details>
 </div>
@@ -448,7 +448,7 @@ Toggle to see the output
 <span id="cb21-7"><a href="#cb21-7" tabindex="-1"></a><span class="co">#&gt;       Statistic p-value</span></span>
 <span id="cb21-8"><a href="#cb21-8" tabindex="-1"></a><span class="co">#&gt; LM(3)     0.852   0.653</span></span>
 <span id="cb21-9"><a href="#cb21-9" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span id="cb21-10"><a href="#cb21-10" tabindex="-1"></a><span class="co">#&gt;                          Run Date: 2026-07-05 16:50:28 </span></span>
+<span id="cb21-10"><a href="#cb21-10" tabindex="-1"></a><span class="co">#&gt;                          Run Date: 2026-07-05 17:41:55 </span></span>
 <span id="cb21-11"><a href="#cb21-11" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre></div>
 </details><hr>
 </div>
@@ -503,7 +503,7 @@ Toggle to see the output
 <span id="cb23-26"><a href="#cb23-26" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
 <span id="cb23-27"><a href="#cb23-27" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span id="cb23-28"><a href="#cb23-28" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span id="cb23-29"><a href="#cb23-29" tabindex="-1"></a><span class="co">#&gt;                          Run Date: 2026-07-05 16:50:28 </span></span>
+<span id="cb23-29"><a href="#cb23-29" tabindex="-1"></a><span class="co">#&gt;                          Run Date: 2026-07-05 17:41:55 </span></span>
 <span id="cb23-30"><a href="#cb23-30" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre></div>
 </details><hr>
 </div>
@@ -557,7 +557,7 @@ Toggle to see the output
 <span id="cb25-24"><a href="#cb25-24" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
 <span id="cb25-25"><a href="#cb25-25" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span id="cb25-26"><a href="#cb25-26" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span id="cb25-27"><a href="#cb25-27" tabindex="-1"></a><span class="co">#&gt;                          Run Date: 2026-07-05 16:50:28 </span></span>
+<span id="cb25-27"><a href="#cb25-27" tabindex="-1"></a><span class="co">#&gt;                          Run Date: 2026-07-05 17:41:55 </span></span>
 <span id="cb25-28"><a href="#cb25-28" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre></div>
 </details><hr>
 </div>

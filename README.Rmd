@@ -41,7 +41,7 @@ An R package for fitting and testing specifications of fractional regression mod
 
 ## Features
 
-`fracreg` is fully equipped to handle complex data structures commonly found in econometrics and biostatistics:
+`fracreg` is handles:
 
 1. **Univariate Fractional Models (`fracreg`)**: Fit standard 1-part models, hurdle 2-part models (mass at 0 or 1), and double-inflated 3-part models.
 2. **Panel Data Models (`fracregpd`)**: Estimate fractional models with fixed-T longitudinal data, supporting Correlated Random Effects (CRE) to handle unobserved individual heterogeneity.
