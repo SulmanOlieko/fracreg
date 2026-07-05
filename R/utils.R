@@ -174,7 +174,7 @@ fracreg.table <- function(y,yhat,p,p.var,x.names,type,link,converged,var.type,R2
 			cat("\n")
 			cat(.fracreg.sep(), "\n")
 			if(type=="2Pbin") cat(.fracreg.center(paste("Binary component of a two-part model -", link, "specification")), "\n")
-			if(type=="1P") cat(.fracreg.center(paste("Fractional regression model -", link, "specification")), "\n")
+			if(type=="1P") cat(.fracreg.center(paste("Fractional response model -", link, "specification")), "\n")
 			if(type=="2Pfrac") cat(.fracreg.center(paste("Fractional component of a two-part model -", link, "specification")), "\n")
 			if(type=="3Pbin0") cat(.fracreg.center(paste("First binary component of a three-part model -", link, "specification")), "\n")
 			if(type=="3Pbin1") cat(.fracreg.center(paste("Second binary component of a three-part model -", link, "specification")), "\n")

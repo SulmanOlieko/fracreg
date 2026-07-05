@@ -2,11 +2,11 @@
 \alias{fracreg.pe}
 
 \title{
-Fractional Regression Models - Partial Effects
+Fractional Response Models - Partial Effects
 }
 
 \description{
-\code{fracreg.pe} is used to compute average and/or conditional partial effects in fractional regression models.
+\code{fracreg.pe} is used to compute average and/or conditional partial effects in fractional response models.
 }
 
 \usage{
@@ -35,7 +35,7 @@ mean or median values (or mode, in case of dummy variables), respectively.
 }
 
 \details{
-\code{fracreg.pe} calculates partial effects for fractional regression models estimated via \code{fracreg}. \code{fracreg.pe} may be used to compute average or conditional partial effects for: (i) one-part fractional regression models; (ii) the binary components of two-part and three-part fractional regression models; (iii) the fractional components of two-part and three-part fractional regression models; and (iv) two-part and three-part fractional regression models overall. For calculating standard errors, it is taken into account the option that was previously chosen for estimating the model. See Ramalho, Ramalho and Murteira (2011) and Fang and Ma (2013) for details on the computation of partial effects in the fractional regression framework.
+\code{fracreg.pe} calculates partial effects for fractional response models estimated via \code{fracreg}. \code{fracreg.pe} may be used to compute average or conditional partial effects for: (i) one-part fractional response models; (ii) the binary components of two-part and three-part fractional response models; (iii) the fractional components of two-part and three-part fractional response models; and (iv) two-part and three-part fractional response models overall. For calculating standard errors, it is taken into account the option that was previously chosen for estimating the model. See Ramalho, Ramalho and Murteira (2011) and Fang and Ma (2013) for details on the computation of partial effects in the fractional response framework.
 }
 
 \value{
@@ -52,7 +52,7 @@ When both average and conditional partial effects are requested, two lists conta
 
 \references{
 Ramalho, E.A., J.J.S. Ramalho and J.M.R. Murteira (2011), "Alternative
-estimating and testing empirical strategies for fractional regression models",
+estimating and testing empirical strategies for fractional response models",
 \emph{Journal of Economic Surveys}, 25(1), 19-68.
 
 Fang, K., & Ma, S. (2013), "Three-part model for fractional response variables with application to Chinese household health insurance coverage", \emph{Journal of Applied Statistics}, 40(5), 925-940.
@@ -63,7 +63,7 @@ Sulman Olieko Owili <oliekosulman@gmail.com>
 }
 
 \seealso{
-\code{\link{fracreg}}, for fitting fractional regression models.\cr
+\code{\link{fracreg}}, for fitting fractional response models.\cr
 \code{\link{fracreg.reset}} and \code{\link{fracreg.ggoff}}, for specification tests.\cr
 \code{\link{fracreg.ptest}}, for non-nested hypothesis tests.
 }
@@ -79,7 +79,7 @@ ym <- exp(X[,1]+X[,2]+u)/(1+exp(X[,1]+X[,2]+u))
 y <- rbeta(N,ym*20,20*(1-ym))
 y[y > 0.9] <- 1
 
-#Computing average partial effects for a logit fractional regression model
+#Computing average partial effects for a logit fractional response model
 res <- fracreg(y,X,linkfrac="logit",table=FALSE)
 fracreg.pe(res)
 
@@ -89,7 +89,7 @@ res <- fracreg(y,X,linkbin="logit",linkfrac="probit",type="2P",inf=1,table=FALSE
 fracreg.pe(res)
 
 #Computing conditional partial effects for X2 in the logit component
-#of a two-part fractional regression model, with the covariates evaluated
+#of a two-part fractional response model, with the covariates evaluated
 #at their median values
 res <- fracreg(y,X,linkfrac="logit",type="2Pfrac",inf=1,table=FALSE)
 fracreg.pe(res,APE=FALSE,CPE=TRUE,at="median",which.x="X2")

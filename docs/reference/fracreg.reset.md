@@ -1,8 +1,8 @@
-# RESET Test for Fractional Regression Models
+# RESET Test for Fractional Response Models
 
 `fracreg.reset` is used to perform the Regression Equation Specification
 Error Test (RESET) to check the functional form and specification of
-fractional regression models.
+fractional response models.
 
 ## Usage
 
@@ -40,18 +40,17 @@ fracreg.reset(object, lastpower.vec = 3, version = "LM", table = TRUE, ...)
 
 ## Details
 
-`fracreg.reset` applies the RESET test statistic to fractional
-regression models estimated via `fracreg`. `fracreg.reset` may be used
-to test the link specification of: (i) one-part fractional regression
-models; (ii) the binary components of two-part and three-part fractional
-regression models; and (iii) the fractional components of two-part and
-three-part fractional regression models. When the `Wald` version is
-implemented, it is taken into account the option that was chosen for
-computing standard errors in the model under evaluation. For the `LM`
-version, a robust version is computed in cases (i) and (iii) and a
-conventional version in case (ii). See Ramalho, Ramalho and Murteira
-(2011) for details on the application of the RESET test in the
-fractional regression framework.
+`fracreg.reset` applies the RESET test statistic to fractional response
+models estimated via `fracreg`. `fracreg.reset` may be used to test the
+link specification of: (i) one-part fractional response models; (ii) the
+binary components of two-part and three-part fractional response models;
+and (iii) the fractional components of two-part and three-part
+fractional response models. When the `Wald` version is implemented, it
+is taken into account the option that was chosen for computing standard
+errors in the model under evaluation. For the `LM` version, a robust
+version is computed in cases (i) and (iii) and a conventional version in
+case (ii). See Ramalho, Ramalho and Murteira (2011) for details on the
+application of the RESET test in the fractional response framework.
 
 ## Value
 
@@ -60,7 +59,7 @@ fractional regression framework.
 ## References
 
 Ramalho, E.A., J.J.S. Ramalho and J.M.R. Murteira (2011), "Alternative
-estimating and testing empirical strategies for fractional regression
+estimating and testing empirical strategies for fractional response
 models", *Journal of Economic Surveys*, 25(1), 19-68.
 
 ## Author
@@ -70,7 +69,7 @@ Sulman Olieko Owili \<oliekosulman@gmail.com\>
 ## See also
 
 [`fracreg`](https://SulmanOlieko.github.io/fracreg/reference/fracreg.md),
-for fitting fractional regression models.  
+for fitting fractional response models.  
 [`fracreg.ggoff`](https://SulmanOlieko.github.io/fracreg/reference/fracreg.ggoff.md),
 for asymptotically equivalent specification tests.  
 [`fracreg.ptest`](https://SulmanOlieko.github.io/fracreg/reference/fracreg.ptest.md),
@@ -91,7 +90,7 @@ ym <- exp(X[,1]+X[,2]+u)/(1+exp(X[,1]+X[,2]+u))
 y <- rbeta(N,ym*20,20*(1-ym))
 y[y > 0.9] <- 1
 
-#Testing the logit specification of a standard fractional regression model
+#Testing the logit specification of a standard fractional response model
 #using LM and Wald versions of the RESET test, based on 1 or 2 fitted powers of
 #the linear predictor
 res <- fracreg(y,X,linkfrac="logit",table=FALSE)
@@ -108,7 +107,7 @@ fracreg.reset(res,2:3,c("Wald","LM"))
 #> LM(3)       0.042   0.979
 #> Wald(3)     0.045   0.978
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 03:17:42 
+#>                          Run Date: 2026-07-05 16:51:54 
 #> -------------------------------------------------------------------------------- 
 
 #Testing the probit specification of the binary component of a two-part fractional
@@ -125,6 +124,6 @@ fracreg.reset(res,3,"LR")
 #>       Statistic p-value
 #> LR(3)     0.528   0.768
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 03:17:42 
+#>                          Run Date: 2026-07-05 16:51:54 
 #> -------------------------------------------------------------------------------- 
 ```

@@ -2,7 +2,7 @@
 \alias{fracregpd}
 
 \title{
-Fitting Panel Data Fractional Regression Models
+Fitting Panel Data Fractional Response Models
 }
 
 \description{
@@ -60,7 +60,7 @@ instrumental variables). Only required in case of endogenous explanatory variabl
 }
 
 \details{
-\code{fracregpd} computes the GMM estimators proposed in Ramalho, Ramalho and Coelho (2018) for panel data fractional regression models with both time-variant and time-invariant unobserved heterogeneity and endogeneous covariates: GMMww, GMMc, GMMbgw, GMMpfe, GMMcre and GMMpre. In addition, \code{fracregpd} also computes QMLcre, which was proposed by Papke and Wooldridge (2008) and Wooldridge (2019). The Correlated Random Effects (CRE) approach models the unobserved individual-specific effects as a linear function of the time averages of covariates, allowing consistent estimation even when unobserved effects are correlated with regressors. For overidentified models, \code{fracregpd} calculates Hansen's J statistic.
+\code{fracregpd} computes the GMM estimators proposed in Ramalho, Ramalho and Coelho (2018) for panel data fractional response models with both time-variant and time-invariant unobserved heterogeneity and endogeneous covariates: GMMww, GMMc, GMMbgw, GMMpfe, GMMcre and GMMpre. In addition, \code{fracregpd} also computes QMLcre, which was proposed by Papke and Wooldridge (2008) and Wooldridge (2019). The Correlated Random Effects (CRE) approach models the unobserved individual-specific effects as a linear function of the time averages of covariates, allowing consistent estimation even when unobserved effects are correlated with regressors. For overidentified models, \code{fracregpd} calculates Hansen's J statistic.
 }
 
 \value{
@@ -101,8 +101,8 @@ Sulman Olieko Owili <oliekosulman@gmail.com>
 }
 
 \seealso{
-\code{\link{fracreg}}, for fitting standard cross-sectional fractional regression models.\cr
-\code{\link{fracreghet}}, for fitting cross-sectional fractional regression models with unobserved heterogeneity.
+\code{\link{fracreg}}, for fitting standard cross-sectional fractional response models.\cr
+\code{\link{fracreghet}}, for fitting cross-sectional fractional response models with unobserved heterogeneity.
 }
 
 \examples{

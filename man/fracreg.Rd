@@ -2,11 +2,11 @@
 \alias{fracreg}
 
 \title{
-Fitting Fractional Regression Models
+Fitting Fractional Response Models
 }
 
 \description{
-\code{fracreg} is used to fit fractional regression models, which are appropriate for responses that are proportions, percentages, or fractions restricted to the [0, 1] interval. It supports standard one-part models, two-part hurdle models for modeling boundary values at 0 or 1, and three-part models for double inflation at both 0 and 1.
+\code{fracreg} is used to fit fractional response models, which are appropriate for responses that are proportions, percentages, or fractions restricted to the [0, 1] interval. It supports standard one-part models, two-part hurdle models for modeling boundary values at 0 or 1, and three-part models for double inflation at both 0 and 1.
 }
 
 \usage{
@@ -23,13 +23,13 @@ fracreg(y, x, x2 = x, linkbin, linkfrac, type = "1P", inflation = 0,
   \item{x2}{a numeric matrix, with column names, containing the values of the covariates in the fractional component of two-part
 models if option \code{type = "2P"} is defined. Defaults to \code{x}.
 }
-  \item{linkbin}{a description of the link function to use in the binary component of a two-part fractional regression model, or a vector of two link functions for the two binary components of a three-part model (e.g. \code{c("logit", "probit")}). Available options: \code{logit}, \code{probit}, \code{cauchit}, \code{loglog}, \code{cloglog}.
+  \item{linkbin}{a description of the link function to use in the binary component of a two-part fractional response model, or a vector of two link functions for the two binary components of a three-part model (e.g. \code{c("logit", "probit")}). Available options: \code{logit}, \code{probit}, \code{cauchit}, \code{loglog}, \code{cloglog}.
 }
-  \item{linkfrac}{a description of the link function to use in standard fractional regression models or in the fractional component of a two-part fractional regression model. Available options: \code{logit}, \code{probit}, \code{cauchit}, \code{loglog}, \code{cloglog}.
+  \item{linkfrac}{a description of the link function to use in standard fractional response models or in the fractional component of a two-part fractional response model. Available options: \code{logit}, \code{probit}, \code{cauchit}, \code{loglog}, \code{cloglog}.
 }
   \item{type}{a description of the model to estimate: a standard one-part model (\code{1P}, the default), a two-part model (\code{2P}), the binary component of a two-part model (\code{2Pbin}), the fractional component of a two-part model (\code{2Pfrac}), or a three-part model (\code{3P}) for double boundary inflation.
 }
-  \item{inflation}{a numeric value indicating which of the extreme values of \code{0} (the default) or \code{1} is the relevant boundary value for defining two-part fractional regression models.
+  \item{inflation}{a numeric value indicating which of the extreme values of \code{0} (the default) or \code{1} is the relevant boundary value for defining two-part fractional response models.
 }
   \item{intercept}{a logical value indicating whether the model should include a constant term or not.
 }
@@ -37,7 +37,7 @@ models if option \code{type = "2P"} is defined. Defaults to \code{x}.
 }
   \item{variance}{a logical value indicating whether the variance of the estimated parameters should be calculated. Defaults to \code{TRUE} whenever \code{table = TRUE}.
 }
-  \item{var.type}{a description of the type of variance of the estimated parameters to be calculated. Options are \code{standard} (recommended for models estimated by maximum likelihood, such as the binary component of two-part models), \code{robust} (recommended for models estimated by quasi-maximum likelihood, such as standard fractional regression models or the fractional component of a two-part fractional regression model), \code{cluster} (recommended in the case of panel data) and \code{default} (implements the \code{standard} or \code{robust} versions as appropriate).
+  \item{var.type}{a description of the type of variance of the estimated parameters to be calculated. Options are \code{standard} (recommended for models estimated by maximum likelihood, such as the binary component of two-part models), \code{robust} (recommended for models estimated by quasi-maximum likelihood, such as standard fractional response models or the fractional component of a two-part fractional response model), \code{cluster} (recommended in the case of panel data) and \code{default} (implements the \code{standard} or \code{robust} versions as appropriate).
 }
   \item{var.eim}{a logical value indicating whether the expected information matrix should be used in the calculation of the variance. When false, the observation information matrix will be used. Defaults to \code{TRUE}. 
 }
@@ -50,7 +50,7 @@ models if option \code{type = "2P"} is defined. Defaults to \code{x}.
 }
 
 \details{
-\code{fracreg} estimates one-part, two-part hurdle, and three-part double-inflated fractional regression models; see Ramalho, Ramalho and Murteira (2011) and Fang and Ma (2013) for details on those models. The one-part models and the fractional component of two- and three-part models are estimated by Bernoulli-based quasi-maximum likelihood, while the binary components of two- and three-part models are estimated by maximum likelihood. \code{fracreg} uses the standard \link[stats]{glm} command to perform the estimations. Therefore, \code{fracreg} is essentially a convenience command, allowing estimation of several alternative fractional regression models using the same command. In addition, \code{fracreg} provides an R-squared measure for all models (calculated as the square of the correlation coefficient between the actual and fitted values of the dependent variable), calculates the fitted values of the dependent variable in two-part models and stores the information needed to implement some very useful commands for fractional regression models: \link{fracreg.reset} (RESET test), \link{fracreg.ptest} (P test), \link{fracreg.ggoff} (GGOFF tests) and \link{fracreg.pe} (partial effects).
+\code{fracreg} estimates one-part, two-part hurdle, and three-part double-inflated fractional response models; see Ramalho, Ramalho and Murteira (2011) and Fang and Ma (2013) for details on those models. The one-part models and the fractional component of two- and three-part models are estimated by Bernoulli-based quasi-maximum likelihood, while the binary components of two- and three-part models are estimated by maximum likelihood. \code{fracreg} uses the standard \link[stats]{glm} command to perform the estimations. Therefore, \code{fracreg} is essentially a convenience command, allowing estimation of several alternative fractional response models using the same command. In addition, \code{fracreg} provides an R-squared measure for all models (calculated as the square of the correlation coefficient between the actual and fitted values of the dependent variable), calculates the fitted values of the dependent variable in two-part models and stores the information needed to implement some very useful commands for fractional response models: \link{fracreg.reset} (RESET test), \link{fracreg.ptest} (P test), \link{fracreg.ggoff} (GGOFF tests) and \link{fracreg.pe} (partial effects).
 }
 
 \value{When \code{type = "1P" or "2Pfrac"}, \code{fracreg} returns a list with the following elements:
@@ -126,7 +126,7 @@ When \code{type = "3P"}, \code{fracreg} returns the previous lists, indexed by t
 Papke, L. E. and Wooldridge, J. M. (1996), "Econometric methods for fractional response variables with an application to 401(k) plan participation rates", \emph{Journal of Applied Econometrics}, 11(6), 619-632.
 
 Ramalho, E.A., J.J.S. Ramalho and J.M.R. Murteira (2011), "Alternative
-estimating and testing empirical strategies for fractional regression models",
+estimating and testing empirical strategies for fractional response models",
 \emph{Journal of Economic Surveys}, 25(1), 19-68.
 
 Fang, K., & Ma, S. (2013), "Three-part model for fractional response variables with application to Chinese household health insurance coverage", \emph{Journal of Applied Statistics}, 40(5), 925-940.
@@ -140,8 +140,8 @@ Sulman Olieko Owili <oliekosulman@gmail.com>
 \code{\link{fracreg.reset}} and \code{\link{fracreg.ggoff}}, for specification tests.\cr
 \code{\link{fracreg.ptest}}, for non-nested hypothesis tests.\cr
 \code{\link{fracreg.pe}}, for computing partial effects.\cr
-\code{fracreghet}, for fitting cross-sectional fractional regression models with unobserved heterogeneity.\cr
-\code{fracregpd}, for fitting panel data fractional regression models.
+\code{fracreghet}, for fitting cross-sectional fractional response models with unobserved heterogeneity.\cr
+\code{fracregpd}, for fitting panel data fractional response models.
 }
 
 \examples{
@@ -161,7 +161,7 @@ y[y_latent > 0.8] <- 1
 
 X <- cbind(x1 = x1, x2 = x2)
 
-# fracreg estimation of a logit fractional regression model
+# fracreg estimation of a logit fractional response model
 fracreg(y, X, type="1P", linkfrac="logit")
 
 # fracreg estimation of the binary logit component of the two-part fractional
@@ -173,7 +173,7 @@ fracreg(y, X, type="2Pbin", inflation=0, linkbin="logit")
 # probit link function
 fracreg(y, X, type="2Pfrac", inflation=0, linkfrac="probit")
 
-# fracreg estimation of both components of a two-part fractional regression model
+# fracreg estimation of both components of a two-part fractional response model
 # with y=0 as the relevant boundary value and using a cloglog binary link
 # function and a logit fractional link function
 fracreg(y, X, type="2P", inflation=0, linkbin="cloglog", linkfrac="logit")

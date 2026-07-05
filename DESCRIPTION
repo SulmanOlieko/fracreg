@@ -1,13 +1,13 @@
 Version: 1.0.0
 Type: Package
-Title: Fractional Regression Models
+Title: Fractional Response Models
 Package: fracreg
 Authors@R: person(given = c("Sulman", "Olieko"),
                    family = "Owili",
                    role = c("aut", "cre"),
                    email = "oliekosulman@gmail.com")
 License: GPL-3
-Description: A comprehensive toolkit for the estimation and specification analysis of fractional regression models. Provides advanced routines for fitting univariate one-part, hurdle two-part, and double-inflated three-part fractional models. Further incorporates estimators for panel data settings and addresses unobserved heterogeneity and endogeneity via correlated random effects and control function approaches. Calculates analytical partial effects across all model types and includes generalized goodness-of-functional-form (GGOFF) and RESET hypothesis tests.
+Description: A comprehensive toolkit for the estimation and specification analysis of fractional response models. Provides advanced routines for fitting univariate one-part, hurdle two-part, and double-inflated three-part fractional models. Further incorporates estimators for panel data settings and addresses unobserved heterogeneity and endogeneity via correlated random effects and control function approaches. Calculates analytical partial effects across all model types and includes generalized goodness-of-functional-form (GGOFF) and RESET hypothesis tests.
 Date: 2026-07-05
 Packaged: 2026-07-05 12:38:54 UTC; Sulman
 NeedsCompilation: no

@@ -1,4 +1,4 @@
-# fracreg: Fractional Regression Models in R
+# fracreg: Fractional Response Models in R
 
 [![Lifecycle:
 stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
@@ -9,10 +9,9 @@ stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://
 [![CRAN Total
 Downloads](https://cranlogs.r-pkg.org/badges/grand-total/fracreg)](https://cran.r-project.org/package=fracreg)
 
-> **The Ultimate Toolkit for Fractional Data**
 
 An advanced R package for the estimation, specification analysis, and
-interpretation of fractional regression models. It handles univariate
+interpretation of fractional response models. It handles univariate
 proportions, participation rates, and bounded data ($`0 \le y \le 1`$),
 providing state-of-the-art estimators for single-part, two-part
 (hurdle), and three-part (double-inflated) models.
@@ -123,7 +122,7 @@ Toggle to see the output
 ``` R
 #> 
 #> -------------------------------------------------------------------------------- 
-#>                Fractional regression model - logit specification 
+#>                 Fractional response model - logit specification 
 #> -------------------------------------------------------------------------------- 
 #> Estimator:                                                                   QML 
 #> Number of observations:                                                     1000 
@@ -141,7 +140,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 03:16:55 
+#>                          Run Date: 2026-07-05 16:50:27 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -167,7 +166,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 03:16:55 
+#>                          Run Date: 2026-07-05 16:50:27 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -237,7 +236,7 @@ Toggle to see the output
 #> Pseudo R-squared:                                                        0.38621 
 #> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 03:16:55 
+#>                          Run Date: 2026-07-05 16:50:27 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -261,7 +260,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 03:16:56 
+#>                          Run Date: 2026-07-05 16:50:28 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -351,7 +350,7 @@ Toggle to see the output
 #> Pseudo R-squared:                                                        0.38893 
 #> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 03:16:56 
+#>                          Run Date: 2026-07-05 16:50:28 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -375,7 +374,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 03:16:56 
+#>                          Run Date: 2026-07-05 16:50:28 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -404,7 +403,7 @@ Toggle to see the output
 #> GOFF2 - LM     0.485   0.486
 #> GGOFF - LM     0.814   0.666
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 03:16:56 
+#>                          Run Date: 2026-07-05 16:50:28 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -427,7 +426,7 @@ Toggle to see the output
 #>       Statistic p-value
 #> LM(3)     0.852   0.653
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 03:16:56 
+#>                          Run Date: 2026-07-05 16:50:28 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -487,7 +486,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 03:16:56 
+#>                          Run Date: 2026-07-05 16:50:28 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -549,7 +548,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 03:16:57 
+#>                          Run Date: 2026-07-05 16:50:28 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -558,7 +557,7 @@ Toggle to see the output
 ## References
 
 Ramalho, E.A., J.J.S. Ramalho and J.M.R. Murteira (2011), “Alternative
-estimating and testing empirical strategies for fractional regression
+estimating and testing empirical strategies for fractional response
 models”, *Journal of Economic Surveys*, 25(1), 19-68.
 
 Papke, L.E. and J.M. Wooldridge (1996), “Econometric methods for

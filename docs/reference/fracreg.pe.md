@@ -1,7 +1,7 @@
-# Fractional Regression Models - Partial Effects
+# Fractional Response Models - Partial Effects
 
 `fracreg.pe` is used to compute average and/or conditional partial
-effects in fractional regression models.
+effects in fractional response models.
 
 ## Usage
 
@@ -52,17 +52,17 @@ fracreg.pe(object, APE = TRUE, CPE = FALSE, at = NULL, which.x = NULL,
 
 ## Details
 
-`fracreg.pe` calculates partial effects for fractional regression models
+`fracreg.pe` calculates partial effects for fractional response models
 estimated via `fracreg`. `fracreg.pe` may be used to compute average or
-conditional partial effects for: (i) one-part fractional regression
+conditional partial effects for: (i) one-part fractional response
 models; (ii) the binary components of two-part and three-part fractional
-regression models; (iii) the fractional components of two-part and
-three-part fractional regression models; and (iv) two-part and
-three-part fractional regression models overall. For calculating
-standard errors, it is taken into account the option that was previously
-chosen for estimating the model. See Ramalho, Ramalho and Murteira
-(2011) and Fang and Ma (2013) for details on the computation of partial
-effects in the fractional regression framework.
+response models; (iii) the fractional components of two-part and
+three-part fractional response models; and (iv) two-part and three-part
+fractional response models overall. For calculating standard errors, it
+is taken into account the option that was previously chosen for
+estimating the model. See Ramalho, Ramalho and Murteira (2011) and Fang
+and Ma (2013) for details on the computation of partial effects in the
+fractional response framework.
 
 ## Value
 
@@ -86,7 +86,7 @@ prefixes `ape` and `cpe`.
 ## References
 
 Ramalho, E.A., J.J.S. Ramalho and J.M.R. Murteira (2011), "Alternative
-estimating and testing empirical strategies for fractional regression
+estimating and testing empirical strategies for fractional response
 models", *Journal of Economic Surveys*, 25(1), 19-68.
 
 Fang, K., & Ma, S. (2013), "Three-part model for fractional response
@@ -100,7 +100,7 @@ Sulman Olieko Owili \<oliekosulman@gmail.com\>
 ## See also
 
 [`fracreg`](https://SulmanOlieko.github.io/fracreg/reference/fracreg.md),
-for fitting fractional regression models.  
+for fitting fractional response models.  
 [`fracreg.reset`](https://SulmanOlieko.github.io/fracreg/reference/fracreg.reset.md)
 and
 [`fracreg.ggoff`](https://SulmanOlieko.github.io/fracreg/reference/fracreg.ggoff.md),
@@ -121,7 +121,7 @@ ym <- exp(X[,1]+X[,2]+u)/(1+exp(X[,1]+X[,2]+u))
 y <- rbeta(N,ym*20,20*(1-ym))
 y[y > 0.9] <- 1
 
-#Computing average partial effects for a logit fractional regression model
+#Computing average partial effects for a logit fractional response model
 res <- fracreg(y,X,linkfrac="logit",table=FALSE)
 fracreg.pe(res)
 #> 
@@ -137,7 +137,7 @@ fracreg.pe(res)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 03:17:39 
+#>                          Run Date: 2026-07-05 16:51:53 
 #> -------------------------------------------------------------------------------- 
 
 #Computing average partial effects for a binary logit + fractional probit
@@ -157,11 +157,11 @@ fracreg.pe(res)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 03:17:40 
+#>                          Run Date: 2026-07-05 16:51:53 
 #> -------------------------------------------------------------------------------- 
 
 #Computing conditional partial effects for X2 in the logit component
-#of a two-part fractional regression model, with the covariates evaluated
+#of a two-part fractional response model, with the covariates evaluated
 #at their median values
 res <- fracreg(y,X,linkfrac="logit",type="2Pfrac",inf=1,table=FALSE)
 fracreg.pe(res,APE=FALSE,CPE=TRUE,at="median",which.x="X2")
@@ -177,7 +177,7 @@ fracreg.pe(res,APE=FALSE,CPE=TRUE,at="median",which.x="X2")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 03:17:40 
+#>                          Run Date: 2026-07-05 16:51:53 
 #> -------------------------------------------------------------------------------- 
 #> 
 #> Note: covariates evaluated at median (or mode, for dummies) values
@@ -201,6 +201,6 @@ fracreg.pe(res3p)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 03:17:40 
+#>                          Run Date: 2026-07-05 16:51:53 
 #> -------------------------------------------------------------------------------- 
 ```

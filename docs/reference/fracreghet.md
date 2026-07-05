@@ -1,9 +1,9 @@
-# Fitting Fractional Regression Models under Unobserved Heterogeneity
+# Fitting Fractional Response Models under Unobserved Heterogeneity
 
-`fracreghet` is used to fit fractional regression models under
-unobserved heterogeneity, i.e. regression models for proportions,
-percentages or fractions that suffer from neglected heterogeneity and/or
-endogeneity issues.
+`fracreghet` is used to fit fractional response models under unobserved
+heterogeneity, i.e. regression models for proportions, percentages or
+fractions that suffer from neglected heterogeneity and/or endogeneity
+issues.
 
 ## Usage
 
@@ -93,7 +93,7 @@ fracreghet(y, x, z = x, var.endog, start, type = "GMMx", link = "logit",
 ## Details
 
 `fracreghet` computes the GMM estimators proposed in Ramalho and Ramalho
-(2017) for fractional regression models with unobserved heterogeneity:
+(2017) for fractional response models with unobserved heterogeneity:
 GMMx, which allows for neglected heterogeneity but not for endogeneity;
 GMMxv, which allows both issues and assumes a linear reduced form for
 the endogeneous covariate (or for a transformation of it); and GMMz,
@@ -202,9 +202,9 @@ for the RESET test.
 [`fracreghet.pe`](https://SulmanOlieko.github.io/fracreg/reference/fracreghet.pe.md),
 for computing partial effects.  
 [`fracreg`](https://SulmanOlieko.github.io/fracreg/reference/fracreg.md),
-for fitting standard cross-sectional fractional regression models.  
+for fitting standard cross-sectional fractional response models.  
 [`fracregpd`](https://SulmanOlieko.github.io/fracreg/reference/fracregpd.md),
-for fitting panel data fractional regression models.
+for fitting panel data fractional response models.
 
 ## Examples
 
@@ -246,7 +246,7 @@ fracreghet(y = y_endog, x = X, type = "GMMx", link = "logit")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 03:17:43 
+#>                          Run Date: 2026-07-05 16:51:54 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -270,7 +270,7 @@ fracreghet(y = y_endog, x = X, z = Z, type = "GMMz", link = "logit")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 03:17:44 
+#>                          Run Date: 2026-07-05 16:51:54 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -305,7 +305,7 @@ fracreghet(y = y_endog, x = X, z = Z, var.endog = var.endog, type = "GMMxv", lin
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 03:17:44 
+#>                          Run Date: 2026-07-05 16:51:54 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -339,7 +339,7 @@ fracreghet(y = y_endog, x = X, z = Z, var.endog = var.endog, type = "QMLxv", lin
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 03:17:44 
+#>                          Run Date: 2026-07-05 16:51:54 
 #> -------------------------------------------------------------------------------- 
 #> 
 ```

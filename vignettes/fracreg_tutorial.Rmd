@@ -1,10 +1,10 @@
 ---
-title: "A Comprehensive Guide to Fractional Regression Models with fracreg"
+title: "A Comprehensive Guide to Fractional Response Models with fracreg"
 author: "Sulman Olieko Owili"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{A Comprehensive Guide to Fractional Regression Models with fracreg}
+  %\VignetteIndexEntry{A Comprehensive Guide to Fractional Response Models with fracreg}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -30,7 +30,7 @@ library(fracreg)
 
 ## Introduction
 
-The **`fracreg`** package is the most comprehensive tool available in R for estimating, diagnosing, and interpreting fractional regression models. It supports:
+The **`fracreg`** package is the most comprehensive tool available in R for estimating, diagnosing, and interpreting fractional response models. It supports:
 
 - **One-part models (1P)**: A single process governs the entire distribution of $y \in [0, 1]$.
 - **Two-part hurdle models (2P)**: Separately models the binary hurdle ($y > 0$) and the continuous fractional part ($0 < y \le 1$).

@@ -2,11 +2,11 @@
 \alias{fracreghet}
 
 \title{
-Fitting Fractional Regression Models under Unobserved Heterogeneity
+Fitting Fractional Response Models under Unobserved Heterogeneity
 }
 
 \description{
-\code{fracreghet} is used to fit fractional regression models under unobserved heterogeneity, i.e. regression models for proportions, percentages or fractions that suffer from neglected heterogeneity and/or endogeneity issues.
+\code{fracreghet} is used to fit fractional response models under unobserved heterogeneity, i.e. regression models for proportions, percentages or fractions that suffer from neglected heterogeneity and/or endogeneity issues.
 }
 \usage{
 fracreghet(y, x, z = x, var.endog, start, type = "GMMx", link = "logit", 
@@ -47,7 +47,7 @@ variables). Defaults to \code{x}.
 }
 
 \details{
-\code{fracreghet} computes the GMM estimators proposed in Ramalho and Ramalho (2017) for fractional regression models with unobserved heterogeneity: GMMx, which allows for neglected heterogeneity but not for endogeneity; GMMxv, which allows both issues and assumes a linear reduced form for the endogeneous covariate (or for a transformation of it); and GMMz, which also allows for both issues but does not require the assumption of a reduced form for the endogenous covariate. In addition, \code{fracreghet} also computes three linearized estimators (LINx, LINxv and LINz) that have similar features to their GMM counterparts. It also provides a QML estimator (QMLxv) that addresses endogeneity using a Control Function (CF) approach, which includes the first-stage reduced-form residuals as an additional regressor in the main fractional equation, providing a Hausman-type test for endogeneity. See Ramalho and Ramalho (2017) for details on each estimator. For overidentified models, \code{fracreghet} calculates Hansen's J statistic. For \code{GMMx} and \code{LINx}, \code{fracreghet} stores the information needed to implement the RESET test (\link{fracreghet.reset}). For all estimators, \code{fracreghet} stores the information needed to calculate partial effects (\link{fracreghet.pe}).
+\code{fracreghet} computes the GMM estimators proposed in Ramalho and Ramalho (2017) for fractional response models with unobserved heterogeneity: GMMx, which allows for neglected heterogeneity but not for endogeneity; GMMxv, which allows both issues and assumes a linear reduced form for the endogeneous covariate (or for a transformation of it); and GMMz, which also allows for both issues but does not require the assumption of a reduced form for the endogenous covariate. In addition, \code{fracreghet} also computes three linearized estimators (LINx, LINxv and LINz) that have similar features to their GMM counterparts. It also provides a QML estimator (QMLxv) that addresses endogeneity using a Control Function (CF) approach, which includes the first-stage reduced-form residuals as an additional regressor in the main fractional equation, providing a Hausman-type test for endogeneity. See Ramalho and Ramalho (2017) for details on each estimator. For overidentified models, \code{fracreghet} calculates Hansen's J statistic. For \code{GMMx} and \code{LINx}, \code{fracreghet} stores the information needed to implement the RESET test (\link{fracreghet.reset}). For all estimators, \code{fracreghet} stores the information needed to calculate partial effects (\link{fracreghet.pe}).
 }
 
 \value{\code{fracreghet} returns a list with the following elements:
@@ -100,8 +100,8 @@ Sulman Olieko Owili <oliekosulman@gmail.com>
 \seealso{
 \code{\link{fracreghet.reset}}, for the RESET test.\cr
 \code{\link{fracreghet.pe}}, for computing partial effects.\cr
-\code{\link{fracreg}}, for fitting standard cross-sectional fractional regression models.\cr
-\code{\link{fracregpd}}, for fitting panel data fractional regression models.
+\code{\link{fracreg}}, for fitting standard cross-sectional fractional response models.\cr
+\code{\link{fracregpd}}, for fitting panel data fractional response models.
 }
 
 \examples{

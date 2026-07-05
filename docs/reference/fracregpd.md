@@ -1,4 +1,4 @@
-# Fitting Panel Data Fractional Regression Models
+# Fitting Panel Data Fractional Response Models
 
 `fracregpd` is used to fit panel data regression models when the
 dependent variable has a bounded, fractional nature.
@@ -122,7 +122,7 @@ fracregpd(id, time, y, x, z, var.endog, x.exogenous = T, lags, start, type,
 ## Details
 
 `fracregpd` computes the GMM estimators proposed in Ramalho, Ramalho and
-Coelho (2018) for panel data fractional regression models with both
+Coelho (2018) for panel data fractional response models with both
 time-variant and time-invariant unobserved heterogeneity and endogeneous
 covariates: GMMww, GMMc, GMMbgw, GMMpfe, GMMcre and GMMpre. In addition,
 `fracregpd` also computes QMLcre, which was proposed by Papke and
@@ -196,9 +196,9 @@ Sulman Olieko Owili \<oliekosulman@gmail.com\>
 ## See also
 
 [`fracreg`](https://SulmanOlieko.github.io/fracreg/reference/fracreg.md),
-for fitting standard cross-sectional fractional regression models.  
+for fitting standard cross-sectional fractional response models.  
 [`fracreghet`](https://SulmanOlieko.github.io/fracreg/reference/fracreghet.md),
-for fitting cross-sectional fractional regression models with unobserved
+for fitting cross-sectional fractional response models with unobserved
 heterogeneity.
 
 ## Examples
@@ -256,7 +256,7 @@ fracregpd(id=id, time=time, y=y_panel, x=X, type="QMLcre", link="probit")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 03:17:47 
+#>                          Run Date: 2026-07-05 16:51:56 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -286,7 +286,7 @@ fracregpd(id=id, time=time, y=y_panel, x=X, type="GMMbgw")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 03:17:49 
+#>                          Run Date: 2026-07-05 16:51:56 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -316,7 +316,7 @@ fracregpd(id=id, time=time, y=y_panel, x=X, lags=TRUE, type="GMMww", var.type="r
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 03:17:49 
+#>                          Run Date: 2026-07-05 16:51:56 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -352,7 +352,7 @@ fracregpd(id=id, time=time, y=y_endog, x=X_endog, z=Z_inst,
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 03:17:50 
+#>                          Run Date: 2026-07-05 16:51:57 
 #> -------------------------------------------------------------------------------- 
 #> 
 ```

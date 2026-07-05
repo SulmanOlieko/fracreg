@@ -2,11 +2,11 @@
 \alias{fracreghet.reset}
 
 \title{
-RESET Test for Fractional Regression Models under Neglected Heterogeneity
+RESET Test for Fractional Response Models under Neglected Heterogeneity
 }
 
 \description{
-\code{fracreghet.reset} is used to test the specification of fractional regression models estimated by GMMx or LINx.
+\code{fracreghet.reset} is used to test the specification of fractional response models estimated by GMMx or LINx.
 }
 
 \usage{fracreghet.reset(object, lastpower.vec = 3, version = "Wald", table = T, ...)
@@ -27,7 +27,7 @@ available for \code{GMMx}).
 }
 
 \details{
-\code{fracreghet.reset} applies the RESET test statistic to fractional regression
+\code{fracreghet.reset} applies the RESET test statistic to fractional response
 models estimated via \code{fracreghet} using the options \code{GMMx} or \code{LINx}. \code{fracreghet.reset} may be used to test simultaneously the validity of the link specification and the transformation applied to the response variable by each estimator.  It is taken into account the option that was chosen for computing 
 standard errors in the model under evaluation. See Ramalho and Ramalho (2017) for details.
 }
@@ -45,7 +45,7 @@ Sulman Olieko Owili <oliekosulman@gmail.com>
 }
 
 \seealso{
-\code{\link{fracreghet}}, for fitting fractional regression models under unobserved heterogeneity.\cr
+\code{\link{fracreghet}}, for fitting fractional response models under unobserved heterogeneity.\cr
 \code{\link{fracreghet.pe}}, for computing partial effects.
 }
 

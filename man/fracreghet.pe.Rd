@@ -2,10 +2,10 @@
 \alias{fracreghet.pe}
 
 \title{
-Fractional Regression Models under Unobserved Heterogeneity - Partial Effects
+Fractional Response Models under Unobserved Heterogeneity - Partial Effects
 }
 \description{
-\code{fracreghet.pe} is used to compute average and/or conditional partial effects in fractional regression models 
+\code{fracreghet.pe} is used to compute average and/or conditional partial effects in fractional response models 
 under unobserved heterogeneity.
 }
 \usage{
@@ -33,8 +33,8 @@ fracreghet.pe(object, smearing = T, APE = T, CPE = F, at = NULL,
 }
 
 \details{
-\code{fracreghet.pe} calculates partial effects for fractional regression models estimated via \code{fracreghet}. \code{fracreghet.pe} may be used to compute average or conditional partial effects. These partial effects may be conditional only on observables, using the smearing estimator, or also on unobservables, setting the error term to zero. For calculating standard errors, it is taken into account the option that was previously chosen for estimating the model. See 
-Ramalho and Ramalho (2017) for details on the computation of partial effects for fractional regression models under unobserved heterogeneity.
+\code{fracreghet.pe} calculates partial effects for fractional response models estimated via \code{fracreghet}. \code{fracreghet.pe} may be used to compute average or conditional partial effects. These partial effects may be conditional only on observables, using the smearing estimator, or also on unobservables, setting the error term to zero. For calculating standard errors, it is taken into account the option that was previously chosen for estimating the model. See 
+Ramalho and Ramalho (2017) for details on the computation of partial effects for fractional response models under unobserved heterogeneity.
 }
 
 \value{
@@ -58,7 +58,7 @@ Sulman Olieko Owili <oliekosulman@gmail.com>
 }
 
 \seealso{
-\code{\link{fracreghet}}, for fitting fractional regression models under unobserved heterogeneity.\cr
+\code{\link{fracreghet}}, for fitting fractional response models under unobserved heterogeneity.\cr
 \code{\link{fracreghet.reset}}, for the RESET test.\cr
 }
 

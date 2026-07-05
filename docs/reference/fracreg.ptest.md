@@ -1,7 +1,7 @@
-# P Test for Fractional Regression Models
+# P Test for Fractional Response Models
 
 `fracreg.ptest` is used to perform the P test to evaluate the
-specification of alternative, non-nested fractional regression models by
+specification of alternative, non-nested fractional response models by
 testing against each other.
 
 ## Usage
@@ -34,18 +34,17 @@ fracreg.ptest(object1, object2, version = "Wald", table = TRUE)
 ## Details
 
 `fracreg.ptest` applies the P test statistic proposed by Davidson and
-MacKinnon (1981) to fractional regression models estimated via
-`fracreg`. `fracreg.ptest` may be used to test against each other two
-alternative specifications for the link function in: (i) one-part
-fractional regression models; (ii) the binary components of two-part and
-three-part fractional regression models; (iii) the fractional components
-of two-part and three-part fractional regression models; and (iv)
-two-part and three-part fractional regression models. In addition,
-`fracreg.ptest` may be used to test one-part models against two-part or
-three-part models and in cases where the link functions are the same but
-the regressors are non-nested. See Ramalho, Ramalho and Murteira (2011)
-for details on the application of the P test in the fractional
-regression framework.
+MacKinnon (1981) to fractional response models estimated via `fracreg`.
+`fracreg.ptest` may be used to test against each other two alternative
+specifications for the link function in: (i) one-part fractional
+response models; (ii) the binary components of two-part and three-part
+fractional response models; (iii) the fractional components of two-part
+and three-part fractional response models; and (iv) two-part and
+three-part fractional response models. In addition, `fracreg.ptest` may
+be used to test one-part models against two-part or three-part models
+and in cases where the link functions are the same but the regressors
+are non-nested. See Ramalho, Ramalho and Murteira (2011) for details on
+the application of the P test in the fractional response framework.
 
 ## Value
 
@@ -58,7 +57,7 @@ specification on the presence of alternative hypotheses",
 *Econometrica*, 49(3), 781-793.
 
 Ramalho, E.A., J.J.S. Ramalho and J.M.R. Murteira (2011), "Alternative
-estimating and testing empirical strategies for fractional regression
+estimating and testing empirical strategies for fractional response
 models", *Journal of Economic Surveys*, 25(1), 19-68.
 
 ## Author
@@ -68,7 +67,7 @@ Sulman Olieko Owili \<oliekosulman@gmail.com\>
 ## See also
 
 [`fracreg`](https://SulmanOlieko.github.io/fracreg/reference/fracreg.md),
-for fitting fractional regression models.  
+for fitting fractional response models.  
 [`fracreg.reset`](https://SulmanOlieko.github.io/fracreg/reference/fracreg.reset.md)
 and
 [`fracreg.ggoff`](https://SulmanOlieko.github.io/fracreg/reference/fracreg.ggoff.md),
@@ -114,10 +113,10 @@ fracreg.ptest(res1,res2,"LM")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 03:17:40 
+#>                          Run Date: 2026-07-05 16:51:53 
 #> -------------------------------------------------------------------------------- 
 
-#Testing a logit one-part fractional regression model versus a binary logit +
+#Testing a logit one-part fractional response model versus a binary logit +
 #fractional probit two-part model using a Wald version of the P test
 res1 <- fracreg(y,X,linkfrac="logit",table=FALSE)
 res2 <- fracreg(y,X,linkbin="logit",linkfrac="probit",type="2P",inf=1,table=FALSE)
@@ -142,6 +141,6 @@ fracreg.ptest(res1,res2,"Wald")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 03:17:41 
+#>                          Run Date: 2026-07-05 16:51:53 
 #> -------------------------------------------------------------------------------- 
 ```

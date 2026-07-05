@@ -1,6 +1,6 @@
-# Fitting Fractional Regression Models
+# Fitting Fractional Response Models
 
-`fracreg` is used to fit fractional regression models, which are
+`fracreg` is used to fit fractional response models, which are
 appropriate for responses that are proportions, percentages, or
 fractions restricted to the \[0, 1\] interval. It supports standard
 one-part models, two-part hurdle models for modeling boundary values at
@@ -34,16 +34,16 @@ fracreg(y, x, x2 = x, linkbin, linkfrac, type = "1P", inflation = 0,
 - linkbin:
 
   a description of the link function to use in the binary component of a
-  two-part fractional regression model, or a vector of two link
-  functions for the two binary components of a three-part model (e.g.
+  two-part fractional response model, or a vector of two link functions
+  for the two binary components of a three-part model (e.g.
   `c("logit", "probit")`). Available options: `logit`, `probit`,
   `cauchit`, `loglog`, `cloglog`.
 
 - linkfrac:
 
   a description of the link function to use in standard fractional
-  regression models or in the fractional component of a two-part
-  fractional regression model. Available options: `logit`, `probit`,
+  response models or in the fractional component of a two-part
+  fractional response model. Available options: `logit`, `probit`,
   `cauchit`, `loglog`, `cloglog`.
 
 - type:
@@ -58,7 +58,7 @@ fracreg(y, x, x2 = x, linkbin, linkfrac, type = "1P", inflation = 0,
 
   a numeric value indicating which of the extreme values of `0` (the
   default) or `1` is the relevant boundary value for defining two-part
-  fractional regression models.
+  fractional response models.
 
 - intercept:
 
@@ -82,11 +82,10 @@ fracreg(y, x, x2 = x, linkbin, linkfrac, type = "1P", inflation = 0,
   be calculated. Options are `standard` (recommended for models
   estimated by maximum likelihood, such as the binary component of
   two-part models), `robust` (recommended for models estimated by
-  quasi-maximum likelihood, such as standard fractional regression
-  models or the fractional component of a two-part fractional regression
-  model), `cluster` (recommended in the case of panel data) and
-  `default` (implements the `standard` or `robust` versions as
-  appropriate).
+  quasi-maximum likelihood, such as standard fractional response models
+  or the fractional component of a two-part fractional response model),
+  `cluster` (recommended in the case of panel data) and `default`
+  (implements the `standard` or `robust` versions as appropriate).
 
 - var.eim:
 
@@ -111,7 +110,7 @@ fracreg(y, x, x2 = x, linkbin, linkfrac, type = "1P", inflation = 0,
 ## Details
 
 `fracreg` estimates one-part, two-part hurdle, and three-part
-double-inflated fractional regression models; see Ramalho, Ramalho and
+double-inflated fractional response models; see Ramalho, Ramalho and
 Murteira (2011) and Fang and Ma (2013) for details on those models. The
 one-part models and the fractional component of two- and three-part
 models are estimated by Bernoulli-based quasi-maximum likelihood, while
@@ -119,13 +118,13 @@ the binary components of two- and three-part models are estimated by
 maximum likelihood. `fracreg` uses the standard
 [glm](https://rdrr.io/r/stats/glm.html) command to perform the
 estimations. Therefore, `fracreg` is essentially a convenience command,
-allowing estimation of several alternative fractional regression models
+allowing estimation of several alternative fractional response models
 using the same command. In addition, `fracreg` provides an R-squared
 measure for all models (calculated as the square of the correlation
 coefficient between the actual and fitted values of the dependent
 variable), calculates the fitted values of the dependent variable in
 two-part models and stores the information needed to implement some very
-useful commands for fractional regression models:
+useful commands for fractional response models:
 [fracreg.reset](https://SulmanOlieko.github.io/fracreg/reference/fracreg.reset.md)
 (RESET test),
 [fracreg.ptest](https://SulmanOlieko.github.io/fracreg/reference/fracreg.ptest.md)
@@ -280,7 +279,7 @@ fractional response variables with an application to 401(k) plan
 participation rates", *Journal of Applied Econometrics*, 11(6), 619-632.
 
 Ramalho, E.A., J.J.S. Ramalho and J.M.R. Murteira (2011), "Alternative
-estimating and testing empirical strategies for fractional regression
+estimating and testing empirical strategies for fractional response
 models", *Journal of Economic Surveys*, 25(1), 19-68.
 
 Fang, K., & Ma, S. (2013), "Three-part model for fractional response
@@ -301,9 +300,9 @@ for specification tests.
 for non-nested hypothesis tests.  
 [`fracreg.pe`](https://SulmanOlieko.github.io/fracreg/reference/fracreg.pe.md),
 for computing partial effects.  
-`fracreghet`, for fitting cross-sectional fractional regression models
+`fracreghet`, for fitting cross-sectional fractional response models
 with unobserved heterogeneity.  
-`fracregpd`, for fitting panel data fractional regression models.
+`fracregpd`, for fitting panel data fractional response models.
 
 ## Examples
 
@@ -324,11 +323,11 @@ y[y_latent > 0.8] <- 1
 
 X <- cbind(x1 = x1, x2 = x2)
 
-# fracreg estimation of a logit fractional regression model
+# fracreg estimation of a logit fractional response model
 fracreg(y, X, type="1P", linkfrac="logit")
 #> 
 #> -------------------------------------------------------------------------------- 
-#>                Fractional regression model - logit specification 
+#>                 Fractional response model - logit specification 
 #> -------------------------------------------------------------------------------- 
 #> Estimator:                                                                   QML 
 #> Number of observations:                                                     1000 
@@ -346,7 +345,7 @@ fracreg(y, X, type="1P", linkfrac="logit")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 03:17:37 
+#>                          Run Date: 2026-07-05 16:51:51 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -401,7 +400,7 @@ fracreg(y, X, type="2Pfrac", inflation=0, linkfrac="probit")
 #> -------------------------------------------------------------------------------- 
 #> 
 
-# fracreg estimation of both components of a two-part fractional regression model
+# fracreg estimation of both components of a two-part fractional response model
 # with y=0 as the relevant boundary value and using a cloglog binary link
 # function and a logit fractional link function
 fracreg(y, X, type="2P", inflation=0, linkbin="cloglog", linkfrac="logit")
@@ -454,7 +453,7 @@ fracreg(y, X, type="2P", inflation=0, linkbin="cloglog", linkfrac="logit")
 #> Pseudo R-squared:                                                        0.38829 
 #> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 03:17:37 
+#>                          Run Date: 2026-07-05 16:51:51 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -530,7 +529,7 @@ fracreg(y, X, type="3P", linkbin=c("logit","probit"), linkfrac="logit")
 #> Pseudo R-squared:                                                        0.38917 
 #> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 03:17:37 
+#>                          Run Date: 2026-07-05 16:51:51 
 #> -------------------------------------------------------------------------------- 
 #> 
 ```

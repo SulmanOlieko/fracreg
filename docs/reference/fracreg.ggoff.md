@@ -1,8 +1,8 @@
-# GGOFF Tests for Fractional Regression Models
+# GGOFF Tests for Fractional Response Models
 
 `fracreg.ggoff` is used to perform Generalized
 Goodness-Of-Functional-Form (GGOFF) tests to check the adequacy of the
-functional form and link specification of fractional regression models.
+functional form and link specification of fractional response models.
 
 ## Usage
 
@@ -36,17 +36,17 @@ fracreg.ggoff(object, version = "LM", table = TRUE, ...)
 ## Details
 
 `fracreg.ggoff` applies the GGOFF, GOFF1 and GOOFF2 test statistics to
-fractional regression models estimated via `fracreg`. `fracreg.ggoff`
-may be used to test the link specification of: (i) one-part fractional
-regression models; (ii) the binary component of two-part fractional
-regression models; and (iii) the fractional component of two-part
-fractional regression models. When the `Wald` version is implemented, it
+fractional response models estimated via `fracreg`. `fracreg.ggoff` may
+be used to test the link specification of: (i) one-part fractional
+response models; (ii) the binary component of two-part fractional
+response models; and (iii) the fractional component of two-part
+fractional response models. When the `Wald` version is implemented, it
 is taken into account the option that was chosen for computing standard
 errors in the model under evaluation. For the `LM` version, a robust
 version is computed in cases (i) and (iii) and a conventional version in
 case (ii). See Ramalho, Ramalho and Murteira (2014) for details on the
 application of the GGOFF, GOFF1 and GOOFF2 tests in the fractional
-regression framework.
+response framework.
 
 ## Value
 
@@ -55,7 +55,7 @@ regression framework.
 ## References
 
 Ramalho, E.A., J.J.S. Ramalho and J.M.R. Murteira (2014), "A generalized
-goodness-of-functional form test for binary and fractional regression
+goodness-of-functional form test for binary and fractional response
 models", *Manchester School*, 82(4), 488-507.
 
 ## Author
@@ -65,7 +65,7 @@ Sulman Olieko Owili \<oliekosulman@gmail.com\>
 ## See also
 
 [`fracreg`](https://SulmanOlieko.github.io/fracreg/reference/fracreg.md),
-for fitting fractional regression models.  
+for fitting fractional response models.  
 [`fracreg.reset`](https://SulmanOlieko.github.io/fracreg/reference/fracreg.reset.md),
 for asymptotically equivalent specification tests.  
 [`fracreg.ptest`](https://SulmanOlieko.github.io/fracreg/reference/fracreg.ptest.md),
@@ -86,7 +86,7 @@ ym <- exp(X[,1]+X[,2]+u)/(1+exp(X[,1]+X[,2]+u))
 y <- rbeta(N,ym*20,20*(1-ym))
 y[y > 0.9] <- 1
 
-#Testing the logit specification of a standard fractional regression model
+#Testing the logit specification of a standard fractional response model
 #using LM and Wald versions of the GGOFF test, based on 1 or 2 fitted powers of
 #the linear predictor
 res <- fracreg(y,X,linkfrac="logit",table=FALSE)
@@ -107,7 +107,7 @@ fracreg.ggoff(res,c("Wald","LM"))
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 03:17:38 
+#>                          Run Date: 2026-07-05 16:51:52 
 #> -------------------------------------------------------------------------------- 
 
 #Testing the probit specification of the binary component of a two-part fractional
@@ -126,6 +126,6 @@ fracreg.ggoff(res,"LR")
 #> GOFF2 - LR     0.039   0.844
 #> GGOFF - LR     0.717   0.699
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 03:17:38 
+#>                          Run Date: 2026-07-05 16:51:52 
 #> -------------------------------------------------------------------------------- 
 ```

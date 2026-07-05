@@ -1,7 +1,7 @@
-# Fractional Regression Models under Unobserved Heterogeneity - Partial Effects
+# Fractional Response Models under Unobserved Heterogeneity - Partial Effects
 
 `fracreghet.pe` is used to compute average and/or conditional partial
-effects in fractional regression models under unobserved heterogeneity.
+effects in fractional response models under unobserved heterogeneity.
 
 ## Usage
 
@@ -57,14 +57,14 @@ fracreghet.pe(object, smearing = T, APE = T, CPE = F, at = NULL,
 
 ## Details
 
-`fracreghet.pe` calculates partial effects for fractional regression
+`fracreghet.pe` calculates partial effects for fractional response
 models estimated via `fracreghet`. `fracreghet.pe` may be used to
 compute average or conditional partial effects. These partial effects
 may be conditional only on observables, using the smearing estimator, or
 also on unobservables, setting the error term to zero. For calculating
 standard errors, it is taken into account the option that was previously
 chosen for estimating the model. See Ramalho and Ramalho (2017) for
-details on the computation of partial effects for fractional regression
+details on the computation of partial effects for fractional response
 models under unobserved heterogeneity.
 
 ## Value
@@ -100,8 +100,7 @@ Sulman Olieko Owili \<oliekosulman@gmail.com\>
 ## See also
 
 [`fracreghet`](https://SulmanOlieko.github.io/fracreg/reference/fracreghet.md),
-for fitting fractional regression models under unobserved
-heterogeneity.  
+for fitting fractional response models under unobserved heterogeneity.  
 [`fracreghet.reset`](https://SulmanOlieko.github.io/fracreg/reference/fracreghet.reset.md),
 for the RESET test.  
 
@@ -136,7 +135,7 @@ fracreghet.pe(res,which.x="X1")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 03:17:44 
+#>                          Run Date: 2026-07-05 16:51:55 
 #> -------------------------------------------------------------------------------- 
 
 #Naive estimator of conditional partial effects for all covariates,
@@ -156,7 +155,7 @@ fracreghet.pe(res,smearing=FALSE,APE=FALSE,CPE=TRUE,at=c(1,-1))
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 03:17:44 
+#>                          Run Date: 2026-07-05 16:51:55 
 #> -------------------------------------------------------------------------------- 
 #> 
 #> Note: covariates evaluated at the following values:
