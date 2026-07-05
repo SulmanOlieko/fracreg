@@ -6,7 +6,7 @@ Fitting Fractional Response Models
 }
 
 \description{
-\code{fracreg} is used to fit fractional response models, which are appropriate for responses that are proportions, percentages, or fractions restricted to the [0, 1] interval. It supports standard one-part models, two-part hurdle models for modeling boundary values at 0 or 1, and three-part models for double inflation at both 0 and 1.
+\code{fracreg} is used to fit fractional response models, which are appropriate for responses that are proportions, percentages, or fractions restricted to the [0, 1] interval. It supports standard one-part models, two-part hurdle models for modelling boundary values at 0 or 1, and three-part models for double inflation at both 0 and 1.
 }
 
 \usage{

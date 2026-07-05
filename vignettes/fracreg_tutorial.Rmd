@@ -102,7 +102,7 @@ Often, fractional data (e.g., participation rates, insurance coverage, expenditu
 The overall conditional expectation is then $E(y \mid x) = \Pr(y > 0) \cdot E(y \mid y > 0)$.
 
 ```{r two-part}
-# We use inflation=0 to indicate we are modeling the mass at zero
+# We use inflation=0 to indicate we are modelling the mass at zero
 model_2p <- fracreg(
   y = data$y, 
   x = cbind(x1 = data$x1, x2 = data$x2), 
@@ -190,9 +190,9 @@ model_1p_clog <- fracreg(
 
 ---
 
-## 3. Endogeneity & Heteroskedasticity (`fracreghet`)
+## 3. Endogeneity & Heteroscedasticity (`fracreghet`)
 
-When you suspect that one of your covariates is endogenous, or that the variance is heteroskedastic, `fracreghet()` provides instrumental variable correction. It natively supports IV through a **Control Function (CF)** approach or **GMM** estimation.
+When you suspect that one of your covariates is endogenous, or that the variance is heteroscedastic, `fracreghet()` provides instrumental variable correction. It natively supports IV through a **Control Function (CF)** approach or **GMM** estimation.
 
 ### 3.1 Control Function Approach (QMLxv)
 
@@ -248,7 +248,7 @@ model_pd <- fracregpd(
 
 ## Conclusion
 
-With `fracreg`, `fracreghet`, and `fracregpd`, you have a complete, mathematically robust toolkit for modeling fractional responses bounded between $[0,1]$, regardless of inflation, endogeneity, or unobserved panel effects.
+With `fracreg`, `fracreghet`, and `fracregpd`, you have a complete, mathematically robust toolkit for modelling fractional responses bounded between $[0,1]$, regardless of inflation, endogeneity, or unobserved panel effects.
 
 For more information, please visit the [package website](https://SulmanOlieko.github.io/fracreg) or file an issue on [GitHub](https://github.com/SulmanOlieko/fracreg/issues).
 

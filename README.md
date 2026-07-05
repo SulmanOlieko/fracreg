@@ -30,7 +30,7 @@ found in econometrics and biostatistics:
 2.  **Panel Data Models (`fracregpd`)**: Estimate fractional models with
     fixed-T longitudinal data, supporting Correlated Random Effects
     (CRE) to handle unobserved individual heterogeneity.
-3.  **Endogeneity & Heteroskedasticity (`fracreghet`)**: Correct for
+3.  **Endogeneity & Heteroscedasticity (`fracreghet`)**: Correct for
     endogenous covariates using Instrumental Variables (IV) via Control
     Function and GMM approaches.
 4.  **Diagnostic Testing**: Includes generalized
@@ -188,7 +188,7 @@ Toggle to see the output
 #### 1.4 The Two-Part Hurdle Model (2P)
 
 ``` r
-# We use inflation=0 to indicate we are modeling the mass at zero
+# We use inflation=0 to indicate we are modelling the mass at zero
 model_2p <- fracreg(
   y = data$y, 
   x = cbind(x1 = data$x1, x2 = data$x2), 
@@ -477,7 +477,7 @@ Toggle to see the output
 
 ------------------------------------------------------------------------
 
-### 3. Endogeneity & Heteroskedasticity (`fracreghet`)
+### 3. Endogeneity & Heteroscedasticity (`fracreghet`)
 
 Use instrumental variables (`z`) to correct for endogenous covariates
 via a control function.
