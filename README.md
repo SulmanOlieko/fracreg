@@ -1,7 +1,8 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# fracreg: Fractional Response Models in R <img src="man/figures/logo.png" align="right" height="138" />
+# fracreg: Fractional Response Models in R
+<img src="man/figures/logo.png" align="right" height="139" alt="fracreg logo" />
 
 [![Lifecycle:
 stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
