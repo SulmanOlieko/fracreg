@@ -18,8 +18,7 @@ two-part (hurdle), and three-part (double-inflated) models.
 
 ## Features
 
-`fracreg` is fully equipped to handle complex data structures commonly
-found in econometrics and biostatistics:
+`fracreg` is handles:
 
 1.  **Univariate Fractional Models (`fracreg`)**: Fit standard 1-part
     models, hurdle 2-part models (mass at 0 or 1), and double-inflated
@@ -27,7 +26,7 @@ found in econometrics and biostatistics:
 2.  **Panel Data Models (`fracregpd`)**: Estimate fractional models with
     fixed-T longitudinal data, supporting Correlated Random Effects
     (CRE) to handle unobserved individual heterogeneity.
-3.  **Endogeneity & Heteroskedasticity (`fracreghet`)**: Correct for
+3.  **Endogeneity & Heteroscedasticity (`fracreghet`)**: Correct for
     endogenous covariates using Instrumental Variables (IV) via Control
     Function and GMM approaches.
 4.  **Diagnostic Testing**: Includes generalized
@@ -108,6 +107,9 @@ Toggle to see the output
 
 #### 1.2 The Standard 1-Part Model (1P)
 
+The one-part model assumes a single mechanism governs the entire
+distribution, estimating $`E(y \mid x) = G(x\beta)`$:
+
 ``` r
 model_1p <- fracreg(
   y = data$y, 
@@ -140,7 +142,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 17:41:53 
+#>                          Run Date: 2026-07-05 22:19:41 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -166,14 +168,18 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 17:41:53 
+#>                          Run Date: 2026-07-05 22:19:41 
 #> --------------------------------------------------------------------------------
 ```
 
 #### 1.4 The Two-Part Hurdle Model (2P)
 
+The two-part model separates the decision to participate (binary hurdle)
+from the proportion chosen:
+$`E(y \mid x) = \Pr(y > 0 \mid x) \cdot E(y \mid y > 0, x)`$.
+
 ``` r
-# We use inflation=0 to indicate we are modeling the mass at zero
+# We use inflation=0 to indicate we are modelling the mass at zero
 model_2p <- fracreg(
   y = data$y, 
   x = cbind(x1 = data$x1, x2 = data$x2), 
@@ -236,7 +242,7 @@ Toggle to see the output
 #> Pseudo R-squared:                                                        0.38621 
 #> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 17:41:54 
+#>                          Run Date: 2026-07-05 22:19:42 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -260,11 +266,15 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 17:41:54 
+#>                          Run Date: 2026-07-05 22:19:42 
 #> --------------------------------------------------------------------------------
 ```
 
 #### 1.5 The Three-Part Double-Inflated Model (3P)
+
+The three-part model accommodates clustering at both $`0`$ and $`1`$ via
+two separate binary hurdles and a fractional component for interior
+values.
 
 ``` r
 # Linkbin takes a vector of two links for the two binary hurdles
@@ -350,7 +360,7 @@ Toggle to see the output
 #> Pseudo R-squared:                                                        0.38893 
 #> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 17:41:54 
+#>                          Run Date: 2026-07-05 22:19:42 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -374,7 +384,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 17:41:54 
+#>                          Run Date: 2026-07-05 22:19:42 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -383,6 +393,11 @@ Toggle to see the output
 ### 2. Hypothesis Testing and Specification Diagnostics
 
 #### 2.1 Generalized Goodness-Of-Functional-Form (GGOFF)
+
+The GGOFF tests if the specified link function $`G(\cdot)`$ is
+appropriate by testing $`H_0: \gamma_1 = 0, \gamma_2 = 0`$ in the
+augmented model
+$`E(y|x) = G\left(x\beta + \gamma_1 \frac{g'(x\hat{\beta})}{g(x\hat{\beta})} + \gamma_2 x\hat{\beta} \right)`$.
 
 ``` r
 # Perform the GGOFF test on the 1P model
@@ -403,11 +418,15 @@ Toggle to see the output
 #> GOFF2 - LM     0.485   0.486
 #> GGOFF - LM     0.814   0.666
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 17:41:55 
+#>                          Run Date: 2026-07-05 22:19:42 
 #> --------------------------------------------------------------------------------
 ```
 
 #### 2.2 RESET Test
+
+The RESET test checks for general functional form misspecification by
+augmenting the model with powers of the fitted index
+$`(x\hat{\beta})^k`$.
 
 ``` r
 # Standard RESET test for functional form misspecification
@@ -426,16 +445,18 @@ Toggle to see the output
 #>       Statistic p-value
 #> LM(3)     0.852   0.653
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 17:41:55 
+#>                          Run Date: 2026-07-05 22:19:42 
 #> --------------------------------------------------------------------------------
 ```
 
 ------------------------------------------------------------------------
 
-### 3. Endogeneity & Heteroskedasticity (`fracreghet`)
+### 3. Endogeneity & Heteroscedasticity (`fracreghet`)
 
 Use instrumental variables (`z`) to correct for endogenous covariates
-via a control function.
+via a control function approach
+$`E(y_{1i} \mid z_i, y_{2i}, v_i) = G(x_i \beta + \gamma \hat{v}_i)`$,
+or via IV-GMM.
 
 ``` r
 # Simulating an endogenous variable (var.endog) and an instrument (z)
@@ -486,7 +507,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 17:41:55 
+#>                          Run Date: 2026-07-05 22:19:42 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -497,7 +518,9 @@ Toggle to see the output
 For longitudinal or panel data where unobserved heterogeneity is a
 concern,
 [`fracregpd()`](https://SulmanOlieko.github.io/fracreg/reference/fracregpd.md)
-provides fixed-T panel estimators.
+provides fixed-T panel estimators. It supports Correlated Random Effects
+(CRE), where unobserved heterogeneity is projected onto the
+time-averages of the covariates: $`c_i = \psi + \bar{x}_i \xi + a_i`$.
 
 ``` r
 # Simulating Panel Data
@@ -548,7 +571,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 17:41:55 
+#>                          Run Date: 2026-07-05 22:19:42 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -556,13 +579,36 @@ Toggle to see the output
 
 ## References
 
-Ramalho, E.A., J.J.S. Ramalho and J.M.R. Murteira (2011), “Alternative
-estimating and testing empirical strategies for fractional response
-models”, *Journal of Economic Surveys*, 25(1), 19-68.
-
-Papke, L.E. and J.M. Wooldridge (1996), “Econometric methods for
-fractional response variables with an application to 401(k) plan
-participation rates”, *Journal of Applied Econometrics*, 11(6), 619-632.
+- **Davidson, R. and MacKinnon, J.G. (1981).** “Several tests for model
+  specification in the presence of alternative hypotheses”,
+  *Econometrica*, 49(3), 781-793.
+- **Fang, K., & Ma, S. (2013).** “Three-part model for fractional
+  response variables with application to Chinese household health
+  insurance coverage”, *Journal of Applied Statistics*, 40(5), 925-940.
+- **Papke, L. E. and Wooldridge, J. M. (1996).** “Econometric methods
+  for fractional response variables with an application to 401(k) plan
+  participation rates”, *Journal of Applied Econometrics*, 11(6),
+  619-632.
+- **Papke, L. and Wooldridge, J.M. (2008).** “Panel data methods for
+  fractional response variables with an application to test pass rates”,
+  *Journal of Econometrics*, 145(1-2), 121-233.
+- **Pregibon, D. (1980).** “Goodness of Link Tests for Generalized
+  Linear Models”, *Journal of the Royal Statistical Society: Series C
+  (Applied Statistics)*, 29(1), 15-24.
+- **Ramalho, E. A., & Ramalho, J. J. S. (2017).** “Moment-based
+  estimation of nonlinear regression models with boundary outcomes and
+  endogeneity, with applications to nonnegative and fractional
+  responses”, *Econometric Reviews*, 36(4), 397-420.
+- **Ramalho, E.A., Ramalho, J.J.S. and Murteira, J.M.R. (2011).**
+  “Alternative estimating and testing empirical strategies for
+  fractional response models”, *Journal of Economic Surveys*, 25(1),
+  19-68.
+- **Ramalho, E.A., Ramalho, J.J.S. and Murteira, J.M.R. (2014).** “A
+  generalized goodness-of-functional form test for binary and fractional
+  response models”, *Manchester School*, 82(4), 488-507.
+- **Ramsey, J.B. (1969).** “Tests for Specification Errors in Classical
+  Linear Least-Squares Regression Analysis”, *Journal of the Royal
+  Statistical Society: Series B (Methodological)*, 31(2), 350-371.
 
 # Package index
 

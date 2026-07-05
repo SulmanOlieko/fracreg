@@ -158,7 +158,12 @@ Toggle to see the output
 <p>If you assume a single process governs the entire distribution of
 <code>y</code>, the standard one-part model is the natural choice. This
 corresponds to the Papke and Wooldridge (1996) quasi-likelihood
-estimator.</p>
+estimator, where the conditional mean is specified as:
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>y</mi><mo>∣</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>G</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mi>β</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex"> E(y \mid x) = G(x\beta) </annotation></semantics></math>
+where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>⋅</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">G(\cdot)</annotation></semantics></math>
+is a known non-linear link function (e.g., logit, probit) satisfying
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>≤</mo><mi>G</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>⋅</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>≤</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">0 \le G(\cdot) \le 1</annotation></semantics></math>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">model_1p</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreg.html">fracreg</a></span><span class="op">(</span></span>
 <span>  y <span class="op">=</span> <span class="va">data</span><span class="op">$</span><span class="va">y</span>, </span>
@@ -188,7 +193,7 @@ Toggle to see the output
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-05 21:27:13 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-05 22:24:49 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
 </details>
 </div>
@@ -216,7 +221,7 @@ Toggle to see the output
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-05 21:27:13 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-05 22:24:49 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
 </details>
 </div>
@@ -228,16 +233,16 @@ coverage, expenditure shares) have a substantial mass of zeros. The
 two-part model estimates:</p>
 <ol style="list-style-type: decimal">
 <li>A <strong>binary</strong> component:
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>Pr</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>y</mi><mo>&gt;</mo><mn>0</mn><mo>∣</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\Pr(y &gt; 0 \mid x)</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>Pr</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>y</mi><mo>&gt;</mo><mn>0</mn><mo>∣</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><msub><mi>G</mi><mrow><mi>B</mi><mi>I</mi><mi>N</mi></mrow></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><msub><mi>β</mi><mrow><mi>B</mi><mi>I</mi><mi>N</mi></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\Pr(y &gt; 0 \mid x) = G_{BIN}(x\beta_{BIN})</annotation></semantics></math>
 </li>
 <li>A <strong>fractional</strong> component:
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>y</mi><mo>∣</mo><mi>y</mi><mo>&gt;</mo><mn>0</mn><mo>,</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">E(y \mid y &gt; 0, x)</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>y</mi><mo>∣</mo><mi>y</mi><mo>&gt;</mo><mn>0</mn><mo>,</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><msub><mi>G</mi><mrow><mi>F</mi><mi>R</mi><mi>A</mi><mi>C</mi></mrow></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><msub><mi>β</mi><mrow><mi>F</mi><mi>R</mi><mi>A</mi><mi>C</mi></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">E(y \mid y &gt; 0, x) = G_{FRAC}(x\beta_{FRAC})</annotation></semantics></math>
 </li>
 </ol>
 <p>The overall conditional expectation is then
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>y</mi><mo>∣</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mo>Pr</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>y</mi><mo>&gt;</mo><mn>0</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>⋅</mo><mi>E</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>y</mi><mo>∣</mo><mi>y</mi><mo>&gt;</mo><mn>0</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">E(y \mid x) = \Pr(y &gt; 0) \cdot E(y \mid y &gt; 0)</annotation></semantics></math>.</p>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>y</mi><mo>∣</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mo>Pr</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>y</mi><mo>&gt;</mo><mn>0</mn><mo>∣</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>⋅</mo><mi>E</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>y</mi><mo>∣</mo><mi>y</mi><mo>&gt;</mo><mn>0</mn><mo>,</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">E(y \mid x) = \Pr(y &gt; 0 \mid x) \cdot E(y \mid y &gt; 0, x)</annotation></semantics></math>.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># We use inflation=0 to indicate we are modeling the mass at zero</span></span>
+<code class="sourceCode R"><span><span class="co"># We use inflation=0 to indicate we are modelling the mass at zero</span></span>
 <span><span class="va">model_2p</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreg.html">fracreg</a></span><span class="op">(</span></span>
 <span>  y <span class="op">=</span> <span class="va">data</span><span class="op">$</span><span class="va">y</span>, </span>
 <span>  x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span>x1 <span class="op">=</span> <span class="va">data</span><span class="op">$</span><span class="va">x1</span>, x2 <span class="op">=</span> <span class="va">data</span><span class="op">$</span><span class="va">x2</span><span class="op">)</span>, </span>
@@ -297,7 +302,7 @@ Toggle to see the output
 <span><span class="co">#&gt; Pseudo R-squared:                                                        0.38621 </span></span>
 <span><span class="co">#&gt; Convergence:                                                          Successful </span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-05 21:27:13 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-05 22:24:49 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
 </details><div class="section level4">
 <h4 id="partial-effects-for-the-two-part-model">Partial Effects for the Two-Part Model<a class="anchor" aria-label="anchor" href="#partial-effects-for-the-two-part-model"></a>
@@ -321,7 +326,7 @@ Toggle to see the output
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-05 21:27:13 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-05 22:24:49 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
 </details>
 </div>
@@ -334,15 +339,17 @@ boundaries (0 and 1) simultaneously, the three-part model decomposes the
 process into:</p>
 <ol style="list-style-type: decimal">
 <li>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>Pr</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>y</mi><mo>&gt;</mo><mn>0</mn><mo>∣</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\Pr(y &gt; 0 \mid x)</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>Pr</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>y</mi><mo>&gt;</mo><mn>0</mn><mo>∣</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><msub><mi>G</mi><mrow><mi>B</mi><mi>I</mi><mi>N</mi><mn>0</mn></mrow></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><msub><mi>β</mi><mrow><mi>B</mi><mi>I</mi><mi>N</mi><mn>0</mn></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\Pr(y &gt; 0 \mid x) = G_{BIN0}(x\beta_{BIN0})</annotation></semantics></math>
 — first binary hurdle</li>
 <li>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>Pr</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>y</mi><mo>=</mo><mn>1</mn><mo>∣</mo><mi>y</mi><mo>&gt;</mo><mn>0</mn><mo>,</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\Pr(y = 1 \mid y &gt; 0, x)</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>Pr</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>y</mi><mo>=</mo><mn>1</mn><mo>∣</mo><mi>y</mi><mo>&gt;</mo><mn>0</mn><mo>,</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><msub><mi>G</mi><mrow><mi>B</mi><mi>I</mi><mi>N</mi><mn>1</mn></mrow></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><msub><mi>β</mi><mrow><mi>B</mi><mi>I</mi><mi>N</mi><mn>1</mn></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\Pr(y = 1 \mid y &gt; 0, x) = G_{BIN1}(x\beta_{BIN1})</annotation></semantics></math>
 — second binary hurdle</li>
 <li>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>y</mi><mo>∣</mo><mn>0</mn><mo>&lt;</mo><mi>y</mi><mo>&lt;</mo><mn>1</mn><mo>,</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">E(y \mid 0 &lt; y &lt; 1, x)</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>y</mi><mo>∣</mo><mn>0</mn><mo>&lt;</mo><mi>y</mi><mo>&lt;</mo><mn>1</mn><mo>,</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><msub><mi>G</mi><mrow><mi>F</mi><mi>R</mi><mi>A</mi><mi>C</mi></mrow></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><msub><mi>β</mi><mrow><mi>F</mi><mi>R</mi><mi>A</mi><mi>C</mi></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">E(y \mid 0 &lt; y &lt; 1, x) = G_{FRAC}(x\beta_{FRAC})</annotation></semantics></math>
 — fractional component</li>
 </ol>
+<p>The overall conditional expectation integrates these three mechanisms
+into a single framework.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Linkbin takes a vector of two links for the two binary hurdles</span></span>
 <span><span class="va">model_3p</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreg.html">fracreg</a></span><span class="op">(</span></span>
@@ -424,7 +431,7 @@ Toggle to see the output
 <span><span class="co">#&gt; Pseudo R-squared:                                                        0.38893 </span></span>
 <span><span class="co">#&gt; Convergence:                                                          Successful </span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-05 21:27:13 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-05 22:24:49 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
 </details><div class="section level4">
 <h4 id="partial-effects-for-the-three-part-model">Partial Effects for the Three-Part Model<a class="anchor" aria-label="anchor" href="#partial-effects-for-the-three-part-model"></a>
@@ -448,7 +455,7 @@ Toggle to see the output
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-05 21:27:13 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-05 22:24:49 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
 </details><hr>
 </div>
@@ -462,9 +469,18 @@ validate your model’s functional form and link function assumptions.</p>
 <div class="section level3">
 <h3 id="generalized-goodness-of-functional-form-ggoff">2.1 Generalized Goodness-Of-Functional-Form (GGOFF)<a class="anchor" aria-label="anchor" href="#generalized-goodness-of-functional-form-ggoff"></a>
 </h3>
-<p>The GGOFF test (Ramalho and Ramalho, 2012) tests whether the chosen
-link function is adequate for the data. A significant result suggests
-the link may be misspecified.</p>
+<p>The GGOFF test (Ramalho, Ramalho and Murteira, 2014) tests whether
+the chosen link function is adequate for the data by testing
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mn>0</mn></msub><mo>:</mo><msub><mi>γ</mi><mn>1</mn></msub><mo>=</mo><mn>0</mn><mo>,</mo><msub><mi>γ</mi><mn>2</mn></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">H_0: \gamma_1 = 0, \gamma_2 = 0</annotation></semantics></math>
+in the augmented model:
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>y</mi><mo stretchy="false" form="prefix">|</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>G</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mi>β</mi><mo>+</mo><msub><mi>γ</mi><mn>1</mn></msub><mfrac><mrow><mi>g</mi><mi>′</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mover><mi>β</mi><mo accent="true">̂</mo></mover><mo stretchy="true" form="postfix">)</mo></mrow></mrow><mrow><mi>g</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mover><mi>β</mi><mo accent="true">̂</mo></mover><mo stretchy="true" form="postfix">)</mo></mrow></mrow></mfrac><mo>+</mo><msub><mi>γ</mi><mn>2</mn></msub><mi>x</mi><mover><mi>β</mi><mo accent="true">̂</mo></mover><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex"> E(y|x) = G\left(x\beta + \gamma_1 \frac{g'(x\hat{\beta})}{g(x\hat{\beta})} + \gamma_2 x\hat{\beta} \right) </annotation></semantics></math>
+where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>⋅</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">g(\cdot)</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi><mi>′</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>⋅</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">g'(\cdot)</annotation></semantics></math>
+are the first and second derivatives of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>⋅</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">G(\cdot)</annotation></semantics></math>.
+A significant result suggests the link may be misspecified.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Perform the GGOFF test on the 1P model</span></span>
 <span><span class="co"># Tests if the logit link is appropriate</span></span>
@@ -482,15 +498,20 @@ Toggle to see the output
 <span><span class="co">#&gt; GOFF2 - LM     0.485   0.486</span></span>
 <span><span class="co">#&gt; GGOFF - LM     0.814   0.666</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-05 21:27:13 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-05 22:24:49 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
 </details>
 </div>
 <div class="section level3">
 <h3 id="reset-test">2.2 RESET Test<a class="anchor" aria-label="anchor" href="#reset-test"></a>
 </h3>
-<p>The RESET test detects general functional form misspecification by
-testing whether powers of the fitted values have explanatory power:</p>
+<p>The RESET test (Ramsey, 1969) detects general functional form
+misspecification by testing whether powers of the fitted values have
+explanatory power:
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>y</mi><mo stretchy="false" form="prefix">|</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>G</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mi>β</mi><mo>+</mo><munderover><mo>∑</mo><mrow><mi>k</mi><mo>=</mo><mn>2</mn></mrow><mi>P</mi></munderover><msub><mi>γ</mi><mi>k</mi></msub><msup><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mover><mi>β</mi><mo accent="true">̂</mo></mover><mo stretchy="true" form="postfix">)</mo></mrow><mi>k</mi></msup><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex"> E(y|x) = G\left(x\beta + \sum_{k=2}^P \gamma_k (x\hat{\beta})^k\right) </annotation></semantics></math>
+Testing
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mn>0</mn></msub><mo>:</mo><mi>γ</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">H_0: \gamma = 0</annotation></semantics></math>
+provides a robust diagnostic check.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Standard RESET test for functional form misspecification</span></span>
 <span><span class="fu"><a href="../reference/fracreg.reset.html">fracreg.reset</a></span><span class="op">(</span><span class="va">model_1p</span><span class="op">)</span></span></code></pre></div>
@@ -505,7 +526,7 @@ Toggle to see the output
 <span><span class="co">#&gt;       Statistic p-value</span></span>
 <span><span class="co">#&gt; LM(3)     0.852   0.653</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-05 21:27:13 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-05 22:24:50 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
 </details>
 </div>
@@ -513,7 +534,14 @@ Toggle to see the output
 <h3 id="p-test-for-non-nested-models">2.3 P-Test for Non-Nested Models<a class="anchor" aria-label="anchor" href="#p-test-for-non-nested-models"></a>
 </h3>
 <p>You can compare non-nested models (e.g., <code>logit</code>
-vs. <code>cloglog</code> link) using the Davidson-MacKinnon P-test:</p>
+vs. <code>cloglog</code> link) using the Davidson-MacKinnon (1981)
+P-test. If model 1 specifies
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>E</mi><mn>1</mn></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>y</mi><mo stretchy="false" form="prefix">|</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>G</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mi>β</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">E_1(y|x) = G(x\beta)</annotation></semantics></math>
+and model 2 specifies
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>E</mi><mn>2</mn></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>y</mi><mo stretchy="false" form="prefix">|</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>H</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>z</mi><mi>θ</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">E_2(y|x) = H(z\theta)</annotation></semantics></math>,
+the baseline model is augmented with the difference between the fitted
+values:
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>y</mi><mo stretchy="false" form="prefix">|</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>G</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mi>β</mi><mo>+</mo><mi>γ</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mover><mi>y</mi><mo accent="true">̂</mo></mover><mrow><mi>M</mi><mn>2</mn></mrow></msub><mo>−</mo><msub><mover><mi>y</mi><mo accent="true">̂</mo></mover><mrow><mi>M</mi><mn>1</mn></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex"> E(y|x) = G\left(x\beta + \gamma \left( \hat{y}_{M2} - \hat{y}_{M1} \right)\right) </annotation></semantics></math></p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">model_1p_clog</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreg.html">fracreg</a></span><span class="op">(</span></span>
 <span>  y <span class="op">=</span> <span class="va">data</span><span class="op">$</span><span class="va">y</span>, </span>
@@ -543,7 +571,7 @@ Toggle to see the output
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-05 21:27:13 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-05 22:24:50 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
 </details><div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
@@ -552,11 +580,11 @@ Toggle to see the output
 </div>
 </div>
 <div class="section level2">
-<h2 id="endogeneity-heteroskedasticity-fracreghet">3. Endogeneity &amp; Heteroskedasticity
-(<code>fracreghet</code>)<a class="anchor" aria-label="anchor" href="#endogeneity-heteroskedasticity-fracreghet"></a>
+<h2 id="endogeneity-heteroscedasticity-fracreghet">3. Endogeneity &amp; Heteroscedasticity
+(<code>fracreghet</code>)<a class="anchor" aria-label="anchor" href="#endogeneity-heteroscedasticity-fracreghet"></a>
 </h2>
 <p>When you suspect that one of your covariates is endogenous, or that
-the variance is heteroskedastic, <code><a href="../reference/fracreghet.html">fracreghet()</a></code> provides
+the variance is heteroscedastic, <code><a href="../reference/fracreghet.html">fracreghet()</a></code> provides
 instrumental variable correction. It natively supports IV through a
 <strong>Control Function (CF)</strong> approach or <strong>GMM</strong>
 estimation.</p>
@@ -565,7 +593,14 @@ estimation.</p>
 </h3>
 <p>The control function approach adds the first-stage residual as an
 additional regressor in the fractional model, providing a Hausman-type
-test for endogeneity.</p>
+test for endogeneity. For an endogenous continuous regressor
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>y</mi><mrow><mn>2</mn><mi>i</mi></mrow></msub><annotation encoding="application/x-tex">y_{2i}</annotation></semantics></math>,
+the first stage is:
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>y</mi><mrow><mn>2</mn><mi>i</mi></mrow></msub><mo>=</mo><msub><mi>z</mi><mi>i</mi></msub><mi>π</mi><mo>+</mo><msub><mi>v</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex"> y_{2i} = z_i \pi + v_i </annotation></semantics></math>
+The residuals
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mover><mi>v</mi><mo accent="true">̂</mo></mover><mi>i</mi></msub><annotation encoding="application/x-tex">\hat{v}_i</annotation></semantics></math>
+are then included in the second-stage fractional response model:
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>y</mi><mrow><mn>1</mn><mi>i</mi></mrow></msub><mo>∣</mo><msub><mi>z</mi><mi>i</mi></msub><mo>,</mo><msub><mi>y</mi><mrow><mn>2</mn><mi>i</mi></mrow></msub><mo>,</mo><msub><mi>v</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>G</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>x</mi><mi>i</mi></msub><mi>β</mi><mo>+</mo><mi>γ</mi><msub><mover><mi>v</mi><mo accent="true">̂</mo></mover><mi>i</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex"> E(y_{1i} \mid z_i, y_{2i}, v_i) = G(x_i \beta + \gamma \hat{v}_i) </annotation></semantics></math></p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Simulating an endogenous variable (var.endog) and an instrument (z)</span></span>
 <span><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">N</span><span class="op">)</span></span>
@@ -612,7 +647,7 @@ Toggle to see the output
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-05 21:27:14 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-05 22:24:50 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
 </details><hr>
 </div>
@@ -628,6 +663,18 @@ when unobserved effects are correlated with regressors.</p>
 <div class="section level3">
 <h3 id="correlated-random-effects-qmlcre">4.1 Correlated Random Effects (QMLcre)<a class="anchor" aria-label="anchor" href="#correlated-random-effects-qmlcre"></a>
 </h3>
+<p>The Correlated Random Effects (CRE) approach models the dependence of
+unobserved individual-specific heterogeneity
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>c</mi><mi>i</mi></msub><annotation encoding="application/x-tex">c_i</annotation></semantics></math>
+on covariates by projecting it onto the time averages of strictly
+exogenous covariates
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mover><mi>x</mi><mo accent="true">‾</mo></mover><mi>i</mi></msub><annotation encoding="application/x-tex">\bar{x}_i</annotation></semantics></math>:
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>c</mi><mi>i</mi></msub><mo>=</mo><mi>ψ</mi><mo>+</mo><msub><mover><mi>x</mi><mo accent="true">‾</mo></mover><mi>i</mi></msub><mi>ξ</mi><mo>+</mo><msub><mi>a</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex"> c_i = \psi + \bar{x}_i \xi + a_i </annotation></semantics></math>
+Integrating out
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>a</mi><mi>i</mi></msub><annotation encoding="application/x-tex">a_i</annotation></semantics></math>
+yields the “population-averaged” or scaled conditional mean, which can
+be estimated via pooled Bernoulli QML:
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>y</mi><mrow><mi>i</mi><mi>t</mi></mrow></msub><mo>∣</mo><msub><mi>x</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>G</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>x</mi><mrow><mi>i</mi><mi>t</mi></mrow></msub><msub><mi>β</mi><mi>a</mi></msub><mo>+</mo><msub><mi>ψ</mi><mi>a</mi></msub><mo>+</mo><msub><mover><mi>x</mi><mo accent="true">‾</mo></mover><mi>i</mi></msub><msub><mi>ξ</mi><mi>a</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex"> E(y_{it} \mid x_i) = G(x_{it} \beta_a + \psi_a + \bar{x}_i \xi_a) </annotation></semantics></math></p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Simulating Panel Data</span></span>
 <span><span class="va">id</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">200</span>, each <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
@@ -674,7 +721,7 @@ Toggle to see the output
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-05 21:27:14 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-05 22:24:50 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
 </details><hr>
 </div>
@@ -684,9 +731,58 @@ Toggle to see the output
 </h2>
 <p>With <code>fracreg</code>, <code>fracreghet</code>, and
 <code>fracregpd</code>, you have a complete, mathematically robust
-toolkit for modeling fractional responses bounded between
+toolkit for modelling fractional responses bounded between
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="true" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="true" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">[0,1]</annotation></semantics></math>,
 regardless of inflation, endogeneity, or unobserved panel effects.</p>
+</div>
+<div class="section level2">
+<h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h2>
+<ul>
+<li>
+<strong>Davidson, R. and MacKinnon, J.G. (1981).</strong> “Several
+tests for model specification in the presence of alternative
+hypotheses”, <em>Econometrica</em>, 49(3), 781-793.</li>
+<li>
+<strong>Fang, K., &amp; Ma, S. (2013).</strong> “Three-part model
+for fractional response variables with application to Chinese household
+health insurance coverage”, <em>Journal of Applied Statistics</em>,
+40(5), 925-940.</li>
+<li>
+<strong>Papke, L. E. and Wooldridge, J. M. (1996).</strong>
+“Econometric methods for fractional response variables with an
+application to 401(k) plan participation rates”, <em>Journal of Applied
+Econometrics</em>, 11(6), 619-632.</li>
+<li>
+<strong>Papke, L. and Wooldridge, J.M. (2008).</strong> “Panel data
+methods for fractional response variables with an application to test
+pass rates”, <em>Journal of Econometrics</em>, 145(1-2), 121-233.</li>
+<li>
+<strong>Pregibon, D. (1980).</strong> “Goodness of Link Tests for
+Generalized Linear Models”, <em>Journal of the Royal Statistical
+Society: Series C (Applied Statistics)</em>, 29(1), 15-24.</li>
+<li>
+<strong>Ramalho, E. A., &amp; Ramalho, J. J. S. (2017).</strong>
+“Moment-based estimation of nonlinear regression models with boundary
+outcomes and endogeneity, with applications to nonnegative and
+fractional responses”, <em>Econometric Reviews</em>, 36(4),
+397-420.</li>
+<li>
+<strong>Ramalho, E.A., Ramalho, J.J.S. and Murteira, J.M.R.
+(2011).</strong> “Alternative estimating and testing empirical
+strategies for fractional response models”, <em>Journal of Economic
+Surveys</em>, 25(1), 19-68.</li>
+<li>
+<strong>Ramalho, E.A., Ramalho, J.J.S. and Murteira, J.M.R.
+(2014).</strong> “A generalized goodness-of-functional form test for
+binary and fractional response models”, <em>Manchester School</em>,
+82(4), 488-507.</li>
+<li>
+<strong>Ramsey, J.B. (1969).</strong> “Tests for Specification
+Errors in Classical Linear Least-Squares Regression Analysis”,
+<em>Journal of the Royal Statistical Society: Series B
+(Methodological)</em>, 31(2), 350-371.</li>
+</ul>
 <p>For more information, please visit the <a href="https://SulmanOlieko.github.io/fracreg">package website</a> or
 file an issue on <a href="https://github.com/SulmanOlieko/fracreg/issues" class="external-link">GitHub</a>.</p>
 <p>To cite this package in your research:</p>

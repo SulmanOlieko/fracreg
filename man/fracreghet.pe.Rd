@@ -33,8 +33,18 @@ fracreghet.pe(object, smearing = T, APE = T, CPE = F, at = NULL,
 }
 
 \details{
-\code{fracreghet.pe} calculates partial effects for fractional response models estimated via \code{fracreghet}. \code{fracreghet.pe} may be used to compute average or conditional partial effects. These partial effects may be conditional only on observables, using the smearing estimator, or also on unobservables, setting the error term to zero. For calculating standard errors, it is taken into account the option that was previously chosen for estimating the model. See 
-Ramalho and Ramalho (2017) for details on the computation of partial effects for fractional response models under unobserved heterogeneity.
+\code{fracreghet.pe} calculates partial effects for fractional response models estimated via \code{fracreghet}. \code{fracreghet.pe} may be used to compute average or conditional partial effects. These partial effects may be conditional only on observables, using the smearing estimator, or also on unobservables, setting the error term to zero.
+
+\strong{Partial Effects under Unobserved Heterogeneity:}
+When unobserved heterogeneity or endogeneity is present, calculating partial effects requires dealing with the unobserved error \eqn{v_i}. Let the conditional mean be \eqn{E(y|x, v) = G(x\beta + \gamma v)}.
+- \strong{Conditional on Observables (Smearing):} The unobserved heterogeneity is integrated out over its empirical distribution. The average partial effect for a continuous variable \eqn{x_k} is computed as:
+\deqn{PE_k(x) = \frac{1}{N} \sum_{i=1}^N g(x\beta + \gamma \hat{v}_i) \beta_k}
+- \strong{Conditional on Unobservables (Error = 0):} The partial effect is evaluated for an individual with the mean level of unobserved heterogeneity (\eqn{v = 0}):
+\deqn{PE_k(x) = g(x\beta) \beta_k}
+
+For discrete variables, the partial effects are calculated as the discrete differences evaluated using either the smearing approach or setting the error term to zero. 
+
+For calculating standard errors, it is taken into account the option that was previously chosen for estimating the model. See Ramalho and Ramalho (2017) for details on the computation of partial effects for fractional response models under unobserved heterogeneity.
 }
 
 \value{

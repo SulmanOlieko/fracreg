@@ -43,9 +43,20 @@ fracreghet.reset(object, lastpower.vec = 3, version = "Wald", table = T, ...)
 response models estimated via `fracreghet` using the options `GMMx` or
 `LINx`. `fracreghet.reset` may be used to test simultaneously the
 validity of the link specification and the transformation applied to the
-response variable by each estimator. It is taken into account the option
-that was chosen for computing standard errors in the model under
-evaluation. See Ramalho and Ramalho (2017) for details.
+response variable by each estimator.
+
+**RESET Test under Unobserved Heterogeneity:** The test is based on
+augmenting the original model with powers of the linear predictor
+\\x\hat{\beta}\\. For GMMx, it tests \\H_0: \gamma = 0\\ in the expanded
+moment conditions: \$\$E\left\[Z_i \left(H(y_i) - \exp\left(x_i\beta +
+\sum\_{k=2}^P \gamma_k
+(x_i\hat{\beta})^k\right)E(e^{c_i})\right)\right\] = 0\$\$ This
+simultaneously evaluates whether the mean function and the specific
+heterogeneity transformation \\H(\cdot)\\ are correctly specified.
+
+It is taken into account the option that was chosen for computing
+standard errors in the model under evaluation. See Ramalho and Ramalho
+(2017) for details.
 
 ## Value
 
@@ -57,6 +68,10 @@ Ramalho, E. A., & Ramalho, J. J. S. (2017), "Moment-based estimation of
 nonlinear regression models with boundary outcomes and endogeneity, with
 applications to nonnegative and fractional responses", *Econometric
 Reviews*, 36(4), 397-420.
+
+Ramsey, J.B. (1969), "Tests for Specification Errors in Classical Linear
+Least-Squares Regression Analysis", *Journal of the Royal Statistical
+Society: Series B (Methodological)*, 31(2), 350-371.
 
 ## Author
 
@@ -103,6 +118,6 @@ fracreghet.reset(res,2:3,c("Wald","LM"))
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 21:27:07 
+#>                          Run Date: 2026-07-05 22:24:44 
 #> -------------------------------------------------------------------------------- 
 ```

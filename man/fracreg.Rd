@@ -50,7 +50,28 @@ models if option \code{type = "2P"} is defined. Defaults to \code{x}.
 }
 
 \details{
-\code{fracreg} estimates one-part, two-part hurdle, and three-part double-inflated fractional response models; see Ramalho, Ramalho and Murteira (2011) and Fang and Ma (2013) for details on those models. The one-part models and the fractional component of two- and three-part models are estimated by Bernoulli-based quasi-maximum likelihood, while the binary components of two- and three-part models are estimated by maximum likelihood. \code{fracreg} uses the standard \link[stats]{glm} command to perform the estimations. Therefore, \code{fracreg} is essentially a convenience command, allowing estimation of several alternative fractional response models using the same command. In addition, \code{fracreg} provides an R-squared measure for all models (calculated as the square of the correlation coefficient between the actual and fitted values of the dependent variable), calculates the fitted values of the dependent variable in two-part models and stores the information needed to implement some very useful commands for fractional response models: \link{fracreg.reset} (RESET test), \link{fracreg.ptest} (P test), \link{fracreg.ggoff} (GGOFF tests) and \link{fracreg.pe} (partial effects).
+\code{fracreg} estimates one-part, two-part hurdle, and three-part double-inflated fractional response models; see Ramalho, Ramalho and Murteira (2011) and Fang and Ma (2013) for details on those models. 
+
+\strong{One-Part Fractional Response Models (\code{type = "1P"}):}
+The standard one-part model assumes that the conditional expectation of the fractional response \eqn{y_i \in [0,1]} is given by:
+\deqn{E(y_i|x_i) = G(x_i \beta)}
+where \eqn{G(\cdot)} is a known non-linear link function mapping the linear predictor to the unit interval (e.g., logit, probit). The parameters \eqn{\beta} are estimated by maximising the Bernoulli-based quasi-log-likelihood function:
+\deqn{\ln L_i(\beta) = y_i \ln[G(x_i \beta)] + (1 - y_i) \ln[1 - G(x_i \beta)]}
+This estimator requires only the correct specification of the conditional mean to yield consistent parameter estimates (Papke and Wooldridge, 1996).
+
+\strong{Two-Part Hurdle Models (\code{type = "2P"}):}
+When the data exhibits a boundary mass (e.g., at \eqn{y_i = 0}), the two-part hurdle model handles the boundary values separately from the interior fractional values. Let \eqn{y_i^*} be a binary indicator such that \eqn{y_i^* = 1} if \eqn{y_i > 0} and \eqn{y_i^* = 0} otherwise. The probability of observing a boundary value is modelled as:
+\deqn{P(y_i = 0 | x_{1i}) = 1 - F(x_{1i} \gamma_1)}
+\deqn{P(y_i > 0 | x_{1i}) = F(x_{1i} \gamma_1)}
+where \eqn{F(\cdot)} is a binary link function. Conditional on observing an interior fractional value, the response is modelled as:
+\deqn{E(y_i | x_{2i}, y_i > 0) = G(x_{2i} \beta_2)}
+The unconditional mean of the response is therefore:
+\deqn{E(y_i|x_i) = F(x_{1i} \gamma_1) \times G(x_{2i} \beta_2)}
+
+\strong{Three-Part Double Inflated Models (\code{type = "3P"}):}
+For data containing boundary mass at both \eqn{0} and \eqn{1}, the three-part model estimates two separate binary mechanisms for each boundary and a fractional component for the interior values \eqn{(0, 1)}, extending the two-part logic to double inflation (Fang and Ma, 2013).
+
+\code{fracreg} uses the standard \link[stats]{glm} command to perform the estimations. Therefore, \code{fracreg} is essentially a convenience command, allowing estimation of several alternative fractional response models using the same command. In addition, \code{fracreg} provides an R-squared measure for all models (calculated as the square of the correlation coefficient between the actual and fitted values of the dependent variable), calculates the fitted values of the dependent variable in two-part models and stores the information needed to implement some very useful commands for fractional response models: \link{fracreg.reset} (RESET test), \link{fracreg.ptest} (P test), \link{fracreg.ggoff} (GGOFF tests) and \link{fracreg.pe} (partial effects).
 }
 
 \value{When \code{type = "1P" or "2Pfrac"}, \code{fracreg} returns a list with the following elements:

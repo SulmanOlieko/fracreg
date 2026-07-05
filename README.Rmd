@@ -104,6 +104,8 @@ head(data)
 
 #### 1.2 The Standard 1-Part Model (1P)
 
+The one-part model assumes a single mechanism governs the entire distribution, estimating $E(y \mid x) = G(x\beta)$:
+
 ```{r one-part}
 model_1p <- fracreg(
   y = data$y, 
@@ -120,6 +122,9 @@ pe_1p <- fracreg.pe(model_1p)
 ```
 
 #### 1.4 The Two-Part Hurdle Model (2P)
+
+The two-part model separates the decision to participate (binary hurdle) from the proportion chosen:
+$E(y \mid x) = \Pr(y > 0 \mid x) \cdot E(y \mid y > 0, x)$.
 
 ```{r two-part}
 # We use inflation=0 to indicate we are modelling the mass at zero
@@ -138,6 +143,8 @@ pe_2p <- fracreg.pe(model_2p)
 ```
 
 #### 1.5 The Three-Part Double-Inflated Model (3P)
+
+The three-part model accommodates clustering at both $0$ and $1$ via two separate binary hurdles and a fractional component for interior values.
 
 ```{r three-part}
 # Linkbin takes a vector of two links for the two binary hurdles
@@ -160,12 +167,16 @@ pe_3p <- fracreg.pe(model_3p)
 
 #### 2.1 Generalized Goodness-Of-Functional-Form (GGOFF)
 
+The GGOFF tests if the specified link function $G(\cdot)$ is appropriate by testing $H_0: \gamma_1 = 0, \gamma_2 = 0$ in the augmented model $E(y|x) = G\left(x\beta + \gamma_1 \frac{g'(x\hat{\beta})}{g(x\hat{\beta})} + \gamma_2 x\hat{\beta} \right)$.
+
 ```{r ggoff}
 # Perform the GGOFF test on the 1P model
 fracreg.ggoff(model_1p, version = "LM")
 ```
 
 #### 2.2 RESET Test
+
+The RESET test checks for general functional form misspecification by augmenting the model with powers of the fitted index $(x\hat{\beta})^k$.
 
 ```{r reset}
 # Standard RESET test for functional form misspecification
@@ -176,7 +187,7 @@ fracreg.reset(model_1p)
 
 ### 3. Endogeneity & Heteroscedasticity (`fracreghet`)
 
-Use instrumental variables (`z`) to correct for endogenous covariates via a control function.
+Use instrumental variables (`z`) to correct for endogenous covariates via a control function approach $E(y_{1i} \mid z_i, y_{2i}, v_i) = G(x_i \beta + \gamma \hat{v}_i)$, or via IV-GMM.
 
 ```{r endogeneity}
 # Simulating an endogenous variable (var.endog) and an instrument (z)
@@ -200,7 +211,7 @@ model_het <- fracreghet(
 
 ### 4. Panel Data Fractional Models (`fracregpd`)
 
-For longitudinal or panel data where unobserved heterogeneity is a concern, `fracregpd()` provides fixed-T panel estimators. 
+For longitudinal or panel data where unobserved heterogeneity is a concern, `fracregpd()` provides fixed-T panel estimators. It supports Correlated Random Effects (CRE), where unobserved heterogeneity is projected onto the time-averages of the covariates: $c_i = \psi + \bar{x}_i \xi + a_i$.
 
 ```{r panel-data}
 # Simulating Panel Data
@@ -226,6 +237,12 @@ model_pd <- fracregpd(
 
 ## References
 
-Ramalho, E.A., J.J.S. Ramalho and J.M.R. Murteira (2011), "Alternative estimating and testing empirical strategies for fractional response models", *Journal of Economic Surveys*, 25(1), 19-68.
-
-Papke, L.E. and J.M. Wooldridge (1996), "Econometric methods for fractional response variables with an application to 401(k) plan participation rates", *Journal of Applied Econometrics*, 11(6), 619-632.
+- **Davidson, R. and MacKinnon, J.G. (1981).** "Several tests for model specification in the presence of alternative hypotheses", *Econometrica*, 49(3), 781-793.
+- **Fang, K., & Ma, S. (2013).** "Three-part model for fractional response variables with application to Chinese household health insurance coverage", *Journal of Applied Statistics*, 40(5), 925-940.
+- **Papke, L. E. and Wooldridge, J. M. (1996).** "Econometric methods for fractional response variables with an application to 401(k) plan participation rates", *Journal of Applied Econometrics*, 11(6), 619-632.
+- **Papke, L. and Wooldridge, J.M. (2008).** "Panel data methods for fractional response variables with an application to test pass rates", *Journal of Econometrics*, 145(1-2), 121-233.
+- **Pregibon, D. (1980).** "Goodness of Link Tests for Generalized Linear Models", *Journal of the Royal Statistical Society: Series C (Applied Statistics)*, 29(1), 15-24.
+- **Ramalho, E. A., & Ramalho, J. J. S. (2017).** "Moment-based estimation of nonlinear regression models with boundary outcomes and endogeneity, with applications to nonnegative and fractional responses", *Econometric Reviews*, 36(4), 397-420.
+- **Ramalho, E.A., Ramalho, J.J.S. and Murteira, J.M.R. (2011).** "Alternative estimating and testing empirical strategies for fractional response models", *Journal of Economic Surveys*, 25(1), 19-68.
+- **Ramalho, E.A., Ramalho, J.J.S. and Murteira, J.M.R. (2014).** "A generalized goodness-of-functional form test for binary and fractional response models", *Manchester School*, 82(4), 488-507.
+- **Ramsey, J.B. (1969).** "Tests for Specification Errors in Classical Linear Least-Squares Regression Analysis", *Journal of the Royal Statistical Society: Series B (Methodological)*, 31(2), 350-371.

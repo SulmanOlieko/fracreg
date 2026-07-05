@@ -69,15 +69,12 @@ Both options may be chosen at the same time and are computed in a robust way.</p
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p><code>fracreg.ptest</code> applies the P test statistic proposed by Davidson and
-MacKinnon (1981) to fractional response models estimated via
-<code>fracreg</code>. <code>fracreg.ptest</code> may be used to test against each other two alternative
-specifications for the link function  in: (i) one-part fractional response models;
-(ii) the binary components of two-part and three-part fractional response models; (iii) the
-fractional components of two-part and three-part fractional response models; and (iv) two-part
-and three-part fractional response models. In addition, <code>fracreg.ptest</code> may be used to test
-one-part models against two-part or three-part models and in cases where the link functions are the
-same but the regressors are non-nested. See Ramalho, Ramalho and Murteira (2011)
-for details on the application of the P test in the fractional response framework.</p>
+MacKinnon (1981) to fractional response models estimated via<code>fracreg</code>. <code>fracreg.ptest</code> may be used to test against each other two alternative specifications for the link function  in: (i) one-part fractional response models; (ii) the binary components of two-part and three-part fractional response models; (iii) the fractional components of two-part and three-part fractional response models; and (iv) two-part and three-part fractional response models.</p>
+<p><strong>P Test Framework:</strong>
+The P test allows the comparison of non-nested models (e.g., alternative link functions or non-nested regressors). Let model 1 specify \(E_1(y|x) = G(x\beta)\) and model 2 specify \(E_2(y|x) = H(z\theta)\). To test model 1 against model 2, the baseline model is augmented with the difference between the fitted values:
+$$E(y|x) = G\left(x\beta + \gamma \left( \hat{y}_{M2} - \hat{y}_{M1} \right)\right)$$
+where \(\hat{y}_{M1} = G(x\hat{\beta})\) and \(\hat{y}_{M2} = H(z\hat{\theta})\). The null hypothesis that model 1 is correct is tested via \(H_0: \gamma = 0\).</p>
+<p>In addition, <code>fracreg.ptest</code> may be used to test one-part models against two-part or three-part models and in cases where the link functions are the same but the regressors are non-nested. See Ramalho, Ramalho and Murteira (2011) for details on the application of the P test in the fractional response framework.</p>
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -137,7 +134,7 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-05 21:27:05 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-05 22:24:42 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#Testing a logit one-part fractional response model versus a binary logit +</span></span></span>
@@ -165,7 +162,7 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-05 21:27:05 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-05 22:24:42 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 </code></pre></div>
     </div>

@@ -72,8 +72,12 @@ available for <code>GMMx</code>).</p></dd>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p><code>fracreghet.reset</code> applies the RESET test statistic to fractional response
-models estimated via <code>fracreghet</code> using the options <code>GMMx</code> or <code>LINx</code>. <code>fracreghet.reset</code> may be used to test simultaneously the validity of the link specification and the transformation applied to the response variable by each estimator.  It is taken into account the option that was chosen for computing
-standard errors in the model under evaluation. See Ramalho and Ramalho (2017) for details.</p>
+models estimated via <code>fracreghet</code> using the options <code>GMMx</code> or <code>LINx</code>. <code>fracreghet.reset</code> may be used to test simultaneously the validity of the link specification and the transformation applied to the response variable by each estimator.</p>
+<p><strong>RESET Test under Unobserved Heterogeneity:</strong>
+The test is based on augmenting the original model with powers of the linear predictor \(x\hat{\beta}\). For GMMx, it tests \(H_0: \gamma = 0\) in the expanded moment conditions:
+$$E\left[Z_i \left(H(y_i) - \exp\left(x_i\beta + \sum_{k=2}^P \gamma_k (x_i\hat{\beta})^k\right)E(e^{c_i})\right)\right] = 0$$
+This simultaneously evaluates whether the mean function and the specific heterogeneity transformation \(H(\cdot)\) are correctly specified.</p>
+<p>It is taken into account the option that was chosen for computing standard errors in the model under evaluation. See Ramalho and Ramalho (2017) for details.</p>
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -82,6 +86,7 @@ standard errors in the model under evaluation. See Ramalho and Ramalho (2017) fo
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
     <p>Ramalho, E. A., &amp; Ramalho, J. J. S. (2017), "Moment-based estimation of nonlinear regression models with boundary outcomes and endogeneity, with applications to nonnegative and fractional responses", <em>Econometric Reviews</em>, 36(4), 397-420.</p>
+<p>Ramsey, J.B. (1969), "Tests for Specification Errors in Classical Linear Least-Squares Regression Analysis", <em>Journal of the Royal Statistical Society: Series B (Methodological)</em>, 31(2), 350-371.</p>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
@@ -125,7 +130,7 @@ standard errors in the model under evaluation. See Ramalho and Ramalho (2017) fo
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-05 21:27:07 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-05 22:24:44 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 </code></pre></div>
     </div>

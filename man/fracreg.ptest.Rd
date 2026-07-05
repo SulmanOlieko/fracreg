@@ -26,15 +26,14 @@ Both options may be chosen at the same time and are computed in a robust way.
 
 \details{
 \code{fracreg.ptest} applies the P test statistic proposed by Davidson and
-MacKinnon (1981) to fractional response models estimated via
-\code{fracreg}. \code{fracreg.ptest} may be used to test against each other two alternative
-specifications for the link function  in: (i) one-part fractional response models;
-(ii) the binary components of two-part and three-part fractional response models; (iii) the
-fractional components of two-part and three-part fractional response models; and (iv) two-part
-and three-part fractional response models. In addition, \code{fracreg.ptest} may be used to test
-one-part models against two-part or three-part models and in cases where the link functions are the
-same but the regressors are non-nested. See Ramalho, Ramalho and Murteira (2011)
-for details on the application of the P test in the fractional response framework.
+MacKinnon (1981) to fractional response models estimated via\code{fracreg}. \code{fracreg.ptest} may be used to test against each other two alternative specifications for the link function  in: (i) one-part fractional response models; (ii) the binary components of two-part and three-part fractional response models; (iii) the fractional components of two-part and three-part fractional response models; and (iv) two-part and three-part fractional response models. 
+
+\strong{P Test Framework:}
+The P test allows the comparison of non-nested models (e.g., alternative link functions or non-nested regressors). Let model 1 specify \eqn{E_1(y|x) = G(x\beta)} and model 2 specify \eqn{E_2(y|x) = H(z\theta)}. To test model 1 against model 2, the baseline model is augmented with the difference between the fitted values:
+\deqn{E(y|x) = G\left(x\beta + \gamma \left( \hat{y}_{M2} - \hat{y}_{M1} \right)\right)}
+where \eqn{\hat{y}_{M1} = G(x\hat{\beta})} and \eqn{\hat{y}_{M2} = H(z\hat{\theta})}. The null hypothesis that model 1 is correct is tested via \eqn{H_0: \gamma = 0}.
+
+In addition, \code{fracreg.ptest} may be used to test one-part models against two-part or three-part models and in cases where the link functions are the same but the regressors are non-nested. See Ramalho, Ramalho and Murteira (2011) for details on the application of the P test in the fractional response framework.
 }
 
 \value{

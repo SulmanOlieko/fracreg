@@ -7,8 +7,8 @@
 
 ## Citation
 
-Owili, S. O. (2026). fracreg: Fractional Response Models. R package.
-URL: https://SulmanOlieko.github.io/fracreg
+Owili, SO. (2026). fracreg: Fractional Response Models. R package. URL:
+https://SulmanOlieko.github.io/fracreg
 
     @Manual{,
       title = {fracreg: Fractional Response Models},

@@ -28,8 +28,14 @@ available for \code{GMMx}).
 
 \details{
 \code{fracreghet.reset} applies the RESET test statistic to fractional response
-models estimated via \code{fracreghet} using the options \code{GMMx} or \code{LINx}. \code{fracreghet.reset} may be used to test simultaneously the validity of the link specification and the transformation applied to the response variable by each estimator.  It is taken into account the option that was chosen for computing 
-standard errors in the model under evaluation. See Ramalho and Ramalho (2017) for details.
+models estimated via \code{fracreghet} using the options \code{GMMx} or \code{LINx}. \code{fracreghet.reset} may be used to test simultaneously the validity of the link specification and the transformation applied to the response variable by each estimator.  
+
+\strong{RESET Test under Unobserved Heterogeneity:}
+The test is based on augmenting the original model with powers of the linear predictor \eqn{x\hat{\beta}}. For GMMx, it tests \eqn{H_0: \gamma = 0} in the expanded moment conditions:
+\deqn{E\left[Z_i \left(H(y_i) - \exp\left(x_i\beta + \sum_{k=2}^P \gamma_k (x_i\hat{\beta})^k\right)E(e^{c_i})\right)\right] = 0}
+This simultaneously evaluates whether the mean function and the specific heterogeneity transformation \eqn{H(\cdot)} are correctly specified.
+
+It is taken into account the option that was chosen for computing standard errors in the model under evaluation. See Ramalho and Ramalho (2017) for details.
 }
 
 \value{
@@ -38,6 +44,8 @@ standard errors in the model under evaluation. See Ramalho and Ramalho (2017) fo
 
 \references{
 Ramalho, E. A., & Ramalho, J. J. S. (2017), "Moment-based estimation of nonlinear regression models with boundary outcomes and endogeneity, with applications to nonnegative and fractional responses", \emph{Econometric Reviews}, 36(4), 397-420.
+
+Ramsey, J.B. (1969), "Tests for Specification Errors in Classical Linear Least-Squares Regression Analysis", \emph{Journal of the Royal Statistical Society: Series B (Methodological)}, 31(2), 350-371.
 }
 
 \author{

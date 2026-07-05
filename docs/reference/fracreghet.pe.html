@@ -83,8 +83,15 @@ under unobserved heterogeneity.</p>
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p><code>fracreghet.pe</code> calculates partial effects for fractional response models estimated via <code>fracreghet</code>. <code>fracreghet.pe</code> may be used to compute average or conditional partial effects. These partial effects may be conditional only on observables, using the smearing estimator, or also on unobservables, setting the error term to zero. For calculating standard errors, it is taken into account the option that was previously chosen for estimating the model. See
-Ramalho and Ramalho (2017) for details on the computation of partial effects for fractional response models under unobserved heterogeneity.</p>
+    <p><code>fracreghet.pe</code> calculates partial effects for fractional response models estimated via <code>fracreghet</code>. <code>fracreghet.pe</code> may be used to compute average or conditional partial effects. These partial effects may be conditional only on observables, using the smearing estimator, or also on unobservables, setting the error term to zero.</p>
+<p><strong>Partial Effects under Unobserved Heterogeneity:</strong>
+When unobserved heterogeneity or endogeneity is present, calculating partial effects requires dealing with the unobserved error \(v_i\). Let the conditional mean be \(E(y|x, v) = G(x\beta + \gamma v)\).
+- <strong>Conditional on Observables (Smearing):</strong> The unobserved heterogeneity is integrated out over its empirical distribution. The average partial effect for a continuous variable \(x_k\) is computed as:
+$$PE_k(x) = \frac{1}{N} \sum_{i=1}^N g(x\beta + \gamma \hat{v}_i) \beta_k$$
+- <strong>Conditional on Unobservables (Error = 0):</strong> The partial effect is evaluated for an individual with the mean level of unobserved heterogeneity (\(v = 0\)):
+$$PE_k(x) = g(x\beta) \beta_k$$</p>
+<p>For discrete variables, the partial effects are calculated as the discrete differences evaluated using either the smearing approach or setting the error term to zero.</p>
+<p>For calculating standard errors, it is taken into account the option that was previously chosen for estimating the model. See Ramalho and Ramalho (2017) for details on the computation of partial effects for fractional response models under unobserved heterogeneity.</p>
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -143,7 +150,7 @@ Ramalho and Ramalho (2017) for details on the computation of partial effects for
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-05 21:27:06 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-05 22:24:44 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#Naive estimator of conditional partial effects for all covariates,</span></span></span>
@@ -163,7 +170,7 @@ Ramalho and Ramalho (2017) for details on the computation of partial effects for
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-05 21:27:06 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-05 22:24:44 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Note: covariates evaluated at the following values:</span>

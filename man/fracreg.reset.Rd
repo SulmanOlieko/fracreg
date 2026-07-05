@@ -28,7 +28,14 @@ RESET Test for Fractional Response Models
 \details{
 \code{fracreg.reset} applies the RESET test statistic to fractional response
 models estimated via \code{fracreg}. \code{fracreg.reset} may be used to test the link specification of: (i) one-part fractional response models; (ii) the binary
-components of two-part and three-part fractional response models; and (iii) the fractional components of two-part and three-part fractional response models. When the \code{Wald} version is implemented, it is taken into account the option that was chosen for computing standard errors in the model under evaluation. For the \code{LM} version, a robust version is computed in cases (i) and (iii) and a conventional version in case (ii). See Ramalho, Ramalho and Murteira (2011) for details on the application of the RESET test in the fractional response framework.
+components of two-part and three-part fractional response models; and (iii) the fractional components of two-part and three-part fractional response models. 
+
+\strong{RESET Test Framework:}
+The Regression Equation Specification Error Test (RESET) assesses whether the link function \eqn{G(\cdot)} and the linear index \eqn{x\beta} are correctly specified. It tests the null hypothesis \eqn{H_0: \gamma = 0} in the augmented model:
+\deqn{E(y|x) = G(x\beta + \sum_{k=2}^P \gamma_k (x\hat{\beta})^k)}
+where \eqn{P} is the maximum power of the linear predictor (specified by \code{lastpower.vec}) and \eqn{\hat{\beta}} are the estimated parameters from the baseline model.
+
+When the \code{Wald} version is implemented, it is taken into account the option that was chosen for computing standard errors in the model under evaluation. For the \code{LM} version, a robust version is computed in cases (i) and (iii) and a conventional version in case (ii). See Ramalho, Ramalho and Murteira (2011) for details on the application of the RESET test in the fractional response framework.
 }
 
 \value{
@@ -39,6 +46,8 @@ components of two-part and three-part fractional response models; and (iii) the 
 Ramalho, E.A., J.J.S. Ramalho and J.M.R. Murteira (2011), "Alternative
 estimating and testing empirical strategies for fractional response models",
 \emph{Journal of Economic Surveys}, 25(1), 19-68.
+
+Ramsey, J.B. (1969), "Tests for Specification Errors in Classical Linear Least-Squares Regression Analysis", \emph{Journal of the Royal Statistical Society: Series B (Methodological)}, 31(2), 350-371.
 }
 
 \author{

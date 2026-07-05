@@ -3,7 +3,7 @@
 `fracreg` is used to fit fractional response models, which are
 appropriate for responses that are proportions, percentages, or
 fractions restricted to the \[0, 1\] interval. It supports standard
-one-part models, two-part hurdle models for modeling boundary values at
+one-part models, two-part hurdle models for modelling boundary values at
 0 or 1, and three-part models for double inflation at both 0 and 1.
 
 ## Usage
@@ -111,20 +111,47 @@ fracreg(y, x, x2 = x, linkbin, linkfrac, type = "1P", inflation = 0,
 
 `fracreg` estimates one-part, two-part hurdle, and three-part
 double-inflated fractional response models; see Ramalho, Ramalho and
-Murteira (2011) and Fang and Ma (2013) for details on those models. The
-one-part models and the fractional component of two- and three-part
-models are estimated by Bernoulli-based quasi-maximum likelihood, while
-the binary components of two- and three-part models are estimated by
-maximum likelihood. `fracreg` uses the standard
-[glm](https://rdrr.io/r/stats/glm.html) command to perform the
-estimations. Therefore, `fracreg` is essentially a convenience command,
-allowing estimation of several alternative fractional response models
-using the same command. In addition, `fracreg` provides an R-squared
-measure for all models (calculated as the square of the correlation
-coefficient between the actual and fitted values of the dependent
-variable), calculates the fitted values of the dependent variable in
-two-part models and stores the information needed to implement some very
-useful commands for fractional response models:
+Murteira (2011) and Fang and Ma (2013) for details on those models.
+
+**One-Part Fractional Response Models (`type = "1P"`):** The standard
+one-part model assumes that the conditional expectation of the
+fractional response \\y_i \in \[0,1\]\\ is given by: \$\$E(y_i\|x_i) =
+G(x_i \beta)\$\$ where \\G(\cdot)\\ is a known non-linear link function
+mapping the linear predictor to the unit interval (e.g., logit, probit).
+The parameters \\\beta\\ are estimated by maximising the Bernoulli-based
+quasi-log-likelihood function: \$\$\ln L_i(\beta) = y_i \ln\[G(x_i
+\beta)\] + (1 - y_i) \ln\[1 - G(x_i \beta)\]\$\$ This estimator requires
+only the correct specification of the conditional mean to yield
+consistent parameter estimates (Papke and Wooldridge, 1996).
+
+**Two-Part Hurdle Models (`type = "2P"`):** When the data exhibits a
+boundary mass (e.g., at \\y_i = 0\\), the two-part hurdle model handles
+the boundary values separately from the interior fractional values. Let
+\\y_i^\*\\ be a binary indicator such that \\y_i^\* = 1\\ if \\y_i \>
+0\\ and \\y_i^\* = 0\\ otherwise. The probability of observing a
+boundary value is modelled as: \$\$P(y_i = 0 \| x\_{1i}) = 1 - F(x\_{1i}
+\gamma_1)\$\$ \$\$P(y_i \> 0 \| x\_{1i}) = F(x\_{1i} \gamma_1)\$\$ where
+\\F(\cdot)\\ is a binary link function. Conditional on observing an
+interior fractional value, the response is modelled as: \$\$E(y_i \|
+x\_{2i}, y_i \> 0) = G(x\_{2i} \beta_2)\$\$ The unconditional mean of
+the response is therefore: \$\$E(y_i\|x_i) = F(x\_{1i} \gamma_1) \times
+G(x\_{2i} \beta_2)\$\$
+
+**Three-Part Double Inflated Models (`type = "3P"`):** For data
+containing boundary mass at both \\0\\ and \\1\\, the three-part model
+estimates two separate binary mechanisms for each boundary and a
+fractional component for the interior values \\(0, 1)\\, extending the
+two-part logic to double inflation (Fang and Ma, 2013).
+
+`fracreg` uses the standard [glm](https://rdrr.io/r/stats/glm.html)
+command to perform the estimations. Therefore, `fracreg` is essentially
+a convenience command, allowing estimation of several alternative
+fractional response models using the same command. In addition,
+`fracreg` provides an R-squared measure for all models (calculated as
+the square of the correlation coefficient between the actual and fitted
+values of the dependent variable), calculates the fitted values of the
+dependent variable in two-part models and stores the information needed
+to implement some very useful commands for fractional response models:
 [fracreg.reset](https://SulmanOlieko.github.io/fracreg/reference/fracreg.reset.md)
 (RESET test),
 [fracreg.ptest](https://SulmanOlieko.github.io/fracreg/reference/fracreg.ptest.md)
@@ -345,7 +372,7 @@ fracreg(y, X, type="1P", linkfrac="logit")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 21:27:03 
+#>                          Run Date: 2026-07-05 22:24:41 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -453,7 +480,7 @@ fracreg(y, X, type="2P", inflation=0, linkbin="cloglog", linkfrac="logit")
 #> Pseudo R-squared:                                                        0.38829 
 #> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 21:27:03 
+#>                          Run Date: 2026-07-05 22:24:41 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -529,7 +556,7 @@ fracreg(y, X, type="3P", linkbin=c("logit","probit"), linkfrac="logit")
 #> Pseudo R-squared:                                                        0.38917 
 #> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 21:27:03 
+#>                          Run Date: 2026-07-05 22:24:41 
 #> -------------------------------------------------------------------------------- 
 #> 
 ```

@@ -104,10 +104,28 @@ have similar features to their GMM counterparts. It also provides a QML
 estimator (QMLxv) that addresses endogeneity using a Control Function
 (CF) approach, which includes the first-stage reduced-form residuals as
 an additional regressor in the main fractional equation, providing a
-Hausman-type test for endogeneity. See Ramalho and Ramalho (2017) for
-details on each estimator. For overidentified models, `fracreghet`
-calculates Hansen's J statistic. For `GMMx` and `LINx`, `fracreghet`
-stores the information needed to implement the RESET test
+Hausman-type test for endogeneity.
+
+**Control Function (CF) Approach - QMLxv:** When a continuous regressor
+\\y\_{2i}\\ is endogenous, the CF approach (Papke and Wooldridge, 2008;
+Terza et al., 2008) uses a two-stage procedure. First, a linear reduced
+form is estimated: \$\$y\_{2i} = z_i \pi + v_i\$\$ where \\z_i\\
+includes all exogenous variables and external instruments. The residuals
+\\\hat{v}\_i\\ are then included in the fractional response model:
+\$\$E(y\_{1i} \| z_i, y\_{2i}, v_i) = G(x_i \beta + \gamma
+\hat{v}\_i)\$\$ A test of \\H_0: \gamma = 0\\ serves as a robust
+Hausman-type test for endogeneity.
+
+**Generalized Method of Moments (GMM):** For estimators like GMMz, which
+do not strictly require a linear reduced form, the estimation relies on
+population orthogonality conditions between the instruments \\Z_i\\ and
+the model residuals: \$\$E\[Z\_{i} (y_i - G(x_i \beta))\] = 0\$\$ or via
+specific transformations of the dependent variable to eliminate
+unobserved heterogeneity (Ramalho and Ramalho, 2017).
+
+For overidentified models, `fracreghet` calculates Hansen's J statistic.
+For `GMMx` and `LINx`, `fracreghet` stores the information needed to
+implement the RESET test
 ([fracreghet.reset](https://SulmanOlieko.github.io/fracreg/reference/fracreghet.reset.md)).
 For all estimators, `fracreghet` stores the information needed to
 calculate partial effects
@@ -246,7 +264,7 @@ fracreghet(y = y_endog, x = X, type = "GMMx", link = "logit")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 21:27:06 
+#>                          Run Date: 2026-07-05 22:24:43 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -270,7 +288,7 @@ fracreghet(y = y_endog, x = X, z = Z, type = "GMMz", link = "logit")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 21:27:06 
+#>                          Run Date: 2026-07-05 22:24:43 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -305,7 +323,7 @@ fracreghet(y = y_endog, x = X, z = Z, var.endog = var.endog, type = "GMMxv", lin
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 21:27:06 
+#>                          Run Date: 2026-07-05 22:24:43 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -339,7 +357,7 @@ fracreghet(y = y_endog, x = X, z = Z, var.endog = var.endog, type = "QMLxv", lin
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 21:27:06 
+#>                          Run Date: 2026-07-05 22:24:43 
 #> -------------------------------------------------------------------------------- 
 #> 
 ```

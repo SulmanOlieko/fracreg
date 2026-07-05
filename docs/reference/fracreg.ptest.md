@@ -34,17 +34,29 @@ fracreg.ptest(object1, object2, version = "Wald", table = TRUE)
 ## Details
 
 `fracreg.ptest` applies the P test statistic proposed by Davidson and
-MacKinnon (1981) to fractional response models estimated via `fracreg`.
+MacKinnon (1981) to fractional response models estimated via`fracreg`.
 `fracreg.ptest` may be used to test against each other two alternative
 specifications for the link function in: (i) one-part fractional
 response models; (ii) the binary components of two-part and three-part
 fractional response models; (iii) the fractional components of two-part
 and three-part fractional response models; and (iv) two-part and
-three-part fractional response models. In addition, `fracreg.ptest` may
-be used to test one-part models against two-part or three-part models
-and in cases where the link functions are the same but the regressors
-are non-nested. See Ramalho, Ramalho and Murteira (2011) for details on
-the application of the P test in the fractional response framework.
+three-part fractional response models.
+
+**P Test Framework:** The P test allows the comparison of non-nested
+models (e.g., alternative link functions or non-nested regressors). Let
+model 1 specify \\E_1(y\|x) = G(x\beta)\\ and model 2 specify
+\\E_2(y\|x) = H(z\theta)\\. To test model 1 against model 2, the
+baseline model is augmented with the difference between the fitted
+values: \$\$E(y\|x) = G\left(x\beta + \gamma \left( \hat{y}\_{M2} -
+\hat{y}\_{M1} \right)\right)\$\$ where \\\hat{y}\_{M1} =
+G(x\hat{\beta})\\ and \\\hat{y}\_{M2} = H(z\hat{\theta})\\. The null
+hypothesis that model 1 is correct is tested via \\H_0: \gamma = 0\\.
+
+In addition, `fracreg.ptest` may be used to test one-part models against
+two-part or three-part models and in cases where the link functions are
+the same but the regressors are non-nested. See Ramalho, Ramalho and
+Murteira (2011) for details on the application of the P test in the
+fractional response framework.
 
 ## Value
 
@@ -113,7 +125,7 @@ fracreg.ptest(res1,res2,"LM")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 21:27:05 
+#>                          Run Date: 2026-07-05 22:24:42 
 #> -------------------------------------------------------------------------------- 
 
 #Testing a logit one-part fractional response model versus a binary logit +
@@ -141,6 +153,6 @@ fracreg.ptest(res1,res2,"Wald")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 21:27:05 
+#>                          Run Date: 2026-07-05 22:24:42 
 #> -------------------------------------------------------------------------------- 
 ```

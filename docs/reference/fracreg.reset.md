@@ -45,12 +45,23 @@ models estimated via `fracreg`. `fracreg.reset` may be used to test the
 link specification of: (i) one-part fractional response models; (ii) the
 binary components of two-part and three-part fractional response models;
 and (iii) the fractional components of two-part and three-part
-fractional response models. When the `Wald` version is implemented, it
-is taken into account the option that was chosen for computing standard
-errors in the model under evaluation. For the `LM` version, a robust
-version is computed in cases (i) and (iii) and a conventional version in
-case (ii). See Ramalho, Ramalho and Murteira (2011) for details on the
-application of the RESET test in the fractional response framework.
+fractional response models.
+
+**RESET Test Framework:** The Regression Equation Specification Error
+Test (RESET) assesses whether the link function \\G(\cdot)\\ and the
+linear index \\x\beta\\ are correctly specified. It tests the null
+hypothesis \\H_0: \gamma = 0\\ in the augmented model: \$\$E(y\|x) =
+G(x\beta + \sum\_{k=2}^P \gamma_k (x\hat{\beta})^k)\$\$ where \\P\\ is
+the maximum power of the linear predictor (specified by `lastpower.vec`)
+and \\\hat{\beta}\\ are the estimated parameters from the baseline
+model.
+
+When the `Wald` version is implemented, it is taken into account the
+option that was chosen for computing standard errors in the model under
+evaluation. For the `LM` version, a robust version is computed in cases
+(i) and (iii) and a conventional version in case (ii). See Ramalho,
+Ramalho and Murteira (2011) for details on the application of the RESET
+test in the fractional response framework.
 
 ## Value
 
@@ -61,6 +72,10 @@ application of the RESET test in the fractional response framework.
 Ramalho, E.A., J.J.S. Ramalho and J.M.R. Murteira (2011), "Alternative
 estimating and testing empirical strategies for fractional response
 models", *Journal of Economic Surveys*, 25(1), 19-68.
+
+Ramsey, J.B. (1969), "Tests for Specification Errors in Classical Linear
+Least-Squares Regression Analysis", *Journal of the Royal Statistical
+Society: Series B (Methodological)*, 31(2), 350-371.
 
 ## Author
 
@@ -107,7 +122,7 @@ fracreg.reset(res,2:3,c("Wald","LM"))
 #> LM(3)       0.042   0.979
 #> Wald(3)     0.045   0.978
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 21:27:05 
+#>                          Run Date: 2026-07-05 22:24:43 
 #> -------------------------------------------------------------------------------- 
 
 #Testing the probit specification of the binary component of a two-part fractional
@@ -124,6 +139,6 @@ fracreg.reset(res,3,"LR")
 #>       Statistic p-value
 #> LR(3)     0.528   0.768
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 21:27:05 
+#>                          Run Date: 2026-07-05 22:24:43 
 #> -------------------------------------------------------------------------------- 
 ```

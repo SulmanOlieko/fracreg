@@ -60,7 +60,21 @@ instrumental variables). Only required in case of endogenous explanatory variabl
 }
 
 \details{
-\code{fracregpd} computes the GMM estimators proposed in Ramalho, Ramalho and Coelho (2018) for panel data fractional response models with both time-variant and time-invariant unobserved heterogeneity and endogeneous covariates: GMMww, GMMc, GMMbgw, GMMpfe, GMMcre and GMMpre. In addition, \code{fracregpd} also computes QMLcre, which was proposed by Papke and Wooldridge (2008) and Wooldridge (2019). The Correlated Random Effects (CRE) approach models the unobserved individual-specific effects as a linear function of the time averages of covariates, allowing consistent estimation even when unobserved effects are correlated with regressors. For overidentified models, \code{fracregpd} calculates Hansen's J statistic.
+\code{fracregpd} computes the GMM estimators proposed in Ramalho, Ramalho and Coelho (2018) for panel data fractional response models with both time-variant and time-invariant unobserved heterogeneity and endogeneous covariates: GMMww, GMMc, GMMbgw, GMMpfe, GMMcre and GMMpre. In addition, \code{fracregpd} also computes QMLcre, which was proposed by Papke and Wooldridge (2008) and Wooldridge (2019). 
+
+\strong{Correlated Random Effects (CRE) - QMLcre:}
+In panel data, unobserved individual-specific heterogeneity \eqn{c_i} may be correlated with the covariates \eqn{x_{it}}. The CRE approach (Papke and Wooldridge, 2008) models this dependence by projecting \eqn{c_i} onto the time averages of the strictly exogenous covariates \eqn{\bar{x}_i}:
+\deqn{c_i = \psi + \bar{x}_i \xi + a_i}
+where \eqn{a_i} is an error term independent of \eqn{x_i}. Assuming \eqn{a_i | x_i \sim N(0, \sigma_a^2)} and a probit link, integrating out \eqn{a_i} yields the "population-averaged" or scaled conditional mean:
+\deqn{E(y_{it} | x_i) = G(x_{it} \beta_a + \psi_a + \bar{x}_i \xi_a)}
+where the parameters with subscript \eqn{a} are scaled by \eqn{(1 + \sigma_a^2)^{-1/2}}. This equation is estimated via pooled Bernoulli QML.
+
+\strong{Generalized Method of Moments (GMM):}
+For models where strict exogeneity fails or the link function is an exponential-type link, Ramalho et al. (2018) propose GMM estimators based on the following general moment conditions:
+\deqn{E[Z_{it} (H(y_{it}) - \exp(x_{it}\beta + c_i))] = 0}
+where \eqn{H(\cdot)} is a transformation function and \eqn{Z_{it}} is a matrix of valid instruments. Estimators such as GMMww, GMMc, and GMMbgw use different transformations to eliminate the unobserved fixed effect \eqn{c_i} before applying GMM.
+
+For overidentified models, \code{fracregpd} calculates Hansen's J statistic to test the validity of the overidentifying restrictions.
 }
 
 \value{

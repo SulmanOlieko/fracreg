@@ -40,13 +40,25 @@ fractional response models estimated via `fracreg`. `fracreg.ggoff` may
 be used to test the link specification of: (i) one-part fractional
 response models; (ii) the binary component of two-part fractional
 response models; and (iii) the fractional component of two-part
-fractional response models. When the `Wald` version is implemented, it
-is taken into account the option that was chosen for computing standard
-errors in the model under evaluation. For the `LM` version, a robust
-version is computed in cases (i) and (iii) and a conventional version in
-case (ii). See Ramalho, Ramalho and Murteira (2014) for details on the
-application of the GGOFF, GOFF1 and GOOFF2 tests in the fractional
-response framework.
+fractional response models.
+
+**GGOFF Test Framework:** The Generalized Goodness-of-Functional Form
+(GGOFF) test evaluates the adequacy of the link function \\G(\cdot)\\.
+It is based on augmenting the baseline model with specific directions of
+departure. The auxiliary testing equation takes the form: \$\$E(y\|x) =
+G\left(x\beta + \gamma_1 \frac{g'(x\hat{\beta})}{g(x\hat{\beta})} +
+\gamma_2 x\hat{\beta} \right)\$\$ where \\g(\cdot)\\ and \\g'(\cdot)\\
+are the first and second derivatives of \\G(\cdot)\\ evaluated at the
+linear predictor \\x\hat{\beta}\\. The test checks \\H_0: \gamma_1 = 0,
+\gamma_2 = 0\\. GOFF1 and GOFF2 are variants testing individual
+components.
+
+When the `Wald` version is implemented, it is taken into account the
+option that was chosen for computing standard errors in the model under
+evaluation. For the `LM` version, a robust version is computed in cases
+(i) and (iii) and a conventional version in case (ii). See Ramalho,
+Ramalho and Murteira (2014) for details on the application of the GGOFF,
+GOFF1 and GOOFF2 tests in the fractional response framework.
 
 ## Value
 
@@ -57,6 +69,10 @@ response framework.
 Ramalho, E.A., J.J.S. Ramalho and J.M.R. Murteira (2014), "A generalized
 goodness-of-functional form test for binary and fractional response
 models", *Manchester School*, 82(4), 488-507.
+
+Pregibon, D. (1980), "Goodness of Link Tests for Generalized Linear
+Models", *Journal of the Royal Statistical Society: Series C (Applied
+Statistics)*, 29(1), 15-24.
 
 ## Author
 
@@ -107,7 +123,7 @@ fracreg.ggoff(res,c("Wald","LM"))
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 21:27:04 
+#>                          Run Date: 2026-07-05 22:24:41 
 #> -------------------------------------------------------------------------------- 
 
 #Testing the probit specification of the binary component of a two-part fractional
@@ -126,6 +142,6 @@ fracreg.ggoff(res,"LR")
 #> GOFF2 - LR     0.039   0.844
 #> GGOFF - LR     0.717   0.699
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 21:27:04 
+#>                          Run Date: 2026-07-05 22:24:41 
 #> -------------------------------------------------------------------------------- 
 ```

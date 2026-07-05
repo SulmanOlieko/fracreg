@@ -58,11 +58,32 @@ conditional partial effects for: (i) one-part fractional response
 models; (ii) the binary components of two-part and three-part fractional
 response models; (iii) the fractional components of two-part and
 three-part fractional response models; and (iv) two-part and three-part
-fractional response models overall. For calculating standard errors, it
-is taken into account the option that was previously chosen for
-estimating the model. See Ramalho, Ramalho and Murteira (2011) and Fang
-and Ma (2013) for details on the computation of partial effects in the
-fractional response framework.
+fractional response models overall.
+
+**Partial Effects for Continuous Variables:** For a continuous covariate
+\\x_k\\, the partial effect on the conditional mean \\E(y\|x) =
+G(x\beta)\\ is the first derivative with respect to \\x_k\\: \$\$PE_k(x)
+= \frac{\partial E(y\|x)}{\partial x_k} = g(x\beta)\beta_k\$\$ where
+\\g(\cdot)\\ is the probability density function corresponding to the
+link function \\G(\cdot)\\.
+
+**Partial Effects for Discrete Variables:** For a discrete or dummy
+covariate \\x_k\\, the partial effect is calculated as the discrete
+difference in the expected value when \\x_k\\ changes from 0 to 1,
+holding all other variables \\x\_{-k}\\ constant: \$\$PE_k(x) =
+G(x\_{-k}\beta\_{-k} + \beta_k) - G(x\_{-k}\beta\_{-k})\$\$
+
+**Average vs. Conditional Partial Effects:** - **Average Partial Effects
+(APE):** Evaluated for each observation \\i\\ in the sample and then
+averaged: \$\$APE_k = \frac{1}{N} \sum\_{i=1}^N PE_k(x_i)\$\$ -
+**Conditional Partial Effects (CPE):** Evaluated at a specific vector of
+covariate values \\x^\*\\ (e.g., the sample mean or median): \$\$CPE_k =
+PE_k(x^\*)\$\$
+
+For calculating standard errors, it is taken into account the option
+that was previously chosen for estimating the model. See Ramalho,
+Ramalho and Murteira (2011) and Fang and Ma (2013) for details on the
+computation of partial effects in the fractional response framework.
 
 ## Value
 
@@ -137,7 +158,7 @@ fracreg.pe(res)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 21:27:04 
+#>                          Run Date: 2026-07-05 22:24:42 
 #> -------------------------------------------------------------------------------- 
 
 #Computing average partial effects for a binary logit + fractional probit
@@ -157,7 +178,7 @@ fracreg.pe(res)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 21:27:04 
+#>                          Run Date: 2026-07-05 22:24:42 
 #> -------------------------------------------------------------------------------- 
 
 #Computing conditional partial effects for X2 in the logit component
@@ -177,7 +198,7 @@ fracreg.pe(res,APE=FALSE,CPE=TRUE,at="median",which.x="X2")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 21:27:04 
+#>                          Run Date: 2026-07-05 22:24:42 
 #> -------------------------------------------------------------------------------- 
 #> 
 #> Note: covariates evaluated at median (or mode, for dummies) values
@@ -201,6 +222,6 @@ fracreg.pe(res3p)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 21:27:04 
+#>                          Run Date: 2026-07-05 22:24:42 
 #> -------------------------------------------------------------------------------- 
 ```

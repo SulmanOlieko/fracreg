@@ -73,7 +73,9 @@ head(data)
 
 ### 1.2 The Standard 1-Part Model (1P)
 
-If you assume a single process governs the entire distribution of `y`, the standard one-part model is the natural choice. This corresponds to the Papke and Wooldridge (1996) quasi-likelihood estimator.
+If you assume a single process governs the entire distribution of `y`, the standard one-part model is the natural choice. This corresponds to the Papke and Wooldridge (1996) quasi-likelihood estimator, where the conditional mean is specified as:
+$$ E(y \mid x) = G(x\beta) $$
+where $G(\cdot)$ is a known non-linear link function (e.g., logit, probit) satisfying $0 \le G(\cdot) \le 1$.
 
 ```{r one-part}
 model_1p <- fracreg(
@@ -96,10 +98,10 @@ pe_1p <- fracreg.pe(model_1p)
 
 Often, fractional data (e.g., participation rates, insurance coverage, expenditure shares) have a substantial mass of zeros. The two-part model estimates:
 
-1. A **binary** component: $\Pr(y > 0 \mid x)$
-2. A **fractional** component: $E(y \mid y > 0, x)$
+1. A **binary** component: $\Pr(y > 0 \mid x) = G_{BIN}(x\beta_{BIN})$
+2. A **fractional** component: $E(y \mid y > 0, x) = G_{FRAC}(x\beta_{FRAC})$
 
-The overall conditional expectation is then $E(y \mid x) = \Pr(y > 0) \cdot E(y \mid y > 0)$.
+The overall conditional expectation is then $E(y \mid x) = \Pr(y > 0 \mid x) \cdot E(y \mid y > 0, x)$.
 
 ```{r two-part}
 # We use inflation=0 to indicate we are modelling the mass at zero
@@ -125,9 +127,11 @@ pe_2p <- fracreg.pe(model_2p)
 
 When data has substantial clustering at **both** boundaries (0 and 1) simultaneously, the three-part model decomposes the process into:
 
-1. $\Pr(y > 0 \mid x)$ — first binary hurdle
-2. $\Pr(y = 1 \mid y > 0, x)$ — second binary hurdle
-3. $E(y \mid 0 < y < 1, x)$ — fractional component
+1. $\Pr(y > 0 \mid x) = G_{BIN0}(x\beta_{BIN0})$ — first binary hurdle
+2. $\Pr(y = 1 \mid y > 0, x) = G_{BIN1}(x\beta_{BIN1})$ — second binary hurdle
+3. $E(y \mid 0 < y < 1, x) = G_{FRAC}(x\beta_{FRAC})$ — fractional component
+
+The overall conditional expectation integrates these three mechanisms into a single framework.
 
 ```{r three-part}
 # Linkbin takes a vector of two links for the two binary hurdles
@@ -156,7 +160,9 @@ pe_3p <- fracreg.pe(model_3p)
 
 ### 2.1 Generalized Goodness-Of-Functional-Form (GGOFF)
 
-The GGOFF test (Ramalho and Ramalho, 2012) tests whether the chosen link function is adequate for the data. A significant result suggests the link may be misspecified.
+The GGOFF test (Ramalho, Ramalho and Murteira, 2014) tests whether the chosen link function is adequate for the data by testing $H_0: \gamma_1 = 0, \gamma_2 = 0$ in the augmented model:
+$$ E(y|x) = G\left(x\beta + \gamma_1 \frac{g'(x\hat{\beta})}{g(x\hat{\beta})} + \gamma_2 x\hat{\beta} \right) $$
+where $g(\cdot)$ and $g'(\cdot)$ are the first and second derivatives of $G(\cdot)$. A significant result suggests the link may be misspecified.
 
 ```{r ggoff}
 # Perform the GGOFF test on the 1P model
@@ -166,7 +172,9 @@ fracreg.ggoff(model_1p, version = "LM")
 
 ### 2.2 RESET Test
 
-The RESET test detects general functional form misspecification by testing whether powers of the fitted values have explanatory power:
+The RESET test (Ramsey, 1969) detects general functional form misspecification by testing whether powers of the fitted values have explanatory power:
+$$ E(y|x) = G\left(x\beta + \sum_{k=2}^P \gamma_k (x\hat{\beta})^k\right) $$
+Testing $H_0: \gamma = 0$ provides a robust diagnostic check.
 
 ```{r reset}
 # Standard RESET test for functional form misspecification
@@ -175,7 +183,8 @@ fracreg.reset(model_1p)
 
 ### 2.3 P-Test for Non-Nested Models
 
-You can compare non-nested models (e.g., `logit` vs. `cloglog` link) using the Davidson-MacKinnon P-test:
+You can compare non-nested models (e.g., `logit` vs. `cloglog` link) using the Davidson-MacKinnon (1981) P-test. If model 1 specifies $E_1(y|x) = G(x\beta)$ and model 2 specifies $E_2(y|x) = H(z\theta)$, the baseline model is augmented with the difference between the fitted values:
+$$ E(y|x) = G\left(x\beta + \gamma \left( \hat{y}_{M2} - \hat{y}_{M1} \right)\right) $$
 
 ```{r ptest}
 model_1p_clog <- fracreg(
@@ -196,7 +205,10 @@ When you suspect that one of your covariates is endogenous, or that the variance
 
 ### 3.1 Control Function Approach (QMLxv)
 
-The control function approach adds the first-stage residual as an additional regressor in the fractional model, providing a Hausman-type test for endogeneity.
+The control function approach adds the first-stage residual as an additional regressor in the fractional model, providing a Hausman-type test for endogeneity. For an endogenous continuous regressor $y_{2i}$, the first stage is:
+$$ y_{2i} = z_i \pi + v_i $$
+The residuals $\hat{v}_i$ are then included in the second-stage fractional response model:
+$$ E(y_{1i} \mid z_i, y_{2i}, v_i) = G(x_i \beta + \gamma \hat{v}_i) $$
 
 ```{r endogeneity}
 # Simulating an endogenous variable (var.endog) and an instrument (z)
@@ -224,6 +236,11 @@ For longitudinal or panel data where unobserved heterogeneity is a concern, `fra
 
 ### 4.1 Correlated Random Effects (QMLcre)
 
+The Correlated Random Effects (CRE) approach models the dependence of unobserved individual-specific heterogeneity $c_i$ on covariates by projecting it onto the time averages of strictly exogenous covariates $\bar{x}_i$:
+$$ c_i = \psi + \bar{x}_i \xi + a_i $$
+Integrating out $a_i$ yields the "population-averaged" or scaled conditional mean, which can be estimated via pooled Bernoulli QML:
+$$ E(y_{it} \mid x_i) = G(x_{it} \beta_a + \psi_a + \bar{x}_i \xi_a) $$
+
 ```{r panel-data}
 # Simulating Panel Data
 id <- rep(1:200, each = 5)
@@ -249,6 +266,18 @@ model_pd <- fracregpd(
 ## Conclusion
 
 With `fracreg`, `fracreghet`, and `fracregpd`, you have a complete, mathematically robust toolkit for modelling fractional responses bounded between $[0,1]$, regardless of inflation, endogeneity, or unobserved panel effects.
+
+## References
+
+- **Davidson, R. and MacKinnon, J.G. (1981).** "Several tests for model specification in the presence of alternative hypotheses", *Econometrica*, 49(3), 781-793.
+- **Fang, K., & Ma, S. (2013).** "Three-part model for fractional response variables with application to Chinese household health insurance coverage", *Journal of Applied Statistics*, 40(5), 925-940.
+- **Papke, L. E. and Wooldridge, J. M. (1996).** "Econometric methods for fractional response variables with an application to 401(k) plan participation rates", *Journal of Applied Econometrics*, 11(6), 619-632.
+- **Papke, L. and Wooldridge, J.M. (2008).** "Panel data methods for fractional response variables with an application to test pass rates", *Journal of Econometrics*, 145(1-2), 121-233.
+- **Pregibon, D. (1980).** "Goodness of Link Tests for Generalized Linear Models", *Journal of the Royal Statistical Society: Series C (Applied Statistics)*, 29(1), 15-24.
+- **Ramalho, E. A., & Ramalho, J. J. S. (2017).** "Moment-based estimation of nonlinear regression models with boundary outcomes and endogeneity, with applications to nonnegative and fractional responses", *Econometric Reviews*, 36(4), 397-420.
+- **Ramalho, E.A., Ramalho, J.J.S. and Murteira, J.M.R. (2011).** "Alternative estimating and testing empirical strategies for fractional response models", *Journal of Economic Surveys*, 25(1), 19-68.
+- **Ramalho, E.A., Ramalho, J.J.S. and Murteira, J.M.R. (2014).** "A generalized goodness-of-functional form test for binary and fractional response models", *Manchester School*, 82(4), 488-507.
+- **Ramsey, J.B. (1969).** "Tests for Specification Errors in Classical Linear Least-Squares Regression Analysis", *Journal of the Royal Statistical Society: Series B (Methodological)*, 31(2), 350-371.
 
 For more information, please visit the [package website](https://SulmanOlieko.github.io/fracreg) or file an issue on [GitHub](https://github.com/SulmanOlieko/fracreg/issues).
 

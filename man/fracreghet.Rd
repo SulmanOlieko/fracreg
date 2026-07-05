@@ -47,7 +47,21 @@ variables). Defaults to \code{x}.
 }
 
 \details{
-\code{fracreghet} computes the GMM estimators proposed in Ramalho and Ramalho (2017) for fractional response models with unobserved heterogeneity: GMMx, which allows for neglected heterogeneity but not for endogeneity; GMMxv, which allows both issues and assumes a linear reduced form for the endogeneous covariate (or for a transformation of it); and GMMz, which also allows for both issues but does not require the assumption of a reduced form for the endogenous covariate. In addition, \code{fracreghet} also computes three linearized estimators (LINx, LINxv and LINz) that have similar features to their GMM counterparts. It also provides a QML estimator (QMLxv) that addresses endogeneity using a Control Function (CF) approach, which includes the first-stage reduced-form residuals as an additional regressor in the main fractional equation, providing a Hausman-type test for endogeneity. See Ramalho and Ramalho (2017) for details on each estimator. For overidentified models, \code{fracreghet} calculates Hansen's J statistic. For \code{GMMx} and \code{LINx}, \code{fracreghet} stores the information needed to implement the RESET test (\link{fracreghet.reset}). For all estimators, \code{fracreghet} stores the information needed to calculate partial effects (\link{fracreghet.pe}).
+\code{fracreghet} computes the GMM estimators proposed in Ramalho and Ramalho (2017) for fractional response models with unobserved heterogeneity: GMMx, which allows for neglected heterogeneity but not for endogeneity; GMMxv, which allows both issues and assumes a linear reduced form for the endogeneous covariate (or for a transformation of it); and GMMz, which also allows for both issues but does not require the assumption of a reduced form for the endogenous covariate. In addition, \code{fracreghet} also computes three linearized estimators (LINx, LINxv and LINz) that have similar features to their GMM counterparts. It also provides a QML estimator (QMLxv) that addresses endogeneity using a Control Function (CF) approach, which includes the first-stage reduced-form residuals as an additional regressor in the main fractional equation, providing a Hausman-type test for endogeneity. 
+
+\strong{Control Function (CF) Approach - QMLxv:}
+When a continuous regressor \eqn{y_{2i}} is endogenous, the CF approach (Papke and Wooldridge, 2008; Terza et al., 2008) uses a two-stage procedure. First, a linear reduced form is estimated:
+\deqn{y_{2i} = z_i \pi + v_i}
+where \eqn{z_i} includes all exogenous variables and external instruments. The residuals \eqn{\hat{v}_i} are then included in the fractional response model:
+\deqn{E(y_{1i} | z_i, y_{2i}, v_i) = G(x_i \beta + \gamma \hat{v}_i)}
+A test of \eqn{H_0: \gamma = 0} serves as a robust Hausman-type test for endogeneity.
+
+\strong{Generalized Method of Moments (GMM):}
+For estimators like GMMz, which do not strictly require a linear reduced form, the estimation relies on population orthogonality conditions between the instruments \eqn{Z_i} and the model residuals:
+\deqn{E[Z_{i} (y_i - G(x_i \beta))] = 0}
+or via specific transformations of the dependent variable to eliminate unobserved heterogeneity (Ramalho and Ramalho, 2017).
+
+For overidentified models, \code{fracreghet} calculates Hansen's J statistic. For \code{GMMx} and \code{LINx}, \code{fracreghet} stores the information needed to implement the RESET test (\link{fracreghet.reset}). For all estimators, \code{fracreghet} stores the information needed to calculate partial effects (\link{fracreghet.pe}).
 }
 
 \value{\code{fracreghet} returns a list with the following elements:

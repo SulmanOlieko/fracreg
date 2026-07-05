@@ -81,14 +81,14 @@
 <div class="section level2">
 <h2 id="features">Features<a class="anchor" aria-label="anchor" href="#features"></a>
 </h2>
-<p><code>fracreg</code> is fully equipped to handle complex data structures commonly found in econometrics and biostatistics:</p>
+<p><code>fracreg</code> is handles:</p>
 <ol style="list-style-type: decimal">
 <li>
 <strong>Univariate Fractional Models (<code>fracreg</code>)</strong>: Fit standard 1-part models, hurdle 2-part models (mass at 0 or 1), and double-inflated 3-part models.</li>
 <li>
 <strong>Panel Data Models (<code>fracregpd</code>)</strong>: Estimate fractional models with fixed-T longitudinal data, supporting Correlated Random Effects (CRE) to handle unobserved individual heterogeneity.</li>
 <li>
-<strong>Endogeneity &amp; Heteroskedasticity (<code>fracreghet</code>)</strong>: Correct for endogenous covariates using Instrumental Variables (IV) via Control Function and GMM approaches.</li>
+<strong>Endogeneity &amp; Heteroscedasticity (<code>fracreghet</code>)</strong>: Correct for endogenous covariates using Instrumental Variables (IV) via Control Function and GMM approaches.</li>
 <li>
 <strong>Diagnostic Testing</strong>: Includes generalized goodness-of-functional-form (<code>fracreg.ggoff</code>), RESET (<code>fracreg.reset</code>), and non-nested P-tests (<code>fracreg.ptest</code>).</li>
 <li>
@@ -153,6 +153,7 @@ Toggle to see the output
 <div class="section level4">
 <h4 id="id_12-the-standard-1-part-model-1p">1.2 The Standard 1-Part Model (1P)<a class="anchor" aria-label="anchor" href="#id_12-the-standard-1-part-model-1p"></a>
 </h4>
+<p>The one-part model assumes a single mechanism governs the entire distribution, estimating <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>y</mi><mo>∣</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>G</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mi>β</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">E(y \mid x) = G(x\beta)</annotation></semantics></math>:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">model_1p</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/fracreg.html">fracreg</a></span><span class="op">(</span></span>
 <span>  y <span class="op">=</span> <span class="va">data</span><span class="op">$</span><span class="va">y</span>, </span>
@@ -182,7 +183,7 @@ Toggle to see the output
 <span id="cb7-18"><a href="#cb7-18" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
 <span id="cb7-19"><a href="#cb7-19" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span id="cb7-20"><a href="#cb7-20" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span id="cb7-21"><a href="#cb7-21" tabindex="-1"></a><span class="co">#&gt;                          Run Date: 2026-07-05 17:41:53 </span></span>
+<span id="cb7-21"><a href="#cb7-21" tabindex="-1"></a><span class="co">#&gt;                          Run Date: 2026-07-05 22:19:41 </span></span>
 <span id="cb7-22"><a href="#cb7-22" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre></div>
 </details>
 </div>
@@ -206,15 +207,16 @@ Toggle to see the output
 <span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
 <span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span id="cb9-13"><a href="#cb9-13" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a><span class="co">#&gt;                          Run Date: 2026-07-05 17:41:53 </span></span>
+<span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a><span class="co">#&gt;                          Run Date: 2026-07-05 22:19:41 </span></span>
 <span id="cb9-15"><a href="#cb9-15" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre></div>
 </details>
 </div>
 <div class="section level4">
 <h4 id="id_14-the-two-part-hurdle-model-2p">1.4 The Two-Part Hurdle Model (2P)<a class="anchor" aria-label="anchor" href="#id_14-the-two-part-hurdle-model-2p"></a>
 </h4>
+<p>The two-part model separates the decision to participate (binary hurdle) from the proportion chosen: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>y</mi><mo>∣</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mo>Pr</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>y</mi><mo>&gt;</mo><mn>0</mn><mo>∣</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>⋅</mo><mi>E</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>y</mi><mo>∣</mo><mi>y</mi><mo>&gt;</mo><mn>0</mn><mo>,</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">E(y \mid x) = \Pr(y &gt; 0 \mid x) \cdot E(y \mid y &gt; 0, x)</annotation></semantics></math>.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># We use inflation=0 to indicate we are modeling the mass at zero</span></span>
+<code class="sourceCode R"><span><span class="co"># We use inflation=0 to indicate we are modelling the mass at zero</span></span>
 <span><span class="va">model_2p</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/fracreg.html">fracreg</a></span><span class="op">(</span></span>
 <span>  y <span class="op">=</span> <span class="va">data</span><span class="op">$</span><span class="va">y</span>, </span>
 <span>  x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span>x1 <span class="op">=</span> <span class="va">data</span><span class="op">$</span><span class="va">x1</span>, x2 <span class="op">=</span> <span class="va">data</span><span class="op">$</span><span class="va">x2</span><span class="op">)</span>, </span>
@@ -274,7 +276,7 @@ Toggle to see the output
 <span id="cb11-47"><a href="#cb11-47" tabindex="-1"></a><span class="co">#&gt; Pseudo R-squared:                                                        0.38621 </span></span>
 <span id="cb11-48"><a href="#cb11-48" tabindex="-1"></a><span class="co">#&gt; Convergence:                                                          Successful </span></span>
 <span id="cb11-49"><a href="#cb11-49" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span id="cb11-50"><a href="#cb11-50" tabindex="-1"></a><span class="co">#&gt;                          Run Date: 2026-07-05 17:41:54 </span></span>
+<span id="cb11-50"><a href="#cb11-50" tabindex="-1"></a><span class="co">#&gt;                          Run Date: 2026-07-05 22:19:42 </span></span>
 <span id="cb11-51"><a href="#cb11-51" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre></div>
 </details><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pe_2p</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/fracreg.pe.html">fracreg.pe</a></span><span class="op">(</span><span class="va">model_2p</span><span class="op">)</span></span></code></pre></div>
@@ -293,13 +295,14 @@ Toggle to see the output
 <span id="cb13-11"><a href="#cb13-11" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
 <span id="cb13-12"><a href="#cb13-12" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span id="cb13-13"><a href="#cb13-13" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span id="cb13-14"><a href="#cb13-14" tabindex="-1"></a><span class="co">#&gt;                          Run Date: 2026-07-05 17:41:54 </span></span>
+<span id="cb13-14"><a href="#cb13-14" tabindex="-1"></a><span class="co">#&gt;                          Run Date: 2026-07-05 22:19:42 </span></span>
 <span id="cb13-15"><a href="#cb13-15" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre></div>
 </details>
 </div>
 <div class="section level4">
 <h4 id="id_15-the-three-part-double-inflated-model-3p">1.5 The Three-Part Double-Inflated Model (3P)<a class="anchor" aria-label="anchor" href="#id_15-the-three-part-double-inflated-model-3p"></a>
 </h4>
+<p>The three-part model accommodates clustering at both <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math> via two separate binary hurdles and a fractional component for interior values.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Linkbin takes a vector of two links for the two binary hurdles</span></span>
 <span><span class="va">model_3p</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/fracreg.html">fracreg</a></span><span class="op">(</span></span>
@@ -381,7 +384,7 @@ Toggle to see the output
 <span id="cb15-68"><a href="#cb15-68" tabindex="-1"></a><span class="co">#&gt; Pseudo R-squared:                                                        0.38893 </span></span>
 <span id="cb15-69"><a href="#cb15-69" tabindex="-1"></a><span class="co">#&gt; Convergence:                                                          Successful </span></span>
 <span id="cb15-70"><a href="#cb15-70" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span id="cb15-71"><a href="#cb15-71" tabindex="-1"></a><span class="co">#&gt;                          Run Date: 2026-07-05 17:41:54 </span></span>
+<span id="cb15-71"><a href="#cb15-71" tabindex="-1"></a><span class="co">#&gt;                          Run Date: 2026-07-05 22:19:42 </span></span>
 <span id="cb15-72"><a href="#cb15-72" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre></div>
 </details><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pe_3p</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/fracreg.pe.html">fracreg.pe</a></span><span class="op">(</span><span class="va">model_3p</span><span class="op">)</span></span></code></pre></div>
@@ -400,7 +403,7 @@ Toggle to see the output
 <span id="cb17-11"><a href="#cb17-11" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
 <span id="cb17-12"><a href="#cb17-12" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span id="cb17-13"><a href="#cb17-13" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span id="cb17-14"><a href="#cb17-14" tabindex="-1"></a><span class="co">#&gt;                          Run Date: 2026-07-05 17:41:54 </span></span>
+<span id="cb17-14"><a href="#cb17-14" tabindex="-1"></a><span class="co">#&gt;                          Run Date: 2026-07-05 22:19:42 </span></span>
 <span id="cb17-15"><a href="#cb17-15" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre></div>
 </details><hr>
 </div>
@@ -411,6 +414,7 @@ Toggle to see the output
 <div class="section level4">
 <h4 id="id_21-generalized-goodness-of-functional-form-ggoff">2.1 Generalized Goodness-Of-Functional-Form (GGOFF)<a class="anchor" aria-label="anchor" href="#id_21-generalized-goodness-of-functional-form-ggoff"></a>
 </h4>
+<p>The GGOFF tests if the specified link function <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>⋅</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">G(\cdot)</annotation></semantics></math> is appropriate by testing <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mn>0</mn></msub><mo>:</mo><msub><mi>γ</mi><mn>1</mn></msub><mo>=</mo><mn>0</mn><mo>,</mo><msub><mi>γ</mi><mn>2</mn></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">H_0: \gamma_1 = 0, \gamma_2 = 0</annotation></semantics></math> in the augmented model <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>y</mi><mo stretchy="false" form="prefix">|</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>G</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mi>β</mi><mo>+</mo><msub><mi>γ</mi><mn>1</mn></msub><mfrac><mrow><mi>g</mi><mi>′</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mover><mi>β</mi><mo accent="true">̂</mo></mover><mo stretchy="true" form="postfix">)</mo></mrow></mrow><mrow><mi>g</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mover><mi>β</mi><mo accent="true">̂</mo></mover><mo stretchy="true" form="postfix">)</mo></mrow></mrow></mfrac><mo>+</mo><msub><mi>γ</mi><mn>2</mn></msub><mi>x</mi><mover><mi>β</mi><mo accent="true">̂</mo></mover><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">E(y|x) = G\left(x\beta + \gamma_1 \frac{g'(x\hat{\beta})}{g(x\hat{\beta})} + \gamma_2 x\hat{\beta} \right)</annotation></semantics></math>.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Perform the GGOFF test on the 1P model</span></span>
 <span><span class="fu"><a href="reference/fracreg.ggoff.html">fracreg.ggoff</a></span><span class="op">(</span><span class="va">model_1p</span>, version <span class="op">=</span> <span class="st">"LM"</span><span class="op">)</span></span></code></pre></div>
@@ -427,13 +431,14 @@ Toggle to see the output
 <span id="cb19-9"><a href="#cb19-9" tabindex="-1"></a><span class="co">#&gt; GOFF2 - LM     0.485   0.486</span></span>
 <span id="cb19-10"><a href="#cb19-10" tabindex="-1"></a><span class="co">#&gt; GGOFF - LM     0.814   0.666</span></span>
 <span id="cb19-11"><a href="#cb19-11" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span id="cb19-12"><a href="#cb19-12" tabindex="-1"></a><span class="co">#&gt;                          Run Date: 2026-07-05 17:41:55 </span></span>
+<span id="cb19-12"><a href="#cb19-12" tabindex="-1"></a><span class="co">#&gt;                          Run Date: 2026-07-05 22:19:42 </span></span>
 <span id="cb19-13"><a href="#cb19-13" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre></div>
 </details>
 </div>
 <div class="section level4">
 <h4 id="id_22-reset-test">2.2 RESET Test<a class="anchor" aria-label="anchor" href="#id_22-reset-test"></a>
 </h4>
+<p>The RESET test checks for general functional form misspecification by augmenting the model with powers of the fitted index <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mover><mi>β</mi><mo accent="true">̂</mo></mover><mo stretchy="true" form="postfix">)</mo></mrow><mi>k</mi></msup><annotation encoding="application/x-tex">(x\hat{\beta})^k</annotation></semantics></math>.</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Standard RESET test for functional form misspecification</span></span>
 <span><span class="fu"><a href="reference/fracreg.reset.html">fracreg.reset</a></span><span class="op">(</span><span class="va">model_1p</span><span class="op">)</span></span></code></pre></div>
@@ -448,15 +453,15 @@ Toggle to see the output
 <span id="cb21-7"><a href="#cb21-7" tabindex="-1"></a><span class="co">#&gt;       Statistic p-value</span></span>
 <span id="cb21-8"><a href="#cb21-8" tabindex="-1"></a><span class="co">#&gt; LM(3)     0.852   0.653</span></span>
 <span id="cb21-9"><a href="#cb21-9" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span id="cb21-10"><a href="#cb21-10" tabindex="-1"></a><span class="co">#&gt;                          Run Date: 2026-07-05 17:41:55 </span></span>
+<span id="cb21-10"><a href="#cb21-10" tabindex="-1"></a><span class="co">#&gt;                          Run Date: 2026-07-05 22:19:42 </span></span>
 <span id="cb21-11"><a href="#cb21-11" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre></div>
 </details><hr>
 </div>
 </div>
 <div class="section level3">
-<h3 id="id_3-endogeneity--heteroskedasticity-fracreghet">3. Endogeneity &amp; Heteroskedasticity (<code>fracreghet</code>)<a class="anchor" aria-label="anchor" href="#id_3-endogeneity--heteroskedasticity-fracreghet"></a>
+<h3 id="id_3-endogeneity--heteroscedasticity-fracreghet">3. Endogeneity &amp; Heteroscedasticity (<code>fracreghet</code>)<a class="anchor" aria-label="anchor" href="#id_3-endogeneity--heteroscedasticity-fracreghet"></a>
 </h3>
-<p>Use instrumental variables (<code>z</code>) to correct for endogenous covariates via a control function.</p>
+<p>Use instrumental variables (<code>z</code>) to correct for endogenous covariates via a control function approach <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>y</mi><mrow><mn>1</mn><mi>i</mi></mrow></msub><mo>∣</mo><msub><mi>z</mi><mi>i</mi></msub><mo>,</mo><msub><mi>y</mi><mrow><mn>2</mn><mi>i</mi></mrow></msub><mo>,</mo><msub><mi>v</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>G</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>x</mi><mi>i</mi></msub><mi>β</mi><mo>+</mo><mi>γ</mi><msub><mover><mi>v</mi><mo accent="true">̂</mo></mover><mi>i</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">E(y_{1i} \mid z_i, y_{2i}, v_i) = G(x_i \beta + \gamma \hat{v}_i)</annotation></semantics></math>, or via IV-GMM.</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Simulating an endogenous variable (var.endog) and an instrument (z)</span></span>
 <span><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">N</span><span class="op">)</span></span>
@@ -503,14 +508,14 @@ Toggle to see the output
 <span id="cb23-26"><a href="#cb23-26" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
 <span id="cb23-27"><a href="#cb23-27" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span id="cb23-28"><a href="#cb23-28" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span id="cb23-29"><a href="#cb23-29" tabindex="-1"></a><span class="co">#&gt;                          Run Date: 2026-07-05 17:41:55 </span></span>
+<span id="cb23-29"><a href="#cb23-29" tabindex="-1"></a><span class="co">#&gt;                          Run Date: 2026-07-05 22:19:42 </span></span>
 <span id="cb23-30"><a href="#cb23-30" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre></div>
 </details><hr>
 </div>
 <div class="section level3">
 <h3 id="id_4-panel-data-fractional-models-fracregpd">4. Panel Data Fractional Models (<code>fracregpd</code>)<a class="anchor" aria-label="anchor" href="#id_4-panel-data-fractional-models-fracregpd"></a>
 </h3>
-<p>For longitudinal or panel data where unobserved heterogeneity is a concern, <code><a href="reference/fracregpd.html">fracregpd()</a></code> provides fixed-T panel estimators.</p>
+<p>For longitudinal or panel data where unobserved heterogeneity is a concern, <code><a href="reference/fracregpd.html">fracregpd()</a></code> provides fixed-T panel estimators. It supports Correlated Random Effects (CRE), where unobserved heterogeneity is projected onto the time-averages of the covariates: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>c</mi><mi>i</mi></msub><mo>=</mo><mi>ψ</mi><mo>+</mo><msub><mover><mi>x</mi><mo accent="true">‾</mo></mover><mi>i</mi></msub><mi>ξ</mi><mo>+</mo><msub><mi>a</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">c_i = \psi + \bar{x}_i \xi + a_i</annotation></semantics></math>.</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Simulating Panel Data</span></span>
 <span><span class="va">id</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">200</span>, each <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
@@ -557,7 +562,7 @@ Toggle to see the output
 <span id="cb25-24"><a href="#cb25-24" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
 <span id="cb25-25"><a href="#cb25-25" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span id="cb25-26"><a href="#cb25-26" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span id="cb25-27"><a href="#cb25-27" tabindex="-1"></a><span class="co">#&gt;                          Run Date: 2026-07-05 17:41:55 </span></span>
+<span id="cb25-27"><a href="#cb25-27" tabindex="-1"></a><span class="co">#&gt;                          Run Date: 2026-07-05 22:19:42 </span></span>
 <span id="cb25-28"><a href="#cb25-28" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre></div>
 </details><hr>
 </div>
@@ -565,8 +570,26 @@ Toggle to see the output
 <div class="section level2">
 <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h2>
-<p>Ramalho, E.A., J.J.S. Ramalho and J.M.R. Murteira (2011), “Alternative estimating and testing empirical strategies for fractional response models”, <em>Journal of Economic Surveys</em>, 25(1), 19-68.</p>
-<p>Papke, L.E. and J.M. Wooldridge (1996), “Econometric methods for fractional response variables with an application to 401(k) plan participation rates”, <em>Journal of Applied Econometrics</em>, 11(6), 619-632.</p>
+<ul>
+<li>
+<strong>Davidson, R. and MacKinnon, J.G. (1981).</strong> “Several tests for model specification in the presence of alternative hypotheses”, <em>Econometrica</em>, 49(3), 781-793.</li>
+<li>
+<strong>Fang, K., &amp; Ma, S. (2013).</strong> “Three-part model for fractional response variables with application to Chinese household health insurance coverage”, <em>Journal of Applied Statistics</em>, 40(5), 925-940.</li>
+<li>
+<strong>Papke, L. E. and Wooldridge, J. M. (1996).</strong> “Econometric methods for fractional response variables with an application to 401(k) plan participation rates”, <em>Journal of Applied Econometrics</em>, 11(6), 619-632.</li>
+<li>
+<strong>Papke, L. and Wooldridge, J.M. (2008).</strong> “Panel data methods for fractional response variables with an application to test pass rates”, <em>Journal of Econometrics</em>, 145(1-2), 121-233.</li>
+<li>
+<strong>Pregibon, D. (1980).</strong> “Goodness of Link Tests for Generalized Linear Models”, <em>Journal of the Royal Statistical Society: Series C (Applied Statistics)</em>, 29(1), 15-24.</li>
+<li>
+<strong>Ramalho, E. A., &amp; Ramalho, J. J. S. (2017).</strong> “Moment-based estimation of nonlinear regression models with boundary outcomes and endogeneity, with applications to nonnegative and fractional responses”, <em>Econometric Reviews</em>, 36(4), 397-420.</li>
+<li>
+<strong>Ramalho, E.A., Ramalho, J.J.S. and Murteira, J.M.R. (2011).</strong> “Alternative estimating and testing empirical strategies for fractional response models”, <em>Journal of Economic Surveys</em>, 25(1), 19-68.</li>
+<li>
+<strong>Ramalho, E.A., Ramalho, J.J.S. and Murteira, J.M.R. (2014).</strong> “A generalized goodness-of-functional form test for binary and fractional response models”, <em>Manchester School</em>, 82(4), 488-507.</li>
+<li>
+<strong>Ramsey, J.B. (1969).</strong> “Tests for Specification Errors in Classical Linear Least-Squares Regression Analysis”, <em>Journal of the Royal Statistical Society: Series B (Methodological)</em>, 31(2), 350-371.</li>
+</ul>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">

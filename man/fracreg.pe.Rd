@@ -35,7 +35,24 @@ mean or median values (or mode, in case of dummy variables), respectively.
 }
 
 \details{
-\code{fracreg.pe} calculates partial effects for fractional response models estimated via \code{fracreg}. \code{fracreg.pe} may be used to compute average or conditional partial effects for: (i) one-part fractional response models; (ii) the binary components of two-part and three-part fractional response models; (iii) the fractional components of two-part and three-part fractional response models; and (iv) two-part and three-part fractional response models overall. For calculating standard errors, it is taken into account the option that was previously chosen for estimating the model. See Ramalho, Ramalho and Murteira (2011) and Fang and Ma (2013) for details on the computation of partial effects in the fractional response framework.
+\code{fracreg.pe} calculates partial effects for fractional response models estimated via \code{fracreg}. \code{fracreg.pe} may be used to compute average or conditional partial effects for: (i) one-part fractional response models; (ii) the binary components of two-part and three-part fractional response models; (iii) the fractional components of two-part and three-part fractional response models; and (iv) two-part and three-part fractional response models overall. 
+
+\strong{Partial Effects for Continuous Variables:}
+For a continuous covariate \eqn{x_k}, the partial effect on the conditional mean \eqn{E(y|x) = G(x\beta)} is the first derivative with respect to \eqn{x_k}:
+\deqn{PE_k(x) = \frac{\partial E(y|x)}{\partial x_k} = g(x\beta)\beta_k}
+where \eqn{g(\cdot)} is the probability density function corresponding to the link function \eqn{G(\cdot)}.
+
+\strong{Partial Effects for Discrete Variables:}
+For a discrete or dummy covariate \eqn{x_k}, the partial effect is calculated as the discrete difference in the expected value when \eqn{x_k} changes from 0 to 1, holding all other variables \eqn{x_{-k}} constant:
+\deqn{PE_k(x) = G(x_{-k}\beta_{-k} + \beta_k) - G(x_{-k}\beta_{-k})}
+
+\strong{Average vs. Conditional Partial Effects:}
+- \strong{Average Partial Effects (APE):} Evaluated for each observation \eqn{i} in the sample and then averaged:
+\deqn{APE_k = \frac{1}{N} \sum_{i=1}^N PE_k(x_i)}
+- \strong{Conditional Partial Effects (CPE):} Evaluated at a specific vector of covariate values \eqn{x^*} (e.g., the sample mean or median):
+\deqn{CPE_k = PE_k(x^*)}
+
+For calculating standard errors, it is taken into account the option that was previously chosen for estimating the model. See Ramalho, Ramalho and Murteira (2011) and Fang and Ma (2013) for details on the computation of partial effects in the fractional response framework.
 }
 
 \value{
