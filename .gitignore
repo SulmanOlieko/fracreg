@@ -7,3 +7,5 @@
 *.Rcheck/
 .Rcheck
 fracreg_manual.pdf
+docs/
+build_site.R

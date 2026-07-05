@@ -87,6 +87,28 @@ for computing partial effects.
 ## Examples
 
 ``` r
+### Empirical 401(k) Examples
+data("fracreg_k401k")
+y <- fracreg_k401k$prate
+X <- cbind(mrate = fracreg_k401k$mrate, age = fracreg_k401k$age, 
+           totemp = fracreg_k401k$totemp, sole = fracreg_k401k$sole)
+
+# Artificial instrumental variable for demonstration
+Z_emp <- cbind(X, z = fracreg_k401k$mrate * rnorm(length(y)))
+fracreghet(y, X, Z_emp, var.endog = X[, "mrate"], type="QMLxv", link="logit")
+#> Warning: NA/NaN function evaluation
+#> Warning: NA/NaN function evaluation
+#> Warning: NA/NaN function evaluation
+#> Warning: NA/NaN function evaluation
+#> -------------------------------------------------------------------------------- 
+#> Convergence:                                                              FAILED 
+#> -------------------------------------------------------------------------------- 
+#>                          Run Date: 2026-07-05 23:19:04 
+#> -------------------------------------------------------------------------------- 
+#> 
+
+### Simulated Examples
+
 N <- 250
 u <- rnorm(N)
 
@@ -110,14 +132,12 @@ fracreghet.reset(res,2:3,c("Wald","LM"))
 #> -------------------------------------------------------------------------------- 
 #> H0: Estimator: GMMx 
 #> -------------------------------------------------------------------------------- 
-#>         Statistic p-value  
-#> LM(2)       0.236  0.6272  
-#> Wald(2)     0.196  0.6577  
-#> LM(3)       3.411  0.1817  
-#> Wald(3)     6.050  0.0486 *
-#> ---
-#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#>         Statistic p-value
+#> LM(2)       0.000   0.991
+#> Wald(2)     0.000   0.991
+#> LM(3)       0.971   0.615
+#> Wald(3)     1.100   0.577
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 22:24:44 
+#>                          Run Date: 2026-07-05 23:19:04 
 #> -------------------------------------------------------------------------------- 
 ```

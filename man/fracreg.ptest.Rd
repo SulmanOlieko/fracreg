@@ -60,6 +60,18 @@ Sulman Olieko Owili <oliekosulman@gmail.com>
 }
 
 \examples{
+### Empirical 401(k) Examples
+data("fracreg_k401k")
+y <- fracreg_k401k$prate
+X <- cbind(mrate = fracreg_k401k$mrate, age = fracreg_k401k$age, 
+           totemp = fracreg_k401k$totemp, sole = fracreg_k401k$sole)
+
+m1 <- fracreg(y, X, type="1P", linkfrac="logit")
+m2 <- fracreg(y, X, type="1P", linkfrac="probit")
+fracreg.ptest(m1, m2)
+
+### Simulated Examples
+
 N <- 250
 u <- rnorm(N)
 

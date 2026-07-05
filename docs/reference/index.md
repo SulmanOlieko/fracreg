@@ -6,6 +6,8 @@ General package description and help.
 
 - [`fracreg-package`](https://SulmanOlieko.github.io/fracreg/reference/fracreg-package.md)
   : Fractional Response Models
+- [`fracreg_k401k`](https://SulmanOlieko.github.io/fracreg/reference/fracreg_k401k.md)
+  : 401(k) Plan Participation Data
 
 ## Base Fractional Estimators
 

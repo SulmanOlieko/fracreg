@@ -166,6 +166,24 @@ Sulman Olieko Owili <oliekosulman@gmail.com>
 }
 
 \examples{
+### Empirical 401(k) Examples
+data("fracreg_k401k")
+y <- fracreg_k401k$prate
+X <- cbind(mrate = fracreg_k401k$mrate, age = fracreg_k401k$age, 
+           totemp = fracreg_k401k$totemp, sole = fracreg_k401k$sole)
+
+# 1P Model
+fracreg(y, X, type="1P", linkfrac="logit")
+
+# 2P Model (modelling mass at 1)
+fracreg(y, X, type="2P", inflation=1, linkbin="logit", linkfrac="logit")
+
+# 3P Model (inject artificial 0s for demonstration)
+y_3p <- y; y_3p[1:50] <- 0
+fracreg(y_3p, X, type="3P", linkbin=c("logit","logit"), linkfrac="logit")
+
+### Simulated Examples
+
 set.seed(123)
 N <- 1000
 x1 <- rnorm(N)

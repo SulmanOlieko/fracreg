@@ -239,7 +239,185 @@ estimating and testing empirical strategies for fractional response models",
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">### Empirical 401(k) Examples</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"fracreg_k401k"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">fracreg_k401k</span><span class="op">$</span><span class="va">prate</span></span></span>
+<span class="r-in"><span><span class="va">X</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span>mrate <span class="op">=</span> <span class="va">fracreg_k401k</span><span class="op">$</span><span class="va">mrate</span>, age <span class="op">=</span> <span class="va">fracreg_k401k</span><span class="op">$</span><span class="va">age</span>, </span></span>
+<span class="r-in"><span>           totemp <span class="op">=</span> <span class="va">fracreg_k401k</span><span class="op">$</span><span class="va">totemp</span>, sole <span class="op">=</span> <span class="va">fracreg_k401k</span><span class="op">$</span><span class="va">sole</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># 1P Model</span></span></span>
+<span class="r-in"><span><span class="fu">fracreg</span><span class="op">(</span><span class="va">y</span>, <span class="va">X</span>, type<span class="op">=</span><span class="st">"1P"</span>, linkfrac<span class="op">=</span><span class="st">"logit"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                 Fractional response model - logit specification </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Estimator:                                                                   QML </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Number of observations:                                                     1534 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Pseudo R-squared:                                                        0.14667 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Standard errors:                                                          robust </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Small sample correction:                                                   FALSE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Convergence:                                                          Successful </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                 Final estimates </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            Estimate Std. Error z value Pr(&gt;|z|)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Constant  9.316e-01  8.408e-02  11.080  &lt; 2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mrate     9.531e-01  1.371e-01   6.951 3.62e-12 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> age       2.791e-02  4.877e-03   5.723 1.05e-08 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> totemp   -8.182e-06  3.061e-06  -2.673  0.00751 ** </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> sole      3.405e-01  8.066e-02   4.222 2.43e-05 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-05 23:18:59 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># 2P Model (modelling mass at 1)</span></span></span>
+<span class="r-in"><span><span class="fu">fracreg</span><span class="op">(</span><span class="va">y</span>, <span class="va">X</span>, type<span class="op">=</span><span class="st">"2P"</span>, inflation<span class="op">=</span><span class="fl">1</span>, linkbin<span class="op">=</span><span class="st">"logit"</span>, linkfrac<span class="op">=</span><span class="st">"logit"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            Binary component of a two-part model - logit specification </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Estimator:                                                                    ML </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Number of observations:                                                     1534 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Pseudo R-squared:                                                         0.1485 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Log-Likelihood:                                                        -938.1759 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Small sample correction:                                                   FALSE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Convergence:                                                          Successful </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                 Final estimates </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            Estimate Std. Error z value Pr(&gt;|z|)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Constant -1.396e+00  1.270e-01 -10.991   &lt;2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mrate     9.053e-01  9.699e-02   9.334   &lt;2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> age       1.156e-02  6.218e-03   1.858   0.0631 .  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> totemp   -1.418e-05  6.324e-06  -2.242   0.0249 *  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> sole      8.651e-01  1.131e-01   7.651    2e-14 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          Fractional component of a two-part model - logit specification </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Estimator:                                                                   QML </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Number of observations:                                                      852 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Pseudo R-squared:                                                        0.10004 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Standard errors:                                                          robust </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Small sample correction:                                                   FALSE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Convergence:                                                          Successful </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                 Final estimates </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            Estimate Std. Error z value Pr(&gt;|z|)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Constant  7.460e-01  6.850e-02  10.891  &lt; 2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mrate     3.877e-01  9.725e-02   3.987 6.69e-05 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> age       2.562e-02  4.010e-03   6.390 1.66e-10 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> totemp   -4.061e-06  3.073e-06  -1.322    0.186    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> sole     -1.510e-02  6.556e-02  -0.230    0.818    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                 Two-part model - binary logit + fractional logit </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Pseudo R-squared:                                                        0.11243 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Convergence:                                                          Successful </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-05 23:18:59 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># 3P Model (inject artificial 0s for demonstration)</span></span></span>
+<span class="r-in"><span><span class="va">y_3p</span> <span class="op">&lt;-</span> <span class="va">y</span>; <span class="va">y_3p</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">50</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">0</span></span></span>
+<span class="r-in"><span><span class="fu">fracreg</span><span class="op">(</span><span class="va">y_3p</span>, <span class="va">X</span>, type<span class="op">=</span><span class="st">"3P"</span>, linkbin<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"logit"</span>,<span class="st">"logit"</span><span class="op">)</span>, linkfrac<span class="op">=</span><span class="st">"logit"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        First binary component of a three-part model - logit specification </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Estimator:                                                                    ML </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Number of observations:                                                     1534 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Pseudo R-squared:                                                        0.00324 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Log-Likelihood:                                                        -216.6222 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Small sample correction:                                                   FALSE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Convergence:                                                          Successful </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                 Final estimates </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           Estimate Std. Error z value Pr(&gt;|z|)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Constant 2.867e+00  3.157e-01   9.080   &lt;2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mrate    1.147e-01  2.131e-01   0.538    0.590    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> age      8.375e-03  1.765e-02   0.474    0.635    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> totemp   1.036e-04  6.959e-05   1.489    0.136    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> sole     3.371e-01  2.983e-01   1.130    0.259    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       Second binary component of a three-part model - logit specification </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Estimator:                                                                    ML </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Number of observations:                                                     1484 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Pseudo R-squared:                                                        0.15199 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Log-Likelihood:                                                        -903.5457 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Small sample correction:                                                   FALSE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Convergence:                                                          Successful </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                 Final estimates </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            Estimate Std. Error z value Pr(&gt;|z|)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Constant -1.435e+00  1.306e-01 -10.990  &lt; 2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mrate     9.244e-01  9.877e-02   9.360  &lt; 2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> age       1.198e-02  6.339e-03   1.890   0.0588 .  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> totemp   -1.371e-05  6.317e-06  -2.170   0.0300 *  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> sole      8.852e-01  1.154e-01   7.674 1.67e-14 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         Fractional component of a three-part model - logit specification </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Estimator:                                                                   QML </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Number of observations:                                                      826 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Pseudo R-squared:                                                        0.09937 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Standard errors:                                                          robust </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Small sample correction:                                                   FALSE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Convergence:                                                          Successful </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                 Final estimates </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            Estimate Std. Error z value Pr(&gt;|z|)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Constant  7.388e-01  7.039e-02  10.496  &lt; 2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mrate     3.960e-01  1.019e-01   3.885 0.000102 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> age       2.531e-02  4.068e-03   6.223 4.88e-10 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> totemp   -3.817e-06  3.088e-06  -1.236 0.216472    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> sole     -4.483e-03  6.672e-02  -0.067 0.946434    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        Three-part model - binary logit , binary logit + fractional logit </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Pseudo R-squared:                                                        0.07934 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Convergence:                                                          Successful </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-05 23:18:59 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">### Simulated Examples</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">N</span> <span class="op">&lt;-</span> <span class="fl">1000</span></span></span>
 <span class="r-in"><span><span class="va">x1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">N</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">x2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="va">N</span><span class="op">)</span></span></span>
@@ -277,7 +455,7 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-05 22:24:41 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-05 23:18:59 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
@@ -385,7 +563,7 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-out co"><span class="r-pr">#&gt;</span> Pseudo R-squared:                                                        0.38829 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Convergence:                                                          Successful </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-05 22:24:41 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-05 23:19:00 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
@@ -461,7 +639,7 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-out co"><span class="r-pr">#&gt;</span> Pseudo R-squared:                                                        0.38917 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Convergence:                                                          Successful </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-05 22:24:41 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-05 23:19:00 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 </code></pre></div>

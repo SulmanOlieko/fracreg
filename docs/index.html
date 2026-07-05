@@ -112,7 +112,7 @@
 <div class="section level2">
 <h2 id="usage-examples">Usage Examples<a class="anchor" aria-label="anchor" href="#usage-examples"></a>
 </h2>
-<p>The following sections provide examples covering the three primary estimation functions.</p>
+<p>This guide walks you through empirical examples demonstrating each estimator using the 401(k) dataset.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://SulmanOlieko.github.io/fracreg">fracreg</a></span><span class="op">)</span></span></code></pre></div>
 <div class="section level3">
@@ -120,34 +120,29 @@
 </h3>
 <p>The main <code><a href="reference/fracreg.html">fracreg()</a></code> function fits cross-sectional models.</p>
 <div class="section level4">
-<h4 id="id_11-simulating-the-data">1.1 Simulating the Data<a class="anchor" aria-label="anchor" href="#id_11-simulating-the-data"></a>
+<h4 id="id_11-data-description-and-preparation">1.1 Data Description and Preparation<a class="anchor" aria-label="anchor" href="#id_11-data-description-and-preparation"></a>
 </h4>
+<p>We use the built-in <code>fracreg_k401k</code> dataset, which is the canonical firm-level 401(k) plan participation data used in <strong>Papke and Wooldridge (1996)</strong> (<em>“Econometric methods for fractional response variables with an application to 401(k) plan participation rates”</em>, Journal of Applied Econometrics). The dataset contains 1,534 observations of 401(k) plans.</p>
+<p>The primary variables we use are: - <code>prate</code>: The plan participation rate (the fraction of eligible employees who are active participants). It strictly falls in the <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="true" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="true" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">[0, 1]</annotation></semantics></math> interval and is our dependent variable (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>y</mi><annotation encoding="application/x-tex">y</annotation></semantics></math>). - <code>mrate</code>: The firm’s matching rate (the firm’s contribution per $1 of employee contribution). - <code>age</code>: The age of the 401(k) plan. - <code>totemp</code>: Total number of employees at the firm. - <code>sole</code>: A binary indicator equal to 1 if the 401(k) plan is the sole retirement plan offered by the firm.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
-<span><span class="va">N</span> <span class="op">&lt;-</span> <span class="fl">1000</span></span>
-<span><span class="va">x1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">N</span><span class="op">)</span></span>
-<span><span class="va">x2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="va">N</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Generating a fractional dependent variable with inflation at 0 and 1</span></span>
-<span><span class="va">XB</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">0.5</span> <span class="op">+</span> <span class="fl">0.8</span> <span class="op">*</span> <span class="va">x1</span> <span class="op">+</span> <span class="fl">1.2</span> <span class="op">*</span> <span class="va">x2</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">N</span><span class="op">)</span></span>
-<span><span class="va">y_latent</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="va">XB</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="fl">1</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="va">XB</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">y_latent</span></span>
-<span><span class="co"># Inflate at boundaries</span></span>
-<span><span class="va">y</span><span class="op">[</span><span class="va">y_latent</span> <span class="op">&lt;</span> <span class="fl">0.2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">0</span></span>
-<span><span class="va">y</span><span class="op">[</span><span class="va">y_latent</span> <span class="op">&gt;</span> <span class="fl">0.8</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">1</span></span>
-<span></span>
-<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">y</span>, x1 <span class="op">=</span> <span class="va">x1</span>, x2 <span class="op">=</span> <span class="va">x2</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"fracreg_k401k"</span><span class="op">)</span></span>
+<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">fracreg_k401k</span><span class="op">$</span><span class="va">prate</span></span>
+<span><span class="va">X</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span></span>
+<span>  mrate <span class="op">=</span> <span class="va">fracreg_k401k</span><span class="op">$</span><span class="va">mrate</span>, </span>
+<span>  age <span class="op">=</span> <span class="va">fracreg_k401k</span><span class="op">$</span><span class="va">age</span>, </span>
+<span>  totemp <span class="op">=</span> <span class="va">fracreg_k401k</span><span class="op">$</span><span class="va">totemp</span>, </span>
+<span>  sole <span class="op">=</span> <span class="va">fracreg_k401k</span><span class="op">$</span><span class="va">sole</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">X</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <details><summary>
 Toggle to see the output
-</summary><div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="co">#&gt;           y          x1        x2</span></span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="co">#&gt; 1 0.0000000 -0.56047565 0.1596740</span></span>
-<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="co">#&gt; 2 0.3061926 -0.23017749 0.1445159</span></span>
-<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="co">#&gt; 3 0.5059710  1.55870831 0.1491804</span></span>
-<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="co">#&gt; 4 0.6901448  0.07050839 0.5144343</span></span>
-<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="co">#&gt; 5 0.7883783  0.12928774 0.4928273</span></span>
-<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a><span class="co">#&gt; 6 1.0000000  1.71506499 0.6163428</span></span></code></pre></div>
+</summary><div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="co">#&gt;          y mrate age totemp sole</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="co">#&gt; [1,] 0.261  0.21   8   8709    0</span></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="co">#&gt; [2,] 1.000  1.42   6    315    1</span></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="co">#&gt; [3,] 0.976  0.91  10    275    1</span></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="co">#&gt; [4,] 1.000  0.42   7    500    0</span></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="co">#&gt; [5,] 0.825  0.53  28    933    1</span></span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a><span class="co">#&gt; [6,] 1.000  1.82   7    143    1</span></span></code></pre></div>
 </details>
 </div>
 <div class="section level4">
@@ -156,8 +151,8 @@ Toggle to see the output
 <p>The one-part model assumes a single mechanism governs the entire distribution, estimating <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>y</mi><mo>∣</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>G</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mi>β</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">E(y \mid x) = G(x\beta)</annotation></semantics></math>:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">model_1p</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/fracreg.html">fracreg</a></span><span class="op">(</span></span>
-<span>  y <span class="op">=</span> <span class="va">data</span><span class="op">$</span><span class="va">y</span>, </span>
-<span>  x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span>x1 <span class="op">=</span> <span class="va">data</span><span class="op">$</span><span class="va">x1</span>, x2 <span class="op">=</span> <span class="va">data</span><span class="op">$</span><span class="va">x2</span><span class="op">)</span>, </span>
+<span>  y <span class="op">=</span> <span class="va">y</span>, </span>
+<span>  x <span class="op">=</span> <span class="va">X</span>, </span>
 <span>  type <span class="op">=</span> <span class="st">"1P"</span>, </span>
 <span>  linkfrac <span class="op">=</span> <span class="st">"logit"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -168,23 +163,25 @@ Toggle to see the output
 <span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a><span class="co">#&gt;                 Fractional response model - logit specification </span></span>
 <span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
 <span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a><span class="co">#&gt; Estimator:                                                                   QML </span></span>
-<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a><span class="co">#&gt; Number of observations:                                                     1000 </span></span>
-<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a><span class="co">#&gt; Pseudo R-squared:                                                         0.3903 </span></span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a><span class="co">#&gt; Number of observations:                                                     1534 </span></span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a><span class="co">#&gt; Pseudo R-squared:                                                        0.14667 </span></span>
 <span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a><span class="co">#&gt; Standard errors:                                                          robust </span></span>
 <span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a><span class="co">#&gt; Small sample correction:                                                   FALSE </span></span>
 <span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a><span class="co">#&gt; Convergence:                                                          Successful </span></span>
 <span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
 <span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a><span class="co">#&gt;                                 Final estimates </span></span>
 <span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span id="cb7-14"><a href="#cb7-14" tabindex="-1"></a><span class="co">#&gt;          Estimate Std. Error z value Pr(&gt;|z|)    </span></span>
-<span id="cb7-15"><a href="#cb7-15" tabindex="-1"></a><span class="co">#&gt; Constant -0.56969    0.06750   -8.44   &lt;2e-16 ***</span></span>
-<span id="cb7-16"><a href="#cb7-16" tabindex="-1"></a><span class="co">#&gt; x1        0.78822    0.04015   19.63   &lt;2e-16 ***</span></span>
-<span id="cb7-17"><a href="#cb7-17" tabindex="-1"></a><span class="co">#&gt; x2        1.35611    0.11899   11.40   &lt;2e-16 ***</span></span>
-<span id="cb7-18"><a href="#cb7-18" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
-<span id="cb7-19"><a href="#cb7-19" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
-<span id="cb7-20"><a href="#cb7-20" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span id="cb7-21"><a href="#cb7-21" tabindex="-1"></a><span class="co">#&gt;                          Run Date: 2026-07-05 22:19:41 </span></span>
-<span id="cb7-22"><a href="#cb7-22" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre></div>
+<span id="cb7-14"><a href="#cb7-14" tabindex="-1"></a><span class="co">#&gt;            Estimate Std. Error z value Pr(&gt;|z|)    </span></span>
+<span id="cb7-15"><a href="#cb7-15" tabindex="-1"></a><span class="co">#&gt; Constant  9.316e-01  8.408e-02  11.080  &lt; 2e-16 ***</span></span>
+<span id="cb7-16"><a href="#cb7-16" tabindex="-1"></a><span class="co">#&gt; mrate     9.531e-01  1.371e-01   6.951 3.62e-12 ***</span></span>
+<span id="cb7-17"><a href="#cb7-17" tabindex="-1"></a><span class="co">#&gt; age       2.791e-02  4.877e-03   5.723 1.05e-08 ***</span></span>
+<span id="cb7-18"><a href="#cb7-18" tabindex="-1"></a><span class="co">#&gt; totemp   -8.182e-06  3.061e-06  -2.673  0.00751 ** </span></span>
+<span id="cb7-19"><a href="#cb7-19" tabindex="-1"></a><span class="co">#&gt; sole      3.405e-01  8.066e-02   4.222 2.43e-05 ***</span></span>
+<span id="cb7-20"><a href="#cb7-20" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
+<span id="cb7-21"><a href="#cb7-21" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
+<span id="cb7-22"><a href="#cb7-22" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
+<span id="cb7-23"><a href="#cb7-23" tabindex="-1"></a><span class="co">#&gt;                          Run Date: 2026-07-05 23:18:43 </span></span>
+<span id="cb7-24"><a href="#cb7-24" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre></div>
 </details>
 </div>
 <div class="section level4">
@@ -201,14 +198,16 @@ Toggle to see the output
 <span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
 <span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a><span class="co">#&gt;                              Fractional logit model </span></span>
 <span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a><span class="co">#&gt;    Estimate Std. Error z value Pr(&gt;|z|)    </span></span>
-<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a><span class="co">#&gt; x1 0.168231   0.006813   24.69   &lt;2e-16 ***</span></span>
-<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a><span class="co">#&gt; x2 0.289436   0.023856   12.13   &lt;2e-16 ***</span></span>
-<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
-<span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
-<span id="cb9-13"><a href="#cb9-13" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a><span class="co">#&gt;                          Run Date: 2026-07-05 22:19:41 </span></span>
-<span id="cb9-15"><a href="#cb9-15" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre></div>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a><span class="co">#&gt;          Estimate Std. Error z value Pr(&gt;|z|)    </span></span>
+<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a><span class="co">#&gt; mrate   1.018e-01  1.456e-02   6.989 2.77e-12 ***</span></span>
+<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a><span class="co">#&gt; age     2.980e-03  5.293e-04   5.630 1.80e-08 ***</span></span>
+<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a><span class="co">#&gt; totemp -8.736e-07  3.279e-07  -2.665  0.00771 ** </span></span>
+<span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a><span class="co">#&gt; sole    3.635e-02  8.515e-03   4.270 1.96e-05 ***</span></span>
+<span id="cb9-13"><a href="#cb9-13" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
+<span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
+<span id="cb9-15"><a href="#cb9-15" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
+<span id="cb9-16"><a href="#cb9-16" tabindex="-1"></a><span class="co">#&gt;                          Run Date: 2026-07-05 23:18:43 </span></span>
+<span id="cb9-17"><a href="#cb9-17" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre></div>
 </details>
 </div>
 <div class="section level4">
@@ -216,12 +215,12 @@ Toggle to see the output
 </h4>
 <p>The two-part model separates the decision to participate (binary hurdle) from the proportion chosen: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>y</mi><mo>∣</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mo>Pr</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>y</mi><mo>&gt;</mo><mn>0</mn><mo>∣</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>⋅</mo><mi>E</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>y</mi><mo>∣</mo><mi>y</mi><mo>&gt;</mo><mn>0</mn><mo>,</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">E(y \mid x) = \Pr(y &gt; 0 \mid x) \cdot E(y \mid y &gt; 0, x)</annotation></semantics></math>.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># We use inflation=0 to indicate we are modelling the mass at zero</span></span>
+<code class="sourceCode R"><span><span class="co"># We use inflation=1 to indicate we are modelling the mass at 100% participation (1s)</span></span>
 <span><span class="va">model_2p</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/fracreg.html">fracreg</a></span><span class="op">(</span></span>
-<span>  y <span class="op">=</span> <span class="va">data</span><span class="op">$</span><span class="va">y</span>, </span>
-<span>  x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span>x1 <span class="op">=</span> <span class="va">data</span><span class="op">$</span><span class="va">x1</span>, x2 <span class="op">=</span> <span class="va">data</span><span class="op">$</span><span class="va">x2</span><span class="op">)</span>, </span>
+<span>  y <span class="op">=</span> <span class="va">y</span>, </span>
+<span>  x <span class="op">=</span> <span class="va">X</span>, </span>
 <span>  type <span class="op">=</span> <span class="st">"2P"</span>, </span>
-<span>  inflation <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  inflation <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  linkbin <span class="op">=</span> <span class="st">"logit"</span>, </span>
 <span>  linkfrac <span class="op">=</span> <span class="st">"logit"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -232,52 +231,56 @@ Toggle to see the output
 <span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a><span class="co">#&gt;            Binary component of a two-part model - logit specification </span></span>
 <span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
 <span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a><span class="co">#&gt; Estimator:                                                                    ML </span></span>
-<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a><span class="co">#&gt; Number of observations:                                                     1000 </span></span>
-<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a><span class="co">#&gt; Pseudo R-squared:                                                        0.14527 </span></span>
-<span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a><span class="co">#&gt; Log-Likelihood:                                                        -295.2068 </span></span>
+<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a><span class="co">#&gt; Number of observations:                                                     1534 </span></span>
+<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a><span class="co">#&gt; Pseudo R-squared:                                                         0.1485 </span></span>
+<span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a><span class="co">#&gt; Log-Likelihood:                                                        -938.1759 </span></span>
 <span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a><span class="co">#&gt; Small sample correction:                                                   FALSE </span></span>
 <span id="cb11-10"><a href="#cb11-10" tabindex="-1"></a><span class="co">#&gt; Convergence:                                                          Successful </span></span>
 <span id="cb11-11"><a href="#cb11-11" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
 <span id="cb11-12"><a href="#cb11-12" tabindex="-1"></a><span class="co">#&gt;                                 Final estimates </span></span>
 <span id="cb11-13"><a href="#cb11-13" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span id="cb11-14"><a href="#cb11-14" tabindex="-1"></a><span class="co">#&gt;          Estimate Std. Error z value Pr(&gt;|z|)    </span></span>
-<span id="cb11-15"><a href="#cb11-15" tabindex="-1"></a><span class="co">#&gt; Constant   1.4638     0.1933   7.573 3.64e-14 ***</span></span>
-<span id="cb11-16"><a href="#cb11-16" tabindex="-1"></a><span class="co">#&gt; x1         1.1857     0.1287   9.213  &lt; 2e-16 ***</span></span>
-<span id="cb11-17"><a href="#cb11-17" tabindex="-1"></a><span class="co">#&gt; x2         2.2279     0.3932   5.666 1.46e-08 ***</span></span>
-<span id="cb11-18"><a href="#cb11-18" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
-<span id="cb11-19"><a href="#cb11-19" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
-<span id="cb11-20"><a href="#cb11-20" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span id="cb11-21"><a href="#cb11-21" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb11-22"><a href="#cb11-22" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb11-23"><a href="#cb11-23" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span id="cb11-24"><a href="#cb11-24" tabindex="-1"></a><span class="co">#&gt;          Fractional component of a two-part model - logit specification </span></span>
+<span id="cb11-14"><a href="#cb11-14" tabindex="-1"></a><span class="co">#&gt;            Estimate Std. Error z value Pr(&gt;|z|)    </span></span>
+<span id="cb11-15"><a href="#cb11-15" tabindex="-1"></a><span class="co">#&gt; Constant -1.396e+00  1.270e-01 -10.991   &lt;2e-16 ***</span></span>
+<span id="cb11-16"><a href="#cb11-16" tabindex="-1"></a><span class="co">#&gt; mrate     9.053e-01  9.699e-02   9.334   &lt;2e-16 ***</span></span>
+<span id="cb11-17"><a href="#cb11-17" tabindex="-1"></a><span class="co">#&gt; age       1.156e-02  6.218e-03   1.858   0.0631 .  </span></span>
+<span id="cb11-18"><a href="#cb11-18" tabindex="-1"></a><span class="co">#&gt; totemp   -1.418e-05  6.324e-06  -2.242   0.0249 *  </span></span>
+<span id="cb11-19"><a href="#cb11-19" tabindex="-1"></a><span class="co">#&gt; sole      8.651e-01  1.131e-01   7.651    2e-14 ***</span></span>
+<span id="cb11-20"><a href="#cb11-20" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
+<span id="cb11-21"><a href="#cb11-21" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
+<span id="cb11-22"><a href="#cb11-22" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
+<span id="cb11-23"><a href="#cb11-23" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-24"><a href="#cb11-24" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb11-25"><a href="#cb11-25" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span id="cb11-26"><a href="#cb11-26" tabindex="-1"></a><span class="co">#&gt; Estimator:                                                                   QML </span></span>
-<span id="cb11-27"><a href="#cb11-27" tabindex="-1"></a><span class="co">#&gt; Number of observations:                                                      881 </span></span>
-<span id="cb11-28"><a href="#cb11-28" tabindex="-1"></a><span class="co">#&gt; Pseudo R-squared:                                                        0.32412 </span></span>
-<span id="cb11-29"><a href="#cb11-29" tabindex="-1"></a><span class="co">#&gt; Standard errors:                                                          robust </span></span>
-<span id="cb11-30"><a href="#cb11-30" tabindex="-1"></a><span class="co">#&gt; Small sample correction:                                                   FALSE </span></span>
-<span id="cb11-31"><a href="#cb11-31" tabindex="-1"></a><span class="co">#&gt; Convergence:                                                          Successful </span></span>
-<span id="cb11-32"><a href="#cb11-32" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span id="cb11-33"><a href="#cb11-33" tabindex="-1"></a><span class="co">#&gt;                                 Final estimates </span></span>
+<span id="cb11-26"><a href="#cb11-26" tabindex="-1"></a><span class="co">#&gt;          Fractional component of a two-part model - logit specification </span></span>
+<span id="cb11-27"><a href="#cb11-27" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
+<span id="cb11-28"><a href="#cb11-28" tabindex="-1"></a><span class="co">#&gt; Estimator:                                                                   QML </span></span>
+<span id="cb11-29"><a href="#cb11-29" tabindex="-1"></a><span class="co">#&gt; Number of observations:                                                      852 </span></span>
+<span id="cb11-30"><a href="#cb11-30" tabindex="-1"></a><span class="co">#&gt; Pseudo R-squared:                                                        0.10004 </span></span>
+<span id="cb11-31"><a href="#cb11-31" tabindex="-1"></a><span class="co">#&gt; Standard errors:                                                          robust </span></span>
+<span id="cb11-32"><a href="#cb11-32" tabindex="-1"></a><span class="co">#&gt; Small sample correction:                                                   FALSE </span></span>
+<span id="cb11-33"><a href="#cb11-33" tabindex="-1"></a><span class="co">#&gt; Convergence:                                                          Successful </span></span>
 <span id="cb11-34"><a href="#cb11-34" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span id="cb11-35"><a href="#cb11-35" tabindex="-1"></a><span class="co">#&gt;          Estimate Std. Error z value Pr(&gt;|z|)    </span></span>
-<span id="cb11-36"><a href="#cb11-36" tabindex="-1"></a><span class="co">#&gt; Constant -0.17323    0.05786  -2.994  0.00275 ** </span></span>
-<span id="cb11-37"><a href="#cb11-37" tabindex="-1"></a><span class="co">#&gt; x1        0.61205    0.03554  17.221  &lt; 2e-16 ***</span></span>
-<span id="cb11-38"><a href="#cb11-38" tabindex="-1"></a><span class="co">#&gt; x2        1.00509    0.10703   9.391  &lt; 2e-16 ***</span></span>
-<span id="cb11-39"><a href="#cb11-39" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
-<span id="cb11-40"><a href="#cb11-40" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
-<span id="cb11-41"><a href="#cb11-41" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span id="cb11-42"><a href="#cb11-42" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb11-43"><a href="#cb11-43" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb11-44"><a href="#cb11-44" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span id="cb11-45"><a href="#cb11-45" tabindex="-1"></a><span class="co">#&gt;                 Two-part model - binary logit + fractional logit </span></span>
-<span id="cb11-46"><a href="#cb11-46" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span id="cb11-47"><a href="#cb11-47" tabindex="-1"></a><span class="co">#&gt; Pseudo R-squared:                                                        0.38621 </span></span>
-<span id="cb11-48"><a href="#cb11-48" tabindex="-1"></a><span class="co">#&gt; Convergence:                                                          Successful </span></span>
-<span id="cb11-49"><a href="#cb11-49" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span id="cb11-50"><a href="#cb11-50" tabindex="-1"></a><span class="co">#&gt;                          Run Date: 2026-07-05 22:19:42 </span></span>
-<span id="cb11-51"><a href="#cb11-51" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre></div>
+<span id="cb11-35"><a href="#cb11-35" tabindex="-1"></a><span class="co">#&gt;                                 Final estimates </span></span>
+<span id="cb11-36"><a href="#cb11-36" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
+<span id="cb11-37"><a href="#cb11-37" tabindex="-1"></a><span class="co">#&gt;            Estimate Std. Error z value Pr(&gt;|z|)    </span></span>
+<span id="cb11-38"><a href="#cb11-38" tabindex="-1"></a><span class="co">#&gt; Constant  7.460e-01  6.850e-02  10.891  &lt; 2e-16 ***</span></span>
+<span id="cb11-39"><a href="#cb11-39" tabindex="-1"></a><span class="co">#&gt; mrate     3.877e-01  9.725e-02   3.987 6.69e-05 ***</span></span>
+<span id="cb11-40"><a href="#cb11-40" tabindex="-1"></a><span class="co">#&gt; age       2.562e-02  4.010e-03   6.390 1.66e-10 ***</span></span>
+<span id="cb11-41"><a href="#cb11-41" tabindex="-1"></a><span class="co">#&gt; totemp   -4.061e-06  3.073e-06  -1.322    0.186    </span></span>
+<span id="cb11-42"><a href="#cb11-42" tabindex="-1"></a><span class="co">#&gt; sole     -1.510e-02  6.556e-02  -0.230    0.818    </span></span>
+<span id="cb11-43"><a href="#cb11-43" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
+<span id="cb11-44"><a href="#cb11-44" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
+<span id="cb11-45"><a href="#cb11-45" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
+<span id="cb11-46"><a href="#cb11-46" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-47"><a href="#cb11-47" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-48"><a href="#cb11-48" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
+<span id="cb11-49"><a href="#cb11-49" tabindex="-1"></a><span class="co">#&gt;                 Two-part model - binary logit + fractional logit </span></span>
+<span id="cb11-50"><a href="#cb11-50" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
+<span id="cb11-51"><a href="#cb11-51" tabindex="-1"></a><span class="co">#&gt; Pseudo R-squared:                                                        0.11243 </span></span>
+<span id="cb11-52"><a href="#cb11-52" tabindex="-1"></a><span class="co">#&gt; Convergence:                                                          Successful </span></span>
+<span id="cb11-53"><a href="#cb11-53" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
+<span id="cb11-54"><a href="#cb11-54" tabindex="-1"></a><span class="co">#&gt;                          Run Date: 2026-07-05 23:18:44 </span></span>
+<span id="cb11-55"><a href="#cb11-55" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre></div>
 </details><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pe_2p</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/fracreg.pe.html">fracreg.pe</a></span><span class="op">(</span><span class="va">model_2p</span><span class="op">)</span></span></code></pre></div>
 <details><summary>
@@ -289,14 +292,16 @@ Toggle to see the output
 <span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
 <span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a><span class="co">#&gt;                  Binary logit + Fractional logit two-part model </span></span>
 <span id="cb13-7"><a href="#cb13-7" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span id="cb13-8"><a href="#cb13-8" tabindex="-1"></a><span class="co">#&gt;    Estimate Std. Error z value Pr(&gt;|z|)    </span></span>
-<span id="cb13-9"><a href="#cb13-9" tabindex="-1"></a><span class="co">#&gt; x1 0.166600   0.006717   24.80   &lt;2e-16 ***</span></span>
-<span id="cb13-10"><a href="#cb13-10" tabindex="-1"></a><span class="co">#&gt; x2 0.284837   0.024530   11.61   &lt;2e-16 ***</span></span>
-<span id="cb13-11"><a href="#cb13-11" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
-<span id="cb13-12"><a href="#cb13-12" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
-<span id="cb13-13"><a href="#cb13-13" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span id="cb13-14"><a href="#cb13-14" tabindex="-1"></a><span class="co">#&gt;                          Run Date: 2026-07-05 22:19:42 </span></span>
-<span id="cb13-15"><a href="#cb13-15" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre></div>
+<span id="cb13-8"><a href="#cb13-8" tabindex="-1"></a><span class="co">#&gt;          Estimate Std. Error z value Pr(&gt;|z|)    </span></span>
+<span id="cb13-9"><a href="#cb13-9" tabindex="-1"></a><span class="co">#&gt; mrate   1.769e-01  1.568e-02  11.284  &lt; 2e-16 ***</span></span>
+<span id="cb13-10"><a href="#cb13-10" tabindex="-1"></a><span class="co">#&gt; age     3.680e-03  1.061e-03   3.469 0.000523 ***</span></span>
+<span id="cb13-11"><a href="#cb13-11" tabindex="-1"></a><span class="co">#&gt; totemp -2.633e-06  1.066e-06  -2.470 0.013507 *  </span></span>
+<span id="cb13-12"><a href="#cb13-12" tabindex="-1"></a><span class="co">#&gt; sole    1.425e-01  1.805e-02   7.896 2.89e-15 ***</span></span>
+<span id="cb13-13"><a href="#cb13-13" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
+<span id="cb13-14"><a href="#cb13-14" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
+<span id="cb13-15"><a href="#cb13-15" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
+<span id="cb13-16"><a href="#cb13-16" tabindex="-1"></a><span class="co">#&gt;                          Run Date: 2026-07-05 23:18:44 </span></span>
+<span id="cb13-17"><a href="#cb13-17" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre></div>
 </details>
 </div>
 <div class="section level4">
@@ -304,10 +309,14 @@ Toggle to see the output
 </h4>
 <p>The three-part model accommodates clustering at both <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math> via two separate binary hurdles and a fractional component for interior values.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Linkbin takes a vector of two links for the two binary hurdles</span></span>
+<code class="sourceCode R"><span><span class="co"># Since the k401k data has no exact 0s, we inject some artificial 0s just for demonstration</span></span>
+<span><span class="va">y_3p</span> <span class="op">&lt;-</span> <span class="va">y</span></span>
+<span><span class="va">y_3p</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">50</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">0</span></span>
+<span></span>
+<span><span class="co"># Linkbin takes a vector of two links for the two binary hurdles</span></span>
 <span><span class="va">model_3p</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/fracreg.html">fracreg</a></span><span class="op">(</span></span>
-<span>  y <span class="op">=</span> <span class="va">data</span><span class="op">$</span><span class="va">y</span>, </span>
-<span>  x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span>x1 <span class="op">=</span> <span class="va">data</span><span class="op">$</span><span class="va">x1</span>, x2 <span class="op">=</span> <span class="va">data</span><span class="op">$</span><span class="va">x2</span><span class="op">)</span>, </span>
+<span>  y <span class="op">=</span> <span class="va">y_3p</span>, </span>
+<span>  x <span class="op">=</span> <span class="va">X</span>, </span>
 <span>  type <span class="op">=</span> <span class="st">"3P"</span>, </span>
 <span>  linkbin <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"logit"</span>, <span class="st">"logit"</span><span class="op">)</span>, </span>
 <span>  linkfrac <span class="op">=</span> <span class="st">"logit"</span></span>
@@ -319,73 +328,79 @@ Toggle to see the output
 <span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a><span class="co">#&gt;        First binary component of a three-part model - logit specification </span></span>
 <span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
 <span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a><span class="co">#&gt; Estimator:                                                                    ML </span></span>
-<span id="cb15-6"><a href="#cb15-6" tabindex="-1"></a><span class="co">#&gt; Number of observations:                                                     1000 </span></span>
-<span id="cb15-7"><a href="#cb15-7" tabindex="-1"></a><span class="co">#&gt; Pseudo R-squared:                                                        0.14527 </span></span>
-<span id="cb15-8"><a href="#cb15-8" tabindex="-1"></a><span class="co">#&gt; Log-Likelihood:                                                        -295.2068 </span></span>
+<span id="cb15-6"><a href="#cb15-6" tabindex="-1"></a><span class="co">#&gt; Number of observations:                                                     1534 </span></span>
+<span id="cb15-7"><a href="#cb15-7" tabindex="-1"></a><span class="co">#&gt; Pseudo R-squared:                                                        0.00324 </span></span>
+<span id="cb15-8"><a href="#cb15-8" tabindex="-1"></a><span class="co">#&gt; Log-Likelihood:                                                        -216.6222 </span></span>
 <span id="cb15-9"><a href="#cb15-9" tabindex="-1"></a><span class="co">#&gt; Small sample correction:                                                   FALSE </span></span>
 <span id="cb15-10"><a href="#cb15-10" tabindex="-1"></a><span class="co">#&gt; Convergence:                                                          Successful </span></span>
 <span id="cb15-11"><a href="#cb15-11" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
 <span id="cb15-12"><a href="#cb15-12" tabindex="-1"></a><span class="co">#&gt;                                 Final estimates </span></span>
 <span id="cb15-13"><a href="#cb15-13" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span id="cb15-14"><a href="#cb15-14" tabindex="-1"></a><span class="co">#&gt;          Estimate Std. Error z value Pr(&gt;|z|)    </span></span>
-<span id="cb15-15"><a href="#cb15-15" tabindex="-1"></a><span class="co">#&gt; Constant   1.4638     0.1933   7.573 3.64e-14 ***</span></span>
-<span id="cb15-16"><a href="#cb15-16" tabindex="-1"></a><span class="co">#&gt; x1         1.1857     0.1287   9.213  &lt; 2e-16 ***</span></span>
-<span id="cb15-17"><a href="#cb15-17" tabindex="-1"></a><span class="co">#&gt; x2         2.2279     0.3932   5.666 1.46e-08 ***</span></span>
-<span id="cb15-18"><a href="#cb15-18" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
-<span id="cb15-19"><a href="#cb15-19" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
-<span id="cb15-20"><a href="#cb15-20" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span id="cb15-21"><a href="#cb15-21" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb15-22"><a href="#cb15-22" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb15-23"><a href="#cb15-23" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span id="cb15-24"><a href="#cb15-24" tabindex="-1"></a><span class="co">#&gt;       Second binary component of a three-part model - logit specification </span></span>
+<span id="cb15-14"><a href="#cb15-14" tabindex="-1"></a><span class="co">#&gt;           Estimate Std. Error z value Pr(&gt;|z|)    </span></span>
+<span id="cb15-15"><a href="#cb15-15" tabindex="-1"></a><span class="co">#&gt; Constant 2.867e+00  3.157e-01   9.080   &lt;2e-16 ***</span></span>
+<span id="cb15-16"><a href="#cb15-16" tabindex="-1"></a><span class="co">#&gt; mrate    1.147e-01  2.131e-01   0.538    0.590    </span></span>
+<span id="cb15-17"><a href="#cb15-17" tabindex="-1"></a><span class="co">#&gt; age      8.375e-03  1.765e-02   0.474    0.635    </span></span>
+<span id="cb15-18"><a href="#cb15-18" tabindex="-1"></a><span class="co">#&gt; totemp   1.036e-04  6.959e-05   1.489    0.136    </span></span>
+<span id="cb15-19"><a href="#cb15-19" tabindex="-1"></a><span class="co">#&gt; sole     3.371e-01  2.983e-01   1.130    0.259    </span></span>
+<span id="cb15-20"><a href="#cb15-20" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
+<span id="cb15-21"><a href="#cb15-21" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
+<span id="cb15-22"><a href="#cb15-22" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
+<span id="cb15-23"><a href="#cb15-23" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb15-24"><a href="#cb15-24" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb15-25"><a href="#cb15-25" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span id="cb15-26"><a href="#cb15-26" tabindex="-1"></a><span class="co">#&gt; Estimator:                                                                    ML </span></span>
-<span id="cb15-27"><a href="#cb15-27" tabindex="-1"></a><span class="co">#&gt; Number of observations:                                                      881 </span></span>
-<span id="cb15-28"><a href="#cb15-28" tabindex="-1"></a><span class="co">#&gt; Pseudo R-squared:                                                        0.18752 </span></span>
-<span id="cb15-29"><a href="#cb15-29" tabindex="-1"></a><span class="co">#&gt; Log-Likelihood:                                                        -348.7582 </span></span>
-<span id="cb15-30"><a href="#cb15-30" tabindex="-1"></a><span class="co">#&gt; Small sample correction:                                                   FALSE </span></span>
-<span id="cb15-31"><a href="#cb15-31" tabindex="-1"></a><span class="co">#&gt; Convergence:                                                          Successful </span></span>
-<span id="cb15-32"><a href="#cb15-32" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span id="cb15-33"><a href="#cb15-33" tabindex="-1"></a><span class="co">#&gt;                                 Final estimates </span></span>
+<span id="cb15-26"><a href="#cb15-26" tabindex="-1"></a><span class="co">#&gt;       Second binary component of a three-part model - logit specification </span></span>
+<span id="cb15-27"><a href="#cb15-27" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
+<span id="cb15-28"><a href="#cb15-28" tabindex="-1"></a><span class="co">#&gt; Estimator:                                                                    ML </span></span>
+<span id="cb15-29"><a href="#cb15-29" tabindex="-1"></a><span class="co">#&gt; Number of observations:                                                     1484 </span></span>
+<span id="cb15-30"><a href="#cb15-30" tabindex="-1"></a><span class="co">#&gt; Pseudo R-squared:                                                        0.15199 </span></span>
+<span id="cb15-31"><a href="#cb15-31" tabindex="-1"></a><span class="co">#&gt; Log-Likelihood:                                                        -903.5457 </span></span>
+<span id="cb15-32"><a href="#cb15-32" tabindex="-1"></a><span class="co">#&gt; Small sample correction:                                                   FALSE </span></span>
+<span id="cb15-33"><a href="#cb15-33" tabindex="-1"></a><span class="co">#&gt; Convergence:                                                          Successful </span></span>
 <span id="cb15-34"><a href="#cb15-34" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span id="cb15-35"><a href="#cb15-35" tabindex="-1"></a><span class="co">#&gt;          Estimate Std. Error z value Pr(&gt;|z|)    </span></span>
-<span id="cb15-36"><a href="#cb15-36" tabindex="-1"></a><span class="co">#&gt; Constant  -2.9540     0.2437 -12.123  &lt; 2e-16 ***</span></span>
-<span id="cb15-37"><a href="#cb15-37" tabindex="-1"></a><span class="co">#&gt; x1         1.1682     0.1167  10.006  &lt; 2e-16 ***</span></span>
-<span id="cb15-38"><a href="#cb15-38" tabindex="-1"></a><span class="co">#&gt; x2         1.8315     0.3455   5.301 1.15e-07 ***</span></span>
-<span id="cb15-39"><a href="#cb15-39" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
-<span id="cb15-40"><a href="#cb15-40" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
-<span id="cb15-41"><a href="#cb15-41" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span id="cb15-42"><a href="#cb15-42" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb15-43"><a href="#cb15-43" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb15-44"><a href="#cb15-44" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span id="cb15-45"><a href="#cb15-45" tabindex="-1"></a><span class="co">#&gt;         Fractional component of a three-part model - logit specification </span></span>
-<span id="cb15-46"><a href="#cb15-46" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span id="cb15-47"><a href="#cb15-47" tabindex="-1"></a><span class="co">#&gt; Estimator:                                                                   QML </span></span>
-<span id="cb15-48"><a href="#cb15-48" tabindex="-1"></a><span class="co">#&gt; Number of observations:                                                      715 </span></span>
-<span id="cb15-49"><a href="#cb15-49" tabindex="-1"></a><span class="co">#&gt; Pseudo R-squared:                                                        0.24292 </span></span>
-<span id="cb15-50"><a href="#cb15-50" tabindex="-1"></a><span class="co">#&gt; Standard errors:                                                          robust </span></span>
-<span id="cb15-51"><a href="#cb15-51" tabindex="-1"></a><span class="co">#&gt; Small sample correction:                                                   FALSE </span></span>
-<span id="cb15-52"><a href="#cb15-52" tabindex="-1"></a><span class="co">#&gt; Convergence:                                                          Successful </span></span>
-<span id="cb15-53"><a href="#cb15-53" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span id="cb15-54"><a href="#cb15-54" tabindex="-1"></a><span class="co">#&gt;                                 Final estimates </span></span>
-<span id="cb15-55"><a href="#cb15-55" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span id="cb15-56"><a href="#cb15-56" tabindex="-1"></a><span class="co">#&gt;          Estimate Std. Error z value Pr(&gt;|z|)    </span></span>
-<span id="cb15-57"><a href="#cb15-57" tabindex="-1"></a><span class="co">#&gt; Constant -0.26763    0.04539  -5.896 3.73e-09 ***</span></span>
-<span id="cb15-58"><a href="#cb15-58" tabindex="-1"></a><span class="co">#&gt; x1        0.36198    0.02454  14.751  &lt; 2e-16 ***</span></span>
-<span id="cb15-59"><a href="#cb15-59" tabindex="-1"></a><span class="co">#&gt; x2        0.58505    0.07969   7.342 2.11e-13 ***</span></span>
-<span id="cb15-60"><a href="#cb15-60" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
-<span id="cb15-61"><a href="#cb15-61" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
-<span id="cb15-62"><a href="#cb15-62" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span id="cb15-63"><a href="#cb15-63" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb15-64"><a href="#cb15-64" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb15-65"><a href="#cb15-65" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span id="cb15-66"><a href="#cb15-66" tabindex="-1"></a><span class="co">#&gt;        Three-part model - binary logit , binary logit + fractional logit </span></span>
-<span id="cb15-67"><a href="#cb15-67" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span id="cb15-68"><a href="#cb15-68" tabindex="-1"></a><span class="co">#&gt; Pseudo R-squared:                                                        0.38893 </span></span>
-<span id="cb15-69"><a href="#cb15-69" tabindex="-1"></a><span class="co">#&gt; Convergence:                                                          Successful </span></span>
-<span id="cb15-70"><a href="#cb15-70" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span id="cb15-71"><a href="#cb15-71" tabindex="-1"></a><span class="co">#&gt;                          Run Date: 2026-07-05 22:19:42 </span></span>
-<span id="cb15-72"><a href="#cb15-72" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre></div>
+<span id="cb15-35"><a href="#cb15-35" tabindex="-1"></a><span class="co">#&gt;                                 Final estimates </span></span>
+<span id="cb15-36"><a href="#cb15-36" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
+<span id="cb15-37"><a href="#cb15-37" tabindex="-1"></a><span class="co">#&gt;            Estimate Std. Error z value Pr(&gt;|z|)    </span></span>
+<span id="cb15-38"><a href="#cb15-38" tabindex="-1"></a><span class="co">#&gt; Constant -1.435e+00  1.306e-01 -10.990  &lt; 2e-16 ***</span></span>
+<span id="cb15-39"><a href="#cb15-39" tabindex="-1"></a><span class="co">#&gt; mrate     9.244e-01  9.877e-02   9.360  &lt; 2e-16 ***</span></span>
+<span id="cb15-40"><a href="#cb15-40" tabindex="-1"></a><span class="co">#&gt; age       1.198e-02  6.339e-03   1.890   0.0588 .  </span></span>
+<span id="cb15-41"><a href="#cb15-41" tabindex="-1"></a><span class="co">#&gt; totemp   -1.371e-05  6.317e-06  -2.170   0.0300 *  </span></span>
+<span id="cb15-42"><a href="#cb15-42" tabindex="-1"></a><span class="co">#&gt; sole      8.852e-01  1.154e-01   7.674 1.67e-14 ***</span></span>
+<span id="cb15-43"><a href="#cb15-43" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
+<span id="cb15-44"><a href="#cb15-44" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
+<span id="cb15-45"><a href="#cb15-45" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
+<span id="cb15-46"><a href="#cb15-46" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb15-47"><a href="#cb15-47" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb15-48"><a href="#cb15-48" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
+<span id="cb15-49"><a href="#cb15-49" tabindex="-1"></a><span class="co">#&gt;         Fractional component of a three-part model - logit specification </span></span>
+<span id="cb15-50"><a href="#cb15-50" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
+<span id="cb15-51"><a href="#cb15-51" tabindex="-1"></a><span class="co">#&gt; Estimator:                                                                   QML </span></span>
+<span id="cb15-52"><a href="#cb15-52" tabindex="-1"></a><span class="co">#&gt; Number of observations:                                                      826 </span></span>
+<span id="cb15-53"><a href="#cb15-53" tabindex="-1"></a><span class="co">#&gt; Pseudo R-squared:                                                        0.09937 </span></span>
+<span id="cb15-54"><a href="#cb15-54" tabindex="-1"></a><span class="co">#&gt; Standard errors:                                                          robust </span></span>
+<span id="cb15-55"><a href="#cb15-55" tabindex="-1"></a><span class="co">#&gt; Small sample correction:                                                   FALSE </span></span>
+<span id="cb15-56"><a href="#cb15-56" tabindex="-1"></a><span class="co">#&gt; Convergence:                                                          Successful </span></span>
+<span id="cb15-57"><a href="#cb15-57" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
+<span id="cb15-58"><a href="#cb15-58" tabindex="-1"></a><span class="co">#&gt;                                 Final estimates </span></span>
+<span id="cb15-59"><a href="#cb15-59" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
+<span id="cb15-60"><a href="#cb15-60" tabindex="-1"></a><span class="co">#&gt;            Estimate Std. Error z value Pr(&gt;|z|)    </span></span>
+<span id="cb15-61"><a href="#cb15-61" tabindex="-1"></a><span class="co">#&gt; Constant  7.388e-01  7.039e-02  10.496  &lt; 2e-16 ***</span></span>
+<span id="cb15-62"><a href="#cb15-62" tabindex="-1"></a><span class="co">#&gt; mrate     3.960e-01  1.019e-01   3.885 0.000102 ***</span></span>
+<span id="cb15-63"><a href="#cb15-63" tabindex="-1"></a><span class="co">#&gt; age       2.531e-02  4.068e-03   6.223 4.88e-10 ***</span></span>
+<span id="cb15-64"><a href="#cb15-64" tabindex="-1"></a><span class="co">#&gt; totemp   -3.817e-06  3.088e-06  -1.236 0.216472    </span></span>
+<span id="cb15-65"><a href="#cb15-65" tabindex="-1"></a><span class="co">#&gt; sole     -4.483e-03  6.672e-02  -0.067 0.946434    </span></span>
+<span id="cb15-66"><a href="#cb15-66" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
+<span id="cb15-67"><a href="#cb15-67" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
+<span id="cb15-68"><a href="#cb15-68" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
+<span id="cb15-69"><a href="#cb15-69" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb15-70"><a href="#cb15-70" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb15-71"><a href="#cb15-71" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
+<span id="cb15-72"><a href="#cb15-72" tabindex="-1"></a><span class="co">#&gt;        Three-part model - binary logit , binary logit + fractional logit </span></span>
+<span id="cb15-73"><a href="#cb15-73" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
+<span id="cb15-74"><a href="#cb15-74" tabindex="-1"></a><span class="co">#&gt; Pseudo R-squared:                                                        0.07934 </span></span>
+<span id="cb15-75"><a href="#cb15-75" tabindex="-1"></a><span class="co">#&gt; Convergence:                                                          Successful </span></span>
+<span id="cb15-76"><a href="#cb15-76" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
+<span id="cb15-77"><a href="#cb15-77" tabindex="-1"></a><span class="co">#&gt;                          Run Date: 2026-07-05 23:18:44 </span></span>
+<span id="cb15-78"><a href="#cb15-78" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre></div>
 </details><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pe_3p</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/fracreg.pe.html">fracreg.pe</a></span><span class="op">(</span><span class="va">model_3p</span><span class="op">)</span></span></code></pre></div>
 <details><summary>
@@ -397,14 +412,16 @@ Toggle to see the output
 <span id="cb17-5"><a href="#cb17-5" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
 <span id="cb17-6"><a href="#cb17-6" tabindex="-1"></a><span class="co">#&gt;        Three-part model - binary logit , binary logit + fractional logit </span></span>
 <span id="cb17-7"><a href="#cb17-7" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span id="cb17-8"><a href="#cb17-8" tabindex="-1"></a><span class="co">#&gt;    Estimate Std. Error z value Pr(&gt;|z|)    </span></span>
-<span id="cb17-9"><a href="#cb17-9" tabindex="-1"></a><span class="co">#&gt; x1 0.166267   0.006617   25.13   &lt;2e-16 ***</span></span>
-<span id="cb17-10"><a href="#cb17-10" tabindex="-1"></a><span class="co">#&gt; x2 0.278858   0.024929   11.19   &lt;2e-16 ***</span></span>
-<span id="cb17-11"><a href="#cb17-11" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
-<span id="cb17-12"><a href="#cb17-12" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
-<span id="cb17-13"><a href="#cb17-13" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span id="cb17-14"><a href="#cb17-14" tabindex="-1"></a><span class="co">#&gt;                          Run Date: 2026-07-05 22:19:42 </span></span>
-<span id="cb17-15"><a href="#cb17-15" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre></div>
+<span id="cb17-8"><a href="#cb17-8" tabindex="-1"></a><span class="co">#&gt;         Estimate Std. Error z value Pr(&gt;|z|)    </span></span>
+<span id="cb17-9"><a href="#cb17-9" tabindex="-1"></a><span class="co">#&gt; mrate  8.110e-02  1.162e-02   6.977 3.02e-12 ***</span></span>
+<span id="cb17-10"><a href="#cb17-10" tabindex="-1"></a><span class="co">#&gt; age    3.124e-03  6.764e-04   4.619 3.86e-06 ***</span></span>
+<span id="cb17-11"><a href="#cb17-11" tabindex="-1"></a><span class="co">#&gt; totemp 1.858e-06  1.971e-06   0.942    0.346    </span></span>
+<span id="cb17-12"><a href="#cb17-12" tabindex="-1"></a><span class="co">#&gt; sole   4.800e-02  1.116e-02   4.302 1.69e-05 ***</span></span>
+<span id="cb17-13"><a href="#cb17-13" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
+<span id="cb17-14"><a href="#cb17-14" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
+<span id="cb17-15"><a href="#cb17-15" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
+<span id="cb17-16"><a href="#cb17-16" tabindex="-1"></a><span class="co">#&gt;                          Run Date: 2026-07-05 23:18:44 </span></span>
+<span id="cb17-17"><a href="#cb17-17" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre></div>
 </details><hr>
 </div>
 </div>
@@ -426,13 +443,15 @@ Toggle to see the output
 <span id="cb19-4"><a href="#cb19-4" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
 <span id="cb19-5"><a href="#cb19-5" tabindex="-1"></a><span class="co">#&gt; H0: Fractional logit model </span></span>
 <span id="cb19-6"><a href="#cb19-6" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span id="cb19-7"><a href="#cb19-7" tabindex="-1"></a><span class="co">#&gt;            Statistic p-value</span></span>
-<span id="cb19-8"><a href="#cb19-8" tabindex="-1"></a><span class="co">#&gt; GOFF1 - LM     0.640   0.424</span></span>
-<span id="cb19-9"><a href="#cb19-9" tabindex="-1"></a><span class="co">#&gt; GOFF2 - LM     0.485   0.486</span></span>
-<span id="cb19-10"><a href="#cb19-10" tabindex="-1"></a><span class="co">#&gt; GGOFF - LM     0.814   0.666</span></span>
-<span id="cb19-11"><a href="#cb19-11" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span id="cb19-12"><a href="#cb19-12" tabindex="-1"></a><span class="co">#&gt;                          Run Date: 2026-07-05 22:19:42 </span></span>
-<span id="cb19-13"><a href="#cb19-13" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre></div>
+<span id="cb19-7"><a href="#cb19-7" tabindex="-1"></a><span class="co">#&gt;            Statistic p-value   </span></span>
+<span id="cb19-8"><a href="#cb19-8" tabindex="-1"></a><span class="co">#&gt; GOFF1 - LM     8.838 0.00295 **</span></span>
+<span id="cb19-9"><a href="#cb19-9" tabindex="-1"></a><span class="co">#&gt; GOFF2 - LM     9.828 0.00172 **</span></span>
+<span id="cb19-10"><a href="#cb19-10" tabindex="-1"></a><span class="co">#&gt; GGOFF - LM    10.351 0.00565 **</span></span>
+<span id="cb19-11"><a href="#cb19-11" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
+<span id="cb19-12"><a href="#cb19-12" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
+<span id="cb19-13"><a href="#cb19-13" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
+<span id="cb19-14"><a href="#cb19-14" tabindex="-1"></a><span class="co">#&gt;                          Run Date: 2026-07-05 23:18:44 </span></span>
+<span id="cb19-15"><a href="#cb19-15" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre></div>
 </details>
 </div>
 <div class="section level4">
@@ -450,11 +469,13 @@ Toggle to see the output
 <span id="cb21-4"><a href="#cb21-4" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
 <span id="cb21-5"><a href="#cb21-5" tabindex="-1"></a><span class="co">#&gt; H0: Fractional logit model </span></span>
 <span id="cb21-6"><a href="#cb21-6" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span id="cb21-7"><a href="#cb21-7" tabindex="-1"></a><span class="co">#&gt;       Statistic p-value</span></span>
-<span id="cb21-8"><a href="#cb21-8" tabindex="-1"></a><span class="co">#&gt; LM(3)     0.852   0.653</span></span>
-<span id="cb21-9"><a href="#cb21-9" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span id="cb21-10"><a href="#cb21-10" tabindex="-1"></a><span class="co">#&gt;                          Run Date: 2026-07-05 22:19:42 </span></span>
-<span id="cb21-11"><a href="#cb21-11" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre></div>
+<span id="cb21-7"><a href="#cb21-7" tabindex="-1"></a><span class="co">#&gt;       Statistic p-value   </span></span>
+<span id="cb21-8"><a href="#cb21-8" tabindex="-1"></a><span class="co">#&gt; LM(3)     10.29 0.00583 **</span></span>
+<span id="cb21-9"><a href="#cb21-9" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
+<span id="cb21-10"><a href="#cb21-10" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
+<span id="cb21-11"><a href="#cb21-11" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
+<span id="cb21-12"><a href="#cb21-12" tabindex="-1"></a><span class="co">#&gt;                          Run Date: 2026-07-05 23:18:44 </span></span>
+<span id="cb21-13"><a href="#cb21-13" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre></div>
 </details><hr>
 </div>
 </div>
@@ -464,6 +485,9 @@ Toggle to see the output
 <p>Use instrumental variables (<code>z</code>) to correct for endogenous covariates via a control function approach <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>y</mi><mrow><mn>1</mn><mi>i</mi></mrow></msub><mo>∣</mo><msub><mi>z</mi><mi>i</mi></msub><mo>,</mo><msub><mi>y</mi><mrow><mn>2</mn><mi>i</mi></mrow></msub><mo>,</mo><msub><mi>v</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>G</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>x</mi><mi>i</mi></msub><mi>β</mi><mo>+</mo><mi>γ</mi><msub><mover><mi>v</mi><mo accent="true">̂</mo></mover><mi>i</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">E(y_{1i} \mid z_i, y_{2i}, v_i) = G(x_i \beta + \gamma \hat{v}_i)</annotation></semantics></math>, or via IV-GMM.</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Simulating an endogenous variable (var.endog) and an instrument (z)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">42</span><span class="op">)</span></span>
+<span><span class="va">N</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span>
+<span><span class="va">x1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">N</span><span class="op">)</span></span>
 <span><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">N</span><span class="op">)</span></span>
 <span><span class="va">u</span> <span class="op">&lt;-</span> <span class="fl">0.5</span> <span class="op">*</span> <span class="va">z</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">N</span><span class="op">)</span></span>
 <span><span class="va">var.endog</span> <span class="op">&lt;-</span> <span class="fl">0.8</span> <span class="op">*</span> <span class="va">z</span> <span class="op">+</span> <span class="va">u</span></span>
@@ -485,30 +509,30 @@ Toggle to see the output
 <span id="cb23-3"><a href="#cb23-3" tabindex="-1"></a><span class="co">#&gt;                        Fractional logit regression model </span></span>
 <span id="cb23-4"><a href="#cb23-4" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
 <span id="cb23-5"><a href="#cb23-5" tabindex="-1"></a><span class="co">#&gt; Estimator:                                                                 QMLxv </span></span>
-<span id="cb23-6"><a href="#cb23-6" tabindex="-1"></a><span class="co">#&gt; Number of observations:                                                     1000 </span></span>
+<span id="cb23-6"><a href="#cb23-6" tabindex="-1"></a><span class="co">#&gt; Number of observations:                                                     1534 </span></span>
 <span id="cb23-7"><a href="#cb23-7" tabindex="-1"></a><span class="co">#&gt; Standard errors:                                                          robust </span></span>
 <span id="cb23-8"><a href="#cb23-8" tabindex="-1"></a><span class="co">#&gt; Convergence:                                                          Successful </span></span>
 <span id="cb23-9"><a href="#cb23-9" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
 <span id="cb23-10"><a href="#cb23-10" tabindex="-1"></a><span class="co">#&gt;                                 Final estimates </span></span>
 <span id="cb23-11"><a href="#cb23-11" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
 <span id="cb23-12"><a href="#cb23-12" tabindex="-1"></a><span class="co">#&gt;           Estimate Std. Error z value Pr(&gt;|z|)    </span></span>
-<span id="cb23-13"><a href="#cb23-13" tabindex="-1"></a><span class="co">#&gt; Constant  -0.01289    0.01854  -0.695    0.487    </span></span>
-<span id="cb23-14"><a href="#cb23-14" tabindex="-1"></a><span class="co">#&gt; x1         0.52128    0.01889  27.589   &lt;2e-16 ***</span></span>
-<span id="cb23-15"><a href="#cb23-15" tabindex="-1"></a><span class="co">#&gt; var.endog  1.61131    0.01273 126.614   &lt;2e-16 ***</span></span>
-<span id="cb23-16"><a href="#cb23-16" tabindex="-1"></a><span class="co">#&gt; vhat       0.58869    0.01273  46.259   &lt;2e-16 ***</span></span>
+<span id="cb23-13"><a href="#cb23-13" tabindex="-1"></a><span class="co">#&gt; Constant  -0.01901    0.01643  -1.157    0.247    </span></span>
+<span id="cb23-14"><a href="#cb23-14" tabindex="-1"></a><span class="co">#&gt; x1         0.49108    0.01622  30.273   &lt;2e-16 ***</span></span>
+<span id="cb23-15"><a href="#cb23-15" tabindex="-1"></a><span class="co">#&gt; var.endog  1.56341    0.01250 125.071   &lt;2e-16 ***</span></span>
+<span id="cb23-16"><a href="#cb23-16" tabindex="-1"></a><span class="co">#&gt; vhat       0.63659    0.01250  50.927   &lt;2e-16 ***</span></span>
 <span id="cb23-17"><a href="#cb23-17" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
 <span id="cb23-18"><a href="#cb23-18" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span id="cb23-19"><a href="#cb23-19" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb23-20"><a href="#cb23-20" tabindex="-1"></a><span class="co">#&gt;                                  Reduced form: </span></span>
 <span id="cb23-21"><a href="#cb23-21" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
 <span id="cb23-22"><a href="#cb23-22" tabindex="-1"></a><span class="co">#&gt;             Estimate Std. Error z value Pr(&gt;|z|)    </span></span>
-<span id="cb23-23"><a href="#cb23-23" tabindex="-1"></a><span class="co">#&gt; Z_INTERCEPT -0.02189    0.03149  -0.695    0.487    </span></span>
-<span id="cb23-24"><a href="#cb23-24" tabindex="-1"></a><span class="co">#&gt; Z_x1         0.03615    0.03215   1.124    0.261    </span></span>
-<span id="cb23-25"><a href="#cb23-25" tabindex="-1"></a><span class="co">#&gt; Z_z          1.35894    0.02938  46.259   &lt;2e-16 ***</span></span>
+<span id="cb23-23"><a href="#cb23-23" tabindex="-1"></a><span class="co">#&gt; Z_INTERCEPT -0.02986    0.02583  -1.156    0.248    </span></span>
+<span id="cb23-24"><a href="#cb23-24" tabindex="-1"></a><span class="co">#&gt; Z_x1        -0.01401    0.02549  -0.550    0.583    </span></span>
+<span id="cb23-25"><a href="#cb23-25" tabindex="-1"></a><span class="co">#&gt; Z_z          1.25670    0.02468  50.927   &lt;2e-16 ***</span></span>
 <span id="cb23-26"><a href="#cb23-26" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
 <span id="cb23-27"><a href="#cb23-27" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span id="cb23-28"><a href="#cb23-28" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span id="cb23-29"><a href="#cb23-29" tabindex="-1"></a><span class="co">#&gt;                          Run Date: 2026-07-05 22:19:42 </span></span>
+<span id="cb23-29"><a href="#cb23-29" tabindex="-1"></a><span class="co">#&gt;                          Run Date: 2026-07-05 23:18:45 </span></span>
 <span id="cb23-30"><a href="#cb23-30" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre></div>
 </details><hr>
 </div>
@@ -555,14 +579,14 @@ Toggle to see the output
 <span id="cb25-17"><a href="#cb25-17" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
 <span id="cb25-18"><a href="#cb25-18" tabindex="-1"></a><span class="co">#&gt;                                 Final estimates </span></span>
 <span id="cb25-19"><a href="#cb25-19" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span id="cb25-20"><a href="#cb25-20" tabindex="-1"></a><span class="co">#&gt;                 Estimate Std. Error z value Pr(&gt;|z|)    </span></span>
-<span id="cb25-21"><a href="#cb25-21" tabindex="-1"></a><span class="co">#&gt; x_panel         0.512705   0.008692  58.985   &lt;2e-16 ***</span></span>
-<span id="cb25-22"><a href="#cb25-22" tabindex="-1"></a><span class="co">#&gt; INTERCEPT_mean  0.013508   0.037058   0.365    0.715    </span></span>
-<span id="cb25-23"><a href="#cb25-23" tabindex="-1"></a><span class="co">#&gt; x_panel_mean   -0.122045   0.081551  -1.497    0.135    </span></span>
+<span id="cb25-20"><a href="#cb25-20" tabindex="-1"></a><span class="co">#&gt;                Estimate Std. Error z value Pr(&gt;|z|)    </span></span>
+<span id="cb25-21"><a href="#cb25-21" tabindex="-1"></a><span class="co">#&gt; x_panel         0.50721    0.00864  58.705   &lt;2e-16 ***</span></span>
+<span id="cb25-22"><a href="#cb25-22" tabindex="-1"></a><span class="co">#&gt; INTERCEPT_mean -0.02762    0.03777  -0.731    0.465    </span></span>
+<span id="cb25-23"><a href="#cb25-23" tabindex="-1"></a><span class="co">#&gt; x_panel_mean   -0.00904    0.08772  -0.103    0.918    </span></span>
 <span id="cb25-24"><a href="#cb25-24" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
 <span id="cb25-25"><a href="#cb25-25" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span id="cb25-26"><a href="#cb25-26" tabindex="-1"></a><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span id="cb25-27"><a href="#cb25-27" tabindex="-1"></a><span class="co">#&gt;                          Run Date: 2026-07-05 22:19:42 </span></span>
+<span id="cb25-27"><a href="#cb25-27" tabindex="-1"></a><span class="co">#&gt;                          Run Date: 2026-07-05 23:18:45 </span></span>
 <span id="cb25-28"><a href="#cb25-28" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre></div>
 </details><hr>
 </div>

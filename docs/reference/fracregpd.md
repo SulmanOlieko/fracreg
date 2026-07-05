@@ -226,6 +226,55 @@ heterogeneity.
 ## Examples
 
 ``` r
+### Empirical 401(k) Examples
+data("fracreg_k401k")
+y <- fracreg_k401k$prate
+X <- cbind(mrate = fracreg_k401k$mrate, age = fracreg_k401k$age, 
+           totemp = fracreg_k401k$totemp, sole = fracreg_k401k$sole)
+
+# Artificial panel data structure for demonstration
+N_emp <- nrow(X)
+id_emp <- rep(1:(N_emp/2), each=2)
+time_emp <- rep(1:2, times=N_emp/2)
+fracregpd(id_emp, time_emp, y, X, type="QMLcre", link="probit")
+#> 
+#> -------------------------------------------------------------------------------- 
+#>                        Fractional probit regression model 
+#> -------------------------------------------------------------------------------- 
+#> Estimator:                                                                QMLcre 
+#> Exogeneity:                                                                 TRUE 
+#> Use first lag of instruments:                                              FALSE 
+#> Standard errors:                                                         cluster 
+#> -------------------------------------------------------------------------------- 
+#> Initial observations:                                                       1534 
+#> Estimation observations:                                                    1534 
+#> Initial cross-sectional units:                                               767 
+#> Estimation cross-sectional units:                                            767 
+#> Initial periods per unit (avg):                                                2 
+#> Estimation periods per unit (avg):                                             2 
+#> Convergence:                                                          Successful 
+#> -------------------------------------------------------------------------------- 
+#>                                 Final estimates 
+#> -------------------------------------------------------------------------------- 
+#>                  Estimate Std. Error z value Pr(>|z|)    
+#> mrate           3.915e-01  7.007e-02   5.588 2.30e-08 ***
+#> age             1.386e-02  3.543e-03   3.911 9.20e-05 ***
+#> totemp         -5.250e-06  2.649e-06  -1.982   0.0475 *  
+#> sole            2.378e-01  6.038e-02   3.938 8.22e-05 ***
+#> INTERCEPT_mean  6.235e-01  5.885e-02  10.596  < 2e-16 ***
+#> mrate_mean      5.726e-02  6.343e-02   0.903   0.3667    
+#> age_mean        1.544e-03  4.233e-03   0.365   0.7152    
+#> totemp_mean     1.223e-06  2.946e-06   0.415   0.6780    
+#> sole_mean      -7.157e-02  8.424e-02  -0.850   0.3956    
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> -------------------------------------------------------------------------------- 
+#>                          Run Date: 2026-07-05 23:19:05 
+#> -------------------------------------------------------------------------------- 
+#> 
+
+### Simulated Examples
+
 set.seed(123)
 # Simulating Panel Data
 N <- 100
@@ -278,7 +327,7 @@ fracregpd(id=id, time=time, y=y_panel, x=X, type="QMLcre", link="probit")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 22:24:44 
+#>                          Run Date: 2026-07-05 23:19:05 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -308,7 +357,7 @@ fracregpd(id=id, time=time, y=y_panel, x=X, type="GMMbgw")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 22:24:45 
+#>                          Run Date: 2026-07-05 23:19:05 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -338,7 +387,7 @@ fracregpd(id=id, time=time, y=y_panel, x=X, lags=TRUE, type="GMMww", var.type="r
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 22:24:45 
+#>                          Run Date: 2026-07-05 23:19:05 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -374,7 +423,7 @@ fracregpd(id=id, time=time, y=y_endog, x=X_endog, z=Z_inst,
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 22:24:45 
+#>                          Run Date: 2026-07-05 23:19:06 
 #> -------------------------------------------------------------------------------- 
 #> 
 ```

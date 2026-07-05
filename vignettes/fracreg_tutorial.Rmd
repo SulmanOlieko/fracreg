@@ -38,7 +38,7 @@ The **`fracreg`** package is the most comprehensive tool available in R for esti
 - **Panel data models** (`fracregpd`): CRE, QML, and GMM approaches for longitudinal data.
 - **Endogeneity correction** (`fracreghet`): Control function and IV-GMM approaches.
 
-This vignette walks you through simulated examples demonstrating each estimator.
+This vignette walks you through empirical examples demonstrating each estimator using the 401(k) dataset.
 
 ```{r load-package}
 library(fracreg)
@@ -50,25 +50,27 @@ library(fracreg)
 
 The core `fracreg()` function is designed for univariate models where the dependent variable is bounded between 0 and 1 inclusive ($0 \le y \le 1$).
 
-### 1.1 Simulating the Data
+### 1.1 Data Description and Preparation
 
-```{r data-sim}
-set.seed(123)
-N <- 1000
-x1 <- rnorm(N)
-x2 <- runif(N)
+We use the built-in `fracreg_k401k` dataset, which is the canonical firm-level 401(k) plan participation data used in **Papke and Wooldridge (1996)** (*"Econometric methods for fractional response variables with an application to 401(k) plan participation rates"*, Journal of Applied Econometrics). The dataset contains 1,534 observations of 401(k) plans. 
 
-# Generating a fractional dependent variable with inflation at 0 and 1
-XB <- -0.5 + 0.8 * x1 + 1.2 * x2 + rnorm(N)
-y_latent <- exp(XB) / (1 + exp(XB))
+The primary variables we use are:
+- `prate`: The plan participation rate (the fraction of eligible employees who are active participants). It strictly falls in the $[0, 1]$ interval and is our dependent variable ($y$).
+- `mrate`: The firm's matching rate (the firm's contribution per $1 of employee contribution).
+- `age`: The age of the 401(k) plan.
+- `totemp`: Total number of employees at the firm.
+- `sole`: A binary indicator equal to 1 if the 401(k) plan is the sole retirement plan offered by the firm.
 
-y <- y_latent
-# Inflate at boundaries
-y[y_latent < 0.2] <- 0
-y[y_latent > 0.8] <- 1
-
-data <- data.frame(y = y, x1 = x1, x2 = x2)
-head(data)
+```{r data-load}
+data("fracreg_k401k")
+y <- fracreg_k401k$prate
+X <- cbind(
+  mrate = fracreg_k401k$mrate, 
+  age = fracreg_k401k$age, 
+  totemp = fracreg_k401k$totemp, 
+  sole = fracreg_k401k$sole
+)
+head(cbind(y, X))
 ```
 
 ### 1.2 The Standard 1-Part Model (1P)
@@ -79,8 +81,8 @@ where $G(\cdot)$ is a known non-linear link function (e.g., logit, probit) satis
 
 ```{r one-part}
 model_1p <- fracreg(
-  y = data$y, 
-  x = cbind(x1 = data$x1, x2 = data$x2), 
+  y = y, 
+  x = X, 
   type = "1P", 
   linkfrac = "logit"
 )
@@ -104,12 +106,12 @@ Often, fractional data (e.g., participation rates, insurance coverage, expenditu
 The overall conditional expectation is then $E(y \mid x) = \Pr(y > 0 \mid x) \cdot E(y \mid y > 0, x)$.
 
 ```{r two-part}
-# We use inflation=0 to indicate we are modelling the mass at zero
+# We use inflation=1 to indicate we are modelling the mass at 100% participation
 model_2p <- fracreg(
-  y = data$y, 
-  x = cbind(x1 = data$x1, x2 = data$x2), 
+  y = y, 
+  x = X, 
   type = "2P", 
-  inflation = 0,
+  inflation = 1,
   linkbin = "logit", 
   linkfrac = "logit"
 )
@@ -134,10 +136,14 @@ When data has substantial clustering at **both** boundaries (0 and 1) simultaneo
 The overall conditional expectation integrates these three mechanisms into a single framework.
 
 ```{r three-part}
+# Since the k401k data has no exact 0s, we inject some artificial 0s just for demonstration
+y_3p <- y
+y_3p[1:50] <- 0
+
 # Linkbin takes a vector of two links for the two binary hurdles
 model_3p <- fracreg(
-  y = data$y, 
-  x = cbind(x1 = data$x1, x2 = data$x2), 
+  y = y_3p, 
+  x = X, 
   type = "3P", 
   linkbin = c("logit", "logit"), 
   linkfrac = "logit"
@@ -188,8 +194,8 @@ $$ E(y|x) = G\left(x\beta + \gamma \left( \hat{y}_{M2} - \hat{y}_{M1} \right)\ri
 
 ```{r ptest}
 model_1p_clog <- fracreg(
-  y = data$y, 
-  x = cbind(x1 = data$x1, x2 = data$x2), 
+  y = y, 
+  x = X, 
   type = "1P", 
   linkfrac = "cloglog"
 )
@@ -212,6 +218,9 @@ $$ E(y_{1i} \mid z_i, y_{2i}, v_i) = G(x_i \beta + \gamma \hat{v}_i) $$
 
 ```{r endogeneity}
 # Simulating an endogenous variable (var.endog) and an instrument (z)
+set.seed(42)
+N <- length(y)
+x1 <- rnorm(N)
 z <- rnorm(N)
 u <- 0.5 * z + rnorm(N)
 var.endog <- 0.8 * z + u

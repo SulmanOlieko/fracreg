@@ -120,6 +120,20 @@ Sulman Olieko Owili <oliekosulman@gmail.com>
 }
 
 \examples{
+### Empirical 401(k) Examples
+data("fracreg_k401k")
+y <- fracreg_k401k$prate
+X <- cbind(mrate = fracreg_k401k$mrate, age = fracreg_k401k$age, 
+           totemp = fracreg_k401k$totemp, sole = fracreg_k401k$sole)
+
+# Artificial panel data structure for demonstration
+N_emp <- nrow(X)
+id_emp <- rep(1:(N_emp/2), each=2)
+time_emp <- rep(1:2, times=N_emp/2)
+fracregpd(id_emp, time_emp, y, X, type="QMLcre", link="probit")
+
+### Simulated Examples
+
 set.seed(123)
 # Simulating Panel Data
 N <- 100

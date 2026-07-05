@@ -124,6 +124,28 @@ for the RESET test.
 ## Examples
 
 ``` r
+### Empirical 401(k) Examples
+data("fracreg_k401k")
+y <- fracreg_k401k$prate
+X <- cbind(mrate = fracreg_k401k$mrate, age = fracreg_k401k$age, 
+           totemp = fracreg_k401k$totemp, sole = fracreg_k401k$sole)
+
+# Artificial instrumental variable for demonstration
+Z_emp <- cbind(X, z = fracreg_k401k$mrate * rnorm(length(y)))
+fracreghet(y, X, Z_emp, var.endog = X[, "mrate"], type="QMLxv", link="logit")
+#> Warning: NA/NaN function evaluation
+#> Warning: NA/NaN function evaluation
+#> Warning: NA/NaN function evaluation
+#> Warning: NA/NaN function evaluation
+#> -------------------------------------------------------------------------------- 
+#> Convergence:                                                              FAILED 
+#> -------------------------------------------------------------------------------- 
+#>                          Run Date: 2026-07-05 23:19:03 
+#> -------------------------------------------------------------------------------- 
+#> 
+
+### Simulated Examples
+
 N <- 250
 u <- rnorm(N)
 
@@ -148,11 +170,11 @@ fracreghet.pe(res,which.x="X1")
 #>                                 Estimator: GMMx 
 #> -------------------------------------------------------------------------------- 
 #>    Estimate Std. Error z value Pr(>|z|)    
-#> X1  0.16698    0.00957   17.45   <2e-16 ***
+#> X1  0.16138    0.01172   13.77   <2e-16 ***
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 22:24:44 
+#>                          Run Date: 2026-07-05 23:19:04 
 #> -------------------------------------------------------------------------------- 
 
 #Naive estimator of conditional partial effects for all covariates,
@@ -167,12 +189,12 @@ fracreghet.pe(res,smearing=FALSE,APE=FALSE,CPE=TRUE,at=c(1,-1))
 #>                                 Estimator: GMMx 
 #> -------------------------------------------------------------------------------- 
 #>    Estimate Std. Error z value Pr(>|z|)    
-#> X1  0.22878    0.01322   17.31   <2e-16 ***
-#> X2  0.20655    0.01447   14.28   <2e-16 ***
+#> X1  0.22900    0.01633   14.03   <2e-16 ***
+#> X2  0.23474    0.02230   10.53   <2e-16 ***
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 22:24:44 
+#>                          Run Date: 2026-07-05 23:19:04 
 #> -------------------------------------------------------------------------------- 
 #> 
 #> Note: covariates evaluated at the following values:

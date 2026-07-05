@@ -58,6 +58,18 @@ Sulman Olieko Owili <oliekosulman@gmail.com>
 }
 
 \examples{
+### Empirical 401(k) Examples
+data("fracreg_k401k")
+y <- fracreg_k401k$prate
+X <- cbind(mrate = fracreg_k401k$mrate, age = fracreg_k401k$age, 
+           totemp = fracreg_k401k$totemp, sole = fracreg_k401k$sole)
+
+# Artificial instrumental variable for demonstration
+Z_emp <- cbind(X, z = fracreg_k401k$mrate * rnorm(length(y)))
+fracreghet(y, X, Z_emp, var.endog = X[, "mrate"], type="QMLxv", link="logit")
+
+### Simulated Examples
+
 N <- 250
 u <- rnorm(N)
 

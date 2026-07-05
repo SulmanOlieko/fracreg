@@ -227,6 +227,28 @@ for fitting panel data fractional response models.
 ## Examples
 
 ``` r
+### Empirical 401(k) Examples
+data("fracreg_k401k")
+y <- fracreg_k401k$prate
+X <- cbind(mrate = fracreg_k401k$mrate, age = fracreg_k401k$age, 
+           totemp = fracreg_k401k$totemp, sole = fracreg_k401k$sole)
+
+# Artificial instrumental variable for demonstration
+Z_emp <- cbind(X, z = fracreg_k401k$mrate * rnorm(length(y)))
+fracreghet(y, X, Z_emp, var.endog = X[, "mrate"], type="QMLxv", link="logit")
+#> Warning: NA/NaN function evaluation
+#> Warning: NA/NaN function evaluation
+#> Warning: NA/NaN function evaluation
+#> Warning: NA/NaN function evaluation
+#> -------------------------------------------------------------------------------- 
+#> Convergence:                                                              FAILED 
+#> -------------------------------------------------------------------------------- 
+#>                          Run Date: 2026-07-05 23:19:03 
+#> -------------------------------------------------------------------------------- 
+#> 
+
+### Simulated Examples
+
 set.seed(123)
 N <- 1000
 x1 <- rnorm(N)
@@ -264,7 +286,7 @@ fracreghet(y = y_endog, x = X, type = "GMMx", link = "logit")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 22:24:43 
+#>                          Run Date: 2026-07-05 23:19:03 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -288,7 +310,7 @@ fracreghet(y = y_endog, x = X, z = Z, type = "GMMz", link = "logit")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 22:24:43 
+#>                          Run Date: 2026-07-05 23:19:03 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -323,7 +345,7 @@ fracreghet(y = y_endog, x = X, z = Z, var.endog = var.endog, type = "GMMxv", lin
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 22:24:43 
+#>                          Run Date: 2026-07-05 23:19:03 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -357,7 +379,7 @@ fracreghet(y = y_endog, x = X, z = Z, var.endog = var.endog, type = "QMLxv", lin
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 22:24:43 
+#>                          Run Date: 2026-07-05 23:19:03 
 #> -------------------------------------------------------------------------------- 
 #> 
 ```

@@ -3,3 +3,5 @@
 ^pkgdown$
 ^fracreg_manual\.pdf$
 ^README\.Rmd$
+^\.github$
+^build_site\.R$

@@ -54,6 +54,7 @@ reference:
     desc: "General package description and help."
     contents:
       - fracreg-package
+      - fracreg_k401k
 
   - title: "Base Fractional Estimators"
     desc: "Functions for cross-sectional, hurdle, and double-inflated models."
