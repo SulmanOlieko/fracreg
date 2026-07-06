@@ -10,3 +10,4 @@
 ^examples_dump\.md$
 ^data-raw$
 ^scratch$
+^cran-comments\.md$
