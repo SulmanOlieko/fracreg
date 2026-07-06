@@ -250,7 +250,7 @@ Z_emp <- cbind(age = fracreg_k401k$age, ltotemp = fracreg_k401k$ltotemp)
 fracreghet(y_adj, X_het, Z_emp, var.endog = X_het[, "mrate"], type="QMLxv", link="logit") 
 #> 
 #> -------------------------------------------------------------------------------- 
-#>            Fractional logit model with heteroscedasticity/endogeneity 
+#>         Fractional logit regression with heteroscedasticity/endogeneity 
 #> -------------------------------------------------------------------------------- 
 #> Estimator:                                                                 QMLxv 
 #> Data type:                                                       Cross-sectional 
@@ -283,7 +283,7 @@ fracreghet(y_adj, X_het, Z_emp, var.endog = X_het[, "mrate"], type="QMLxv", link
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 01:47:57 
+#>                          Run Date: 2026-07-06 02:01:26 
 #> -------------------------------------------------------------------------------- 
 #> 
  
@@ -310,7 +310,7 @@ Z <- cbind(x1 = x1, z1 = z1)
 fracreghet(y = y_endog, x = X, type = "GMMx", link = "logit")
 #> 
 #> -------------------------------------------------------------------------------- 
-#>            Fractional logit model with heteroscedasticity/endogeneity 
+#>         Fractional logit regression with heteroscedasticity/endogeneity 
 #> -------------------------------------------------------------------------------- 
 #> Estimator:                                                                  GMMx 
 #> Data type:                                                       Cross-sectional 
@@ -333,7 +333,7 @@ fracreghet(y = y_endog, x = X, type = "GMMx", link = "logit")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 01:47:57 
+#>                          Run Date: 2026-07-06 02:01:26 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -341,7 +341,7 @@ fracreghet(y = y_endog, x = X, type = "GMMx", link = "logit")
 fracreghet(y = y_endog, x = X, z = Z, type = "GMMz", link = "logit")
 #> 
 #> -------------------------------------------------------------------------------- 
-#>            Fractional logit model with heteroscedasticity/endogeneity 
+#>         Fractional logit regression with heteroscedasticity/endogeneity 
 #> -------------------------------------------------------------------------------- 
 #> Estimator:                                                                  GMMz 
 #> Data type:                                                       Cross-sectional 
@@ -364,7 +364,7 @@ fracreghet(y = y_endog, x = X, z = Z, type = "GMMz", link = "logit")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 01:47:57 
+#>                          Run Date: 2026-07-06 02:01:26 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -373,7 +373,7 @@ fracreghet(y = y_endog, x = X, z = Z, var.endog = var.endog, type = "GMMxv", lin
 #> Warning: NaNs produced
 #> 
 #> -------------------------------------------------------------------------------- 
-#>            Fractional logit model with heteroscedasticity/endogeneity 
+#>         Fractional logit regression with heteroscedasticity/endogeneity 
 #> -------------------------------------------------------------------------------- 
 #> Estimator:                                                                 GMMxv 
 #> Data type:                                                       Cross-sectional 
@@ -409,7 +409,7 @@ fracreghet(y = y_endog, x = X, z = Z, var.endog = var.endog, type = "GMMxv", lin
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 01:47:57 
+#>                          Run Date: 2026-07-06 02:01:26 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -417,7 +417,7 @@ fracreghet(y = y_endog, x = X, z = Z, var.endog = var.endog, type = "GMMxv", lin
 fracreghet(y = y_endog, x = X, z = Z, var.endog = var.endog, type = "QMLxv", link = "logit")
 #> 
 #> -------------------------------------------------------------------------------- 
-#>            Fractional logit model with heteroscedasticity/endogeneity 
+#>         Fractional logit regression with heteroscedasticity/endogeneity 
 #> -------------------------------------------------------------------------------- 
 #> Estimator:                                                                 QMLxv 
 #> Data type:                                                       Cross-sectional 
@@ -453,7 +453,7 @@ fracreghet(y = y_endog, x = X, z = Z, var.endog = var.endog, type = "QMLxv", lin
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 01:47:57 
+#>                          Run Date: 2026-07-06 02:01:26 
 #> -------------------------------------------------------------------------------- 
 #> 
 ```

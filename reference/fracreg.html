@@ -249,7 +249,7 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-in"><span><span class="fu">fracreg</span><span class="op">(</span><span class="va">y</span>, <span class="va">X</span>, type<span class="op">=</span><span class="st">"1P"</span>, linkfrac<span class="op">=</span><span class="st">"logit"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                              Fractional logit model </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                           Fractional logit regression </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimator:                                                                   QML </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Data type:                                                       Cross-sectional </span>
@@ -279,7 +279,7 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-06 01:47:55 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-06 02:01:23 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
@@ -287,7 +287,7 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-in"><span><span class="fu">fracreg</span><span class="op">(</span><span class="va">y</span>, <span class="va">X</span>, type<span class="op">=</span><span class="st">"2P"</span>, inflation<span class="op">=</span><span class="fl">1</span>, linkbin<span class="op">=</span><span class="st">"logit"</span>, linkfrac<span class="op">=</span><span class="st">"logit"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                            Part 1: Binary logit model </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                         Part 1: Binary logit regression </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimator:                                                                    ML </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Data type:                                                       Cross-sectional </span>
@@ -313,7 +313,7 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Part 2: Fractional logit model </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                       Part 2: Fractional logit regression </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimator:                                                                   QML </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Data type:                                                       Cross-sectional </span>
@@ -346,13 +346,13 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                 Two-part model - binary logit + fractional logit </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              Two-part regression - binary logit + fractional logit </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Data type:                                                       Cross-sectional </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Pseudo R-squared:                                                        0.11243 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Convergence:                                                          Successful </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-06 01:47:55 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-06 02:01:23 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
@@ -361,7 +361,7 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-in"><span><span class="fu">fracreg</span><span class="op">(</span><span class="va">y_3p</span>, <span class="va">X</span>, type<span class="op">=</span><span class="st">"3P"</span>, linkbin<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"logit"</span>,<span class="st">"logit"</span><span class="op">)</span>, linkfrac<span class="op">=</span><span class="st">"logit"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                            Part 1: Binary logit model </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                         Part 1: Binary logit regression </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimator:                                                                    ML </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Data type:                                                       Cross-sectional </span>
@@ -387,7 +387,7 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                            Part 2: Binary logit model </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                         Part 2: Binary logit regression </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimator:                                                                    ML </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Data type:                                                       Cross-sectional </span>
@@ -413,7 +413,7 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Part 3: Fractional logit model </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                       Part 3: Fractional logit regression </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimator:                                                                   QML </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Data type:                                                       Cross-sectional </span>
@@ -446,13 +446,13 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        Three-part model - binary logit , binary logit + fractional logit </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      Three-part regression - binary logit , binary logit + fractional logit </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Data type:                                                       Cross-sectional </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Pseudo R-squared:                                                        0.07934 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Convergence:                                                          Successful </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-06 01:47:55 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-06 02:01:23 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
@@ -478,7 +478,7 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-in"><span><span class="fu">fracreg</span><span class="op">(</span><span class="va">y</span>, <span class="va">X</span>, type<span class="op">=</span><span class="st">"1P"</span>, linkfrac<span class="op">=</span><span class="st">"logit"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                              Fractional logit model </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                           Fractional logit regression </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimator:                                                                   QML </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Data type:                                                       Cross-sectional </span>
@@ -500,7 +500,7 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-06 01:47:55 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-06 02:01:23 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
@@ -509,7 +509,7 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-in"><span><span class="fu">fracreg</span><span class="op">(</span><span class="va">y</span>, <span class="va">X</span>, type<span class="op">=</span><span class="st">"2Pbin"</span>, inflation<span class="op">=</span><span class="fl">0</span>, linkbin<span class="op">=</span><span class="st">"logit"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                            Part 1: Binary logit model </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                         Part 1: Binary logit regression </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimator:                                                                    ML </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Data type:                                                       Cross-sectional </span>
@@ -538,7 +538,7 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-in"><span><span class="fu">fracreg</span><span class="op">(</span><span class="va">y</span>, <span class="va">X</span>, type<span class="op">=</span><span class="st">"2Pfrac"</span>, inflation<span class="op">=</span><span class="fl">0</span>, linkfrac<span class="op">=</span><span class="st">"probit"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                         Part 2: Fractional probit model </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                       Part 2: Fractional probit regression </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimator:                                                                   QML </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Data type:                                                       Cross-sectional </span>
@@ -568,7 +568,7 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-in"><span><span class="fu">fracreg</span><span class="op">(</span><span class="va">y</span>, <span class="va">X</span>, type<span class="op">=</span><span class="st">"2P"</span>, inflation<span class="op">=</span><span class="fl">0</span>, linkbin<span class="op">=</span><span class="st">"cloglog"</span>, linkfrac<span class="op">=</span><span class="st">"logit"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                           Part 1: Binary cloglog model </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                        Part 1: Binary cloglog regression </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimator:                                                                    ML </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Data type:                                                       Cross-sectional </span>
@@ -592,7 +592,7 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Part 2: Fractional logit model </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                       Part 2: Fractional logit regression </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimator:                                                                   QML </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Data type:                                                       Cross-sectional </span>
@@ -617,13 +617,13 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                Two-part model - binary cloglog + fractional logit </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             Two-part regression - binary cloglog + fractional logit </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Data type:                                                       Cross-sectional </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Pseudo R-squared:                                                        0.38829 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Convergence:                                                          Successful </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-06 01:47:55 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-06 02:01:23 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
@@ -631,7 +631,7 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-in"><span><span class="fu">fracreg</span><span class="op">(</span><span class="va">y</span>, <span class="va">X</span>, type<span class="op">=</span><span class="st">"3P"</span>, linkbin<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"logit"</span>,<span class="st">"probit"</span><span class="op">)</span>, linkfrac<span class="op">=</span><span class="st">"logit"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                            Part 1: Binary logit model </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                         Part 1: Binary logit regression </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimator:                                                                    ML </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Data type:                                                       Cross-sectional </span>
@@ -655,7 +655,7 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                           Part 2: Binary probit model </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                         Part 2: Binary probit regression </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimator:                                                                    ML </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Data type:                                                       Cross-sectional </span>
@@ -679,7 +679,7 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Part 3: Fractional logit model </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                       Part 3: Fractional logit regression </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimator:                                                                   QML </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Data type:                                                       Cross-sectional </span>
@@ -704,13 +704,13 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        Three-part model - binary logit , binary probit + fractional logit </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     Three-part regression - binary logit , binary probit + fractional logit </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Data type:                                                       Cross-sectional </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Pseudo R-squared:                                                        0.38917 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Convergence:                                                          Successful </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-06 01:47:55 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-06 02:01:23 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 </code></pre></div>

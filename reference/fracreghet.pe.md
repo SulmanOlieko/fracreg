@@ -144,7 +144,7 @@ fracreghet.pe(res_emp, which.x="mrate")
 #> -------------------------------------------------------------------------------- 
 #> Average partial effects (conditional only on observables, based on the smearing estimator) 
 #> -------------------------------------------------------------------------------- 
-#>                        Fractional logit regression model 
+#>                           Fractional logit regression 
 #>                                 Estimator: QMLxv 
 #> -------------------------------------------------------------------------------- 
 #>       Estimate Std. Error z value Pr(>|z|)    
@@ -152,7 +152,7 @@ fracreghet.pe(res_emp, which.x="mrate")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 01:47:58 
+#>                          Run Date: 2026-07-06 02:01:26 
 #> -------------------------------------------------------------------------------- 
  
 ### Simulated Examples
@@ -177,7 +177,7 @@ fracreghet.pe(res,which.x="X1")
 #> -------------------------------------------------------------------------------- 
 #> Average partial effects (conditional only on observables, based on the smearing estimator) 
 #> -------------------------------------------------------------------------------- 
-#>                        Fractional logit regression model 
+#>                           Fractional logit regression 
 #>                                 Estimator: GMMx 
 #> -------------------------------------------------------------------------------- 
 #>    Estimate Std. Error z value Pr(>|z|)    
@@ -185,7 +185,7 @@ fracreghet.pe(res,which.x="X1")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 01:47:58 
+#>                          Run Date: 2026-07-06 02:01:26 
 #> -------------------------------------------------------------------------------- 
 
 #Naive estimator of conditional partial effects for all covariates,
@@ -196,7 +196,7 @@ fracreghet.pe(res,smearing=FALSE,APE=FALSE,CPE=TRUE,at=c(1,-1))
 #> -------------------------------------------------------------------------------- 
 #> Conditional partial effects (conditional on both observables and unobservables, with error term = 0) 
 #> -------------------------------------------------------------------------------- 
-#>                        Fractional logit regression model 
+#>                           Fractional logit regression 
 #>                                 Estimator: GMMx 
 #> -------------------------------------------------------------------------------- 
 #>    Estimate Std. Error z value Pr(>|z|)    
@@ -205,7 +205,7 @@ fracreghet.pe(res,smearing=FALSE,APE=FALSE,CPE=TRUE,at=c(1,-1))
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 01:47:58 
+#>                          Run Date: 2026-07-06 02:01:26 
 #> -------------------------------------------------------------------------------- 
 #> 
 #> Note: covariates evaluated at the following values:

@@ -239,7 +239,7 @@ time_emp <- rep(1:2, times=N_emp/2)
 fracregpd(id_emp, time_emp, y, X, type="QMLcre", link="probit")
 #> 
 #> -------------------------------------------------------------------------------- 
-#>               Fractional probit (correlated random effects)  model 
+#>            Fractional probit (correlated random effects)  regression 
 #> -------------------------------------------------------------------------------- 
 #> Estimator:                                                                QMLcre 
 #> Data type:                                                                 Panel 
@@ -280,7 +280,7 @@ fracregpd(id_emp, time_emp, y, X, type="QMLcre", link="probit")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 01:47:59 
+#>                          Run Date: 2026-07-06 02:01:27 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -314,7 +314,7 @@ Z_inst <- cbind(x_panel = x_panel, z_panel = z_panel)
 fracregpd(id=id, time=time, y=y_panel, x=X, type="QMLcre", link="probit")
 #> 
 #> -------------------------------------------------------------------------------- 
-#>               Fractional probit (correlated random effects)  model 
+#>            Fractional probit (correlated random effects)  regression 
 #> -------------------------------------------------------------------------------- 
 #> Estimator:                                                                QMLcre 
 #> Data type:                                                                 Panel 
@@ -343,7 +343,7 @@ fracregpd(id=id, time=time, y=y_panel, x=X, type="QMLcre", link="probit")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 01:47:59 
+#>                          Run Date: 2026-07-06 02:01:27 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -351,7 +351,7 @@ fracregpd(id=id, time=time, y=y_panel, x=X, type="QMLcre", link="probit")
 fracregpd(id=id, time=time, y=y_panel, x=X, type="GMMbgw")
 #> 
 #> -------------------------------------------------------------------------------- 
-#>                             Fractional logit  model 
+#>                           Fractional logit  regression 
 #> -------------------------------------------------------------------------------- 
 #> Estimator:                                                                GMMbgw 
 #> Data type:                                                                 Panel 
@@ -375,7 +375,7 @@ fracregpd(id=id, time=time, y=y_panel, x=X, type="GMMbgw")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 01:47:59 
+#>                          Run Date: 2026-07-06 02:01:27 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -383,7 +383,7 @@ fracregpd(id=id, time=time, y=y_panel, x=X, type="GMMbgw")
 fracregpd(id=id, time=time, y=y_panel, x=X, lags=TRUE, type="GMMww", var.type="robust")
 #> 
 #> -------------------------------------------------------------------------------- 
-#>                             Fractional logit  model 
+#>                           Fractional logit  regression 
 #> -------------------------------------------------------------------------------- 
 #> Estimator:                                                                 GMMww 
 #> Data type:                                                                 Panel 
@@ -407,7 +407,7 @@ fracregpd(id=id, time=time, y=y_panel, x=X, lags=TRUE, type="GMMww", var.type="r
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 01:47:59 
+#>                          Run Date: 2026-07-06 02:01:27 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -416,7 +416,7 @@ fracregpd(id=id, time=time, y=y_endog, x=X_endog, z=Z_inst,
           x.exogenous=FALSE, type="GMMpfe", tdummies=TRUE)
 #> 
 #> -------------------------------------------------------------------------------- 
-#>                  Fractional logit (pooled fixed effects)  model 
+#>               Fractional logit (pooled fixed effects)  regression 
 #> -------------------------------------------------------------------------------- 
 #> Estimator:                                                                GMMpfe 
 #> Data type:                                                                 Panel 
@@ -450,7 +450,7 @@ fracregpd(id=id, time=time, y=y_endog, x=X_endog, z=Z_inst,
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 01:47:59 
+#>                          Run Date: 2026-07-06 02:01:28 
 #> -------------------------------------------------------------------------------- 
 #> 
 ```
