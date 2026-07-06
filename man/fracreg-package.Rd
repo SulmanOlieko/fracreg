@@ -16,7 +16,17 @@ License: \tab GPL-3\cr
 }
 \author{Sulman Olieko Owili <oliekosulman@gmail.com>}
 
+\section{Acknowledgements}{
+This package builds upon, consolidates, and modernises the fractional regression frameworks originally implemented in the \code{frm}, \code{frmhet}, and \code{frmpd} R packages developed by Joaquim J.S. Ramalho. As those original packages have been deprecated and removed from the active CRAN repository, \code{fracreg} serves as an actively maintained successor, ensuring these econometric tools remain available to the R community.
+}
+
 \references{
+Ramalho, J. J. S. \emph{frm: Fractional Regression Models}. R package. Formerly available on CRAN, currently archived.
+
+Ramalho, J. J. S. \emph{frmhet: Fractional Regression Models under Heterogeneity}. R package. Formerly available on CRAN, currently archived.
+
+Ramalho, J. J. S. \emph{frmpd: Fractional Regression Models for Panel Data}. R package. Formerly available on CRAN, currently archived.
+
 Papke, L. E. and Wooldridge, J. M. (1996), "Econometric methods for fractional response variables with an application to 401(k) plan participation rates", \emph{Journal of Applied Econometrics}, 11(6), 619-632.
 
 Ramalho, E.A., J.J.S. Ramalho and J.M.R. Murteira (2011), "Alternative estimating and testing empirical strategies for fractional response models", \emph{Journal of Economic Surveys}, 25(1), 19-68.

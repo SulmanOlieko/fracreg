@@ -24,7 +24,26 @@ tests such as RESET, P test, and GGOFF tests.
 
 Sulman Olieko Owili \<oliekosulman@gmail.com\>
 
+## Acknowledgements
+
+This package builds upon, consolidates, and modernises the fractional
+regression frameworks originally implemented in the `frm`, `frmhet`, and
+`frmpd` R packages developed by Joaquim J.S. Ramalho. As those original
+packages have been deprecated and removed from the active CRAN
+repository, `fracreg` serves as an actively maintained successor,
+ensuring these econometric tools remain available to the R community.
+
 ## References
+
+Ramalho, J. J. S. *frm: Fractional Regression Models*. R package.
+Formerly available on CRAN, currently archived.
+
+Ramalho, J. J. S. *frmhet: Fractional Regression Models under
+Heterogeneity*. R package. Formerly available on CRAN, currently
+archived.
+
+Ramalho, J. J. S. *frmpd: Fractional Regression Models for Panel Data*.
+R package. Formerly available on CRAN, currently archived.
 
 Papke, L. E. and Wooldridge, J. M. (1996), "Econometric methods for
 fractional response variables with an application to 401(k) plan

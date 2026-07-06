@@ -80,7 +80,7 @@ instrumental variables). Only required in case of endogenous explanatory variabl
 <dd><p>a logical value indicating whether the first lags of <code>x</code> or  <code>z</code> should be used as instruments for <code>x</code>. Defaults to <code>TRUE</code> for the GMMww and GMMc estimators and to <code>FALSE</code> for the remaining estimators. The <code>GMMcre</code> and <code>QMLcre</code> estimators do not admit lagged instruments.</p></dd>
 
   <dt id="arg-start">start<a class="anchor" aria-label="anchor" href="#arg-start"></a></dt>
-<dd><p>a numeric vector containing the initial values for the parameters to be optimized. Optional.</p></dd>
+<dd><p>a numeric vector containing the initial values for the parameters to be optimised. Optional.</p></dd>
 
   <dt id="arg-type">type<a class="anchor" aria-label="anchor" href="#arg-type"></a></dt>
 <dd><p>a description of the estimator to compute: <code>GMMww</code>, <code>GMMc</code>, <code>GMMbgw</code>, <code>GMMpfe</code>, <code>GMMcre</code>, <code>GMMpre</code> or <code>QMLcre</code>.</p></dd>
@@ -127,7 +127,7 @@ $$c_i = \psi + \bar{x}_i \xi + a_i$$
 where \(a_i\) is an error term independent of \(x_i\). Assuming \(a_i | x_i \sim N(0, \sigma_a^2)\) and a probit link, integrating out \(a_i\) yields the "population-averaged" or scaled conditional mean:
 $$E(y_{it} | x_i) = G(x_{it} \beta_a + \psi_a + \bar{x}_i \xi_a)$$
 where the parameters with subscript \(a\) are scaled by \((1 + \sigma_a^2)^{-1/2}\). This equation is estimated via pooled Bernoulli QML.</p>
-<p><strong>Generalized Method of Moments (GMM):</strong>
+<p><strong>Generalised Method of Moments (GMM):</strong>
 For models where strict exogeneity fails or the link function is an exponential-type link, Ramalho et al. (2018) propose GMM estimators based on the following general moment conditions:
 $$E[Z_{it} (H(y_{it}) - \exp(x_{it}\beta + c_i))] = 0$$
 where \(H(\cdot)\) is a transformation function and \(Z_{it}\) is a matrix of valid instruments. Estimators such as GMMww, GMMc, and GMMbgw use different transformations to eliminate the unobserved fixed effect \(c_i\) before applying GMM.</p>
@@ -168,7 +168,7 @@ where \(H(\cdot)\) is a transformation function and \(Z_{it}\) is a matrix of va
 </dl></div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
-    <p>Papke, L. and Wooldridge, J.M. (2008), "Panel data methods for fractional response variables with an application to test pass rates", <em>Journal of Econometrics</em>, 145(1-2), 121-233.</p>
+    <p>Papke, L. and Wooldridge, J.M. (2008), "Panel data methods for fractional response variables with an application to test pass rates", <em>Journal of Econometrics</em>, 145(1-2), 121-133.</p>
 <p>Ramalho, E. A., Ramalho, J. J. S., &amp; Coelho, L. M. S. (2018), "Exponential Regression of Fractional-Response Fixed-Effects Models with an Application to Firm Capital Structure", <em>Journal of Econometric Methods</em>, 7(1), 20150019.</p>
 <p>Wooldridge, J. M. (2019). Correlated random effects models with unbalanced panels. <em>Journal of Econometrics</em>, 211(1), 137-150.</p>
     </div>
@@ -196,37 +196,48 @@ where \(H(\cdot)\) is a transformation function and \(Z_{it}\) is a matrix of va
 <span class="r-in"><span><span class="fu">fracregpd</span><span class="op">(</span><span class="va">id_emp</span>, <span class="va">time_emp</span>, <span class="va">y</span>, <span class="va">X</span>, type<span class="op">=</span><span class="st">"QMLcre"</span>, link<span class="op">=</span><span class="st">"probit"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                        Fractional probit regression model </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>               Fractional probit (correlated random effects)  model </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimator:                                                                QMLcre </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Data type:                                                                 Panel </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Exogeneity:                                                                 TRUE </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Use first lag of instruments:                                              FALSE </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Standard errors:                                                         cluster </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Initial observations:                                                       1534 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Estimation observations:                                                    1534 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Initial cross-sectional units:                                               767 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Estimation cross-sectional units:                                            767 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Initial periods per unit (avg):                                                2 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Estimation periods per unit (avg):                                             2 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Number of observations:                                                     1534 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Number of groups:                                                            767 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Obs per group:                                                                 2 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Log pseudolikelihood:                                                  -554.0205 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Wald chi2(9):                                                          3191.0501 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Prob &gt; chi2:                                                              0.0000 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Convergence:                                                          Successful </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                 Final estimates </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       Final (Correlated Random Effects) Quasi-Maximum Likelihood estimates </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                  Estimate Std. Error z value Pr(&gt;|z|)    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> mrate           3.915e-01  7.007e-02   5.588 2.30e-08 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> age             1.386e-02  3.543e-03   3.911 9.20e-05 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> totemp         -5.250e-06  2.649e-06  -1.982   0.0475 *  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> sole            2.378e-01  6.038e-02   3.938 8.22e-05 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> INTERCEPT_mean  6.235e-01  5.885e-02  10.596  &lt; 2e-16 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> mrate_mean      5.726e-02  6.343e-02   0.903   0.3667    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> age_mean        1.544e-03  4.233e-03   0.365   0.7152    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> totemp_mean     1.223e-06  2.946e-06   0.415   0.6780    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> sole_mean      -7.157e-02  8.424e-02  -0.850   0.3956    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                Coefficient Cluster Std.Err.    z value [95% Conf. Interval]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mrate            3.915e-01        7.007e-02  5.588e+00  2.542e-01     0.529</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> age              1.386e-02        3.543e-03  3.911e+00  6.912e-03     0.021</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> totemp          -5.250e-06        2.649e-06 -1.982e+00 -1.044e-05     0.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> sole             2.378e-01        6.038e-02  3.938e+00  1.194e-01     0.356</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> INTERCEPT_mean   6.235e-01        5.885e-02  1.060e+01  5.082e-01     0.739</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mrate_mean       5.726e-02        6.343e-02  9.027e-01 -6.706e-02     0.182</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> age_mean         1.544e-03        4.233e-03  3.649e-01 -6.751e-03     0.010</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> totemp_mean      1.223e-06        2.946e-06  4.152e-01 -4.551e-06     0.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> sole_mean       -7.157e-02        8.424e-02 -8.495e-01 -2.367e-01     0.094</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                Pr(&gt;|z|)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mrate          2.30e-08 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> age            9.20e-05 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> totemp           0.0475 *  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> sole           8.22e-05 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> INTERCEPT_mean  &lt; 2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mrate_mean       0.3667    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> age_mean         0.7152    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> totemp_mean      0.6780    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> sole_mean        0.3956    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-05 23:19:05 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-06 03:48:15 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
@@ -260,31 +271,36 @@ where \(H(\cdot)\) is a transformation function and \(Z_{it}\) is a matrix of va
 <span class="r-in"><span><span class="fu">fracregpd</span><span class="op">(</span>id<span class="op">=</span><span class="va">id</span>, time<span class="op">=</span><span class="va">time</span>, y<span class="op">=</span><span class="va">y_panel</span>, x<span class="op">=</span><span class="va">X</span>, type<span class="op">=</span><span class="st">"QMLcre"</span>, link<span class="op">=</span><span class="st">"probit"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                        Fractional probit regression model </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>               Fractional probit (correlated random effects)  model </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimator:                                                                QMLcre </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Data type:                                                                 Panel </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Exogeneity:                                                                 TRUE </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Use first lag of instruments:                                              FALSE </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Standard errors:                                                         cluster </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Initial observations:                                                        500 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Estimation observations:                                                     500 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Initial cross-sectional units:                                               100 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Estimation cross-sectional units:                                            100 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Initial periods per unit (avg):                                                5 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Estimation periods per unit (avg):                                             5 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Number of observations:                                                      500 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Number of groups:                                                            100 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Obs per group:                                                                 5 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Log pseudolikelihood:                                                  -313.6436 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Wald chi2(3):                                                          2156.6004 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Prob &gt; chi2:                                                              0.0000 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Convergence:                                                          Successful </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                 Final estimates </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       Final (Correlated Random Effects) Quasi-Maximum Likelihood estimates </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                Estimate Std. Error z value Pr(&gt;|z|)    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> x_panel         0.52902    0.01143  46.300   &lt;2e-16 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> INTERCEPT_mean -0.01246    0.04901  -0.254    0.799    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> x_panel_mean   -0.17409    0.13491  -1.290    0.197    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                Coefficient Cluster Std.Err.  z value [95% Conf. Interval]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x_panel            0.52902          0.01143 46.29965    0.50662     0.551</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> INTERCEPT_mean    -0.01246          0.04901 -0.25433   -0.10851     0.084</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x_panel_mean      -0.17409          0.13491 -1.29040   -0.43850     0.090</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                Pr(&gt;|z|)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x_panel          &lt;2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> INTERCEPT_mean    0.799    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x_panel_mean      0.197    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-05 23:19:05 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-06 03:48:15 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
@@ -292,29 +308,31 @@ where \(H(\cdot)\) is a transformation function and \(Z_{it}\) is a matrix of va
 <span class="r-in"><span><span class="fu">fracregpd</span><span class="op">(</span>id<span class="op">=</span><span class="va">id</span>, time<span class="op">=</span><span class="va">time</span>, y<span class="op">=</span><span class="va">y_panel</span>, x<span class="op">=</span><span class="va">X</span>, type<span class="op">=</span><span class="st">"GMMbgw"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                        Fractional logit regression model </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                             Fractional logit  model </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimator:                                                                GMMbgw </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Data type:                                                                 Panel </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Exogeneity:                                                                 TRUE </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Use first lag of instruments:                                              FALSE </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Standard errors:                                                         cluster </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Initial observations:                                                        500 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Estimation observations:                                                     500 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Initial cross-sectional units:                                               100 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Estimation cross-sectional units:                                            100 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Initial periods per unit (avg):                                                5 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Estimation periods per unit (avg):                                             5 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Number of observations:                                                      500 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Number of groups:                                                            100 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Obs per group:                                                                 5 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Wald chi2(1):                                               4.88095376809867e+31 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Prob &gt; chi2:                                                              0.0000 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Convergence:                                                          Successful </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                 Final estimates </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                             Final GMM bgw estimates </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          Estimate Std. Error   z value Pr(&gt;|z|)    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> x_panel 1.000e+00  1.431e-16 6.986e+15   &lt;2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         Coefficient Cluster Std.Err.   z value [95% Conf. Interval] Pr(&gt;|z|)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x_panel   1.000e+00        1.431e-16 6.986e+15  1.000e+00         1   &lt;2e-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x_panel ***</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-05 23:19:05 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-06 03:48:15 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
@@ -322,29 +340,31 @@ where \(H(\cdot)\) is a transformation function and \(Z_{it}\) is a matrix of va
 <span class="r-in"><span><span class="fu">fracregpd</span><span class="op">(</span>id<span class="op">=</span><span class="va">id</span>, time<span class="op">=</span><span class="va">time</span>, y<span class="op">=</span><span class="va">y_panel</span>, x<span class="op">=</span><span class="va">X</span>, lags<span class="op">=</span><span class="cn">TRUE</span>, type<span class="op">=</span><span class="st">"GMMww"</span>, var.type<span class="op">=</span><span class="st">"robust"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                        Fractional logit regression model </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                             Fractional logit  model </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimator:                                                                 GMMww </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Data type:                                                                 Panel </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Exogeneity:                                                                 TRUE </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Use first lag of instruments:                                               TRUE </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Standard errors:                                                          robust </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Initial observations:                                                        500 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Estimation observations:                                                     400 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Initial cross-sectional units:                                               100 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Estimation cross-sectional units:                                            100 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Initial periods per unit (avg):                                                5 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Estimation periods per unit (avg):                                             4 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Number of obs (initial):                                                     500 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Number of observations:                                                      400 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Number of groups (initial):                                                  100 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Number of groups:                                                            100 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Obs per group:                                                                 4 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Wald chi2(1):                                               1.28107689657633e+32 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Prob &gt; chi2:                                                              0.0000 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Convergence:                                                          Successful </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                 Final estimates </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                              Final GMM ww estimates </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          Estimate Std. Error   z value Pr(&gt;|z|)    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> x_panel 1.000e+00  8.835e-17 1.132e+16   &lt;2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         Coefficient Robust Std.Err.   z value [95% Conf. Interval] Pr(&gt;|z|)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x_panel   1.000e+00       8.835e-17 1.132e+16  1.000e+00         1   &lt;2e-16 ***</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-05 23:19:05 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-06 03:48:15 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
@@ -353,34 +373,41 @@ where \(H(\cdot)\) is a transformation function and \(Z_{it}\) is a matrix of va
 <span class="r-in"><span>          x.exogenous<span class="op">=</span><span class="cn">FALSE</span>, type<span class="op">=</span><span class="st">"GMMpfe"</span>, tdummies<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                        Fractional logit regression model </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                  Fractional logit (pooled fixed effects)  model </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimator:                                                                GMMpfe </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Data type:                                                                 Panel </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Exogeneity:                                                                FALSE </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Use first lag of instruments:                                              FALSE </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Standard errors:                                                         cluster </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Initial observations:                                                        500 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Estimation observations:                                                     500 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Initial cross-sectional units:                                               100 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Estimation cross-sectional units:                                            100 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Initial periods per unit (avg):                                                5 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Estimation periods per unit (avg):                                             5 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Number of observations:                                                      500 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Number of groups:                                                            100 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Obs per group:                                                                 5 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Wald chi2(6):                                                          7156.2911 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Prob &gt; chi2:                                                              0.0000 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Convergence:                                                          Successful </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                 Final estimates </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       Final (Pooled Fixed Effects) Generalized Method of Moments estimates </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           Estimate Std. Error z value Pr(&gt;|z|)    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> x_panel    0.99602    0.03117  31.957   &lt;2e-16 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> var_endog  1.57689    0.02524  62.474   &lt;2e-16 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> time.2    -0.15363    0.09752  -1.575   0.1152    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> time.3    -0.04402    0.09147  -0.481   0.6303    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> time.4    -0.10609    0.09379  -1.131   0.2580    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> time.5    -0.19163    0.08917  -2.149   0.0316 *  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           Coefficient Cluster Std.Err.  z value [95% Conf. Interval] Pr(&gt;|z|)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x_panel       0.99602          0.03117 31.95739    0.93493     1.057   &lt;2e-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> var_endog     1.57689          0.02524 62.47420    1.52742     1.626   &lt;2e-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> time.2       -0.15363          0.09752 -1.57541   -0.34476     0.038   0.1152</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> time.3       -0.04402          0.09147 -0.48128   -0.22331     0.135   0.6303</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> time.4       -0.10609          0.09379 -1.13110   -0.28992     0.078   0.2580</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> time.5       -0.19163          0.08917 -2.14916   -0.36640    -0.017   0.0316</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x_panel   ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> var_endog ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> time.2       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> time.3       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> time.4       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> time.5    *  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-05 23:19:06 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-06 03:48:16 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 </code></pre></div>

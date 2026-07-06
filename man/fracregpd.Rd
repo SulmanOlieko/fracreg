@@ -31,7 +31,7 @@ instrumental variables). Only required in case of endogenous explanatory variabl
 }
   \item{lags}{a logical value indicating whether the first lags of \code{x} or  \code{z} should be used as instruments for \code{x}. Defaults to \code{TRUE} for the GMMww and GMMc estimators and to \code{FALSE} for the remaining estimators. The \code{GMMcre} and \code{QMLcre} estimators do not admit lagged instruments.
 }
-  \item{start}{a numeric vector containing the initial values for the parameters to be optimized. Optional.
+  \item{start}{a numeric vector containing the initial values for the parameters to be optimised. Optional.
 }
   \item{type}{a description of the estimator to compute: \code{GMMww}, \code{GMMc}, \code{GMMbgw}, \code{GMMpfe}, \code{GMMcre}, \code{GMMpre} or \code{QMLcre}.
 }
@@ -69,7 +69,7 @@ where \eqn{a_i} is an error term independent of \eqn{x_i}. Assuming \eqn{a_i | x
 \deqn{E(y_{it} | x_i) = G(x_{it} \beta_a + \psi_a + \bar{x}_i \xi_a)}
 where the parameters with subscript \eqn{a} are scaled by \eqn{(1 + \sigma_a^2)^{-1/2}}. This equation is estimated via pooled Bernoulli QML.
 
-\strong{Generalized Method of Moments (GMM):}
+\strong{Generalised Method of Moments (GMM):}
 For models where strict exogeneity fails or the link function is an exponential-type link, Ramalho et al. (2018) propose GMM estimators based on the following general moment conditions:
 \deqn{E[Z_{it} (H(y_{it}) - \exp(x_{it}\beta + c_i))] = 0}
 where \eqn{H(\cdot)} is a transformation function and \eqn{Z_{it}} is a matrix of valid instruments. Estimators such as GMMww, GMMc, and GMMbgw use different transformations to eliminate the unobserved fixed effect \eqn{c_i} before applying GMM.
@@ -103,7 +103,7 @@ If \code{variance = TRUE} or \code{table = TRUE} and the algorithm converged suc
 }
 
 \references{
-Papke, L. and Wooldridge, J.M. (2008), "Panel data methods for fractional response variables with an application to test pass rates", \emph{Journal of Econometrics}, 145(1-2), 121-233.
+Papke, L. and Wooldridge, J.M. (2008), "Panel data methods for fractional response variables with an application to test pass rates", \emph{Journal of Econometrics}, 145(1-2), 121-133.
 
 Ramalho, E. A., Ramalho, J. J. S., & Coelho, L. M. S. (2018), "Exponential Regression of Fractional-Response Fixed-Effects Models with an Application to Firm Capital Structure", \emph{Journal of Econometric Methods}, 7(1), 20150019.
 

@@ -18,6 +18,7 @@
 #'   \item{mrate_sq}{Square of match rate.}
 #' }
 #' @source Papke, L. E., & Wooldridge, J. M. (1996). "Econometric Methods for Fractional Response Variables with an Application to 401(k) Plan Participation Rates." Journal of Applied Econometrics, 11(6), 619-632.
+#' @usage data("fracreg_k401k")
 #' @examples
 #' data("fracreg_k401k")
 #' summary(fracreg_k401k$prate)

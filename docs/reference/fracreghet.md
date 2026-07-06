@@ -40,7 +40,7 @@ fracreghet(y, x, z = x, var.endog, start, type = "GMMx", link = "logit",
 - start:
 
   a numeric vector containing the initial values for the parameters to
-  be optimized. Optional.
+  be optimised. Optional.
 
 - type:
 
@@ -99,7 +99,7 @@ GMMxv, which allows both issues and assumes a linear reduced form for
 the endogeneous covariate (or for a transformation of it); and GMMz,
 which also allows for both issues but does not require the assumption of
 a reduced form for the endogenous covariate. In addition, `fracreghet`
-also computes three linearized estimators (LINx, LINxv and LINz) that
+also computes three linearised estimators (LINx, LINxv and LINz) that
 have similar features to their GMM counterparts. It also provides a QML
 estimator (QMLxv) that addresses endogeneity using a Control Function
 (CF) approach, which includes the first-stage reduced-form residuals as
@@ -116,7 +116,7 @@ includes all exogenous variables and external instruments. The residuals
 \hat{v}\_i)\$\$ A test of \\H_0: \gamma = 0\\ serves as a robust
 Hausman-type test for endogeneity.
 
-**Generalized Method of Moments (GMM):** For estimators like GMMz, which
+**Generalised Method of Moments (GMM):** For estimators like GMMz, which
 do not strictly require a linear reduced form, the estimation relies on
 population orthogonality conditions between the instruments \\Z_i\\ and
 the model residuals: \$\$E\[Z\_{i} (y_i - G(x_i \beta))\] = 0\$\$ or via
@@ -204,10 +204,18 @@ If `var.type = "cluster"`, the list also contains the following element:
 
 ## References
 
+Papke, L. E. and Wooldridge, J. M. (2008), "Panel data methods for
+fractional response variables with an application to test pass rates",
+*Journal of Econometrics*, 145, 121-133.
+
 Ramalho, E. A., & Ramalho, J. J. S. (2017), "Moment-based estimation of
 nonlinear regression models with boundary outcomes and endogeneity, with
 applications to nonnegative and fractional responses", *Econometric
 Reviews*, 36(4), 397-420.
+
+Terza, J. V., Basu, A., and Rathouz, P. J. (2008), "Two-stage residual
+inclusion estimation: addressing endogeneity in health econometric
+modeling", *Journal of Health Economics*, 27(3), 531-543.
 
 ## Author
 
@@ -227,27 +235,51 @@ for fitting panel data fractional response models.
 ## Examples
 
 ``` r
-### Empirical 401(k) Examples
-data("fracreg_k401k")
-y <- fracreg_k401k$prate
-X <- cbind(mrate = fracreg_k401k$mrate, age = fracreg_k401k$age, 
-           totemp = fracreg_k401k$totemp, sole = fracreg_k401k$sole)
+### Empirical 401(k) Examples 
+data("fracreg_k401k") 
+y <- fracreg_k401k$prate 
+X_het <- cbind(mrate = fracreg_k401k$mrate, age = fracreg_k401k$age)
+ 
+# fracreghet estimators do not allow exact 1s or 0s
+y_adj <- y
+y_adj[y_adj == 1] <- 0.999
 
-# Artificial instrumental variable for demonstration
-Z_emp <- cbind(X, z = fracreg_k401k$mrate * rnorm(length(y)))
-fracreghet(y, X, Z_emp, var.endog = X[, "mrate"], type="QMLxv", link="logit")
+# Artificial instrumental variable for demonstration 
+set.seed(42)
+Z_emp <- cbind(X_het, z = fracreg_k401k$mrate * rnorm(length(y))) 
+fracreghet(y_adj, X_het, Z_emp, var.endog = X_het[, "mrate"], type="QMLxv", link="logit") 
 #> Warning: NA/NaN function evaluation
-#> Warning: NA/NaN function evaluation
-#> Warning: NA/NaN function evaluation
-#> Warning: NA/NaN function evaluation
+#> 
 #> -------------------------------------------------------------------------------- 
-#> Convergence:                                                              FAILED 
+#>            Fractional logit model with heteroscedasticity/endogeneity 
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 23:19:03 
+#> Estimator:                                                                 QMLxv 
+#> Data type:                                                       Cross-sectional 
+#> Number of observations:                                                     1534 
+#> Standard errors:                                                          robust 
+#> Convergence:                                                          Successful 
+#> -------------------------------------------------------------------------------- 
+#>                   Final Quasi-Maximum Likelihood xv estimates 
+#> -------------------------------------------------------------------------------- 
+#>          Coefficient Robust Std.Err. z value [95% Conf. Interval] Pr(>|z|)
+#> Constant     1.06094               .       .          .         .        .
+#> mrate        1.00405               .       .          .         .        .
+#> age          0.02417               .       .          .         .        .
+#> vhat         0.00000               .       .          .         .        .
+#> 
+#>                                  Reduced form: 
+#> -------------------------------------------------------------------------------- 
+#>             Coefficient Robust Std.Err. z value [95% Conf. Interval] Pr(>|z|)
+#> Z_INTERCEPT   2.631e-15               .       .          .         .        .
+#> Z_mrate       1.000e+00               .       .          .         .        .
+#> Z_age         6.484e-18               .       .          .         .        .
+#> Z_z           5.416e-17               .       .          .         .        .
+#> -------------------------------------------------------------------------------- 
+#>                          Run Date: 2026-07-06 03:48:12 
 #> -------------------------------------------------------------------------------- 
 #> 
-
-### Simulated Examples
+ 
+### Simulated Examples 
 
 set.seed(123)
 N <- 1000
@@ -270,23 +302,30 @@ Z <- cbind(x1 = x1, z1 = z1)
 fracreghet(y = y_endog, x = X, type = "GMMx", link = "logit")
 #> 
 #> -------------------------------------------------------------------------------- 
-#>                        Fractional logit regression model 
+#>            Fractional logit model with heteroscedasticity/endogeneity 
 #> -------------------------------------------------------------------------------- 
 #> Estimator:                                                                  GMMx 
+#> Data type:                                                       Cross-sectional 
 #> Number of observations:                                                     1000 
 #> Standard errors:                                                          robust 
+#> Wald chi2(2):                                                         42761.0276 
+#> Prob > chi2:                                                              0.0000 
 #> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
-#>                                 Final estimates 
+#>                               Final GMMx estimates 
 #> -------------------------------------------------------------------------------- 
-#>           Estimate Std. Error z value Pr(>|z|)    
-#> Constant  0.091323   0.015355   5.947 2.73e-09 ***
-#> x1        0.460767   0.015385  29.950  < 2e-16 ***
-#> var.endog 1.807916   0.009021 200.418  < 2e-16 ***
+#>           Coefficient Robust Std.Err.   z value [95% Conf. Interval] Pr(>|z|)
+#> Constant    9.132e-02       1.536e-02 5.947e+00  6.123e-02     0.121 2.73e-09
+#> x1          4.608e-01       1.538e-02 2.995e+01  4.306e-01     0.491  < 2e-16
+#> var.endog   1.808e+00       9.021e-03 2.004e+02  1.790e+00     1.826  < 2e-16
+#>              
+#> Constant  ***
+#> x1        ***
+#> var.endog ***
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 23:19:03 
+#>                          Run Date: 2026-07-06 03:48:12 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -294,23 +333,30 @@ fracreghet(y = y_endog, x = X, type = "GMMx", link = "logit")
 fracreghet(y = y_endog, x = X, z = Z, type = "GMMz", link = "logit")
 #> 
 #> -------------------------------------------------------------------------------- 
-#>                        Fractional logit regression model 
+#>            Fractional logit model with heteroscedasticity/endogeneity 
 #> -------------------------------------------------------------------------------- 
 #> Estimator:                                                                  GMMz 
+#> Data type:                                                       Cross-sectional 
 #> Number of observations:                                                     1000 
 #> Standard errors:                                                          robust 
+#> Wald chi2(2):                                                         14903.8562 
+#> Prob > chi2:                                                              0.0000 
 #> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
-#>                                 Final estimates 
+#>                               Final GMMz estimates 
 #> -------------------------------------------------------------------------------- 
-#>           Estimate Std. Error z value Pr(>|z|)    
-#> Constant   0.15277    0.02018   7.569 3.75e-14 ***
-#> x1         0.47947    0.02051  23.377  < 2e-16 ***
-#> var.endog  1.61252    0.01445 111.618  < 2e-16 ***
+#>           Coefficient Robust Std.Err.   z value [95% Conf. Interval] Pr(>|z|)
+#> Constant      0.15277         0.02018   7.56931    0.11321     0.192 3.75e-14
+#> x1            0.47947         0.02051  23.37680    0.43927     0.520  < 2e-16
+#> var.endog     1.61252         0.01445 111.61802    1.58421     1.641  < 2e-16
+#>              
+#> Constant  ***
+#> x1        ***
+#> var.endog ***
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 23:19:03 
+#>                          Run Date: 2026-07-06 03:48:12 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -319,33 +365,43 @@ fracreghet(y = y_endog, x = X, z = Z, var.endog = var.endog, type = "GMMxv", lin
 #> Warning: NaNs produced
 #> 
 #> -------------------------------------------------------------------------------- 
-#>                        Fractional logit regression model 
+#>            Fractional logit model with heteroscedasticity/endogeneity 
 #> -------------------------------------------------------------------------------- 
 #> Estimator:                                                                 GMMxv 
+#> Data type:                                                       Cross-sectional 
 #> Number of observations:                                                     1000 
 #> Standard errors:                                                          robust 
 #> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
-#>                                 Final estimates 
+#>                              Final GMMxv estimates 
 #> -------------------------------------------------------------------------------- 
-#>           Estimate Std. Error z value Pr(>|z|)    
-#> Constant  -0.01262    0.01859  -0.679    0.497    
-#> x1         0.48705    0.01884  25.853   <2e-16 ***
-#> var.endog  1.59737    0.01339 119.332   <2e-16 ***
-#> vhat       0.60263    0.01339  45.020   <2e-16 ***
+#>           Coefficient Robust Std.Err.   z value [95% Conf. Interval] Pr(>|z|)
+#> Constant     -0.01262         0.01859  -0.67857   -0.04905     0.024    0.497
+#> x1            0.48705         0.01884  25.85287    0.45012     0.524   <2e-16
+#> var.endog     1.59737         0.01339 119.33166    1.57113     1.624   <2e-16
+#> vhat          0.60263         0.01339  45.01988    0.57640     0.629   <2e-16
+#>              
+#> Constant     
+#> x1        ***
+#> var.endog ***
+#> vhat      ***
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> 
 #>                                  Reduced form: 
 #> -------------------------------------------------------------------------------- 
-#>             Estimate Std. Error z value Pr(>|z|)    
-#> Z_INTERCEPT -0.02093    0.03082  -0.679    0.497    
-#> Z_x1        -0.02149    0.03132  -0.686    0.493    
-#> Z_z1         1.32751    0.02949  45.020   <2e-16 ***
+#>             Coefficient Robust Std.Err.  z value [95% Conf. Interval] Pr(>|z|)
+#> Z_INTERCEPT    -0.02093         0.03082 -0.67933   -0.08133     0.039    0.497
+#> Z_x1           -0.02149         0.03132 -0.68612   -0.08288     0.040    0.493
+#> Z_z1            1.32751         0.02949 45.01988    1.26971     1.385   <2e-16
+#>                
+#> Z_INTERCEPT    
+#> Z_x1           
+#> Z_z1        ***
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 23:19:03 
+#>                          Run Date: 2026-07-06 03:48:12 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -353,33 +409,43 @@ fracreghet(y = y_endog, x = X, z = Z, var.endog = var.endog, type = "GMMxv", lin
 fracreghet(y = y_endog, x = X, z = Z, var.endog = var.endog, type = "QMLxv", link = "logit")
 #> 
 #> -------------------------------------------------------------------------------- 
-#>                        Fractional logit regression model 
+#>            Fractional logit model with heteroscedasticity/endogeneity 
 #> -------------------------------------------------------------------------------- 
 #> Estimator:                                                                 QMLxv 
+#> Data type:                                                       Cross-sectional 
 #> Number of observations:                                                     1000 
 #> Standard errors:                                                          robust 
 #> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
-#>                                 Final estimates 
+#>                   Final Quasi-Maximum Likelihood xv estimates 
 #> -------------------------------------------------------------------------------- 
-#>           Estimate Std. Error z value Pr(>|z|)    
-#> Constant  -0.01262    0.01859  -0.679    0.497    
-#> x1         0.48705    0.01884  25.853   <2e-16 ***
-#> var.endog  1.59737    0.01339 119.332   <2e-16 ***
-#> vhat       0.60263    0.01339  45.020   <2e-16 ***
+#>           Coefficient Robust Std.Err.   z value [95% Conf. Interval] Pr(>|z|)
+#> Constant     -0.01262         0.01859  -0.67857   -0.04905     0.024    0.497
+#> x1            0.48705         0.01884  25.85287    0.45012     0.524   <2e-16
+#> var.endog     1.59737         0.01339 119.33166    1.57113     1.624   <2e-16
+#> vhat          0.60263         0.01339  45.01988    0.57640     0.629   <2e-16
+#>              
+#> Constant     
+#> x1        ***
+#> var.endog ***
+#> vhat      ***
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> 
 #>                                  Reduced form: 
 #> -------------------------------------------------------------------------------- 
-#>             Estimate Std. Error z value Pr(>|z|)    
-#> Z_INTERCEPT -0.02093    0.03082  -0.679    0.497    
-#> Z_x1        -0.02149    0.03132  -0.686    0.493    
-#> Z_z1         1.32751    0.02949  45.020   <2e-16 ***
+#>             Coefficient Robust Std.Err.  z value [95% Conf. Interval] Pr(>|z|)
+#> Z_INTERCEPT    -0.02093         0.03082 -0.67933   -0.08133     0.039    0.497
+#> Z_x1           -0.02149         0.03132 -0.68612   -0.08288     0.040    0.493
+#> Z_z1            1.32751         0.02949 45.01988    1.26971     1.385   <2e-16
+#>                
+#> Z_INTERCEPT    
+#> Z_x1           
+#> Z_z1        ***
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 23:19:03 
+#>                          Run Date: 2026-07-06 03:48:12 
 #> -------------------------------------------------------------------------------- 
 #> 
 ```

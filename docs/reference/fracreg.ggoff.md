@@ -1,6 +1,6 @@
 # GGOFF Tests for Fractional Response Models
 
-`fracreg.ggoff` is used to perform Generalized
+`fracreg.ggoff` is used to perform Generalised
 Goodness-Of-Functional-Form (GGOFF) tests to check the adequacy of the
 functional form and link specification of fractional response models.
 
@@ -42,7 +42,7 @@ response models; (ii) the binary component of two-part fractional
 response models; and (iii) the fractional component of two-part
 fractional response models.
 
-**GGOFF Test Framework:** The Generalized Goodness-of-Functional Form
+**GGOFF Test Framework:** The Generalised Goodness-of-Functional Form
 (GGOFF) test evaluates the adequacy of the link function \\G(\cdot)\\.
 It is based on augmenting the baseline model with specific directions of
 departure. The auxiliary testing equation takes the form: \$\$E(y\|x) =
@@ -101,27 +101,37 @@ X <- cbind(mrate = fracreg_k401k$mrate, age = fracreg_k401k$age,
 m <- fracreg(y, X, type="1P", linkfrac="logit")
 #> 
 #> -------------------------------------------------------------------------------- 
-#>                 Fractional response model - logit specification 
+#>                              Fractional logit model 
 #> -------------------------------------------------------------------------------- 
 #> Estimator:                                                                   QML 
+#> Data type:                                                       Cross-sectional 
 #> Number of observations:                                                     1534 
 #> Pseudo R-squared:                                                        0.14667 
+#> Log pseudolikelihood:                                                  -553.1626 
+#> Wald chi2(4):                                                           147.3049 
+#> Prob > chi2:                                                              0.0000 
 #> Standard errors:                                                          robust 
 #> Small sample correction:                                                   FALSE 
 #> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
-#>                                 Final estimates 
+#>                     Final Quasi-Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
-#>            Estimate Std. Error z value Pr(>|z|)    
-#> Constant  9.316e-01  8.408e-02  11.080  < 2e-16 ***
-#> mrate     9.531e-01  1.371e-01   6.951 3.62e-12 ***
-#> age       2.791e-02  4.877e-03   5.723 1.05e-08 ***
-#> totemp   -8.182e-06  3.061e-06  -2.673  0.00751 ** 
-#> sole      3.405e-01  8.066e-02   4.222 2.43e-05 ***
+#>          Coefficient Robust Std.Err.    z value [95% Conf. Interval] Pr(>|z|)
+#> Constant   9.316e-01       8.408e-02  1.108e+01  7.668e-01     1.096  < 2e-16
+#> mrate      9.531e-01       1.371e-01  6.951e+00  6.843e-01     1.222 3.62e-12
+#> age        2.791e-02       4.877e-03  5.723e+00  1.835e-02     0.037 1.05e-08
+#> totemp    -8.182e-06       3.061e-06 -2.673e+00 -1.418e-05     0.000  0.00751
+#> sole       3.405e-01       8.066e-02  4.222e+00  1.824e-01     0.499 2.43e-05
+#>             
+#> Constant ***
+#> mrate    ***
+#> age      ***
+#> totemp   ** 
+#> sole     ***
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 23:19:00 
+#>                          Run Date: 2026-07-06 03:48:09 
 #> -------------------------------------------------------------------------------- 
 #> 
 fracreg.ggoff(m)
@@ -138,7 +148,7 @@ fracreg.ggoff(m)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 23:19:00 
+#>                          Run Date: 2026-07-06 03:48:09 
 #> -------------------------------------------------------------------------------- 
 
 ### Simulated Examples
@@ -174,7 +184,7 @@ fracreg.ggoff(res,c("Wald","LM"))
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 23:19:00 
+#>                          Run Date: 2026-07-06 03:48:09 
 #> -------------------------------------------------------------------------------- 
 
 #Testing the probit specification of the binary component of a two-part fractional
@@ -193,6 +203,6 @@ fracreg.ggoff(res,"LR")
 #> GOFF2 - LR     0.039   0.844
 #> GGOFF - LR     0.717   0.699
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 23:19:00 
+#>                          Run Date: 2026-07-06 03:48:09 
 #> -------------------------------------------------------------------------------- 
 ```

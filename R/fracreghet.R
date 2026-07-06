@@ -178,6 +178,12 @@ fracreghet.est <- function(type,x,z,link,start,Hy,variance,var.type,var.cluster,
 
 	ret.list <- list(p=p,XB=XB,converged=converged)
 	if(type=="GMMz" & ncol(z)>ncol(x)) ret.list[["Qn"]] <- Qn
+	if (any(type == c("QMLxv", "QMLz"))) {
+		yhat <- fracreghet.links(link)$linkinv(XB)
+		eps <- 1e-16
+		LL <- sum(ifelse(Hy > 0, Hy * log(pmax(yhat, eps)), 0) + ifelse(Hy < 1, (1-Hy) * log(pmax(1-yhat, eps)), 0))
+		ret.list[["LL"]] <- LL
+	}
 
 	if(variance==F | converged==F) return(ret.list)
 
@@ -284,7 +290,7 @@ fracreghet.var <- function(type,p,XB,x,z,link,Hy,var.type,id,step.one,gixv,vhat)
 	return(ret.list)
 }
 
-fracreghet.table <- function(p,p.var,x.names,type,link,converged,N,var.type,adjust,k,J,dfJ)
+fracreghet.table <- function(p,p.var,x.names,type,link,converged,N,var.type,adjust,k,J,dfJ,LL=NULL)
 {
 	if(converged==T)
 	{
@@ -294,22 +300,53 @@ fracreghet.table <- function(p,p.var,x.names,type,link,converged,N,var.type,adju
 		{
 			p.sd <- diag(p.var)^0.5
 			z.ratio <- p/p.sd
-			p.value <- 2*(1-pnorm(abs(z.ratio)))
-			res <- cbind(Estimate = p, `Std. Error` = p.sd, `z value` = z.ratio, `Pr(>|z|)` = p.value)
+			p.value <- 2*pnorm(abs(z.ratio), lower.tail=FALSE)
+			ci.low <- p - qnorm(0.975) * p.sd
+			ci.high <- p + qnorm(0.975) * p.sd
+			res <- cbind(Coefficient = p, `Std.Err.` = p.sd, `z value` = z.ratio, `[95% Conf.` = ci.low, `Interval]` = ci.high, `Pr(>|z|)` = p.value)
+			se_label <- var.type
+			if(se_label == "standard") se_label <- "EIM"
+			colnames(res)[2] <- paste0(tools::toTitleCase(se_label), " Std.Err.")
 		}
 		else
 		{
-			res <- cbind(Estimate = p, `Std. Error` = rep(NA,length(p)), `z value` = rep(NA,length(p)), `Pr(>|z|)` = rep(NA,length(p)))
+			res <- cbind(Coefficient = p, `Std.Err.` = rep(NA,length(p)), `z value` = rep(NA,length(p)), `[95% Conf.` = rep(NA,length(p)), `Interval]` = rep(NA,length(p)), `Pr(>|z|)` = rep(NA,length(p)))
+			se_label <- var.type
+			if(se_label == "standard") se_label <- "EIM"
+			colnames(res)[2] <- paste0(tools::toTitleCase(se_label), " Std.Err.")
 		}
 		rownames(res) <- x.names
 		rownames(res)[rownames(res) == "INTERCEPT"] <- "Constant"
 
+		Wald <- NA
+		p_wald <- NA
+		df_wald <- NA
+		if(!is.character(p.var)) {
+			if(length(p) > 1 && x.names[1] == "INTERCEPT") {
+				p_idx <- 2:length(p)
+				W <- tryCatch(t(p[p_idx]) %*% solve(p.var[p_idx, p_idx]) %*% p[p_idx], error = function(e) NA)
+				if (!is.na(W)) {
+					Wald <- as.numeric(W)
+					df_wald <- length(p_idx)
+					p_wald <- 1 - pchisq(Wald, df = df_wald)
+				}
+			} else if(length(p) > 0 && x.names[1] != "INTERCEPT") {
+				W <- tryCatch(t(p) %*% solve(p.var) %*% p, error = function(e) NA)
+				if (!is.na(W)) {
+					Wald <- as.numeric(W)
+					df_wald <- length(p)
+					p_wald <- 1 - pchisq(Wald, df = df_wald)
+				}
+			}
+		}
+
 		cat("\n")
 		cat(.fracreg.sep(), "\n")
-		cat(.fracreg.center(paste("Fractional", link, "regression model")), "\n")
+		cat(.fracreg.center(paste("Fractional", link, "model with heteroscedasticity/endogeneity")), "\n")
 		cat(.fracreg.sep(), "\n")
 		
 		.fracreg.cat.right("Estimator:", type)
+		.fracreg.cat.right("Data type:", "Cross-sectional")
 		
 		if(adjust!=0)
 		{
@@ -318,6 +355,7 @@ fracreghet.table <- function(p,p.var,x.names,type,link,converged,N,var.type,adju
 		}
 		
 		.fracreg.cat.right("Number of observations:", N)
+		if(!is.null(LL)) .fracreg.cat.right("Log pseudolikelihood:", round(LL, 4))
 		.fracreg.cat.right("Standard errors:", var.type)
 		
 		if(any(type==c("GMMz","LINz")) & dfJ>0)
@@ -325,10 +363,18 @@ fracreghet.table <- function(p,p.var,x.names,type,link,converged,N,var.type,adju
 			p.value <- 1-pchisq(J,dfJ)
 			.fracreg.cat.right("J test (p-value):", paste0(round(J, 4), " (", round(p.value, 4), ")"))
 		}
+		if(!is.na(Wald)) {
+			.fracreg.cat.right(paste0("Wald chi2(", df_wald, "):"), round(Wald, 4))
+			.fracreg.cat.right("Prob > chi2:", sprintf("%.4f", p_wald))
+		}
 		.fracreg.cat.right("Convergence:", "Successful")
 		
 		cat(.fracreg.sep(), "\n")
-		cat(.fracreg.center("Final estimates"), "\n")
+		type_full <- type
+		type_full <- sub("^QML", "Quasi-Maximum Likelihood ", type_full)
+		type_full <- sub("^ML", "Maximum Likelihood ", type_full)
+		type_full <- trimws(type_full)
+		cat(.fracreg.center(paste("Final", type_full, "estimates")), "\n")
 		cat(.fracreg.sep(), "\n")
 		
 		if(all(type!=c("GMMxv","LINxv","QMLxv"))) printCoefmat(res, P.values = TRUE, has.Pvalue = TRUE, digits = 4, signif.legend = TRUE, na.print = ".")
@@ -452,6 +498,8 @@ fracreghet.tests.table <- function(test.which,S,Sp,ver,title1,title2)
 
 fracreghet <- function(y,x,z=x,var.endog,start,type="GMMx",link="logit",intercept=T,table=T,variance=T,var.type="robust",var.cluster,adjust=0,...)
 {
+	LL <- NULL
+
 	### 1. Error and warning messages
 
 	if(missing(y)) stop("dependent variable is missing")
@@ -626,7 +674,7 @@ fracreghet <- function(y,x,z=x,var.endog,start,type="GMMx",link="logit",intercep
 	}
 	names(p) <- x.names
 
-	if(table==T) fracreghet.table(p,p.var,x.names,type,link,converged,N,var.type,adjust,k,J,dfJ)
+	if(table==T) fracreghet.table(p,p.var,x.names,type,link,converged,N,var.type,adjust,k,J,dfJ,LL=LL)
 
 	formula <- y ~ x - 1
 

@@ -344,27 +344,37 @@ X <- cbind(mrate = fracreg_k401k$mrate, age = fracreg_k401k$age,
 fracreg(y, X, type="1P", linkfrac="logit")
 #> 
 #> -------------------------------------------------------------------------------- 
-#>                 Fractional response model - logit specification 
+#>                              Fractional logit model 
 #> -------------------------------------------------------------------------------- 
 #> Estimator:                                                                   QML 
+#> Data type:                                                       Cross-sectional 
 #> Number of observations:                                                     1534 
 #> Pseudo R-squared:                                                        0.14667 
+#> Log pseudolikelihood:                                                  -553.1626 
+#> Wald chi2(4):                                                           147.3049 
+#> Prob > chi2:                                                              0.0000 
 #> Standard errors:                                                          robust 
 #> Small sample correction:                                                   FALSE 
 #> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
-#>                                 Final estimates 
+#>                     Final Quasi-Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
-#>            Estimate Std. Error z value Pr(>|z|)    
-#> Constant  9.316e-01  8.408e-02  11.080  < 2e-16 ***
-#> mrate     9.531e-01  1.371e-01   6.951 3.62e-12 ***
-#> age       2.791e-02  4.877e-03   5.723 1.05e-08 ***
-#> totemp   -8.182e-06  3.061e-06  -2.673  0.00751 ** 
-#> sole      3.405e-01  8.066e-02   4.222 2.43e-05 ***
+#>          Coefficient Robust Std.Err.    z value [95% Conf. Interval] Pr(>|z|)
+#> Constant   9.316e-01       8.408e-02  1.108e+01  7.668e-01     1.096  < 2e-16
+#> mrate      9.531e-01       1.371e-01  6.951e+00  6.843e-01     1.222 3.62e-12
+#> age        2.791e-02       4.877e-03  5.723e+00  1.835e-02     0.037 1.05e-08
+#> totemp    -8.182e-06       3.061e-06 -2.673e+00 -1.418e-05     0.000  0.00751
+#> sole       3.405e-01       8.066e-02  4.222e+00  1.824e-01     0.499 2.43e-05
+#>             
+#> Constant ***
+#> mrate    ***
+#> age      ***
+#> totemp   ** 
+#> sole     ***
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 23:18:59 
+#>                          Run Date: 2026-07-06 03:48:08 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -372,46 +382,59 @@ fracreg(y, X, type="1P", linkfrac="logit")
 fracreg(y, X, type="2P", inflation=1, linkbin="logit", linkfrac="logit")
 #> 
 #> -------------------------------------------------------------------------------- 
-#>            Binary component of a two-part model - logit specification 
+#>                            Part 1: Binary logit model 
 #> -------------------------------------------------------------------------------- 
 #> Estimator:                                                                    ML 
+#> Data type:                                                       Cross-sectional 
 #> Number of observations:                                                     1534 
 #> Pseudo R-squared:                                                         0.1485 
-#> Log-Likelihood:                                                        -938.1759 
+#> Log-likelihood:                                                        -938.1759 
+#> Wald chi2(4):                                                           173.5169 
+#> Prob > chi2:                                                              0.0000 
 #> Small sample correction:                                                   FALSE 
 #> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
-#>                                 Final estimates 
+#>                        Final Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
-#>            Estimate Std. Error z value Pr(>|z|)    
-#> Constant -1.396e+00  1.270e-01 -10.991   <2e-16 ***
-#> mrate     9.053e-01  9.699e-02   9.334   <2e-16 ***
-#> age       1.156e-02  6.218e-03   1.858   0.0631 .  
-#> totemp   -1.418e-05  6.324e-06  -2.242   0.0249 *  
-#> sole      8.651e-01  1.131e-01   7.651    2e-14 ***
+#>          Coefficient EIM Std.Err.    z value [95% Conf. Interval] Pr(>|z|)    
+#> Constant  -1.396e+00    1.270e-01 -1.099e+01 -1.645e+00    -1.147   <2e-16 ***
+#> mrate      9.053e-01    9.699e-02  9.334e+00  7.152e-01     1.095   <2e-16 ***
+#> age        1.156e-02    6.218e-03  1.858e+00 -6.312e-04     0.024   0.0631 .  
+#> totemp    -1.418e-05    6.324e-06 -2.242e+00 -2.657e-05     0.000   0.0249 *  
+#> sole       8.651e-01    1.131e-01  7.651e+00  6.435e-01     1.087    2e-14 ***
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
 #> 
 #> 
 #> -------------------------------------------------------------------------------- 
-#>          Fractional component of a two-part model - logit specification 
+#>                          Part 2: Fractional logit model 
 #> -------------------------------------------------------------------------------- 
 #> Estimator:                                                                   QML 
+#> Data type:                                                       Cross-sectional 
 #> Number of observations:                                                      852 
 #> Pseudo R-squared:                                                        0.10004 
+#> Log pseudolikelihood:                                                  -450.8391 
+#> Wald chi2(4):                                                            65.4063 
+#> Prob > chi2:                                                              0.0000 
 #> Standard errors:                                                          robust 
 #> Small sample correction:                                                   FALSE 
 #> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
-#>                                 Final estimates 
+#>                     Final Quasi-Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
-#>            Estimate Std. Error z value Pr(>|z|)    
-#> Constant  7.460e-01  6.850e-02  10.891  < 2e-16 ***
-#> mrate     3.877e-01  9.725e-02   3.987 6.69e-05 ***
-#> age       2.562e-02  4.010e-03   6.390 1.66e-10 ***
-#> totemp   -4.061e-06  3.073e-06  -1.322    0.186    
-#> sole     -1.510e-02  6.556e-02  -0.230    0.818    
+#>          Coefficient Robust Std.Err.    z value [95% Conf. Interval] Pr(>|z|)
+#> Constant   7.460e-01       6.850e-02  1.089e+01  6.118e-01     0.880  < 2e-16
+#> mrate      3.877e-01       9.725e-02  3.987e+00  1.971e-01     0.578 6.69e-05
+#> age        2.562e-02       4.010e-03  6.390e+00  1.777e-02     0.033 1.66e-10
+#> totemp    -4.061e-06       3.073e-06 -1.322e+00 -1.008e-05     0.000    0.186
+#> sole      -1.510e-02       6.556e-02 -2.303e-01 -1.436e-01     0.113    0.818
+#>             
+#> Constant ***
+#> mrate    ***
+#> age      ***
+#> totemp      
+#> sole        
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
@@ -420,10 +443,11 @@ fracreg(y, X, type="2P", inflation=1, linkbin="logit", linkfrac="logit")
 #> -------------------------------------------------------------------------------- 
 #>                 Two-part model - binary logit + fractional logit 
 #> -------------------------------------------------------------------------------- 
+#> Data type:                                                       Cross-sectional 
 #> Pseudo R-squared:                                                        0.11243 
 #> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 23:18:59 
+#>                          Run Date: 2026-07-06 03:48:08 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -432,69 +456,85 @@ y_3p <- y; y_3p[1:50] <- 0
 fracreg(y_3p, X, type="3P", linkbin=c("logit","logit"), linkfrac="logit")
 #> 
 #> -------------------------------------------------------------------------------- 
-#>        First binary component of a three-part model - logit specification 
+#>                            Part 1: Binary logit model 
 #> -------------------------------------------------------------------------------- 
 #> Estimator:                                                                    ML 
+#> Data type:                                                       Cross-sectional 
 #> Number of observations:                                                     1534 
 #> Pseudo R-squared:                                                        0.00324 
-#> Log-Likelihood:                                                        -216.6222 
+#> Log-likelihood:                                                        -216.6222 
+#> Wald chi2(4):                                                             3.7679 
+#> Prob > chi2:                                                              0.4383 
 #> Small sample correction:                                                   FALSE 
 #> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
-#>                                 Final estimates 
+#>                        Final Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
-#>           Estimate Std. Error z value Pr(>|z|)    
-#> Constant 2.867e+00  3.157e-01   9.080   <2e-16 ***
-#> mrate    1.147e-01  2.131e-01   0.538    0.590    
-#> age      8.375e-03  1.765e-02   0.474    0.635    
-#> totemp   1.036e-04  6.959e-05   1.489    0.136    
-#> sole     3.371e-01  2.983e-01   1.130    0.259    
+#>          Coefficient EIM Std.Err.    z value [95% Conf. Interval] Pr(>|z|)    
+#> Constant   2.867e+00    3.157e-01  9.080e+00  2.248e+00     3.486   <2e-16 ***
+#> mrate      1.147e-01    2.131e-01  5.381e-01 -3.030e-01     0.532    0.590    
+#> age        8.375e-03    1.765e-02  4.745e-01 -2.622e-02     0.043    0.635    
+#> totemp     1.036e-04    6.959e-05  1.489e+00 -3.275e-05     0.000    0.136    
+#> sole       3.371e-01    2.983e-01  1.130e+00 -2.476e-01     0.922    0.259    
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
 #> 
 #> 
 #> -------------------------------------------------------------------------------- 
-#>       Second binary component of a three-part model - logit specification 
+#>                            Part 2: Binary logit model 
 #> -------------------------------------------------------------------------------- 
 #> Estimator:                                                                    ML 
+#> Data type:                                                       Cross-sectional 
 #> Number of observations:                                                     1484 
 #> Pseudo R-squared:                                                        0.15199 
-#> Log-Likelihood:                                                        -903.5457 
+#> Log-likelihood:                                                        -903.5457 
+#> Wald chi2(4):                                                            172.201 
+#> Prob > chi2:                                                              0.0000 
 #> Small sample correction:                                                   FALSE 
 #> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
-#>                                 Final estimates 
+#>                        Final Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
-#>            Estimate Std. Error z value Pr(>|z|)    
-#> Constant -1.435e+00  1.306e-01 -10.990  < 2e-16 ***
-#> mrate     9.244e-01  9.877e-02   9.360  < 2e-16 ***
-#> age       1.198e-02  6.339e-03   1.890   0.0588 .  
-#> totemp   -1.371e-05  6.317e-06  -2.170   0.0300 *  
-#> sole      8.852e-01  1.154e-01   7.674 1.67e-14 ***
+#>          Coefficient EIM Std.Err.    z value [95% Conf. Interval] Pr(>|z|)    
+#> Constant  -1.435e+00    1.306e-01 -1.099e+01 -1.691e+00    -1.179  < 2e-16 ***
+#> mrate      9.244e-01    9.877e-02  9.360e+00  7.309e-01     1.118  < 2e-16 ***
+#> age        1.198e-02    6.339e-03  1.890e+00 -4.453e-04     0.024   0.0588 .  
+#> totemp    -1.371e-05    6.317e-06 -2.170e+00 -2.609e-05     0.000   0.0300 *  
+#> sole       8.852e-01    1.154e-01  7.674e+00  6.591e-01     1.111 1.67e-14 ***
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
 #> 
 #> 
 #> -------------------------------------------------------------------------------- 
-#>         Fractional component of a three-part model - logit specification 
+#>                          Part 3: Fractional logit model 
 #> -------------------------------------------------------------------------------- 
 #> Estimator:                                                                   QML 
+#> Data type:                                                       Cross-sectional 
 #> Number of observations:                                                      826 
 #> Pseudo R-squared:                                                        0.09937 
+#> Log pseudolikelihood:                                                  -437.3715 
+#> Wald chi2(4):                                                            62.3685 
+#> Prob > chi2:                                                              0.0000 
 #> Standard errors:                                                          robust 
 #> Small sample correction:                                                   FALSE 
 #> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
-#>                                 Final estimates 
+#>                     Final Quasi-Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
-#>            Estimate Std. Error z value Pr(>|z|)    
-#> Constant  7.388e-01  7.039e-02  10.496  < 2e-16 ***
-#> mrate     3.960e-01  1.019e-01   3.885 0.000102 ***
-#> age       2.531e-02  4.068e-03   6.223 4.88e-10 ***
-#> totemp   -3.817e-06  3.088e-06  -1.236 0.216472    
-#> sole     -4.483e-03  6.672e-02  -0.067 0.946434    
+#>          Coefficient Robust Std.Err.    z value [95% Conf. Interval] Pr(>|z|)
+#> Constant   7.388e-01       7.039e-02  1.050e+01  6.008e-01     0.877  < 2e-16
+#> mrate      3.960e-01       1.019e-01  3.885e+00  1.962e-01     0.596 0.000102
+#> age        2.531e-02       4.068e-03  6.223e+00  1.734e-02     0.033 4.88e-10
+#> totemp    -3.817e-06       3.088e-06 -1.236e+00 -9.869e-06     0.000 0.216472
+#> sole      -4.483e-03       6.672e-02 -6.719e-02 -1.353e-01     0.126 0.946434
+#>             
+#> Constant ***
+#> mrate    ***
+#> age      ***
+#> totemp      
+#> sole        
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
@@ -503,10 +543,11 @@ fracreg(y_3p, X, type="3P", linkbin=c("logit","logit"), linkfrac="logit")
 #> -------------------------------------------------------------------------------- 
 #>        Three-part model - binary logit , binary logit + fractional logit 
 #> -------------------------------------------------------------------------------- 
+#> Data type:                                                       Cross-sectional 
 #> Pseudo R-squared:                                                        0.07934 
 #> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 23:18:59 
+#>                          Run Date: 2026-07-06 03:48:08 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -532,25 +573,29 @@ X <- cbind(x1 = x1, x2 = x2)
 fracreg(y, X, type="1P", linkfrac="logit")
 #> 
 #> -------------------------------------------------------------------------------- 
-#>                 Fractional response model - logit specification 
+#>                              Fractional logit model 
 #> -------------------------------------------------------------------------------- 
 #> Estimator:                                                                   QML 
+#> Data type:                                                       Cross-sectional 
 #> Number of observations:                                                     1000 
 #> Pseudo R-squared:                                                         0.3903 
+#> Log pseudolikelihood:                                                   -614.973 
+#> Wald chi2(2):                                                           472.2453 
+#> Prob > chi2:                                                              0.0000 
 #> Standard errors:                                                          robust 
 #> Small sample correction:                                                   FALSE 
 #> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
-#>                                 Final estimates 
+#>                     Final Quasi-Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
-#>          Estimate Std. Error z value Pr(>|z|)    
-#> Constant -0.56969    0.06750   -8.44   <2e-16 ***
-#> x1        0.78822    0.04015   19.63   <2e-16 ***
-#> x2        1.35611    0.11899   11.40   <2e-16 ***
+#>          Coefficient Robust Std.Err.  z value [95% Conf. Interval] Pr(>|z|)    
+#> Constant    -0.56969         0.06750 -8.43960   -0.70199    -0.437   <2e-16 ***
+#> x1           0.78822         0.04015 19.63424    0.70954     0.867   <2e-16 ***
+#> x2           1.35611         0.11899 11.39668    1.12289     1.589   <2e-16 ***
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 23:18:59 
+#>                          Run Date: 2026-07-06 03:48:08 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -559,21 +604,24 @@ fracreg(y, X, type="1P", linkfrac="logit")
 fracreg(y, X, type="2Pbin", inflation=0, linkbin="logit")
 #> 
 #> -------------------------------------------------------------------------------- 
-#>            Binary component of a two-part model - logit specification 
+#>                            Part 1: Binary logit model 
 #> -------------------------------------------------------------------------------- 
 #> Estimator:                                                                    ML 
+#> Data type:                                                       Cross-sectional 
 #> Number of observations:                                                     1000 
 #> Pseudo R-squared:                                                        0.14527 
-#> Log-Likelihood:                                                        -295.2068 
+#> Log-likelihood:                                                        -295.2068 
+#> Wald chi2(2):                                                           102.5171 
+#> Prob > chi2:                                                              0.0000 
 #> Small sample correction:                                                   FALSE 
 #> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
-#>                                 Final estimates 
+#>                        Final Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
-#>          Estimate Std. Error z value Pr(>|z|)    
-#> Constant   1.4638     0.1933   7.573 3.64e-14 ***
-#> x1         1.1857     0.1287   9.213  < 2e-16 ***
-#> x2         2.2279     0.3932   5.666 1.46e-08 ***
+#>          Coefficient EIM Std.Err. z value [95% Conf. Interval] Pr(>|z|)    
+#> Constant      1.4638       0.1933  7.5732     1.0849     1.843 3.64e-14 ***
+#> x1            1.1857       0.1287  9.2126     0.9335     1.438  < 2e-16 ***
+#> x2            2.2279       0.3932  5.6662     1.4572     2.999 1.46e-08 ***
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
@@ -585,21 +633,25 @@ fracreg(y, X, type="2Pbin", inflation=0, linkbin="logit")
 fracreg(y, X, type="2Pfrac", inflation=0, linkfrac="probit")
 #> 
 #> -------------------------------------------------------------------------------- 
-#>         Fractional component of a two-part model - probit specification 
+#>                         Part 2: Fractional probit model 
 #> -------------------------------------------------------------------------------- 
 #> Estimator:                                                                   QML 
+#> Data type:                                                       Cross-sectional 
 #> Number of observations:                                                      881 
 #> Pseudo R-squared:                                                        0.32474 
+#> Log pseudolikelihood:                                                  -555.3304 
+#> Wald chi2(2):                                                           391.6944 
+#> Prob > chi2:                                                              0.0000 
 #> Standard errors:                                                          robust 
 #> Small sample correction:                                                   FALSE 
 #> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
-#>                                 Final estimates 
+#>                     Final Quasi-Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
-#>          Estimate Std. Error z value Pr(>|z|)    
-#> Constant -0.10334    0.03566  -2.898  0.00376 ** 
-#> x1        0.37512    0.02129  17.623  < 2e-16 ***
-#> x2        0.61326    0.06529   9.392  < 2e-16 ***
+#>          Coefficient Robust Std.Err.  z value [95% Conf. Interval] Pr(>|z|)    
+#> Constant    -0.10334         0.03566 -2.89793   -0.17323    -0.033  0.00376 ** 
+#> x1           0.37512         0.02129 17.62293    0.33340     0.417  < 2e-16 ***
+#> x2           0.61326         0.06529  9.39237    0.48529     0.741  < 2e-16 ***
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
@@ -611,42 +663,49 @@ fracreg(y, X, type="2Pfrac", inflation=0, linkfrac="probit")
 fracreg(y, X, type="2P", inflation=0, linkbin="cloglog", linkfrac="logit")
 #> 
 #> -------------------------------------------------------------------------------- 
-#>           Binary component of a two-part model - cloglog specification 
+#>                           Part 1: Binary cloglog model 
 #> -------------------------------------------------------------------------------- 
 #> Estimator:                                                                    ML 
+#> Data type:                                                       Cross-sectional 
 #> Number of observations:                                                     1000 
 #> Pseudo R-squared:                                                        0.14837 
-#> Log-Likelihood:                                                        -291.7986 
+#> Log-likelihood:                                                        -291.7986 
+#> Wald chi2(2):                                                           100.5683 
+#> Prob > chi2:                                                              0.0000 
 #> Small sample correction:                                                   FALSE 
 #> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
-#>                                 Final estimates 
+#>                        Final Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
-#>          Estimate Std. Error z value Pr(>|z|)    
-#> Constant  0.43428    0.08825   4.921 8.60e-07 ***
-#> x1        0.55192    0.06009   9.184  < 2e-16 ***
-#> x2        1.05359    0.17403   6.054 1.41e-09 ***
+#>          Coefficient EIM Std.Err. z value [95% Conf. Interval] Pr(>|z|)    
+#> Constant     0.43428      0.08825 4.92113    0.26132     0.607 8.60e-07 ***
+#> x1           0.55192      0.06009 9.18429    0.43414     0.670  < 2e-16 ***
+#> x2           1.05359      0.17403 6.05409    0.71250     1.395 1.41e-09 ***
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
 #> 
 #> 
 #> -------------------------------------------------------------------------------- 
-#>          Fractional component of a two-part model - logit specification 
+#>                          Part 2: Fractional logit model 
 #> -------------------------------------------------------------------------------- 
 #> Estimator:                                                                   QML 
+#> Data type:                                                       Cross-sectional 
 #> Number of observations:                                                      881 
 #> Pseudo R-squared:                                                        0.32412 
+#> Log pseudolikelihood:                                                  -555.4465 
+#> Wald chi2(2):                                                           368.0384 
+#> Prob > chi2:                                                              0.0000 
 #> Standard errors:                                                          robust 
 #> Small sample correction:                                                   FALSE 
 #> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
-#>                                 Final estimates 
+#>                     Final Quasi-Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
-#>          Estimate Std. Error z value Pr(>|z|)    
-#> Constant -0.17323    0.05786  -2.994  0.00275 ** 
-#> x1        0.61205    0.03554  17.221  < 2e-16 ***
-#> x2        1.00509    0.10703   9.391  < 2e-16 ***
+#>          Coefficient Robust Std.Err.  z value [95% Conf. Interval] Pr(>|z|)    
+#> Constant    -0.17323         0.05786 -2.99384   -0.28664    -0.060  0.00275 ** 
+#> x1           0.61205         0.03554 17.22078    0.54239     0.682  < 2e-16 ***
+#> x2           1.00509         0.10703  9.39074    0.79531     1.215  < 2e-16 ***
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
@@ -655,10 +714,11 @@ fracreg(y, X, type="2P", inflation=0, linkbin="cloglog", linkfrac="logit")
 #> -------------------------------------------------------------------------------- 
 #>                Two-part model - binary cloglog + fractional logit 
 #> -------------------------------------------------------------------------------- 
+#> Data type:                                                       Cross-sectional 
 #> Pseudo R-squared:                                                        0.38829 
 #> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 23:19:00 
+#>                          Run Date: 2026-07-06 03:48:08 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -666,63 +726,73 @@ fracreg(y, X, type="2P", inflation=0, linkbin="cloglog", linkfrac="logit")
 fracreg(y, X, type="3P", linkbin=c("logit","probit"), linkfrac="logit")
 #> 
 #> -------------------------------------------------------------------------------- 
-#>        First binary component of a three-part model - logit specification 
+#>                            Part 1: Binary logit model 
 #> -------------------------------------------------------------------------------- 
 #> Estimator:                                                                    ML 
+#> Data type:                                                       Cross-sectional 
 #> Number of observations:                                                     1000 
 #> Pseudo R-squared:                                                        0.14527 
-#> Log-Likelihood:                                                        -295.2068 
+#> Log-likelihood:                                                        -295.2068 
+#> Wald chi2(2):                                                           102.5171 
+#> Prob > chi2:                                                              0.0000 
 #> Small sample correction:                                                   FALSE 
 #> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
-#>                                 Final estimates 
+#>                        Final Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
-#>          Estimate Std. Error z value Pr(>|z|)    
-#> Constant   1.4638     0.1933   7.573 3.64e-14 ***
-#> x1         1.1857     0.1287   9.213  < 2e-16 ***
-#> x2         2.2279     0.3932   5.666 1.46e-08 ***
+#>          Coefficient EIM Std.Err. z value [95% Conf. Interval] Pr(>|z|)    
+#> Constant      1.4638       0.1933  7.5732     1.0849     1.843 3.64e-14 ***
+#> x1            1.1857       0.1287  9.2126     0.9335     1.438  < 2e-16 ***
+#> x2            2.2279       0.3932  5.6662     1.4572     2.999 1.46e-08 ***
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
 #> 
 #> 
 #> -------------------------------------------------------------------------------- 
-#>       Second binary component of a three-part model - probit specification 
+#>                           Part 2: Binary probit model 
 #> -------------------------------------------------------------------------------- 
 #> Estimator:                                                                    ML 
+#> Data type:                                                       Cross-sectional 
 #> Number of observations:                                                      881 
 #> Pseudo R-squared:                                                        0.18634 
-#> Log-Likelihood:                                                        -348.8644 
+#> Log-likelihood:                                                        -348.8644 
+#> Wald chi2(2):                                                           123.5731 
+#> Prob > chi2:                                                              0.0000 
 #> Small sample correction:                                                   FALSE 
 #> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
-#>                                 Final estimates 
+#>                        Final Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
-#>          Estimate Std. Error z value Pr(>|z|)    
-#> Constant -1.71537    0.12933  -13.26  < 2e-16 ***
-#> x1        0.64810    0.06323   10.25  < 2e-16 ***
-#> x2        1.07752    0.19174    5.62 1.91e-08 ***
+#>          Coefficient EIM Std.Err.   z value [95% Conf. Interval] Pr(>|z|)    
+#> Constant    -1.71537      0.12933 -13.26354   -1.96885    -1.462  < 2e-16 ***
+#> x1           0.64810      0.06323  10.25024    0.52418     0.772  < 2e-16 ***
+#> x2           1.07752      0.19174   5.61978    0.70172     1.453 1.91e-08 ***
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
 #> 
 #> 
 #> -------------------------------------------------------------------------------- 
-#>         Fractional component of a three-part model - logit specification 
+#>                          Part 3: Fractional logit model 
 #> -------------------------------------------------------------------------------- 
 #> Estimator:                                                                   QML 
+#> Data type:                                                       Cross-sectional 
 #> Number of observations:                                                      715 
 #> Pseudo R-squared:                                                        0.24292 
+#> Log pseudolikelihood:                                                  -484.9654 
+#> Wald chi2(2):                                                            261.436 
+#> Prob > chi2:                                                              0.0000 
 #> Standard errors:                                                          robust 
 #> Small sample correction:                                                   FALSE 
 #> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
-#>                                 Final estimates 
+#>                     Final Quasi-Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
-#>          Estimate Std. Error z value Pr(>|z|)    
-#> Constant -0.26763    0.04539  -5.896 3.73e-09 ***
-#> x1        0.36198    0.02454  14.751  < 2e-16 ***
-#> x2        0.58505    0.07969   7.342 2.11e-13 ***
+#>          Coefficient Robust Std.Err.  z value [95% Conf. Interval] Pr(>|z|)    
+#> Constant    -0.26763         0.04539 -5.89578   -0.35660    -0.179 3.73e-09 ***
+#> x1           0.36198         0.02454 14.75144    0.31389     0.410  < 2e-16 ***
+#> x2           0.58505         0.07969  7.34179    0.42886     0.741 2.11e-13 ***
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
@@ -731,10 +801,11 @@ fracreg(y, X, type="3P", linkbin=c("logit","probit"), linkfrac="logit")
 #> -------------------------------------------------------------------------------- 
 #>        Three-part model - binary logit , binary probit + fractional logit 
 #> -------------------------------------------------------------------------------- 
+#> Data type:                                                       Cross-sectional 
 #> Pseudo R-squared:                                                        0.38917 
 #> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 23:19:00 
+#>                          Run Date: 2026-07-06 03:48:08 
 #> -------------------------------------------------------------------------------- 
 #> 
 ```

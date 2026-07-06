@@ -212,6 +212,12 @@ fracregpd.est <- function(type,x.exogenous,lags,id,Ti,Hy,x,z,link,var.type,start
 
 	ret.list <- list(p=p,converged=converged)
 	if(type!="QMLcre" & kz>k) ret.list[["Qn"]] <- Qn
+	if (type == "QMLcre") {
+		yhat <- fracregpd.links(link)$linkinv(XB)
+		eps <- 1e-16
+		LL <- sum(ifelse(Hy > 0, Hy * log(pmax(yhat, eps)), 0) + ifelse(Hy < 1, (1-Hy) * log(pmax(1-yhat, eps)), 0))
+		ret.list[["LL"]] <- LL
+	}
 
 	if(variance==F | converged==F | bootstrap==T) return(ret.list)
 
@@ -297,7 +303,7 @@ fracregpd.var <- function(type,x.exogenous,var.type,id,Ti,Hy,x,z,XB,link,at,at1,
 	return(ret.list)
 }
 
-fracregpd.table <- function(p,p.var,x.names,x.exogenous,lags,type,link,converged,N.ini,N,NT.ini,NT,J,dfJ,k,var.type,bootstrap)
+fracregpd.table <- function(p,p.var,x.names,x.exogenous,lags,type,link,converged,N.ini,N,NT.ini,NT,J,dfJ,k,var.type,bootstrap,LL=NULL)
 {
 	if(converged==T)
 	{
@@ -305,43 +311,96 @@ fracregpd.table <- function(p,p.var,x.names,x.exogenous,lags,type,link,converged
 		{
 			p.sd <- diag(p.var)^0.5
 			z.ratio <- p/p.sd
-			p.value <- 2*(1-pnorm(abs(z.ratio)))
-			res_table <- cbind(Estimate = p, `Std. Error` = p.sd, `z value` = z.ratio, `Pr(>|z|)` = p.value)
+			p.value <- 2*pnorm(abs(z.ratio), lower.tail=FALSE)
+			ci.low <- p - qnorm(0.975) * p.sd
+			ci.high <- p + qnorm(0.975) * p.sd
+			res_table <- cbind(Coefficient = p, `Std.Err.` = p.sd, `z value` = z.ratio, `[95% Conf.` = ci.low, `Interval]` = ci.high, `Pr(>|z|)` = p.value)
+			se_type <- if(bootstrap) "bootstrap" else var.type
+			if(se_type == "standard") se_type <- "EIM"
+			colnames(res_table)[2] <- paste0(tools::toTitleCase(se_type), " Std.Err.")
 		}
 		else
 		{
-			res_table <- cbind(Estimate = p, `Std. Error` = NA, `z value` = NA, `Pr(>|z|)` = NA)
+			res_table <- cbind(Coefficient = p, `Std.Err.` = NA, `z value` = NA, `[95% Conf.` = NA, `Interval]` = NA, `Pr(>|z|)` = NA)
+			se_type <- if(bootstrap) "bootstrap" else var.type
+			if(se_type == "standard") se_type <- "EIM"
+			colnames(res_table)[2] <- paste0(tools::toTitleCase(se_type), " Std.Err.")
 		}
 		rownames(res_table) <- x.names
 		rownames(res_table)[rownames(res_table) == "INTERCEPT"] <- "Constant"
 
+		Wald <- NA
+		p_wald <- NA
+		df_wald <- NA
+		if(!is.character(p.var)) {
+			if(length(p) > 1 && x.names[1] == "INTERCEPT") {
+				p_idx <- 2:length(p)
+				W <- tryCatch(t(p[p_idx]) %*% solve(p.var[p_idx, p_idx]) %*% p[p_idx], error = function(e) NA)
+				if (!is.na(W)) {
+					Wald <- as.numeric(W)
+					df_wald <- length(p_idx)
+					p_wald <- 1 - pchisq(Wald, df = df_wald)
+				}
+			} else if(length(p) > 0 && x.names[1] != "INTERCEPT") {
+				W <- tryCatch(t(p) %*% solve(p.var) %*% p, error = function(e) NA)
+				if (!is.na(W)) {
+					Wald <- as.numeric(W)
+					df_wald <- length(p)
+					p_wald <- 1 - pchisq(Wald, df = df_wald)
+				}
+			}
+		}
+
 		cat("\n")
 		cat(.fracreg.sep(), "\n")
-		cat(.fracreg.center(paste("Fractional", link, "regression model")), "\n")
+		model_desc <- switch(type,
+			"QMLcre" = "(correlated random effects) ",
+			"QMLfe" = "(fixed effects) ",
+			"GMMcre" = "(correlated random effects) ",
+			"GMMpre" = "(pooled random effects) ",
+			"GMMpfe" = "(pooled fixed effects) ",
+			"")
+		cat(.fracreg.center(paste("Fractional", link, model_desc, "model")), "\n")
 		cat(.fracreg.sep(), "\n")
 		.fracreg.cat.right("Estimator:", type)
+		.fracreg.cat.right("Data type:", "Panel")
 		.fracreg.cat.right("Exogeneity:", x.exogenous)
 		.fracreg.cat.right("Use first lag of instruments:", lags)
 		if(bootstrap==F) .fracreg.cat.right("Standard errors:", var.type)
 		if(bootstrap==T) .fracreg.cat.right("Standard errors:", "bootstrap")
 		cat(.fracreg.sep(), "\n")
-
-		.fracreg.cat.right("Initial observations:", NT.ini)
-		.fracreg.cat.right("Estimation observations:", NT)
-		.fracreg.cat.right("Initial cross-sectional units:", N.ini)
-		.fracreg.cat.right("Estimation cross-sectional units:", N)
-		.fracreg.cat.right("Initial periods per unit (avg):", round(NT.ini/N.ini, 1))
-		.fracreg.cat.right("Estimation periods per unit (avg):", round(NT/N, 1))
+		
+		if(N.ini!=N | NT.ini!=NT) .fracreg.cat.right("Number of obs (initial):", NT.ini)
+		.fracreg.cat.right("Number of observations:", NT)
+		if(N.ini!=N | NT.ini!=NT) .fracreg.cat.right("Number of groups (initial):", N.ini)
+		.fracreg.cat.right("Number of groups:", N)
+		.fracreg.cat.right("Obs per group:", NT/N)
+		if(!is.null(LL)) .fracreg.cat.right("Log pseudolikelihood:", round(LL, 4))
 
 		if(type!="QMLcre" & dfJ>0)
 		{
 			p.value.J <- 1-pchisq(J,dfJ)
 			.fracreg.cat.right("J test (p-value):", paste0(round(J,4), " (", round(p.value.J,4), ")"))
 		}
+		if(!is.na(Wald)) {
+			.fracreg.cat.right(paste0("Wald chi2(", df_wald, "):"), round(Wald, 4))
+			.fracreg.cat.right("Prob > chi2:", sprintf("%.4f", p_wald))
+		}
 		.fracreg.cat.right("Convergence:", "Successful")
 		cat(.fracreg.sep(), "\n")
 
-		cat(.fracreg.center("Final estimates"), "\n")
+		type_full <- switch(type,
+			"QMLcre" = "(Correlated Random Effects) Quasi-Maximum Likelihood",
+			"QMLfe" = "(Fixed Effects) Quasi-Maximum Likelihood",
+			"GMMcre" = "(Correlated Random Effects) Generalized Method of Moments",
+			"GMMpre" = "(Pooled Random Effects) Generalized Method of Moments",
+			"GMMpfe" = "(Pooled Fixed Effects) Generalized Method of Moments",
+			type)
+		if (type_full == type) {
+			if (grepl("^GMM", type)) type_full <- paste("GMM", sub("^GMM", "", type))
+			if (grepl("^QML", type)) type_full <- paste("Quasi-Maximum Likelihood", sub("^QML", "", type))
+		}
+		cat(.fracreg.center(paste("Final", type_full, "estimates")), "\n")
 		cat(.fracreg.sep(), "\n")
 
 		if(type!="QMLcre" | x.exogenous==T) {
@@ -755,6 +814,7 @@ fracregpd <- function(id,time,y,x,z,var.endog,x.exogenous=T,lags,start,type,GMMw
 	results <- fracregpd.est(type,x.exogenous,lags,id,Ti,Hy,x,z,link,var.type,start,at,at1,variance,NT,k,kz,gixv,vhat,bootstrap,...)
 	p <- results$p
 	converged <- results$converged
+	LL <- results$LL
 
 	if(type!="QMLcre" & dfJ>0)
 	{
@@ -857,7 +917,7 @@ fracregpd <- function(id,time,y,x,z,var.endog,x.exogenous=T,lags,start,type,GMMw
 
 	if(type=="QMLcre" & x.exogenous==F) p <- c(p,PIhat)
 
-	if(table==T) fracregpd.table(p,p.var,x.names,x.exogenous,lags,type,link,converged,N.ini,N,NT.ini,NT,J,dfJ,k,var.type,bootstrap)
+	if(table==T) fracregpd.table(p,p.var,x.names,x.exogenous,lags,type,link,converged,N.ini,N,NT.ini,NT,J,dfJ,k,var.type,bootstrap,LL=LL)
 
 	names(p) <- x.names
 	res <- list(type=type,link=link,Hy=Hy,p=p,converged=converged)

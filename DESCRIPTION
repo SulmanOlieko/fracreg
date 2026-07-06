@@ -8,7 +8,7 @@ Authors@R: person(given = c("Sulman", "Olieko"),
                    email = "oliekosulman@gmail.com",
                    comment = c(ORCID = "0000-0001-7401-5326"))
 License: GPL-3
-Description: A comprehensive toolkit for the estimation and specification analysis of fractional response models. Provides advanced routines for fitting univariate one-part, hurdle two-part, and double-inflated three-part fractional models. Further incorporates estimators for panel data settings and addresses unobserved heterogeneity and endogeneity via correlated random effects and control function approaches. Calculates analytical partial effects across all model types and includes generalized goodness-of-functional-form (GGOFF) and RESET hypothesis tests.
+Description: An R package for the estimation and specification analysis of fractional response models. Provides routines for fitting univariate one-part, two-part, and double-inflated three-part fractional models. Further incorporates estimators for panel data settings and addresses unobserved heterogeneity and endogeneity via correlated random effects and control function approaches. Calculates analytical partial effects across all model types and includes generalised goodness-of-functional-form (GGOFF) and RESET hypothesis tests.
 Date: 2026-07-05
 Packaged: 2026-07-05 12:38:54 UTC; Sulman
 NeedsCompilation: no

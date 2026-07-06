@@ -38,236 +38,445 @@ The **`fracreg`** package is the most comprehensive tool available in R for esti
 - **Panel data models** (`fracregpd`): CRE, QML, and GMM approaches for longitudinal data.
 - **Endogeneity correction** (`fracreghet`): Control function and IV-GMM approaches.
 
-This vignette walks you through empirical examples demonstrating each estimator using the 401(k) dataset.
+This vignette walks you through comprehensive empirical examples (using the 401(k) dataset) and simulated examples for each estimator.
 
 ```{r load-package}
 library(fracreg)
 ```
 
----
+## 1. Data Description and Preparation
 
-## 1. Cross-Sectional Fractional Models (`fracreg`)
-
-The core `fracreg()` function is designed for univariate models where the dependent variable is bounded between 0 and 1 inclusive ($0 \le y \le 1$).
-
-### 1.1 Data Description and Preparation
-
-We use the built-in `fracreg_k401k` dataset, which is the canonical firm-level 401(k) plan participation data used in **Papke and Wooldridge (1996)** (*"Econometric methods for fractional response variables with an application to 401(k) plan participation rates"*, Journal of Applied Econometrics). The dataset contains 1,534 observations of 401(k) plans. 
+We use the built-in `fracreg_k401k` dataset, which is the canonical firm-level 401(k) plan participation data used in **Papke and Wooldridge (1996)** (*"Econometric methods for fractional response variables with an application to 401(k) plan participation rates"*, Journal of Applied Econometrics). The dataset contains 1,534 observations of 401(k) plans.
 
 The primary variables we use are:
-- `prate`: The plan participation rate (the fraction of eligible employees who are active participants). It strictly falls in the $[0, 1]$ interval and is our dependent variable ($y$).
-- `mrate`: The firm's matching rate (the firm's contribution per $1 of employee contribution).
-- `age`: The age of the 401(k) plan.
-- `totemp`: Total number of employees at the firm.
+- `prate`: The plan participation rate (the fraction of eligible employees who are active participants). It strictly falls in the $[0, 1]$ interval and is our dependent variable ($y$). 
+- `mrate`: The firm's matching rate (the firm's contribution per $1 of employee contribution). 
+- `age`: The age of the 401(k) plan. 
+- `totemp`: Total number of employees at the firm. 
 - `sole`: A binary indicator equal to 1 if the 401(k) plan is the sole retirement plan offered by the firm.
 
-```{r data-load}
-data("fracreg_k401k")
-y <- fracreg_k401k$prate
-X <- cbind(
-  mrate = fracreg_k401k$mrate, 
-  age = fracreg_k401k$age, 
-  totemp = fracreg_k401k$totemp, 
-  sole = fracreg_k401k$sole
-)
-head(cbind(y, X))
+---
+
+## 2. Cross-Sectional Fractional Models (`fracreg`)
+
+The core `fracreg()` function is designed for univariate models where the dependent variable is bounded between 0 and 1 inclusive ($0 \le y \le 1$). The examples below demonstrate both empirical 401(k) plan participation data and general simulated boundaries.
+
+```{r fracreg}
+### Empirical 401(k) Examples 
+data("fracreg_k401k") 
+y <- fracreg_k401k$prate 
+X <- cbind(mrate = fracreg_k401k$mrate, age = fracreg_k401k$age,  
+           totemp = fracreg_k401k$totemp, sole = fracreg_k401k$sole) 
+ 
+# 1P Model 
+fracreg(y, X, type="1P", linkfrac="logit") 
+ 
+# 2P Model (modelling mass at 1) 
+fracreg(y, X, type="2P", inflation=1, linkbin="logit", linkfrac="logit") 
+ 
+# 3P Model (inject artificial 0s for demonstration) 
+y_3p <- y; y_3p[1:50] <- 0 
+fracreg(y_3p, X, type="3P", linkbin=c("logit","logit"), linkfrac="logit") 
+ 
+### Simulated Examples 
+ 
+set.seed(123) 
+N <- 1000 
+x1 <- rnorm(N) 
+x2 <- runif(N) 
+ 
+# Generating a fractional dependent variable with inflation at 0 and 1 
+XB <- -0.5 + 0.8 * x1 + 1.2 * x2 + rnorm(N) 
+y_latent <- exp(XB) / (1 + exp(XB)) 
+ 
+y <- y_latent 
+# Inflate at boundaries 
+y[y_latent < 0.2] <- 0 
+y[y_latent > 0.8] <- 1 
+ 
+X <- cbind(x1 = x1, x2 = x2) 
+ 
+# fracreg estimation of a logit fractional response model 
+fracreg(y, X, type="1P", linkfrac="logit") 
+ 
+# fracreg estimation of the binary logit component of the two-part fractional 
+# regression model with y=0 as the relevant boundary value 
+fracreg(y, X, type="2Pbin", inflation=0, linkbin="logit") 
+ 
+# fracreg estimation of the fractional component of the two-part fractional 
+# regression model with y=0 as the relevant boundary value and using a 
+# probit link function 
+fracreg(y, X, type="2Pfrac", inflation=0, linkfrac="probit") 
+ 
+# fracreg estimation of both components of a two-part fractional response model 
+# with y=0 as the relevant boundary value and using a cloglog binary link 
+# function and a logit fractional link function 
+fracreg(y, X, type="2P", inflation=0, linkbin="cloglog", linkfrac="logit") 
+ 
+# Three-part double-inflated model (y has both 0s and 1s) 
+fracreg(y, X, type="3P", linkbin=c("logit","probit"), linkfrac="logit") 
 ```
 
-### 1.2 The Standard 1-Part Model (1P)
+### 1.1 Partial Effects (`fracreg.pe`)
 
-If you assume a single process governs the entire distribution of `y`, the standard one-part model is the natural choice. This corresponds to the Papke and Wooldridge (1996) quasi-likelihood estimator, where the conditional mean is specified as:
-$$ E(y \mid x) = G(x\beta) $$
-where $G(\cdot)$ is a known non-linear link function (e.g., logit, probit) satisfying $0 \le G(\cdot) \le 1$.
+Raw coefficients from fractional models are not directly interpretable as marginal effects. Use `fracreg.pe()` to compute the Average Partial Effects (APE) and Conditional Partial Effects (CPE) using the analytical delta method.
 
-```{r one-part}
-model_1p <- fracreg(
-  y = y, 
-  x = X, 
-  type = "1P", 
-  linkfrac = "logit"
-)
-```
-
-### 1.3 Partial Effects (1P)
-
-Raw coefficients from fractional models are not directly interpretable as marginal effects. Use `fracreg.pe()` to compute the **Average Partial Effects (APE)** using the analytical delta method:
-
-```{r pe-1p}
-pe_1p <- fracreg.pe(model_1p)
-```
-
-### 1.4 The Two-Part Hurdle Model (2P)
-
-Often, fractional data (e.g., participation rates, insurance coverage, expenditure shares) have a substantial mass of zeros. The two-part model estimates:
-
-1. A **binary** component: $\Pr(y > 0 \mid x) = G_{BIN}(x\beta_{BIN})$
-2. A **fractional** component: $E(y \mid y > 0, x) = G_{FRAC}(x\beta_{FRAC})$
-
-The overall conditional expectation is then $E(y \mid x) = \Pr(y > 0 \mid x) \cdot E(y \mid y > 0, x)$.
-
-```{r two-part}
-# We use inflation=1 to indicate we are modelling the mass at 100% participation
-model_2p <- fracreg(
-  y = y, 
-  x = X, 
-  type = "2P", 
-  inflation = 1,
-  linkbin = "logit", 
-  linkfrac = "logit"
-)
-```
-
-#### Partial Effects for the Two-Part Model
-
-The `fracreg.pe()` command natively accounts for the product rule when computing APEs for combined two-part models:
-
-```{r pe-2p}
-pe_2p <- fracreg.pe(model_2p)
-```
-
-### 1.5 The Three-Part Double-Inflated Model (3P)
-
-When data has substantial clustering at **both** boundaries (0 and 1) simultaneously, the three-part model decomposes the process into:
-
-1. $\Pr(y > 0 \mid x) = G_{BIN0}(x\beta_{BIN0})$ — first binary hurdle
-2. $\Pr(y = 1 \mid y > 0, x) = G_{BIN1}(x\beta_{BIN1})$ — second binary hurdle
-3. $E(y \mid 0 < y < 1, x) = G_{FRAC}(x\beta_{FRAC})$ — fractional component
-
-The overall conditional expectation integrates these three mechanisms into a single framework.
-
-```{r three-part}
-# Since the k401k data has no exact 0s, we inject some artificial 0s just for demonstration
-y_3p <- y
-y_3p[1:50] <- 0
-
-# Linkbin takes a vector of two links for the two binary hurdles
-model_3p <- fracreg(
-  y = y_3p, 
-  x = X, 
-  type = "3P", 
-  linkbin = c("logit", "logit"), 
-  linkfrac = "logit"
-)
-```
-
-#### Partial Effects for the Three-Part Model
-
-The analytical delta method is natively supported for the 3P model, correctly accounting for all three components:
-
-```{r pe-3p}
-pe_3p <- fracreg.pe(model_3p)
+```{r fracreg-pe}
+### Empirical 401(k) Examples 
+data("fracreg_k401k") 
+y <- fracreg_k401k$prate 
+X <- cbind(mrate = fracreg_k401k$mrate, age = fracreg_k401k$age,  
+           totemp = fracreg_k401k$totemp, sole = fracreg_k401k$sole) 
+ 
+m <- fracreg(y, X, type="1P", linkfrac="logit") 
+fracreg.pe(m) 
+ 
+### Simulated Examples 
+ 
+N <- 250 
+u <- rnorm(N) 
+ 
+X <- cbind(rnorm(N),rnorm(N)) 
+dimnames(X)[[2]] <- c("X1","X2") 
+ 
+ym <- exp(X[,1]+X[,2]+u)/(1+exp(X[,1]+X[,2]+u)) 
+y <- rbeta(N,ym*20,20*(1-ym)) 
+y[y > 0.9] <- 1 
+ 
+#Computing average partial effects for a logit fractional response model 
+res <- fracreg(y,X,linkfrac="logit",table=FALSE) 
+fracreg.pe(res) 
+ 
+#Computing average partial effects for a binary logit + fractional probit 
+#two-part model 
+res <- fracreg(y,X,linkbin="logit",linkfrac="probit",type="2P",inf=1,table=FALSE) 
+fracreg.pe(res) 
+ 
+#Computing conditional partial effects for X2 in the logit component 
+#of a two-part fractional response model, with the covariates evaluated 
+#at their median values 
+res <- fracreg(y,X,linkfrac="logit",type="2Pfrac",inf=1,table=FALSE) 
+fracreg.pe(res,APE=FALSE,CPE=TRUE,at="median",which.x="X2") 
+ 
+#Computing average partial effects for a three-part double-inflated model 
+y3p <- y 
+y3p[1:20] <- 0 
+y3p[21:40] <- 1 
+res3p <- fracreg(y3p,X,linkbin=c("logit","probit"),linkfrac="logit",type="3P",table=FALSE) 
+fracreg.pe(res3p) 
 ```
 
 ---
 
-## 2. Hypothesis Testing and Specification Diagnostics
+## 3. Hypothesis Testing and Specification Diagnostics
 
 `fracreg` includes state-of-the-art specification tests to validate your model's functional form and link function assumptions.
 
-### 2.1 Generalized Goodness-Of-Functional-Form (GGOFF)
+### 3.1 Generalised Goodness-Of-Functional-Form (`fracreg.ggoff`)
 
-The GGOFF test (Ramalho, Ramalho and Murteira, 2014) tests whether the chosen link function is adequate for the data by testing $H_0: \gamma_1 = 0, \gamma_2 = 0$ in the augmented model:
-$$ E(y|x) = G\left(x\beta + \gamma_1 \frac{g'(x\hat{\beta})}{g(x\hat{\beta})} + \gamma_2 x\hat{\beta} \right) $$
-where $g(\cdot)$ and $g'(\cdot)$ are the first and second derivatives of $G(\cdot)$. A significant result suggests the link may be misspecified.
+The GGOFF test tests whether the chosen link function is adequate for the data. A significant result suggests the link may be misspecified.
 
-```{r ggoff}
-# Perform the GGOFF test on the 1P model
-# Tests if the logit link is appropriate
-fracreg.ggoff(model_1p, version = "LM")
+```{r fracreg-ggoff}
+### Empirical 401(k) Examples 
+data("fracreg_k401k") 
+y <- fracreg_k401k$prate 
+X <- cbind(mrate = fracreg_k401k$mrate, age = fracreg_k401k$age,  
+           totemp = fracreg_k401k$totemp, sole = fracreg_k401k$sole) 
+ 
+m <- fracreg(y, X, type="1P", linkfrac="logit") 
+fracreg.ggoff(m) 
+ 
+### Simulated Examples 
+ 
+N <- 250 
+u <- rnorm(N) 
+ 
+X <- cbind(rnorm(N),rnorm(N)) 
+dimnames(X)[[2]] <- c("X1","X2") 
+ 
+ym <- exp(X[,1]+X[,2]+u)/(1+exp(X[,1]+X[,2]+u)) 
+y <- rbeta(N,ym*20,20*(1-ym)) 
+y[y > 0.9] <- 1 
+ 
+#Testing the logit specification of a standard fractional response model 
+#using LM and Wald versions of the GGOFF test, based on 1 or 2 fitted powers of 
+#the linear predictor 
+res <- fracreg(y,X,linkfrac="logit",table=FALSE) 
+fracreg.ggoff(res,c("Wald","LM")) 
+ 
+#Testing the probit specification of the binary component of a two-part fractional 
+#regression model using a LR-based GGOFF test 
+res <- fracreg(y,X,linkbin="probit",type="2Pbin",inf=1,table=FALSE) 
+fracreg.ggoff(res,"LR") 
 ```
 
-### 2.2 RESET Test
+### 3.2 RESET Test (`fracreg.reset`)
 
-The RESET test (Ramsey, 1969) detects general functional form misspecification by testing whether powers of the fitted values have explanatory power:
-$$ E(y|x) = G\left(x\beta + \sum_{k=2}^P \gamma_k (x\hat{\beta})^k\right) $$
-Testing $H_0: \gamma = 0$ provides a robust diagnostic check.
+The RESET test detects general functional form misspecification by testing whether powers of the fitted values have explanatory power. Testing $H_0: \gamma = 0$ provides a robust diagnostic check.
 
-```{r reset}
-# Standard RESET test for functional form misspecification
-fracreg.reset(model_1p)
+```{r fracreg-reset}
+### Empirical 401(k) Examples 
+data("fracreg_k401k") 
+y <- fracreg_k401k$prate 
+X <- cbind(mrate = fracreg_k401k$mrate, age = fracreg_k401k$age,  
+           totemp = fracreg_k401k$totemp, sole = fracreg_k401k$sole) 
+ 
+m <- fracreg(y, X, type="1P", linkfrac="logit") 
+fracreg.reset(m) 
+ 
+### Simulated Examples 
+ 
+N <- 250 
+u <- rnorm(N) 
+ 
+X <- cbind(rnorm(N),rnorm(N)) 
+dimnames(X)[[2]] <- c("X1","X2") 
+ 
+ym <- exp(X[,1]+X[,2]+u)/(1+exp(X[,1]+X[,2]+u)) 
+y <- rbeta(N,ym*20,20*(1-ym)) 
+y[y > 0.9] <- 1 
+ 
+#Testing the logit specification of a standard fractional response model 
+#using LM and Wald versions of the RESET test, based on 1 or 2 fitted powers of 
+#the linear predictor 
+res <- fracreg(y,X,linkfrac="logit",table=FALSE) 
+fracreg.reset(res,2:3,c("Wald","LM")) 
+ 
+#Testing the probit specification of the binary component of a two-part fractional 
+#regression model using LR-based RESET tests with quadratic and cubic fitted  
+#powers of the linear predictor 
+res <- fracreg(y,X,linkbin="probit",type="2Pbin",inf=1,table=FALSE) 
+fracreg.reset(res,3,"LR") 
 ```
 
-### 2.3 P-Test for Non-Nested Models
+### 3.3 P-Test for Non-Nested Models (`fracreg.ptest`)
 
-You can compare non-nested models (e.g., `logit` vs. `cloglog` link) using the Davidson-MacKinnon (1981) P-test. If model 1 specifies $E_1(y|x) = G(x\beta)$ and model 2 specifies $E_2(y|x) = H(z\theta)$, the baseline model is augmented with the difference between the fitted values:
-$$ E(y|x) = G\left(x\beta + \gamma \left( \hat{y}_{M2} - \hat{y}_{M1} \right)\right) $$
+You can compare non-nested models (e.g., `logit` vs. `cloglog` link) using the Davidson-MacKinnon (1981) P-test.
 
-```{r ptest}
-model_1p_clog <- fracreg(
-  y = y, 
-  x = X, 
-  type = "1P", 
-  linkfrac = "cloglog"
-)
-
-# fracreg.ptest(model_1p, model_1p_clog) # Uncomment to run non-nested test
+```{r fracreg-ptest}
+### Empirical 401(k) Examples 
+data("fracreg_k401k") 
+y <- fracreg_k401k$prate 
+X <- cbind(mrate = fracreg_k401k$mrate, age = fracreg_k401k$age,  
+           totemp = fracreg_k401k$totemp, sole = fracreg_k401k$sole) 
+ 
+m1 <- fracreg(y, X, type="1P", linkfrac="logit") 
+m2 <- fracreg(y, X, type="1P", linkfrac="probit") 
+fracreg.ptest(m1, m2) 
+ 
+### Simulated Examples 
+ 
+N <- 250 
+u <- rnorm(N) 
+ 
+X <- cbind(rnorm(N),rnorm(N)) 
+dimnames(X)[[2]] <- c("X1","X2") 
+ 
+ym <- exp(X[,1]+X[,2]+u)/(1+exp(X[,1]+X[,2]+u)) 
+y <- rbeta(N,ym*20,20*(1-ym)) 
+y[y > 0.9] <- 1 
+ 
+#Testing logit versus loglog specifications for standard fractional 
+#regression models using a LM version of the P test 
+res1 <- fracreg(y,X,linkfrac="logit",table=FALSE) 
+res2 <- fracreg(y,X,linkfrac="loglog",table=FALSE) 
+fracreg.ptest(res1,res2,"LM") 
+ 
+#Testing a logit one-part fractional response model versus a binary logit + 
+#fractional probit two-part model using a Wald version of the P test 
+res1 <- fracreg(y,X,linkfrac="logit",table=FALSE) 
+res2 <- fracreg(y,X,linkbin="logit",linkfrac="probit",type="2P",inf=1,table=FALSE) 
+fracreg.ptest(res1,res2,"Wald") 
 ```
 
 ---
 
-## 3. Endogeneity & Heteroscedasticity (`fracreghet`)
+## 4. Endogeneity & Heteroscedasticity (`fracreghet`)
 
 When you suspect that one of your covariates is endogenous, or that the variance is heteroscedastic, `fracreghet()` provides instrumental variable correction. It natively supports IV through a **Control Function (CF)** approach or **GMM** estimation.
 
-### 3.1 Control Function Approach (QMLxv)
+```{r fracreghet}
+### Empirical 401(k) Examples 
+data("fracreg_k401k") 
+y <- fracreg_k401k$prate 
+X_het <- cbind(mrate = fracreg_k401k$mrate, age = fracreg_k401k$age)
+ 
+# fracreghet estimators do not allow exact 1s or 0s
+y_adj <- y
+y_adj[y_adj == 1] <- 0.999
 
-The control function approach adds the first-stage residual as an additional regressor in the fractional model, providing a Hausman-type test for endogeneity. For an endogenous continuous regressor $y_{2i}$, the first stage is:
-$$ y_{2i} = z_i \pi + v_i $$
-The residuals $\hat{v}_i$ are then included in the second-stage fractional response model:
-$$ E(y_{1i} \mid z_i, y_{2i}, v_i) = G(x_i \beta + \gamma \hat{v}_i) $$
-
-```{r endogeneity}
-# Simulating an endogenous variable (var.endog) and an instrument (z)
+# Artificial instrumental variable for demonstration 
 set.seed(42)
-N <- length(y)
-x1 <- rnorm(N)
-z <- rnorm(N)
-u <- 0.5 * z + rnorm(N)
-var.endog <- 0.8 * z + u
-y_endog <- exp(0.5 * x1 + 1.2 * var.endog + u) / (1 + exp(0.5 * x1 + 1.2 * var.endog + u))
+Z_emp <- cbind(X_het, z = fracreg_k401k$mrate * rnorm(length(y))) 
+fracreghet(y_adj, X_het, Z_emp, var.endog = X_het[, "mrate"], type="QMLxv", link="logit") 
+ 
+### Simulated Examples 
+ 
+set.seed(123) 
+N <- 1000 
+x1 <- rnorm(N) 
+ 
+# Simulating an endogenous variable (var.endog) and an instrument (z1) 
+z1 <- rnorm(N) 
+u <- 0.5 * z1 + rnorm(N) 
+var.endog <- 0.8 * z1 + u 
+y_endog <- exp(0.5 * x1 + 1.2 * var.endog + u) / (1 + exp(0.5 * x1 + 1.2 * var.endog + u)) 
+ 
+# Avoid exact 0 or 1 boundaries for some estimators 
+y_endog[y_endog <= 0] <- 0.01 
+y_endog[y_endog >= 1] <- 0.99 
+ 
+X <- cbind(x1 = x1, var.endog = var.endog) 
+Z <- cbind(x1 = x1, z1 = z1) 
+ 
+# Exogeneity (assuming var.endog is exogenous for comparison), GMMx estimator 
+fracreghet(y = y_endog, x = X, type = "GMMx", link = "logit") 
+ 
+# Endogeneity, GMMz estimator (does not require reduced form for endog) 
+fracreghet(y = y_endog, x = X, z = Z, type = "GMMz", link = "logit") 
+ 
+# Endogeneity, GMMxv estimator (assumes linear reduced form for var.endog) 
+fracreghet(y = y_endog, x = X, z = Z, var.endog = var.endog, type = "GMMxv", link = "logit") 
+ 
+# Endogeneity, QMLxv control function approach 
+fracreghet(y = y_endog, x = X, z = Z, var.endog = var.endog, type = "QMLxv", link = "logit") 
+```
 
-# Estimate QML with control function for cross-sectional data
-model_het <- fracreghet(
-  y = y_endog, 
-  x = cbind(x1, var.endog), 
-  z = cbind(x1, z), 
-  var.endog = var.endog,
-  type = "QMLxv", 
-  link = "logit"
-)
+### 4.1 Partial Effects for Endogenous Models (`fracreghet.pe`)
+
+```{r fracreghet-pe}
+### Empirical 401(k) Examples 
+data("fracreg_k401k") 
+y <- fracreg_k401k$prate 
+X_het <- cbind(mrate = fracreg_k401k$mrate, age = fracreg_k401k$age)
+ 
+# fracreghet estimators do not allow exact 1s or 0s
+y_adj <- y
+y_adj[y_adj == 1] <- 0.999
+
+# Artificial instrumental variable for demonstration 
+set.seed(42)
+Z_emp <- cbind(X_het, z = fracreg_k401k$mrate * rnorm(length(y))) 
+res_emp <- fracreghet(y_adj, X_het, Z_emp, var.endog = X_het[, "mrate"], type="QMLxv", link="logit", table=FALSE) 
+fracreghet.pe(res_emp, which.x="mrate")
+
+### Simulated Examples 
+ 
+N <- 250 
+u <- rnorm(N) 
+ 
+X <- cbind(rnorm(N),rnorm(N)) 
+dimnames(X)[[2]] <- c("X1","X2") 
+ 
+Z <- cbind(rnorm(N),rnorm(N),rnorm(N)) 
+dimnames(Z)[[2]] <- c("Z1","Z2","Z3") 
+ 
+y <- exp(X[,1]+X[,2]+u)/(1+exp(X[,1]+X[,2]+u)) 
+ 
+res <- fracreghet(y,X,type="GMMx",table=FALSE) 
+ 
+#Smearing estimator of average partial effects for variable X1 
+fracreghet.pe(res,which.x="X1") 
+ 
+#Naive estimator of conditional partial effects for all covariates, 
+#which are evaluated at X1=1 and X2=-1 
+fracreghet.pe(res,smearing=FALSE,APE=FALSE,CPE=TRUE,at=c(1,-1)) 
+```
+
+### 4.2 RESET Test for Endogenous Models (`fracreghet.reset`)
+
+```{r fracreghet-reset}
+### Empirical 401(k) Examples 
+data("fracreg_k401k") 
+y <- fracreg_k401k$prate 
+X_het <- cbind(mrate = fracreg_k401k$mrate, age = fracreg_k401k$age)
+ 
+# fracreghet estimators do not allow exact 1s or 0s
+y_adj <- y
+y_adj[y_adj == 1] <- 0.999
+
+# Artificial instrumental variable for demonstration 
+set.seed(42)
+Z_emp <- cbind(X_het, z = fracreg_k401k$mrate * rnorm(length(y))) 
+res_emp <- fracreghet(y_adj, X_het, type="GMMx", link="logit", table=FALSE) 
+fracreghet.reset(res_emp)
+
+### Simulated Examples 
+ 
+N <- 250 
+u <- rnorm(N) 
+ 
+X <- cbind(rnorm(N),rnorm(N)) 
+dimnames(X)[[2]] <- c("X1","X2") 
+ 
+Z <- cbind(rnorm(N),rnorm(N),rnorm(N)) 
+dimnames(Z)[[2]] <- c("Z1","Z2","Z3") 
+ 
+y <- exp(X[,1]+X[,2]+u)/(1+exp(X[,1]+X[,2]+u)) 
+ 
+res <- fracreghet(y,X,type="GMMx",table=FALSE) 
+ 
+#LM and Wald versions of the RESET test, based on 1 or 2 fitted powers of xb 
+fracreghet.reset(res,2:3,c("Wald","LM")) 
 ```
 
 ---
 
-## 4. Panel Data Fractional Models (`fracregpd`)
+## 5. Panel Data Fractional Models (`fracregpd`)
 
-For longitudinal or panel data where unobserved heterogeneity is a concern, `fracregpd()` provides fixed-T panel estimators. The Correlated Random Effects (CRE) approach adds individual-specific time averages of covariates to the model, allowing consistent estimation even when unobserved effects are correlated with regressors.
+For longitudinal or panel data where unobserved heterogeneity is a concern, `fracregpd()` provides fixed-T panel estimators. 
 
-### 4.1 Correlated Random Effects (QMLcre)
-
-The Correlated Random Effects (CRE) approach models the dependence of unobserved individual-specific heterogeneity $c_i$ on covariates by projecting it onto the time averages of strictly exogenous covariates $\bar{x}_i$:
-$$ c_i = \psi + \bar{x}_i \xi + a_i $$
-Integrating out $a_i$ yields the "population-averaged" or scaled conditional mean, which can be estimated via pooled Bernoulli QML:
-$$ E(y_{it} \mid x_i) = G(x_{it} \beta_a + \psi_a + \bar{x}_i \xi_a) $$
-
-```{r panel-data}
-# Simulating Panel Data
-id <- rep(1:200, each = 5)
-time <- rep(1:5, times = 200)
-x_panel <- rnorm(1000)
-# Unobserved individual effect (CRE)
-c_i <- rep(rnorm(200), each = 5) 
-y_panel <- exp(x_panel + c_i) / (1 + exp(x_panel + c_i))
-
-# Estimate a Correlated Random Effects (CRE) Model
-model_pd <- fracregpd(
-  id = id, 
-  time = time, 
-  y = y_panel, 
-  x = cbind(x_panel = x_panel), 
-  type = "QMLcre", 
-  link = "probit"
-)
+```{r fracregpd}
+### Empirical 401(k) Examples 
+data("fracreg_k401k") 
+y <- fracreg_k401k$prate 
+X <- cbind(mrate = fracreg_k401k$mrate, age = fracreg_k401k$age,  
+           totemp = fracreg_k401k$totemp, sole = fracreg_k401k$sole) 
+ 
+# Artificial panel data structure for demonstration 
+N_emp <- nrow(X) 
+id_emp <- rep(1:(N_emp/2), each=2) 
+time_emp <- rep(1:2, times=N_emp/2) 
+fracregpd(id_emp, time_emp, y, X, type="QMLcre", link="probit") 
+ 
+### Simulated Examples 
+ 
+set.seed(123) 
+# Simulating Panel Data 
+N <- 100 
+T_periods <- 5 
+id <- rep(1:N, each = T_periods) 
+time <- rep(1:T_periods, times = N) 
+x_panel <- rnorm(N * T_periods) 
+ 
+# Unobserved individual effect (CRE) 
+c_i <- rep(rnorm(N), each = T_periods)  
+y_panel <- exp(x_panel + c_i) / (1 + exp(x_panel + c_i)) 
+ 
+X <- cbind(x_panel = x_panel) 
+ 
+# Endogenous variable and instrument simulation 
+z_panel <- rnorm(N * T_periods) 
+u_panel <- 0.5 * z_panel + rnorm(N * T_periods) 
+var_endog <- 0.8 * z_panel + u_panel 
+y_endog <- exp(x_panel + 1.2 * var_endog + c_i + u_panel) /  
+             (1 + exp(x_panel + 1.2 * var_endog + c_i + u_panel)) 
+ 
+X_endog <- cbind(x_panel = x_panel, var_endog = var_endog) 
+Z_inst <- cbind(x_panel = x_panel, z_panel = z_panel) 
+ 
+# Estimate a Correlated Random Effects (CRE) Model 
+fracregpd(id=id, time=time, y=y_panel, x=X, type="QMLcre", link="probit") 
+ 
+# Exogeneity, no lags, no time dummies, clustered standard errors, GMMbgw estimator 
+fracregpd(id=id, time=time, y=y_panel, x=X, type="GMMbgw") 
+ 
+# Lagged covariates and instruments, robust standard errors, GMMww estimator 
+fracregpd(id=id, time=time, y=y_panel, x=X, lags=TRUE, type="GMMww", var.type="robust") 
+ 
+# Endogeneity, time dummies, GMMpfe estimator 
+fracregpd(id=id, time=time, y=y_endog, x=X_endog, z=Z_inst,  
+          x.exogenous=FALSE, type="GMMpfe", tdummies=TRUE) 
 ```
 
 ---
@@ -276,8 +485,25 @@ model_pd <- fracregpd(
 
 With `fracreg`, `fracreghet`, and `fracregpd`, you have a complete, mathematically robust toolkit for modelling fractional responses bounded between $[0,1]$, regardless of inflation, endogeneity, or unobserved panel effects.
 
+## Acknowledgements
+
+This package builds upon, consolidates, and modernises the fractional
+regression frameworks originally implemented in the `frm`, `frmhet`, and
+`frmpd` R packages developed by Joaquim J.S. Ramalho. As those original
+packages have been deprecated and removed from the active CRAN
+repository, `fracreg` serves as an actively maintained successor,
+ensuring these econometric tools remain available to the R community.
+
 ## References
 
+- **Ramalho, J. J. S. (2022).** *frm: Fractional Regression Models*. R
+  package. Formerly available on CRAN, currently archived.
+- **Ramalho, J. J. S. (2023).** *frmhet: Fractional Regression Models
+  under Heterogeneity*. R package. Formerly available on CRAN, currently
+  archived.
+- **Ramalho, J. J. S. (2023).** *frmpd: Fractional Regression Models for
+  Panel Data*. R package. Formerly available on CRAN, currently
+  archived.
 - **Davidson, R. and MacKinnon, J.G. (1981).** "Several tests for model specification in the presence of alternative hypotheses", *Econometrica*, 49(3), 781-793.
 - **Fang, K., & Ma, S. (2013).** "Three-part model for fractional response variables with application to Chinese household health insurance coverage", *Journal of Applied Statistics*, 40(5), 925-940.
 - **Papke, L. E. and Wooldridge, J. M. (1996).** "Econometric methods for fractional response variables with an application to 401(k) plan participation rates", *Journal of Applied Econometrics*, 11(6), 619-632.

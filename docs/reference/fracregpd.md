@@ -59,7 +59,7 @@ fracregpd(id, time, y, x, z, var.endog, x.exogenous = T, lags, start, type,
 - start:
 
   a numeric vector containing the initial values for the parameters to
-  be optimized. Optional.
+  be optimised. Optional.
 
 - type:
 
@@ -141,7 +141,7 @@ conditional mean: \$\$E(y\_{it} \| x_i) = G(x\_{it} \beta_a + \psi_a +
 scaled by \\(1 + \sigma_a^2)^{-1/2}\\. This equation is estimated via
 pooled Bernoulli QML.
 
-**Generalized Method of Moments (GMM):** For models where strict
+**Generalised Method of Moments (GMM):** For models where strict
 exogeneity fails or the link function is an exponential-type link,
 Ramalho et al. (2018) propose GMM estimators based on the following
 general moment conditions: \$\$E\[Z\_{it} (H(y\_{it}) -
@@ -201,7 +201,7 @@ successfully, the previous list also contains the following elements:
 
 Papke, L. and Wooldridge, J.M. (2008), "Panel data methods for
 fractional response variables with an application to test pass rates",
-*Journal of Econometrics*, 145(1-2), 121-233.
+*Journal of Econometrics*, 145(1-2), 121-133.
 
 Ramalho, E. A., Ramalho, J. J. S., & Coelho, L. M. S. (2018),
 "Exponential Regression of Fractional-Response Fixed-Effects Models with
@@ -239,37 +239,48 @@ time_emp <- rep(1:2, times=N_emp/2)
 fracregpd(id_emp, time_emp, y, X, type="QMLcre", link="probit")
 #> 
 #> -------------------------------------------------------------------------------- 
-#>                        Fractional probit regression model 
+#>               Fractional probit (correlated random effects)  model 
 #> -------------------------------------------------------------------------------- 
 #> Estimator:                                                                QMLcre 
+#> Data type:                                                                 Panel 
 #> Exogeneity:                                                                 TRUE 
 #> Use first lag of instruments:                                              FALSE 
 #> Standard errors:                                                         cluster 
 #> -------------------------------------------------------------------------------- 
-#> Initial observations:                                                       1534 
-#> Estimation observations:                                                    1534 
-#> Initial cross-sectional units:                                               767 
-#> Estimation cross-sectional units:                                            767 
-#> Initial periods per unit (avg):                                                2 
-#> Estimation periods per unit (avg):                                             2 
+#> Number of observations:                                                     1534 
+#> Number of groups:                                                            767 
+#> Obs per group:                                                                 2 
+#> Log pseudolikelihood:                                                  -554.0205 
+#> Wald chi2(9):                                                          3191.0501 
+#> Prob > chi2:                                                              0.0000 
 #> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
-#>                                 Final estimates 
+#>       Final (Correlated Random Effects) Quasi-Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
-#>                  Estimate Std. Error z value Pr(>|z|)    
-#> mrate           3.915e-01  7.007e-02   5.588 2.30e-08 ***
-#> age             1.386e-02  3.543e-03   3.911 9.20e-05 ***
-#> totemp         -5.250e-06  2.649e-06  -1.982   0.0475 *  
-#> sole            2.378e-01  6.038e-02   3.938 8.22e-05 ***
-#> INTERCEPT_mean  6.235e-01  5.885e-02  10.596  < 2e-16 ***
-#> mrate_mean      5.726e-02  6.343e-02   0.903   0.3667    
-#> age_mean        1.544e-03  4.233e-03   0.365   0.7152    
-#> totemp_mean     1.223e-06  2.946e-06   0.415   0.6780    
-#> sole_mean      -7.157e-02  8.424e-02  -0.850   0.3956    
+#>                Coefficient Cluster Std.Err.    z value [95% Conf. Interval]
+#> mrate            3.915e-01        7.007e-02  5.588e+00  2.542e-01     0.529
+#> age              1.386e-02        3.543e-03  3.911e+00  6.912e-03     0.021
+#> totemp          -5.250e-06        2.649e-06 -1.982e+00 -1.044e-05     0.000
+#> sole             2.378e-01        6.038e-02  3.938e+00  1.194e-01     0.356
+#> INTERCEPT_mean   6.235e-01        5.885e-02  1.060e+01  5.082e-01     0.739
+#> mrate_mean       5.726e-02        6.343e-02  9.027e-01 -6.706e-02     0.182
+#> age_mean         1.544e-03        4.233e-03  3.649e-01 -6.751e-03     0.010
+#> totemp_mean      1.223e-06        2.946e-06  4.152e-01 -4.551e-06     0.000
+#> sole_mean       -7.157e-02        8.424e-02 -8.495e-01 -2.367e-01     0.094
+#>                Pr(>|z|)    
+#> mrate          2.30e-08 ***
+#> age            9.20e-05 ***
+#> totemp           0.0475 *  
+#> sole           8.22e-05 ***
+#> INTERCEPT_mean  < 2e-16 ***
+#> mrate_mean       0.3667    
+#> age_mean         0.7152    
+#> totemp_mean      0.6780    
+#> sole_mean        0.3956    
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 23:19:05 
+#>                          Run Date: 2026-07-06 03:48:15 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -303,31 +314,36 @@ Z_inst <- cbind(x_panel = x_panel, z_panel = z_panel)
 fracregpd(id=id, time=time, y=y_panel, x=X, type="QMLcre", link="probit")
 #> 
 #> -------------------------------------------------------------------------------- 
-#>                        Fractional probit regression model 
+#>               Fractional probit (correlated random effects)  model 
 #> -------------------------------------------------------------------------------- 
 #> Estimator:                                                                QMLcre 
+#> Data type:                                                                 Panel 
 #> Exogeneity:                                                                 TRUE 
 #> Use first lag of instruments:                                              FALSE 
 #> Standard errors:                                                         cluster 
 #> -------------------------------------------------------------------------------- 
-#> Initial observations:                                                        500 
-#> Estimation observations:                                                     500 
-#> Initial cross-sectional units:                                               100 
-#> Estimation cross-sectional units:                                            100 
-#> Initial periods per unit (avg):                                                5 
-#> Estimation periods per unit (avg):                                             5 
+#> Number of observations:                                                      500 
+#> Number of groups:                                                            100 
+#> Obs per group:                                                                 5 
+#> Log pseudolikelihood:                                                  -313.6436 
+#> Wald chi2(3):                                                          2156.6004 
+#> Prob > chi2:                                                              0.0000 
 #> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
-#>                                 Final estimates 
+#>       Final (Correlated Random Effects) Quasi-Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
-#>                Estimate Std. Error z value Pr(>|z|)    
-#> x_panel         0.52902    0.01143  46.300   <2e-16 ***
-#> INTERCEPT_mean -0.01246    0.04901  -0.254    0.799    
-#> x_panel_mean   -0.17409    0.13491  -1.290    0.197    
+#>                Coefficient Cluster Std.Err.  z value [95% Conf. Interval]
+#> x_panel            0.52902          0.01143 46.29965    0.50662     0.551
+#> INTERCEPT_mean    -0.01246          0.04901 -0.25433   -0.10851     0.084
+#> x_panel_mean      -0.17409          0.13491 -1.29040   -0.43850     0.090
+#>                Pr(>|z|)    
+#> x_panel          <2e-16 ***
+#> INTERCEPT_mean    0.799    
+#> x_panel_mean      0.197    
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 23:19:05 
+#>                          Run Date: 2026-07-06 03:48:15 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -335,29 +351,31 @@ fracregpd(id=id, time=time, y=y_panel, x=X, type="QMLcre", link="probit")
 fracregpd(id=id, time=time, y=y_panel, x=X, type="GMMbgw")
 #> 
 #> -------------------------------------------------------------------------------- 
-#>                        Fractional logit regression model 
+#>                             Fractional logit  model 
 #> -------------------------------------------------------------------------------- 
 #> Estimator:                                                                GMMbgw 
+#> Data type:                                                                 Panel 
 #> Exogeneity:                                                                 TRUE 
 #> Use first lag of instruments:                                              FALSE 
 #> Standard errors:                                                         cluster 
 #> -------------------------------------------------------------------------------- 
-#> Initial observations:                                                        500 
-#> Estimation observations:                                                     500 
-#> Initial cross-sectional units:                                               100 
-#> Estimation cross-sectional units:                                            100 
-#> Initial periods per unit (avg):                                                5 
-#> Estimation periods per unit (avg):                                             5 
+#> Number of observations:                                                      500 
+#> Number of groups:                                                            100 
+#> Obs per group:                                                                 5 
+#> Wald chi2(1):                                               4.88095376809867e+31 
+#> Prob > chi2:                                                              0.0000 
 #> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
-#>                                 Final estimates 
+#>                             Final GMM bgw estimates 
 #> -------------------------------------------------------------------------------- 
-#>          Estimate Std. Error   z value Pr(>|z|)    
-#> x_panel 1.000e+00  1.431e-16 6.986e+15   <2e-16 ***
+#>         Coefficient Cluster Std.Err.   z value [95% Conf. Interval] Pr(>|z|)
+#> x_panel   1.000e+00        1.431e-16 6.986e+15  1.000e+00         1   <2e-16
+#>            
+#> x_panel ***
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 23:19:05 
+#>                          Run Date: 2026-07-06 03:48:15 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -365,29 +383,31 @@ fracregpd(id=id, time=time, y=y_panel, x=X, type="GMMbgw")
 fracregpd(id=id, time=time, y=y_panel, x=X, lags=TRUE, type="GMMww", var.type="robust")
 #> 
 #> -------------------------------------------------------------------------------- 
-#>                        Fractional logit regression model 
+#>                             Fractional logit  model 
 #> -------------------------------------------------------------------------------- 
 #> Estimator:                                                                 GMMww 
+#> Data type:                                                                 Panel 
 #> Exogeneity:                                                                 TRUE 
 #> Use first lag of instruments:                                               TRUE 
 #> Standard errors:                                                          robust 
 #> -------------------------------------------------------------------------------- 
-#> Initial observations:                                                        500 
-#> Estimation observations:                                                     400 
-#> Initial cross-sectional units:                                               100 
-#> Estimation cross-sectional units:                                            100 
-#> Initial periods per unit (avg):                                                5 
-#> Estimation periods per unit (avg):                                             4 
+#> Number of obs (initial):                                                     500 
+#> Number of observations:                                                      400 
+#> Number of groups (initial):                                                  100 
+#> Number of groups:                                                            100 
+#> Obs per group:                                                                 4 
+#> Wald chi2(1):                                               1.28107689657633e+32 
+#> Prob > chi2:                                                              0.0000 
 #> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
-#>                                 Final estimates 
+#>                              Final GMM ww estimates 
 #> -------------------------------------------------------------------------------- 
-#>          Estimate Std. Error   z value Pr(>|z|)    
-#> x_panel 1.000e+00  8.835e-17 1.132e+16   <2e-16 ***
+#>         Coefficient Robust Std.Err.   z value [95% Conf. Interval] Pr(>|z|)    
+#> x_panel   1.000e+00       8.835e-17 1.132e+16  1.000e+00         1   <2e-16 ***
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 23:19:05 
+#>                          Run Date: 2026-07-06 03:48:15 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -396,34 +416,41 @@ fracregpd(id=id, time=time, y=y_endog, x=X_endog, z=Z_inst,
           x.exogenous=FALSE, type="GMMpfe", tdummies=TRUE)
 #> 
 #> -------------------------------------------------------------------------------- 
-#>                        Fractional logit regression model 
+#>                  Fractional logit (pooled fixed effects)  model 
 #> -------------------------------------------------------------------------------- 
 #> Estimator:                                                                GMMpfe 
+#> Data type:                                                                 Panel 
 #> Exogeneity:                                                                FALSE 
 #> Use first lag of instruments:                                              FALSE 
 #> Standard errors:                                                         cluster 
 #> -------------------------------------------------------------------------------- 
-#> Initial observations:                                                        500 
-#> Estimation observations:                                                     500 
-#> Initial cross-sectional units:                                               100 
-#> Estimation cross-sectional units:                                            100 
-#> Initial periods per unit (avg):                                                5 
-#> Estimation periods per unit (avg):                                             5 
+#> Number of observations:                                                      500 
+#> Number of groups:                                                            100 
+#> Obs per group:                                                                 5 
+#> Wald chi2(6):                                                          7156.2911 
+#> Prob > chi2:                                                              0.0000 
 #> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
-#>                                 Final estimates 
+#>       Final (Pooled Fixed Effects) Generalized Method of Moments estimates 
 #> -------------------------------------------------------------------------------- 
-#>           Estimate Std. Error z value Pr(>|z|)    
-#> x_panel    0.99602    0.03117  31.957   <2e-16 ***
-#> var_endog  1.57689    0.02524  62.474   <2e-16 ***
-#> time.2    -0.15363    0.09752  -1.575   0.1152    
-#> time.3    -0.04402    0.09147  -0.481   0.6303    
-#> time.4    -0.10609    0.09379  -1.131   0.2580    
-#> time.5    -0.19163    0.08917  -2.149   0.0316 *  
+#>           Coefficient Cluster Std.Err.  z value [95% Conf. Interval] Pr(>|z|)
+#> x_panel       0.99602          0.03117 31.95739    0.93493     1.057   <2e-16
+#> var_endog     1.57689          0.02524 62.47420    1.52742     1.626   <2e-16
+#> time.2       -0.15363          0.09752 -1.57541   -0.34476     0.038   0.1152
+#> time.3       -0.04402          0.09147 -0.48128   -0.22331     0.135   0.6303
+#> time.4       -0.10609          0.09379 -1.13110   -0.28992     0.078   0.2580
+#> time.5       -0.19163          0.08917 -2.14916   -0.36640    -0.017   0.0316
+#>              
+#> x_panel   ***
+#> var_endog ***
+#> time.2       
+#> time.3       
+#> time.4       
+#> time.5    *  
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 23:19:06 
+#>                          Run Date: 2026-07-06 03:48:16 
 #> -------------------------------------------------------------------------------- 
 #> 
 ```

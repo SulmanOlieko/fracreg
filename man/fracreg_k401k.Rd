@@ -23,7 +23,7 @@ A data frame with 1,534 observations and 10 variables:
 Papke, L. E., & Wooldridge, J. M. (1996). "Econometric Methods for Fractional Response Variables with an Application to 401(k) Plan Participation Rates." Journal of Applied Econometrics, 11(6), 619-632.
 }
 \usage{
-fracreg_k401k
+data("fracreg_k401k")
 }
 \description{
 A cross-sectional dataset on 401(k) plan participation rates and firm characteristics, 

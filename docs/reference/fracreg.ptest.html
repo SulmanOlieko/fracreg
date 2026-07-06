@@ -108,53 +108,73 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-in"><span><span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="fracreg.html">fracreg</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">X</span>, type<span class="op">=</span><span class="st">"1P"</span>, linkfrac<span class="op">=</span><span class="st">"logit"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                 Fractional response model - logit specification </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                              Fractional logit model </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimator:                                                                   QML </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Data type:                                                       Cross-sectional </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of observations:                                                     1534 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Pseudo R-squared:                                                        0.14667 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Log pseudolikelihood:                                                  -553.1626 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Wald chi2(4):                                                           147.3049 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Prob &gt; chi2:                                                              0.0000 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Standard errors:                                                          robust </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Small sample correction:                                                   FALSE </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Convergence:                                                          Successful </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                 Final estimates </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                     Final Quasi-Maximum Likelihood estimates </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            Estimate Std. Error z value Pr(&gt;|z|)    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Constant  9.316e-01  8.408e-02  11.080  &lt; 2e-16 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> mrate     9.531e-01  1.371e-01   6.951 3.62e-12 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> age       2.791e-02  4.877e-03   5.723 1.05e-08 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> totemp   -8.182e-06  3.061e-06  -2.673  0.00751 ** </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> sole      3.405e-01  8.066e-02   4.222 2.43e-05 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          Coefficient Robust Std.Err.    z value [95% Conf. Interval] Pr(&gt;|z|)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Constant   9.316e-01       8.408e-02  1.108e+01  7.668e-01     1.096  &lt; 2e-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mrate      9.531e-01       1.371e-01  6.951e+00  6.843e-01     1.222 3.62e-12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> age        2.791e-02       4.877e-03  5.723e+00  1.835e-02     0.037 1.05e-08</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> totemp    -8.182e-06       3.061e-06 -2.673e+00 -1.418e-05     0.000  0.00751</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> sole       3.405e-01       8.066e-02  4.222e+00  1.824e-01     0.499 2.43e-05</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Constant ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mrate    ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> age      ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> totemp   ** </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> sole     ***</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-05 23:19:01 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-06 03:48:10 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="va">m2</span> <span class="op">&lt;-</span> <span class="fu"><a href="fracreg.html">fracreg</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">X</span>, type<span class="op">=</span><span class="st">"1P"</span>, linkfrac<span class="op">=</span><span class="st">"probit"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                 Fractional response model - probit specification </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                             Fractional probit model </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimator:                                                                   QML </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Data type:                                                       Cross-sectional </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of observations:                                                     1534 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Pseudo R-squared:                                                        0.14069 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Log pseudolikelihood:                                                  -554.2692 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Wald chi2(4):                                                           148.7649 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Prob &gt; chi2:                                                              0.0000 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Standard errors:                                                          robust </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Small sample correction:                                                   FALSE </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Convergence:                                                          Successful </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                 Final estimates </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                     Final Quasi-Maximum Likelihood estimates </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            Estimate Std. Error z value Pr(&gt;|z|)    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Constant  6.374e-01  4.517e-02  14.113  &lt; 2e-16 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> mrate     4.190e-01  6.820e-02   6.143 8.07e-10 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> age       1.483e-02  2.536e-03   5.846 5.04e-09 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> totemp   -4.546e-06  1.732e-06  -2.625  0.00866 ** </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> sole      2.000e-01  4.311e-02   4.639 3.50e-06 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          Coefficient Robust Std.Err.    z value [95% Conf. Interval] Pr(&gt;|z|)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Constant   6.374e-01       4.517e-02  1.411e+01  5.489e-01     0.726  &lt; 2e-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mrate      4.190e-01       6.820e-02  6.143e+00  2.853e-01     0.553 8.07e-10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> age        1.483e-02       2.536e-03  5.846e+00  9.855e-03     0.020 5.04e-09</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> totemp    -4.546e-06       1.732e-06 -2.625e+00 -7.940e-06     0.000  0.00866</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> sole       2.000e-01       4.311e-02  4.639e+00  1.155e-01     0.284 3.50e-06</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Constant ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mrate    ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> age      ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> totemp   ** </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> sole     ***</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-05 23:19:01 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-06 03:48:10 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu">fracreg.ptest</span><span class="op">(</span><span class="va">m1</span>, <span class="va">m2</span><span class="op">)</span></span></span>
@@ -176,7 +196,7 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-05 23:19:01 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-06 03:48:10 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">### Simulated Examples</span></span></span>
@@ -216,7 +236,7 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-05 23:19:01 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-06 03:48:10 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#Testing a logit one-part fractional response model versus a binary logit +</span></span></span>
@@ -244,7 +264,7 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-05 23:19:01 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-06 03:48:10 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 </code></pre></div>
     </div>

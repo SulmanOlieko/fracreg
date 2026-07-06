@@ -79,10 +79,14 @@ fracreg.est <- function(y,x,link,method,variance,var.type,var.eim,var.cluster,df
 	xbhat <- results$linear.predictors
 	yhat <- results$fitted.values
 	converged <- results$converged*(1-results$boundary)
-	if(method=="ML") LL <- logLik(results)
+	if(method=="ML") LL <- as.numeric(logLik(results))
+	if(method=="QML") {
+		eps <- 1e-16
+		LL <- sum(ifelse(y > 0, y * log(pmax(yhat, eps)), 0) + ifelse(y < 1, (1-y) * log(pmax(1-yhat, eps)), 0))
+	}
 
 	ret.list <- list(p=p,yhat=yhat,xbhat=xbhat,converged=converged)
-	if(method=="ML") ret.list[["LL"]] <- LL
+	ret.list[["LL"]] <- LL
 
 	if(variance==FALSE) return(ret.list)
 
@@ -162,30 +166,68 @@ fracreg.table <- function(y,yhat,p,p.var,x.names,type,link,converged,var.type,R2
 		if(type!="2P" & type!="3P")
 		{
 			n <- length(y)
+			
+			Wald <- NA
+			p_wald <- NA
+			df_wald <- NA
+			if(!is.character(p.var)) {
+				if(length(p) > 1 && x.names[1] == "INTERCEPT") {
+					p_idx <- 2:length(p)
+					W <- tryCatch(t(p[p_idx]) %*% solve(p.var[p_idx, p_idx]) %*% p[p_idx], error = function(e) NA)
+					if (!is.na(W)) {
+						Wald <- as.numeric(W)
+						df_wald <- length(p_idx)
+						p_wald <- 1 - pchisq(Wald, df = df_wald)
+					}
+				} else if(length(p) > 0 && x.names[1] != "INTERCEPT") {
+					W <- tryCatch(t(p) %*% solve(p.var) %*% p, error = function(e) NA)
+					if (!is.na(W)) {
+						Wald <- as.numeric(W)
+						df_wald <- length(p)
+						p_wald <- 1 - pchisq(Wald, df = df_wald)
+					}
+				}
+			}
 
 			p.sd <- diag(p.var)^0.5
 			z.ratio <- p/p.sd
-			p.value <- 2*(1-pnorm(abs(z.ratio)))
-
-			res <- cbind(Estimate = p, `Std. Error` = p.sd, `z value` = z.ratio, `Pr(>|z|)` = p.value)
+			p.value <- 2*pnorm(abs(z.ratio), lower.tail=FALSE)
+			ci.low <- p - qnorm(0.975) * p.sd
+			ci.high <- p + qnorm(0.975) * p.sd
+			
+			res <- cbind(Coefficient = p, `Std.Err.` = p.sd, `z value` = z.ratio, `[95% Conf.` = ci.low, `Interval]` = ci.high, `Pr(>|z|)` = p.value)
+			se_type <- var.type
+			if(se_type == "standard") se_type <- "EIM"
+			colnames(res)[2] <- paste0(tools::toTitleCase(se_type), " Std.Err.")
 			rownames(res) <- x.names
 			rownames(res)[rownames(res) == "INTERCEPT"] <- "Constant"
 
 			cat("\n")
 			cat(.fracreg.sep(), "\n")
-			if(type=="2Pbin") cat(.fracreg.center(paste("Binary component of a two-part model -", link, "specification")), "\n")
-			if(type=="1P") cat(.fracreg.center(paste("Fractional response model -", link, "specification")), "\n")
-			if(type=="2Pfrac") cat(.fracreg.center(paste("Fractional component of a two-part model -", link, "specification")), "\n")
-			if(type=="3Pbin0") cat(.fracreg.center(paste("First binary component of a three-part model -", link, "specification")), "\n")
-			if(type=="3Pbin1") cat(.fracreg.center(paste("Second binary component of a three-part model -", link, "specification")), "\n")
-			if(type=="3Pfrac") cat(.fracreg.center(paste("Fractional component of a three-part model -", link, "specification")), "\n")
+			if(type=="2Pbin") cat(.fracreg.center(paste("Part 1: Binary", link, "model")), "\n")
+			if(type=="1P") cat(.fracreg.center(paste("Fractional", link, "model")), "\n")
+			if(type=="2Pfrac") cat(.fracreg.center(paste("Part 2: Fractional", link, "model")), "\n")
+			if(type=="3Pbin0") cat(.fracreg.center(paste("Part 1: Binary", link, "model")), "\n")
+			if(type=="3Pbin1") cat(.fracreg.center(paste("Part 2: Binary", link, "model")), "\n")
+			if(type=="3Pfrac") cat(.fracreg.center(paste("Part 3: Fractional", link, "model")), "\n")
 			cat(.fracreg.sep(), "\n")
 
 			if(!is.null(method)) .fracreg.cat.right("Estimator:", method)
+			.fracreg.cat.right("Data type:", "Cross-sectional")
 			.fracreg.cat.right("Number of observations:", n)
 			if(!is.null(var.cluster) && var.type=="cluster") .fracreg.cat.right("Number of clusters:", length(unique(var.cluster)))
 			.fracreg.cat.right("Pseudo R-squared:", round(R2, 5))
-			if(!is.null(LL)) .fracreg.cat.right("Log-Likelihood:", round(LL, 4))
+			if(!is.null(LL)) {
+				if(!is.null(method) && method == "ML") {
+					.fracreg.cat.right("Log-likelihood:", round(LL, 4))
+				} else {
+					.fracreg.cat.right("Log pseudolikelihood:", round(LL, 4))
+				}
+			}
+			if(!is.na(Wald)) {
+				.fracreg.cat.right(paste0("Wald chi2(", df_wald, "):"), round(Wald, 4))
+				.fracreg.cat.right("Prob > chi2:", sprintf("%.4f", p_wald))
+			}
 			if(var.type!="standard") .fracreg.cat.right("Standard errors:", var.type)
 			if(is.null(dfc) || !dfc) {
 				.fracreg.cat.right("Small sample correction:", "FALSE")
@@ -195,7 +237,12 @@ fracreg.table <- function(y,yhat,p,p.var,x.names,type,link,converged,var.type,R2
 			.fracreg.cat.right("Convergence:", "Successful")
 			
 			cat(.fracreg.sep(), "\n")
-			cat(.fracreg.center("Final estimates"), "\n")
+			method_full <- method
+			if(!is.null(method)) {
+				if(method == "QML") method_full <- "Quasi-Maximum Likelihood"
+				else if(method == "ML") method_full <- "Maximum Likelihood"
+			}
+			cat(.fracreg.center(if(!is.null(method_full)) paste("Final", method_full, "estimates") else "Final estimates"), "\n")
 			cat(.fracreg.sep(), "\n")
 
 			stats::printCoefmat(res, P.values = TRUE, has.Pvalue = TRUE, digits = 4, signif.legend = TRUE)
@@ -211,6 +258,7 @@ fracreg.table <- function(y,yhat,p,p.var,x.names,type,link,converged,var.type,R2
 			if(type=="2P") cat(.fracreg.center(paste("Two-part model - binary", link[1], "+ fractional", link[2])) , "\n")
 			if(type=="3P") cat(.fracreg.center(paste("Three-part model - binary", link[1], ", binary", link[2], "+ fractional", link[3])) , "\n")
 			cat(.fracreg.sep(), "\n")
+			.fracreg.cat.right("Data type:", "Cross-sectional")
 			.fracreg.cat.right("Pseudo R-squared:", round(R2, 5))
 			.fracreg.cat.right("Convergence:", "Successful")
 			cat(.fracreg.sep(), "\n")

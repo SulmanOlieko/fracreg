@@ -24,7 +24,7 @@ variables). Defaults to \code{x}.
 }
   \item{var.endog}{a numeric vector containing the values of the endogenous covariate (or of some transformation of it), which will be used as dependent variable in the linear reduced form assumed for application of xv-type estimators.
 }
-  \item{start}{a numeric vector containing the initial values for the parameters to be optimized. Optional.
+  \item{start}{a numeric vector containing the initial values for the parameters to be optimised. Optional.
 }
   \item{type}{a description of the estimator to compute: \code{GMMx} (the default), \code{GMMxv}, \code{GMMz}, \code{LINx}, \code{LINxv}, \code{LINz} or \code{QMLxv}.
 }
@@ -47,7 +47,7 @@ variables). Defaults to \code{x}.
 }
 
 \details{
-\code{fracreghet} computes the GMM estimators proposed in Ramalho and Ramalho (2017) for fractional response models with unobserved heterogeneity: GMMx, which allows for neglected heterogeneity but not for endogeneity; GMMxv, which allows both issues and assumes a linear reduced form for the endogeneous covariate (or for a transformation of it); and GMMz, which also allows for both issues but does not require the assumption of a reduced form for the endogenous covariate. In addition, \code{fracreghet} also computes three linearized estimators (LINx, LINxv and LINz) that have similar features to their GMM counterparts. It also provides a QML estimator (QMLxv) that addresses endogeneity using a Control Function (CF) approach, which includes the first-stage reduced-form residuals as an additional regressor in the main fractional equation, providing a Hausman-type test for endogeneity. 
+\code{fracreghet} computes the GMM estimators proposed in Ramalho and Ramalho (2017) for fractional response models with unobserved heterogeneity: GMMx, which allows for neglected heterogeneity but not for endogeneity; GMMxv, which allows both issues and assumes a linear reduced form for the endogeneous covariate (or for a transformation of it); and GMMz, which also allows for both issues but does not require the assumption of a reduced form for the endogenous covariate. In addition, \code{fracreghet} also computes three linearised estimators (LINx, LINxv and LINz) that have similar features to their GMM counterparts. It also provides a QML estimator (QMLxv) that addresses endogeneity using a Control Function (CF) approach, which includes the first-stage reduced-form residuals as an additional regressor in the main fractional equation, providing a Hausman-type test for endogeneity. 
 
 \strong{Control Function (CF) Approach - QMLxv:}
 When a continuous regressor \eqn{y_{2i}} is endogenous, the CF approach (Papke and Wooldridge, 2008; Terza et al., 2008) uses a two-stage procedure. First, a linear reduced form is estimated:
@@ -56,7 +56,7 @@ where \eqn{z_i} includes all exogenous variables and external instruments. The r
 \deqn{E(y_{1i} | z_i, y_{2i}, v_i) = G(x_i \beta + \gamma \hat{v}_i)}
 A test of \eqn{H_0: \gamma = 0} serves as a robust Hausman-type test for endogeneity.
 
-\strong{Generalized Method of Moments (GMM):}
+\strong{Generalised Method of Moments (GMM):}
 For estimators like GMMz, which do not strictly require a linear reduced form, the estimation relies on population orthogonality conditions between the instruments \eqn{Z_i} and the model residuals:
 \deqn{E[Z_{i} (y_i - G(x_i \beta))] = 0}
 or via specific transformations of the dependent variable to eliminate unobserved heterogeneity (Ramalho and Ramalho, 2017).
@@ -104,7 +104,11 @@ If \code{var.type = "cluster"}, the list also contains the following element:
 }
 
 \references{
+Papke, L. E. and Wooldridge, J. M. (2008), "Panel data methods for fractional response variables with an application to test pass rates", \emph{Journal of Econometrics}, 145, 121-133.
+
 Ramalho, E. A., & Ramalho, J. J. S. (2017), "Moment-based estimation of nonlinear regression models with boundary outcomes and endogeneity, with applications to nonnegative and fractional responses", \emph{Econometric Reviews}, 36(4), 397-420.
+
+Terza, J. V., Basu, A., and Rathouz, P. J. (2008), "Two-stage residual inclusion estimation: addressing endogeneity in health econometric modeling", \emph{Journal of Health Economics}, 27(3), 531-543.
 }
 
 \author{
@@ -119,17 +123,21 @@ Sulman Olieko Owili <oliekosulman@gmail.com>
 }
 
 \examples{
-### Empirical 401(k) Examples
-data("fracreg_k401k")
-y <- fracreg_k401k$prate
-X <- cbind(mrate = fracreg_k401k$mrate, age = fracreg_k401k$age, 
-           totemp = fracreg_k401k$totemp, sole = fracreg_k401k$sole)
+### Empirical 401(k) Examples 
+data("fracreg_k401k") 
+y <- fracreg_k401k$prate 
+X_het <- cbind(mrate = fracreg_k401k$mrate, age = fracreg_k401k$age)
+ 
+# fracreghet estimators do not allow exact 1s or 0s
+y_adj <- y
+y_adj[y_adj == 1] <- 0.999
 
-# Artificial instrumental variable for demonstration
-Z_emp <- cbind(X, z = fracreg_k401k$mrate * rnorm(length(y)))
-fracreghet(y, X, Z_emp, var.endog = X[, "mrate"], type="QMLxv", link="logit")
-
-### Simulated Examples
+# Artificial instrumental variable for demonstration 
+set.seed(42)
+Z_emp <- cbind(X_het, z = fracreg_k401k$mrate * rnorm(length(y))) 
+fracreghet(y_adj, X_het, Z_emp, var.endog = X_het[, "mrate"], type="QMLxv", link="logit") 
+ 
+### Simulated Examples 
 
 set.seed(123)
 N <- 1000

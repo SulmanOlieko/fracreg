@@ -87,26 +87,23 @@ for computing partial effects.
 ## Examples
 
 ``` r
-### Empirical 401(k) Examples
-data("fracreg_k401k")
-y <- fracreg_k401k$prate
-X <- cbind(mrate = fracreg_k401k$mrate, age = fracreg_k401k$age, 
-           totemp = fracreg_k401k$totemp, sole = fracreg_k401k$sole)
+### Empirical 401(k) Examples 
+data("fracreg_k401k") 
+y <- fracreg_k401k$prate 
+X_het <- cbind(mrate = fracreg_k401k$mrate, age = fracreg_k401k$age)
+ 
+# fracreghet estimators do not allow exact 1s or 0s
+y_adj <- y
+y_adj[y_adj == 1] <- 0.999
 
-# Artificial instrumental variable for demonstration
-Z_emp <- cbind(X, z = fracreg_k401k$mrate * rnorm(length(y)))
-fracreghet(y, X, Z_emp, var.endog = X[, "mrate"], type="QMLxv", link="logit")
-#> Warning: NA/NaN function evaluation
-#> Warning: NA/NaN function evaluation
-#> Warning: NA/NaN function evaluation
-#> Warning: NA/NaN function evaluation
-#> -------------------------------------------------------------------------------- 
-#> Convergence:                                                              FAILED 
-#> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 23:19:04 
-#> -------------------------------------------------------------------------------- 
-#> 
-
+# Artificial instrumental variable for demonstration 
+set.seed(42)
+Z_emp <- cbind(X_het, z = fracreg_k401k$mrate * rnorm(length(y))) 
+res_emp <- fracreghet(y_adj, X_het, type="GMMx", link="logit", table=FALSE) 
+fracreghet.reset(res_emp)
+#> Warning: step size truncated due to divergence
+#> RESET test could not be computed; either algorithm did not converge (Wald version) or covariance matrix is singular (Wald/LM versions)
+ 
 ### Simulated Examples
 
 N <- 250
@@ -133,11 +130,11 @@ fracreghet.reset(res,2:3,c("Wald","LM"))
 #> H0: Estimator: GMMx 
 #> -------------------------------------------------------------------------------- 
 #>         Statistic p-value
-#> LM(2)       0.000   0.991
-#> Wald(2)     0.000   0.991
-#> LM(3)       0.971   0.615
-#> Wald(3)     1.100   0.577
+#> LM(2)       0.584   0.445
+#> Wald(2)     0.552   0.458
+#> LM(3)       0.809   0.667
+#> Wald(3)     0.686   0.710
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-05 23:19:04 
+#>                          Run Date: 2026-07-06 03:48:14 
 #> -------------------------------------------------------------------------------- 
 ```
