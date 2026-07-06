@@ -90,19 +90,32 @@ for computing partial effects.
 ### Empirical 401(k) Examples 
 data("fracreg_k401k") 
 y <- fracreg_k401k$prate 
-X_het <- cbind(mrate = fracreg_k401k$mrate, age = fracreg_k401k$age)
+X_het <- cbind(mrate = fracreg_k401k$mrate, ltotemp = fracreg_k401k$ltotemp)
  
 # fracreghet estimators do not allow exact 1s or 0s
 y_adj <- y
 y_adj[y_adj == 1] <- 0.999
 
-# Artificial instrumental variable for demonstration 
-set.seed(42)
-Z_emp <- cbind(X_het, z = fracreg_k401k$mrate * rnorm(length(y))) 
+# Instrument mrate using age
+
+Z_emp <- cbind(age = fracreg_k401k$age, ltotemp = fracreg_k401k$ltotemp) 
 res_emp <- fracreghet(y_adj, X_het, type="GMMx", link="logit", table=FALSE) 
 fracreghet.reset(res_emp)
-#> Warning: step size truncated due to divergence
-#> RESET test could not be computed; either algorithm did not converge (Wald version) or covariance matrix is singular (Wald/LM versions)
+#> 
+#> -------------------------------------------------------------------------------- 
+#>                                    RESET test 
+#> -------------------------------------------------------------------------------- 
+#>                        Fractional logit regression model 
+#> -------------------------------------------------------------------------------- 
+#> H0: Estimator: GMMx 
+#> -------------------------------------------------------------------------------- 
+#>         Statistic p-value    
+#> Wald(3)     47.56 4.7e-11 ***
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> -------------------------------------------------------------------------------- 
+#>                          Run Date: 2026-07-06 01:43:41 
+#> -------------------------------------------------------------------------------- 
  
 ### Simulated Examples
 
@@ -129,12 +142,14 @@ fracreghet.reset(res,2:3,c("Wald","LM"))
 #> -------------------------------------------------------------------------------- 
 #> H0: Estimator: GMMx 
 #> -------------------------------------------------------------------------------- 
-#>         Statistic p-value
-#> LM(2)       0.584   0.445
-#> Wald(2)     0.552   0.458
-#> LM(3)       0.809   0.667
-#> Wald(3)     0.686   0.710
+#>         Statistic p-value  
+#> LM(2)       0.216  0.6424  
+#> Wald(2)     0.180  0.6711  
+#> LM(3)       3.481  0.1754  
+#> Wald(3)     6.273  0.0434 *
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 01:18:20 
+#>                          Run Date: 2026-07-06 01:43:41 
 #> -------------------------------------------------------------------------------- 
 ```
