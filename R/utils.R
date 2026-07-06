@@ -157,7 +157,7 @@ fracreg.var <- function(y,x,yhat,xbhat,link,var.type,var.eim,var.cluster,dfc)
 	return(list(var=var))
 }
 
-fracreg.table <- function(y,yhat,p,p.var,x.names,type,link,converged,var.type,R2=NA,LL=NULL,method=NULL,var.cluster=NULL,dfc=NULL)
+fracreg.table <- function(y,yhat,p,p.var,x.names,type,link,converged,var.type,R2=NA,LL=NULL,method=NULL,var.cluster=NULL,dfc=NULL,or=FALSE,level=0.95)
 {
 	if(converged==TRUE)
 	{
@@ -192,10 +192,26 @@ fracreg.table <- function(y,yhat,p,p.var,x.names,type,link,converged,var.type,R2
 			p.sd <- diag(p.var)^0.5
 			z.ratio <- p/p.sd
 			p.value <- 2*pnorm(abs(z.ratio), lower.tail=FALSE)
-			ci.low <- p - qnorm(0.975) * p.sd
-			ci.high <- p + qnorm(0.975) * p.sd
+			qval <- qnorm((1 + level) / 2)
+			ci.low <- p - qval * p.sd
+			ci.high <- p + qval * p.sd
+
+			if(or && link == "logit") {
+				p <- exp(p)
+				p.sd <- p.sd * p
+				ci.low <- exp(ci.low)
+				ci.high <- exp(ci.high)
+			}
 			
-			res <- cbind(Coefficient = p, `Std.Err.` = p.sd, `z value` = z.ratio, `[95% Conf.` = ci.low, `Interval]` = ci.high, `Pr(>|z|)` = p.value)
+			conf_str <- paste0("[", round(level * 100), "% Conf.")
+			res <- cbind(Coefficient = p, `Std.Err.` = p.sd, `z value` = z.ratio, `ci_low` = ci.low, `ci_high` = ci.high, `Pr(>|z|)` = p.value)
+			colnames(res)[4] <- conf_str
+			colnames(res)[5] <- "Interval]"
+
+			if(or && link == "logit") {
+				colnames(res)[1] <- "Odds Ratio"
+			}
+
 			se_type <- var.type
 			if(se_type == "standard") se_type <- "EIM"
 			colnames(res)[2] <- paste0(tools::toTitleCase(se_type), " Std.Err.")

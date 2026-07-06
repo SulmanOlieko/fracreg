@@ -9,3 +9,4 @@
 ^find_seed\.R$
 ^examples_dump\.md$
 ^data-raw$
+^scratch$

@@ -11,7 +11,8 @@ one-part models, two-part hurdle models for modelling boundary values at
 ``` r
 fracreg(y, x, x2 = x, linkbin, linkfrac, type = "1P", inflation = 0, 
         intercept = TRUE, table = TRUE, variance = TRUE, var.type = "default", 
-        var.eim = TRUE, var.cluster, dfc = FALSE, offset = NULL, ...)
+        var.eim = TRUE, var.cluster, dfc = FALSE, offset = NULL, 
+        or = FALSE, level = 0.95, ...)
 ```
 
 ## Arguments
@@ -109,6 +110,16 @@ fracreg(y, x, x2 = x, linkbin, linkfrac, type = "1P", inflation = 0,
   same dimension as the response variable. It specifies that the
   variable should be included in the model with its coefficient
   constrained to 1.
+
+- or:
+
+  a logical value indicating whether to report odds ratios. Only valid
+  when the link function is `"logit"`. Defaults to `FALSE`.
+
+- level:
+
+  a numeric value between 0 and 1 indicating the confidence level for
+  the confidence intervals. Defaults to `0.95`.
 
 - ...:
 
@@ -306,6 +317,18 @@ additional elements:
   logical. Were the algorithms judged to have converged in all parts of
   the model?
 
+## Odds Ratios
+
+When `or=TRUE` and the fractional link function (`linkfrac` or `link`)
+is `"logit"`, the model additionally computes odds ratios for the
+coefficients. Odds Ratios are exponentiated coefficients. The
+corresponding standard errors for the odds ratios are calculated using
+the Delta method. The confidence intervals for the odds ratios are
+calculated using the adjusted standard errors and the specified `level`
+(defaulting to 95%). Odds ratios are particularly useful in fractional
+logit models as they provide a direct multiplicative interpretation of
+the independent variable on the odds of the fractional outcome.
+
 ## References
 
 Papke, L. E. and Wooldridge, J. M. (1996), "Econometric methods for
@@ -381,7 +404,45 @@ fracreg(y, X, type="1P", linkfrac="logit")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 15:03:36 
+#>                          Run Date: 2026-07-06 17:24:07 
+#> -------------------------------------------------------------------------------- 
+#> 
+
+# 1P Model reporting odds ratios and 99% confidence intervals
+fracreg(y, X, type="1P", linkfrac="logit", or=TRUE, level=0.99)
+#> 
+#> -------------------------------------------------------------------------------- 
+#>                           Fractional logit regression 
+#> -------------------------------------------------------------------------------- 
+#> Estimator:                                                                   QML 
+#> Data type:                                                       Cross-sectional 
+#> Number of observations:                                                     1534 
+#> Pseudo R-squared:                                                        0.14667 
+#> Log pseudolikelihood:                                                  -553.1626 
+#> Wald chi2(4):                                                           147.3049 
+#> Prob > chi2:                                                              0.0000 
+#> Standard errors:                                                          robust 
+#> Small sample correction:                                                   FALSE 
+#> Convergence:                                                          Successful 
+#> -------------------------------------------------------------------------------- 
+#>                     Final Quasi-Maximum Likelihood estimates 
+#> -------------------------------------------------------------------------------- 
+#>          Odds Ratio Robust Std.Err.    z value [99% Conf. Interval] Pr(>|z|)
+#> Constant  2.539e+00       2.134e-01  1.108e+01  2.044e+00     3.153  < 2e-16
+#> mrate     2.594e+00       3.556e-01  6.951e+00  1.822e+00     3.692 3.62e-12
+#> age       1.028e+00       5.015e-03  5.723e+00  1.015e+00     1.041 1.05e-08
+#> totemp    1.000e+00       3.061e-06 -2.673e+00  1.000e+00     1.000  0.00751
+#> sole      1.406e+00       1.134e-01  4.222e+00  1.142e+00     1.730 2.43e-05
+#>             
+#> Constant ***
+#> mrate    ***
+#> age      ***
+#> totemp   ** 
+#> sole     ***
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> -------------------------------------------------------------------------------- 
+#>                          Run Date: 2026-07-06 17:24:07 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -454,7 +515,7 @@ fracreg(y, X, type="2P", inflation=1, linkbin="logit", linkfrac="logit")
 #> Pseudo R-squared:                                                        0.11243 
 #> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 15:03:36 
+#>                          Run Date: 2026-07-06 17:24:09 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -554,7 +615,7 @@ fracreg(y_3p, X, type="3P", linkbin=c("logit","logit"), linkfrac="logit")
 #> Pseudo R-squared:                                                        0.07934 
 #> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 15:03:36 
+#>                          Run Date: 2026-07-06 17:24:10 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -602,7 +663,7 @@ fracreg(y, X, type="1P", linkfrac="logit")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 15:03:36 
+#>                          Run Date: 2026-07-06 17:24:10 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -725,7 +786,7 @@ fracreg(y, X, type="2P", inflation=0, linkbin="cloglog", linkfrac="logit")
 #> Pseudo R-squared:                                                        0.38829 
 #> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 15:03:36 
+#>                          Run Date: 2026-07-06 17:24:11 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -812,7 +873,7 @@ fracreg(y, X, type="3P", linkbin=c("logit","probit"), linkfrac="logit")
 #> Pseudo R-squared:                                                        0.38917 
 #> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 15:03:37 
+#>                          Run Date: 2026-07-06 17:24:13 
 #> -------------------------------------------------------------------------------- 
 #> 
 ```

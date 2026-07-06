@@ -48,7 +48,8 @@
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">fracreghet</span><span class="op">(</span><span class="va">y</span>, <span class="va">x</span>, z <span class="op">=</span> <span class="va">x</span>, <span class="va">var.endog</span>, <span class="va">start</span>, type <span class="op">=</span> <span class="st">"GMMx"</span>, link <span class="op">=</span> <span class="st">"logit"</span>, </span>
 <span>           intercept <span class="op">=</span> <span class="cn">T</span>, table <span class="op">=</span> <span class="cn">T</span>, variance <span class="op">=</span> <span class="cn">T</span>, </span>
-<span>           var.type <span class="op">=</span> <span class="st">"robust"</span>, <span class="va">var.cluster</span>, adjust <span class="op">=</span> <span class="fl">0</span>, offset <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+<span>           var.type <span class="op">=</span> <span class="st">"robust"</span>, <span class="va">var.cluster</span>, adjust <span class="op">=</span> <span class="fl">0</span>, offset <span class="op">=</span> <span class="cn">NULL</span>, </span>
+<span>           or <span class="op">=</span> <span class="cn">FALSE</span>, level <span class="op">=</span> <span class="fl">0.95</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -96,6 +97,12 @@ variables). Defaults to <code>x</code>.</p></dd>
 
   <dt id="arg-offset">offset<a class="anchor" aria-label="anchor" href="#arg-offset"></a></dt>
 <dd><p>an optional numeric vector containing an offset. It must be of the same dimension as the response variable. It specifies that the variable should be included in the model with its coefficient constrained to 1.</p></dd>
+
+  <dt id="arg-or">or<a class="anchor" aria-label="anchor" href="#arg-or"></a></dt>
+<dd><p>a logical value indicating whether to report odds ratios. Only valid when the link function is <code>"logit"</code>. Defaults to <code>FALSE</code>.</p></dd>
+
+  <dt id="arg-level">level<a class="anchor" aria-label="anchor" href="#arg-level"></a></dt>
+<dd><p>a numeric value between 0 and 1 indicating the confidence level for the confidence intervals. Defaults to <code>0.95</code>.</p></dd>
 
   <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>Arguments to pass to <a href="https://rdrr.io/r/stats/nlminb.html" class="external-link">nlminb</a>.</p></dd>
@@ -171,6 +178,14 @@ or via specific transformations of the dependent variable to eliminate unobserve
 
 </dl></div>
     <div class="section level2">
+    <h2 id="odds-ratios">Odds Ratios<a class="anchor" aria-label="anchor" href="#odds-ratios"></a></h2>
+    <p>When <code>or=TRUE</code> and the fractional link function (<code>linkfrac</code> or <code>link</code>) is <code>"logit"</code>, the model additionally computes odds ratios for the coefficients.
+Odds Ratios are exponentiated coefficients.
+The corresponding standard errors for the odds ratios are calculated using the Delta method.
+The confidence intervals for the odds ratios are calculated using the adjusted standard errors and the specified <code>level</code> (defaulting to 95%).
+Odds ratios are particularly useful in fractional logit models as they provide a direct multiplicative interpretation of the independent variable on the odds of the fractional outcome.</p>
+    </div>
+    <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
     <p>Papke, L. E. and Wooldridge, J. M. (2008), "Panel data methods for fractional response variables with an application to test pass rates", <em>Journal of Econometrics</em>, 145, 121-133.</p>
 <p>Ramalho, E. A., &amp; Ramalho, J. J. S. (2017), "Moment-based estimation of nonlinear regression models with boundary outcomes and endogeneity, with applications to nonnegative and fractional responses", <em>Econometric Reviews</em>, 36(4), 397-420.</p>
@@ -199,7 +214,7 @@ or via specific transformations of the dependent variable to eliminate unobserve
 <span class="r-in"><span><span class="co"># Instrument mrate using age</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">Z_emp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span>age <span class="op">=</span> <span class="va">fracreg_k401k</span><span class="op">$</span><span class="va">age</span>, ltotemp <span class="op">=</span> <span class="va">fracreg_k401k</span><span class="op">$</span><span class="va">ltotemp</span><span class="op">)</span> </span></span>
-<span class="r-in"><span><span class="fu">fracreghet</span><span class="op">(</span><span class="va">y_adj</span>, <span class="va">X_het</span>, <span class="va">Z_emp</span>, var.endog <span class="op">=</span> <span class="va">X_het</span><span class="op">[</span>, <span class="st">"mrate"</span><span class="op">]</span>, type<span class="op">=</span><span class="st">"QMLxv"</span>, link<span class="op">=</span><span class="st">"logit"</span><span class="op">)</span> </span></span>
+<span class="r-in"><span><span class="fu">fracreghet</span><span class="op">(</span><span class="va">y_adj</span>, <span class="va">X_het</span>, <span class="va">Z_emp</span>, var.endog <span class="op">=</span> <span class="va">X_het</span><span class="op">[</span>, <span class="st">"mrate"</span><span class="op">]</span>, type<span class="op">=</span><span class="st">"QMLxv"</span>, link<span class="op">=</span><span class="st">"logit"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Fractional logit regression with heteroscedasticity/endogeneity </span>
@@ -235,7 +250,49 @@ or via specific transformations of the dependent variable to eliminate unobserve
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-06 15:03:41 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-06 17:24:57 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Compute the same QMLxv estimator reporting Odds Ratios with 90% confidence intervals</span></span></span>
+<span class="r-in"><span><span class="fu">fracreghet</span><span class="op">(</span><span class="va">y_adj</span>, <span class="va">X_het</span>, <span class="va">Z_emp</span>, var.endog <span class="op">=</span> <span class="va">X_het</span><span class="op">[</span>, <span class="st">"mrate"</span><span class="op">]</span>, type<span class="op">=</span><span class="st">"QMLxv"</span>, </span></span>
+<span class="r-in"><span>           link<span class="op">=</span><span class="st">"logit"</span>, or<span class="op">=</span><span class="cn">TRUE</span>, level<span class="op">=</span><span class="fl">0.90</span><span class="op">)</span> </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         Fractional logit regression with heteroscedasticity/endogeneity </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Estimator:                                                                 QMLxv </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Data type:                                                       Cross-sectional </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Number of observations:                                                     1534 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Standard errors:                                                          robust </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Wald chi2(6):                                                       2243425.7812 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Prob &gt; chi2:                                                              0.0000 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Convergence:                                                          Successful </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                   Final Quasi-Maximum Likelihood xv estimates </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          Odds Ratio Robust Std.Err.  z value [90% Conf. Interval] Pr(&gt;|z|)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Constant    0.89977         0.67684 -0.14040    0.26108     3.101    0.888    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mrate      41.32156        28.49224  5.39703   13.29272   128.452 6.78e-08 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ltotemp     0.93231         0.04986 -1.31060    0.85380     1.018    0.190    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> vhat        0.06111         0.04279 -3.99157    0.01931     0.193 6.56e-05 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                  Reduced form: </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             Odds Ratio Robust Std.Err.   z value [90% Conf. Interval] Pr(&gt;|z|)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Z_INTERCEPT   2.586889        0.247056  9.952107   2.210829     3.027  &lt; 2e-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Z_age         1.011524        0.002337  4.959966   1.007688     1.015 7.05e-07</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Z_ltotemp     0.946168        0.013441 -3.895285   0.924315     0.969 9.81e-05</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Z_INTERCEPT ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Z_age       ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Z_ltotemp   ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-06 17:25:00 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span> </span></span>
@@ -285,7 +342,7 @@ or via specific transformations of the dependent variable to eliminate unobserve
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-06 15:03:41 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-06 17:25:00 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
@@ -316,7 +373,7 @@ or via specific transformations of the dependent variable to eliminate unobserve
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-06 15:03:41 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-06 17:25:01 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
@@ -361,7 +418,7 @@ or via specific transformations of the dependent variable to eliminate unobserve
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-06 15:03:41 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-06 17:25:01 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
@@ -405,7 +462,7 @@ or via specific transformations of the dependent variable to eliminate unobserve
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-06 15:03:41 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-06 17:25:01 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 </code></pre></div>

@@ -12,7 +12,8 @@ Fitting Fractional Response Regressions
 \usage{
 fracreg(y, x, x2 = x, linkbin, linkfrac, type = "1P", inflation = 0, 
         intercept = TRUE, table = TRUE, variance = TRUE, var.type = "default", 
-        var.eim = TRUE, var.cluster, dfc = FALSE, offset = NULL, ...)
+        var.eim = TRUE, var.cluster, dfc = FALSE, offset = NULL, 
+        or = FALSE, level = 0.95, ...)
 }
 
 \arguments{
@@ -46,6 +47,10 @@ models if option \code{type = "2P"} is defined. Defaults to \code{x}.
   \item{dfc}{a logical value indicating whether a degrees of freedom correction should be applied to the covariance matrix. Defaults to \code{FALSE}.
 }
   \item{offset}{an optional numeric vector containing an offset. It must be of the same dimension as the response variable. It specifies that the variable should be included in the model with its coefficient constrained to 1.
+}
+  \item{or}{a logical value indicating whether to report odds ratios. Only valid when the link function is \code{"logit"}. Defaults to \code{FALSE}.
+}
+  \item{level}{a numeric value between 0 and 1 indicating the confidence level for the confidence intervals. Defaults to \code{0.95}.
 }
   \item{\dots}{Arguments to pass to \link[stats]{glm}.
 }
@@ -145,6 +150,14 @@ When \code{type = "3P"}, \code{fracreg} returns the previous lists, indexed by t
 }
 }
 
+\section{Odds Ratios}{
+When \code{or=TRUE} and the fractional link function (\code{linkfrac} or \code{link}) is \code{"logit"}, the model additionally computes odds ratios for the coefficients. 
+Odds Ratios are exponentiated coefficients.
+The corresponding standard errors for the odds ratios are calculated using the Delta method.
+The confidence intervals for the odds ratios are calculated using the adjusted standard errors and the specified \code{level} (defaulting to 95\%).
+Odds ratios are particularly useful in fractional logit models as they provide a direct multiplicative interpretation of the independent variable on the odds of the fractional outcome.
+}
+
 \references{
 Papke, L. E. and Wooldridge, J. M. (1996), "Econometric methods for fractional response variables with an application to 401(k) plan participation rates", \emph{Journal of Applied Econometrics}, 11(6), 619-632.
 
@@ -176,6 +189,9 @@ X <- cbind(mrate = fracreg_k401k$mrate, age = fracreg_k401k$age,
 
 # 1P Model
 fracreg(y, X, type="1P", linkfrac="logit")
+
+# 1P Model reporting odds ratios and 99% confidence intervals
+fracreg(y, X, type="1P", linkfrac="logit", or=TRUE, level=0.99)
 
 # 2P Model (modelling mass at 1)
 fracreg(y, X, type="2P", inflation=1, linkbin="logit", linkfrac="logit")

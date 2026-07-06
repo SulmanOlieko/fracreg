@@ -293,7 +293,7 @@ fracreghet.var <- function(type,p,XB,x,z,link,Hy,var.type,id,step.one,gixv,vhat)
 	return(ret.list)
 }
 
-fracreghet.table <- function(p,p.var,x.names,type,link,converged,N,var.type,adjust,k,J,dfJ,LL=NULL)
+fracreghet.table <- function(p,p.var,x.names,type,link,converged,N,var.type,adjust,k,J,dfJ,LL=NULL,or=FALSE,level=0.95)
 {
 	if(converged==T)
 	{
@@ -304,16 +304,41 @@ fracreghet.table <- function(p,p.var,x.names,type,link,converged,N,var.type,adju
 			p.sd <- diag(p.var)^0.5
 			z.ratio <- p/p.sd
 			p.value <- 2*pnorm(abs(z.ratio), lower.tail=FALSE)
-			ci.low <- p - qnorm(0.975) * p.sd
-			ci.high <- p + qnorm(0.975) * p.sd
-			res <- cbind(Coefficient = p, `Std.Err.` = p.sd, `z value` = z.ratio, `[95% Conf.` = ci.low, `Interval]` = ci.high, `Pr(>|z|)` = p.value)
+			qval <- qnorm((1 + level) / 2)
+			ci.low <- p - qval * p.sd
+			ci.high <- p + qval * p.sd
+
+			if(or && link == "logit") {
+				p <- exp(p)
+				p.sd <- p.sd * p
+				ci.low <- exp(ci.low)
+				ci.high <- exp(ci.high)
+			}
+			
+			conf_str <- paste0("[", round(level * 100), "% Conf.")
+			res <- cbind(Coefficient = p, `Std.Err.` = p.sd, `z value` = z.ratio, `ci_low` = ci.low, `ci_high` = ci.high, `Pr(>|z|)` = p.value)
+			colnames(res)[4] <- conf_str
+			colnames(res)[5] <- "Interval]"
+			
+			if(or && link == "logit") {
+				colnames(res)[1] <- "Odds Ratio"
+			}
+			
 			se_label <- var.type
 			if(se_label == "standard") se_label <- "EIM"
 			colnames(res)[2] <- paste0(tools::toTitleCase(se_label), " Std.Err.")
 		}
 		else
 		{
-			res <- cbind(Coefficient = p, `Std.Err.` = rep(NA,length(p)), `z value` = rep(NA,length(p)), `[95% Conf.` = rep(NA,length(p)), `Interval]` = rep(NA,length(p)), `Pr(>|z|)` = rep(NA,length(p)))
+			conf_str <- paste0("[", round(level * 100), "% Conf.")
+			res <- cbind(Coefficient = p, `Std.Err.` = rep(NA,length(p)), `z value` = rep(NA,length(p)), `ci_low` = rep(NA,length(p)), `ci_high` = rep(NA,length(p)), `Pr(>|z|)` = rep(NA,length(p)))
+			colnames(res)[4] <- conf_str
+			colnames(res)[5] <- "Interval]"
+
+			if(or && link == "logit") {
+				res[,"Coefficient"] <- exp(p)
+				colnames(res)[1] <- "Odds Ratio"
+			}
 			se_label <- var.type
 			if(se_label == "standard") se_label <- "EIM"
 			colnames(res)[2] <- paste0(tools::toTitleCase(se_label), " Std.Err.")
@@ -499,7 +524,7 @@ fracreghet.tests.table <- function(test.which,S,Sp,ver,title1,title2)
 	cat(.fracreg.sep(), "\n")
 }
 
-fracreghet <- function(y,x,z=x,var.endog,start,type="GMMx",link="logit",intercept=T,table=T,variance=T,var.type="robust",var.cluster,adjust=0,offset=NULL,...)
+fracreghet <- function(y,x,z=x,var.endog,start,type="GMMx",link="logit",intercept=T,table=T,variance=T,var.type="robust",var.cluster,adjust=0,offset=NULL,or=FALSE,level=0.95,...)
 {
 	LL <- NULL
 
@@ -682,7 +707,7 @@ fracreghet <- function(y,x,z=x,var.endog,start,type="GMMx",link="logit",intercep
 	}
 	names(p) <- x.names
 
-	if(table==T) fracreghet.table(p,p.var,x.names,type,link,converged,N,var.type,adjust,k,J,dfJ,LL=LL)
+	if(table==T) fracreghet.table(p,p.var,x.names,type,link,converged,N,var.type,adjust,k,J,dfJ,LL=LL,or=or,level=level)
 
 	formula <- y ~ x - 1
 
@@ -870,7 +895,7 @@ fracreghet.reset <- function(object,lastpower.vec=3,version="Wald",table=T,...)
 	}
 
 	if(any(!is.na(S)) & table==T) fracreghet.tests.table("RESET",S,Sp,ver,title1,title2)
-	if(all(is.na(S))) cat("RESET test could not be computed; either algorithm did not converge (Wald version) or covariance matrix is singular (Wald/LM versions)\n")
+	if(all(is.na(S))) warning("RESET test could not be computed; either algorithm did not converge (Wald version) or covariance matrix is singular (Wald/LM versions)")
 
 	### 4. Return results
 

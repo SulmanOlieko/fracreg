@@ -11,7 +11,8 @@ Fitting Fractional Response Regressions under Unobserved Heterogeneity
 \usage{
 fracreghet(y, x, z = x, var.endog, start, type = "GMMx", link = "logit", 
            intercept = T, table = T, variance = T, 
-           var.type = "robust", var.cluster, adjust = 0, offset = NULL, ...)
+           var.type = "robust", var.cluster, adjust = 0, offset = NULL, 
+           or = FALSE, level = 0.95, ...)
 }
 
 \arguments{
@@ -43,6 +44,10 @@ variables). Defaults to \code{x}.
   \item{adjust}{the numeric value to be added to the response variable in case of boundary observations when the LIN estimators are applied or the string \code{drop}, which implies that the boundary observations are dropped.
 }
   \item{offset}{an optional numeric vector containing an offset. It must be of the same dimension as the response variable. It specifies that the variable should be included in the model with its coefficient constrained to 1.
+}
+  \item{or}{a logical value indicating whether to report odds ratios. Only valid when the link function is \code{"logit"}. Defaults to \code{FALSE}.
+}
+  \item{level}{a numeric value between 0 and 1 indicating the confidence level for the confidence intervals. Defaults to \code{0.95}.
 }
   \item{\dots}{Arguments to pass to \link[stats]{nlminb}.
 }
@@ -105,6 +110,14 @@ If \code{var.type = "cluster"}, the list also contains the following element:
 }
 }
 
+\section{Odds Ratios}{
+When \code{or=TRUE} and the fractional link function (\code{linkfrac} or \code{link}) is \code{"logit"}, the model additionally computes odds ratios for the coefficients. 
+Odds Ratios are exponentiated coefficients.
+The corresponding standard errors for the odds ratios are calculated using the Delta method.
+The confidence intervals for the odds ratios are calculated using the adjusted standard errors and the specified \code{level} (defaulting to 95\%).
+Odds ratios are particularly useful in fractional logit models as they provide a direct multiplicative interpretation of the independent variable on the odds of the fractional outcome.
+}
+
 \references{
 Papke, L. E. and Wooldridge, J. M. (2008), "Panel data methods for fractional response variables with an application to test pass rates", \emph{Journal of Econometrics}, 145, 121-133.
 
@@ -137,7 +150,11 @@ y_adj[y_adj == 1] <- 0.999
 # Instrument mrate using age
 
 Z_emp <- cbind(age = fracreg_k401k$age, ltotemp = fracreg_k401k$ltotemp) 
-fracreghet(y_adj, X_het, Z_emp, var.endog = X_het[, "mrate"], type="QMLxv", link="logit") 
+fracreghet(y_adj, X_het, Z_emp, var.endog = X_het[, "mrate"], type="QMLxv", link="logit")
+
+# Compute the same QMLxv estimator reporting Odds Ratios with 90% confidence intervals
+fracreghet(y_adj, X_het, Z_emp, var.endog = X_het[, "mrate"], type="QMLxv", 
+           link="logit", or=TRUE, level=0.90) 
  
 ### Simulated Examples 
 

@@ -306,7 +306,7 @@ fracregpd.var <- function(type,x.exogenous,var.type,id,Ti,Hy,x,z,XB,link,at,at1,
 	return(ret.list)
 }
 
-fracregpd.table <- function(p,p.var,x.names,x.exogenous,lags,type,link,converged,N.ini,N,NT.ini,NT,J,dfJ,k,var.type,bootstrap,LL=NULL)
+fracregpd.table <- function(p,p.var,x.names,x.exogenous,lags,type,link,converged,N.ini,N,NT.ini,NT,J,dfJ,k,var.type,bootstrap,LL=NULL,or=FALSE,level=0.95)
 {
 	if(converged==T)
 	{
@@ -315,16 +315,41 @@ fracregpd.table <- function(p,p.var,x.names,x.exogenous,lags,type,link,converged
 			p.sd <- diag(p.var)^0.5
 			z.ratio <- p/p.sd
 			p.value <- 2*pnorm(abs(z.ratio), lower.tail=FALSE)
-			ci.low <- p - qnorm(0.975) * p.sd
-			ci.high <- p + qnorm(0.975) * p.sd
-			res_table <- cbind(Coefficient = p, `Std.Err.` = p.sd, `z value` = z.ratio, `[95% Conf.` = ci.low, `Interval]` = ci.high, `Pr(>|z|)` = p.value)
+			qval <- qnorm((1 + level) / 2)
+			ci.low <- p - qval * p.sd
+			ci.high <- p + qval * p.sd
+
+			if(or && link == "logit") {
+				p <- exp(p)
+				p.sd <- p.sd * p
+				ci.low <- exp(ci.low)
+				ci.high <- exp(ci.high)
+			}
+			
+			conf_str <- paste0("[", round(level * 100), "% Conf.")
+			res_table <- cbind(Coefficient = p, `Std.Err.` = p.sd, `z value` = z.ratio, `ci_low` = ci.low, `ci_high` = ci.high, `Pr(>|z|)` = p.value)
+			colnames(res_table)[4] <- conf_str
+			colnames(res_table)[5] <- "Interval]"
+			
+			if(or && link == "logit") {
+				colnames(res_table)[1] <- "Odds Ratio"
+			}
+			
 			se_type <- if(bootstrap) "bootstrap" else var.type
 			if(se_type == "standard") se_type <- "EIM"
 			colnames(res_table)[2] <- paste0(tools::toTitleCase(se_type), " Std.Err.")
 		}
 		else
 		{
-			res_table <- cbind(Coefficient = p, `Std.Err.` = NA, `z value` = NA, `[95% Conf.` = NA, `Interval]` = NA, `Pr(>|z|)` = NA)
+			conf_str <- paste0("[", round(level * 100), "% Conf.")
+			res_table <- cbind(Coefficient = p, `Std.Err.` = NA, `z value` = NA, `ci_low` = NA, `ci_high` = NA, `Pr(>|z|)` = NA)
+			colnames(res_table)[4] <- conf_str
+			colnames(res_table)[5] <- "Interval]"
+
+			if(or && link == "logit") {
+				res_table[,"Coefficient"] <- exp(p)
+				colnames(res_table)[1] <- "Odds Ratio"
+			}
 			se_type <- if(bootstrap) "bootstrap" else var.type
 			if(se_type == "standard") se_type <- "EIM"
 			colnames(res_table)[2] <- paste0(tools::toTitleCase(se_type), " Std.Err.")
@@ -434,7 +459,7 @@ fracregpd.table <- function(p,p.var,x.names,x.exogenous,lags,type,link,converged
 	cat("\n")
 }
 
-fracregpd <- function(id,time,y,x,z,var.endog,x.exogenous=T,lags,start,type,GMMww.cor=T,link="logit",intercept=T,table=T,variance=T,var.type="cluster",tdummies=F,bootstrap=F,B=200,offset=NULL,...)
+fracregpd <- function(id,time,y,x,z,var.endog,x.exogenous=T,lags,start,type,GMMww.cor=T,link="logit",intercept=T,table=T,variance=T,var.type="cluster",tdummies=F,bootstrap=F,B=200,offset=NULL,or=FALSE,level=0.95,...)
 {
 	### 1. Error and warning messages
 
@@ -906,15 +931,15 @@ fracregpd <- function(id,time,y,x,z,var.endog,x.exogenous=T,lags,start,type,GMMw
 				results <- fracregpd.est(type,x.exogenous,lags,id.B,Ti.B,Hy.B,x.B,z.B,link,var.type,start,at.B,at1.B,variance,NT.B,k,kz,NA,NA,bootstrap,offset=offset.B,...)
 				if(results$converged==T)
 				{
-					cat("1")
+					if(table==T) cat("1")
 
 					pres <- results$p
 					if(type=="QMLcre" & x.exogenous==F) pres <- c(pres,PIres)
 					pboot[j,] <- pres
 				}
-				else cat("0")
+				else if(table==T) cat("0")
 
-				if(any(j==seq(50,100000,50))) cat("\n"
+				if(any(j==seq(50,100000,50)) & table==T) cat("\n"
 )			}
 
 			p.var <- matrix(NA,nrow=length(x.names),ncol=length(x.names))
@@ -925,7 +950,7 @@ fracregpd <- function(id,time,y,x,z,var.endog,x.exogenous=T,lags,start,type,GMMw
 
 	if(type=="QMLcre" & x.exogenous==F) p <- c(p,PIhat)
 
-	if(table==T) fracregpd.table(p,p.var,x.names,x.exogenous,lags,type,link,converged,N.ini,N,NT.ini,NT,J,dfJ,k,var.type,bootstrap,LL=LL)
+	if(table==T) fracregpd.table(p,p.var,x.names,x.exogenous,lags,type,link,converged,N.ini,N,NT.ini,NT,J,dfJ,k,var.type,bootstrap,LL=LL,or=or,level=level)
 
 	names(p) <- x.names
 	res <- list(type=type,link=link,Hy=Hy,p=p,converged=converged)

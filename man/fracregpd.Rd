@@ -10,7 +10,8 @@ Fitting Panel Data Fractional Response Regressions
 }
 \usage{fracregpd(id, time, y, x, z, var.endog, x.exogenous = T, lags, start, type,
 	GMMww.cor = T, link = "logit", intercept = T, table = T, variance = T,
-	var.type = "cluster", tdummies = F, bootstrap = F, B = 200, offset = NULL, ...)
+	var.type = "cluster", tdummies = F, bootstrap = F, B = 200, offset = NULL, 
+    or = FALSE, level = 0.95, ...)
 }
 
 \arguments{
@@ -57,6 +58,10 @@ instrumental variables). Only required in case of endogenous explanatory variabl
 }
   \item{offset}{an optional numeric vector containing an offset. It must be of the same dimension as the response variable. It specifies that the variable should be included in the model with its coefficient constrained to 1.
 }
+  \item{or}{a logical value indicating whether to report odds ratios. Only valid when the link function is \code{"logit"}. Defaults to \code{FALSE}.
+}
+  \item{level}{a numeric value between 0 and 1 indicating the confidence level for the confidence intervals. Defaults to \code{0.95}.
+}
   \item{\dots}{Arguments to pass to \link[stats]{nlminb}.
 }
 }
@@ -102,6 +107,14 @@ If \code{variance = TRUE} or \code{table = TRUE} and the algorithm converged suc
 }
   \item{var.type}{covariance matrix type.
 }
+}
+
+\section{Odds Ratios}{
+When \code{or=TRUE} and the fractional link function (\code{linkfrac} or \code{link}) is \code{"logit"}, the model additionally computes odds ratios for the coefficients. 
+Odds Ratios are exponentiated coefficients.
+The corresponding standard errors for the odds ratios are calculated using the Delta method.
+The confidence intervals for the odds ratios are calculated using the adjusted standard errors and the specified \code{level} (defaulting to 95\%).
+Odds ratios are particularly useful in fractional logit models as they provide a direct multiplicative interpretation of the independent variable on the odds of the fractional outcome.
 }
 
 \references{
@@ -160,11 +173,15 @@ y_endog <- exp(x_panel + 1.2 * var_endog + c_i + u_panel) /
 X_endog <- cbind(x_panel = x_panel, var_endog = var_endog)
 Z_inst <- cbind(x_panel = x_panel, z_panel = z_panel)
 
+\donttest{
 # Estimate a Correlated Random Effects (CRE) Model
 fracregpd(id=id, time=time, y=y_panel, x=X, type="QMLcre", link="probit")
 
 # Exogeneity, no lags, no time dummies, clustered standard errors, GMMbgw estimator
 fracregpd(id=id, time=time, y=y_panel, x=X, type="GMMbgw")
+
+# Estimate the GMMww estimator with odds ratios and 99% confidence intervals
+fracregpd(id=id, time=time, y=y_panel, x=X, type="GMMww", or=TRUE, level=0.99)
 
 # Lagged covariates and instruments, robust standard errors, GMMww estimator
 fracregpd(id=id, time=time, y=y_panel, x=X, lags=TRUE, type="GMMww", var.type="robust")
@@ -172,4 +189,5 @@ fracregpd(id=id, time=time, y=y_panel, x=X, lags=TRUE, type="GMMww", var.type="r
 # Endogeneity, time dummies, GMMpfe estimator
 fracregpd(id=id, time=time, y=y_endog, x=X_endog, z=Z_inst, 
           x.exogenous=FALSE, type="GMMpfe", tdummies=TRUE)
+}
 }

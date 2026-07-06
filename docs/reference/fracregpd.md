@@ -8,7 +8,8 @@ dependent variable has a bounded, fractional nature.
 ``` r
 fracregpd(id, time, y, x, z, var.endog, x.exogenous = T, lags, start, type,
   GMMww.cor = T, link = "logit", intercept = T, table = T, variance = T,
-  var.type = "cluster", tdummies = F, bootstrap = F, B = 200, offset = NULL, ...)
+  var.type = "cluster", tdummies = F, bootstrap = F, B = 200, offset = NULL, 
+    or = FALSE, level = 0.95, ...)
 ```
 
 ## Arguments
@@ -122,6 +123,16 @@ fracregpd(id, time, y, x, z, var.endog, x.exogenous = T, lags, start, type,
   variable should be included in the model with its coefficient
   constrained to 1.
 
+- or:
+
+  a logical value indicating whether to report odds ratios. Only valid
+  when the link function is `"logit"`. Defaults to `FALSE`.
+
+- level:
+
+  a numeric value between 0 and 1 indicating the confidence level for
+  the confidence intervals. Defaults to `0.95`.
+
 - ...:
 
   Arguments to pass to [nlminb](https://rdrr.io/r/stats/nlminb.html).
@@ -203,6 +214,18 @@ successfully, the previous list also contains the following elements:
 - var.type:
 
   covariance matrix type.
+
+## Odds Ratios
+
+When `or=TRUE` and the fractional link function (`linkfrac` or `link`)
+is `"logit"`, the model additionally computes odds ratios for the
+coefficients. Odds Ratios are exponentiated coefficients. The
+corresponding standard errors for the odds ratios are calculated using
+the Delta method. The confidence intervals for the odds ratios are
+calculated using the adjusted standard errors and the specified `level`
+(defaulting to 95%). Odds ratios are particularly useful in fractional
+logit models as they provide a direct multiplicative interpretation of
+the independent variable on the odds of the fractional outcome.
 
 ## References
 
@@ -287,7 +310,7 @@ fracregpd(id_emp, time_emp, y, X, type="QMLcre", link="probit")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 15:03:45 
+#>                          Run Date: 2026-07-06 17:25:27 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -317,6 +340,7 @@ y_endog <- exp(x_panel + 1.2 * var_endog + c_i + u_panel) /
 X_endog <- cbind(x_panel = x_panel, var_endog = var_endog)
 Z_inst <- cbind(x_panel = x_panel, z_panel = z_panel)
 
+# \donttest{
 # Estimate a Correlated Random Effects (CRE) Model
 fracregpd(id=id, time=time, y=y_panel, x=X, type="QMLcre", link="probit")
 #> 
@@ -350,7 +374,7 @@ fracregpd(id=id, time=time, y=y_panel, x=X, type="QMLcre", link="probit")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 15:03:45 
+#>                          Run Date: 2026-07-06 17:25:27 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -382,7 +406,39 @@ fracregpd(id=id, time=time, y=y_panel, x=X, type="GMMbgw")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 15:03:45 
+#>                          Run Date: 2026-07-06 17:25:28 
+#> -------------------------------------------------------------------------------- 
+#> 
+
+# Estimate the GMMww estimator with odds ratios and 99% confidence intervals
+fracregpd(id=id, time=time, y=y_panel, x=X, type="GMMww", or=TRUE, level=0.99)
+#> 
+#> -------------------------------------------------------------------------------- 
+#>                           Fractional logit  regression 
+#> -------------------------------------------------------------------------------- 
+#> Estimator:                                                                 GMMww 
+#> Data type:                                                                 Panel 
+#> Exogeneity:                                                                 TRUE 
+#> Use first lag of instruments:                                               TRUE 
+#> Standard errors:                                                         cluster 
+#> -------------------------------------------------------------------------------- 
+#> Number of obs (initial):                                                     500 
+#> Number of observations:                                                      400 
+#> Number of groups (initial):                                                  100 
+#> Number of groups:                                                            100 
+#> Obs per group:                                                                 4 
+#> Wald chi2(1):                                               8.12351101825493e+32 
+#> Prob > chi2:                                                              0.0000 
+#> Convergence:                                                          Successful 
+#> -------------------------------------------------------------------------------- 
+#>                              Final GMM ww estimates 
+#> -------------------------------------------------------------------------------- 
+#>         Odds Ratio Cluster Std.Err.   z value [99% Conf. Interval] Pr(>|z|)    
+#> x_panel  2.718e+00        2.592e-16 1.049e+16  2.718e+00     2.718   <2e-16 ***
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> -------------------------------------------------------------------------------- 
+#>                          Run Date: 2026-07-06 17:25:29 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -414,7 +470,7 @@ fracregpd(id=id, time=time, y=y_panel, x=X, lags=TRUE, type="GMMww", var.type="r
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 15:03:45 
+#>                          Run Date: 2026-07-06 17:25:29 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -457,7 +513,8 @@ fracregpd(id=id, time=time, y=y_endog, x=X_endog, z=Z_inst,
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 15:03:46 
+#>                          Run Date: 2026-07-06 17:25:39 
 #> -------------------------------------------------------------------------------- 
 #> 
+# }
 ```
