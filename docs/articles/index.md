@@ -3,4 +3,4 @@
 ### Tutorials
 
 - [A Comprehensive Guide to Fractional Response Regressions with
-  fracreg](https://SulmanOlieko.github.io/fracreg/articles/fracreg_tutorial.md):
+  fracreg](https://sulmanolieko.github.io/fracreg/articles/fracreg_tutorial.md):

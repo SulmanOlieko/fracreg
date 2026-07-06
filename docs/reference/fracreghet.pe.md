@@ -116,9 +116,9 @@ Sulman Olieko Owili \<oliekosulman@gmail.com\>
 
 ## See also
 
-[`fracreghet`](https://SulmanOlieko.github.io/fracreg/reference/fracreghet.md),
+[`fracreghet`](https://sulmanolieko.github.io/fracreg/reference/fracreghet.md),
 for fitting fractional response models under unobserved heterogeneity.  
-[`fracreghet.reset`](https://SulmanOlieko.github.io/fracreg/reference/fracreghet.reset.md),
+[`fracreghet.reset`](https://sulmanolieko.github.io/fracreg/reference/fracreghet.reset.md),
 for the RESET test.  
 
 ## Examples
@@ -152,7 +152,7 @@ fracreghet.pe(res_emp, which.x="mrate")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 17:25:13 
+#>                          Run Date: 2026-07-06 17:49:49 
 #> -------------------------------------------------------------------------------- 
  
 ### Simulated Examples
@@ -185,7 +185,7 @@ fracreghet.pe(res,which.x="X1")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 17:25:14 
+#>                          Run Date: 2026-07-06 17:49:49 
 #> -------------------------------------------------------------------------------- 
 
 #Naive estimator of conditional partial effects for all covariates,
@@ -205,7 +205,7 @@ fracreghet.pe(res,smearing=FALSE,APE=FALSE,CPE=TRUE,at=c(1,-1))
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 17:25:14 
+#>                          Run Date: 2026-07-06 17:49:49 
 #> -------------------------------------------------------------------------------- 
 #> 
 #> Note: covariates evaluated at the following values:

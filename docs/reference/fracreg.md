@@ -170,13 +170,13 @@ the square of the correlation coefficient between the actual and fitted
 values of the dependent variable), calculates the fitted values of the
 dependent variable in two-part models and stores the information needed
 to implement some very useful commands for fractional response models:
-[fracreg.reset](https://SulmanOlieko.github.io/fracreg/reference/fracreg.reset.md)
+[fracreg.reset](https://sulmanolieko.github.io/fracreg/reference/fracreg.reset.md)
 (RESET test),
-[fracreg.ptest](https://SulmanOlieko.github.io/fracreg/reference/fracreg.ptest.md)
+[fracreg.ptest](https://sulmanolieko.github.io/fracreg/reference/fracreg.ptest.md)
 (P test),
-[fracreg.ggoff](https://SulmanOlieko.github.io/fracreg/reference/fracreg.ggoff.md)
+[fracreg.ggoff](https://sulmanolieko.github.io/fracreg/reference/fracreg.ggoff.md)
 (GGOFF tests) and
-[fracreg.pe](https://SulmanOlieko.github.io/fracreg/reference/fracreg.pe.md)
+[fracreg.pe](https://sulmanolieko.github.io/fracreg/reference/fracreg.pe.md)
 (partial effects).
 
 ## Value
@@ -349,13 +349,13 @@ Sulman Olieko Owili \<oliekosulman@gmail.com\>
 
 ## See also
 
-[`fracreg.reset`](https://SulmanOlieko.github.io/fracreg/reference/fracreg.reset.md)
+[`fracreg.reset`](https://sulmanolieko.github.io/fracreg/reference/fracreg.reset.md)
 and
-[`fracreg.ggoff`](https://SulmanOlieko.github.io/fracreg/reference/fracreg.ggoff.md),
+[`fracreg.ggoff`](https://sulmanolieko.github.io/fracreg/reference/fracreg.ggoff.md),
 for specification tests.  
-[`fracreg.ptest`](https://SulmanOlieko.github.io/fracreg/reference/fracreg.ptest.md),
+[`fracreg.ptest`](https://sulmanolieko.github.io/fracreg/reference/fracreg.ptest.md),
 for non-nested hypothesis tests.  
-[`fracreg.pe`](https://SulmanOlieko.github.io/fracreg/reference/fracreg.pe.md),
+[`fracreg.pe`](https://sulmanolieko.github.io/fracreg/reference/fracreg.pe.md),
 for computing partial effects.  
 `fracreghet`, for fitting cross-sectional fractional response models
 with unobserved heterogeneity.  
@@ -404,7 +404,7 @@ fracreg(y, X, type="1P", linkfrac="logit")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 17:24:07 
+#>                          Run Date: 2026-07-06 17:49:41 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -442,7 +442,7 @@ fracreg(y, X, type="1P", linkfrac="logit", or=TRUE, level=0.99)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 17:24:07 
+#>                          Run Date: 2026-07-06 17:49:41 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -515,7 +515,7 @@ fracreg(y, X, type="2P", inflation=1, linkbin="logit", linkfrac="logit")
 #> Pseudo R-squared:                                                        0.11243 
 #> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 17:24:09 
+#>                          Run Date: 2026-07-06 17:49:41 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -615,7 +615,7 @@ fracreg(y_3p, X, type="3P", linkbin=c("logit","logit"), linkfrac="logit")
 #> Pseudo R-squared:                                                        0.07934 
 #> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 17:24:10 
+#>                          Run Date: 2026-07-06 17:49:41 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -663,7 +663,7 @@ fracreg(y, X, type="1P", linkfrac="logit")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 17:24:10 
+#>                          Run Date: 2026-07-06 17:49:41 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -786,7 +786,7 @@ fracreg(y, X, type="2P", inflation=0, linkbin="cloglog", linkfrac="logit")
 #> Pseudo R-squared:                                                        0.38829 
 #> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 17:24:11 
+#>                          Run Date: 2026-07-06 17:49:42 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -873,7 +873,7 @@ fracreg(y, X, type="3P", linkbin=c("logit","probit"), linkfrac="logit")
 #> Pseudo R-squared:                                                        0.38917 
 #> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 17:24:13 
+#>                          Run Date: 2026-07-06 17:49:42 
 #> -------------------------------------------------------------------------------- 
 #> 
 ```

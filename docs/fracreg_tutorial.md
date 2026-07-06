@@ -31,7 +31,7 @@ library(fracreg)
 ## 1. Cross-Sectional Fractional Models (`fracreg`)
 
 The core
-[`fracreg()`](https://SulmanOlieko.github.io/fracreg/reference/fracreg.md)
+[`fracreg()`](https://sulmanolieko.github.io/fracreg/reference/fracreg.md)
 function is designed for univariate models where the dependent variable
 is bounded between 0 and 1 inclusive ($`0 \le y \le 1`$).
 
@@ -87,7 +87,7 @@ summary(model_1p)
 
 Raw coefficients from fractional models are not directly interpretable
 as marginal effects. Use
-[`fracreg.pe()`](https://SulmanOlieko.github.io/fracreg/reference/fracreg.pe.md)
+[`fracreg.pe()`](https://sulmanolieko.github.io/fracreg/reference/fracreg.pe.md)
 to compute the **Average Partial Effects (APE)** using the analytical
 delta method:
 
@@ -132,7 +132,7 @@ summary(model_2p)
 #### Partial Effects for the Two-Part Model
 
 The
-[`fracreg.pe()`](https://SulmanOlieko.github.io/fracreg/reference/fracreg.pe.md)
+[`fracreg.pe()`](https://sulmanolieko.github.io/fracreg/reference/fracreg.pe.md)
 command natively accounts for the product rule when computing APEs for
 combined two-part models:
 
@@ -244,7 +244,7 @@ summary(model_1p_clog)
 
 When you suspect that one of your covariates is endogenous, or that the
 variance is heteroskedastic,
-[`fracreghet()`](https://SulmanOlieko.github.io/fracreg/reference/fracreghet.md)
+[`fracreghet()`](https://sulmanolieko.github.io/fracreg/reference/fracreghet.md)
 provides instrumental variable correction. It natively supports IV
 through a **Control Function (CF)** approach or **GMM** estimation.
 
@@ -283,7 +283,7 @@ summary(model_het)
 
 For longitudinal or panel data where unobserved heterogeneity is a
 concern,
-[`fracregpd()`](https://SulmanOlieko.github.io/fracreg/reference/fracregpd.md)
+[`fracregpd()`](https://sulmanolieko.github.io/fracreg/reference/fracregpd.md)
 provides fixed-T panel estimators. The Correlated Random Effects (CRE)
 approach adds individual-specific time averages of covariates to the
 model, allowing consistent estimation even when unobserved effects are

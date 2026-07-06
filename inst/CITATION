@@ -6,10 +6,10 @@ bibentry(
   author = person("Sulman Olieko", "Owili"),
   year = format(Sys.Date(), "%Y"),
   note = "R package",
-  url = "https://SulmanOlieko.github.io/fracreg",
+  url = "https://sulmanolieko.github.io/fracreg/",
   textVersion = paste(
     "Owili, SO. (", format(Sys.Date(), "%Y"), 
     "). fracreg: Fractional Response Regressions. R package. ",
-    "URL: https://SulmanOlieko.github.io/fracreg", sep = ""
+    "URL: https://sulmanolieko.github.io/fracreg/", sep = ""
   )
 )

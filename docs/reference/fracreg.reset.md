@@ -83,13 +83,13 @@ Sulman Olieko Owili \<oliekosulman@gmail.com\>
 
 ## See also
 
-[`fracreg`](https://SulmanOlieko.github.io/fracreg/reference/fracreg.md),
+[`fracreg`](https://sulmanolieko.github.io/fracreg/reference/fracreg.md),
 for fitting fractional response models.  
-[`fracreg.ggoff`](https://SulmanOlieko.github.io/fracreg/reference/fracreg.ggoff.md),
+[`fracreg.ggoff`](https://sulmanolieko.github.io/fracreg/reference/fracreg.ggoff.md),
 for asymptotically equivalent specification tests.  
-[`fracreg.ptest`](https://SulmanOlieko.github.io/fracreg/reference/fracreg.ptest.md),
+[`fracreg.ptest`](https://sulmanolieko.github.io/fracreg/reference/fracreg.ptest.md),
 for non-nested hypothesis tests.  
-[`fracreg.pe`](https://SulmanOlieko.github.io/fracreg/reference/fracreg.pe.md),
+[`fracreg.pe`](https://sulmanolieko.github.io/fracreg/reference/fracreg.pe.md),
 for computing partial effects.
 
 ## Examples
@@ -134,7 +134,7 @@ m <- fracreg(y, X, type="1P", linkfrac="logit")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 17:24:45 
+#>                          Run Date: 2026-07-06 17:49:45 
 #> -------------------------------------------------------------------------------- 
 #> 
 fracreg.reset(m)
@@ -149,7 +149,7 @@ fracreg.reset(m)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 17:24:45 
+#>                          Run Date: 2026-07-06 17:49:45 
 #> -------------------------------------------------------------------------------- 
 
 ### Simulated Examples
@@ -181,7 +181,7 @@ fracreg.reset(res,2:3,c("Wald","LM"))
 #> LM(3)       0.042   0.979
 #> Wald(3)     0.045   0.978
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 17:24:45 
+#>                          Run Date: 2026-07-06 17:49:45 
 #> -------------------------------------------------------------------------------- 
 
 #Testing the probit specification of the binary component of a two-part fractional
@@ -198,6 +198,6 @@ fracreg.reset(res,3,"LR")
 #>       Statistic p-value
 #> LR(3)     0.528   0.768
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 17:24:46 
+#>                          Run Date: 2026-07-06 17:49:45 
 #> -------------------------------------------------------------------------------- 
 ```

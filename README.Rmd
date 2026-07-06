@@ -550,7 +550,7 @@ ensuring these econometric tools remain available to the R community.
 - **Ramalho, E.A., Ramalho, J.J.S. and Murteira, J.M.R. (2014).** "A generalized goodness-of-functional form test for binary and fractional response models", *Manchester School*, 82(4), 488-507.
 - **Ramsey, J.B. (1969).** "Tests for Specification Errors in Classical Linear Least-Squares Regression Analysis", *Journal of the Royal Statistical Society: Series B (Methodological)*, 31(2), 350-371.
 
-For more information, please visit the [package website](https://SulmanOlieko.github.io/fracreg) or file an issue on [GitHub](https://github.com/SulmanOlieko/fracreg/issues).
+For more information, please visit the [package website](https://sulmanolieko.github.io/fracreg/) or file an issue on [GitHub](https://github.com/SulmanOlieko/fracreg/issues).
 
 To cite this package in your research:
 
