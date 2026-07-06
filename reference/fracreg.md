@@ -1,4 +1,4 @@
-# Fitting Fractional Response Models
+# Fitting Fractional Response Regressions
 
 `fracreg` is used to fit fractional response models, which are
 appropriate for responses that are proportions, percentages, or
@@ -120,8 +120,8 @@ fracreg(y, x, x2 = x, linkbin, linkfrac, type = "1P", inflation = 0,
 double-inflated fractional response models; see Ramalho, Ramalho and
 Murteira (2011) and Fang and Ma (2013) for details on those models.
 
-**One-Part Fractional Response Models (`type = "1P"`):** The standard
-one-part model assumes that the conditional expectation of the
+**One-Part Fractional Response Regressions (`type = "1P"`):** The
+standard one-part model assumes that the conditional expectation of the
 fractional response \\y_i \in \[0,1\]\\ is given by: \$\$E(y_i\|x_i) =
 G(x_i \beta)\$\$ where \\G(\cdot)\\ is a known non-linear link function
 mapping the linear predictor to the unit interval (e.g., logit, probit).
@@ -381,7 +381,7 @@ fracreg(y, X, type="1P", linkfrac="logit")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 11:51:18 
+#>                          Run Date: 2026-07-06 12:07:23 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -454,7 +454,7 @@ fracreg(y, X, type="2P", inflation=1, linkbin="logit", linkfrac="logit")
 #> Pseudo R-squared:                                                        0.11243 
 #> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 11:51:18 
+#>                          Run Date: 2026-07-06 12:07:23 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -554,7 +554,7 @@ fracreg(y_3p, X, type="3P", linkbin=c("logit","logit"), linkfrac="logit")
 #> Pseudo R-squared:                                                        0.07934 
 #> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 11:51:18 
+#>                          Run Date: 2026-07-06 12:07:23 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -602,7 +602,7 @@ fracreg(y, X, type="1P", linkfrac="logit")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 11:51:18 
+#>                          Run Date: 2026-07-06 12:07:23 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -725,7 +725,7 @@ fracreg(y, X, type="2P", inflation=0, linkbin="cloglog", linkfrac="logit")
 #> Pseudo R-squared:                                                        0.38829 
 #> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 11:51:18 
+#>                          Run Date: 2026-07-06 12:07:23 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -812,7 +812,7 @@ fracreg(y, X, type="3P", linkbin=c("logit","probit"), linkfrac="logit")
 #> Pseudo R-squared:                                                        0.38917 
 #> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 11:51:18 
+#>                          Run Date: 2026-07-06 12:07:23 
 #> -------------------------------------------------------------------------------- 
 #> 
 ```

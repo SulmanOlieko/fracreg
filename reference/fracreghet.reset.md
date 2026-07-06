@@ -1,4 +1,4 @@
-# RESET Test for Fractional Response Models under Neglected Heterogeneity
+# RESET Test for Fractional Response Regressions under Neglected Heterogeneity
 
 `fracreghet.reset` is used to test the specification of fractional
 response models estimated by GMMx or LINx.
@@ -114,7 +114,7 @@ fracreghet.reset(res_emp)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 11:51:21 
+#>                          Run Date: 2026-07-06 12:07:27 
 #> -------------------------------------------------------------------------------- 
  
 ### Simulated Examples
@@ -150,6 +150,6 @@ fracreghet.reset(res,2:3,c("Wald","LM"))
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 11:51:21 
+#>                          Run Date: 2026-07-06 12:07:27 
 #> -------------------------------------------------------------------------------- 
 ```
