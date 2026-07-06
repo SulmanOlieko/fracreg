@@ -1,4 +1,4 @@
-fracreg <- function(y,x,x2=x,linkbin,linkfrac,type="1P",inflation=0,intercept=TRUE,table=TRUE,variance=TRUE,var.type="default",var.eim=TRUE,var.cluster,dfc=FALSE,...)
+fracreg <- function(y,x,x2=x,linkbin,linkfrac,type="1P",inflation=0,intercept=TRUE,table=TRUE,variance=TRUE,var.type="default",var.eim=TRUE,var.cluster,dfc=FALSE,offset=NULL,...)
 {
 	### 1. Error and warning messages
 
@@ -87,6 +87,7 @@ fracreg <- function(y,x,x2=x,linkbin,linkfrac,type="1P",inflation=0,intercept=TR
 	if(length(x2.names)!=length(unique(x2.names))) stop("some covariate names in x2 are identical")
 
 	if(length(y)!=nrow(x)) stop("the number of observations for y and x are different")
+	if(!is.null(offset) && length(y)!=length(offset)) stop("offset does not have the appropriate dimension")
 	if(var.type=="cluster")
 	{
 		if(length(y)!=length(var.cluster)) stop("var.cluster does not have the appropriate dimension")
@@ -101,17 +102,20 @@ fracreg <- function(y,x,x2=x,linkbin,linkfrac,type="1P",inflation=0,intercept=TR
 	if(any(type==c("2Pfrac","2P")))
 	{
 		var.cluf <- NULL
+		offsetf <- NULL
 		if(inflation==0)
 		{
 			yf <- y[y>0]
 			x2f <- x2[y>0,]
 			if(var.type=="cluster") var.cluf <- var.cluster[y>0]
+			if(!is.null(offset)) offsetf <- offset[y>0]
 		}
 		if(inflation==1)
 		{
 			yf <- y[y<1]
 			x2f <- x2[y<1,]
 			if(var.type=="cluster") var.cluf <- var.cluster[y<1]
+			if(!is.null(offset)) offsetf <- offset[y<1]
 		}
 
 		if(length(yf)!=nrow(x2f)) stop("the number of observations for y and x2 are different")
@@ -121,6 +125,8 @@ fracreg <- function(y,x,x2=x,linkbin,linkfrac,type="1P",inflation=0,intercept=TR
 	{
 		var.clu1 <- NULL
 		var.cluf <- NULL
+		offset1 <- NULL
+		offsetf <- NULL
 		yb0 <- y>0
 		y1_subset <- y[y>0]
 		x_subset <- x[y>0,]
@@ -132,6 +138,10 @@ fracreg <- function(y,x,x2=x,linkbin,linkfrac,type="1P",inflation=0,intercept=TR
 		if(var.type=="cluster") {
 			var.clu1 <- var.cluster[y>0]
 			var.cluf <- var.cluster[y>0 & y<1]
+		}
+		if(!is.null(offset)) {
+			offset1 <- offset[y>0]
+			offsetf <- offset[y>0 & y<1]
 		}
 	}
 
@@ -145,7 +155,7 @@ fracreg <- function(y,x,x2=x,linkbin,linkfrac,type="1P",inflation=0,intercept=TR
 		else var.ty <- var.type
 
 		method <- "ML"
-		results <- fracreg.est(yb,x,linkbin,method,variance,var.ty,var.eim,var.cluster,dfc,...)
+		results <- fracreg.est(yb,x,linkbin,method,variance,var.ty,var.eim,var.cluster,dfc,offset=offset,...)
 		p <- results$p
 		if(variance==TRUE) p.var <- results$p.var
 		yhat1 <- results$yhat
@@ -168,17 +178,20 @@ fracreg <- function(y,x,x2=x,linkbin,linkfrac,type="1P",inflation=0,intercept=TR
 			resBIN[["dfc"]] <- dfc
 			if(var.type=="cluster") resBIN[["var.cluster"]] <- var.cluster
 		}
+		if(!is.null(offset)) resBIN[["offset"]] <- offset
 	}
 
 	if(any(type==c("1P","2Pfrac","2P")))
 	{
 		var.clu <- NULL
+		off.curr <- NULL
 		if(type=="1P")
 		{
 			yy <- y
 			xx2 <- x2
 			ty <- "1P"
 			if(var.type=="cluster") var.clu <- var.cluster
+			if(!is.null(offset)) off.curr <- offset
 		}
 		else
 		{
@@ -186,13 +199,14 @@ fracreg <- function(y,x,x2=x,linkbin,linkfrac,type="1P",inflation=0,intercept=TR
 			xx2 <- x2f
 			ty <- "2Pfrac"
 			if(var.type=="cluster") var.clu <- var.cluf
+			if(!is.null(offset)) off.curr <- offsetf
 		}
 
 		if(var.type=="default") var.ty <- "robust"
 		else var.ty <- var.type
 
 		method <- "QML"
-		results <- fracreg.est(yy,xx2,linkfrac,method,variance,var.ty,var.eim,var.clu,dfc,...)
+		results <- fracreg.est(yy,xx2,linkfrac,method,variance,var.ty,var.eim,var.clu,dfc,offset=off.curr,...)
 		p <- results$p
 		if(variance==TRUE) p.var <- results$p.var
 		yhat <- results$yhat
@@ -214,6 +228,7 @@ fracreg <- function(y,x,x2=x,linkbin,linkfrac,type="1P",inflation=0,intercept=TR
 			resFRAC[["dfc"]] <- dfc
 			if(var.type=="cluster") resFRAC[["var.cluster"]] <- var.clu
 		}
+		if(!is.null(off.curr)) resFRAC[["offset"]] <- off.curr
 	}
 
 	if(type=="3P")
@@ -223,7 +238,7 @@ fracreg <- function(y,x,x2=x,linkbin,linkfrac,type="1P",inflation=0,intercept=TR
 
 		# Component 1: y > 0
 		method <- "ML"
-		results0 <- fracreg.est(yb0,x,linkbin[1],method,variance,var.ty,var.eim,var.cluster,dfc,...)
+		results0 <- fracreg.est(yb0,x,linkbin[1],method,variance,var.ty,var.eim,var.cluster,dfc,offset=offset,...)
 		p0 <- results0$p
 		if(variance==TRUE) p.var0 <- results0$p.var
 		yhat1 <- results0$yhat
@@ -232,10 +247,11 @@ fracreg <- function(y,x,x2=x,linkbin,linkfrac,type="1P",inflation=0,intercept=TR
 		names(p0) <- x.names
 		resBIN0 <- list(class=class,formula=yb0 ~ x - 1,type="3Pbin0",link=linkbin[1],method=method,p=p0,yhat=yhat1,xbhat=results0$xbhat,converged=converged1,LL=results0$LL,x.names=x.names)
 		if(variance==TRUE) { dimnames(p.var0) <- list(x.names,x.names); resBIN0[["p.var"]] <- p.var0; resBIN0[["var.type"]] <- var.ty }
+		if(!is.null(offset)) resBIN0[["offset"]] <- offset
 
 		# Component 2: y = 1 | y > 0
 		if(var.type=="cluster") var.clu1 <- var.cluster[y>0] else var.clu1 <- NULL
-		results1 <- fracreg.est(yb1,x_subset,linkbin[2],method,variance,var.ty,var.eim,var.clu1,dfc,...)
+		results1 <- fracreg.est(yb1,x_subset,linkbin[2],method,variance,var.ty,var.eim,var.clu1,dfc,offset=offset1,...)
 		p1 <- results1$p
 		if(variance==TRUE) p.var1 <- results1$p.var
 		converged2 <- results1$converged
@@ -243,10 +259,11 @@ fracreg <- function(y,x,x2=x,linkbin,linkfrac,type="1P",inflation=0,intercept=TR
 		names(p1) <- x.names
 		resBIN1 <- list(class=class,formula=yb1 ~ x_subset - 1,type="3Pbin1",link=linkbin[2],method=method,p=p1,yhat=results1$yhat,xbhat=results1$xbhat,converged=converged2,LL=results1$LL,x.names=x.names)
 		if(variance==TRUE) { dimnames(p.var1) <- list(x.names,x.names); resBIN1[["p.var"]] <- p.var1; resBIN1[["var.type"]] <- var.ty }
+		if(!is.null(offset1)) resBIN1[["offset"]] <- offset1
 
 		# Component 3: 0 < y < 1
 		if(var.type=="default") var.tyF <- "robust" else var.tyF <- var.type
-		resultsF <- fracreg.est(yf,x2f,linkfrac,"QML",variance,var.tyF,var.eim,var.cluf,dfc,...)
+		resultsF <- fracreg.est(yf,x2f,linkfrac,"QML",variance,var.tyF,var.eim,var.cluf,dfc,offset=offsetf,...)
 		pF <- resultsF$p
 		if(variance==TRUE) p.varF <- resultsF$p.var
 		converged3 <- resultsF$converged
@@ -254,11 +271,13 @@ fracreg <- function(y,x,x2=x,linkbin,linkfrac,type="1P",inflation=0,intercept=TR
 		names(pF) <- x2.names
 		resFRAC <- list(class=class,formula=yf ~ x2f - 1,type="3Pfrac",link=linkfrac,method="QML",p=pF,yhat=resultsF$yhat,xbhat=resultsF$xbhat,converged=converged3,x.names=x2.names)
 		if(variance==TRUE) { dimnames(p.varF) <- list(x2.names,x2.names); resFRAC[["p.var"]] <- p.varF; resFRAC[["var.type"]] <- var.tyF }
+		if(!is.null(offsetf)) resFRAC[["offset"]] <- offsetf
 	}
 
 	if(type=="2P")
 	{
-		yhat2 <- fracreg.links(linkfrac)$linkinv(x2%*%p)
+		off2Pfrac <- if(!is.null(offset)) offset else 0
+		yhat2 <- fracreg.links(linkfrac)$linkinv(x2%*%p + off2Pfrac)
 		yhat <- yhat1*yhat2
 
 		converged <- converged1*converged2
@@ -272,9 +291,12 @@ fracreg <- function(y,x,x2=x,linkbin,linkfrac,type="1P",inflation=0,intercept=TR
 	if(type=="3P")
 	{
 		# Overall Expected Value
+		off3Pbin2 <- if(!is.null(offset)) offset else 0
+		off3Pfrac <- if(!is.null(offset)) offset else 0
+
 		F1 <- yhat1
-		F2 <- fracreg.links(linkbin[2])$linkinv(x%*%p1)
-		G <- fracreg.links(linkfrac)$linkinv(x2%*%pF)
+		F2 <- fracreg.links(linkbin[2])$linkinv(x%*%p1 + off3Pbin2)
+		G <- fracreg.links(linkfrac)$linkinv(x2%*%pF + off3Pfrac)
 		yhat <- F1 * (F2 + (1 - F2) * G)
 
 		converged <- converged1*converged2*converged3

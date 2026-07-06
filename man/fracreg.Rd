@@ -12,7 +12,7 @@ Fitting Fractional Response Models
 \usage{
 fracreg(y, x, x2 = x, linkbin, linkfrac, type = "1P", inflation = 0, 
         intercept = TRUE, table = TRUE, variance = TRUE, var.type = "default", 
-        var.eim = TRUE, var.cluster, dfc = FALSE, ...)
+        var.eim = TRUE, var.cluster, dfc = FALSE, offset = NULL, ...)
 }
 
 \arguments{
@@ -44,6 +44,8 @@ models if option \code{type = "2P"} is defined. Defaults to \code{x}.
   \item{var.cluster}{a numeric vector containing the values of the variable that specifies to which cluster each observation belongs.
 }
   \item{dfc}{a logical value indicating whether a degrees of freedom correction should be applied to the covariance matrix. Defaults to \code{FALSE}.
+}
+  \item{offset}{an optional numeric vector containing an offset. It must be of the same dimension as the response variable. It specifies that the variable should be included in the model with its coefficient constrained to 1.
 }
   \item{\dots}{Arguments to pass to \link[stats]{glm}.
 }

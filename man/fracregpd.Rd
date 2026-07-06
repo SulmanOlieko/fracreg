@@ -10,7 +10,7 @@ Fitting Panel Data Fractional Response Models
 }
 \usage{fracregpd(id, time, y, x, z, var.endog, x.exogenous = T, lags, start, type,
 	GMMww.cor = T, link = "logit", intercept = T, table = T, variance = T,
-	var.type = "cluster", tdummies = F, bootstrap = F, B = 200, ...)
+	var.type = "cluster", tdummies = F, bootstrap = F, B = 200, offset = NULL, ...)
 }
 
 \arguments{
@@ -54,6 +54,8 @@ instrumental variables). Only required in case of endogenous explanatory variabl
   \item{bootstrap}{a logical value indicating whether bootstrap should be used in the estimation of the parameter standard errors.
 }
   \item{B}{the number of bootstrap replications.
+}
+  \item{offset}{an optional numeric vector containing an offset. It must be of the same dimension as the response variable. It specifies that the variable should be included in the model with its coefficient constrained to 1.
 }
   \item{\dots}{Arguments to pass to \link[stats]{nlminb}.
 }

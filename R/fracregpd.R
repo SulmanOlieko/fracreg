@@ -151,7 +151,7 @@ fracregpd.Gn <- function(type,x.exogenous,id,Ti,Hy,x,z,XB,link,at,at1,NT,k,p,z.i
 	return(Gn)
 }
 
-fracregpd.est <- function(type,x.exogenous,lags,id,Ti,Hy,x,z,link,var.type,start,at,at1,variance,NT,k,kz,gixv,vhat,bootstrap,...)
+fracregpd.est <- function(type,x.exogenous,lags,id,Ti,Hy,x,z,link,var.type,start,at,at1,variance,NT,k,kz,gixv,vhat,bootstrap,offset=NULL,...)
 {
 	if(type=="QMLcre" & x.exogenous==F)
 	{
@@ -163,8 +163,8 @@ fracregpd.est <- function(type,x.exogenous,lags,id,Ti,Hy,x,z,link,var.type,start
 	GMM.est <- T
 	if(x.exogenous==T & ((any(type==c("GMMpre","GMMcre")) & !any(Hy==0) & lags==F) | type=="QMLcre"))
 	{
-		if(type=="QMLcre") results <- tryCatch(glm(Hy ~ x-1,family=quasibinomial(link=fracregpd.links(link)),maxit=100),error=function(e) return(NULL))
-		if(any(type==c("GMMpre","GMMcre"))) results <- tryCatch(glm(Hy ~ x-1,family=Gamma(link=log),maxit=100),error=function(e) return(NULL))
+		if(type=="QMLcre") results <- tryCatch(glm(Hy ~ x-1,family=quasibinomial(link=fracregpd.links(link)),maxit=100,offset=offset),error=function(e) return(NULL))
+		if(any(type==c("GMMpre","GMMcre"))) results <- tryCatch(glm(Hy ~ x-1,family=Gamma(link=log),maxit=100,offset=offset),error=function(e) return(NULL))
 
 		if(any(is.null(results))) converged <- F
 		else
@@ -181,6 +181,7 @@ fracregpd.est <- function(type,x.exogenous,lags,id,Ti,Hy,x,z,link,var.type,start
 		GMMn <- function(p)
 		{
 			XB <- as.vector(x%*%p)
+			if(!is.null(offset)) XB <- XB + offset
 			gi <- fracregpd.gi(type,id,Ti,Hy,z,XB,link,at,at1)$gi
 			gn <- as.matrix(apply(gi,1,mean))
 			Qn <- t(gn)%*%S%*%gn
@@ -192,6 +193,7 @@ fracregpd.est <- function(type,x.exogenous,lags,id,Ti,Hy,x,z,link,var.type,start
 		results <- nlminb(start=start,objective=GMMn,...)
 		p <- results$par
 		XB <- as.vector(x%*%p)
+		if(!is.null(offset)) XB <- XB + offset
 
 		if(type!="QMLcre" & kz>k)
 		{
@@ -202,6 +204,7 @@ fracregpd.est <- function(type,x.exogenous,lags,id,Ti,Hy,x,z,link,var.type,start
 				results <- nlminb(start=start,objective=GMMn,...)
 				p <- results$par
 				XB <- as.vector(x%*%p)
+				if(!is.null(offset)) XB <- XB + offset
 			}
 
 			Qn <- results$objective
@@ -431,7 +434,7 @@ fracregpd.table <- function(p,p.var,x.names,x.exogenous,lags,type,link,converged
 	cat("\n")
 }
 
-fracregpd <- function(id,time,y,x,z,var.endog,x.exogenous=T,lags,start,type,GMMww.cor=T,link="logit",intercept=T,table=T,variance=T,var.type="cluster",tdummies=F,bootstrap=F,B=200,...)
+fracregpd <- function(id,time,y,x,z,var.endog,x.exogenous=T,lags,start,type,GMMww.cor=T,link="logit",intercept=T,table=T,variance=T,var.type="cluster",tdummies=F,bootstrap=F,B=200,offset=NULL,...)
 {
 	### 1. Error and warning messages
 
@@ -511,6 +514,7 @@ fracregpd <- function(id,time,y,x,z,var.endog,x.exogenous=T,lags,start,type,GMMw
 	{
 		if(length(y)!=length(var.endog)) stop("var.endog does not have the appropriate dimension")
 	}
+	if(!is.null(offset) && length(y)!=length(offset)) stop("offset does not have the appropriate dimension")
 
 	### 3. Data and variables preparation - panel / estimator specifics
 
@@ -604,6 +608,7 @@ fracregpd <- function(id,time,y,x,z,var.endog,x.exogenous=T,lags,start,type,GMMw
 	if(tdummies==T) td <- cbind(td[ord,])
 	if(type=="GMMpfe" & any(y==0)) D <- D[ord,]
 	z <- cbind(z[ord,])
+	if(!is.null(offset)) offset <- offset[ord]
 
 	if(any(type==c("GMMc","GMMww")) | lags==T)
 	{
@@ -634,6 +639,7 @@ fracregpd <- function(id,time,y,x,z,var.endog,x.exogenous=T,lags,start,type,GMMw
 			z <- cbind(z[keep==T,])
 			at <- at[keep==T]
 			at1 <- at1[keep==T]
+			if(!is.null(offset)) offset <- offset[keep==T]
 		}
 		else
 		{
@@ -736,6 +742,7 @@ fracregpd <- function(id,time,y,x,z,var.endog,x.exogenous=T,lags,start,type,GMMw
 			z <- cbind(z[Ti.ini.exp!=1,])
 			at <- at[Ti.ini.exp!=1]
 			if(type=="QMLcre" & x.exogenous==F) var.endog <- var.endog[Ti.ini.exp!=1]
+			if(!is.null(offset)) offset <- offset[Ti.ini.exp!=1]
 		}
 		else
 		{
@@ -811,7 +818,7 @@ fracregpd <- function(id,time,y,x,z,var.endog,x.exogenous=T,lags,start,type,GMMw
 	if(missing(start)) start <- rep(0,k)
 	if(length(start)!=k) stop("start is not of the same dimension as the covariate vector (includes all auxiliary parameters)")
 
-	results <- fracregpd.est(type,x.exogenous,lags,id,Ti,Hy,x,z,link,var.type,start,at,at1,variance,NT,k,kz,gixv,vhat,bootstrap,...)
+	results <- fracregpd.est(type,x.exogenous,lags,id,Ti,Hy,x,z,link,var.type,start,at,at1,variance,NT,k,kz,gixv,vhat,bootstrap,offset=offset,...)
 	p <- results$p
 	converged <- results$converged
 	LL <- results$LL
@@ -871,6 +878,7 @@ fracregpd <- function(id,time,y,x,z,var.endog,x.exogenous=T,lags,start,type,GMMw
 				if(type=="QMLcre" & x.exogenous==F) var.endog.B <- var.endog[ref]
 				at.B <- at[ref]
 				at1.B <- at1[ref]
+				if(!is.null(offset)) offset.B <- offset[ref] else offset.B <- NULL
 
 				if(any(type==c("GMMc","GMMww")) | lags==T)
 				{
@@ -895,7 +903,7 @@ fracregpd <- function(id,time,y,x,z,var.endog,x.exogenous=T,lags,start,type,GMMw
 					PIres <- results$coefficients
 				}
 
-				results <- fracregpd.est(type,x.exogenous,lags,id.B,Ti.B,Hy.B,x.B,z.B,link,var.type,start,at.B,at1.B,variance,NT.B,k,kz,NA,NA,bootstrap,...)
+				results <- fracregpd.est(type,x.exogenous,lags,id.B,Ti.B,Hy.B,x.B,z.B,link,var.type,start,at.B,at1.B,variance,NT.B,k,kz,NA,NA,bootstrap,offset=offset.B,...)
 				if(results$converged==T)
 				{
 					cat("1")
@@ -921,6 +929,7 @@ fracregpd <- function(id,time,y,x,z,var.endog,x.exogenous=T,lags,start,type,GMMw
 
 	names(p) <- x.names
 	res <- list(type=type,link=link,Hy=Hy,p=p,converged=converged)
+	if(!is.null(offset)) res[["offset"]] <- offset
 	if(dfJ>0) res[["J"]] <- J
 
 	if(variance==T & converged==T)

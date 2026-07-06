@@ -119,7 +119,7 @@ fracreghet.Gn <- function(type,x,z,z.in,u,bet,p)
 	return(Gn)
 }
 
-fracreghet.est <- function(type,x,z,link,start,Hy,variance,var.type,var.cluster,gixv,vhat,...)
+fracreghet.est <- function(type,x,z,link,start,Hy,variance,var.type,var.cluster,gixv,vhat,offset=NULL,...)
 {
 	if(any(type==c("GMMxv","QMLxv")))
 	{
@@ -130,7 +130,7 @@ fracreghet.est <- function(type,x,z,link,start,Hy,variance,var.type,var.cluster,
 	GMM.est <- T
 	if(any(type==c("GMMx","GMMxv")) & !any(Hy==0))
 	{
-		results <- tryCatch(glm(Hy ~ x-1,family=Gamma(link=log),maxit=100),error=function(e) return(NULL))
+		results <- tryCatch(glm(Hy ~ x-1,family=Gamma(link=log),maxit=100,offset=offset),error=function(e) return(NULL))
 		if(any(is.null(results))) converged <- F
 		else
 		{
@@ -146,6 +146,7 @@ fracreghet.est <- function(type,x,z,link,start,Hy,variance,var.type,var.cluster,
 		GMMn <- function(p)
 		{
 			XB <- as.vector(x%*%p)
+			if (!is.null(offset)) XB <- XB + offset
 			gi <- fracreghet.gi(type,z,Hy,XB,link)$gi
 
 			gn <- as.matrix(apply(gi,1,mean))
@@ -158,6 +159,7 @@ fracreghet.est <- function(type,x,z,link,start,Hy,variance,var.type,var.cluster,
 		results <- nlminb(start=start,objective=GMMn,...)
 		p <- results$par
 		XB <- as.vector(x%*%p)
+		if (!is.null(offset)) XB <- XB + offset
 
 		if(type=="GMMz" & ncol(z)>ncol(x))
 		{
@@ -168,6 +170,7 @@ fracreghet.est <- function(type,x,z,link,start,Hy,variance,var.type,var.cluster,
 				results <- nlminb(start=start,objective=GMMn,...)
 				p <- results$par
 				XB <- as.vector(x%*%p)
+				if (!is.null(offset)) XB <- XB + offset
 			}
 
 			Qn <- results$objective
@@ -496,7 +499,7 @@ fracreghet.tests.table <- function(test.which,S,Sp,ver,title1,title2)
 	cat(.fracreg.sep(), "\n")
 }
 
-fracreghet <- function(y,x,z=x,var.endog,start,type="GMMx",link="logit",intercept=T,table=T,variance=T,var.type="robust",var.cluster,adjust=0,...)
+fracreghet <- function(y,x,z=x,var.endog,start,type="GMMx",link="logit",intercept=T,table=T,variance=T,var.type="robust",var.cluster,adjust=0,offset=NULL,...)
 {
 	LL <- NULL
 
@@ -561,6 +564,7 @@ fracreghet <- function(y,x,z=x,var.endog,start,type="GMMx",link="logit",intercep
 		x <- as.matrix(x[y>0 & y<1,])
 		z <- as.matrix(z[y>0 & y<1,])
 		if(var.type=="cluster") var.cluster <- var.cluster[y>0 & y<1]
+		if(!is.null(offset)) offset <- offset[y>0 & y<1]
 		if(!missing(var.endog)) var.endog <- var.endog[y>0 & y<1]
 		y <- y[y>0 & y<1]
 	}
@@ -574,6 +578,7 @@ fracreghet <- function(y,x,z=x,var.endog,start,type="GMMx",link="logit",intercep
 	{
 		if(length(y)!=length(var.endog)) stop("var.endog does not have the appropriate dimension")
 	}
+	if(!is.null(offset) && length(y)!=length(offset)) stop("offset does not have the appropriate dimension")
 
 	class <- "fracreghet"
 
@@ -610,7 +615,7 @@ fracreghet <- function(y,x,z=x,var.endog,start,type="GMMx",link="logit",intercep
 		if(missing(start)) start <- rep(0,k)
 		if(length(start)!=k) stop("start is not of the same dimension as the covariate vector (including vhat, in case of GMMxv or QMLxv)")
 		
-		results <- fracreghet.est(type,x,z,link,start,Hy,variance,var.type,var.cluster,gixv,vhat,...)
+		results <- fracreghet.est(type,x,z,link,start,Hy,variance,var.type,var.cluster,gixv,vhat,offset=offset,...)
 		p <- results$p
 		converged <- results$converged
 
@@ -634,26 +639,29 @@ fracreghet <- function(y,x,z=x,var.endog,start,type="GMMx",link="logit",intercep
 
 		if(any(type==c("LINx","LINxv")))
 		{
-			results <- lm(Hy ~ 0+x)
+			results <- lm(Hy ~ 0+x, offset=offset)
 			p <- results$coefficients
 
 			XB <- results$fitted.values
 		}
 		if(type==c("LINz"))
 		{
+			Hy_adj <- Hy
+			if (!is.null(offset)) Hy_adj <- Hy - offset
 			XZ <- t(x)%*%z
-			p <- solve(XZ%*%t(XZ))%*%(XZ%*%(t(z)%*%Hy))
+			p <- solve(XZ%*%t(XZ))%*%(XZ%*%(t(z)%*%Hy_adj))
 			if(kz>k)
 			{
-				u <- as.vector(Hy-x%*%p)
+				u <- as.vector(Hy_adj-x%*%p)
 
 				gi <- t(z*u)
 				fi <- (1/N)*gi%*%t(gi)
 				fi.inv <- solve(fi)
- 				p <- as.vector(solve(XZ%*%fi.inv%*%t(XZ))%*%(XZ%*%fi.inv%*%(t(z)%*%Hy)))
+ 				p <- as.vector(solve(XZ%*%fi.inv%*%t(XZ))%*%(XZ%*%fi.inv%*%(t(z)%*%Hy_adj)))
 			}
 
 			XB <- as.vector(x%*%p)
+			if(!is.null(offset)) XB <- XB + offset
 
 			if(kz>k) J <- N*t(Hy-XB)%*%z%*%fi.inv%*%t(z)%*%(Hy-XB)
 		}
@@ -679,6 +687,7 @@ fracreghet <- function(y,x,z=x,var.endog,start,type="GMMx",link="logit",intercep
 	formula <- y ~ x - 1
 
 	res <- list(class=class,formula=formula,type=type,link=link,adjust=adjust,p=p,Hy=Hy,xbhat=as.vector(XB),converged=converged,x.names=x.names.in)
+	if(!is.null(offset)) res[["offset"]] <- offset
 	if(any(type==c("GMMz","LINz")) & kz>k) res[["J"]] <- J
 
 	if(variance==T & converged==T)

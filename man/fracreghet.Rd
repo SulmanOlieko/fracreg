@@ -11,7 +11,7 @@ Fitting Fractional Response Models under Unobserved Heterogeneity
 \usage{
 fracreghet(y, x, z = x, var.endog, start, type = "GMMx", link = "logit", 
            intercept = T, table = T, variance = T, 
-           var.type = "robust", var.cluster, adjust = 0, ...)
+           var.type = "robust", var.cluster, adjust = 0, offset = NULL, ...)
 }
 
 \arguments{
@@ -41,6 +41,8 @@ variables). Defaults to \code{x}.
   \item{var.cluster}{a numeric vector containing the values of the variable that specifies to which cluster each observation belongs.
 }
   \item{adjust}{the numeric value to be added to the response variable in case of boundary observations when the LIN estimators are applied or the string \code{drop}, which implies that the boundary observations are dropped.
+}
+  \item{offset}{an optional numeric vector containing an offset. It must be of the same dimension as the response variable. It specifies that the variable should be included in the model with its coefficient constrained to 1.
 }
   \item{\dots}{Arguments to pass to \link[stats]{nlminb}.
 }
