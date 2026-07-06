@@ -13,7 +13,7 @@ fracregStartupMessage <- function() {
   )
   base_msg <- paste0(
     "\n\n* Please cite the 'fracreg' package as:\n",
-    "Owili, SO. (2026). fracreg: Fractional Response Models. R package version 1.0.0.\n\n",
+    "Owili, SO. (2026). fracreg: Fractional Response Regressions. R package version 1.0.0.\n\n",
     "See also: citation(\"fracreg\")\n\n",
     "* For any questions, suggestions, or comments on the 'fracreg' package, you can contact the authors directly or visit:\n",
     "  https://github.com/SulmanOlieko/fracreg/issues\n"
@@ -64,7 +64,7 @@ fracregStartupMessage <- function() {
   } else {
     msg <- paste0(
       "\n* Please cite the 'fracreg' package as:\n",
-      "Owili, SO. (2026). fracreg: Fractional Response Models. R package version 1.0.0.\n\n",
+      "Owili, SO. (2026). fracreg: Fractional Response Regressions. R package version 1.0.0.\n\n",
       "See also: citation(\"fracreg\")\n\n",
       "* For any questions, suggestions, or comments on the 'fracreg' package, you can contact the authors directly or visit:\n",
       "  https://github.com/SulmanOlieko/fracreg/issues\n"

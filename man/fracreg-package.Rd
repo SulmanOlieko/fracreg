@@ -1,7 +1,7 @@
 \name{fracreg-package}
 \alias{fracreg-package}
 \docType{package}
-\title{Fractional Response Models}
+\title{Fractional Response Regressions}
 \description{
 Provides comprehensive tools for the estimation and specification analysis of fractional response models. It supports univariate one-part, hurdle two-part, and double-inflated three-part models. The package also incorporates estimators for panel data settings (CRE, GMM, QML) and addresses unobserved heterogeneity and endogeneity via correlated random effects and control function approaches. It supports various link functions, calculates average and conditional partial effects analytically across all model types, and provides robust specification tests such as RESET, P test, and GGOFF tests.
 }

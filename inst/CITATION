@@ -2,14 +2,14 @@ citHeader("To cite fracreg in publications, please use:")
 
 bibentry(
   bibtype = "Manual",
-  title = "fracreg: Fractional Response Models",
+  title = "fracreg: Fractional Response Regressions",
   author = person("Sulman Olieko", "Owili"),
   year = format(Sys.Date(), "%Y"),
   note = "R package",
   url = "https://SulmanOlieko.github.io/fracreg",
   textVersion = paste(
     "Owili, SO. (", format(Sys.Date(), "%Y"), 
-    "). fracreg: Fractional Response Models. R package. ",
+    "). fracreg: Fractional Response Regressions. R package. ",
     "URL: https://SulmanOlieko.github.io/fracreg", sep = ""
   )
 )

@@ -2,7 +2,7 @@
 \alias{fracreghet.reset}
 
 \title{
-RESET Test for Fractional Response Models under Neglected Heterogeneity
+RESET Test for Fractional Response Regressions under Neglected Heterogeneity
 }
 
 \description{

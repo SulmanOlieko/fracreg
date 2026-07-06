@@ -2,7 +2,7 @@
 \alias{fracreg.reset}
 
 \title{
-RESET Test for Fractional Response Models
+RESET Test for Fractional Response Regressions
 }
 
 \description{

@@ -1,4 +1,4 @@
-# Fractional Response Models
+# Fractional Response Regressions
 
 Provides comprehensive tools for the estimation and specification
 analysis of fractional response models. It supports univariate one-part,

@@ -2,7 +2,7 @@
 \alias{fracreg.ggoff}
 
 \title{
-GGOFF Tests for Fractional Response Models
+GGOFF Tests for Fractional Response Regressions
 }
 
 \description{

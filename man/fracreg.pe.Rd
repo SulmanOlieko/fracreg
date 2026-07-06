@@ -2,7 +2,7 @@
 \alias{fracreg.pe}
 
 \title{
-Fractional Response Models - Partial Effects
+Fractional Response Regressions - Partial Effects
 }
 
 \description{

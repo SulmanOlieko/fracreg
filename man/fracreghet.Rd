@@ -2,7 +2,7 @@
 \alias{fracreghet}
 
 \title{
-Fitting Fractional Response Models under Unobserved Heterogeneity
+Fitting Fractional Response Regressions under Unobserved Heterogeneity
 }
 
 \description{

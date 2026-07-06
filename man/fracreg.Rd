@@ -2,7 +2,7 @@
 \alias{fracreg}
 
 \title{
-Fitting Fractional Response Models
+Fitting Fractional Response Regressions
 }
 
 \description{
@@ -54,7 +54,7 @@ models if option \code{type = "2P"} is defined. Defaults to \code{x}.
 \details{
 \code{fracreg} estimates one-part, two-part hurdle, and three-part double-inflated fractional response models; see Ramalho, Ramalho and Murteira (2011) and Fang and Ma (2013) for details on those models. 
 
-\strong{One-Part Fractional Response Models (\code{type = "1P"}):}
+\strong{One-Part Fractional Response Regressions (\code{type = "1P"}):}
 The standard one-part model assumes that the conditional expectation of the fractional response \eqn{y_i \in [0,1]} is given by:
 \deqn{E(y_i|x_i) = G(x_i \beta)}
 where \eqn{G(\cdot)} is a known non-linear link function mapping the linear predictor to the unit interval (e.g., logit, probit). The parameters \eqn{\beta} are estimated by maximising the Bernoulli-based quasi-log-likelihood function:

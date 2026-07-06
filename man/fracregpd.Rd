@@ -2,7 +2,7 @@
 \alias{fracregpd}
 
 \title{
-Fitting Panel Data Fractional Response Models
+Fitting Panel Data Fractional Response Regressions
 }
 
 \description{

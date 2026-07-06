@@ -32,7 +32,7 @@ articles:
       - fracreg_tutorial
 
 home:
-  title: "fracreg — Fractional Response Models"
+  title: "fracreg — Fractional Response Regressions"
   description: >
     A comprehensive R package for estimation, specification testing, and
     interpretation of one-part, two-part hurdle, and three-part double-inflated

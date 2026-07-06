@@ -2,7 +2,7 @@
 \alias{fracreghet.pe}
 
 \title{
-Fractional Response Models under Unobserved Heterogeneity - Partial Effects
+Fractional Response Regressions under Unobserved Heterogeneity - Partial Effects
 }
 \description{
 \code{fracreghet.pe} is used to compute average and/or conditional partial effects in fractional response models 

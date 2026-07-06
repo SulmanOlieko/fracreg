@@ -2,7 +2,7 @@
 \alias{fracreg.ptest}
 
 \title{
-P Test for Fractional Response Models
+P Test for Fractional Response Regressions
 }
 
 \description{

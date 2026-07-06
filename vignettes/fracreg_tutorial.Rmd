@@ -1,10 +1,10 @@
 ---
-title: "A Comprehensive Guide to Fractional Response Models with fracreg"
+title: "A Comprehensive Guide to Fractional Response Regressions with fracreg"
 author: "Sulman Olieko Owili"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{A Comprehensive Guide to Fractional Response Models with fracreg}
+  %\VignetteIndexEntry{A Comprehensive Guide to Fractional Response Regressions with fracreg}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

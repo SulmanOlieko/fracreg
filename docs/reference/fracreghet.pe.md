@@ -1,4 +1,4 @@
-# Fractional Response Models under Unobserved Heterogeneity - Partial Effects
+# Fractional Response Regressions under Unobserved Heterogeneity - Partial Effects
 
 `fracreghet.pe` is used to compute average and/or conditional partial
 effects in fractional response models under unobserved heterogeneity.
@@ -152,7 +152,7 @@ fracreghet.pe(res_emp, which.x="mrate")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 05:31:30 
+#>                          Run Date: 2026-07-06 15:03:43 
 #> -------------------------------------------------------------------------------- 
  
 ### Simulated Examples
@@ -185,7 +185,7 @@ fracreghet.pe(res,which.x="X1")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 05:31:30 
+#>                          Run Date: 2026-07-06 15:03:43 
 #> -------------------------------------------------------------------------------- 
 
 #Naive estimator of conditional partial effects for all covariates,
@@ -205,7 +205,7 @@ fracreghet.pe(res,smearing=FALSE,APE=FALSE,CPE=TRUE,at=c(1,-1))
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 05:31:30 
+#>                          Run Date: 2026-07-06 15:03:43 
 #> -------------------------------------------------------------------------------- 
 #> 
 #> Note: covariates evaluated at the following values:
