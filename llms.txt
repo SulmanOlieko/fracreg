@@ -35,7 +35,7 @@ two-part (hurdle), and three-part (double-inflated) models.
 5.  **Analytical Partial Effects**: Compute exact marginal effects for
     all model types (including 3-part composite effects) via the Delta
     method using
-    [`fracreg.pe()`](https://SulmanOlieko.github.io/fracreg/reference/fracreg.pe.md).
+    [`fracreg.pe()`](https://sulmanolieko.github.io/fracreg/reference/fracreg.pe.md).
 
 ------------------------------------------------------------------------
 
@@ -84,7 +84,7 @@ plan offered by the firm.
 ### 1. Cross-Sectional Fractional Models (`fracreg`)
 
 The core
-[`fracreg()`](https://SulmanOlieko.github.io/fracreg/reference/fracreg.md)
+[`fracreg()`](https://sulmanolieko.github.io/fracreg/reference/fracreg.md)
 function is designed for univariate models where the dependent variable
 is bounded between 0 and 1 inclusive ($`0 \le y \le 1`$). The examples
 below demonstrate both empirical 401(k) plan participation data and
@@ -137,7 +137,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 17:21:25 
+#>                          Run Date: 2026-07-06 17:49:09 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -183,7 +183,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 17:21:30 
+#>                          Run Date: 2026-07-06 17:49:09 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -264,7 +264,7 @@ Toggle to see the output
 #> Pseudo R-squared:                                                        0.11243 
 #> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 17:21:30 
+#>                          Run Date: 2026-07-06 17:49:09 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -372,7 +372,7 @@ Toggle to see the output
 #> Pseudo R-squared:                                                        0.07934 
 #> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 17:21:31 
+#>                          Run Date: 2026-07-06 17:49:09 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -428,7 +428,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 17:21:32 
+#>                          Run Date: 2026-07-06 17:49:09 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -575,7 +575,7 @@ Toggle to see the output
 #> Pseudo R-squared:                                                        0.38829 
 #> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 17:21:33 
+#>                          Run Date: 2026-07-06 17:49:09 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -670,7 +670,7 @@ Toggle to see the output
 #> Pseudo R-squared:                                                        0.38917 
 #> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 17:21:33 
+#>                          Run Date: 2026-07-06 17:49:10 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -678,7 +678,7 @@ Toggle to see the output
 
 Raw coefficients from fractional models are not directly interpretable
 as marginal effects. Use
-[`fracreg.pe()`](https://SulmanOlieko.github.io/fracreg/reference/fracreg.pe.md)
+[`fracreg.pe()`](https://sulmanolieko.github.io/fracreg/reference/fracreg.pe.md)
 to compute the Average Partial Effects (APE) and Conditional Partial
 Effects (CPE) using the analytical delta method.
 
@@ -728,7 +728,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 17:21:34 
+#>                          Run Date: 2026-07-06 17:49:10 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -755,7 +755,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 17:21:34 
+#>                          Run Date: 2026-07-06 17:49:10 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -795,7 +795,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 17:21:36 
+#>                          Run Date: 2026-07-06 17:49:10 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -824,7 +824,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 17:21:36 
+#>                          Run Date: 2026-07-06 17:49:10 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -853,7 +853,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 17:21:36 
+#>                          Run Date: 2026-07-06 17:49:10 
 #> -------------------------------------------------------------------------------- 
 #> 
 #> Note: covariates evaluated at median (or mode, for dummies) values
@@ -886,7 +886,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 17:21:37 
+#>                          Run Date: 2026-07-06 17:49:10 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -948,7 +948,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 17:21:37 
+#>                          Run Date: 2026-07-06 17:49:10 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -973,7 +973,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 17:21:37 
+#>                          Run Date: 2026-07-06 17:49:11 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -1016,7 +1016,7 @@ Toggle to see the output
 #> GGOFF - LM       1.612   0.447
 #> GGOFF - Wald     1.336   0.513
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 17:21:39 
+#>                          Run Date: 2026-07-06 17:49:11 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -1043,7 +1043,7 @@ Toggle to see the output
 #> GOFF2 - LR     0.017   0.895
 #> GGOFF - LR     0.024   0.988
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 17:21:39 
+#>                          Run Date: 2026-07-06 17:49:11 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -1099,7 +1099,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 17:21:39 
+#>                          Run Date: 2026-07-06 17:49:11 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -1122,7 +1122,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 17:21:39 
+#>                          Run Date: 2026-07-06 17:49:11 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -1165,7 +1165,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 17:21:40 
+#>                          Run Date: 2026-07-06 17:49:11 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -1192,7 +1192,7 @@ Toggle to see the output
 #>       Statistic p-value
 #> LR(3)     0.976   0.614
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 17:21:40 
+#>                          Run Date: 2026-07-06 17:49:11 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -1247,7 +1247,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 17:21:41 
+#>                          Run Date: 2026-07-06 17:49:11 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -1291,7 +1291,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 17:21:41 
+#>                          Run Date: 2026-07-06 17:49:11 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -1321,7 +1321,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 17:21:41 
+#>                          Run Date: 2026-07-06 17:49:11 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -1368,7 +1368,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 17:21:44 
+#>                          Run Date: 2026-07-06 17:49:11 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -1403,7 +1403,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 17:21:44 
+#>                          Run Date: 2026-07-06 17:49:11 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -1413,7 +1413,7 @@ Toggle to see the output
 
 When you suspect that one of your covariates is endogenous, or that the
 variance is heteroscedastic,
-[`fracreghet()`](https://SulmanOlieko.github.io/fracreg/reference/fracreghet.md)
+[`fracreghet()`](https://sulmanolieko.github.io/fracreg/reference/fracreghet.md)
 provides instrumental variable correction. It natively supports IV
 through a **Control Function (CF)** approach or **GMM** estimation.
 
@@ -1472,7 +1472,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 17:21:47 
+#>                          Run Date: 2026-07-06 17:49:12 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -1521,7 +1521,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 17:21:53 
+#>                          Run Date: 2026-07-06 17:49:13 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -1579,7 +1579,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 17:21:53 
+#>                          Run Date: 2026-07-06 17:49:13 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -1618,7 +1618,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 17:21:54 
+#>                          Run Date: 2026-07-06 17:49:13 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -1671,7 +1671,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 17:21:54 
+#>                          Run Date: 2026-07-06 17:49:13 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -1723,7 +1723,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 17:21:54 
+#>                          Run Date: 2026-07-06 17:49:13 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -1763,7 +1763,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 17:21:59 
+#>                          Run Date: 2026-07-06 17:49:14 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -1805,7 +1805,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 17:22:00 
+#>                          Run Date: 2026-07-06 17:49:14 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -1834,7 +1834,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 17:22:00 
+#>                          Run Date: 2026-07-06 17:49:14 
 #> -------------------------------------------------------------------------------- 
 #> 
 #> Note: covariates evaluated at the following values:
@@ -1879,7 +1879,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 17:22:01 
+#>                          Run Date: 2026-07-06 17:49:14 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -1924,7 +1924,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 17:22:01 
+#>                          Run Date: 2026-07-06 17:49:15 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -1934,7 +1934,7 @@ Toggle to see the output
 
 For longitudinal or panel data where unobserved heterogeneity is a
 concern,
-[`fracregpd()`](https://SulmanOlieko.github.io/fracreg/reference/fracregpd.md)
+[`fracregpd()`](https://sulmanolieko.github.io/fracreg/reference/fracregpd.md)
 provides fixed-T panel estimators.
 
 ``` r
@@ -1998,7 +1998,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 17:22:04 
+#>                          Run Date: 2026-07-06 17:49:15 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -2069,7 +2069,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 17:22:10 
+#>                          Run Date: 2026-07-06 17:49:16 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -2109,7 +2109,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 17:22:11 
+#>                          Run Date: 2026-07-06 17:49:16 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -2149,7 +2149,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 17:22:11 
+#>                          Run Date: 2026-07-06 17:49:16 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -2189,7 +2189,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 17:22:11 
+#>                          Run Date: 2026-07-06 17:49:16 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -2240,7 +2240,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 17:22:18 
+#>                          Run Date: 2026-07-06 17:49:18 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -2304,7 +2304,7 @@ ensuring these econometric tools remain available to the R community.
   Statistical Society: Series B (Methodological)*, 31(2), 350-371.
 
 For more information, please visit the [package
-website](https://SulmanOlieko.github.io/fracreg) or file an issue on
+website](https://sulmanolieko.github.io/fracreg/) or file an issue on
 [GitHub](https://github.com/SulmanOlieko/fracreg/issues).
 
 To cite this package in your research:
@@ -2320,18 +2320,18 @@ citation("fracreg")
 
 General package description and help.
 
-- [`fracreg-package`](https://SulmanOlieko.github.io/fracreg/reference/fracreg-package.md)
+- [`fracreg-package`](https://sulmanolieko.github.io/fracreg/reference/fracreg-package.md)
   : Fractional Response Regressions
-- [`fracreg_k401k`](https://SulmanOlieko.github.io/fracreg/reference/fracreg_k401k.md)
+- [`fracreg_k401k`](https://sulmanolieko.github.io/fracreg/reference/fracreg_k401k.md)
   : 401(k) Plan Participation Data
 
 ## Base Fractional Estimators
 
 Functions for cross-sectional, hurdle, and double-inflated models.
 
-- [`fracreg()`](https://SulmanOlieko.github.io/fracreg/reference/fracreg.md)
+- [`fracreg()`](https://sulmanolieko.github.io/fracreg/reference/fracreg.md)
   : Fitting Fractional Response Regressions
-- [`fracreg.pe()`](https://SulmanOlieko.github.io/fracreg/reference/fracreg.pe.md)
+- [`fracreg.pe()`](https://sulmanolieko.github.io/fracreg/reference/fracreg.pe.md)
   : Fractional Response Regressions - Partial Effects
 
 ## Panel Data & Endogeneity
@@ -2339,12 +2339,12 @@ Functions for cross-sectional, hurdle, and double-inflated models.
 Functions for panel data, unobserved heterogeneity, and endogenous
 regressors.
 
-- [`fracregpd()`](https://SulmanOlieko.github.io/fracreg/reference/fracregpd.md)
+- [`fracregpd()`](https://sulmanolieko.github.io/fracreg/reference/fracregpd.md)
   : Fitting Panel Data Fractional Response Regressions
-- [`fracreghet()`](https://SulmanOlieko.github.io/fracreg/reference/fracreghet.md)
+- [`fracreghet()`](https://sulmanolieko.github.io/fracreg/reference/fracreghet.md)
   : Fitting Fractional Response Regressions under Unobserved
   Heterogeneity
-- [`fracreghet.pe()`](https://SulmanOlieko.github.io/fracreg/reference/fracreghet.pe.md)
+- [`fracreghet.pe()`](https://sulmanolieko.github.io/fracreg/reference/fracreghet.pe.md)
   : Fractional Response Regressions under Unobserved Heterogeneity -
   Partial Effects
 
@@ -2353,13 +2353,13 @@ regressors.
 Tools for testing functional form, link specification, and non-nested
 models.
 
-- [`fracreg.ggoff()`](https://SulmanOlieko.github.io/fracreg/reference/fracreg.ggoff.md)
+- [`fracreg.ggoff()`](https://sulmanolieko.github.io/fracreg/reference/fracreg.ggoff.md)
   : GGOFF Tests for Fractional Response Regressions
-- [`fracreg.reset()`](https://SulmanOlieko.github.io/fracreg/reference/fracreg.reset.md)
+- [`fracreg.reset()`](https://sulmanolieko.github.io/fracreg/reference/fracreg.reset.md)
   : RESET Test for Fractional Response Regressions
-- [`fracreg.ptest()`](https://SulmanOlieko.github.io/fracreg/reference/fracreg.ptest.md)
+- [`fracreg.ptest()`](https://sulmanolieko.github.io/fracreg/reference/fracreg.ptest.md)
   : P Test for Fractional Response Regressions
-- [`fracreghet.reset()`](https://SulmanOlieko.github.io/fracreg/reference/fracreghet.reset.md)
+- [`fracreghet.reset()`](https://sulmanolieko.github.io/fracreg/reference/fracreghet.reset.md)
   : RESET Test for Fractional Response Regressions under Neglected
   Heterogeneity
 
@@ -2368,4 +2368,4 @@ models.
 ### Tutorials
 
 - [A Comprehensive Guide to Fractional Response Regressions with
-  fracreg](https://SulmanOlieko.github.io/fracreg/articles/fracreg_tutorial.md):
+  fracreg](https://sulmanolieko.github.io/fracreg/articles/fracreg_tutorial.md):

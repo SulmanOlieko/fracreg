@@ -79,9 +79,9 @@ Sulman Olieko Owili \<oliekosulman@gmail.com\>
 
 ## See also
 
-[`fracreghet`](https://SulmanOlieko.github.io/fracreg/reference/fracreghet.md),
+[`fracreghet`](https://sulmanolieko.github.io/fracreg/reference/fracreghet.md),
 for fitting fractional response models under unobserved heterogeneity.  
-[`fracreghet.pe`](https://SulmanOlieko.github.io/fracreg/reference/fracreghet.pe.md),
+[`fracreghet.pe`](https://sulmanolieko.github.io/fracreg/reference/fracreghet.pe.md),
 for computing partial effects.
 
 ## Examples
@@ -114,7 +114,7 @@ fracreghet.reset(res_emp)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 14:37:42 
+#>                          Run Date: 2026-07-06 14:59:07 
 #> -------------------------------------------------------------------------------- 
  
 ### Simulated Examples
@@ -150,6 +150,6 @@ fracreghet.reset(res,2:3,c("Wald","LM"))
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 14:37:42 
+#>                          Run Date: 2026-07-06 14:59:07 
 #> -------------------------------------------------------------------------------- 
 ```

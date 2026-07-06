@@ -8,12 +8,12 @@
 ## Citation
 
 Owili, SO. (2026). fracreg: Fractional Response Regressions. R package.
-URL: https://SulmanOlieko.github.io/fracreg
+URL: https://sulmanolieko.github.io/fracreg/
 
     @Manual{,
       title = {fracreg: Fractional Response Regressions},
       author = {Sulman Olieko Owili},
       year = {2026},
       note = {R package},
-      url = {https://SulmanOlieko.github.io/fracreg},
+      url = {https://sulmanolieko.github.io/fracreg/},
     }

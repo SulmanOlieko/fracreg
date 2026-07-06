@@ -144,10 +144,10 @@ unobserved heterogeneity (Ramalho and Ramalho, 2017).
 For overidentified models, `fracreghet` calculates Hansen's J statistic.
 For `GMMx` and `LINx`, `fracreghet` stores the information needed to
 implement the RESET test
-([fracreghet.reset](https://SulmanOlieko.github.io/fracreg/reference/fracreghet.reset.md)).
+([fracreghet.reset](https://sulmanolieko.github.io/fracreg/reference/fracreghet.reset.md)).
 For all estimators, `fracreghet` stores the information needed to
 calculate partial effects
-([fracreghet.pe](https://SulmanOlieko.github.io/fracreg/reference/fracreghet.pe.md)).
+([fracreghet.pe](https://sulmanolieko.github.io/fracreg/reference/fracreghet.pe.md)).
 
 ## Value
 
@@ -253,13 +253,13 @@ Sulman Olieko Owili \<oliekosulman@gmail.com\>
 
 ## See also
 
-[`fracreghet.reset`](https://SulmanOlieko.github.io/fracreg/reference/fracreghet.reset.md),
+[`fracreghet.reset`](https://sulmanolieko.github.io/fracreg/reference/fracreghet.reset.md),
 for the RESET test.  
-[`fracreghet.pe`](https://SulmanOlieko.github.io/fracreg/reference/fracreghet.pe.md),
+[`fracreghet.pe`](https://sulmanolieko.github.io/fracreg/reference/fracreghet.pe.md),
 for computing partial effects.  
-[`fracreg`](https://SulmanOlieko.github.io/fracreg/reference/fracreg.md),
+[`fracreg`](https://sulmanolieko.github.io/fracreg/reference/fracreg.md),
 for fitting standard cross-sectional fractional response models.  
-[`fracregpd`](https://SulmanOlieko.github.io/fracreg/reference/fracregpd.md),
+[`fracregpd`](https://sulmanolieko.github.io/fracreg/reference/fracregpd.md),
 for fitting panel data fractional response models.
 
 ## Examples
@@ -313,7 +313,7 @@ fracreghet(y_adj, X_het, Z_emp, var.endog = X_het[, "mrate"], type="QMLxv", link
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 14:37:41 
+#>                          Run Date: 2026-07-06 14:59:06 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -355,7 +355,7 @@ fracreghet(y_adj, X_het, Z_emp, var.endog = X_het[, "mrate"], type="QMLxv",
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 14:37:41 
+#>                          Run Date: 2026-07-06 14:59:06 
 #> -------------------------------------------------------------------------------- 
 #> 
  
@@ -405,7 +405,7 @@ fracreghet(y = y_endog, x = X, type = "GMMx", link = "logit")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 14:37:41 
+#>                          Run Date: 2026-07-06 14:59:06 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -436,7 +436,7 @@ fracreghet(y = y_endog, x = X, z = Z, type = "GMMz", link = "logit")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 14:37:41 
+#>                          Run Date: 2026-07-06 14:59:06 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -481,7 +481,7 @@ fracreghet(y = y_endog, x = X, z = Z, var.endog = var.endog, type = "GMMxv", lin
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 14:37:41 
+#>                          Run Date: 2026-07-06 14:59:06 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -525,7 +525,7 @@ fracreghet(y = y_endog, x = X, z = Z, var.endog = var.endog, type = "QMLxv", lin
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 14:37:41 
+#>                          Run Date: 2026-07-06 14:59:06 
 #> -------------------------------------------------------------------------------- 
 #> 
 ```

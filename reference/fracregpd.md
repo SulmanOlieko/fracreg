@@ -247,9 +247,9 @@ Sulman Olieko Owili \<oliekosulman@gmail.com\>
 
 ## See also
 
-[`fracreg`](https://SulmanOlieko.github.io/fracreg/reference/fracreg.md),
+[`fracreg`](https://sulmanolieko.github.io/fracreg/reference/fracreg.md),
 for fitting standard cross-sectional fractional response models.  
-[`fracreghet`](https://SulmanOlieko.github.io/fracreg/reference/fracreghet.md),
+[`fracreghet`](https://sulmanolieko.github.io/fracreg/reference/fracreghet.md),
 for fitting cross-sectional fractional response models with unobserved
 heterogeneity.
 
@@ -310,7 +310,7 @@ fracregpd(id_emp, time_emp, y, X, type="QMLcre", link="probit")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 14:37:42 
+#>                          Run Date: 2026-07-06 14:59:07 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -374,7 +374,7 @@ fracregpd(id=id, time=time, y=y_panel, x=X, type="QMLcre", link="probit")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 14:37:43 
+#>                          Run Date: 2026-07-06 14:59:07 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -406,7 +406,7 @@ fracregpd(id=id, time=time, y=y_panel, x=X, type="GMMbgw")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 14:37:43 
+#>                          Run Date: 2026-07-06 14:59:07 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -438,7 +438,7 @@ fracregpd(id=id, time=time, y=y_panel, x=X, type="GMMww", or=TRUE, level=0.99)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 14:37:43 
+#>                          Run Date: 2026-07-06 14:59:07 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -470,7 +470,7 @@ fracregpd(id=id, time=time, y=y_panel, x=X, lags=TRUE, type="GMMww", var.type="r
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 14:37:43 
+#>                          Run Date: 2026-07-06 14:59:07 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -513,7 +513,7 @@ fracregpd(id=id, time=time, y=y_endog, x=X_endog, z=Z_inst,
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 14:37:43 
+#>                          Run Date: 2026-07-06 14:59:08 
 #> -------------------------------------------------------------------------------- 
 #> 
 # }
