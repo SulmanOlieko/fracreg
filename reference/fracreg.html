@@ -48,7 +48,8 @@
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">fracreg</span><span class="op">(</span><span class="va">y</span>, <span class="va">x</span>, x2 <span class="op">=</span> <span class="va">x</span>, <span class="va">linkbin</span>, <span class="va">linkfrac</span>, type <span class="op">=</span> <span class="st">"1P"</span>, inflation <span class="op">=</span> <span class="fl">0</span>, </span>
 <span>        intercept <span class="op">=</span> <span class="cn">TRUE</span>, table <span class="op">=</span> <span class="cn">TRUE</span>, variance <span class="op">=</span> <span class="cn">TRUE</span>, var.type <span class="op">=</span> <span class="st">"default"</span>, </span>
-<span>        var.eim <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">var.cluster</span>, dfc <span class="op">=</span> <span class="cn">FALSE</span>, offset <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+<span>        var.eim <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">var.cluster</span>, dfc <span class="op">=</span> <span class="cn">FALSE</span>, offset <span class="op">=</span> <span class="cn">NULL</span>, </span>
+<span>        or <span class="op">=</span> <span class="cn">FALSE</span>, level <span class="op">=</span> <span class="fl">0.95</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -99,6 +100,12 @@ models if option <code>type = "2P"</code> is defined. Defaults to <code>x</code>
 
   <dt id="arg-offset">offset<a class="anchor" aria-label="anchor" href="#arg-offset"></a></dt>
 <dd><p>an optional numeric vector containing an offset. It must be of the same dimension as the response variable. It specifies that the variable should be included in the model with its coefficient constrained to 1.</p></dd>
+
+  <dt id="arg-or">or<a class="anchor" aria-label="anchor" href="#arg-or"></a></dt>
+<dd><p>a logical value indicating whether to report odds ratios. Only valid when the link function is <code>"logit"</code>. Defaults to <code>FALSE</code>.</p></dd>
+
+  <dt id="arg-level">level<a class="anchor" aria-label="anchor" href="#arg-level"></a></dt>
+<dd><p>a numeric value between 0 and 1 indicating the confidence level for the confidence intervals. Defaults to <code>0.95</code>.</p></dd>
 
   <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>Arguments to pass to <a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a>.</p></dd>
@@ -224,6 +231,14 @@ For data containing boundary mass at both \(0\) and \(1\), the three-part model 
 
 </dl></div>
     <div class="section level2">
+    <h2 id="odds-ratios">Odds Ratios<a class="anchor" aria-label="anchor" href="#odds-ratios"></a></h2>
+    <p>When <code>or=TRUE</code> and the fractional link function (<code>linkfrac</code> or <code>link</code>) is <code>"logit"</code>, the model additionally computes odds ratios for the coefficients.
+Odds Ratios are exponentiated coefficients.
+The corresponding standard errors for the odds ratios are calculated using the Delta method.
+The confidence intervals for the odds ratios are calculated using the adjusted standard errors and the specified <code>level</code> (defaulting to 95%).
+Odds ratios are particularly useful in fractional logit models as they provide a direct multiplicative interpretation of the independent variable on the odds of the fractional outcome.</p>
+    </div>
+    <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
     <p>Papke, L. E. and Wooldridge, J. M. (1996), "Econometric methods for fractional response variables with an application to 401(k) plan participation rates", <em>Journal of Applied Econometrics</em>, 11(6), 619-632.</p>
 <p>Ramalho, E.A., J.J.S. Ramalho and J.M.R. Murteira (2011), "Alternative
@@ -282,7 +297,45 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-06 12:07:23 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-06 14:37:38 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># 1P Model reporting odds ratios and 99% confidence intervals</span></span></span>
+<span class="r-in"><span><span class="fu">fracreg</span><span class="op">(</span><span class="va">y</span>, <span class="va">X</span>, type<span class="op">=</span><span class="st">"1P"</span>, linkfrac<span class="op">=</span><span class="st">"logit"</span>, or<span class="op">=</span><span class="cn">TRUE</span>, level<span class="op">=</span><span class="fl">0.99</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                           Fractional logit regression </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Estimator:                                                                   QML </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Data type:                                                       Cross-sectional </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Number of observations:                                                     1534 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Pseudo R-squared:                                                        0.14667 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Log pseudolikelihood:                                                  -553.1626 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Wald chi2(4):                                                           147.3049 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Prob &gt; chi2:                                                              0.0000 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Standard errors:                                                          robust </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Small sample correction:                                                   FALSE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Convergence:                                                          Successful </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                     Final Quasi-Maximum Likelihood estimates </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          Odds Ratio Robust Std.Err.    z value [99% Conf. Interval] Pr(&gt;|z|)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Constant  2.539e+00       2.134e-01  1.108e+01  2.044e+00     3.153  &lt; 2e-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mrate     2.594e+00       3.556e-01  6.951e+00  1.822e+00     3.692 3.62e-12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> age       1.028e+00       5.015e-03  5.723e+00  1.015e+00     1.041 1.05e-08</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> totemp    1.000e+00       3.061e-06 -2.673e+00  1.000e+00     1.000  0.00751</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> sole      1.406e+00       1.134e-01  4.222e+00  1.142e+00     1.730 2.43e-05</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Constant ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mrate    ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> age      ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> totemp   ** </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> sole     ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-06 14:37:38 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
@@ -355,7 +408,7 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-out co"><span class="r-pr">#&gt;</span> Pseudo R-squared:                                                        0.11243 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Convergence:                                                          Successful </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-06 12:07:23 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-06 14:37:38 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
@@ -455,7 +508,7 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-out co"><span class="r-pr">#&gt;</span> Pseudo R-squared:                                                        0.07934 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Convergence:                                                          Successful </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-06 12:07:23 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-06 14:37:38 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
@@ -503,7 +556,7 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-06 12:07:23 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-06 14:37:38 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
@@ -626,7 +679,7 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-out co"><span class="r-pr">#&gt;</span> Pseudo R-squared:                                                        0.38829 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Convergence:                                                          Successful </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-06 12:07:23 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-06 14:37:38 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
@@ -713,7 +766,7 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-out co"><span class="r-pr">#&gt;</span> Pseudo R-squared:                                                        0.38917 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Convergence:                                                          Successful </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-06 12:07:23 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-06 14:37:38 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 </code></pre></div>

@@ -10,7 +10,8 @@ issues.
 ``` r
 fracreghet(y, x, z = x, var.endog, start, type = "GMMx", link = "logit", 
            intercept = T, table = T, variance = T, 
-           var.type = "robust", var.cluster, adjust = 0, offset = NULL, ...)
+           var.type = "robust", var.cluster, adjust = 0, offset = NULL, 
+           or = FALSE, level = 0.95, ...)
 ```
 
 ## Arguments
@@ -92,6 +93,16 @@ fracreghet(y, x, z = x, var.endog, start, type = "GMMx", link = "logit",
   same dimension as the response variable. It specifies that the
   variable should be included in the model with its coefficient
   constrained to 1.
+
+- or:
+
+  a logical value indicating whether to report odds ratios. Only valid
+  when the link function is `"logit"`. Defaults to `FALSE`.
+
+- level:
+
+  a numeric value between 0 and 1 indicating the confidence level for
+  the confidence intervals. Defaults to `0.95`.
 
 - ...:
 
@@ -209,6 +220,18 @@ If `var.type = "cluster"`, the list also contains the following element:
 
   the variable that specifies to which cluster each observation belongs.
 
+## Odds Ratios
+
+When `or=TRUE` and the fractional link function (`linkfrac` or `link`)
+is `"logit"`, the model additionally computes odds ratios for the
+coefficients. Odds Ratios are exponentiated coefficients. The
+corresponding standard errors for the odds ratios are calculated using
+the Delta method. The confidence intervals for the odds ratios are
+calculated using the adjusted standard errors and the specified `level`
+(defaulting to 95%). Odds ratios are particularly useful in fractional
+logit models as they provide a direct multiplicative interpretation of
+the independent variable on the odds of the fractional outcome.
+
 ## References
 
 Papke, L. E. and Wooldridge, J. M. (2008), "Panel data methods for
@@ -254,7 +277,7 @@ y_adj[y_adj == 1] <- 0.999
 # Instrument mrate using age
 
 Z_emp <- cbind(age = fracreg_k401k$age, ltotemp = fracreg_k401k$ltotemp) 
-fracreghet(y_adj, X_het, Z_emp, var.endog = X_het[, "mrate"], type="QMLxv", link="logit") 
+fracreghet(y_adj, X_het, Z_emp, var.endog = X_het[, "mrate"], type="QMLxv", link="logit")
 #> 
 #> -------------------------------------------------------------------------------- 
 #>         Fractional logit regression with heteroscedasticity/endogeneity 
@@ -290,7 +313,49 @@ fracreghet(y_adj, X_het, Z_emp, var.endog = X_het[, "mrate"], type="QMLxv", link
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 12:07:26 
+#>                          Run Date: 2026-07-06 14:37:41 
+#> -------------------------------------------------------------------------------- 
+#> 
+
+# Compute the same QMLxv estimator reporting Odds Ratios with 90% confidence intervals
+fracreghet(y_adj, X_het, Z_emp, var.endog = X_het[, "mrate"], type="QMLxv", 
+           link="logit", or=TRUE, level=0.90) 
+#> 
+#> -------------------------------------------------------------------------------- 
+#>         Fractional logit regression with heteroscedasticity/endogeneity 
+#> -------------------------------------------------------------------------------- 
+#> Estimator:                                                                 QMLxv 
+#> Data type:                                                       Cross-sectional 
+#> Number of observations:                                                     1534 
+#> Standard errors:                                                          robust 
+#> Wald chi2(6):                                                       2243425.9766 
+#> Prob > chi2:                                                              0.0000 
+#> Convergence:                                                          Successful 
+#> -------------------------------------------------------------------------------- 
+#>                   Final Quasi-Maximum Likelihood xv estimates 
+#> -------------------------------------------------------------------------------- 
+#>          Odds Ratio Robust Std.Err.  z value [90% Conf. Interval] Pr(>|z|)    
+#> Constant    0.89977         0.67684 -0.14040    0.26108     3.101    0.888    
+#> mrate      41.32157        28.49225  5.39703   13.29273   128.452 6.78e-08 ***
+#> ltotemp     0.93231         0.04986 -1.31060    0.85380     1.018    0.190    
+#> vhat        0.06111         0.04279 -3.99157    0.01931     0.193 6.56e-05 ***
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> 
+#>                                  Reduced form: 
+#> -------------------------------------------------------------------------------- 
+#>             Odds Ratio Robust Std.Err.   z value [90% Conf. Interval] Pr(>|z|)
+#> Z_INTERCEPT   2.586889        0.247056  9.952107   2.210829     3.027  < 2e-16
+#> Z_age         1.011524        0.002337  4.959966   1.007688     1.015 7.05e-07
+#> Z_ltotemp     0.946168        0.013441 -3.895285   0.924315     0.969 9.81e-05
+#>                
+#> Z_INTERCEPT ***
+#> Z_age       ***
+#> Z_ltotemp   ***
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> -------------------------------------------------------------------------------- 
+#>                          Run Date: 2026-07-06 14:37:41 
 #> -------------------------------------------------------------------------------- 
 #> 
  
@@ -340,7 +405,7 @@ fracreghet(y = y_endog, x = X, type = "GMMx", link = "logit")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 12:07:26 
+#>                          Run Date: 2026-07-06 14:37:41 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -371,7 +436,7 @@ fracreghet(y = y_endog, x = X, z = Z, type = "GMMz", link = "logit")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 12:07:26 
+#>                          Run Date: 2026-07-06 14:37:41 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -416,7 +481,7 @@ fracreghet(y = y_endog, x = X, z = Z, var.endog = var.endog, type = "GMMxv", lin
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 12:07:26 
+#>                          Run Date: 2026-07-06 14:37:41 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -460,7 +525,7 @@ fracreghet(y = y_endog, x = X, z = Z, var.endog = var.endog, type = "QMLxv", lin
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 12:07:26 
+#>                          Run Date: 2026-07-06 14:37:41 
 #> -------------------------------------------------------------------------------- 
 #> 
 ```

@@ -188,9 +188,49 @@ Toggle to see the output
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-06 12:07:30 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-06 14:37:45 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
 </details><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># 1P Model reporting odds ratios and 99% confidence intervals</span></span>
+<span><span class="fu"><a href="../reference/fracreg.html">fracreg</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">X</span>, type<span class="op">=</span><span class="st">"1P"</span>, linkfrac<span class="op">=</span><span class="st">"logit"</span>, or<span class="op">=</span><span class="cn">TRUE</span>, level<span class="op">=</span><span class="fl">0.99</span><span class="op">)</span></span></code></pre></div>
+<details><summary>
+Toggle to see the output
+</summary><pre><code><span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
+<span><span class="co">#&gt;                           Fractional logit regression </span></span>
+<span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
+<span><span class="co">#&gt; Estimator:                                                                   QML </span></span>
+<span><span class="co">#&gt; Data type:                                                       Cross-sectional </span></span>
+<span><span class="co">#&gt; Number of observations:                                                     1534 </span></span>
+<span><span class="co">#&gt; Pseudo R-squared:                                                        0.14667 </span></span>
+<span><span class="co">#&gt; Log pseudolikelihood:                                                  -553.1626 </span></span>
+<span><span class="co">#&gt; Wald chi2(4):                                                           147.3049 </span></span>
+<span><span class="co">#&gt; Prob &gt; chi2:                                                              0.0000 </span></span>
+<span><span class="co">#&gt; Standard errors:                                                          robust </span></span>
+<span><span class="co">#&gt; Small sample correction:                                                   FALSE </span></span>
+<span><span class="co">#&gt; Convergence:                                                          Successful </span></span>
+<span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
+<span><span class="co">#&gt;                     Final Quasi-Maximum Likelihood estimates </span></span>
+<span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
+<span><span class="co">#&gt;          Odds Ratio Robust Std.Err.    z value [99% Conf. Interval] Pr(&gt;|z|)</span></span>
+<span><span class="co">#&gt; Constant  2.539e+00       2.134e-01  1.108e+01  2.044e+00     3.153  &lt; 2e-16</span></span>
+<span><span class="co">#&gt; mrate     2.594e+00       3.556e-01  6.951e+00  1.822e+00     3.692 3.62e-12</span></span>
+<span><span class="co">#&gt; age       1.028e+00       5.015e-03  5.723e+00  1.015e+00     1.041 1.05e-08</span></span>
+<span><span class="co">#&gt; totemp    1.000e+00       3.061e-06 -2.673e+00  1.000e+00     1.000  0.00751</span></span>
+<span><span class="co">#&gt; sole      1.406e+00       1.134e-01  4.222e+00  1.142e+00     1.730 2.43e-05</span></span>
+<span><span class="co">#&gt;             </span></span>
+<span><span class="co">#&gt; Constant ***</span></span>
+<span><span class="co">#&gt; mrate    ***</span></span>
+<span><span class="co">#&gt; age      ***</span></span>
+<span><span class="co">#&gt; totemp   ** </span></span>
+<span><span class="co">#&gt; sole     ***</span></span>
+<span><span class="co">#&gt; ---</span></span>
+<span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
+<span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-06 14:37:45 </span></span>
+<span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
+</details><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> </span>
 <span><span class="co"># 2P Model (modelling mass at 1) </span></span>
 <span><span class="fu"><a href="../reference/fracreg.html">fracreg</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">X</span>, type<span class="op">=</span><span class="st">"2P"</span>, inflation<span class="op">=</span><span class="fl">1</span>, linkbin<span class="op">=</span><span class="st">"logit"</span>, linkfrac<span class="op">=</span><span class="st">"logit"</span><span class="op">)</span> </span></code></pre></div>
@@ -263,9 +303,9 @@ Toggle to see the output
 <span><span class="co">#&gt; Pseudo R-squared:                                                        0.11243 </span></span>
 <span><span class="co">#&gt; Convergence:                                                          Successful </span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-06 12:07:30 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-06 14:37:45 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
-</details><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+</details><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> </span>
 <span><span class="co"># 3P Model (inject artificial 0s for demonstration) </span></span>
 <span><span class="va">y_3p</span> <span class="op">&lt;-</span> <span class="va">y</span>; <span class="va">y_3p</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">50</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">0</span> </span>
@@ -365,9 +405,9 @@ Toggle to see the output
 <span><span class="co">#&gt; Pseudo R-squared:                                                        0.07934 </span></span>
 <span><span class="co">#&gt; Convergence:                                                          Successful </span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-06 12:07:30 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-06 14:37:45 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
-</details><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+</details><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> </span>
 <span><span class="co">### Simulated Examples </span></span>
 <span> </span>
@@ -415,9 +455,9 @@ Toggle to see the output
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-06 12:07:30 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-06 14:37:45 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
-</details><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+</details><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> </span>
 <span><span class="co"># fracreg estimation of the binary logit component of the two-part fractional </span></span>
 <span><span class="co"># regression model with y=0 as the relevant boundary value </span></span>
@@ -447,7 +487,7 @@ Toggle to see the output
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
-</details><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+</details><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> </span>
 <span><span class="co"># fracreg estimation of the fractional component of the two-part fractional </span></span>
 <span><span class="co"># regression model with y=0 as the relevant boundary value and using a </span></span>
@@ -479,7 +519,7 @@ Toggle to see the output
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
-</details><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+</details><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> </span>
 <span><span class="co"># fracreg estimation of both components of a two-part fractional response model </span></span>
 <span><span class="co"># with y=0 as the relevant boundary value and using a cloglog binary link </span></span>
@@ -544,9 +584,9 @@ Toggle to see the output
 <span><span class="co">#&gt; Pseudo R-squared:                                                        0.38829 </span></span>
 <span><span class="co">#&gt; Convergence:                                                          Successful </span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-06 12:07:30 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-06 14:37:46 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
-</details><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+</details><div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> </span>
 <span><span class="co"># Three-part double-inflated model (y has both 0s and 1s) </span></span>
 <span><span class="fu"><a href="../reference/fracreg.html">fracreg</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">X</span>, type<span class="op">=</span><span class="st">"3P"</span>, linkbin<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"logit"</span>,<span class="st">"probit"</span><span class="op">)</span>, linkfrac<span class="op">=</span><span class="st">"logit"</span><span class="op">)</span> </span></code></pre></div>
@@ -633,7 +673,7 @@ Toggle to see the output
 <span><span class="co">#&gt; Pseudo R-squared:                                                        0.38917 </span></span>
 <span><span class="co">#&gt; Convergence:                                                          Successful </span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-06 12:07:30 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-06 14:37:46 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
 </details><div class="section level3">
 <h3 id="partial-effects-fracreg-pe">1.1 Partial Effects (<code>fracreg.pe</code>)<a class="anchor" aria-label="anchor" href="#partial-effects-fracreg-pe"></a>
@@ -642,7 +682,7 @@ Toggle to see the output
 interpretable as marginal effects. Use <code><a href="../reference/fracreg.pe.html">fracreg.pe()</a></code> to
 compute the Average Partial Effects (APE) and Conditional Partial
 Effects (CPE) using the analytical delta method.</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">### Empirical 401(k) Examples </span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"fracreg_k401k"</span><span class="op">)</span> </span>
 <span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">fracreg_k401k</span><span class="op">$</span><span class="va">prate</span> </span>
@@ -684,9 +724,9 @@ Toggle to see the output
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-06 12:07:30 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-06 14:37:46 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
-</details><div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+</details><div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/fracreg.pe.html">fracreg.pe</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span> </span></code></pre></div>
 <details><summary>
 Toggle to see the output
@@ -705,9 +745,9 @@ Toggle to see the output
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-06 12:07:30 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-06 14:37:46 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
-</details><div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+</details><div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> </span>
 <span><span class="co">### Simulated Examples </span></span>
 <span> </span>
@@ -739,9 +779,9 @@ Toggle to see the output
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-06 12:07:30 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-06 14:37:46 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
-</details><div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+</details><div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> </span>
 <span><span class="co">#Computing average partial effects for a binary logit + fractional probit </span></span>
 <span><span class="co">#two-part model </span></span>
@@ -762,9 +802,9 @@ Toggle to see the output
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-06 12:07:30 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-06 14:37:46 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
-</details><div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+</details><div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> </span>
 <span><span class="co">#Computing conditional partial effects for X2 in the logit component </span></span>
 <span><span class="co">#of a two-part fractional response model, with the covariates evaluated </span></span>
@@ -785,11 +825,11 @@ Toggle to see the output
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-06 12:07:30 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-06 14:37:46 </span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Note: covariates evaluated at median (or mode, for dummies) values</span></span></code></pre>
-</details><div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+</details><div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> </span>
 <span><span class="co">#Computing average partial effects for a three-part double-inflated model </span></span>
 <span><span class="va">y3p</span> <span class="op">&lt;-</span> <span class="va">y</span> </span>
@@ -812,7 +852,7 @@ Toggle to see the output
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-06 12:07:30 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-06 14:37:46 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
 </details><hr>
 </div>
@@ -829,7 +869,7 @@ validate your model’s functional form and link function assumptions.</p>
 <p>The GGOFF test tests whether the chosen link function is adequate for
 the data. A significant result suggests the link may be
 misspecified.</p>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">### Empirical 401(k) Examples </span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"fracreg_k401k"</span><span class="op">)</span> </span>
 <span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">fracreg_k401k</span><span class="op">$</span><span class="va">prate</span> </span>
@@ -871,9 +911,9 @@ Toggle to see the output
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-06 12:07:30 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-06 14:37:46 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
-</details><div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+</details><div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/fracreg.ggoff.html">fracreg.ggoff</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span> </span></code></pre></div>
 <details><summary>
 Toggle to see the output
@@ -890,9 +930,9 @@ Toggle to see the output
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-06 12:07:30 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-06 14:37:46 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
-</details><div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+</details><div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> </span>
 <span><span class="co">### Simulated Examples </span></span>
 <span> </span>
@@ -927,9 +967,9 @@ Toggle to see the output
 <span><span class="co">#&gt; GGOFF - LM       1.612   0.447</span></span>
 <span><span class="co">#&gt; GGOFF - Wald     1.336   0.513</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-06 12:07:30 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-06 14:37:46 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
-</details><div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+</details><div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> </span>
 <span><span class="co">#Testing the probit specification of the binary component of a two-part fractional </span></span>
 <span><span class="co">#regression model using a LR-based GGOFF test </span></span>
@@ -948,7 +988,7 @@ Toggle to see the output
 <span><span class="co">#&gt; GOFF2 - LR     0.017   0.895</span></span>
 <span><span class="co">#&gt; GGOFF - LR     0.024   0.988</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-06 12:07:30 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-06 14:37:46 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
 </details>
 </div>
@@ -960,7 +1000,7 @@ testing whether powers of the fitted values have explanatory power.
 Testing
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mn>0</mn></msub><mo>:</mo><mi>γ</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">H_0: \gamma = 0</annotation></semantics></math>
 provides a robust diagnostic check.</p>
-<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">### Empirical 401(k) Examples </span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"fracreg_k401k"</span><span class="op">)</span> </span>
 <span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">fracreg_k401k</span><span class="op">$</span><span class="va">prate</span> </span>
@@ -1002,9 +1042,9 @@ Toggle to see the output
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-06 12:07:30 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-06 14:37:46 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
-</details><div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+</details><div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/fracreg.reset.html">fracreg.reset</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span> </span></code></pre></div>
 <details><summary>
 Toggle to see the output
@@ -1019,9 +1059,9 @@ Toggle to see the output
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-06 12:07:30 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-06 14:37:46 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
-</details><div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+</details><div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> </span>
 <span><span class="co">### Simulated Examples </span></span>
 <span> </span>
@@ -1056,9 +1096,9 @@ Toggle to see the output
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-06 12:07:30 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-06 14:37:46 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
-</details><div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+</details><div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> </span>
 <span><span class="co">#Testing the probit specification of the binary component of a two-part fractional </span></span>
 <span><span class="co">#regression model using LR-based RESET tests with quadratic and cubic fitted  </span></span>
@@ -1077,7 +1117,7 @@ Toggle to see the output
 <span><span class="co">#&gt;       Statistic p-value</span></span>
 <span><span class="co">#&gt; LR(3)     0.976   0.614</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-06 12:07:30 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-06 14:37:46 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
 </details>
 </div>
@@ -1087,7 +1127,7 @@ Toggle to see the output
 <p>You can compare non-nested models (e.g., <code>logit</code>
 vs. <code>cloglog</code> link) using the Davidson-MacKinnon (1981)
 P-test.</p>
-<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">### Empirical 401(k) Examples </span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"fracreg_k401k"</span><span class="op">)</span> </span>
 <span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">fracreg_k401k</span><span class="op">$</span><span class="va">prate</span> </span>
@@ -1129,9 +1169,9 @@ Toggle to see the output
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-06 12:07:30 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-06 14:37:46 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
-</details><div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
+</details><div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">m2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreg.html">fracreg</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">X</span>, type<span class="op">=</span><span class="st">"1P"</span>, linkfrac<span class="op">=</span><span class="st">"probit"</span><span class="op">)</span> </span></code></pre></div>
 <details><summary>
 Toggle to see the output
@@ -1167,9 +1207,9 @@ Toggle to see the output
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-06 12:07:30 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-06 14:37:46 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
-</details><div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
+</details><div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/fracreg.ptest.html">fracreg.ptest</a></span><span class="op">(</span><span class="va">m1</span>, <span class="va">m2</span><span class="op">)</span> </span></code></pre></div>
 <details><summary>
 Toggle to see the output
@@ -1191,9 +1231,9 @@ Toggle to see the output
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-06 12:07:30 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-06 14:37:46 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
-</details><div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
+</details><div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> </span>
 <span><span class="co">### Simulated Examples </span></span>
 <span> </span>
@@ -1232,9 +1272,9 @@ Toggle to see the output
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-06 12:07:30 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-06 14:37:46 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
-</details><div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
+</details><div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> </span>
 <span><span class="co">#Testing a logit one-part fractional response model versus a binary logit + </span></span>
 <span><span class="co">#fractional probit two-part model using a Wald version of the P test </span></span>
@@ -1261,7 +1301,7 @@ Toggle to see the output
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-06 12:07:30 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-06 14:37:46 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
 </details><hr>
 </div>
@@ -1275,7 +1315,7 @@ the variance is heteroscedastic, <code><a href="../reference/fracreghet.html">fr
 instrumental variable correction. It natively supports IV through a
 <strong>Control Function (CF)</strong> approach or <strong>GMM</strong>
 estimation.</p>
-<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">### Empirical 401(k) Examples </span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"fracreg_k401k"</span><span class="op">)</span> </span>
 <span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">fracreg_k401k</span><span class="op">$</span><span class="va">prate</span> </span>
@@ -1326,9 +1366,52 @@ Toggle to see the output
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-06 12:07:31 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-06 14:37:46 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
-</details><div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
+</details><div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Compute the same QMLxv estimator reporting Odds Ratios with 90% confidence intervals</span></span>
+<span><span class="fu"><a href="../reference/fracreghet.html">fracreghet</a></span><span class="op">(</span><span class="va">y_adj</span>, <span class="va">X_het</span>, <span class="va">Z_emp</span>, var.endog <span class="op">=</span> <span class="va">X_het</span><span class="op">[</span>, <span class="st">"mrate"</span><span class="op">]</span>, type<span class="op">=</span><span class="st">"QMLxv"</span>, link<span class="op">=</span><span class="st">"logit"</span>, or<span class="op">=</span><span class="cn">TRUE</span>, level<span class="op">=</span><span class="fl">0.90</span><span class="op">)</span></span></code></pre></div>
+<details><summary>
+Toggle to see the output
+</summary><pre><code><span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
+<span><span class="co">#&gt;         Fractional logit regression with heteroscedasticity/endogeneity </span></span>
+<span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
+<span><span class="co">#&gt; Estimator:                                                                 QMLxv </span></span>
+<span><span class="co">#&gt; Data type:                                                       Cross-sectional </span></span>
+<span><span class="co">#&gt; Number of observations:                                                     1534 </span></span>
+<span><span class="co">#&gt; Standard errors:                                                          robust </span></span>
+<span><span class="co">#&gt; Wald chi2(6):                                                       2243425.9766 </span></span>
+<span><span class="co">#&gt; Prob &gt; chi2:                                                              0.0000 </span></span>
+<span><span class="co">#&gt; Convergence:                                                          Successful </span></span>
+<span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
+<span><span class="co">#&gt;                   Final Quasi-Maximum Likelihood xv estimates </span></span>
+<span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
+<span><span class="co">#&gt;          Odds Ratio Robust Std.Err.  z value [90% Conf. Interval] Pr(&gt;|z|)    </span></span>
+<span><span class="co">#&gt; Constant    0.89977         0.67684 -0.14040    0.26108     3.101    0.888    </span></span>
+<span><span class="co">#&gt; mrate      41.32157        28.49225  5.39703   13.29273   128.452 6.78e-08 ***</span></span>
+<span><span class="co">#&gt; ltotemp     0.93231         0.04986 -1.31060    0.85380     1.018    0.190    </span></span>
+<span><span class="co">#&gt; vhat        0.06111         0.04279 -3.99157    0.01931     0.193 6.56e-05 ***</span></span>
+<span><span class="co">#&gt; ---</span></span>
+<span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;                                  Reduced form: </span></span>
+<span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
+<span><span class="co">#&gt;             Odds Ratio Robust Std.Err.   z value [90% Conf. Interval] Pr(&gt;|z|)</span></span>
+<span><span class="co">#&gt; Z_INTERCEPT   2.586889        0.247056  9.952107   2.210829     3.027  &lt; 2e-16</span></span>
+<span><span class="co">#&gt; Z_age         1.011524        0.002337  4.959966   1.007688     1.015 7.05e-07</span></span>
+<span><span class="co">#&gt; Z_ltotemp     0.946168        0.013441 -3.895285   0.924315     0.969 9.81e-05</span></span>
+<span><span class="co">#&gt;                </span></span>
+<span><span class="co">#&gt; Z_INTERCEPT ***</span></span>
+<span><span class="co">#&gt; Z_age       ***</span></span>
+<span><span class="co">#&gt; Z_ltotemp   ***</span></span>
+<span><span class="co">#&gt; ---</span></span>
+<span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
+<span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-06 14:37:47 </span></span>
+<span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
+</details><div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> </span>
 <span><span class="co">### Simulated Examples </span></span>
 <span> </span>
@@ -1378,9 +1461,9 @@ Toggle to see the output
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-06 12:07:31 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-06 14:37:47 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
-</details><div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
+</details><div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> </span>
 <span><span class="co"># Endogeneity, GMMz estimator (does not require reduced form for endog) </span></span>
 <span><span class="fu"><a href="../reference/fracreghet.html">fracreghet</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">y_endog</span>, x <span class="op">=</span> <span class="va">X</span>, z <span class="op">=</span> <span class="va">Z</span>, type <span class="op">=</span> <span class="st">"GMMz"</span>, link <span class="op">=</span> <span class="st">"logit"</span><span class="op">)</span> </span></code></pre></div>
@@ -1411,9 +1494,9 @@ Toggle to see the output
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-06 12:07:31 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-06 14:37:47 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
-</details><div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
+</details><div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> </span>
 <span><span class="co"># Endogeneity, GMMxv estimator (assumes linear reduced form for var.endog) </span></span>
 <span><span class="fu"><a href="../reference/fracreghet.html">fracreghet</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">y_endog</span>, x <span class="op">=</span> <span class="va">X</span>, z <span class="op">=</span> <span class="va">Z</span>, var.endog <span class="op">=</span> <span class="va">var.endog</span>, type <span class="op">=</span> <span class="st">"GMMxv"</span>, link <span class="op">=</span> <span class="st">"logit"</span><span class="op">)</span> </span>
@@ -1458,9 +1541,9 @@ Toggle to see the output
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-06 12:07:31 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-06 14:37:47 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
-</details><div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
+</details><div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> </span>
 <span><span class="co"># Endogeneity, QMLxv control function approach </span></span>
 <span><span class="fu"><a href="../reference/fracreghet.html">fracreghet</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">y_endog</span>, x <span class="op">=</span> <span class="va">X</span>, z <span class="op">=</span> <span class="va">Z</span>, var.endog <span class="op">=</span> <span class="va">var.endog</span>, type <span class="op">=</span> <span class="st">"QMLxv"</span>, link <span class="op">=</span> <span class="st">"logit"</span><span class="op">)</span> </span></code></pre></div>
@@ -1504,13 +1587,13 @@ Toggle to see the output
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-06 12:07:31 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-06 14:37:47 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
 </details><div class="section level3">
 <h3 id="partial-effects-for-endogenous-models-fracreghet-pe">4.1 Partial Effects for Endogenous Models
 (<code>fracreghet.pe</code>)<a class="anchor" aria-label="anchor" href="#partial-effects-for-endogenous-models-fracreghet-pe"></a>
 </h3>
-<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">### Empirical 401(k) Examples </span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"fracreg_k401k"</span><span class="op">)</span> </span>
 <span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">fracreg_k401k</span><span class="op">$</span><span class="va">prate</span> </span>
@@ -1540,9 +1623,9 @@ Toggle to see the output
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-06 12:07:31 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-06 14:37:47 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
-</details><div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
+</details><div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co">### Simulated Examples </span></span>
 <span> </span>
@@ -1576,9 +1659,9 @@ Toggle to see the output
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-06 12:07:31 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-06 14:37:47 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
-</details><div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
+</details><div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> </span>
 <span><span class="co">#Naive estimator of conditional partial effects for all covariates, </span></span>
 <span><span class="co">#which are evaluated at X1=1 and X2=-1 </span></span>
@@ -1599,7 +1682,7 @@ Toggle to see the output
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-06 12:07:31 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-06 14:37:47 </span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Note: covariates evaluated at the following values:</span></span>
@@ -1612,7 +1695,7 @@ Toggle to see the output
 <h3 id="reset-test-for-endogenous-models-fracreghet-reset">4.2 RESET Test for Endogenous Models
 (<code>fracreghet.reset</code>)<a class="anchor" aria-label="anchor" href="#reset-test-for-endogenous-models-fracreghet-reset"></a>
 </h3>
-<div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">### Empirical 401(k) Examples </span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"fracreg_k401k"</span><span class="op">)</span> </span>
 <span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">fracreg_k401k</span><span class="op">$</span><span class="va">prate</span> </span>
@@ -1642,9 +1725,9 @@ Toggle to see the output
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-06 12:07:31 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-06 14:37:47 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
-</details><div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
+</details><div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co">### Simulated Examples </span></span>
 <span> </span>
@@ -1681,7 +1764,7 @@ Toggle to see the output
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-06 12:07:31 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-06 14:37:47 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
 </details><hr>
 </div>
@@ -1691,7 +1774,7 @@ Toggle to see the output
 </h2>
 <p>For longitudinal or panel data where unobserved heterogeneity is a
 concern, <code><a href="../reference/fracregpd.html">fracregpd()</a></code> provides fixed-T panel estimators.</p>
-<div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">### Empirical 401(k) Examples </span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"fracreg_k401k"</span><span class="op">)</span> </span>
 <span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">fracreg_k401k</span><span class="op">$</span><span class="va">prate</span> </span>
@@ -1748,9 +1831,9 @@ Toggle to see the output
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-06 12:07:32 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-06 14:37:48 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
-</details><div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
+</details><div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> </span>
 <span><span class="co">### Simulated Examples </span></span>
 <span> </span>
@@ -1813,9 +1896,9 @@ Toggle to see the output
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-06 12:07:32 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-06 14:37:48 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
-</details><div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
+</details><div class="sourceCode" id="cb84"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> </span>
 <span><span class="co"># Exogeneity, no lags, no time dummies, clustered standard errors, GMMbgw estimator </span></span>
 <span><span class="fu"><a href="../reference/fracregpd.html">fracregpd</a></span><span class="op">(</span>id<span class="op">=</span><span class="va">id</span>, time<span class="op">=</span><span class="va">time</span>, y<span class="op">=</span><span class="va">y_panel</span>, x<span class="op">=</span><span class="va">X</span>, type<span class="op">=</span><span class="st">"GMMbgw"</span><span class="op">)</span> </span></code></pre></div>
@@ -1847,9 +1930,43 @@ Toggle to see the output
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-06 12:07:32 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-06 14:37:48 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
-</details><div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
+</details><div class="sourceCode" id="cb86"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Estimate the GMMww estimator with odds ratios and 99% confidence intervals</span></span>
+<span><span class="fu"><a href="../reference/fracregpd.html">fracregpd</a></span><span class="op">(</span>id<span class="op">=</span><span class="va">id</span>, time<span class="op">=</span><span class="va">time</span>, y<span class="op">=</span><span class="va">y_panel</span>, x<span class="op">=</span><span class="va">X</span>, type<span class="op">=</span><span class="st">"GMMww"</span>, or<span class="op">=</span><span class="cn">TRUE</span>, level<span class="op">=</span><span class="fl">0.99</span><span class="op">)</span></span></code></pre></div>
+<details><summary>
+Toggle to see the output
+</summary><pre><code><span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
+<span><span class="co">#&gt;                           Fractional logit  regression </span></span>
+<span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
+<span><span class="co">#&gt; Estimator:                                                                 GMMww </span></span>
+<span><span class="co">#&gt; Data type:                                                                 Panel </span></span>
+<span><span class="co">#&gt; Exogeneity:                                                                 TRUE </span></span>
+<span><span class="co">#&gt; Use first lag of instruments:                                               TRUE </span></span>
+<span><span class="co">#&gt; Standard errors:                                                         cluster </span></span>
+<span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
+<span><span class="co">#&gt; Number of obs (initial):                                                     500 </span></span>
+<span><span class="co">#&gt; Number of observations:                                                      400 </span></span>
+<span><span class="co">#&gt; Number of groups (initial):                                                  100 </span></span>
+<span><span class="co">#&gt; Number of groups:                                                            100 </span></span>
+<span><span class="co">#&gt; Obs per group:                                                                 4 </span></span>
+<span><span class="co">#&gt; Wald chi2(1):                                               8.09654990520078e+32 </span></span>
+<span><span class="co">#&gt; Prob &gt; chi2:                                                              0.0000 </span></span>
+<span><span class="co">#&gt; Convergence:                                                          Successful </span></span>
+<span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
+<span><span class="co">#&gt;                              Final GMM ww estimates </span></span>
+<span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
+<span><span class="co">#&gt;         Odds Ratio Cluster Std.Err.   z value [99% Conf. Interval] Pr(&gt;|z|)    </span></span>
+<span><span class="co">#&gt; x_panel  2.718e+00        2.597e-16 1.047e+16  2.718e+00     2.718   &lt;2e-16 ***</span></span>
+<span><span class="co">#&gt; ---</span></span>
+<span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
+<span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-06 14:37:48 </span></span>
+<span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
+</details><div class="sourceCode" id="cb88"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> </span>
 <span><span class="co"># Lagged covariates and instruments, robust standard errors, GMMww estimator </span></span>
 <span><span class="fu"><a href="../reference/fracregpd.html">fracregpd</a></span><span class="op">(</span>id<span class="op">=</span><span class="va">id</span>, time<span class="op">=</span><span class="va">time</span>, y<span class="op">=</span><span class="va">y_panel</span>, x<span class="op">=</span><span class="va">X</span>, lags<span class="op">=</span><span class="cn">TRUE</span>, type<span class="op">=</span><span class="st">"GMMww"</span>, var.type<span class="op">=</span><span class="st">"robust"</span><span class="op">)</span> </span></code></pre></div>
@@ -1881,9 +1998,9 @@ Toggle to see the output
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-06 12:07:32 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-06 14:37:48 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
-</details><div class="sourceCode" id="cb84"><pre class="downlit sourceCode r">
+</details><div class="sourceCode" id="cb90"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> </span>
 <span><span class="co"># Endogeneity, time dummies, GMMpfe estimator </span></span>
 <span><span class="fu"><a href="../reference/fracregpd.html">fracregpd</a></span><span class="op">(</span>id<span class="op">=</span><span class="va">id</span>, time<span class="op">=</span><span class="va">time</span>, y<span class="op">=</span><span class="va">y_endog</span>, x<span class="op">=</span><span class="va">X_endog</span>, z<span class="op">=</span><span class="va">Z_inst</span>,  </span>
@@ -1926,7 +2043,7 @@ Toggle to see the output
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-06 12:07:32 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-06 14:37:48 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
 </details><hr>
 </div>
@@ -2013,7 +2130,7 @@ Errors in Classical Linear Least-Squares Regression Analysis”,
 <p>For more information, please visit the <a href="https://SulmanOlieko.github.io/fracreg">package website</a> or
 file an issue on <a href="https://github.com/SulmanOlieko/fracreg/issues" class="external-link">GitHub</a>.</p>
 <p>To cite this package in your research:</p>
-<div class="sourceCode" id="cb86"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb92"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html" class="external-link">citation</a></span><span class="op">(</span><span class="st">"fracreg"</span><span class="op">)</span></span></code></pre></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

@@ -48,7 +48,8 @@
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">fracregpd</span><span class="op">(</span><span class="va">id</span>, <span class="va">time</span>, <span class="va">y</span>, <span class="va">x</span>, <span class="va">z</span>, <span class="va">var.endog</span>, x.exogenous <span class="op">=</span> <span class="cn">T</span>, <span class="va">lags</span>, <span class="va">start</span>, <span class="va">type</span>,</span>
 <span>  GMMww.cor <span class="op">=</span> <span class="cn">T</span>, link <span class="op">=</span> <span class="st">"logit"</span>, intercept <span class="op">=</span> <span class="cn">T</span>, table <span class="op">=</span> <span class="cn">T</span>, variance <span class="op">=</span> <span class="cn">T</span>,</span>
-<span>  var.type <span class="op">=</span> <span class="st">"cluster"</span>, tdummies <span class="op">=</span> <span class="cn">F</span>, bootstrap <span class="op">=</span> <span class="cn">F</span>, B <span class="op">=</span> <span class="fl">200</span>, offset <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+<span>  var.type <span class="op">=</span> <span class="st">"cluster"</span>, tdummies <span class="op">=</span> <span class="cn">F</span>, bootstrap <span class="op">=</span> <span class="cn">F</span>, B <span class="op">=</span> <span class="fl">200</span>, offset <span class="op">=</span> <span class="cn">NULL</span>, </span>
+<span>    or <span class="op">=</span> <span class="cn">FALSE</span>, level <span class="op">=</span> <span class="fl">0.95</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -117,6 +118,12 @@ instrumental variables). Only required in case of endogenous explanatory variabl
   <dt id="arg-offset">offset<a class="anchor" aria-label="anchor" href="#arg-offset"></a></dt>
 <dd><p>an optional numeric vector containing an offset. It must be of the same dimension as the response variable. It specifies that the variable should be included in the model with its coefficient constrained to 1.</p></dd>
 
+  <dt id="arg-or">or<a class="anchor" aria-label="anchor" href="#arg-or"></a></dt>
+<dd><p>a logical value indicating whether to report odds ratios. Only valid when the link function is <code>"logit"</code>. Defaults to <code>FALSE</code>.</p></dd>
+
+  <dt id="arg-level">level<a class="anchor" aria-label="anchor" href="#arg-level"></a></dt>
+<dd><p>a numeric value between 0 and 1 indicating the confidence level for the confidence intervals. Defaults to <code>0.95</code>.</p></dd>
+
   <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>Arguments to pass to <a href="https://rdrr.io/r/stats/nlminb.html" class="external-link">nlminb</a>.</p></dd>
 
@@ -169,6 +176,14 @@ where \(H(\cdot)\) is a transformation function and \(Z_{it}\) is a matrix of va
 <dd><p>covariance matrix type.</p></dd>
 
 </dl></div>
+    <div class="section level2">
+    <h2 id="odds-ratios">Odds Ratios<a class="anchor" aria-label="anchor" href="#odds-ratios"></a></h2>
+    <p>When <code>or=TRUE</code> and the fractional link function (<code>linkfrac</code> or <code>link</code>) is <code>"logit"</code>, the model additionally computes odds ratios for the coefficients.
+Odds Ratios are exponentiated coefficients.
+The corresponding standard errors for the odds ratios are calculated using the Delta method.
+The confidence intervals for the odds ratios are calculated using the adjusted standard errors and the specified <code>level</code> (defaulting to 95%).
+Odds ratios are particularly useful in fractional logit models as they provide a direct multiplicative interpretation of the independent variable on the odds of the fractional outcome.</p>
+    </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
     <p>Papke, L. and Wooldridge, J.M. (2008), "Panel data methods for fractional response variables with an application to test pass rates", <em>Journal of Econometrics</em>, 145(1-2), 121-133.</p>
@@ -240,7 +255,7 @@ where \(H(\cdot)\) is a transformation function and \(Z_{it}\) is a matrix of va
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-06 12:07:27 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-06 14:37:42 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
@@ -270,6 +285,7 @@ where \(H(\cdot)\) is a transformation function and \(Z_{it}\) is a matrix of va
 <span class="r-in"><span><span class="va">X_endog</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span>x_panel <span class="op">=</span> <span class="va">x_panel</span>, var_endog <span class="op">=</span> <span class="va">var_endog</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">Z_inst</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span>x_panel <span class="op">=</span> <span class="va">x_panel</span>, z_panel <span class="op">=</span> <span class="va">z_panel</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span><span class="co"># Estimate a Correlated Random Effects (CRE) Model</span></span></span>
 <span class="r-in"><span><span class="fu">fracregpd</span><span class="op">(</span>id<span class="op">=</span><span class="va">id</span>, time<span class="op">=</span><span class="va">time</span>, y<span class="op">=</span><span class="va">y_panel</span>, x<span class="op">=</span><span class="va">X</span>, type<span class="op">=</span><span class="st">"QMLcre"</span>, link<span class="op">=</span><span class="st">"probit"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -303,7 +319,7 @@ where \(H(\cdot)\) is a transformation function and \(Z_{it}\) is a matrix of va
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-06 12:07:27 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-06 14:37:43 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
@@ -335,7 +351,39 @@ where \(H(\cdot)\) is a transformation function and \(Z_{it}\) is a matrix of va
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-06 12:07:27 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-06 14:37:43 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Estimate the GMMww estimator with odds ratios and 99% confidence intervals</span></span></span>
+<span class="r-in"><span><span class="fu">fracregpd</span><span class="op">(</span>id<span class="op">=</span><span class="va">id</span>, time<span class="op">=</span><span class="va">time</span>, y<span class="op">=</span><span class="va">y_panel</span>, x<span class="op">=</span><span class="va">X</span>, type<span class="op">=</span><span class="st">"GMMww"</span>, or<span class="op">=</span><span class="cn">TRUE</span>, level<span class="op">=</span><span class="fl">0.99</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                           Fractional logit  regression </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Estimator:                                                                 GMMww </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Data type:                                                                 Panel </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Exogeneity:                                                                 TRUE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Use first lag of instruments:                                               TRUE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Standard errors:                                                         cluster </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Number of obs (initial):                                                     500 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Number of observations:                                                      400 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Number of groups (initial):                                                  100 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Number of groups:                                                            100 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Obs per group:                                                                 4 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Wald chi2(1):                                               8.09654990520078e+32 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Prob &gt; chi2:                                                              0.0000 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Convergence:                                                          Successful </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                              Final GMM ww estimates </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         Odds Ratio Cluster Std.Err.   z value [99% Conf. Interval] Pr(&gt;|z|)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x_panel  2.718e+00        2.597e-16 1.047e+16  2.718e+00     2.718   &lt;2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-06 14:37:43 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
@@ -367,7 +415,7 @@ where \(H(\cdot)\) is a transformation function and \(Z_{it}\) is a matrix of va
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-06 12:07:27 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-06 14:37:43 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
@@ -410,9 +458,10 @@ where \(H(\cdot)\) is a transformation function and \(Z_{it}\) is a matrix of va
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-06 12:07:28 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-06 14:37:43 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
