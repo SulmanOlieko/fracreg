@@ -1,0 +1,140 @@
+# RESET Test for Fractional Response Models under Neglected Heterogeneity
+
+`fracreghet.reset` is used to test the specification of fractional
+response models estimated by GMMx or LINx.
+
+## Usage
+
+``` r
+fracreghet.reset(object, lastpower.vec = 3, version = "Wald", table = T, ...)
+```
+
+## Arguments
+
+- object:
+
+  an object containing the results of an `fracreghet` command.
+
+- lastpower.vec:
+
+  a numeric vector containing the maximum powers of the linear
+  predictors to be used in RESET tests.
+
+- version:
+
+  a vector containing the test versions to use. Available options:
+  `Wald` (the default) and `LM` (only available for `GMMx`).
+
+- table:
+
+  a logical value indicating whether a summary table with the test
+  results should be printed.
+
+- ...:
+
+  Arguments to pass to [nlminb](https://rdrr.io/r/stats/nlminb.html),
+  which is used to estimate the model under the alternative hypothesis
+  when `version` is equal to `"Wald"` and the null model was estimated
+  by `GMMx`.
+
+## Details
+
+`fracreghet.reset` applies the RESET test statistic to fractional
+response models estimated via `fracreghet` using the options `GMMx` or
+`LINx`. `fracreghet.reset` may be used to test simultaneously the
+validity of the link specification and the transformation applied to the
+response variable by each estimator.
+
+**RESET Test under Unobserved Heterogeneity:** The test is based on
+augmenting the original model with powers of the linear predictor
+\\x\hat{\beta}\\. For GMMx, it tests \\H_0: \gamma = 0\\ in the expanded
+moment conditions: \$\$E\left\[Z_i \left(H(y_i) - \exp\left(x_i\beta +
+\sum\_{k=2}^P \gamma_k
+(x_i\hat{\beta})^k\right)E(e^{c_i})\right)\right\] = 0\$\$ This
+simultaneously evaluates whether the mean function and the specific
+heterogeneity transformation \\H(\cdot)\\ are correctly specified.
+
+It is taken into account the option that was chosen for computing
+standard errors in the model under evaluation. See Ramalho and Ramalho
+(2017) for details.
+
+## Value
+
+`fracreghet.reset` returns a named vector with the test results.
+
+## References
+
+Ramalho, E. A., & Ramalho, J. J. S. (2017), "Moment-based estimation of
+nonlinear regression models with boundary outcomes and endogeneity, with
+applications to nonnegative and fractional responses", *Econometric
+Reviews*, 36(4), 397-420.
+
+Ramsey, J.B. (1969), "Tests for Specification Errors in Classical Linear
+Least-Squares Regression Analysis", *Journal of the Royal Statistical
+Society: Series B (Methodological)*, 31(2), 350-371.
+
+## Author
+
+Sulman Olieko Owili \<oliekosulman@gmail.com\>
+
+## See also
+
+[`fracreghet`](https://SulmanOlieko.github.io/fracreg/reference/fracreghet.md),
+for fitting fractional response models under unobserved heterogeneity.  
+[`fracreghet.pe`](https://SulmanOlieko.github.io/fracreg/reference/fracreghet.pe.md),
+for computing partial effects.
+
+## Examples
+
+``` r
+### Empirical 401(k) Examples 
+data("fracreg_k401k") 
+y <- fracreg_k401k$prate 
+X_het <- cbind(mrate = fracreg_k401k$mrate, age = fracreg_k401k$age)
+ 
+# fracreghet estimators do not allow exact 1s or 0s
+y_adj <- y
+y_adj[y_adj == 1] <- 0.999
+
+# Artificial instrumental variable for demonstration 
+set.seed(42)
+Z_emp <- cbind(X_het, z = fracreg_k401k$mrate * rnorm(length(y))) 
+res_emp <- fracreghet(y_adj, X_het, type="GMMx", link="logit", table=FALSE) 
+fracreghet.reset(res_emp)
+#> Warning: step size truncated due to divergence
+#> RESET test could not be computed; either algorithm did not converge (Wald version) or covariance matrix is singular (Wald/LM versions)
+ 
+### Simulated Examples
+
+N <- 250
+u <- rnorm(N)
+
+X <- cbind(rnorm(N),rnorm(N))
+dimnames(X)[[2]] <- c("X1","X2")
+
+Z <- cbind(rnorm(N),rnorm(N),rnorm(N))
+dimnames(Z)[[2]] <- c("Z1","Z2","Z3")
+
+y <- exp(X[,1]+X[,2]+u)/(1+exp(X[,1]+X[,2]+u))
+
+res <- fracreghet(y,X,type="GMMx",table=FALSE)
+
+#LM and Wald versions of the RESET test, based on 1 or 2 fitted powers of xb
+fracreghet.reset(res,2:3,c("Wald","LM"))
+#> 
+#> -------------------------------------------------------------------------------- 
+#>                                    RESET test 
+#> -------------------------------------------------------------------------------- 
+#>                        Fractional logit regression model 
+#> -------------------------------------------------------------------------------- 
+#> H0: Estimator: GMMx 
+#> -------------------------------------------------------------------------------- 
+#>         Statistic p-value
+#> LM(2)       0.584   0.445
+#> Wald(2)     0.552   0.458
+#> LM(3)       0.809   0.667
+#> Wald(3)     0.686   0.710
+#> -------------------------------------------------------------------------------- 
+#>                          Run Date: 2026-07-06 01:18:20 
+#> -------------------------------------------------------------------------------- 
+```

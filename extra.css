@@ -1,0 +1,134 @@
+/* ==========================================================================
+   fracreg pkgdown — extra.css
+   Custom styles layered on top of Bootstrap 5 / Flatly
+   ========================================================================== */
+
+/* ---------- CSS Variables ------------------------------------------------- */
+:root {
+  --fr-blue-dark: #2c3e50;
+  --fr-teal: #143831;
+  --fr-teal-light: #e8f6f3;
+  --fr-accent: #e74c3c;
+  --fr-code-bg: #f6f8fa;
+  --fr-border: #dee2e6;
+  --fr-shadow: 0 4px 24px rgba(44, 62, 80, 0.10);
+  --fr-radius: 0.6rem;
+}
+
+/* ---------- Global body --------------------------------------------------- */
+body {
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  color: var(--bs-body-color, #1c1c1e);
+}
+
+/* ---------- Navbar --------------------------------------------------------- */
+.navbar {
+  box-shadow: 0 2px 12px rgba(0, 0, 0, .08);
+  border-bottom: 2px solid var(--fr-blue-dark);
+}
+
+.navbar-brand img {
+  border-radius: 6px;
+}
+
+/* ---------- Hero / Home page ---------------------------------------------- */
+.jumbotron,
+.homepage-hero {
+  background: linear-gradient(135deg, var(--fr-blue-dark) 0%, var(--fr-teal) 100%);
+  color: #fff;
+  border-radius: var(--fr-radius);
+  padding: 3rem 2.5rem;
+  margin-bottom: 2rem;
+  box-shadow: var(--fr-shadow);
+}
+
+/* Home page title badge strip */
+#pkgdown-sidebar .list-unstyled li a {
+  transition: color 0.2s;
+}
+
+/* ---------- Headings ------------------------------------------------------- */
+h1,
+h2,
+h3,
+.h1,
+.h2,
+.h3 {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+h2.hasAnchor,
+h3.hasAnchor {
+  border-left: 4px solid var(--fr-teal);
+  padding-left: 0.75rem;
+  margin-left: -0.75rem;
+}
+
+/* ---------- Sidebar (reference + articles) -------------------------------- */
+.sidebar {
+  background: var(--fr-teal-light);
+  border-radius: var(--fr-radius);
+  padding: 1.25rem 1rem;
+  border: 1px solid var(--fr-border);
+}
+
+.sidebar h2 {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--fr-blue-dark);
+  font-weight: 700;
+}
+
+/* ---------- Code blocks --------------------------------------------------- */
+pre {
+  border-radius: var(--fr-radius);
+  border: 1px solid var(--fr-border);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, .04);
+}
+
+pre code {
+  font-size: 0.875rem;
+}
+
+/* Output lines — distinguish from code */
+.sourceCode .co {
+  color: #6a737d;
+}
+
+/* ---------- Reference table ----------------------------------------------- */
+.ref-index td,
+.ref-index th {
+  vertical-align: middle;
+}
+
+/* ---------- Footer -------------------------------------------------------- */
+footer {
+  border-top: 2px solid var(--fr-teal);
+}
+
+/* ---------- Cards / Boxes ------------------------------------------------- */
+.card {
+  border-radius: var(--fr-radius);
+  box-shadow: var(--fr-shadow);
+  border: 1px solid var(--fr-border);
+}
+
+/* ---------- Links --------------------------------------------------------- */
+a {
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--fr-teal);
+}
+
+/* ---------- Responsive tweaks --------------------------------------------- */
+@media (max-width: 768px) {
+
+  .jumbotron,
+  .homepage-hero {
+    padding: 2rem 1.5rem;
+  }
+}
