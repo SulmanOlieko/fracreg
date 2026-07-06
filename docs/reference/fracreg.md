@@ -11,7 +11,7 @@ one-part models, two-part hurdle models for modelling boundary values at
 ``` r
 fracreg(y, x, x2 = x, linkbin, linkfrac, type = "1P", inflation = 0, 
         intercept = TRUE, table = TRUE, variance = TRUE, var.type = "default", 
-        var.eim = TRUE, var.cluster, dfc = FALSE, ...)
+        var.eim = TRUE, var.cluster, dfc = FALSE, offset = NULL, ...)
 ```
 
 ## Arguments
@@ -102,6 +102,13 @@ fracreg(y, x, x2 = x, linkbin, linkfrac, type = "1P", inflation = 0,
 
   a logical value indicating whether a degrees of freedom correction
   should be applied to the covariance matrix. Defaults to `FALSE`.
+
+- offset:
+
+  an optional numeric vector containing an offset. It must be of the
+  same dimension as the response variable. It specifies that the
+  variable should be included in the model with its coefficient
+  constrained to 1.
 
 - ...:
 
@@ -344,7 +351,7 @@ X <- cbind(mrate = fracreg_k401k$mrate, age = fracreg_k401k$age,
 fracreg(y, X, type="1P", linkfrac="logit")
 #> 
 #> -------------------------------------------------------------------------------- 
-#>                              Fractional logit model 
+#>                           Fractional logit regression 
 #> -------------------------------------------------------------------------------- 
 #> Estimator:                                                                   QML 
 #> Data type:                                                       Cross-sectional 
@@ -374,7 +381,7 @@ fracreg(y, X, type="1P", linkfrac="logit")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 04:39:52 
+#>                          Run Date: 2026-07-06 05:31:26 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -382,7 +389,7 @@ fracreg(y, X, type="1P", linkfrac="logit")
 fracreg(y, X, type="2P", inflation=1, linkbin="logit", linkfrac="logit")
 #> 
 #> -------------------------------------------------------------------------------- 
-#>                            Part 1: Binary logit model 
+#>                         Part 1: Binary logit regression 
 #> -------------------------------------------------------------------------------- 
 #> Estimator:                                                                    ML 
 #> Data type:                                                       Cross-sectional 
@@ -408,7 +415,7 @@ fracreg(y, X, type="2P", inflation=1, linkbin="logit", linkfrac="logit")
 #> 
 #> 
 #> -------------------------------------------------------------------------------- 
-#>                          Part 2: Fractional logit model 
+#>                       Part 2: Fractional logit regression 
 #> -------------------------------------------------------------------------------- 
 #> Estimator:                                                                   QML 
 #> Data type:                                                       Cross-sectional 
@@ -441,13 +448,13 @@ fracreg(y, X, type="2P", inflation=1, linkbin="logit", linkfrac="logit")
 #> 
 #> 
 #> -------------------------------------------------------------------------------- 
-#>                 Two-part model - binary logit + fractional logit 
+#>              Two-part regression - binary logit + fractional logit 
 #> -------------------------------------------------------------------------------- 
 #> Data type:                                                       Cross-sectional 
 #> Pseudo R-squared:                                                        0.11243 
 #> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 04:39:52 
+#>                          Run Date: 2026-07-06 05:31:26 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -456,7 +463,7 @@ y_3p <- y; y_3p[1:50] <- 0
 fracreg(y_3p, X, type="3P", linkbin=c("logit","logit"), linkfrac="logit")
 #> 
 #> -------------------------------------------------------------------------------- 
-#>                            Part 1: Binary logit model 
+#>                         Part 1: Binary logit regression 
 #> -------------------------------------------------------------------------------- 
 #> Estimator:                                                                    ML 
 #> Data type:                                                       Cross-sectional 
@@ -482,7 +489,7 @@ fracreg(y_3p, X, type="3P", linkbin=c("logit","logit"), linkfrac="logit")
 #> 
 #> 
 #> -------------------------------------------------------------------------------- 
-#>                            Part 2: Binary logit model 
+#>                         Part 2: Binary logit regression 
 #> -------------------------------------------------------------------------------- 
 #> Estimator:                                                                    ML 
 #> Data type:                                                       Cross-sectional 
@@ -508,7 +515,7 @@ fracreg(y_3p, X, type="3P", linkbin=c("logit","logit"), linkfrac="logit")
 #> 
 #> 
 #> -------------------------------------------------------------------------------- 
-#>                          Part 3: Fractional logit model 
+#>                       Part 3: Fractional logit regression 
 #> -------------------------------------------------------------------------------- 
 #> Estimator:                                                                   QML 
 #> Data type:                                                       Cross-sectional 
@@ -541,13 +548,13 @@ fracreg(y_3p, X, type="3P", linkbin=c("logit","logit"), linkfrac="logit")
 #> 
 #> 
 #> -------------------------------------------------------------------------------- 
-#>        Three-part model - binary logit , binary logit + fractional logit 
+#>      Three-part regression - binary logit , binary logit + fractional logit 
 #> -------------------------------------------------------------------------------- 
 #> Data type:                                                       Cross-sectional 
 #> Pseudo R-squared:                                                        0.07934 
 #> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 04:39:52 
+#>                          Run Date: 2026-07-06 05:31:26 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -573,7 +580,7 @@ X <- cbind(x1 = x1, x2 = x2)
 fracreg(y, X, type="1P", linkfrac="logit")
 #> 
 #> -------------------------------------------------------------------------------- 
-#>                              Fractional logit model 
+#>                           Fractional logit regression 
 #> -------------------------------------------------------------------------------- 
 #> Estimator:                                                                   QML 
 #> Data type:                                                       Cross-sectional 
@@ -595,7 +602,7 @@ fracreg(y, X, type="1P", linkfrac="logit")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 04:39:52 
+#>                          Run Date: 2026-07-06 05:31:26 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -604,7 +611,7 @@ fracreg(y, X, type="1P", linkfrac="logit")
 fracreg(y, X, type="2Pbin", inflation=0, linkbin="logit")
 #> 
 #> -------------------------------------------------------------------------------- 
-#>                            Part 1: Binary logit model 
+#>                         Part 1: Binary logit regression 
 #> -------------------------------------------------------------------------------- 
 #> Estimator:                                                                    ML 
 #> Data type:                                                       Cross-sectional 
@@ -633,7 +640,7 @@ fracreg(y, X, type="2Pbin", inflation=0, linkbin="logit")
 fracreg(y, X, type="2Pfrac", inflation=0, linkfrac="probit")
 #> 
 #> -------------------------------------------------------------------------------- 
-#>                         Part 2: Fractional probit model 
+#>                       Part 2: Fractional probit regression 
 #> -------------------------------------------------------------------------------- 
 #> Estimator:                                                                   QML 
 #> Data type:                                                       Cross-sectional 
@@ -663,7 +670,7 @@ fracreg(y, X, type="2Pfrac", inflation=0, linkfrac="probit")
 fracreg(y, X, type="2P", inflation=0, linkbin="cloglog", linkfrac="logit")
 #> 
 #> -------------------------------------------------------------------------------- 
-#>                           Part 1: Binary cloglog model 
+#>                        Part 1: Binary cloglog regression 
 #> -------------------------------------------------------------------------------- 
 #> Estimator:                                                                    ML 
 #> Data type:                                                       Cross-sectional 
@@ -687,7 +694,7 @@ fracreg(y, X, type="2P", inflation=0, linkbin="cloglog", linkfrac="logit")
 #> 
 #> 
 #> -------------------------------------------------------------------------------- 
-#>                          Part 2: Fractional logit model 
+#>                       Part 2: Fractional logit regression 
 #> -------------------------------------------------------------------------------- 
 #> Estimator:                                                                   QML 
 #> Data type:                                                       Cross-sectional 
@@ -712,13 +719,13 @@ fracreg(y, X, type="2P", inflation=0, linkbin="cloglog", linkfrac="logit")
 #> 
 #> 
 #> -------------------------------------------------------------------------------- 
-#>                Two-part model - binary cloglog + fractional logit 
+#>             Two-part regression - binary cloglog + fractional logit 
 #> -------------------------------------------------------------------------------- 
 #> Data type:                                                       Cross-sectional 
 #> Pseudo R-squared:                                                        0.38829 
 #> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 04:39:52 
+#>                          Run Date: 2026-07-06 05:31:26 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -726,7 +733,7 @@ fracreg(y, X, type="2P", inflation=0, linkbin="cloglog", linkfrac="logit")
 fracreg(y, X, type="3P", linkbin=c("logit","probit"), linkfrac="logit")
 #> 
 #> -------------------------------------------------------------------------------- 
-#>                            Part 1: Binary logit model 
+#>                         Part 1: Binary logit regression 
 #> -------------------------------------------------------------------------------- 
 #> Estimator:                                                                    ML 
 #> Data type:                                                       Cross-sectional 
@@ -750,7 +757,7 @@ fracreg(y, X, type="3P", linkbin=c("logit","probit"), linkfrac="logit")
 #> 
 #> 
 #> -------------------------------------------------------------------------------- 
-#>                           Part 2: Binary probit model 
+#>                         Part 2: Binary probit regression 
 #> -------------------------------------------------------------------------------- 
 #> Estimator:                                                                    ML 
 #> Data type:                                                       Cross-sectional 
@@ -774,7 +781,7 @@ fracreg(y, X, type="3P", linkbin=c("logit","probit"), linkfrac="logit")
 #> 
 #> 
 #> -------------------------------------------------------------------------------- 
-#>                          Part 3: Fractional logit model 
+#>                       Part 3: Fractional logit regression 
 #> -------------------------------------------------------------------------------- 
 #> Estimator:                                                                   QML 
 #> Data type:                                                       Cross-sectional 
@@ -799,13 +806,13 @@ fracreg(y, X, type="3P", linkbin=c("logit","probit"), linkfrac="logit")
 #> 
 #> 
 #> -------------------------------------------------------------------------------- 
-#>        Three-part model - binary logit , binary probit + fractional logit 
+#>     Three-part regression - binary logit , binary probit + fractional logit 
 #> -------------------------------------------------------------------------------- 
 #> Data type:                                                       Cross-sectional 
 #> Pseudo R-squared:                                                        0.38917 
 #> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 04:39:52 
+#>                          Run Date: 2026-07-06 05:31:26 
 #> -------------------------------------------------------------------------------- 
 #> 
 ```

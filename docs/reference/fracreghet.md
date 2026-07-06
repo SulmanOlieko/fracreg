@@ -10,7 +10,7 @@ issues.
 ``` r
 fracreghet(y, x, z = x, var.endog, start, type = "GMMx", link = "logit", 
            intercept = T, table = T, variance = T, 
-           var.type = "robust", var.cluster, adjust = 0, ...)
+           var.type = "robust", var.cluster, adjust = 0, offset = NULL, ...)
 ```
 
 ## Arguments
@@ -85,6 +85,13 @@ fracreghet(y, x, z = x, var.endog, start, type = "GMMx", link = "logit",
   boundary observations when the LIN estimators are applied or the
   string `drop`, which implies that the boundary observations are
   dropped.
+
+- offset:
+
+  an optional numeric vector containing an offset. It must be of the
+  same dimension as the response variable. It specifies that the
+  variable should be included in the model with its coefficient
+  constrained to 1.
 
 - ...:
 
@@ -250,7 +257,7 @@ Z_emp <- cbind(age = fracreg_k401k$age, ltotemp = fracreg_k401k$ltotemp)
 fracreghet(y_adj, X_het, Z_emp, var.endog = X_het[, "mrate"], type="QMLxv", link="logit") 
 #> 
 #> -------------------------------------------------------------------------------- 
-#>            Fractional logit model with heteroscedasticity/endogeneity 
+#>         Fractional logit regression with heteroscedasticity/endogeneity 
 #> -------------------------------------------------------------------------------- 
 #> Estimator:                                                                 QMLxv 
 #> Data type:                                                       Cross-sectional 
@@ -283,7 +290,7 @@ fracreghet(y_adj, X_het, Z_emp, var.endog = X_het[, "mrate"], type="QMLxv", link
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 04:39:55 
+#>                          Run Date: 2026-07-06 05:31:29 
 #> -------------------------------------------------------------------------------- 
 #> 
  
@@ -310,7 +317,7 @@ Z <- cbind(x1 = x1, z1 = z1)
 fracreghet(y = y_endog, x = X, type = "GMMx", link = "logit")
 #> 
 #> -------------------------------------------------------------------------------- 
-#>            Fractional logit model with heteroscedasticity/endogeneity 
+#>         Fractional logit regression with heteroscedasticity/endogeneity 
 #> -------------------------------------------------------------------------------- 
 #> Estimator:                                                                  GMMx 
 #> Data type:                                                       Cross-sectional 
@@ -333,7 +340,7 @@ fracreghet(y = y_endog, x = X, type = "GMMx", link = "logit")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 04:39:55 
+#>                          Run Date: 2026-07-06 05:31:29 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -341,7 +348,7 @@ fracreghet(y = y_endog, x = X, type = "GMMx", link = "logit")
 fracreghet(y = y_endog, x = X, z = Z, type = "GMMz", link = "logit")
 #> 
 #> -------------------------------------------------------------------------------- 
-#>            Fractional logit model with heteroscedasticity/endogeneity 
+#>         Fractional logit regression with heteroscedasticity/endogeneity 
 #> -------------------------------------------------------------------------------- 
 #> Estimator:                                                                  GMMz 
 #> Data type:                                                       Cross-sectional 
@@ -364,7 +371,7 @@ fracreghet(y = y_endog, x = X, z = Z, type = "GMMz", link = "logit")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 04:39:55 
+#>                          Run Date: 2026-07-06 05:31:29 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -373,7 +380,7 @@ fracreghet(y = y_endog, x = X, z = Z, var.endog = var.endog, type = "GMMxv", lin
 #> Warning: NaNs produced
 #> 
 #> -------------------------------------------------------------------------------- 
-#>            Fractional logit model with heteroscedasticity/endogeneity 
+#>         Fractional logit regression with heteroscedasticity/endogeneity 
 #> -------------------------------------------------------------------------------- 
 #> Estimator:                                                                 GMMxv 
 #> Data type:                                                       Cross-sectional 
@@ -409,7 +416,7 @@ fracreghet(y = y_endog, x = X, z = Z, var.endog = var.endog, type = "GMMxv", lin
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 04:39:55 
+#>                          Run Date: 2026-07-06 05:31:29 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -417,7 +424,7 @@ fracreghet(y = y_endog, x = X, z = Z, var.endog = var.endog, type = "GMMxv", lin
 fracreghet(y = y_endog, x = X, z = Z, var.endog = var.endog, type = "QMLxv", link = "logit")
 #> 
 #> -------------------------------------------------------------------------------- 
-#>            Fractional logit model with heteroscedasticity/endogeneity 
+#>         Fractional logit regression with heteroscedasticity/endogeneity 
 #> -------------------------------------------------------------------------------- 
 #> Estimator:                                                                 QMLxv 
 #> Data type:                                                       Cross-sectional 
@@ -453,7 +460,7 @@ fracreghet(y = y_endog, x = X, z = Z, var.endog = var.endog, type = "QMLxv", lin
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 04:39:55 
+#>                          Run Date: 2026-07-06 05:31:29 
 #> -------------------------------------------------------------------------------- 
 #> 
 ```
