@@ -136,7 +136,8 @@ y_adj[y_adj == 1] <- 0.999
 # Artificial instrumental variable for demonstration 
 set.seed(42)
 Z_emp <- cbind(X_het, z = fracreg_k401k$mrate * rnorm(length(y))) 
-res_emp <- fracreghet(y_adj, X_het, Z_emp, var.endog = X_het[, "mrate"], type="QMLxv", link="logit", table=FALSE) 
+res_emp <- fracreghet(y_adj, X_het, Z_emp, var.endog = X_het[, "mrate"], 
+                      type="QMLxv", link="logit", table=FALSE) 
 #> Warning: NA/NaN function evaluation
 fracreghet.pe(res_emp, which.x="mrate")
 #> 
@@ -150,7 +151,7 @@ fracreghet.pe(res_emp, which.x="mrate")
 #>       Estimate Std. Error z value Pr(>|z|)
 #> mrate   0.1081         NA      NA       NA
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 03:48:13 
+#>                          Run Date: 2026-07-06 04:17:14 
 #> -------------------------------------------------------------------------------- 
  
 ### Simulated Examples
@@ -183,7 +184,7 @@ fracreghet.pe(res,which.x="X1")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 03:48:13 
+#>                          Run Date: 2026-07-06 04:17:14 
 #> -------------------------------------------------------------------------------- 
 
 #Naive estimator of conditional partial effects for all covariates,
@@ -203,7 +204,7 @@ fracreghet.pe(res,smearing=FALSE,APE=FALSE,CPE=TRUE,at=c(1,-1))
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 03:48:13 
+#>                          Run Date: 2026-07-06 04:17:14 
 #> -------------------------------------------------------------------------------- 
 #> 
 #> Note: covariates evaluated at the following values:

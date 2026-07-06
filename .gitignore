@@ -6,6 +6,6 @@
 *.tar.gz
 *.Rcheck/
 .Rcheck
-fracreg_manual.pdf
+fracreg-manual.pdf
 docs/
 build_site.R

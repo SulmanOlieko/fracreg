@@ -1,7 +1,7 @@
 ^_pkgdown\.yml$
 ^docs$
 ^pkgdown$
-^fracreg_manual\.pdf$
+^fracreg-manual\.pdf$
 ^README\.Rmd$
 ^\.github$
 ^build_site\.R$

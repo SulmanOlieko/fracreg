@@ -76,15 +76,15 @@ Sulman Olieko Owili <oliekosulman@gmail.com>
 ### Empirical 401(k) Examples 
 data("fracreg_k401k") 
 y <- fracreg_k401k$prate 
-X_het <- cbind(mrate = fracreg_k401k$mrate, age = fracreg_k401k$age)
+X_het <- cbind(mrate = fracreg_k401k$mrate, ltotemp = fracreg_k401k$ltotemp)
  
 # fracreghet estimators do not allow exact 1s or 0s
 y_adj <- y
 y_adj[y_adj == 1] <- 0.999
 
-# Artificial instrumental variable for demonstration 
-set.seed(42)
-Z_emp <- cbind(X_het, z = fracreg_k401k$mrate * rnorm(length(y))) 
+# Instrument mrate using age
+
+Z_emp <- cbind(age = fracreg_k401k$age, ltotemp = fracreg_k401k$ltotemp) 
 res_emp <- fracreghet(y_adj, X_het, Z_emp, var.endog = X_het[, "mrate"], 
                       type="QMLxv", link="logit", table=FALSE) 
 fracreghet.pe(res_emp, which.x="mrate")
