@@ -125,18 +125,17 @@ $$PE_k(x) = g(x\beta) \beta_k$$</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">### Empirical 401(k) Examples </span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"fracreg_k401k"</span><span class="op">)</span> </span></span>
 <span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">fracreg_k401k</span><span class="op">$</span><span class="va">prate</span> </span></span>
-<span class="r-in"><span><span class="va">X_het</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span>mrate <span class="op">=</span> <span class="va">fracreg_k401k</span><span class="op">$</span><span class="va">mrate</span>, age <span class="op">=</span> <span class="va">fracreg_k401k</span><span class="op">$</span><span class="va">age</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">X_het</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span>mrate <span class="op">=</span> <span class="va">fracreg_k401k</span><span class="op">$</span><span class="va">mrate</span>, ltotemp <span class="op">=</span> <span class="va">fracreg_k401k</span><span class="op">$</span><span class="va">ltotemp</span><span class="op">)</span></span></span>
 <span class="r-in"><span> </span></span>
 <span class="r-in"><span><span class="co"># fracreghet estimators do not allow exact 1s or 0s</span></span></span>
 <span class="r-in"><span><span class="va">y_adj</span> <span class="op">&lt;-</span> <span class="va">y</span></span></span>
 <span class="r-in"><span><span class="va">y_adj</span><span class="op">[</span><span class="va">y_adj</span> <span class="op">==</span> <span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">0.999</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Artificial instrumental variable for demonstration </span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">42</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">Z_emp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">X_het</span>, z <span class="op">=</span> <span class="va">fracreg_k401k</span><span class="op">$</span><span class="va">mrate</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> </span></span>
+<span class="r-in"><span><span class="co"># Instrument mrate using age</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">Z_emp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span>age <span class="op">=</span> <span class="va">fracreg_k401k</span><span class="op">$</span><span class="va">age</span>, ltotemp <span class="op">=</span> <span class="va">fracreg_k401k</span><span class="op">$</span><span class="va">ltotemp</span><span class="op">)</span> </span></span>
 <span class="r-in"><span><span class="va">res_emp</span> <span class="op">&lt;-</span> <span class="fu"><a href="fracreghet.html">fracreghet</a></span><span class="op">(</span><span class="va">y_adj</span>, <span class="va">X_het</span>, <span class="va">Z_emp</span>, var.endog <span class="op">=</span> <span class="va">X_het</span><span class="op">[</span>, <span class="st">"mrate"</span><span class="op">]</span>, </span></span>
 <span class="r-in"><span>                      type<span class="op">=</span><span class="st">"QMLxv"</span>, link<span class="op">=</span><span class="st">"logit"</span>, table<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span> </span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>NA/NaN function evaluation</span>
 <span class="r-in"><span><span class="fu">fracreghet.pe</span><span class="op">(</span><span class="va">res_emp</span>, which.x<span class="op">=</span><span class="st">"mrate"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -146,10 +145,12 @@ $$PE_k(x) = g(x\beta) \beta_k$$</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                        Fractional logit regression model </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                 Estimator: QMLxv </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       Estimate Std. Error z value Pr(&gt;|z|)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> mrate   0.1081         NA      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       Estimate Std. Error z value Pr(&gt;|z|)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mrate  0.39498    0.09827   4.019 5.84e-05 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-06 04:17:14 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-06 04:39:56 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-in"><span> </span></span>
 <span class="r-in"><span><span class="co">### Simulated Examples</span></span></span>
@@ -178,11 +179,11 @@ $$PE_k(x) = g(x\beta) \beta_k$$</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                 Estimator: GMMx </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Estimate Std. Error z value Pr(&gt;|z|)    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X1   0.1364     0.0167   8.166 2.22e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X1  0.16698    0.00957   17.45   &lt;2e-16 ***</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-06 04:17:14 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-06 04:39:56 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#Naive estimator of conditional partial effects for all covariates,</span></span></span>
@@ -197,12 +198,12 @@ $$PE_k(x) = g(x\beta) \beta_k$$</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                 Estimator: GMMx </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Estimate Std. Error z value Pr(&gt;|z|)    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X1  0.19889    0.02519   7.895 2.89e-15 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X2  0.25172    0.01495  16.842  &lt; 2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X1  0.22878    0.01322   17.31   &lt;2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X2  0.20655    0.01447   14.28   &lt;2e-16 ***</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-06 04:17:14 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-06 04:39:56 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Note: covariates evaluated at the following values:</span>

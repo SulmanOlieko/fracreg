@@ -127,18 +127,17 @@ for the RESET test.
 ### Empirical 401(k) Examples 
 data("fracreg_k401k") 
 y <- fracreg_k401k$prate 
-X_het <- cbind(mrate = fracreg_k401k$mrate, age = fracreg_k401k$age)
+X_het <- cbind(mrate = fracreg_k401k$mrate, ltotemp = fracreg_k401k$ltotemp)
  
 # fracreghet estimators do not allow exact 1s or 0s
 y_adj <- y
 y_adj[y_adj == 1] <- 0.999
 
-# Artificial instrumental variable for demonstration 
-set.seed(42)
-Z_emp <- cbind(X_het, z = fracreg_k401k$mrate * rnorm(length(y))) 
+# Instrument mrate using age
+
+Z_emp <- cbind(age = fracreg_k401k$age, ltotemp = fracreg_k401k$ltotemp) 
 res_emp <- fracreghet(y_adj, X_het, Z_emp, var.endog = X_het[, "mrate"], 
                       type="QMLxv", link="logit", table=FALSE) 
-#> Warning: NA/NaN function evaluation
 fracreghet.pe(res_emp, which.x="mrate")
 #> 
 #> 
@@ -148,10 +147,12 @@ fracreghet.pe(res_emp, which.x="mrate")
 #>                        Fractional logit regression model 
 #>                                 Estimator: QMLxv 
 #> -------------------------------------------------------------------------------- 
-#>       Estimate Std. Error z value Pr(>|z|)
-#> mrate   0.1081         NA      NA       NA
+#>       Estimate Std. Error z value Pr(>|z|)    
+#> mrate  0.39498    0.09827   4.019 5.84e-05 ***
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 04:17:14 
+#>                          Run Date: 2026-07-06 04:39:56 
 #> -------------------------------------------------------------------------------- 
  
 ### Simulated Examples
@@ -180,11 +181,11 @@ fracreghet.pe(res,which.x="X1")
 #>                                 Estimator: GMMx 
 #> -------------------------------------------------------------------------------- 
 #>    Estimate Std. Error z value Pr(>|z|)    
-#> X1   0.1364     0.0167   8.166 2.22e-16 ***
+#> X1  0.16698    0.00957   17.45   <2e-16 ***
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 04:17:14 
+#>                          Run Date: 2026-07-06 04:39:56 
 #> -------------------------------------------------------------------------------- 
 
 #Naive estimator of conditional partial effects for all covariates,
@@ -199,12 +200,12 @@ fracreghet.pe(res,smearing=FALSE,APE=FALSE,CPE=TRUE,at=c(1,-1))
 #>                                 Estimator: GMMx 
 #> -------------------------------------------------------------------------------- 
 #>    Estimate Std. Error z value Pr(>|z|)    
-#> X1  0.19889    0.02519   7.895 2.89e-15 ***
-#> X2  0.25172    0.01495  16.842  < 2e-16 ***
+#> X1  0.22878    0.01322   17.31   <2e-16 ***
+#> X2  0.20655    0.01447   14.28   <2e-16 ***
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 04:17:14 
+#>                          Run Date: 2026-07-06 04:39:56 
 #> -------------------------------------------------------------------------------- 
 #> 
 #> Note: covariates evaluated at the following values:
