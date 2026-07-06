@@ -11,7 +11,7 @@ one-part models, two-part hurdle models for modelling boundary values at
 ``` r
 fracreg(y, x, x2 = x, linkbin, linkfrac, type = "1P", inflation = 0, 
         intercept = TRUE, table = TRUE, variance = TRUE, var.type = "default", 
-        var.eim = TRUE, var.cluster, dfc = FALSE, ...)
+        var.eim = TRUE, var.cluster, dfc = FALSE, offset = NULL, ...)
 ```
 
 ## Arguments
@@ -102,6 +102,13 @@ fracreg(y, x, x2 = x, linkbin, linkfrac, type = "1P", inflation = 0,
 
   a logical value indicating whether a degrees of freedom correction
   should be applied to the covariance matrix. Defaults to `FALSE`.
+
+- offset:
+
+  an optional numeric vector containing an offset. It must be of the
+  same dimension as the response variable. It specifies that the
+  variable should be included in the model with its coefficient
+  constrained to 1.
 
 - ...:
 
@@ -374,7 +381,7 @@ fracreg(y, X, type="1P", linkfrac="logit")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 02:01:23 
+#>                          Run Date: 2026-07-06 02:30:31 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -447,7 +454,7 @@ fracreg(y, X, type="2P", inflation=1, linkbin="logit", linkfrac="logit")
 #> Pseudo R-squared:                                                        0.11243 
 #> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 02:01:23 
+#>                          Run Date: 2026-07-06 02:30:31 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -547,7 +554,7 @@ fracreg(y_3p, X, type="3P", linkbin=c("logit","logit"), linkfrac="logit")
 #> Pseudo R-squared:                                                        0.07934 
 #> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 02:01:23 
+#>                          Run Date: 2026-07-06 02:30:31 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -595,7 +602,7 @@ fracreg(y, X, type="1P", linkfrac="logit")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 02:01:23 
+#>                          Run Date: 2026-07-06 02:30:31 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -718,7 +725,7 @@ fracreg(y, X, type="2P", inflation=0, linkbin="cloglog", linkfrac="logit")
 #> Pseudo R-squared:                                                        0.38829 
 #> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 02:01:23 
+#>                          Run Date: 2026-07-06 02:30:31 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -805,7 +812,7 @@ fracreg(y, X, type="3P", linkbin=c("logit","probit"), linkfrac="logit")
 #> Pseudo R-squared:                                                        0.38917 
 #> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 02:01:23 
+#>                          Run Date: 2026-07-06 02:30:31 
 #> -------------------------------------------------------------------------------- 
 #> 
 ```

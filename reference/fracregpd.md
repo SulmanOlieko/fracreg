@@ -8,7 +8,7 @@ dependent variable has a bounded, fractional nature.
 ``` r
 fracregpd(id, time, y, x, z, var.endog, x.exogenous = T, lags, start, type,
   GMMww.cor = T, link = "logit", intercept = T, table = T, variance = T,
-  var.type = "cluster", tdummies = F, bootstrap = F, B = 200, ...)
+  var.type = "cluster", tdummies = F, bootstrap = F, B = 200, offset = NULL, ...)
 ```
 
 ## Arguments
@@ -114,6 +114,13 @@ fracregpd(id, time, y, x, z, var.endog, x.exogenous = T, lags, start, type,
 - B:
 
   the number of bootstrap replications.
+
+- offset:
+
+  an optional numeric vector containing an offset. It must be of the
+  same dimension as the response variable. It specifies that the
+  variable should be included in the model with its coefficient
+  constrained to 1.
 
 - ...:
 
@@ -280,7 +287,7 @@ fracregpd(id_emp, time_emp, y, X, type="QMLcre", link="probit")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 02:01:27 
+#>                          Run Date: 2026-07-06 02:30:35 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -343,7 +350,7 @@ fracregpd(id=id, time=time, y=y_panel, x=X, type="QMLcre", link="probit")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 02:01:27 
+#>                          Run Date: 2026-07-06 02:30:35 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -375,7 +382,7 @@ fracregpd(id=id, time=time, y=y_panel, x=X, type="GMMbgw")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 02:01:27 
+#>                          Run Date: 2026-07-06 02:30:35 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -407,7 +414,7 @@ fracregpd(id=id, time=time, y=y_panel, x=X, lags=TRUE, type="GMMww", var.type="r
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 02:01:27 
+#>                          Run Date: 2026-07-06 02:30:35 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -450,7 +457,7 @@ fracregpd(id=id, time=time, y=y_endog, x=X_endog, z=Z_inst,
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 02:01:28 
+#>                          Run Date: 2026-07-06 02:30:35 
 #> -------------------------------------------------------------------------------- 
 #> 
 ```

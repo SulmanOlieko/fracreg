@@ -10,7 +10,7 @@ issues.
 ``` r
 fracreghet(y, x, z = x, var.endog, start, type = "GMMx", link = "logit", 
            intercept = T, table = T, variance = T, 
-           var.type = "robust", var.cluster, adjust = 0, ...)
+           var.type = "robust", var.cluster, adjust = 0, offset = NULL, ...)
 ```
 
 ## Arguments
@@ -85,6 +85,13 @@ fracreghet(y, x, z = x, var.endog, start, type = "GMMx", link = "logit",
   boundary observations when the LIN estimators are applied or the
   string `drop`, which implies that the boundary observations are
   dropped.
+
+- offset:
+
+  an optional numeric vector containing an offset. It must be of the
+  same dimension as the response variable. It specifies that the
+  variable should be included in the model with its coefficient
+  constrained to 1.
 
 - ...:
 
@@ -283,7 +290,7 @@ fracreghet(y_adj, X_het, Z_emp, var.endog = X_het[, "mrate"], type="QMLxv", link
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 02:01:26 
+#>                          Run Date: 2026-07-06 02:30:33 
 #> -------------------------------------------------------------------------------- 
 #> 
  
@@ -333,7 +340,7 @@ fracreghet(y = y_endog, x = X, type = "GMMx", link = "logit")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 02:01:26 
+#>                          Run Date: 2026-07-06 02:30:33 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -364,7 +371,7 @@ fracreghet(y = y_endog, x = X, z = Z, type = "GMMz", link = "logit")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 02:01:26 
+#>                          Run Date: 2026-07-06 02:30:33 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -409,7 +416,7 @@ fracreghet(y = y_endog, x = X, z = Z, var.endog = var.endog, type = "GMMxv", lin
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 02:01:26 
+#>                          Run Date: 2026-07-06 02:30:33 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -453,7 +460,7 @@ fracreghet(y = y_endog, x = X, z = Z, var.endog = var.endog, type = "QMLxv", lin
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-06 02:01:26 
+#>                          Run Date: 2026-07-06 02:30:33 
 #> -------------------------------------------------------------------------------- 
 #> 
 ```
