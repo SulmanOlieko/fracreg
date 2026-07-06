@@ -32,9 +32,9 @@ fracreg.ggoff <- function(object,version="LM",table=TRUE,...)
 		if(var.type=="cluster") var.cluster <- object$var.cluster
 	}
 	if(any(version=="LR")) LL0 <- object$LL
-	if(type=="1P") title <- paste("Fractional",link,"model")
-	if(type=="2Pbin") title <- paste("Binary",link,"component of a two-part model")
-	if(type=="2Pfrac") title <- paste("Fractional",link,"component of a two-part model")
+	if(type=="1P") title <- paste("Fractional",link,"regression")
+	if(type=="2Pbin") title <- paste("Binary",link,"component of a two-part regression")
+	if(type=="2Pfrac") title <- paste("Fractional",link,"component of a two-part regression")
 
 	### 3. Tests
 

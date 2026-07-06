@@ -47,9 +47,9 @@ fracreg.pe <- function(object,APE=TRUE,CPE=FALSE,at=NULL,which.x=NULL,variance=T
 		x <- model.matrix(object$formula)
 		x.names <- object$x.names
 
-		if(type=="1P") title <- paste("Fractional",linka,"model")
-		if(type=="2Pbin") title <- paste("Binary",linka,"component of a two-part model")
-		if(type=="2Pfrac") title <- paste("Fractional",linka,"component of a two-part model")
+		if(type=="1P") title <- paste("Fractional",linka,"regression")
+		if(type=="2Pbin") title <- paste("Binary",linka,"component of a two-part regression")
+		if(type=="2Pfrac") title <- paste("Fractional",linka,"component of a two-part regression")
 	}
 	if(type=="3P")
 	{
@@ -73,7 +73,7 @@ fracreg.pe <- function(object,APE=TRUE,CPE=FALSE,at=NULL,which.x=NULL,variance=T
 		x <- xa
 		x.names <- xa.names
 
-		title <- paste("Three-part model - binary",linka,", binary",linkb,"+ fractional",linkc)
+		title <- paste("Three-part regression - binary",linka,", binary",linkb,"+ fractional",linkc)
 	}
 	if(type=="2P")
 	{
@@ -93,7 +93,7 @@ fracreg.pe <- function(object,APE=TRUE,CPE=FALSE,at=NULL,which.x=NULL,variance=T
 		x <- xa
 		x.names <- xa.names
 
-		title <- paste("Binary",linka,"+ Fractional",linkb,"two-part model")
+		title <- paste("Binary",linka,"+ Fractional",linkb,"two-part regression")
 	}
 
 	if(any(x.names=="INTERCEPT")) xvar.names <- x.names[-1]

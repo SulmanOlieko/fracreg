@@ -342,7 +342,7 @@ fracreghet.table <- function(p,p.var,x.names,type,link,converged,N,var.type,adju
 
 		cat("\n")
 		cat(.fracreg.sep(), "\n")
-		cat(.fracreg.center(paste("Fractional", link, "model with heteroscedasticity/endogeneity")), "\n")
+		cat(.fracreg.center(paste("Fractional", link, "regression with heteroscedasticity/endogeneity")), "\n")
 		cat(.fracreg.sep(), "\n")
 		
 		.fracreg.cat.right("Estimator:", type)
@@ -728,7 +728,7 @@ fracreghet.reset <- function(object,lastpower.vec=3,version="Wald",table=T,...)
 		if(var.type=="cluster") var.cluster <- object$var.cluster
 	}
 
-	title1 <- paste("Fractional",link,"regression model")
+	title1 <- paste("Fractional",link,"regression")
 	title2 <- paste("Estimator:",type)
 	if(adjust!=0)
 	{
@@ -928,7 +928,7 @@ fracreghet.pe <- function(object,smearing=T,APE=T,CPE=F,at=NULL,which.x=NULL,tab
 	if(smearing==T) title1 <- "(conditional only on observables, based on the smearing estimator)"
 	else title1 <- "(conditional on both observables and unobservables, with error term = 0)"
 
-	title2 <- paste("Fractional",link,"regression model")
+	title2 <- paste("Fractional",link,"regression")
 	title3 <- paste("Estimator:",type)
 	title <- c(title1,title2,title3)
 	if(adjust!=0)

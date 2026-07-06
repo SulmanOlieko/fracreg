@@ -360,7 +360,7 @@ fracregpd.table <- function(p,p.var,x.names,x.exogenous,lags,type,link,converged
 			"GMMpre" = "(pooled random effects) ",
 			"GMMpfe" = "(pooled fixed effects) ",
 			"")
-		cat(.fracreg.center(paste("Fractional", link, model_desc, "model")), "\n")
+		cat(.fracreg.center(paste("Fractional", link, model_desc, "regression")), "\n")
 		cat(.fracreg.sep(), "\n")
 		.fracreg.cat.right("Estimator:", type)
 		.fracreg.cat.right("Data type:", "Panel")

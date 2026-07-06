@@ -43,12 +43,12 @@ fracreg.ptest <- function(object1,object2,version="Wald",table=TRUE)
 
 		gx1 <- g1*x1
 
-		if(type1=="1P") title1 <- paste("Fractional",link1,"model")
-		if(type1=="2Pbin") title1 <- paste("Binary",link1,"component of a two-part model")
-		if(type1=="3Pbin0") title1 <- paste("First binary",link1,"component of a three-part model")
-		if(type1=="3Pbin1") title1 <- paste("Second binary",link1,"component of a three-part model")
-		if(type1=="2Pfrac") title1 <- paste("Fractional",link1,"component of a two-part model")
-		if(type1=="3Pfrac") title1 <- paste("Fractional",link1,"component of a three-part model")
+		if(type1=="1P") title1 <- paste("Fractional",link1,"regression")
+		if(type1=="2Pbin") title1 <- paste("Binary",link1,"component of a two-part regression")
+		if(type1=="3Pbin0") title1 <- paste("First binary",link1,"component of a three-part regression")
+		if(type1=="3Pbin1") title1 <- paste("Second binary",link1,"component of a three-part regression")
+		if(type1=="2Pfrac") title1 <- paste("Fractional",link1,"component of a two-part regression")
+		if(type1=="3Pfrac") title1 <- paste("Fractional",link1,"component of a three-part regression")
 
 		if(type1=="2Pbin") type.both <- "2Pbin"
 		else type.both <- "others"
@@ -84,7 +84,7 @@ fracreg.ptest <- function(object1,object2,version="Wald",table=TRUE)
 		g1c_part <- as.vector(yhat1a * (1 - yhat1b) * g1c)
 
 		gx1 <- cbind(g1a_part*x1a, g1b_part*x1b, g1c_part*x1c)
-		title1 <- paste("Three-part model - binary",link1a,", binary",link1b,"+ fractional",link1c)
+		title1 <- paste("Three-part regression - binary",link1a,", binary",link1b,"+ fractional",link1c)
 		type.both <- "others"
 	}
 
@@ -116,7 +116,7 @@ fracreg.ptest <- function(object1,object2,version="Wald",table=TRUE)
 
 		gx1 <- cbind(g1ab*x1a,g1ba*x1b)
 
-		title1 <- paste("Binary",link1a,"+ Fractional",link1b,"two-part model")
+		title1 <- paste("Binary",link1a,"+ Fractional",link1b,"two-part regression")
 
 		type.both <- "others"
 	}
@@ -139,12 +139,12 @@ fracreg.ptest <- function(object1,object2,version="Wald",table=TRUE)
 
 		gx2 <- g2*x2
 
-		if(type2=="1P") title2 <- paste("Fractional",link2,"model")
-		if(type2=="2Pbin") title2 <- paste("Binary",link2,"component of a two-part model")
-		if(type2=="3Pbin0") title2 <- paste("First binary",link2,"component of a three-part model")
-		if(type2=="3Pbin1") title2 <- paste("Second binary",link2,"component of a three-part model")
-		if(type2=="2Pfrac") title2 <- paste("Fractional",link2,"component of a two-part model")
-		if(type2=="3Pfrac") title2 <- paste("Fractional",link2,"component of a three-part model")
+		if(type2=="1P") title2 <- paste("Fractional",link2,"regression")
+		if(type2=="2Pbin") title2 <- paste("Binary",link2,"component of a two-part regression")
+		if(type2=="3Pbin0") title2 <- paste("First binary",link2,"component of a three-part regression")
+		if(type2=="3Pbin1") title2 <- paste("Second binary",link2,"component of a three-part regression")
+		if(type2=="2Pfrac") title2 <- paste("Fractional",link2,"component of a two-part regression")
+		if(type2=="3Pfrac") title2 <- paste("Fractional",link2,"component of a three-part regression")
 	}
 		if(object2$type=="3P")
 	{
@@ -177,7 +177,7 @@ fracreg.ptest <- function(object1,object2,version="Wald",table=TRUE)
 		g2c_part <- as.vector(yhat2a * (1 - yhat2b) * g2c)
 
 		gx2 <- cbind(g2a_part*x2a, g2b_part*x2b, g2c_part*x2c)
-		title2 <- paste("Three-part model - binary",link2a,", binary",link2b,"+ fractional",link2c)
+		title2 <- paste("Three-part regression - binary",link2a,", binary",link2b,"+ fractional",link2c)
 	}
 
 	if(object2$type=="2P")
@@ -208,7 +208,7 @@ fracreg.ptest <- function(object1,object2,version="Wald",table=TRUE)
 
 		gx2 <- cbind(g2ab*x2a,g2ba*x2b)
 
-		title2 <- paste("Binary",link2a,"+ Fractional",link2b,"two-part model")
+		title2 <- paste("Binary",link2a,"+ Fractional",link2b,"two-part regression")
 	}
 
 	### 3. Further error and warning messages
