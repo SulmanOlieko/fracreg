@@ -87,7 +87,6 @@ y_adj[y_adj == 1] <- 0.999
 Z_emp <- cbind(age = fracreg_k401k$age, ltotemp = fracreg_k401k$ltotemp) 
 res_emp <- fracreghet(y_adj, X_het, Z_emp, var.endog = X_het[, "mrate"], 
                       type="QMLxv", link="logit", table=FALSE) 
-summary(res_emp)
 fracreghet.pe(res_emp, which.x="mrate")
  
 ### Simulated Examples
@@ -104,7 +103,6 @@ dimnames(Z)[[2]] <- c("Z1","Z2","Z3")
 y <- exp(X[,1]+X[,2]+u)/(1+exp(X[,1]+X[,2]+u))
 
 res <- fracreghet(y,X,type="GMMx",table=FALSE)
-summary(res)
 
 #Smearing estimator of average partial effects for variable X1
 fracreghet.pe(res,which.x="X1")

@@ -1,4 +1,4 @@
-fracreg <- function(y,x,x2=x,linkbin,linkfrac,type="1P",inflation=0,intercept=TRUE,table=FALSE,variance=TRUE,var.type="default",var.eim=TRUE,var.cluster,dfc=FALSE,offset=NULL,or=FALSE,level=0.95,...)
+fracreg <- function(y,x,x2=x,linkbin,linkfrac,type="1P",inflation=0,intercept=TRUE,table=TRUE,variance=TRUE,var.type="default",var.eim=TRUE,var.cluster,dfc=FALSE,offset=NULL,or=FALSE,level=0.95,...)
 {
 	### 1. Error and warning messages
 
@@ -168,7 +168,7 @@ fracreg <- function(y,x,x2=x,linkbin,linkfrac,type="1P",inflation=0,intercept=TR
 		formula <- yb ~ x - 1
 		names(p) <- x.names
 
-		resBIN <- list(class=class,formula=formula,type=type,link=linkbin,method=method,p=p,y=yb,yhat=yhat1,xbhat=xbhat,converged=converged1,LL=LL,x.names=x.names)
+		resBIN <- list(class=class,formula=formula,type=type,link=linkbin,method=method,p=p,yhat=yhat1,xbhat=xbhat,converged=converged1,LL=LL,x.names=x.names)
 		if(variance==TRUE)
 		{ 
 			dimnames(p.var) <- list(x.names,x.names)
@@ -218,7 +218,7 @@ fracreg <- function(y,x,x2=x,linkbin,linkfrac,type="1P",inflation=0,intercept=TR
 		formula <- yy ~ xx2 - 1
 		names(p) <- x2.names
 
-		resFRAC <- list(class=class,formula=formula,type=type,link=linkfrac,method=method,p=p,y=yy,yhat=yhat,xbhat=xbhat,converged=converged2,LL=results$LL,x.names=x2.names)
+		resFRAC <- list(class=class,formula=formula,type=type,link=linkfrac,method=method,p=p,yhat=yhat,xbhat=xbhat,converged=converged2,x.names=x2.names)
 		if(variance==TRUE)
 		{ 
 			dimnames(p.var) <- list(x2.names,x2.names)
@@ -245,7 +245,7 @@ fracreg <- function(y,x,x2=x,linkbin,linkfrac,type="1P",inflation=0,intercept=TR
 		converged1 <- results0$converged
 		if(table==TRUE) fracreg.table(yb0,yhat1,p0,p.var0,x.names,"3Pbin0",linkbin[1],converged1,var.ty,LL=results0$LL,method=method,var.cluster=if(var.type=="cluster") var.cluster else NULL,dfc=dfc,or=or,level=level)
 		names(p0) <- x.names
-		resBIN0 <- list(class=class,formula=yb0 ~ x - 1,type="3Pbin0",link=linkbin[1],method=method,p=p0,y=yb0,yhat=yhat1,xbhat=results0$xbhat,converged=converged1,LL=results0$LL,x.names=x.names)
+		resBIN0 <- list(class=class,formula=yb0 ~ x - 1,type="3Pbin0",link=linkbin[1],method=method,p=p0,yhat=yhat1,xbhat=results0$xbhat,converged=converged1,LL=results0$LL,x.names=x.names)
 		if(variance==TRUE) { dimnames(p.var0) <- list(x.names,x.names); resBIN0[["p.var"]] <- p.var0; resBIN0[["var.type"]] <- var.ty }
 		if(!is.null(offset)) resBIN0[["offset"]] <- offset
 
@@ -257,7 +257,7 @@ fracreg <- function(y,x,x2=x,linkbin,linkfrac,type="1P",inflation=0,intercept=TR
 		converged2 <- results1$converged
 		if(table==TRUE) fracreg.table(yb1,results1$yhat,p1,p.var1,x.names,"3Pbin1",linkbin[2],converged2,var.ty,LL=results1$LL,method=method,var.cluster=var.clu1,dfc=dfc,or=or,level=level)
 		names(p1) <- x.names
-		resBIN1 <- list(class=class,formula=yb1 ~ x_subset - 1,type="3Pbin1",link=linkbin[2],method=method,p=p1,y=yb1,yhat=results1$yhat,xbhat=results1$xbhat,converged=converged2,LL=results1$LL,x.names=x.names)
+		resBIN1 <- list(class=class,formula=yb1 ~ x_subset - 1,type="3Pbin1",link=linkbin[2],method=method,p=p1,yhat=results1$yhat,xbhat=results1$xbhat,converged=converged2,LL=results1$LL,x.names=x.names)
 		if(variance==TRUE) { dimnames(p.var1) <- list(x.names,x.names); resBIN1[["p.var"]] <- p.var1; resBIN1[["var.type"]] <- var.ty }
 		if(!is.null(offset1)) resBIN1[["offset"]] <- offset1
 
@@ -269,7 +269,7 @@ fracreg <- function(y,x,x2=x,linkbin,linkfrac,type="1P",inflation=0,intercept=TR
 		converged3 <- resultsF$converged
 		if(table==TRUE) fracreg.table(yf,resultsF$yhat,pF,p.varF,x2.names,"3Pfrac",linkfrac,converged3,var.tyF,LL=resultsF$LL,method="QML",var.cluster=var.cluf,dfc=dfc,or=or,level=level)
 		names(pF) <- x2.names
-		resFRAC <- list(class=class,formula=yf ~ x2f - 1,type="3Pfrac",link=linkfrac,method="QML",p=pF,y=yf,yhat=resultsF$yhat,xbhat=resultsF$xbhat,converged=converged3,LL=resultsF$LL,x.names=x2.names)
+		resFRAC <- list(class=class,formula=yf ~ x2f - 1,type="3Pfrac",link=linkfrac,method="QML",p=pF,yhat=resultsF$yhat,xbhat=resultsF$xbhat,converged=converged3,x.names=x2.names)
 		if(variance==TRUE) { dimnames(p.varF) <- list(x2.names,x2.names); resFRAC[["p.var"]] <- p.varF; resFRAC[["var.type"]] <- var.tyF }
 		if(!is.null(offsetf)) resFRAC[["offset"]] <- offsetf
 	}

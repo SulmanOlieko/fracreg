@@ -69,7 +69,6 @@ X <- cbind(mrate = fracreg_k401k$mrate, age = fracreg_k401k$age,
            totemp = fracreg_k401k$totemp, sole = fracreg_k401k$sole)
 
 m <- fracreg(y, X, type="1P", linkfrac="logit")
-summary(m)
 fracreg.reset(m)
 
 ### Simulated Examples
@@ -88,13 +87,11 @@ y[y > 0.9] <- 1
 #using LM and Wald versions of the RESET test, based on 1 or 2 fitted powers of
 #the linear predictor
 res <- fracreg(y,X,linkfrac="logit",table=FALSE)
-summary(res)
 fracreg.reset(res,2:3,c("Wald","LM"))
 
 #Testing the probit specification of the binary component of a two-part fractional
 #regression model using LR-based RESET tests with quadratic and cubic fitted 
 #powers of the linear predictor
 res <- fracreg(y,X,linkbin="probit",type="2Pbin",inf=1,table=FALSE)
-summary(res)
 fracreg.reset(res,3,"LR")
 }

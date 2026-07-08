@@ -188,21 +188,17 @@ X <- cbind(mrate = fracreg_k401k$mrate, age = fracreg_k401k$age,
            totemp = fracreg_k401k$totemp, sole = fracreg_k401k$sole)
 
 # 1P Model
-fit <- fracreg(y, X, type="1P", linkfrac="logit")
-summary(fit)
+fracreg(y, X, type="1P", linkfrac="logit")
 
 # 1P Model reporting odds ratios and 99% confidence intervals
-fit <- fracreg(y, X, type="1P", linkfrac="logit", or=TRUE, level=0.99)
-summary(fit)
+fracreg(y, X, type="1P", linkfrac="logit", or=TRUE, level=0.99)
 
 # 2P Model (modelling mass at 1)
-fit <- fracreg(y, X, type="2P", inflation=1, linkbin="logit", linkfrac="logit")
-summary(fit)
+fracreg(y, X, type="2P", inflation=1, linkbin="logit", linkfrac="logit")
 
 # 3P Model (inject artificial 0s for demonstration)
 y_3p <- y; y_3p[1:50] <- 0
-fit <- fracreg(y_3p, X, type="3P", linkbin=c("logit","logit"), linkfrac="logit")
-summary(fit)
+fracreg(y_3p, X, type="3P", linkbin=c("logit","logit"), linkfrac="logit")
 
 ### Simulated Examples
 
@@ -223,28 +219,23 @@ y[y_latent > 0.8] <- 1
 X <- cbind(x1 = x1, x2 = x2)
 
 # fracreg estimation of a logit fractional response model
-fit <- fracreg(y, X, type="1P", linkfrac="logit")
-summary(fit)
+fracreg(y, X, type="1P", linkfrac="logit")
 
 # fracreg estimation of the binary logit component of the two-part fractional
 # regression model with y=0 as the relevant boundary value
-fit <- fracreg(y, X, type="2Pbin", inflation=0, linkbin="logit")
-summary(fit)
+fracreg(y, X, type="2Pbin", inflation=0, linkbin="logit")
 
 # fracreg estimation of the fractional component of the two-part fractional
 # regression model with y=0 as the relevant boundary value and using a
 # probit link function
-fit <- fracreg(y, X, type="2Pfrac", inflation=0, linkfrac="probit")
-summary(fit)
+fracreg(y, X, type="2Pfrac", inflation=0, linkfrac="probit")
 
 # fracreg estimation of both components of a two-part fractional response model
 # with y=0 as the relevant boundary value and using a cloglog binary link
 # function and a logit fractional link function
-fit <- fracreg(y, X, type="2P", inflation=0, linkbin="cloglog", linkfrac="logit")
-summary(fit)
+fracreg(y, X, type="2P", inflation=0, linkbin="cloglog", linkfrac="logit")
 
 # Three-part double-inflated model (y has both 0s and 1s)
-fit <- fracreg(y, X, type="3P", linkbin=c("logit","probit"), linkfrac="logit")
-summary(fit)
+fracreg(y, X, type="3P", linkbin=c("logit","probit"), linkfrac="logit")
 }
 

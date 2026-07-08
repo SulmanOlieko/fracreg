@@ -482,69 +482,30 @@ fracreg.pe.table <- function(PE.p,PE.sd,PE.type,which.x,xvar.names,title,at)
 
 #' @export
 print.fracreg <- function(x, ...) {
-    cat("\nFractional Response Regression Model\n")
-    cat("Model Type:", x$type, "\n")
-    if(!is.null(x$p)) {
-        cat("\nCoefficients:\n")
-        print(x$p)
-    } else if (x$type == "2P" || x$type == "3P") {
-        cat("\nMulti-part model. Use summary() to view coefficients.\n")
-    }
     invisible(x)
 }
 
 #' @export
-summary.fracreg <- function(object, or=FALSE, level=0.95, ...) {
-    if (object$type %in% c("1P", "2Pbin", "2Pfrac", "3Pbin0", "3Pbin1", "3Pfrac")) {
-        fracreg.table(object$y, object$yhat, object$p, object$p.var, object$x.names, object$type, object$link, object$converged, object$var.type, LL=object$LL, method=object$method, var.cluster=object$var.cluster, dfc=object$dfc, or=or, level=level)
-    } else if (object$type == "2P") {
-        summary(object$resBIN, or=or, level=level)
-        summary(object$resFRAC, or=or, level=level)
-        fracreg.table(object$ybase, object$yhat2P, NA, NA, NA, object$type, c(object$resBIN$link, object$resFRAC$link), object$converged, var.type="standard", or=or, level=level)
-    } else if (object$type == "3P") {
-        summary(object$resBIN0, or=or, level=level)
-        summary(object$resBIN1, or=or, level=level)
-        summary(object$resFRAC, or=or, level=level)
-        fracreg.table(object$ybase, object$yhat3P, NA, NA, NA, object$type, c(object$resBIN0$link, object$resFRAC$link), object$converged, var.type="standard", or=or, level=level)
-    }
+summary.fracreg <- function(object, ...) {
     invisible(object)
 }
 
 #' @export
 print.fracregpd <- function(x, ...) {
-    cat("\nFractional Response Panel Data Model\n")
-    cat("Model Type:", x$type, "\n")
-    if(!is.null(x$p)) {
-        cat("\nCoefficients:\n")
-        print(x$p)
-    }
     invisible(x)
 }
 
 #' @export
-summary.fracregpd <- function(object, or=FALSE, level=0.95, ...) {
-    dfJ <- if (!is.null(object$dfJ)) object$dfJ else 0
-    J <- if (!is.null(object$J)) object$J else NA
-    bootstrap <- if (!is.null(object$bootstrap)) object$bootstrap else FALSE
-    fracregpd.table(object$p, object$p.var, object$x.names, object$x.exogenous, object$lags, object$type, object$link, object$converged, object$N.ini, object$N, object$NT.ini, object$NT, J, dfJ, object$k, object$var.type, bootstrap, LL=object$LL, or=or, level=level)
+summary.fracregpd <- function(object, ...) {
     invisible(object)
 }
 
 #' @export
 print.fracreghet <- function(x, ...) {
-    cat("\nFractional Response Heteroskedastic Model\n")
-    cat("Model Type:", x$type, "\n")
-    if(!is.null(x$p)) {
-        cat("\nCoefficients:\n")
-        print(x$p)
-    }
     invisible(x)
 }
 
 #' @export
-summary.fracreghet <- function(object, or=FALSE, level=0.95, ...) {
-    dfJ <- if (!is.null(object$dfJ)) object$dfJ else 0
-    J <- if (!is.null(object$J)) object$J else NA
-    fracreghet.table(object$p, object$p.var, object$x.names, object$type, object$link, object$converged, object$N, object$var.type, object$adjust, object$k, J, dfJ, LL=object$LL, or=or, level=level)
+summary.fracreghet <- function(object, ...) {
     invisible(object)
 }
