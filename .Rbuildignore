@@ -11,3 +11,5 @@
 ^data-raw$
 ^scratch$
 ^cran-comments\.md$
+^CRAN-SUBMISSION$
+^sitemap\.xml$
