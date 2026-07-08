@@ -93,6 +93,7 @@ X <- cbind(mrate = fracreg_k401k$mrate, age = fracreg_k401k$age,
            totemp = fracreg_k401k$totemp, sole = fracreg_k401k$sole)
 
 m <- fracreg(y, X, type="1P", linkfrac="logit")
+summary(m)
 fracreg.pe(m)
 
 ### Simulated Examples
@@ -109,17 +110,20 @@ y[y > 0.9] <- 1
 
 #Computing average partial effects for a logit fractional response model
 res <- fracreg(y,X,linkfrac="logit",table=FALSE)
+summary(res)
 fracreg.pe(res)
 
 #Computing average partial effects for a binary logit + fractional probit
 #two-part model
 res <- fracreg(y,X,linkbin="logit",linkfrac="probit",type="2P",inf=1,table=FALSE)
+summary(res)
 fracreg.pe(res)
 
 #Computing conditional partial effects for X2 in the logit component
 #of a two-part fractional response model, with the covariates evaluated
 #at their median values
 res <- fracreg(y,X,linkfrac="logit",type="2Pfrac",inf=1,table=FALSE)
+summary(res)
 fracreg.pe(res,APE=FALSE,CPE=TRUE,at="median",which.x="X2")
 
 #Computing average partial effects for a three-part double-inflated model
@@ -127,5 +131,6 @@ y3p <- y
 y3p[1:20] <- 0
 y3p[21:40] <- 1
 res3p <- fracreg(y3p,X,linkbin=c("logit","probit"),linkfrac="logit",type="3P",table=FALSE)
+summary(res3p)
 fracreg.pe(res3p)
 }

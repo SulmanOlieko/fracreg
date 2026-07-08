@@ -524,7 +524,7 @@ fracreghet.tests.table <- function(test.which,S,Sp,ver,title1,title2)
 	cat(.fracreg.sep(), "\n")
 }
 
-fracreghet <- function(y,x,z=x,var.endog,start,type="GMMx",link="logit",intercept=T,table=T,variance=T,var.type="robust",var.cluster,adjust=0,offset=NULL,or=FALSE,level=0.95,...)
+fracreghet <- function(y,x,z=x,var.endog,start,type="GMMx",link="logit",intercept=T,table=FALSE,variance=T,var.type="robust",var.cluster,adjust=0,offset=NULL,or=FALSE,level=0.95,...)
 {
 	LL <- NULL
 
@@ -711,9 +711,12 @@ fracreghet <- function(y,x,z=x,var.endog,start,type="GMMx",link="logit",intercep
 
 	formula <- y ~ x - 1
 
-	res <- list(class=class,formula=formula,type=type,link=link,adjust=adjust,p=p,Hy=Hy,xbhat=as.vector(XB),converged=converged,x.names=x.names.in)
+	res <- list(class=class,formula=formula,type=type,link=link,adjust=adjust,p=p,y=y,Hy=Hy,xbhat=as.vector(XB),converged=converged,LL=LL,x.names=x.names.in,N=N,k=k)
 	if(!is.null(offset)) res[["offset"]] <- offset
-	if(any(type==c("GMMz","LINz")) & kz>k) res[["J"]] <- J
+	if(any(type==c("GMMz","LINz")) & kz>k) {
+		res[["J"]] <- J
+		res[["dfJ"]] <- dfJ
+	}
 
 	if(variance==T & converged==T)
 	{

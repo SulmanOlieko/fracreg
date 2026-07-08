@@ -459,7 +459,7 @@ fracregpd.table <- function(p,p.var,x.names,x.exogenous,lags,type,link,converged
 	cat("\n")
 }
 
-fracregpd <- function(id,time,y,x,z,var.endog,x.exogenous=T,lags,start,type,GMMww.cor=T,link="logit",intercept=T,table=T,variance=T,var.type="cluster",tdummies=F,bootstrap=F,B=200,offset=NULL,or=FALSE,level=0.95,...)
+fracregpd <- function(id,time,y,x,z,var.endog,x.exogenous=T,lags,start,type,GMMww.cor=T,link="logit",intercept=T,table=FALSE,variance=T,var.type="cluster",tdummies=F,bootstrap=F,B=200,offset=NULL,or=FALSE,level=0.95,...)
 {
 	### 1. Error and warning messages
 
@@ -848,6 +848,7 @@ fracregpd <- function(id,time,y,x,z,var.endog,x.exogenous=T,lags,start,type,GMMw
 	converged <- results$converged
 	LL <- results$LL
 
+	J <- NULL
 	if(type!="QMLcre" & dfJ>0)
 	{
 		Qn <- results$Qn
@@ -953,7 +954,7 @@ fracregpd <- function(id,time,y,x,z,var.endog,x.exogenous=T,lags,start,type,GMMw
 	if(table==T) fracregpd.table(p,p.var,x.names,x.exogenous,lags,type,link,converged,N.ini,N,NT.ini,NT,J,dfJ,k,var.type,bootstrap,LL=LL,or=or,level=level)
 
 	names(p) <- x.names
-	res <- list(type=type,link=link,Hy=Hy,p=p,converged=converged)
+	res <- list(type=type,link=link,y=Hy,Hy=Hy,p=p,converged=converged,x.names=x.names,x.exogenous=x.exogenous,lags=lags,N.ini=N.ini,N=N,NT.ini=NT.ini,NT=NT,J=J,dfJ=dfJ,k=k,bootstrap=bootstrap,LL=LL)
 	if(!is.null(offset)) res[["offset"]] <- offset
 	if(dfJ>0) res[["J"]] <- J
 

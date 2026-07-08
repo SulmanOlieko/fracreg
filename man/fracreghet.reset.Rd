@@ -71,6 +71,7 @@ y_adj[y_adj == 1] <- 0.999
 
 Z_emp <- cbind(age = fracreg_k401k$age, ltotemp = fracreg_k401k$ltotemp) 
 res_emp <- fracreghet(y_adj, X_het, type="GMMx", link="logit", table=FALSE) 
+summary(res_emp)
 fracreghet.reset(res_emp)
  
 ### Simulated Examples
@@ -87,6 +88,7 @@ dimnames(Z)[[2]] <- c("Z1","Z2","Z3")
 y <- exp(X[,1]+X[,2]+u)/(1+exp(X[,1]+X[,2]+u))
 
 res <- fracreghet(y,X,type="GMMx",table=FALSE)
+summary(res)
 
 #LM and Wald versions of the RESET test, based on 1 or 2 fitted powers of xb
 fracreghet.reset(res,2:3,c("Wald","LM"))
