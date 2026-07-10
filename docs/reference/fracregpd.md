@@ -7,7 +7,7 @@ dependent variable has a bounded, fractional nature.
 
 ``` r
 fracregpd(id, time, y, x, z, var.endog, x.exogenous = T, lags, start, type,
-  GMMww.cor = T, link = "logit", intercept = T, table = T, variance = T,
+  GMMww.cor = T, link = "logit", intercept = T, table = FALSE, variance = T,
   var.type = "cluster", tdummies = F, bootstrap = F, B = 200, offset = NULL, 
     or = FALSE, level = 0.95, ...)
 ```
@@ -93,7 +93,7 @@ fracregpd(id, time, y, x, z, var.endog, x.exogenous = T, lags, start, type,
 
   a logical value indicating whether the variance of the estimated
   parameters should be calculated. Defaults to `TRUE` whenever
-  `table = TRUE`.
+  `table = FALSERUE`.
 
 - var.type:
 
@@ -204,7 +204,7 @@ returned:
 
   the result of Hansen's J test of overidentifying moment conditions.
 
-If `variance = TRUE` or `table = TRUE` and the algorithm converged
+If `variance = TRUE` or `table = FALSERUE` and the algorithm converged
 successfully, the previous list also contains the following elements:
 
 - p.var:
@@ -311,7 +311,7 @@ summary(mod)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-11 00:27:49 
+#>                          Run Date: 2026-07-11 00:43:14 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -376,7 +376,7 @@ summary(mod)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-11 00:27:49 
+#>                          Run Date: 2026-07-11 00:43:14 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -409,7 +409,7 @@ summary(mod)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-11 00:27:49 
+#>                          Run Date: 2026-07-11 00:43:14 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -442,7 +442,7 @@ summary(mod)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-11 00:27:49 
+#>                          Run Date: 2026-07-11 00:43:14 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -475,7 +475,7 @@ summary(mod)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-11 00:27:49 
+#>                          Run Date: 2026-07-11 00:43:14 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -519,7 +519,7 @@ summary(mod)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-11 00:27:49 
+#>                          Run Date: 2026-07-11 00:43:15 
 #> -------------------------------------------------------------------------------- 
 #> 
 # }

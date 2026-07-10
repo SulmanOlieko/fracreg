@@ -9,7 +9,7 @@ RESET Test for Fractional Response Regressions
 \code{fracreg.reset} is used to perform the Regression Equation Specification Error Test (RESET) to check the functional form and specification of fractional response models.
 }
 
-\usage{fracreg.reset(object, lastpower.vec = 3, version = "LM", table = TRUE, ...)
+\usage{fracreg.reset(object, lastpower.vec = 3, version = "LM", table = FALSE, ...)
 }
 
 \arguments{

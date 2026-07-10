@@ -9,7 +9,7 @@ RESET Test for Fractional Response Regressions under Neglected Heterogeneity
 \code{fracreghet.reset} is used to test the specification of fractional response models estimated by GMMx or LINx.
 }
 
-\usage{fracreghet.reset(object, lastpower.vec = 3, version = "Wald", table = T, ...)
+\usage{fracreghet.reset(object, lastpower.vec = 3, version = "Wald", table = FALSE, ...)
 }
 
 \arguments{

@@ -9,7 +9,7 @@ GGOFF Tests for Fractional Response Regressions
 \code{fracreg.ggoff} is used to perform Generalised Goodness-Of-Functional-Form (GGOFF) tests to check the adequacy of the functional form and link specification of fractional response models.
 }
 
-\usage{fracreg.ggoff(object, version = "LM", table = TRUE, ...)
+\usage{fracreg.ggoff(object, version = "LM", table = FALSE, ...)
 }
 
 \arguments{

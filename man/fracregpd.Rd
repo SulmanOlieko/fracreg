@@ -9,7 +9,7 @@ Fitting Panel Data Fractional Response Regressions
 \code{fracregpd} is used to fit panel data regression models when the dependent variable has a bounded, fractional nature.
 }
 \usage{fracregpd(id, time, y, x, z, var.endog, x.exogenous = T, lags, start, type,
-	GMMww.cor = T, link = "logit", intercept = T, table = T, variance = T,
+	GMMww.cor = T, link = "logit", intercept = T, table = FALSE, variance = T,
 	var.type = "cluster", tdummies = F, bootstrap = F, B = 200, offset = NULL, 
     or = FALSE, level = 0.95, ...)
 }
@@ -46,7 +46,7 @@ instrumental variables). Only required in case of endogenous explanatory variabl
   \item{table}{a logical value indicating whether a summary table with the regression results should be printed.
 }
   \item{variance}{a logical value indicating whether the variance of the estimated parameters should be calculated. Defaults to 
-\code{TRUE} whenever \code{table = TRUE}.
+\code{TRUE} whenever \code{table = FALSERUE}.
 }
   \item{var.type}{a description of the type of variance of the estimated parameters to be calculated. Options are \code{cluster}, the default, and \code{robust}. In overidentified models, it also affects the parameter estimates via the GMM weighting matrix.
 }
@@ -102,7 +102,7 @@ In case of an overidentifying model, the following element is also returned:
   \item{J}{the result of Hansen's J test of overidentifying moment conditions.
 }
 
-If \code{variance = TRUE} or \code{table = TRUE} and the algorithm converged successfully, the previous list also contains the following elements:
+If \code{variance = TRUE} or \code{table = FALSERUE} and the algorithm converged successfully, the previous list also contains the following elements:
   \item{p.var}{a named covariance matrix.
 }
   \item{var.type}{covariance matrix type.

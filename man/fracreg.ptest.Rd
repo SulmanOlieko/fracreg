@@ -9,7 +9,7 @@ P Test for Fractional Response Regressions
 \code{fracreg.ptest} is used to perform the P test to evaluate the specification of alternative, non-nested fractional response models by testing against each other.
 }
 
-\usage{fracreg.ptest(object1, object2, version = "Wald", table = TRUE)
+\usage{fracreg.ptest(object1, object2, version = "Wald", table = FALSE)
 }
 
 \arguments{

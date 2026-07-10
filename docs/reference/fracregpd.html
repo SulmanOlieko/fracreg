@@ -47,7 +47,7 @@
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">fracregpd</span><span class="op">(</span><span class="va">id</span>, <span class="va">time</span>, <span class="va">y</span>, <span class="va">x</span>, <span class="va">z</span>, <span class="va">var.endog</span>, x.exogenous <span class="op">=</span> <span class="cn">T</span>, <span class="va">lags</span>, <span class="va">start</span>, <span class="va">type</span>,</span>
-<span>  GMMww.cor <span class="op">=</span> <span class="cn">T</span>, link <span class="op">=</span> <span class="st">"logit"</span>, intercept <span class="op">=</span> <span class="cn">T</span>, table <span class="op">=</span> <span class="cn">T</span>, variance <span class="op">=</span> <span class="cn">T</span>,</span>
+<span>  GMMww.cor <span class="op">=</span> <span class="cn">T</span>, link <span class="op">=</span> <span class="st">"logit"</span>, intercept <span class="op">=</span> <span class="cn">T</span>, table <span class="op">=</span> <span class="cn">FALSE</span>, variance <span class="op">=</span> <span class="cn">T</span>,</span>
 <span>  var.type <span class="op">=</span> <span class="st">"cluster"</span>, tdummies <span class="op">=</span> <span class="cn">F</span>, bootstrap <span class="op">=</span> <span class="cn">F</span>, B <span class="op">=</span> <span class="fl">200</span>, offset <span class="op">=</span> <span class="cn">NULL</span>, </span>
 <span>    or <span class="op">=</span> <span class="cn">FALSE</span>, level <span class="op">=</span> <span class="fl">0.95</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -101,7 +101,7 @@ instrumental variables). Only required in case of endogenous explanatory variabl
 
   <dt id="arg-variance">variance<a class="anchor" aria-label="anchor" href="#arg-variance"></a></dt>
 <dd><p>a logical value indicating whether the variance of the estimated parameters should be calculated. Defaults to
-<code>TRUE</code> whenever <code>table = TRUE</code>.</p></dd>
+<code>TRUE</code> whenever <code>table = FALSERUE</code>.</p></dd>
 
   <dt id="arg-var-type">var.type<a class="anchor" aria-label="anchor" href="#arg-var-type"></a></dt>
 <dd><p>a description of the type of variance of the estimated parameters to be calculated. Options are <code>cluster</code>, the default, and <code>robust</code>. In overidentified models, it also affects the parameter estimates via the GMM weighting matrix.</p></dd>
@@ -168,7 +168,7 @@ where \(H(\cdot)\) is a transformation function and \(Z_{it}\) is a matrix of va
 <dd><p>the result of Hansen's J test of overidentifying moment conditions.</p></dd>
 
 
-</dl><p>If <code>variance = TRUE</code> or <code>table = TRUE</code> and the algorithm converged successfully, the previous list also contains the following elements:</p>
+</dl><p>If <code>variance = TRUE</code> or <code>table = FALSERUE</code> and the algorithm converged successfully, the previous list also contains the following elements:</p>
 <dl><dt>p.var</dt>
 <dd><p>a named covariance matrix.</p></dd>
 
@@ -256,7 +256,7 @@ Odds ratios are particularly useful in fractional logit models as they provide a
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-11 00:27:49 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-11 00:43:14 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
@@ -321,7 +321,7 @@ Odds ratios are particularly useful in fractional logit models as they provide a
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-11 00:27:49 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-11 00:43:14 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
@@ -354,7 +354,7 @@ Odds ratios are particularly useful in fractional logit models as they provide a
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-11 00:27:49 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-11 00:43:14 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
@@ -387,7 +387,7 @@ Odds ratios are particularly useful in fractional logit models as they provide a
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-11 00:27:49 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-11 00:43:14 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
@@ -420,7 +420,7 @@ Odds ratios are particularly useful in fractional logit models as they provide a
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-11 00:27:49 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-11 00:43:14 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
@@ -464,7 +464,7 @@ Odds ratios are particularly useful in fractional logit models as they provide a
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-11 00:27:49 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-11 00:43:15 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
