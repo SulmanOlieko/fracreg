@@ -344,13 +344,13 @@ fracreghet.table <- function(p,p.var,x.names,type,link,converged,N,var.type,adju
 			colnames(res)[2] <- paste0(tools::toTitleCase(se_label), " Std.Err.")
 		}
 		rownames(res) <- x.names
-		rownames(res)[rownames(res) == "INTERCEPT"] <- "Constant"
+		rownames(res)[rownames(res) == "(Intercept)"] <- "(Intercept)"
 
 		Wald <- NA
 		p_wald <- NA
 		df_wald <- NA
 		if(!is.character(p.var)) {
-			if(length(p) > 1 && x.names[1] == "INTERCEPT") {
+			if(length(p) > 1 && x.names[1] == "(Intercept)") {
 				p_idx <- 2:length(p)
 				W <- tryCatch(t(p[p_idx]) %*% solve(p.var[p_idx, p_idx]) %*% p[p_idx], error = function(e) NA)
 				if (!is.na(W)) {
@@ -358,7 +358,7 @@ fracreghet.table <- function(p,p.var,x.names,type,link,converged,N,var.type,adju
 					df_wald <- length(p_idx)
 					p_wald <- 1 - pchisq(Wald, df = df_wald)
 				}
-			} else if(length(p) > 0 && x.names[1] != "INTERCEPT") {
+			} else if(length(p) > 0 && x.names[1] != "(Intercept)") {
 				W <- tryCatch(t(p) %*% solve(p.var) %*% p, error = function(e) NA)
 				if (!is.na(W)) {
 					Wald <- as.numeric(W)
@@ -447,7 +447,7 @@ fracreghet.pe.var <- function(x,npar,which.x,x.names,xvar.names,type,p,xbhat,g,l
 	PE.sd <- PE.sd%*%p.var%*%t(PE.sd)
 
 	PE.sd <- diag(PE.sd)^0.5
-	if(any(x.names=="INTERCEPT")) PE.sd <- PE.sd[-1]
+	if(any(x.names=="(Intercept)")) PE.sd <- PE.sd[-1]
 
 	names(PE.sd) <- xvar.names
 	PE.sd <- PE.sd[which.x]
@@ -462,7 +462,7 @@ fracreghet.pe.table <- function(PE.p,PE.sd,PE.type,which.x,xvar.names,title,adju
 
 	res <- cbind(Estimate = PE.p, `Std. Error` = PE.sd, `z value` = z.ratio, `Pr(>|z|)` = p.value)
 	rownames(res) <- which.x
-	rownames(res)[rownames(res) == "INTERCEPT"] <- "Constant"
+	rownames(res)[rownames(res) == "(Intercept)"] <- "(Intercept)"
 
 	cat("\n\n")
 	cat(.fracreg.sep(), "\n")
@@ -526,6 +526,7 @@ fracreghet.tests.table <- function(test.which,S,Sp,ver,title1,title2)
 
 fracreghet <- function(y,x,z=x,var.endog,start,type="GMMx",link="logit",intercept=T,table=T,variance=T,var.type="robust",var.cluster,adjust=0,offset=NULL,or=FALSE,level=0.95,...)
 {
+	cl <- match.call()
 	LL <- NULL
 
 	### 1. Error and warning messages
@@ -574,8 +575,8 @@ fracreghet <- function(y,x,z=x,var.endog,start,type="GMMx",link="logit",intercep
 	{
 		x <- cbind(1,x)
 		z <- cbind(1,z)
-		x.names <- c("INTERCEPT",x.names)
-		z.names <- c("INTERCEPT",z.names)
+		x.names <- c("(Intercept)",x.names)
+		z.names <- c("(Intercept)",z.names)
 	}
 
 	if(length(x.names)!=length(unique(x.names))) stop("some covariate names in x are identical")
@@ -730,7 +731,7 @@ fracreghet <- function(y,x,z=x,var.endog,start,type="GMMx",link="logit",intercep
 	return(invisible(res))
 }
 
-fracreghet.reset <- function(object,lastpower.vec=3,version="Wald",table=T,...)
+fracreghet.reset <- function(object,lastpower.vec=3,version="Wald",table=FALSE,...)
 {
 	### 1. Error and warning messages
 
@@ -894,18 +895,22 @@ fracreghet.reset <- function(object,lastpower.vec=3,version="Wald",table=T,...)
 		}
 	}
 
-	if(any(!is.na(S)) & table==T) fracreghet.tests.table("RESET",S,Sp,ver,title1,title2)
+	table.info <- list(test.which="RESET",S=S,Sp=Sp,ver=ver,title1=title1,title2=title2)
+	if(any(!is.na(S)) & table==T) do.call(fracreghet.tests.table, table.info)
 	if(all(is.na(S))) warning("RESET test could not be computed; either algorithm did not converge (Wald version) or covariance matrix is singular (Wald/LM versions)")
 
 	### 4. Return results
 
 	statistics <- S[-1]
 	names(statistics) <- ver[-1]
+	
+	class(statistics) <- c("fracreghet.reset", "numeric")
+	attr(statistics, "table.info") <- table.info
 
 	return(invisible(statistics))
 }
 
-fracreghet.pe <- function(object,smearing=T,APE=T,CPE=F,at=NULL,which.x=NULL,table=T,variance=T)
+fracreghet.pe <- function(object,smearing=T,APE=T,CPE=F,at=NULL,which.x=NULL,table=FALSE,variance=T)
 {
 	### 1. Error and warning messages
 
@@ -935,7 +940,7 @@ fracreghet.pe <- function(object,smearing=T,APE=T,CPE=F,at=NULL,which.x=NULL,tab
 	x.names <- object$x.names
 	Hy <- object$Hy
 
-	if(any(x.names=="INTERCEPT")) xvar.names <- x.names[-1]
+	if(any(x.names=="(Intercept)")) xvar.names <- x.names[-1]
 	else xvar.names <- x.names
 
 	k <- length(xvar.names)
@@ -976,7 +981,7 @@ fracreghet.pe <- function(object,smearing=T,APE=T,CPE=F,at=NULL,which.x=NULL,tab
 	{
 		PE.type <- "APE"
 
-		if(any(x.names=="INTERCEPT")) p.pe <- matrix(rep(p[-1],each=n),ncol=k)
+		if(any(x.names=="(Intercept)")) p.pe <- matrix(rep(p[-1],each=n),ncol=k)
  		else p.pe <- matrix(rep(p,each=n),ncol=k)
 		dimnames(p.pe) <- list(NULL,xvar.names)
 
@@ -1012,7 +1017,9 @@ fracreghet.pe <- function(object,smearing=T,APE=T,CPE=F,at=NULL,which.x=NULL,tab
 			resAPE[["PE.sd"]] <- PE.sd
 		}
 
-		if(table==T) fracreghet.pe.table(PE.p,PE.sd,PE.type,which.x,xvar.names,title,adjust,at)
+		table.info.APE <- list(PE.p=PE.p,PE.sd=if(variance) PE.sd else NA,PE.type=PE.type,which.x=which.x,xvar.names=xvar.names,title=title,adjust=adjust,at=at)
+		if(table==T) do.call(fracreghet.pe.table, table.info.APE)
+		resAPE[["table.info"]] <- table.info.APE
 	}
 
 	### 4. Conditional partial effects
@@ -1045,7 +1052,7 @@ fracreghet.pe <- function(object,smearing=T,APE=T,CPE=F,at=NULL,which.x=NULL,tab
 			{
 				if(is.numeric(at))
 				{
-					if(any(x.names=="INTERCEPT")) xm <- c(1,at)
+					if(any(x.names=="(Intercept)")) xm <- c(1,at)
 					else xm <- at
 				}
 				else stop("at not appropriately specified")
@@ -1056,7 +1063,7 @@ fracreghet.pe <- function(object,smearing=T,APE=T,CPE=F,at=NULL,which.x=NULL,tab
 			if(length(at)!=k) stop("at not appropriately specified")
 			else
 			{
-				if(any(x.names=="INTERCEPT")) xm <- c(1,at)
+				if(any(x.names=="(Intercept)")) xm <- c(1,at)
 				else xm <- at
 			}
 		}
@@ -1089,12 +1096,17 @@ fracreghet.pe <- function(object,smearing=T,APE=T,CPE=F,at=NULL,which.x=NULL,tab
 			resCPE[["PE.sd"]] <- PE.sd
 		}
 
-		if(table==T) fracreghet.pe.table(PE.p,PE.sd,PE.type,which.x,xvar.names,title,adjust,at)
+		table.info.CPE <- list(PE.p=PE.p,PE.sd=if(variance) PE.sd else NA,PE.type=PE.type,which.x=which.x,xvar.names=xvar.names,title=title,adjust=adjust,at=at)
+		if(table==T) do.call(fracreghet.pe.table, table.info.CPE)
+		resCPE[["table.info"]] <- table.info.CPE
 	}
 
 	### 5. Return results
 
-	if(APE==T & CPE==T) return(invisible(list(ape=resAPE,cpe=resCPE)))
-	if(APE==T & CPE==F) return(invisible(resAPE))
-	if(APE==F & CPE==T) return(invisible(resCPE))
+	if(APE==T & CPE==T) res <- list(ape=resAPE,cpe=resCPE)
+	else if(APE==T & CPE==F) res <- resAPE
+	else if(APE==F & CPE==T) res <- resCPE
+	
+	class(res) <- "fracreghet.pe"
+	return(invisible(res))
 }

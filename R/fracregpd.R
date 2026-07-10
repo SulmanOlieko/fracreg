@@ -355,13 +355,13 @@ fracregpd.table <- function(p,p.var,x.names,x.exogenous,lags,type,link,converged
 			colnames(res_table)[2] <- paste0(tools::toTitleCase(se_type), " Std.Err.")
 		}
 		rownames(res_table) <- x.names
-		rownames(res_table)[rownames(res_table) == "INTERCEPT"] <- "Constant"
+		rownames(res_table)[rownames(res_table) == "(Intercept)"] <- "(Intercept)"
 
 		Wald <- NA
 		p_wald <- NA
 		df_wald <- NA
 		if(!is.character(p.var)) {
-			if(length(p) > 1 && x.names[1] == "INTERCEPT") {
+			if(length(p) > 1 && x.names[1] == "(Intercept)") {
 				p_idx <- 2:length(p)
 				W <- tryCatch(t(p[p_idx]) %*% solve(p.var[p_idx, p_idx]) %*% p[p_idx], error = function(e) NA)
 				if (!is.na(W)) {
@@ -369,7 +369,7 @@ fracregpd.table <- function(p,p.var,x.names,x.exogenous,lags,type,link,converged
 					df_wald <- length(p_idx)
 					p_wald <- 1 - pchisq(Wald, df = df_wald)
 				}
-			} else if(length(p) > 0 && x.names[1] != "INTERCEPT") {
+			} else if(length(p) > 0 && x.names[1] != "(Intercept)") {
 				W <- tryCatch(t(p) %*% solve(p.var) %*% p, error = function(e) NA)
 				if (!is.na(W)) {
 					Wald <- as.numeric(W)
@@ -459,8 +459,9 @@ fracregpd.table <- function(p,p.var,x.names,x.exogenous,lags,type,link,converged
 	cat("\n")
 }
 
-fracregpd <- function(id,time,y,x,z,var.endog,x.exogenous=T,lags,start,type,GMMww.cor=T,link="logit",intercept=T,table=T,variance=T,var.type="cluster",tdummies=F,bootstrap=F,B=200,offset=NULL,or=FALSE,level=0.95,...)
+fracregpd <- function(id,time,y,x,z,var.endog,x.exogenous=T,lags,start,type,GMMww.cor=T,link="logit",intercept=T,table=FALSE,variance=T,var.type="cluster",tdummies=F,bootstrap=F,B=200,offset=NULL,or=FALSE,level=0.95,...)
 {
+	cl <- match.call()
 	### 1. Error and warning messages
 
 	if(missing(id)) stop("variable id is missing")
@@ -524,8 +525,8 @@ fracregpd <- function(id,time,y,x,z,var.endog,x.exogenous=T,lags,start,type,GMMw
 	{
 		x <- cbind(1,x)
 		z <- cbind(1,z)
-		x.names <- c("INTERCEPT",x.names)
-		z.names <- c("INTERCEPT",z.names)
+		x.names <- c("(Intercept)",x.names)
+		z.names <- c("(Intercept)",z.names)
 	}
 
 	if(length(x.names)!=length(unique(x.names))) stop("some covariate names in x are identical")
@@ -749,7 +750,7 @@ fracregpd <- function(id,time,y,x,z,var.endog,x.exogenous=T,lags,start,type,GMMw
 				x.m.aug <- T.dum*x.m[,1]
 				if(ncol(x.m)>1) for(j in 2:ncol(x.m)) x.m.aug <- cbind(x.m.aug,T.dum*x.m[,j])
 				x.m <- cbind(T.dum,x.m.aug)
-				x.m.names <- c(paste("INTERCEPT",Ti.unique,sep="_"),paste(rep(paste(xa.names,"mean",sep="_"),each=length(Ti.unique)),rep(Ti.unique,length(xa.names)),sep="_"))
+				x.m.names <- c(paste("(Intercept)",Ti.unique,sep="_"),paste(rep(paste(xa.names,"mean",sep="_"),each=length(Ti.unique)),rep(Ti.unique,length(xa.names)),sep="_"))
 				x.m <- cbind(x.m[Ti.ini.exp!=1,])
 			}
 			if(x.exogenous==F)
@@ -757,7 +758,7 @@ fracregpd <- function(id,time,y,x,z,var.endog,x.exogenous=T,lags,start,type,GMMw
 				z.m.aug <- T.dum*z.m[,1]
 				if(ncol(z.m)>1) for(j in 2:ncol(z.m)) z.m.aug <- cbind(z.m.aug,T.dum*z.m[,j])
 				z.m <- cbind(T.dum,z.m.aug)
-				z.m.names <- c(paste("INTERCEPT",Ti.unique,sep="_"),paste(rep(paste(za.names,"mean",sep="_"),each=length(Ti.unique)),rep(Ti.unique,length(za.names)),sep="_"))
+				z.m.names <- c(paste("(Intercept)",Ti.unique,sep="_"),paste(rep(paste(za.names,"mean",sep="_"),each=length(Ti.unique)),rep(Ti.unique,length(za.names)),sep="_"))
 				z.m <- cbind(z.m[Ti.ini.exp!=1,])
 			}
 
@@ -774,12 +775,12 @@ fracregpd <- function(id,time,y,x,z,var.endog,x.exogenous=T,lags,start,type,GMMw
 			if(x.exogenous==T)
 			{
 				x.m <- cbind(1,x.m)
-				x.m.names <- c("INTERCEPT_mean",paste(xa.names,"mean",sep="_"))
+				x.m.names <- c("(Intercept)_mean",paste(xa.names,"mean",sep="_"))
 			}
 			if(x.exogenous==F)	
 			{
 				z.m <- cbind(1,z.m)
-				z.m.names <- c("INTERCEPT_mean",paste(za.names,"mean",sep="_"))
+				z.m.names <- c("(Intercept)_mean",paste(za.names,"mean",sep="_"))
 			}
 		}
 
@@ -827,6 +828,7 @@ fracregpd <- function(id,time,y,x,z,var.endog,x.exogenous=T,lags,start,type,GMMw
 
 	k <- ncol(x)
 	kz <- ncol(z)
+	J <- NA
 	dfJ <- kz-k
 
 	### 4. Estimation
@@ -950,10 +952,11 @@ fracregpd <- function(id,time,y,x,z,var.endog,x.exogenous=T,lags,start,type,GMMw
 
 	if(type=="QMLcre" & x.exogenous==F) p <- c(p,PIhat)
 
-	if(table==T) fracregpd.table(p,p.var,x.names,x.exogenous,lags,type,link,converged,N.ini,N,NT.ini,NT,J,dfJ,k,var.type,bootstrap,LL=LL,or=or,level=level)
+	table.info <- list(p=p,p.var=p.var,x.names=x.names,x.exogenous=x.exogenous,lags=lags,type=type,link=link,converged=converged,N.ini=N.ini,N=N,NT.ini=NT.ini,NT=NT,J=J,dfJ=dfJ,k=k,var.type=var.type,bootstrap=bootstrap,LL=LL,or=or,level=level)
+	if(table==T) do.call(fracregpd.table, table.info)
 
 	names(p) <- x.names
-	res <- list(type=type,link=link,Hy=Hy,p=p,converged=converged)
+	res <- list(call=cl, type=type,link=link,Hy=Hy,p=p,converged=converged,table.info=table.info)
 	if(!is.null(offset)) res[["offset"]] <- offset
 	if(dfJ>0) res[["J"]] <- J
 

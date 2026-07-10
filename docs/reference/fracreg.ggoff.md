@@ -99,42 +99,8 @@ X <- cbind(mrate = fracreg_k401k$mrate, age = fracreg_k401k$age,
            totemp = fracreg_k401k$totemp, sole = fracreg_k401k$sole)
 
 m <- fracreg(y, X, type="1P", linkfrac="logit")
-#> 
-#> -------------------------------------------------------------------------------- 
-#>                           Fractional logit regression 
-#> -------------------------------------------------------------------------------- 
-#> Estimator:                                                                   QML 
-#> Data type:                                                       Cross-sectional 
-#> Number of observations:                                                     1534 
-#> Pseudo R-squared:                                                        0.14667 
-#> Log pseudolikelihood:                                                  -553.1626 
-#> Wald chi2(4):                                                           147.3049 
-#> Prob > chi2:                                                              0.0000 
-#> Standard errors:                                                          robust 
-#> Small sample correction:                                                   FALSE 
-#> Convergence:                                                          Successful 
-#> -------------------------------------------------------------------------------- 
-#>                     Final Quasi-Maximum Likelihood estimates 
-#> -------------------------------------------------------------------------------- 
-#>          Coefficient Robust Std.Err.    z value [95% Conf. Interval] Pr(>|z|)
-#> Constant   9.316e-01       8.408e-02  1.108e+01  7.668e-01     1.096  < 2e-16
-#> mrate      9.531e-01       1.371e-01  6.951e+00  6.843e-01     1.222 3.62e-12
-#> age        2.791e-02       4.877e-03  5.723e+00  1.835e-02     0.037 1.05e-08
-#> totemp    -8.182e-06       3.061e-06 -2.673e+00 -1.418e-05     0.000  0.00751
-#> sole       3.405e-01       8.066e-02  4.222e+00  1.824e-01     0.499 2.43e-05
-#>             
-#> Constant ***
-#> mrate    ***
-#> age      ***
-#> totemp   ** 
-#> sole     ***
-#> ---
-#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-#> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 20:37:01 
-#> -------------------------------------------------------------------------------- 
-#> 
-fracreg.ggoff(m)
+ggoff_res <- fracreg.ggoff(m)
+summary(ggoff_res)
 #> 
 #> -------------------------------------------------------------------------------- 
 #>                                    GGOFF test 
@@ -148,7 +114,7 @@ fracreg.ggoff(m)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 20:37:01 
+#>                          Run Date: 2026-07-11 00:27:41 
 #> -------------------------------------------------------------------------------- 
 
 ### Simulated Examples
@@ -166,8 +132,9 @@ y[y > 0.9] <- 1
 #Testing the logit specification of a standard fractional response model
 #using LM and Wald versions of the GGOFF test, based on 1 or 2 fitted powers of
 #the linear predictor
-res <- fracreg(y,X,linkfrac="logit",table=FALSE)
-fracreg.ggoff(res,c("Wald","LM"))
+mod <- fracreg(y,X,linkfrac="logit")
+ggoff_res <- fracreg.ggoff(mod,c("Wald","LM"))
+summary(ggoff_res)
 #> 
 #> -------------------------------------------------------------------------------- 
 #>                                    GGOFF test 
@@ -184,14 +151,15 @@ fracreg.ggoff(res,c("Wald","LM"))
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 20:37:01 
+#>                          Run Date: 2026-07-11 00:27:41 
 #> -------------------------------------------------------------------------------- 
 
 #Testing the probit specification of the binary component of a two-part fractional
 #regression model using a LR-based GGOFF test
-res <- fracreg(y,X,linkbin="probit",type="2Pbin",inf=1,table=FALSE)
-fracreg.ggoff(res,"LR")
+mod <- fracreg(y,X,linkbin="probit",type="2Pbin",inf=1)
+ggoff_res <- fracreg.ggoff(mod,"LR")
 #> Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred
+summary(ggoff_res)
 #> 
 #> -------------------------------------------------------------------------------- 
 #>                                    GGOFF test 
@@ -203,6 +171,6 @@ fracreg.ggoff(res,"LR")
 #> GOFF2 - LR     0.039   0.844
 #> GGOFF - LR     0.717   0.699
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 20:37:01 
+#>                          Run Date: 2026-07-11 00:27:41 
 #> -------------------------------------------------------------------------------- 
 ```

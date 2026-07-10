@@ -1,4 +1,4 @@
-fracreg.pe <- function(object,APE=TRUE,CPE=FALSE,at=NULL,which.x=NULL,variance=TRUE,table=TRUE)
+fracreg.pe <- function(object,APE=TRUE,CPE=FALSE,at=NULL,which.x=NULL,variance=TRUE,table=FALSE)
 {
 	### 1. Error and warning messages
 
@@ -96,7 +96,7 @@ fracreg.pe <- function(object,APE=TRUE,CPE=FALSE,at=NULL,which.x=NULL,variance=T
 		title <- paste("Binary",linka,"+ Fractional",linkb,"two-part regression")
 	}
 
-	if(any(x.names=="INTERCEPT")) xvar.names <- x.names[-1]
+	if(any(x.names=="(Intercept)")) xvar.names <- x.names[-1]
 	else xvar.names <- x.names
 
 	k <- length(xvar.names)
@@ -113,7 +113,7 @@ fracreg.pe <- function(object,APE=TRUE,CPE=FALSE,at=NULL,which.x=NULL,variance=T
 	{
 		PE.type <- "APE"
 
-		if(any(x.names=="INTERCEPT")) p.pe <- matrix(rep(pa[-1],each=n),ncol=k)
+		if(any(x.names=="(Intercept)")) p.pe <- matrix(rep(pa[-1],each=n),ncol=k)
  		else p.pe <- matrix(rep(pa,each=n),ncol=k)
 		dimnames(p.pe) <- list(NULL,xvar.names)
 
@@ -129,8 +129,8 @@ fracreg.pe <- function(object,APE=TRUE,CPE=FALSE,at=NULL,which.x=NULL,variance=T
 		if(type=="3P")
 		{
 			yhata <- object$resBIN0$yhat
-			if(any(x.names=="INTERCEPT")) p.pe2 <- matrix(rep(pb[-1],each=n),ncol=k) else p.pe2 <- matrix(rep(pb,each=n),ncol=k)
-			if(any(x.names=="INTERCEPT")) p.pe3 <- matrix(rep(pc[-1],each=n),ncol=k) else p.pe3 <- matrix(rep(pc,each=n),ncol=k)
+			if(any(x.names=="(Intercept)")) p.pe2 <- matrix(rep(pb[-1],each=n),ncol=k) else p.pe2 <- matrix(rep(pb,each=n),ncol=k)
+			if(any(x.names=="(Intercept)")) p.pe3 <- matrix(rep(pc[-1],each=n),ncol=k) else p.pe3 <- matrix(rep(pc,each=n),ncol=k)
 			dimnames(p.pe2) <- list(NULL,xvar.names)
 			dimnames(p.pe3) <- list(NULL,xvar.names)
 			
@@ -152,7 +152,7 @@ fracreg.pe <- function(object,APE=TRUE,CPE=FALSE,at=NULL,which.x=NULL,variance=T
 			yhata <- object$resBIN$yhat
 			PEa.p <- as.matrix(p.pe[,which.x])*ga
 
-			if(any(x.names=="INTERCEPT")) p.pe <- matrix(rep(pb[-1],each=n),ncol=k)
+			if(any(x.names=="(Intercept)")) p.pe <- matrix(rep(pb[-1],each=n),ncol=k)
  			else p.pe <- matrix(rep(pb,each=n),ncol=k)
 			dimnames(p.pe) <- list(NULL,xvar.names)
 
@@ -174,7 +174,9 @@ fracreg.pe <- function(object,APE=TRUE,CPE=FALSE,at=NULL,which.x=NULL,variance=T
 			resAPE[["PE.sd"]] <- PE.sd
 		}
 
-		if(table==TRUE) fracreg.pe.table(PE.p,PE.sd,PE.type,which.x,xvar.names,title,at)
+		table.info.APE <- list(PE.p=PE.p,PE.sd=if(variance) PE.sd else NA,PE.type=PE.type,which.x=which.x,xvar.names=xvar.names,title=title,at=at)
+		if(table==TRUE) do.call(fracreg.pe.table, table.info.APE)
+		resAPE[["table.info"]] <- table.info.APE
 	}
 
 	### 4. Conditional partial effects
@@ -201,7 +203,7 @@ fracreg.pe <- function(object,APE=TRUE,CPE=FALSE,at=NULL,which.x=NULL,variance=T
 			{
 				if(is.numeric(at))
 				{
-					if(any(x.names=="INTERCEPT")) xm <- c(1,at)
+					if(any(x.names=="(Intercept)")) xm <- c(1,at)
 					else xm <- at
 				}
 				else stop("at not appropriately specified")
@@ -212,7 +214,7 @@ fracreg.pe <- function(object,APE=TRUE,CPE=FALSE,at=NULL,which.x=NULL,variance=T
 			if(length(at)!=k) stop("at not appropriately specified")
 			else
 			{
-				if(any(x.names=="INTERCEPT")) xm <- c(1,at)
+				if(any(x.names=="(Intercept)")) xm <- c(1,at)
 				else xm <- at
 			}
 		}
@@ -261,12 +263,17 @@ fracreg.pe <- function(object,APE=TRUE,CPE=FALSE,at=NULL,which.x=NULL,variance=T
 			resCPE[["PE.sd"]] <- PE.sd
 		}
 
-		if(table==TRUE) fracreg.pe.table(PE.p,PE.sd,PE.type,which.x,xvar.names,title,at)
+		table.info.CPE <- list(PE.p=PE.p,PE.sd=if(variance) PE.sd else NA,PE.type=PE.type,which.x=which.x,xvar.names=xvar.names,title=title,at=at)
+		if(table==TRUE) do.call(fracreg.pe.table, table.info.CPE)
+		resCPE[["table.info"]] <- table.info.CPE
 	}
 
 	### 5. Return results
 
-	if(APE==TRUE & CPE==TRUE) return(invisible(list(ape=resAPE,cpe=resCPE)))
-	if(APE==TRUE & CPE==FALSE) return(invisible(resAPE))
-	if(APE==FALSE & CPE==TRUE) return(invisible(resCPE))
+	if(APE==TRUE & CPE==TRUE) res <- list(ape=resAPE,cpe=resCPE)
+	else if(APE==TRUE & CPE==FALSE) res <- resAPE
+	else if(APE==FALSE & CPE==TRUE) res <- resCPE
+	
+	class(res) <- "fracreg.pe"
+	return(invisible(res))
 }

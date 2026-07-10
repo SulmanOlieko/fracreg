@@ -171,7 +171,7 @@ fracreg.table <- function(y,yhat,p,p.var,x.names,type,link,converged,var.type,R2
 			p_wald <- NA
 			df_wald <- NA
 			if(!is.character(p.var)) {
-				if(length(p) > 1 && x.names[1] == "INTERCEPT") {
+				if(length(p) > 1 && x.names[1] == "(Intercept)") {
 					p_idx <- 2:length(p)
 					W <- tryCatch(t(p[p_idx]) %*% solve(p.var[p_idx, p_idx]) %*% p[p_idx], error = function(e) NA)
 					if (!is.na(W)) {
@@ -179,7 +179,7 @@ fracreg.table <- function(y,yhat,p,p.var,x.names,type,link,converged,var.type,R2
 						df_wald <- length(p_idx)
 						p_wald <- 1 - pchisq(Wald, df = df_wald)
 					}
-				} else if(length(p) > 0 && x.names[1] != "INTERCEPT") {
+				} else if(length(p) > 0 && x.names[1] != "(Intercept)") {
 					W <- tryCatch(t(p) %*% solve(p.var) %*% p, error = function(e) NA)
 					if (!is.na(W)) {
 						Wald <- as.numeric(W)
@@ -216,7 +216,7 @@ fracreg.table <- function(y,yhat,p,p.var,x.names,type,link,converged,var.type,R2
 			if(se_type == "standard") se_type <- "EIM"
 			colnames(res)[2] <- paste0(tools::toTitleCase(se_type), " Std.Err.")
 			rownames(res) <- x.names
-			rownames(res)[rownames(res) == "INTERCEPT"] <- "Constant"
+			rownames(res)[rownames(res) == "(Intercept)"] <- "(Intercept)"
 
 			cat("\n")
 			cat(.fracreg.sep(), "\n")
@@ -271,8 +271,8 @@ fracreg.table <- function(y,yhat,p,p.var,x.names,type,link,converged,var.type,R2
 		{
 			cat("\n")
 			cat(.fracreg.sep(), "\n")
-			if(type=="2P") cat(.fracreg.center(paste("Two-part regression - binary", link[1], "+ fractional", link[2])) , "\n")
-			if(type=="3P") cat(.fracreg.center(paste("Three-part regression - binary", link[1], ", binary", link[2], "+ fractional", link[3])) , "\n")
+			if(type=="2P") cat(.fracreg.center(paste("Two-part fractional regression: binary", link[1], "+ fractional", link[2])) , "\n")
+			if(type=="3P") cat(.fracreg.center(paste("Three-part fractional regression: binary", link[1], ", binary", link[2], "+ fractional", link[3])) , "\n")
 			cat(.fracreg.sep(), "\n")
 			.fracreg.cat.right("Data type:", "Cross-sectional")
 			.fracreg.cat.right("Pseudo R-squared:", round(R2, 5))
@@ -427,7 +427,7 @@ fracreg.pe.var <- function(x,npar,which.x,x.names,xvar.names,type,pa,xbhata,ga,l
 	}
 
 	PE.sd <- diag(PE.sd)^0.5
-	if(any(x.names=="INTERCEPT")) PE.sd <- PE.sd[-1]
+	if(any(x.names=="(Intercept)")) PE.sd <- PE.sd[-1]
 
 	names(PE.sd) <- xvar.names
 	PE.sd <- PE.sd[which.x]
@@ -442,7 +442,7 @@ fracreg.pe.table <- function(PE.p,PE.sd,PE.type,which.x,xvar.names,title,at)
 
 	res <- cbind(Estimate = PE.p, `Std. Error` = PE.sd, `z value` = z.ratio, `Pr(>|z|)` = p.value)
 	rownames(res) <- which.x
-	rownames(res)[rownames(res) == "INTERCEPT"] <- "Constant"
+	rownames(res)[rownames(res) == "(Intercept)"] <- "(Intercept)"
 
 	cat("\n\n")
 	cat(.fracreg.sep(), "\n")
@@ -481,31 +481,224 @@ fracreg.pe.table <- function(PE.p,PE.sd,PE.type,which.x,xvar.names,title,at)
 }
 
 #' @export
-print.fracreg <- function(x, ...) {
-    invisible(x)
-}
-
-#' @export
 summary.fracreg <- function(object, ...) {
+    if(!is.null(object$resBIN0) && !is.null(object$resBIN0$table.info)) do.call(fracreg.table, object$resBIN0$table.info)
+    if(!is.null(object$resBIN1) && !is.null(object$resBIN1$table.info)) do.call(fracreg.table, object$resBIN1$table.info)
+    if(!is.null(object$resBIN) && !is.null(object$resBIN$table.info)) do.call(fracreg.table, object$resBIN$table.info)
+    if(!is.null(object$resFRAC) && !is.null(object$resFRAC$table.info)) do.call(fracreg.table, object$resFRAC$table.info)
+    if(!is.null(object$table.info)) do.call(fracreg.table, object$table.info)
     invisible(object)
 }
 
 #' @export
-print.fracregpd <- function(x, ...) {
+print.fracreg <- function(x, ...) {
+        title <- "Fractional response regression"
+    if(!is.null(x$type)) {
+        if(x$type == "1P") title <- paste("Fractional", x$link, "regression")
+        if(x$type == "2Pbin") title <- paste("Part 1: Binary", x$link, "regression")
+        if(x$type == "2Pfrac") title <- paste("Part 2: Fractional", x$link, "regression")
+        if(x$type == "3Pbin0") title <- paste("Part 1: Binary", x$link, "regression")
+        if(x$type == "3Pbin1") title <- paste("Part 2: Binary", x$link, "regression")
+        if(x$type == "3Pfrac") title <- paste("Part 3: Fractional", x$link, "regression")
+        if(x$type == "2P") title <- paste("Two-part fractional regression: binary", x$link[1], "+ fractional", x$link[2])
+        if(x$type == "3P") title <- paste("Three-part fractional regression: binary", x$link[1], ", binary", x$link[2], "+ fractional", x$link[3])
+    }
+    cat(paste0("\n", title, "\n"))
+    if(!is.null(x$call)) {
+        cat("\nCall:\n")
+        print(x$call)
+    }
+    
+    if(!is.null(x$resBIN0)) {
+        cat("\nComponent 1 (Binary 0):\nCoefficients:\n")
+        print.default(x$resBIN0$p)
+    }
+    if(!is.null(x$resBIN1)) {
+        cat("\nComponent 2 (Binary 1):\nCoefficients:\n")
+        print.default(x$resBIN1$p)
+    }
+    if(!is.null(x$resBIN)) {
+        cat("\nBinary Component:\nCoefficients:\n")
+        print.default(x$resBIN$p)
+    }
+    if(!is.null(x$resFRAC)) {
+        cat("\nFractional Component:\nCoefficients:\n")
+        print.default(x$resFRAC$p)
+    }
+    if(is.null(x$resBIN0) && is.null(x$resBIN1) && is.null(x$resBIN) && is.null(x$resFRAC) && !is.null(x$p)) {
+        cat("\nCoefficients:\n")
+        print.default(x$p)
+    }
+    cat("\n")
     invisible(x)
 }
 
 #' @export
 summary.fracregpd <- function(object, ...) {
+    if(!is.null(object$table.info)) do.call(fracregpd.table, object$table.info)
     invisible(object)
 }
 
 #' @export
-print.fracreghet <- function(x, ...) {
+print.fracregpd <- function(x, ...) {
+        model_desc <- "panel data"
+    if (!is.null(x$type) && x$type %in% c("QMLcre", "GMMcre")) model_desc <- "correlated random effects"
+    link_str <- if(!is.null(x$link)) x$link else ""
+    title <- paste("Fractional", link_str, model_desc, "regression")
+    cat(paste0("\n", title, "\n"))
+    if(!is.null(x$call)) {
+        cat("\nCall:\n")
+        print(x$call)
+    }
+    if(!is.null(x$p)) {
+        cat("\nCoefficients:\n")
+        print.default(x$p)
+    }
+    cat("\n")
     invisible(x)
 }
 
 #' @export
 summary.fracreghet <- function(object, ...) {
+    if(!is.null(object$table.info)) do.call(fracreghet.table, object$table.info)
     invisible(object)
+}
+
+#' @export
+print.fracreghet <- function(x, ...) {
+        link_str <- if(!is.null(x$link)) x$link else ""
+    title <- paste("Fractional", link_str, "regression with heteroscedasticity/endogeneity")
+    cat(paste0("\n", title, "\n"))
+    if(!is.null(x$call)) {
+        cat("\nCall:\n")
+        print(x$call)
+    }
+    if(!is.null(x$p)) {
+        cat("\nCoefficients:\n")
+        print.default(x$p)
+    }
+    cat("\n")
+    invisible(x)
+}
+
+#' @export
+summary.fracreg.pe <- function(object, ...) {
+    if(!is.null(object$table.info)) {
+        do.call(fracreg.pe.table, object$table.info)
+    } else if(!is.null(object$ape) || !is.null(object$cpe)) {
+        if(!is.null(object$ape$table.info)) do.call(fracreg.pe.table, object$ape$table.info)
+        if(!is.null(object$cpe$table.info)) do.call(fracreg.pe.table, object$cpe$table.info)
+    }
+    invisible(object)
+}
+
+#' @export
+print.fracreg.pe <- function(x, ...) {
+    cat("\nPartial Effects for Fractional Regression\n")
+    if(!is.null(x$ape)) {
+        cat("\nAverage Partial Effects (APE):\n")
+        print.default(x$ape$table.info$PE.p)
+    }
+    if(!is.null(x$cpe)) {
+        cat("\nConditional Partial Effects (CPE):\n")
+        print.default(x$cpe$table.info$PE.p)
+    }
+    if(!is.null(x$table.info)) {
+        if(x$table.info$PE.type == "APE") cat("\nAverage Partial Effects (APE):\n")
+        else cat("\nConditional Partial Effects (CPE):\n")
+        print.default(x$table.info$PE.p)
+    }
+    cat("\n")
+    invisible(x)
+}
+
+#' @export
+summary.fracreghet.pe <- function(object, ...) {
+    if(!is.null(object$table.info)) {
+        do.call(fracreghet.pe.table, object$table.info)
+    } else if(!is.null(object$ape) || !is.null(object$cpe)) {
+        if(!is.null(object$ape$table.info)) do.call(fracreghet.pe.table, object$ape$table.info)
+        if(!is.null(object$cpe$table.info)) do.call(fracreghet.pe.table, object$cpe$table.info)
+    }
+    invisible(object)
+}
+
+#' @export
+print.fracreghet.pe <- function(x, ...) {
+    cat("\nPartial Effects for Fractional Regression with Heteroskedasticity\n")
+    if(!is.null(x$ape)) {
+        cat("\nAverage Partial Effects (APE):\n")
+        print.default(x$ape$table.info$PE.p)
+    }
+    if(!is.null(x$cpe)) {
+        cat("\nConditional Partial Effects (CPE):\n")
+        print.default(x$cpe$table.info$PE.p)
+    }
+    if(!is.null(x$table.info)) {
+        if(x$table.info$PE.type == "APE") cat("\nAverage Partial Effects (APE):\n")
+        else cat("\nConditional Partial Effects (CPE):\n")
+        print.default(x$table.info$PE.p)
+    }
+    cat("\n")
+    invisible(x)
+}
+
+#' @export
+summary.fracreg.reset <- function(object, ...) {
+    ti <- attr(object, "table.info")
+    if(!is.null(ti)) do.call(fracreg.tests.table, ti)
+    invisible(object)
+}
+
+#' @export
+print.fracreg.reset <- function(x, ...) {
+    cat("\nRESET Test for Fractional Regression\n\n")
+    print.default(c(x))
+    cat("\n")
+    invisible(x)
+}
+
+#' @export
+summary.fracreghet.reset <- function(object, ...) {
+    ti <- attr(object, "table.info")
+    if(!is.null(ti)) do.call(fracreghet.tests.table, ti)
+    invisible(object)
+}
+
+#' @export
+print.fracreghet.reset <- function(x, ...) {
+    cat("\nRESET Test for Fractional Regression with Heteroskedasticity\n\n")
+    print.default(c(x))
+    cat("\n")
+    invisible(x)
+}
+
+#' @export
+summary.fracreg.ggoff <- function(object, ...) {
+    ti <- attr(object, "table.info")
+    if(!is.null(ti)) do.call(fracreg.tests.table, ti)
+    invisible(object)
+}
+
+#' @export
+print.fracreg.ggoff <- function(x, ...) {
+    cat("\nGOFF Test for Fractional Regression\n\n")
+    print.default(c(x))
+    cat("\n")
+    invisible(x)
+}
+
+#' @export
+summary.fracreg.ptest <- function(object, ...) {
+    ti <- attr(object, "table.info")
+    if(!is.null(ti)) do.call(fracreg.tests.table, ti)
+    invisible(object)
+}
+
+#' @export
+print.fracreg.ptest <- function(x, ...) {
+    cat("\nP-Test for Fractional Regression\n\n")
+    print.default(c(x))
+    cat("\n")
+    invisible(x)
 }

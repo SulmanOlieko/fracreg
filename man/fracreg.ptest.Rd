@@ -68,7 +68,8 @@ X <- cbind(mrate = fracreg_k401k$mrate, age = fracreg_k401k$age,
 
 m1 <- fracreg(y, X, type="1P", linkfrac="logit")
 m2 <- fracreg(y, X, type="1P", linkfrac="probit")
-fracreg.ptest(m1, m2)
+ptest_res <- fracreg.ptest(m1, m2)
+summary(ptest_res)
 
 ### Simulated Examples
 
@@ -84,13 +85,15 @@ y[y > 0.9] <- 1
 
 #Testing logit versus loglog specifications for standard fractional
 #regression models using a LM version of the P test
-res1 <- fracreg(y,X,linkfrac="logit",table=FALSE)
-res2 <- fracreg(y,X,linkfrac="loglog",table=FALSE)
-fracreg.ptest(res1,res2,"LM")
+res1 <- fracreg(y,X,linkfrac="logit")
+res2 <- fracreg(y,X,linkfrac="loglog")
+ptest_res <- fracreg.ptest(res1,res2,"LM")
+summary(ptest_res)
 
 #Testing a logit one-part fractional response model versus a binary logit +
 #fractional probit two-part model using a Wald version of the P test
-res1 <- fracreg(y,X,linkfrac="logit",table=FALSE)
-res2 <- fracreg(y,X,linkbin="logit",linkfrac="probit",type="2P",inf=1,table=FALSE)
-fracreg.ptest(res1,res2,"Wald")
+res1 <- fracreg(y,X,linkfrac="logit")
+res2 <- fracreg(y,X,linkbin="logit",linkfrac="probit",type="2P",inf=1)
+ptest_res <- fracreg.ptest(res1,res2,"Wald")
+summary(ptest_res)
 }

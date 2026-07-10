@@ -11,7 +11,7 @@ Fitting Fractional Response Regressions
 
 \usage{
 fracreg(y, x, x2 = x, linkbin, linkfrac, type = "1P", inflation = 0, 
-        intercept = TRUE, table = TRUE, variance = TRUE, var.type = "default", 
+        intercept = TRUE, table = FALSE, variance = TRUE, var.type = "default", 
         var.eim = TRUE, var.cluster, dfc = FALSE, offset = NULL, 
         or = FALSE, level = 0.95, ...)
 }
@@ -188,17 +188,21 @@ X <- cbind(mrate = fracreg_k401k$mrate, age = fracreg_k401k$age,
            totemp = fracreg_k401k$totemp, sole = fracreg_k401k$sole)
 
 # 1P Model
-fracreg(y, X, type="1P", linkfrac="logit")
+mod <- fracreg(y, X, type="1P", linkfrac="logit")
+summary(mod)
 
 # 1P Model reporting odds ratios and 99% confidence intervals
-fracreg(y, X, type="1P", linkfrac="logit", or=TRUE, level=0.99)
+mod <- fracreg(y, X, type="1P", linkfrac="logit", or=TRUE, level=0.99)
+summary(mod)
 
 # 2P Model (modelling mass at 1)
-fracreg(y, X, type="2P", inflation=1, linkbin="logit", linkfrac="logit")
+mod <- fracreg(y, X, type="2P", inflation=1, linkbin="logit", linkfrac="logit")
+summary(mod)
 
 # 3P Model (inject artificial 0s for demonstration)
 y_3p <- y; y_3p[1:50] <- 0
-fracreg(y_3p, X, type="3P", linkbin=c("logit","logit"), linkfrac="logit")
+mod <- fracreg(y_3p, X, type="3P", linkbin=c("logit","logit"), linkfrac="logit")
+summary(mod)
 
 ### Simulated Examples
 
@@ -219,23 +223,28 @@ y[y_latent > 0.8] <- 1
 X <- cbind(x1 = x1, x2 = x2)
 
 # fracreg estimation of a logit fractional response model
-fracreg(y, X, type="1P", linkfrac="logit")
+mod <- fracreg(y, X, type="1P", linkfrac="logit")
+summary(mod)
 
 # fracreg estimation of the binary logit component of the two-part fractional
 # regression model with y=0 as the relevant boundary value
-fracreg(y, X, type="2Pbin", inflation=0, linkbin="logit")
+mod <- fracreg(y, X, type="2Pbin", inflation=0, linkbin="logit")
+summary(mod)
 
 # fracreg estimation of the fractional component of the two-part fractional
 # regression model with y=0 as the relevant boundary value and using a
 # probit link function
-fracreg(y, X, type="2Pfrac", inflation=0, linkfrac="probit")
+mod <- fracreg(y, X, type="2Pfrac", inflation=0, linkfrac="probit")
+summary(mod)
 
 # fracreg estimation of both components of a two-part fractional response model
 # with y=0 as the relevant boundary value and using a cloglog binary link
 # function and a logit fractional link function
-fracreg(y, X, type="2P", inflation=0, linkbin="cloglog", linkfrac="logit")
+mod <- fracreg(y, X, type="2P", inflation=0, linkbin="cloglog", linkfrac="logit")
+summary(mod)
 
 # Three-part double-inflated model (y has both 0s and 1s)
-fracreg(y, X, type="3P", linkbin=c("logit","probit"), linkfrac="logit")
+mod <- fracreg(y, X, type="3P", linkbin=c("logit","probit"), linkfrac="logit")
+summary(mod)
 }
 

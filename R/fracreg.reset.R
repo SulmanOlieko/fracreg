@@ -1,4 +1,4 @@
-fracreg.reset <- function(object,lastpower.vec=3,version="LM",table=TRUE,...)
+fracreg.reset <- function(object,lastpower.vec=3,version="LM",table=FALSE,...)
 {
 	### 1. Error and warning messages
 
@@ -119,12 +119,16 @@ fracreg.reset <- function(object,lastpower.vec=3,version="LM",table=TRUE,...)
 		}
 	}
 
-	if(table==TRUE) fracreg.tests.table("RESET",S,Sp,ver,title)
+	table.info <- list(test.which="RESET",S=S,Sp=Sp,ver=ver,title1=title)
+	if(table==TRUE) do.call(fracreg.tests.table, table.info)
 
 	### 4. Return results
 
 	statistics <- S[-1]
 	names(statistics) <- ver[-1]
+	
+	class(statistics) <- c("fracreg.reset", "numeric")
+	attr(statistics, "table.info") <- table.info
 
 	return(invisible(statistics))
 }

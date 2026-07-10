@@ -1,4 +1,4 @@
-fracreg.ggoff <- function(object,version="LM",table=TRUE,...)
+fracreg.ggoff <- function(object,version="LM",table=FALSE,...)
 {
 	### 1. Error and warning messages
 
@@ -129,12 +129,16 @@ fracreg.ggoff <- function(object,version="LM",table=TRUE,...)
 		}
 	}
 
-	if(table==TRUE) fracreg.tests.table("GGOFF",S,Sp,ver,title,test.ggoff=test)
+	table.info <- list(test.which="GGOFF",S=S,Sp=Sp,ver=ver,title1=title,test.ggoff=test)
+	if(table==TRUE) do.call(fracreg.tests.table, table.info)
 
 	### 4. Return results
 
 	statistics <- S[-1]
 	names(statistics) <- paste(test[-1],ver[-1],sep="-")
+
+	class(statistics) <- c("fracreg.ggoff", "numeric")
+	attr(statistics, "table.info") <- table.info
 
 	return(invisible(statistics))
 }

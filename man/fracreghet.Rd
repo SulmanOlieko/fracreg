@@ -150,10 +150,11 @@ y_adj[y_adj == 1] <- 0.999
 # Instrument mrate using age
 
 Z_emp <- cbind(age = fracreg_k401k$age, ltotemp = fracreg_k401k$ltotemp) 
-fracreghet(y_adj, X_het, Z_emp, var.endog = X_het[, "mrate"], type="QMLxv", link="logit")
+mod <- fracreghet(y_adj, X_het, Z_emp, var.endog = X_het[, "mrate"], type="QMLxv", link="logit")
+summary(mod)
 
 # Compute the same QMLxv estimator reporting Odds Ratios with 90% confidence intervals
-fracreghet(y_adj, X_het, Z_emp, var.endog = X_het[, "mrate"], type="QMLxv", 
+mod <- fracreghet(y_adj, X_het, Z_emp, var.endog = X_het[, "mrate"], type="QMLxv", 
            link="logit", or=TRUE, level=0.90) 
  
 ### Simulated Examples 
@@ -176,14 +177,18 @@ X <- cbind(x1 = x1, var.endog = var.endog)
 Z <- cbind(x1 = x1, z1 = z1)
 
 # Exogeneity (assuming var.endog is exogenous for comparison), GMMx estimator
-fracreghet(y = y_endog, x = X, type = "GMMx", link = "logit")
+mod <- fracreghet(y = y_endog, x = X, type = "GMMx", link = "logit")
+summary(mod)
 
 # Endogeneity, GMMz estimator (does not require reduced form for endog)
-fracreghet(y = y_endog, x = X, z = Z, type = "GMMz", link = "logit")
+mod <- fracreghet(y = y_endog, x = X, z = Z, type = "GMMz", link = "logit")
+summary(mod)
 
 # Endogeneity, GMMxv estimator (assumes linear reduced form for var.endog)
-fracreghet(y = y_endog, x = X, z = Z, var.endog = var.endog, type = "GMMxv", link = "logit")
+mod <- fracreghet(y = y_endog, x = X, z = Z, var.endog = var.endog, type = "GMMxv", link = "logit")
+summary(mod)
 
 # Endogeneity, QMLxv control function approach
-fracreghet(y = y_endog, x = X, z = Z, var.endog = var.endog, type = "QMLxv", link = "logit")
+mod <- fracreghet(y = y_endog, x = X, z = Z, var.endog = var.endog, type = "QMLxv", link = "logit")
+summary(mod)
 }

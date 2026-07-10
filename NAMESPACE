@@ -11,4 +11,21 @@ S3method(print, fracregpd)
 S3method(summary, fracregpd)
 S3method(print, fracreghet)
 S3method(summary, fracreghet)
+
+S3method(print, fracreg.pe)
+S3method(summary, fracreg.pe)
+S3method(print, fracreghet.pe)
+S3method(summary, fracreghet.pe)
+
+S3method(print, fracreg.reset)
+S3method(summary, fracreg.reset)
+S3method(print, fracreghet.reset)
+S3method(summary, fracreghet.reset)
+
+S3method(print, fracreg.ggoff)
+S3method(summary, fracreg.ggoff)
+
+S3method(print, fracreg.ptest)
+S3method(summary, fracreg.ptest)
+
 importFrom("stats", "printCoefmat")

@@ -145,7 +145,8 @@ X <- cbind(mrate = fracreg_k401k$mrate, age = fracreg_k401k$age,
 N_emp <- nrow(X)
 id_emp <- rep(1:(N_emp/2), each=2)
 time_emp <- rep(1:2, times=N_emp/2)
-fracregpd(id_emp, time_emp, y, X, type="QMLcre", link="probit")
+mod <- fracregpd(id_emp, time_emp, y, X, type="QMLcre", link="probit")
+summary(mod)
 
 ### Simulated Examples
 
@@ -175,19 +176,24 @@ Z_inst <- cbind(x_panel = x_panel, z_panel = z_panel)
 
 \donttest{
 # Estimate a Correlated Random Effects (CRE) Model
-fracregpd(id=id, time=time, y=y_panel, x=X, type="QMLcre", link="probit")
+mod <- fracregpd(id=id, time=time, y=y_panel, x=X, type="QMLcre", link="probit")
+summary(mod)
 
 # Exogeneity, no lags, no time dummies, clustered standard errors, GMMbgw estimator
-fracregpd(id=id, time=time, y=y_panel, x=X, type="GMMbgw")
+mod <- fracregpd(id=id, time=time, y=y_panel, x=X, type="GMMbgw")
+summary(mod)
 
 # Estimate the GMMww estimator with odds ratios and 99% confidence intervals
-fracregpd(id=id, time=time, y=y_panel, x=X, type="GMMww", or=TRUE, level=0.99)
+mod <- fracregpd(id=id, time=time, y=y_panel, x=X, type="GMMww", or=TRUE, level=0.99)
+summary(mod)
 
 # Lagged covariates and instruments, robust standard errors, GMMww estimator
-fracregpd(id=id, time=time, y=y_panel, x=X, lags=TRUE, type="GMMww", var.type="robust")
+mod <- fracregpd(id=id, time=time, y=y_panel, x=X, lags=TRUE, type="GMMww", var.type="robust")
+summary(mod)
 
 # Endogeneity, time dummies, GMMpfe estimator
-fracregpd(id=id, time=time, y=y_endog, x=X_endog, z=Z_inst, 
-          x.exogenous=FALSE, type="GMMpfe", tdummies=TRUE)
+mod <- fracregpd(id=id, time=time, y=y_endog, x=X_endog, z=Z_inst,
+                 x.exogenous=FALSE, type="GMMpfe", tdummies=TRUE)
+summary(mod)
 }
 }

@@ -113,7 +113,8 @@ X <- cbind(mrate = fracreg_k401k$mrate, age = fracreg_k401k$age,
            totemp = fracreg_k401k$totemp, sole = fracreg_k401k$sole) 
  
 # 1P Model 
-fracreg(y, X, type="1P", linkfrac="logit") 
+mod <- fracreg(y, X, type="1P", linkfrac="logit") 
+summary(mod)
 ```
 
 Toggle to see the output
@@ -136,29 +137,30 @@ Toggle to see the output
 #> -------------------------------------------------------------------------------- 
 #>                     Final Quasi-Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
-#>          Coefficient Robust Std.Err.    z value [95% Conf. Interval] Pr(>|z|)
-#> Constant   9.316e-01       8.408e-02  1.108e+01  7.668e-01     1.096  < 2e-16
-#> mrate      9.531e-01       1.371e-01  6.951e+00  6.843e-01     1.222 3.62e-12
-#> age        2.791e-02       4.877e-03  5.723e+00  1.835e-02     0.037 1.05e-08
-#> totemp    -8.182e-06       3.061e-06 -2.673e+00 -1.418e-05     0.000  0.00751
-#> sole       3.405e-01       8.066e-02  4.222e+00  1.824e-01     0.499 2.43e-05
-#>             
-#> Constant ***
-#> mrate    ***
-#> age      ***
-#> totemp   ** 
-#> sole     ***
+#>             Coefficient Robust Std.Err.    z value [95% Conf. Interval]
+#> (Intercept)   9.316e-01       8.408e-02  1.108e+01  7.668e-01     1.096
+#> mrate         9.531e-01       1.371e-01  6.951e+00  6.843e-01     1.222
+#> age           2.791e-02       4.877e-03  5.723e+00  1.835e-02     0.037
+#> totemp       -8.182e-06       3.061e-06 -2.673e+00 -1.418e-05     0.000
+#> sole          3.405e-01       8.066e-02  4.222e+00  1.824e-01     0.499
+#>             Pr(>|z|)    
+#> (Intercept)  < 2e-16 ***
+#> mrate       3.62e-12 ***
+#> age         1.05e-08 ***
+#> totemp       0.00751 ** 
+#> sole        2.43e-05 ***
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 20:36:34 
+#>                          Run Date: 2026-07-11 00:27:07 
 #> --------------------------------------------------------------------------------
 ```
 
 ``` r
 
 # 1P Model reporting odds ratios and 99% confidence intervals
-fracreg(y, X, type="1P", linkfrac="logit", or=TRUE, level=0.99)
+mod <- fracreg(y, X, type="1P", linkfrac="logit", or=TRUE, level=0.99)
+summary(mod)
 ```
 
 Toggle to see the output
@@ -181,29 +183,30 @@ Toggle to see the output
 #> -------------------------------------------------------------------------------- 
 #>                     Final Quasi-Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
-#>          Odds Ratio Robust Std.Err.    z value [99% Conf. Interval] Pr(>|z|)
-#> Constant  2.539e+00       2.134e-01  1.108e+01  2.044e+00     3.153  < 2e-16
-#> mrate     2.594e+00       3.556e-01  6.951e+00  1.822e+00     3.692 3.62e-12
-#> age       1.028e+00       5.015e-03  5.723e+00  1.015e+00     1.041 1.05e-08
-#> totemp    1.000e+00       3.061e-06 -2.673e+00  1.000e+00     1.000  0.00751
-#> sole      1.406e+00       1.134e-01  4.222e+00  1.142e+00     1.730 2.43e-05
-#>             
-#> Constant ***
-#> mrate    ***
-#> age      ***
-#> totemp   ** 
-#> sole     ***
+#>             Odds Ratio Robust Std.Err.    z value [99% Conf. Interval] Pr(>|z|)
+#> (Intercept)  2.539e+00       2.134e-01  1.108e+01  2.044e+00     3.153  < 2e-16
+#> mrate        2.594e+00       3.556e-01  6.951e+00  1.822e+00     3.692 3.62e-12
+#> age          1.028e+00       5.015e-03  5.723e+00  1.015e+00     1.041 1.05e-08
+#> totemp       1.000e+00       3.061e-06 -2.673e+00  1.000e+00     1.000  0.00751
+#> sole         1.406e+00       1.134e-01  4.222e+00  1.142e+00     1.730 2.43e-05
+#>                
+#> (Intercept) ***
+#> mrate       ***
+#> age         ***
+#> totemp      ** 
+#> sole        ***
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 20:36:34 
+#>                          Run Date: 2026-07-11 00:27:08 
 #> --------------------------------------------------------------------------------
 ```
 
 ``` r
  
 # 2P Model (modelling mass at 1) 
-fracreg(y, X, type="2P", inflation=1, linkbin="logit", linkfrac="logit") 
+mod <- fracreg(y, X, type="2P", inflation=1, linkbin="logit", linkfrac="logit") 
+summary(mod)
 ```
 
 Toggle to see the output
@@ -225,12 +228,18 @@ Toggle to see the output
 #> -------------------------------------------------------------------------------- 
 #>                        Final Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
-#>          Coefficient EIM Std.Err.    z value [95% Conf. Interval] Pr(>|z|)    
-#> Constant  -1.396e+00    1.270e-01 -1.099e+01 -1.645e+00    -1.147   <2e-16 ***
-#> mrate      9.053e-01    9.699e-02  9.334e+00  7.152e-01     1.095   <2e-16 ***
-#> age        1.156e-02    6.218e-03  1.858e+00 -6.312e-04     0.024   0.0631 .  
-#> totemp    -1.418e-05    6.324e-06 -2.242e+00 -2.657e-05     0.000   0.0249 *  
-#> sole       8.651e-01    1.131e-01  7.651e+00  6.435e-01     1.087    2e-14 ***
+#>             Coefficient EIM Std.Err.    z value [95% Conf. Interval] Pr(>|z|)
+#> (Intercept)  -1.396e+00    1.270e-01 -1.099e+01 -1.645e+00    -1.147   <2e-16
+#> mrate         9.053e-01    9.699e-02  9.334e+00  7.152e-01     1.095   <2e-16
+#> age           1.156e-02    6.218e-03  1.858e+00 -6.312e-04     0.024   0.0631
+#> totemp       -1.418e-05    6.324e-06 -2.242e+00 -2.657e-05     0.000   0.0249
+#> sole          8.651e-01    1.131e-01  7.651e+00  6.435e-01     1.087    2e-14
+#>                
+#> (Intercept) ***
+#> mrate       ***
+#> age         .  
+#> totemp      *  
+#> sole        ***
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
@@ -252,31 +261,31 @@ Toggle to see the output
 #> -------------------------------------------------------------------------------- 
 #>                     Final Quasi-Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
-#>          Coefficient Robust Std.Err.    z value [95% Conf. Interval] Pr(>|z|)
-#> Constant   7.460e-01       6.850e-02  1.089e+01  6.118e-01     0.880  < 2e-16
-#> mrate      3.877e-01       9.725e-02  3.987e+00  1.971e-01     0.578 6.69e-05
-#> age        2.562e-02       4.010e-03  6.390e+00  1.777e-02     0.033 1.66e-10
-#> totemp    -4.061e-06       3.073e-06 -1.322e+00 -1.008e-05     0.000    0.186
-#> sole      -1.510e-02       6.556e-02 -2.303e-01 -1.436e-01     0.113    0.818
-#>             
-#> Constant ***
-#> mrate    ***
-#> age      ***
-#> totemp      
-#> sole        
+#>             Coefficient Robust Std.Err.    z value [95% Conf. Interval]
+#> (Intercept)   7.460e-01       6.850e-02  1.089e+01  6.118e-01     0.880
+#> mrate         3.877e-01       9.725e-02  3.987e+00  1.971e-01     0.578
+#> age           2.562e-02       4.010e-03  6.390e+00  1.777e-02     0.033
+#> totemp       -4.061e-06       3.073e-06 -1.322e+00 -1.008e-05     0.000
+#> sole         -1.510e-02       6.556e-02 -2.303e-01 -1.436e-01     0.113
+#>             Pr(>|z|)    
+#> (Intercept)  < 2e-16 ***
+#> mrate       6.69e-05 ***
+#> age         1.66e-10 ***
+#> totemp         0.186    
+#> sole           0.818    
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
 #> 
 #> 
 #> -------------------------------------------------------------------------------- 
-#>              Two-part regression - binary logit + fractional logit 
+#>         Two-part fractional regression: binary logit + fractional logit 
 #> -------------------------------------------------------------------------------- 
 #> Data type:                                                       Cross-sectional 
 #> Pseudo R-squared:                                                        0.11243 
 #> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 20:36:34 
+#>                          Run Date: 2026-07-11 00:27:08 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -284,7 +293,8 @@ Toggle to see the output
  
 # 3P Model (inject artificial 0s for demonstration) 
 y_3p <- y; y_3p[1:50] <- 0 
-fracreg(y_3p, X, type="3P", linkbin=c("logit","logit"), linkfrac="logit") 
+mod <- fracreg(y_3p, X, type="3P", linkbin=c("logit","logit"), linkfrac="logit") 
+summary(mod)
 ```
 
 Toggle to see the output
@@ -306,12 +316,18 @@ Toggle to see the output
 #> -------------------------------------------------------------------------------- 
 #>                        Final Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
-#>          Coefficient EIM Std.Err.    z value [95% Conf. Interval] Pr(>|z|)    
-#> Constant   2.867e+00    3.157e-01  9.080e+00  2.248e+00     3.486   <2e-16 ***
-#> mrate      1.147e-01    2.131e-01  5.381e-01 -3.030e-01     0.532    0.590    
-#> age        8.375e-03    1.765e-02  4.745e-01 -2.622e-02     0.043    0.635    
-#> totemp     1.036e-04    6.959e-05  1.489e+00 -3.275e-05     0.000    0.136    
-#> sole       3.371e-01    2.983e-01  1.130e+00 -2.476e-01     0.922    0.259    
+#>             Coefficient EIM Std.Err.    z value [95% Conf. Interval] Pr(>|z|)
+#> (Intercept)   2.867e+00    3.157e-01  9.080e+00  2.248e+00     3.486   <2e-16
+#> mrate         1.147e-01    2.131e-01  5.381e-01 -3.030e-01     0.532    0.590
+#> age           8.375e-03    1.765e-02  4.745e-01 -2.622e-02     0.043    0.635
+#> totemp        1.036e-04    6.959e-05  1.489e+00 -3.275e-05     0.000    0.136
+#> sole          3.371e-01    2.983e-01  1.130e+00 -2.476e-01     0.922    0.259
+#>                
+#> (Intercept) ***
+#> mrate          
+#> age            
+#> totemp         
+#> sole           
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
@@ -332,12 +348,18 @@ Toggle to see the output
 #> -------------------------------------------------------------------------------- 
 #>                        Final Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
-#>          Coefficient EIM Std.Err.    z value [95% Conf. Interval] Pr(>|z|)    
-#> Constant  -1.435e+00    1.306e-01 -1.099e+01 -1.691e+00    -1.179  < 2e-16 ***
-#> mrate      9.244e-01    9.877e-02  9.360e+00  7.309e-01     1.118  < 2e-16 ***
-#> age        1.198e-02    6.339e-03  1.890e+00 -4.453e-04     0.024   0.0588 .  
-#> totemp    -1.371e-05    6.317e-06 -2.170e+00 -2.609e-05     0.000   0.0300 *  
-#> sole       8.852e-01    1.154e-01  7.674e+00  6.591e-01     1.111 1.67e-14 ***
+#>             Coefficient EIM Std.Err.    z value [95% Conf. Interval] Pr(>|z|)
+#> (Intercept)  -1.435e+00    1.306e-01 -1.099e+01 -1.691e+00    -1.179  < 2e-16
+#> mrate         9.244e-01    9.877e-02  9.360e+00  7.309e-01     1.118  < 2e-16
+#> age           1.198e-02    6.339e-03  1.890e+00 -4.453e-04     0.024   0.0588
+#> totemp       -1.371e-05    6.317e-06 -2.170e+00 -2.609e-05     0.000   0.0300
+#> sole          8.852e-01    1.154e-01  7.674e+00  6.591e-01     1.111 1.67e-14
+#>                
+#> (Intercept) ***
+#> mrate       ***
+#> age         .  
+#> totemp      *  
+#> sole        ***
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
@@ -359,31 +381,31 @@ Toggle to see the output
 #> -------------------------------------------------------------------------------- 
 #>                     Final Quasi-Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
-#>          Coefficient Robust Std.Err.    z value [95% Conf. Interval] Pr(>|z|)
-#> Constant   7.388e-01       7.039e-02  1.050e+01  6.008e-01     0.877  < 2e-16
-#> mrate      3.960e-01       1.019e-01  3.885e+00  1.962e-01     0.596 0.000102
-#> age        2.531e-02       4.068e-03  6.223e+00  1.734e-02     0.033 4.88e-10
-#> totemp    -3.817e-06       3.088e-06 -1.236e+00 -9.869e-06     0.000 0.216472
-#> sole      -4.483e-03       6.672e-02 -6.719e-02 -1.353e-01     0.126 0.946434
-#>             
-#> Constant ***
-#> mrate    ***
-#> age      ***
-#> totemp      
-#> sole        
+#>             Coefficient Robust Std.Err.    z value [95% Conf. Interval]
+#> (Intercept)   7.388e-01       7.039e-02  1.050e+01  6.008e-01     0.877
+#> mrate         3.960e-01       1.019e-01  3.885e+00  1.962e-01     0.596
+#> age           2.531e-02       4.068e-03  6.223e+00  1.734e-02     0.033
+#> totemp       -3.817e-06       3.088e-06 -1.236e+00 -9.869e-06     0.000
+#> sole         -4.483e-03       6.672e-02 -6.719e-02 -1.353e-01     0.126
+#>             Pr(>|z|)    
+#> (Intercept)  < 2e-16 ***
+#> mrate       0.000102 ***
+#> age         4.88e-10 ***
+#> totemp      0.216472    
+#> sole        0.946434    
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
 #> 
 #> 
 #> -------------------------------------------------------------------------------- 
-#>      Three-part regression - binary logit , binary logit + fractional logit 
+#> Three-part fractional regression: binary logit , binary logit + fractional logit 
 #> -------------------------------------------------------------------------------- 
 #> Data type:                                                       Cross-sectional 
 #> Pseudo R-squared:                                                        0.07934 
 #> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 20:36:35 
+#>                          Run Date: 2026-07-11 00:27:09 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -408,7 +430,8 @@ y[y_latent > 0.8] <- 1
 X <- cbind(x1 = x1, x2 = x2) 
  
 # fracreg estimation of a logit fractional response model 
-fracreg(y, X, type="1P", linkfrac="logit") 
+mod <- fracreg(y, X, type="1P", linkfrac="logit") 
+summary(mod)
 ```
 
 Toggle to see the output
@@ -431,14 +454,18 @@ Toggle to see the output
 #> -------------------------------------------------------------------------------- 
 #>                     Final Quasi-Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
-#>          Coefficient Robust Std.Err.  z value [95% Conf. Interval] Pr(>|z|)    
-#> Constant    -0.56969         0.06750 -8.43960   -0.70199    -0.437   <2e-16 ***
-#> x1           0.78822         0.04015 19.63424    0.70954     0.867   <2e-16 ***
-#> x2           1.35611         0.11899 11.39668    1.12289     1.589   <2e-16 ***
+#>             Coefficient Robust Std.Err.  z value [95% Conf. Interval] Pr(>|z|)
+#> (Intercept)    -0.56969         0.06750 -8.43960   -0.70199    -0.437   <2e-16
+#> x1              0.78822         0.04015 19.63424    0.70954     0.867   <2e-16
+#> x2              1.35611         0.11899 11.39668    1.12289     1.589   <2e-16
+#>                
+#> (Intercept) ***
+#> x1          ***
+#> x2          ***
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 20:36:35 
+#>                          Run Date: 2026-07-11 00:27:09 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -446,7 +473,8 @@ Toggle to see the output
  
 # fracreg estimation of the binary logit component of the two-part fractional 
 # regression model with y=0 as the relevant boundary value 
-fracreg(y, X, type="2Pbin", inflation=0, linkbin="logit") 
+mod <- fracreg(y, X, type="2Pbin", inflation=0, linkbin="logit") 
+summary(mod)
 ```
 
 Toggle to see the output
@@ -468,10 +496,10 @@ Toggle to see the output
 #> -------------------------------------------------------------------------------- 
 #>                        Final Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
-#>          Coefficient EIM Std.Err. z value [95% Conf. Interval] Pr(>|z|)    
-#> Constant      1.4638       0.1933  7.5732     1.0849     1.843 3.64e-14 ***
-#> x1            1.1857       0.1287  9.2126     0.9335     1.438  < 2e-16 ***
-#> x2            2.2279       0.3932  5.6662     1.4572     2.999 1.46e-08 ***
+#>             Coefficient EIM Std.Err. z value [95% Conf. Interval] Pr(>|z|)    
+#> (Intercept)      1.4638       0.1933  7.5732     1.0849     1.843 3.64e-14 ***
+#> x1               1.1857       0.1287  9.2126     0.9335     1.438  < 2e-16 ***
+#> x2               2.2279       0.3932  5.6662     1.4572     2.999 1.46e-08 ***
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> --------------------------------------------------------------------------------
@@ -482,7 +510,8 @@ Toggle to see the output
 # fracreg estimation of the fractional component of the two-part fractional 
 # regression model with y=0 as the relevant boundary value and using a 
 # probit link function 
-fracreg(y, X, type="2Pfrac", inflation=0, linkfrac="probit") 
+mod <- fracreg(y, X, type="2Pfrac", inflation=0, linkfrac="probit") 
+summary(mod)
 ```
 
 Toggle to see the output
@@ -505,10 +534,14 @@ Toggle to see the output
 #> -------------------------------------------------------------------------------- 
 #>                     Final Quasi-Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
-#>          Coefficient Robust Std.Err.  z value [95% Conf. Interval] Pr(>|z|)    
-#> Constant    -0.10334         0.03566 -2.89793   -0.17323    -0.033  0.00376 ** 
-#> x1           0.37512         0.02129 17.62293    0.33340     0.417  < 2e-16 ***
-#> x2           0.61326         0.06529  9.39237    0.48529     0.741  < 2e-16 ***
+#>             Coefficient Robust Std.Err.  z value [95% Conf. Interval] Pr(>|z|)
+#> (Intercept)    -0.10334         0.03566 -2.89793   -0.17323    -0.033  0.00376
+#> x1              0.37512         0.02129 17.62293    0.33340     0.417  < 2e-16
+#> x2              0.61326         0.06529  9.39237    0.48529     0.741  < 2e-16
+#>                
+#> (Intercept) ** 
+#> x1          ***
+#> x2          ***
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> --------------------------------------------------------------------------------
@@ -519,7 +552,8 @@ Toggle to see the output
 # fracreg estimation of both components of a two-part fractional response model 
 # with y=0 as the relevant boundary value and using a cloglog binary link 
 # function and a logit fractional link function 
-fracreg(y, X, type="2P", inflation=0, linkbin="cloglog", linkfrac="logit") 
+mod <- fracreg(y, X, type="2P", inflation=0, linkbin="cloglog", linkfrac="logit") 
+summary(mod)
 ```
 
 Toggle to see the output
@@ -541,10 +575,10 @@ Toggle to see the output
 #> -------------------------------------------------------------------------------- 
 #>                        Final Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
-#>          Coefficient EIM Std.Err. z value [95% Conf. Interval] Pr(>|z|)    
-#> Constant     0.43428      0.08825 4.92113    0.26132     0.607 8.60e-07 ***
-#> x1           0.55192      0.06009 9.18429    0.43414     0.670  < 2e-16 ***
-#> x2           1.05359      0.17403 6.05409    0.71250     1.395 1.41e-09 ***
+#>             Coefficient EIM Std.Err. z value [95% Conf. Interval] Pr(>|z|)    
+#> (Intercept)     0.43428      0.08825 4.92113    0.26132     0.607 8.60e-07 ***
+#> x1              0.55192      0.06009 9.18429    0.43414     0.670  < 2e-16 ***
+#> x2              1.05359      0.17403 6.05409    0.71250     1.395 1.41e-09 ***
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
@@ -566,30 +600,35 @@ Toggle to see the output
 #> -------------------------------------------------------------------------------- 
 #>                     Final Quasi-Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
-#>          Coefficient Robust Std.Err.  z value [95% Conf. Interval] Pr(>|z|)    
-#> Constant    -0.17323         0.05786 -2.99384   -0.28664    -0.060  0.00275 ** 
-#> x1           0.61205         0.03554 17.22078    0.54239     0.682  < 2e-16 ***
-#> x2           1.00509         0.10703  9.39074    0.79531     1.215  < 2e-16 ***
+#>             Coefficient Robust Std.Err.  z value [95% Conf. Interval] Pr(>|z|)
+#> (Intercept)    -0.17323         0.05786 -2.99384   -0.28664    -0.060  0.00275
+#> x1              0.61205         0.03554 17.22078    0.54239     0.682  < 2e-16
+#> x2              1.00509         0.10703  9.39074    0.79531     1.215  < 2e-16
+#>                
+#> (Intercept) ** 
+#> x1          ***
+#> x2          ***
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
 #> 
 #> 
 #> -------------------------------------------------------------------------------- 
-#>             Two-part regression - binary cloglog + fractional logit 
+#>        Two-part fractional regression: binary cloglog + fractional logit 
 #> -------------------------------------------------------------------------------- 
 #> Data type:                                                       Cross-sectional 
 #> Pseudo R-squared:                                                        0.38829 
 #> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 20:36:35 
+#>                          Run Date: 2026-07-11 00:27:09 
 #> --------------------------------------------------------------------------------
 ```
 
 ``` r
  
 # Three-part double-inflated model (y has both 0s and 1s) 
-fracreg(y, X, type="3P", linkbin=c("logit","probit"), linkfrac="logit") 
+mod <- fracreg(y, X, type="3P", linkbin=c("logit","probit"), linkfrac="logit") 
+summary(mod)
 ```
 
 Toggle to see the output
@@ -611,10 +650,10 @@ Toggle to see the output
 #> -------------------------------------------------------------------------------- 
 #>                        Final Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
-#>          Coefficient EIM Std.Err. z value [95% Conf. Interval] Pr(>|z|)    
-#> Constant      1.4638       0.1933  7.5732     1.0849     1.843 3.64e-14 ***
-#> x1            1.1857       0.1287  9.2126     0.9335     1.438  < 2e-16 ***
-#> x2            2.2279       0.3932  5.6662     1.4572     2.999 1.46e-08 ***
+#>             Coefficient EIM Std.Err. z value [95% Conf. Interval] Pr(>|z|)    
+#> (Intercept)      1.4638       0.1933  7.5732     1.0849     1.843 3.64e-14 ***
+#> x1               1.1857       0.1287  9.2126     0.9335     1.438  < 2e-16 ***
+#> x2               2.2279       0.3932  5.6662     1.4572     2.999 1.46e-08 ***
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
@@ -635,10 +674,14 @@ Toggle to see the output
 #> -------------------------------------------------------------------------------- 
 #>                        Final Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
-#>          Coefficient EIM Std.Err.   z value [95% Conf. Interval] Pr(>|z|)    
-#> Constant    -1.71537      0.12933 -13.26354   -1.96885    -1.462  < 2e-16 ***
-#> x1           0.64810      0.06323  10.25024    0.52418     0.772  < 2e-16 ***
-#> x2           1.07752      0.19174   5.61978    0.70172     1.453 1.91e-08 ***
+#>             Coefficient EIM Std.Err.   z value [95% Conf. Interval] Pr(>|z|)
+#> (Intercept)    -1.71537      0.12933 -13.26354   -1.96885    -1.462  < 2e-16
+#> x1              0.64810      0.06323  10.25024    0.52418     0.772  < 2e-16
+#> x2              1.07752      0.19174   5.61978    0.70172     1.453 1.91e-08
+#>                
+#> (Intercept) ***
+#> x1          ***
+#> x2          ***
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
@@ -660,23 +703,27 @@ Toggle to see the output
 #> -------------------------------------------------------------------------------- 
 #>                     Final Quasi-Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
-#>          Coefficient Robust Std.Err.  z value [95% Conf. Interval] Pr(>|z|)    
-#> Constant    -0.26763         0.04539 -5.89578   -0.35660    -0.179 3.73e-09 ***
-#> x1           0.36198         0.02454 14.75144    0.31389     0.410  < 2e-16 ***
-#> x2           0.58505         0.07969  7.34179    0.42886     0.741 2.11e-13 ***
+#>             Coefficient Robust Std.Err.  z value [95% Conf. Interval] Pr(>|z|)
+#> (Intercept)    -0.26763         0.04539 -5.89578   -0.35660    -0.179 3.73e-09
+#> x1              0.36198         0.02454 14.75144    0.31389     0.410  < 2e-16
+#> x2              0.58505         0.07969  7.34179    0.42886     0.741 2.11e-13
+#>                
+#> (Intercept) ***
+#> x1          ***
+#> x2          ***
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
 #> 
 #> 
 #> -------------------------------------------------------------------------------- 
-#>     Three-part regression - binary logit , binary probit + fractional logit 
+#> Three-part fractional regression: binary logit , binary probit + fractional logit 
 #> -------------------------------------------------------------------------------- 
 #> Data type:                                                       Cross-sectional 
 #> Pseudo R-squared:                                                        0.38917 
 #> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 20:36:35 
+#>                          Run Date: 2026-07-11 00:27:09 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -696,49 +743,8 @@ X <- cbind(mrate = fracreg_k401k$mrate, age = fracreg_k401k$age,
            totemp = fracreg_k401k$totemp, sole = fracreg_k401k$sole) 
  
 m <- fracreg(y, X, type="1P", linkfrac="logit") 
-```
-
-Toggle to see the output
-
-``` R
-#> 
-#> -------------------------------------------------------------------------------- 
-#>                           Fractional logit regression 
-#> -------------------------------------------------------------------------------- 
-#> Estimator:                                                                   QML 
-#> Data type:                                                       Cross-sectional 
-#> Number of observations:                                                     1534 
-#> Pseudo R-squared:                                                        0.14667 
-#> Log pseudolikelihood:                                                  -553.1626 
-#> Wald chi2(4):                                                           147.3049 
-#> Prob > chi2:                                                              0.0000 
-#> Standard errors:                                                          robust 
-#> Small sample correction:                                                   FALSE 
-#> Convergence:                                                          Successful 
-#> -------------------------------------------------------------------------------- 
-#>                     Final Quasi-Maximum Likelihood estimates 
-#> -------------------------------------------------------------------------------- 
-#>          Coefficient Robust Std.Err.    z value [95% Conf. Interval] Pr(>|z|)
-#> Constant   9.316e-01       8.408e-02  1.108e+01  7.668e-01     1.096  < 2e-16
-#> mrate      9.531e-01       1.371e-01  6.951e+00  6.843e-01     1.222 3.62e-12
-#> age        2.791e-02       4.877e-03  5.723e+00  1.835e-02     0.037 1.05e-08
-#> totemp    -8.182e-06       3.061e-06 -2.673e+00 -1.418e-05     0.000  0.00751
-#> sole       3.405e-01       8.066e-02  4.222e+00  1.824e-01     0.499 2.43e-05
-#>             
-#> Constant ***
-#> mrate    ***
-#> age      ***
-#> totemp   ** 
-#> sole     ***
-#> ---
-#> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-#> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 20:36:35 
-#> --------------------------------------------------------------------------------
-```
-
-``` r
-fracreg.pe(m) 
+pe_res <- fracreg.pe(m) 
+summary(pe_res)
 ```
 
 Toggle to see the output
@@ -759,7 +765,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 20:36:35 
+#>                          Run Date: 2026-07-11 00:27:09 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -778,8 +784,9 @@ y <- rbeta(N,ym*20,20*(1-ym))
 y[y > 0.9] <- 1 
  
 #Computing average partial effects for a logit fractional response model 
-res <- fracreg(y,X,linkfrac="logit",table=FALSE) 
-fracreg.pe(res) 
+mod <- fracreg(y,X,linkfrac="logit") 
+pe_res <- fracreg.pe(mod) 
+summary(pe_res)
 ```
 
 Toggle to see the output
@@ -798,7 +805,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 20:36:35 
+#>                          Run Date: 2026-07-11 00:27:09 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -806,8 +813,9 @@ Toggle to see the output
  
 #Computing average partial effects for a binary logit + fractional probit 
 #two-part model 
-res <- fracreg(y,X,linkbin="logit",linkfrac="probit",type="2P",inf=1,table=FALSE) 
-fracreg.pe(res) 
+mod <- fracreg(y,X,linkbin="logit",linkfrac="probit",type="2P",inf=1) 
+pe_res <- fracreg.pe(mod) 
+summary(pe_res)
 ```
 
 Toggle to see the output
@@ -826,7 +834,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 20:36:35 
+#>                          Run Date: 2026-07-11 00:27:09 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -835,8 +843,9 @@ Toggle to see the output
 #Computing conditional partial effects for X2 in the logit component 
 #of a two-part fractional response model, with the covariates evaluated 
 #at their median values 
-res <- fracreg(y,X,linkfrac="logit",type="2Pfrac",inf=1,table=FALSE) 
-fracreg.pe(res,APE=FALSE,CPE=TRUE,at="median",which.x="X2") 
+mod <- fracreg(y,X,linkfrac="logit",type="2Pfrac",inf=1) 
+pe_res <- fracreg.pe(mod,APE=FALSE,CPE=TRUE,at="median",which.x="X2") 
+summary(pe_res)
 ```
 
 Toggle to see the output
@@ -854,7 +863,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 20:36:35 
+#>                          Run Date: 2026-07-11 00:27:09 
 #> -------------------------------------------------------------------------------- 
 #> 
 #> Note: covariates evaluated at median (or mode, for dummies) values
@@ -866,8 +875,9 @@ Toggle to see the output
 y3p <- y 
 y3p[1:20] <- 0 
 y3p[21:40] <- 1 
-res3p <- fracreg(y3p,X,linkbin=c("logit","probit"),linkfrac="logit",type="3P",table=FALSE) 
-fracreg.pe(res3p) 
+res3p <- fracreg(y3p,X,linkbin=c("logit","probit"),linkfrac="logit",type="3P") 
+pe_res <- fracreg.pe(res3p) 
+summary(pe_res)
 ```
 
 Toggle to see the output
@@ -886,7 +896,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 20:36:35 
+#>                          Run Date: 2026-07-11 00:27:09 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -910,49 +920,8 @@ X <- cbind(mrate = fracreg_k401k$mrate, age = fracreg_k401k$age,
            totemp = fracreg_k401k$totemp, sole = fracreg_k401k$sole) 
  
 m <- fracreg(y, X, type="1P", linkfrac="logit") 
-```
-
-Toggle to see the output
-
-``` R
-#> 
-#> -------------------------------------------------------------------------------- 
-#>                           Fractional logit regression 
-#> -------------------------------------------------------------------------------- 
-#> Estimator:                                                                   QML 
-#> Data type:                                                       Cross-sectional 
-#> Number of observations:                                                     1534 
-#> Pseudo R-squared:                                                        0.14667 
-#> Log pseudolikelihood:                                                  -553.1626 
-#> Wald chi2(4):                                                           147.3049 
-#> Prob > chi2:                                                              0.0000 
-#> Standard errors:                                                          robust 
-#> Small sample correction:                                                   FALSE 
-#> Convergence:                                                          Successful 
-#> -------------------------------------------------------------------------------- 
-#>                     Final Quasi-Maximum Likelihood estimates 
-#> -------------------------------------------------------------------------------- 
-#>          Coefficient Robust Std.Err.    z value [95% Conf. Interval] Pr(>|z|)
-#> Constant   9.316e-01       8.408e-02  1.108e+01  7.668e-01     1.096  < 2e-16
-#> mrate      9.531e-01       1.371e-01  6.951e+00  6.843e-01     1.222 3.62e-12
-#> age        2.791e-02       4.877e-03  5.723e+00  1.835e-02     0.037 1.05e-08
-#> totemp    -8.182e-06       3.061e-06 -2.673e+00 -1.418e-05     0.000  0.00751
-#> sole       3.405e-01       8.066e-02  4.222e+00  1.824e-01     0.499 2.43e-05
-#>             
-#> Constant ***
-#> mrate    ***
-#> age      ***
-#> totemp   ** 
-#> sole     ***
-#> ---
-#> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-#> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 20:36:35 
-#> --------------------------------------------------------------------------------
-```
-
-``` r
-fracreg.ggoff(m) 
+ggoff_res <- fracreg.ggoff(m) 
+summary(ggoff_res)
 ```
 
 Toggle to see the output
@@ -971,7 +940,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 20:36:35 
+#>                          Run Date: 2026-07-11 00:27:09 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -992,8 +961,9 @@ y[y > 0.9] <- 1
 #Testing the logit specification of a standard fractional response model 
 #using LM and Wald versions of the GGOFF test, based on 1 or 2 fitted powers of 
 #the linear predictor 
-res <- fracreg(y,X,linkfrac="logit",table=FALSE) 
-fracreg.ggoff(res,c("Wald","LM")) 
+mod <- fracreg(y,X,linkfrac="logit") 
+ggoff_res <- fracreg.ggoff(mod,c("Wald","LM")) 
+summary(ggoff_res)
 ```
 
 Toggle to see the output
@@ -1013,7 +983,7 @@ Toggle to see the output
 #> GGOFF - LM       1.612   0.447
 #> GGOFF - Wald     1.336   0.513
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 20:36:35 
+#>                          Run Date: 2026-07-11 00:27:09 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -1021,8 +991,9 @@ Toggle to see the output
  
 #Testing the probit specification of the binary component of a two-part fractional 
 #regression model using a LR-based GGOFF test 
-res <- fracreg(y,X,linkbin="probit",type="2Pbin",inf=1,table=FALSE) 
-fracreg.ggoff(res,"LR") 
+mod <- fracreg(y,X,linkbin="probit",type="2Pbin",inf=1) 
+ggoff_res <- fracreg.ggoff(mod,"LR") 
+summary(ggoff_res)
 ```
 
 Toggle to see the output
@@ -1039,7 +1010,7 @@ Toggle to see the output
 #> GOFF2 - LR     0.017   0.895
 #> GGOFF - LR     0.024   0.988
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 20:36:35 
+#>                          Run Date: 2026-07-11 00:27:09 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -1057,49 +1028,8 @@ X <- cbind(mrate = fracreg_k401k$mrate, age = fracreg_k401k$age,
            totemp = fracreg_k401k$totemp, sole = fracreg_k401k$sole) 
  
 m <- fracreg(y, X, type="1P", linkfrac="logit") 
-```
-
-Toggle to see the output
-
-``` R
-#> 
-#> -------------------------------------------------------------------------------- 
-#>                           Fractional logit regression 
-#> -------------------------------------------------------------------------------- 
-#> Estimator:                                                                   QML 
-#> Data type:                                                       Cross-sectional 
-#> Number of observations:                                                     1534 
-#> Pseudo R-squared:                                                        0.14667 
-#> Log pseudolikelihood:                                                  -553.1626 
-#> Wald chi2(4):                                                           147.3049 
-#> Prob > chi2:                                                              0.0000 
-#> Standard errors:                                                          robust 
-#> Small sample correction:                                                   FALSE 
-#> Convergence:                                                          Successful 
-#> -------------------------------------------------------------------------------- 
-#>                     Final Quasi-Maximum Likelihood estimates 
-#> -------------------------------------------------------------------------------- 
-#>          Coefficient Robust Std.Err.    z value [95% Conf. Interval] Pr(>|z|)
-#> Constant   9.316e-01       8.408e-02  1.108e+01  7.668e-01     1.096  < 2e-16
-#> mrate      9.531e-01       1.371e-01  6.951e+00  6.843e-01     1.222 3.62e-12
-#> age        2.791e-02       4.877e-03  5.723e+00  1.835e-02     0.037 1.05e-08
-#> totemp    -8.182e-06       3.061e-06 -2.673e+00 -1.418e-05     0.000  0.00751
-#> sole       3.405e-01       8.066e-02  4.222e+00  1.824e-01     0.499 2.43e-05
-#>             
-#> Constant ***
-#> mrate    ***
-#> age      ***
-#> totemp   ** 
-#> sole     ***
-#> ---
-#> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-#> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 20:36:35 
-#> --------------------------------------------------------------------------------
-```
-
-``` r
-fracreg.reset(m) 
+reset_res <- fracreg.reset(m) 
+summary(reset_res)
 ```
 
 Toggle to see the output
@@ -1116,7 +1046,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 20:36:35 
+#>                          Run Date: 2026-07-11 00:27:09 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -1137,8 +1067,9 @@ y[y > 0.9] <- 1
 #Testing the logit specification of a standard fractional response model 
 #using LM and Wald versions of the RESET test, based on 1 or 2 fitted powers of 
 #the linear predictor 
-res <- fracreg(y,X,linkfrac="logit",table=FALSE) 
-fracreg.reset(res,2:3,c("Wald","LM")) 
+mod <- fracreg(y,X,linkfrac="logit") 
+reset_res <- fracreg.reset(mod,2:3,c("Wald","LM")) 
+summary(reset_res)
 ```
 
 Toggle to see the output
@@ -1158,7 +1089,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 20:36:35 
+#>                          Run Date: 2026-07-11 00:27:10 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -1167,9 +1098,10 @@ Toggle to see the output
 #Testing the probit specification of the binary component of a two-part fractional 
 #regression model using LR-based RESET tests with quadratic and cubic fitted  
 #powers of the linear predictor 
-res <- fracreg(y,X,linkbin="probit",type="2Pbin",inf=1,table=FALSE) 
-fracreg.reset(res,3,"LR") 
+mod <- fracreg(y,X,linkbin="probit",type="2Pbin",inf=1) 
+reset_res <- fracreg.reset(mod,3,"LR") 
 #> Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred
+summary(reset_res)
 ```
 
 Toggle to see the output
@@ -1184,7 +1116,7 @@ Toggle to see the output
 #>       Statistic p-value
 #> LR(3)     0.976   0.614
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 20:36:35 
+#>                          Run Date: 2026-07-11 00:27:10 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -1201,92 +1133,9 @@ X <- cbind(mrate = fracreg_k401k$mrate, age = fracreg_k401k$age,
            totemp = fracreg_k401k$totemp, sole = fracreg_k401k$sole) 
  
 m1 <- fracreg(y, X, type="1P", linkfrac="logit") 
-```
-
-Toggle to see the output
-
-``` R
-#> 
-#> -------------------------------------------------------------------------------- 
-#>                           Fractional logit regression 
-#> -------------------------------------------------------------------------------- 
-#> Estimator:                                                                   QML 
-#> Data type:                                                       Cross-sectional 
-#> Number of observations:                                                     1534 
-#> Pseudo R-squared:                                                        0.14667 
-#> Log pseudolikelihood:                                                  -553.1626 
-#> Wald chi2(4):                                                           147.3049 
-#> Prob > chi2:                                                              0.0000 
-#> Standard errors:                                                          robust 
-#> Small sample correction:                                                   FALSE 
-#> Convergence:                                                          Successful 
-#> -------------------------------------------------------------------------------- 
-#>                     Final Quasi-Maximum Likelihood estimates 
-#> -------------------------------------------------------------------------------- 
-#>          Coefficient Robust Std.Err.    z value [95% Conf. Interval] Pr(>|z|)
-#> Constant   9.316e-01       8.408e-02  1.108e+01  7.668e-01     1.096  < 2e-16
-#> mrate      9.531e-01       1.371e-01  6.951e+00  6.843e-01     1.222 3.62e-12
-#> age        2.791e-02       4.877e-03  5.723e+00  1.835e-02     0.037 1.05e-08
-#> totemp    -8.182e-06       3.061e-06 -2.673e+00 -1.418e-05     0.000  0.00751
-#> sole       3.405e-01       8.066e-02  4.222e+00  1.824e-01     0.499 2.43e-05
-#>             
-#> Constant ***
-#> mrate    ***
-#> age      ***
-#> totemp   ** 
-#> sole     ***
-#> ---
-#> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-#> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 20:36:36 
-#> --------------------------------------------------------------------------------
-```
-
-``` r
 m2 <- fracreg(y, X, type="1P", linkfrac="probit") 
-```
-
-Toggle to see the output
-
-``` R
-#> 
-#> -------------------------------------------------------------------------------- 
-#>                           Fractional probit regression 
-#> -------------------------------------------------------------------------------- 
-#> Estimator:                                                                   QML 
-#> Data type:                                                       Cross-sectional 
-#> Number of observations:                                                     1534 
-#> Pseudo R-squared:                                                        0.14069 
-#> Log pseudolikelihood:                                                  -554.2692 
-#> Wald chi2(4):                                                           148.7649 
-#> Prob > chi2:                                                              0.0000 
-#> Standard errors:                                                          robust 
-#> Small sample correction:                                                   FALSE 
-#> Convergence:                                                          Successful 
-#> -------------------------------------------------------------------------------- 
-#>                     Final Quasi-Maximum Likelihood estimates 
-#> -------------------------------------------------------------------------------- 
-#>          Coefficient Robust Std.Err.    z value [95% Conf. Interval] Pr(>|z|)
-#> Constant   6.374e-01       4.517e-02  1.411e+01  5.489e-01     0.726  < 2e-16
-#> mrate      4.190e-01       6.820e-02  6.143e+00  2.853e-01     0.553 8.07e-10
-#> age        1.483e-02       2.536e-03  5.846e+00  9.855e-03     0.020 5.04e-09
-#> totemp    -4.546e-06       1.732e-06 -2.625e+00 -7.940e-06     0.000  0.00866
-#> sole       2.000e-01       4.311e-02  4.639e+00  1.155e-01     0.284 3.50e-06
-#>             
-#> Constant ***
-#> mrate    ***
-#> age      ***
-#> totemp   ** 
-#> sole     ***
-#> ---
-#> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-#> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 20:36:36 
-#> --------------------------------------------------------------------------------
-```
-
-``` r
-fracreg.ptest(m1, m2) 
+ptest_res <- fracreg.ptest(m1, m2) 
+summary(ptest_res)
 ```
 
 Toggle to see the output
@@ -1310,7 +1159,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 20:36:36 
+#>                          Run Date: 2026-07-11 00:27:10 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -1330,9 +1179,10 @@ y[y > 0.9] <- 1
  
 #Testing logit versus loglog specifications for standard fractional 
 #regression models using a LM version of the P test 
-res1 <- fracreg(y,X,linkfrac="logit",table=FALSE) 
-res2 <- fracreg(y,X,linkfrac="loglog",table=FALSE) 
-fracreg.ptest(res1,res2,"LM") 
+res1 <- fracreg(y,X,linkfrac="logit") 
+res2 <- fracreg(y,X,linkfrac="loglog") 
+ptest_res <- fracreg.ptest(res1,res2,"LM") 
+summary(ptest_res)
 ```
 
 Toggle to see the output
@@ -1356,7 +1206,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 20:36:36 
+#>                          Run Date: 2026-07-11 00:27:10 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -1364,9 +1214,10 @@ Toggle to see the output
  
 #Testing a logit one-part fractional response model versus a binary logit + 
 #fractional probit two-part model using a Wald version of the P test 
-res1 <- fracreg(y,X,linkfrac="logit",table=FALSE) 
-res2 <- fracreg(y,X,linkbin="logit",linkfrac="probit",type="2P",inf=1,table=FALSE) 
-fracreg.ptest(res1,res2,"Wald") 
+res1 <- fracreg(y,X,linkfrac="logit") 
+res2 <- fracreg(y,X,linkbin="logit",linkfrac="probit",type="2P",inf=1) 
+ptest_res <- fracreg.ptest(res1,res2,"Wald") 
+summary(ptest_res)
 ```
 
 Toggle to see the output
@@ -1390,7 +1241,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 20:36:36 
+#>                          Run Date: 2026-07-11 00:27:10 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -1417,7 +1268,7 @@ y_adj[y_adj == 1] <- 0.999
 # Instrument mrate using age
 
 Z_emp <- cbind(age = fracreg_k401k$age, ltotemp = fracreg_k401k$ltotemp) 
-fracreghet(y_adj, X_het, Z_emp, var.endog = X_het[, "mrate"], type="QMLxv", link="logit") 
+mod <- fracreghet(y_adj, X_het, Z_emp, var.endog = X_het[, "mrate"], type="QMLxv", link="logit") 
 ```
 
 Toggle to see the output
@@ -1437,35 +1288,41 @@ Toggle to see the output
 #> -------------------------------------------------------------------------------- 
 #>                   Final Quasi-Maximum Likelihood xv estimates 
 #> -------------------------------------------------------------------------------- 
-#>          Coefficient Robust Std.Err.  z value [95% Conf. Interval] Pr(>|z|)    
-#> Constant    -0.10561         0.75224 -0.14040   -1.57997     1.369    0.888    
-#> mrate        3.72138         0.68952  5.39703    2.36994     5.073 6.78e-08 ***
-#> ltotemp     -0.07009         0.05348 -1.31060   -0.17491     0.035    0.190    
-#> vhat        -2.79515         0.70026 -3.99157   -4.16764    -1.423 6.56e-05 ***
+#>             Coefficient Robust Std.Err.  z value [95% Conf. Interval] Pr(>|z|)
+#> (Intercept)    -0.10561         0.75224 -0.14040   -1.57997     1.369    0.888
+#> mrate           3.72138         0.68952  5.39703    2.36994     5.073 6.78e-08
+#> ltotemp        -0.07009         0.05348 -1.31060   -0.17491     0.035    0.190
+#> vhat           -2.79515         0.70026 -3.99157   -4.16764    -1.423 6.56e-05
+#>                
+#> (Intercept)    
+#> mrate       ***
+#> ltotemp        
+#> vhat        ***
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> 
 #>                                  Reduced form: 
 #> -------------------------------------------------------------------------------- 
-#>             Coefficient Robust Std.Err.  z value [95% Conf. Interval] Pr(>|z|)
-#> Z_INTERCEPT     0.95046         0.09550  9.95211    0.76327     1.138  < 2e-16
-#> Z_age           0.01146         0.00231  4.95997    0.00693     0.016 7.05e-07
-#> Z_ltotemp      -0.05534         0.01421 -3.89528   -0.08318    -0.027 9.81e-05
-#>                
-#> Z_INTERCEPT ***
-#> Z_age       ***
-#> Z_ltotemp   ***
+#>               Coefficient Robust Std.Err.  z value [95% Conf. Interval]
+#> Z_(Intercept)     0.95046         0.09550  9.95211    0.76327     1.138
+#> Z_age             0.01146         0.00231  4.95997    0.00693     0.016
+#> Z_ltotemp        -0.05534         0.01421 -3.89528   -0.08318    -0.027
+#>               Pr(>|z|)    
+#> Z_(Intercept)  < 2e-16 ***
+#> Z_age         7.05e-07 ***
+#> Z_ltotemp     9.81e-05 ***
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 20:36:36 
+#>                          Run Date: 2026-07-11 00:27:11 
 #> --------------------------------------------------------------------------------
 ```
 
 ``` r
+summary(mod)
 
 # Compute the same QMLxv estimator reporting Odds Ratios with 90% confidence intervals
-fracreghet(y_adj, X_het, Z_emp, var.endog = X_het[, "mrate"], type="QMLxv", link="logit", or=TRUE, level=0.90)
+mod <- fracreghet(y_adj, X_het, Z_emp, var.endog = X_het[, "mrate"], type="QMLxv", link="logit", or=TRUE, level=0.90)
 ```
 
 Toggle to see the output
@@ -1485,32 +1342,38 @@ Toggle to see the output
 #> -------------------------------------------------------------------------------- 
 #>                   Final Quasi-Maximum Likelihood xv estimates 
 #> -------------------------------------------------------------------------------- 
-#>          Odds Ratio Robust Std.Err.  z value [90% Conf. Interval] Pr(>|z|)    
-#> Constant    0.89977         0.67684 -0.14040    0.26108     3.101    0.888    
-#> mrate      41.32156        28.49224  5.39703   13.29272   128.452 6.78e-08 ***
-#> ltotemp     0.93231         0.04986 -1.31060    0.85380     1.018    0.190    
-#> vhat        0.06111         0.04279 -3.99157    0.01931     0.193 6.56e-05 ***
+#>             Odds Ratio Robust Std.Err.  z value [90% Conf. Interval] Pr(>|z|)
+#> (Intercept)    0.89977         0.67684 -0.14040    0.26108     3.101    0.888
+#> mrate         41.32156        28.49224  5.39703   13.29272   128.452 6.78e-08
+#> ltotemp        0.93231         0.04986 -1.31060    0.85380     1.018    0.190
+#> vhat           0.06111         0.04279 -3.99157    0.01931     0.193 6.56e-05
+#>                
+#> (Intercept)    
+#> mrate       ***
+#> ltotemp        
+#> vhat        ***
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> 
 #>                                  Reduced form: 
 #> -------------------------------------------------------------------------------- 
-#>             Odds Ratio Robust Std.Err.   z value [90% Conf. Interval] Pr(>|z|)
-#> Z_INTERCEPT   2.586889        0.247056  9.952107   2.210829     3.027  < 2e-16
-#> Z_age         1.011524        0.002337  4.959966   1.007688     1.015 7.05e-07
-#> Z_ltotemp     0.946168        0.013441 -3.895285   0.924315     0.969 9.81e-05
-#>                
-#> Z_INTERCEPT ***
-#> Z_age       ***
-#> Z_ltotemp   ***
+#>               Odds Ratio Robust Std.Err.   z value [90% Conf. Interval]
+#> Z_(Intercept)   2.586889        0.247056  9.952107   2.210829     3.027
+#> Z_age           1.011524        0.002337  4.959966   1.007688     1.015
+#> Z_ltotemp       0.946168        0.013441 -3.895285   0.924315     0.969
+#>               Pr(>|z|)    
+#> Z_(Intercept)  < 2e-16 ***
+#> Z_age         7.05e-07 ***
+#> Z_ltotemp     9.81e-05 ***
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 20:36:37 
+#>                          Run Date: 2026-07-11 00:27:11 
 #> --------------------------------------------------------------------------------
 ```
 
 ``` r
+summary(mod)
  
 ### Simulated Examples 
  
@@ -1532,7 +1395,7 @@ X <- cbind(x1 = x1, var.endog = var.endog)
 Z <- cbind(x1 = x1, z1 = z1) 
  
 # Exogeneity (assuming var.endog is exogenous for comparison), GMMx estimator 
-fracreghet(y = y_endog, x = X, type = "GMMx", link = "logit") 
+mod <- fracreghet(y = y_endog, x = X, type = "GMMx", link = "logit") 
 ```
 
 Toggle to see the output
@@ -1552,25 +1415,26 @@ Toggle to see the output
 #> -------------------------------------------------------------------------------- 
 #>                               Final GMMx estimates 
 #> -------------------------------------------------------------------------------- 
-#>           Coefficient Robust Std.Err.   z value [95% Conf. Interval] Pr(>|z|)
-#> Constant    9.132e-02       1.536e-02 5.947e+00  6.123e-02     0.121 2.73e-09
-#> x1          4.608e-01       1.538e-02 2.995e+01  4.306e-01     0.491  < 2e-16
-#> var.endog   1.808e+00       9.021e-03 2.004e+02  1.790e+00     1.826  < 2e-16
-#>              
-#> Constant  ***
-#> x1        ***
-#> var.endog ***
+#>             Coefficient Robust Std.Err.   z value [95% Conf. Interval] Pr(>|z|)
+#> (Intercept)   9.132e-02       1.536e-02 5.947e+00  6.123e-02     0.121 2.73e-09
+#> x1            4.608e-01       1.538e-02 2.995e+01  4.306e-01     0.491  < 2e-16
+#> var.endog     1.808e+00       9.021e-03 2.004e+02  1.790e+00     1.826  < 2e-16
+#>                
+#> (Intercept) ***
+#> x1          ***
+#> var.endog   ***
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 20:36:37 
+#>                          Run Date: 2026-07-11 00:27:11 
 #> --------------------------------------------------------------------------------
 ```
 
 ``` r
+summary(mod)
  
 # Endogeneity, GMMz estimator (does not require reduced form for endog) 
-fracreghet(y = y_endog, x = X, z = Z, type = "GMMz", link = "logit") 
+mod <- fracreghet(y = y_endog, x = X, z = Z, type = "GMMz", link = "logit") 
 ```
 
 Toggle to see the output
@@ -1590,25 +1454,26 @@ Toggle to see the output
 #> -------------------------------------------------------------------------------- 
 #>                               Final GMMz estimates 
 #> -------------------------------------------------------------------------------- 
-#>           Coefficient Robust Std.Err.   z value [95% Conf. Interval] Pr(>|z|)
-#> Constant      0.15277         0.02018   7.56931    0.11321     0.192 3.75e-14
-#> x1            0.47947         0.02051  23.37680    0.43927     0.520  < 2e-16
-#> var.endog     1.61252         0.01445 111.61802    1.58421     1.641  < 2e-16
-#>              
-#> Constant  ***
-#> x1        ***
-#> var.endog ***
+#>             Coefficient Robust Std.Err.   z value [95% Conf. Interval] Pr(>|z|)
+#> (Intercept)     0.15277         0.02018   7.56931    0.11321     0.192 3.75e-14
+#> x1              0.47947         0.02051  23.37680    0.43927     0.520  < 2e-16
+#> var.endog       1.61252         0.01445 111.61802    1.58421     1.641  < 2e-16
+#>                
+#> (Intercept) ***
+#> x1          ***
+#> var.endog   ***
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 20:36:37 
+#>                          Run Date: 2026-07-11 00:27:11 
 #> --------------------------------------------------------------------------------
 ```
 
 ``` r
+summary(mod)
  
 # Endogeneity, GMMxv estimator (assumes linear reduced form for var.endog) 
-fracreghet(y = y_endog, x = X, z = Z, var.endog = var.endog, type = "GMMxv", link = "logit") 
+mod <- fracreghet(y = y_endog, x = X, z = Z, var.endog = var.endog, type = "GMMxv", link = "logit") 
 #> Warning in dgamma(y, 1/disp, scale = mu * disp, log = TRUE): NaNs produced
 ```
 
@@ -1627,40 +1492,41 @@ Toggle to see the output
 #> -------------------------------------------------------------------------------- 
 #>                              Final GMMxv estimates 
 #> -------------------------------------------------------------------------------- 
-#>           Coefficient Robust Std.Err.   z value [95% Conf. Interval] Pr(>|z|)
-#> Constant     -0.01262         0.01859  -0.67857   -0.04905     0.024    0.497
-#> x1            0.48705         0.01884  25.85287    0.45012     0.524   <2e-16
-#> var.endog     1.59737         0.01339 119.33166    1.57113     1.624   <2e-16
-#> vhat          0.60263         0.01339  45.01988    0.57640     0.629   <2e-16
-#>              
-#> Constant     
-#> x1        ***
-#> var.endog ***
-#> vhat      ***
+#>             Coefficient Robust Std.Err.   z value [95% Conf. Interval] Pr(>|z|)
+#> (Intercept)    -0.01262         0.01859  -0.67857   -0.04905     0.024    0.497
+#> x1              0.48705         0.01884  25.85287    0.45012     0.524   <2e-16
+#> var.endog       1.59737         0.01339 119.33166    1.57113     1.624   <2e-16
+#> vhat            0.60263         0.01339  45.01988    0.57640     0.629   <2e-16
+#>                
+#> (Intercept)    
+#> x1          ***
+#> var.endog   ***
+#> vhat        ***
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> 
 #>                                  Reduced form: 
 #> -------------------------------------------------------------------------------- 
-#>             Coefficient Robust Std.Err.  z value [95% Conf. Interval] Pr(>|z|)
-#> Z_INTERCEPT    -0.02093         0.03082 -0.67933   -0.08133     0.039    0.497
-#> Z_x1           -0.02149         0.03132 -0.68612   -0.08288     0.040    0.493
-#> Z_z1            1.32751         0.02949 45.01988    1.26971     1.385   <2e-16
-#>                
-#> Z_INTERCEPT    
-#> Z_x1           
-#> Z_z1        ***
+#>               Coefficient Robust Std.Err.  z value [95% Conf. Interval]
+#> Z_(Intercept)    -0.02093         0.03082 -0.67933   -0.08133     0.039
+#> Z_x1             -0.02149         0.03132 -0.68612   -0.08288     0.040
+#> Z_z1              1.32751         0.02949 45.01988    1.26971     1.385
+#>               Pr(>|z|)    
+#> Z_(Intercept)    0.497    
+#> Z_x1             0.493    
+#> Z_z1            <2e-16 ***
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 20:36:37 
+#>                          Run Date: 2026-07-11 00:27:11 
 #> --------------------------------------------------------------------------------
 ```
 
 ``` r
+summary(mod)
  
 # Endogeneity, QMLxv control function approach 
-fracreghet(y = y_endog, x = X, z = Z, var.endog = var.endog, type = "QMLxv", link = "logit") 
+mod <- fracreghet(y = y_endog, x = X, z = Z, var.endog = var.endog, type = "QMLxv", link = "logit") 
 ```
 
 Toggle to see the output
@@ -1678,34 +1544,38 @@ Toggle to see the output
 #> -------------------------------------------------------------------------------- 
 #>                   Final Quasi-Maximum Likelihood xv estimates 
 #> -------------------------------------------------------------------------------- 
-#>           Coefficient Robust Std.Err.   z value [95% Conf. Interval] Pr(>|z|)
-#> Constant     -0.01262         0.01859  -0.67857   -0.04905     0.024    0.497
-#> x1            0.48705         0.01884  25.85287    0.45012     0.524   <2e-16
-#> var.endog     1.59737         0.01339 119.33166    1.57113     1.624   <2e-16
-#> vhat          0.60263         0.01339  45.01988    0.57640     0.629   <2e-16
-#>              
-#> Constant     
-#> x1        ***
-#> var.endog ***
-#> vhat      ***
+#>             Coefficient Robust Std.Err.   z value [95% Conf. Interval] Pr(>|z|)
+#> (Intercept)    -0.01262         0.01859  -0.67857   -0.04905     0.024    0.497
+#> x1              0.48705         0.01884  25.85287    0.45012     0.524   <2e-16
+#> var.endog       1.59737         0.01339 119.33166    1.57113     1.624   <2e-16
+#> vhat            0.60263         0.01339  45.01988    0.57640     0.629   <2e-16
+#>                
+#> (Intercept)    
+#> x1          ***
+#> var.endog   ***
+#> vhat        ***
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> 
 #>                                  Reduced form: 
 #> -------------------------------------------------------------------------------- 
-#>             Coefficient Robust Std.Err.  z value [95% Conf. Interval] Pr(>|z|)
-#> Z_INTERCEPT    -0.02093         0.03082 -0.67933   -0.08133     0.039    0.497
-#> Z_x1           -0.02149         0.03132 -0.68612   -0.08288     0.040    0.493
-#> Z_z1            1.32751         0.02949 45.01988    1.26971     1.385   <2e-16
-#>                
-#> Z_INTERCEPT    
-#> Z_x1           
-#> Z_z1        ***
+#>               Coefficient Robust Std.Err.  z value [95% Conf. Interval]
+#> Z_(Intercept)    -0.02093         0.03082 -0.67933   -0.08133     0.039
+#> Z_x1             -0.02149         0.03132 -0.68612   -0.08288     0.040
+#> Z_z1              1.32751         0.02949 45.01988    1.26971     1.385
+#>               Pr(>|z|)    
+#> Z_(Intercept)    0.497    
+#> Z_x1             0.493    
+#> Z_z1            <2e-16 ***
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 20:36:37 
+#>                          Run Date: 2026-07-11 00:27:11 
 #> --------------------------------------------------------------------------------
+```
+
+``` r
+summary(mod)
 ```
 
 ### 3.1 Partial Effects for Endogenous Models (`fracreghet.pe`)
@@ -1723,8 +1593,59 @@ y_adj[y_adj == 1] <- 0.999
 # Instrument mrate using age
 
 Z_emp <- cbind(age = fracreg_k401k$age, ltotemp = fracreg_k401k$ltotemp) 
-res_emp <- fracreghet(y_adj, X_het, Z_emp, var.endog = X_het[, "mrate"], type="QMLxv", link="logit", table=FALSE) 
-fracreghet.pe(res_emp, which.x="mrate")
+res_emp <- fracreghet(y_adj, X_het, Z_emp, var.endog = X_het[, "mrate"], type="QMLxv", link="logit") 
+```
+
+Toggle to see the output
+
+``` R
+#> 
+#> -------------------------------------------------------------------------------- 
+#>         Fractional logit regression with heteroscedasticity/endogeneity 
+#> -------------------------------------------------------------------------------- 
+#> Estimator:                                                                 QMLxv 
+#> Data type:                                                       Cross-sectional 
+#> Number of observations:                                                     1534 
+#> Standard errors:                                                          robust 
+#> Wald chi2(6):                                                          1991.8748 
+#> Prob > chi2:                                                              0.0000 
+#> Convergence:                                                          Successful 
+#> -------------------------------------------------------------------------------- 
+#>                   Final Quasi-Maximum Likelihood xv estimates 
+#> -------------------------------------------------------------------------------- 
+#>             Coefficient Robust Std.Err.  z value [95% Conf. Interval] Pr(>|z|)
+#> (Intercept)    -0.10561         0.75224 -0.14040   -1.57997     1.369    0.888
+#> mrate           3.72138         0.68952  5.39703    2.36994     5.073 6.78e-08
+#> ltotemp        -0.07009         0.05348 -1.31060   -0.17491     0.035    0.190
+#> vhat           -2.79515         0.70026 -3.99157   -4.16764    -1.423 6.56e-05
+#>                
+#> (Intercept)    
+#> mrate       ***
+#> ltotemp        
+#> vhat        ***
+#> ---
+#> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+#> 
+#>                                  Reduced form: 
+#> -------------------------------------------------------------------------------- 
+#>               Coefficient Robust Std.Err.  z value [95% Conf. Interval]
+#> Z_(Intercept)     0.95046         0.09550  9.95211    0.76327     1.138
+#> Z_age             0.01146         0.00231  4.95997    0.00693     0.016
+#> Z_ltotemp        -0.05534         0.01421 -3.89528   -0.08318    -0.027
+#>               Pr(>|z|)    
+#> Z_(Intercept)  < 2e-16 ***
+#> Z_age         7.05e-07 ***
+#> Z_ltotemp     9.81e-05 ***
+#> ---
+#> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+#> -------------------------------------------------------------------------------- 
+#>                          Run Date: 2026-07-11 00:27:12 
+#> --------------------------------------------------------------------------------
+```
+
+``` r
+pe_res <- fracreghet.pe(res_emp, which.x="mrate")
+summary(pe_res)
 ```
 
 Toggle to see the output
@@ -1743,7 +1664,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 20:36:38 
+#>                          Run Date: 2026-07-11 00:27:12 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -1762,10 +1683,46 @@ dimnames(Z)[[2]] <- c("Z1","Z2","Z3")
  
 y <- exp(X[,1]+X[,2]+u)/(1+exp(X[,1]+X[,2]+u)) 
  
-res <- fracreghet(y,X,type="GMMx",table=FALSE) 
+mod <- fracreghet(y,X,type="GMMx") 
+```
+
+Toggle to see the output
+
+``` R
+#> 
+#> -------------------------------------------------------------------------------- 
+#>         Fractional logit regression with heteroscedasticity/endogeneity 
+#> -------------------------------------------------------------------------------- 
+#> Estimator:                                                                  GMMx 
+#> Data type:                                                       Cross-sectional 
+#> Number of observations:                                                      250 
+#> Standard errors:                                                          robust 
+#> Wald chi2(2):                                                           368.8403 
+#> Prob > chi2:                                                              0.0000 
+#> Convergence:                                                          Successful 
+#> -------------------------------------------------------------------------------- 
+#>                               Final GMMx estimates 
+#> -------------------------------------------------------------------------------- 
+#>             Coefficient Robust Std.Err.  z value [95% Conf. Interval] Pr(>|z|)
+#> (Intercept)     0.43394         0.07745  5.60291    0.28214     0.586 2.11e-08
+#> X1              0.98087         0.06730 14.57560    0.84897     1.113  < 2e-16
+#> X2              0.88338         0.07066 12.50206    0.74489     1.022  < 2e-16
+#>                
+#> (Intercept) ***
+#> X1          ***
+#> X2          ***
+#> ---
+#> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+#> -------------------------------------------------------------------------------- 
+#>                          Run Date: 2026-07-11 00:27:12 
+#> --------------------------------------------------------------------------------
+```
+
+``` r
  
 #Smearing estimator of average partial effects for variable X1 
-fracreghet.pe(res,which.x="X1") 
+pe_res <- fracreghet.pe(mod,which.x="X1") 
+summary(pe_res)
 ```
 
 Toggle to see the output
@@ -1784,7 +1741,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 20:36:38 
+#>                          Run Date: 2026-07-11 00:27:13 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -1792,7 +1749,8 @@ Toggle to see the output
  
 #Naive estimator of conditional partial effects for all covariates, 
 #which are evaluated at X1=1 and X2=-1 
-fracreghet.pe(res,smearing=FALSE,APE=FALSE,CPE=TRUE,at=c(1,-1)) 
+pe_res <- fracreghet.pe(mod,smearing=FALSE,APE=FALSE,CPE=TRUE,at=c(1,-1)) 
+summary(pe_res)
 ```
 
 Toggle to see the output
@@ -1812,7 +1770,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 20:36:38 
+#>                          Run Date: 2026-07-11 00:27:13 
 #> -------------------------------------------------------------------------------- 
 #> 
 #> Note: covariates evaluated at the following values:
@@ -1836,8 +1794,44 @@ y_adj[y_adj == 1] <- 0.999
 # Instrument mrate using age
 
 Z_emp <- cbind(age = fracreg_k401k$age, ltotemp = fracreg_k401k$ltotemp) 
-res_emp <- fracreghet(y_adj, X_het, type="GMMx", link="logit", table=FALSE) 
-fracreghet.reset(res_emp)
+res_emp <- fracreghet(y_adj, X_het, type="GMMx", link="logit") 
+```
+
+Toggle to see the output
+
+``` R
+#> 
+#> -------------------------------------------------------------------------------- 
+#>         Fractional logit regression with heteroscedasticity/endogeneity 
+#> -------------------------------------------------------------------------------- 
+#> Estimator:                                                                  GMMx 
+#> Data type:                                                       Cross-sectional 
+#> Number of observations:                                                     1534 
+#> Standard errors:                                                          robust 
+#> Wald chi2(2):                                                           153.0331 
+#> Prob > chi2:                                                              0.0000 
+#> Convergence:                                                          Successful 
+#> -------------------------------------------------------------------------------- 
+#>                               Final GMMx estimates 
+#> -------------------------------------------------------------------------------- 
+#>             Coefficient Robust Std.Err.  z value [95% Conf. Interval] Pr(>|z|)
+#> (Intercept)     6.86160         0.15854 43.28078    6.55087     7.172  < 2e-16
+#> mrate           0.39342         0.03450 11.40432    0.32581     0.461  < 2e-16
+#> ltotemp        -0.16558         0.02516 -6.58147   -0.21489    -0.116 4.66e-11
+#>                
+#> (Intercept) ***
+#> mrate       ***
+#> ltotemp     ***
+#> ---
+#> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+#> -------------------------------------------------------------------------------- 
+#>                          Run Date: 2026-07-11 00:27:13 
+#> --------------------------------------------------------------------------------
+```
+
+``` r
+reset_res <- fracreghet.reset(res_emp)
+summary(reset_res)
 ```
 
 Toggle to see the output
@@ -1856,7 +1850,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 20:36:38 
+#>                          Run Date: 2026-07-11 00:27:13 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -1875,10 +1869,46 @@ dimnames(Z)[[2]] <- c("Z1","Z2","Z3")
  
 y <- exp(X[,1]+X[,2]+u)/(1+exp(X[,1]+X[,2]+u)) 
  
-res <- fracreghet(y,X,type="GMMx",table=FALSE) 
+mod <- fracreghet(y,X,type="GMMx") 
+```
+
+Toggle to see the output
+
+``` R
+#> 
+#> -------------------------------------------------------------------------------- 
+#>         Fractional logit regression with heteroscedasticity/endogeneity 
+#> -------------------------------------------------------------------------------- 
+#> Estimator:                                                                  GMMx 
+#> Data type:                                                       Cross-sectional 
+#> Number of observations:                                                      250 
+#> Standard errors:                                                          robust 
+#> Wald chi2(2):                                                           344.3728 
+#> Prob > chi2:                                                              0.0000 
+#> Convergence:                                                          Successful 
+#> -------------------------------------------------------------------------------- 
+#>                               Final GMMx estimates 
+#> -------------------------------------------------------------------------------- 
+#>             Coefficient Robust Std.Err.  z value [95% Conf. Interval] Pr(>|z|)
+#> (Intercept)     0.54638         0.08980  6.08469    0.37038     0.722 1.17e-09
+#> X1              0.99706         0.08247 12.08968    0.83542     1.159  < 2e-16
+#> X2              0.91253         0.10010  9.11639    0.71634     1.109  < 2e-16
+#>                
+#> (Intercept) ***
+#> X1          ***
+#> X2          ***
+#> ---
+#> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+#> -------------------------------------------------------------------------------- 
+#>                          Run Date: 2026-07-11 00:27:13 
+#> --------------------------------------------------------------------------------
+```
+
+``` r
  
 #LM and Wald versions of the RESET test, based on 1 or 2 fitted powers of xb 
-fracreghet.reset(res,2:3,c("Wald","LM")) 
+reset_res <- fracreghet.reset(mod,2:3,c("Wald","LM")) 
+summary(reset_res)
 ```
 
 Toggle to see the output
@@ -1900,7 +1930,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 20:36:38 
+#>                          Run Date: 2026-07-11 00:27:13 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -1924,7 +1954,8 @@ X <- cbind(mrate = fracreg_k401k$mrate, age = fracreg_k401k$age,
 N_emp <- nrow(X) 
 id_emp <- rep(1:(N_emp/2), each=2) 
 time_emp <- rep(1:2, times=N_emp/2) 
-fracregpd(id_emp, time_emp, y, X, type="QMLcre", link="probit") 
+mod <- fracregpd(id_emp, time_emp, y, X, type="QMLcre", link="probit") 
+summary(mod)
 ```
 
 Toggle to see the output
@@ -1950,30 +1981,30 @@ Toggle to see the output
 #> -------------------------------------------------------------------------------- 
 #>       Final (Correlated Random Effects) Quasi-Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
-#>                Coefficient Cluster Std.Err.    z value [95% Conf. Interval]
-#> mrate            3.915e-01        7.007e-02  5.588e+00  2.542e-01     0.529
-#> age              1.386e-02        3.543e-03  3.911e+00  6.912e-03     0.021
-#> totemp          -5.250e-06        2.649e-06 -1.982e+00 -1.044e-05     0.000
-#> sole             2.378e-01        6.038e-02  3.938e+00  1.194e-01     0.356
-#> INTERCEPT_mean   6.235e-01        5.885e-02  1.060e+01  5.082e-01     0.739
-#> mrate_mean       5.726e-02        6.343e-02  9.027e-01 -6.706e-02     0.182
-#> age_mean         1.544e-03        4.233e-03  3.649e-01 -6.751e-03     0.010
-#> totemp_mean      1.223e-06        2.946e-06  4.152e-01 -4.551e-06     0.000
-#> sole_mean       -7.157e-02        8.424e-02 -8.495e-01 -2.367e-01     0.094
-#>                Pr(>|z|)    
-#> mrate          2.30e-08 ***
-#> age            9.20e-05 ***
-#> totemp           0.0475 *  
-#> sole           8.22e-05 ***
-#> INTERCEPT_mean  < 2e-16 ***
-#> mrate_mean       0.3667    
-#> age_mean         0.7152    
-#> totemp_mean      0.6780    
-#> sole_mean        0.3956    
+#>                  Coefficient Cluster Std.Err.    z value [95% Conf. Interval]
+#> mrate              3.915e-01        7.007e-02  5.588e+00  2.542e-01     0.529
+#> age                1.386e-02        3.543e-03  3.911e+00  6.912e-03     0.021
+#> totemp            -5.250e-06        2.649e-06 -1.982e+00 -1.044e-05     0.000
+#> sole               2.378e-01        6.038e-02  3.938e+00  1.194e-01     0.356
+#> (Intercept)_mean   6.235e-01        5.885e-02  1.060e+01  5.082e-01     0.739
+#> mrate_mean         5.726e-02        6.343e-02  9.027e-01 -6.706e-02     0.182
+#> age_mean           1.544e-03        4.233e-03  3.649e-01 -6.751e-03     0.010
+#> totemp_mean        1.223e-06        2.946e-06  4.152e-01 -4.551e-06     0.000
+#> sole_mean         -7.157e-02        8.424e-02 -8.495e-01 -2.367e-01     0.094
+#>                  Pr(>|z|)    
+#> mrate            2.30e-08 ***
+#> age              9.20e-05 ***
+#> totemp             0.0475 *  
+#> sole             8.22e-05 ***
+#> (Intercept)_mean  < 2e-16 ***
+#> mrate_mean         0.3667    
+#> age_mean           0.7152    
+#> totemp_mean        0.6780    
+#> sole_mean          0.3956    
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 20:36:38 
+#>                          Run Date: 2026-07-11 00:27:13 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -2006,7 +2037,8 @@ X_endog <- cbind(x_panel = x_panel, var_endog = var_endog)
 Z_inst <- cbind(x_panel = x_panel, z_panel = z_panel) 
  
 # Estimate a Correlated Random Effects (CRE) Model 
-fracregpd(id=id, time=time, y=y_panel, x=X, type="QMLcre", link="probit") 
+mod <- fracregpd(id=id, time=time, y=y_panel, x=X, type="QMLcre", link="probit") 
+summary(mod)
 ```
 
 Toggle to see the output
@@ -2032,25 +2064,26 @@ Toggle to see the output
 #> -------------------------------------------------------------------------------- 
 #>       Final (Correlated Random Effects) Quasi-Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
-#>                Coefficient Cluster Std.Err.  z value [95% Conf. Interval]
-#> x_panel            0.52902          0.01143 46.29965    0.50662     0.551
-#> INTERCEPT_mean    -0.01246          0.04901 -0.25433   -0.10851     0.084
-#> x_panel_mean      -0.17409          0.13491 -1.29040   -0.43850     0.090
-#>                Pr(>|z|)    
-#> x_panel          <2e-16 ***
-#> INTERCEPT_mean    0.799    
-#> x_panel_mean      0.197    
+#>                  Coefficient Cluster Std.Err.  z value [95% Conf. Interval]
+#> x_panel              0.52902          0.01143 46.29965    0.50662     0.551
+#> (Intercept)_mean    -0.01246          0.04901 -0.25433   -0.10851     0.084
+#> x_panel_mean        -0.17409          0.13491 -1.29040   -0.43850     0.090
+#>                  Pr(>|z|)    
+#> x_panel            <2e-16 ***
+#> (Intercept)_mean    0.799    
+#> x_panel_mean        0.197    
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 20:36:39 
+#>                          Run Date: 2026-07-11 00:27:14 
 #> --------------------------------------------------------------------------------
 ```
 
 ``` r
  
 # Exogeneity, no lags, no time dummies, clustered standard errors, GMMbgw estimator 
-fracregpd(id=id, time=time, y=y_panel, x=X, type="GMMbgw") 
+mod <- fracregpd(id=id, time=time, y=y_panel, x=X, type="GMMbgw") 
+summary(mod)
 ```
 
 Toggle to see the output
@@ -2082,14 +2115,15 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 20:36:39 
+#>                          Run Date: 2026-07-11 00:27:14 
 #> --------------------------------------------------------------------------------
 ```
 
 ``` r
 
 # Estimate the GMMww estimator with odds ratios and 99% confidence intervals
-fracregpd(id=id, time=time, y=y_panel, x=X, type="GMMww", or=TRUE, level=0.99)
+mod <- fracregpd(id=id, time=time, y=y_panel, x=X, type="GMMww", or=TRUE, level=0.99)
+summary(mod)
 ```
 
 Toggle to see the output
@@ -2121,14 +2155,15 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 20:36:39 
+#>                          Run Date: 2026-07-11 00:27:14 
 #> --------------------------------------------------------------------------------
 ```
 
 ``` r
  
 # Lagged covariates and instruments, robust standard errors, GMMww estimator 
-fracregpd(id=id, time=time, y=y_panel, x=X, lags=TRUE, type="GMMww", var.type="robust") 
+mod <- fracregpd(id=id, time=time, y=y_panel, x=X, lags=TRUE, type="GMMww", var.type="robust") 
+summary(mod)
 ```
 
 Toggle to see the output
@@ -2160,15 +2195,16 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 20:36:39 
+#>                          Run Date: 2026-07-11 00:27:14 
 #> --------------------------------------------------------------------------------
 ```
 
 ``` r
  
 # Endogeneity, time dummies, GMMpfe estimator 
-fracregpd(id=id, time=time, y=y_endog, x=X_endog, z=Z_inst,  
-          x.exogenous=FALSE, type="GMMpfe", tdummies=TRUE) 
+mod <- fracregpd(id=id, time=time, y=y_endog, x=X_endog, z=Z_inst,
+                 x.exogenous=FALSE, type="GMMpfe", tdummies=TRUE)
+summary(mod) 
 ```
 
 Toggle to see the output
@@ -2210,7 +2246,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 20:36:40 
+#>                          Run Date: 2026-07-11 00:27:15 
 #> --------------------------------------------------------------------------------
 ```
 

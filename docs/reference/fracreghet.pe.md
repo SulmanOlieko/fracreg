@@ -7,7 +7,7 @@ effects in fractional response models under unobserved heterogeneity.
 
 ``` r
 fracreghet.pe(object, smearing = T, APE = T, CPE = F, at = NULL, 
-              which.x = NULL, table = T, variance = T)
+              which.x = NULL, table = FALSE, variance = T)
 ```
 
 ## Arguments
@@ -137,8 +137,52 @@ y_adj[y_adj == 1] <- 0.999
 
 Z_emp <- cbind(age = fracreg_k401k$age, ltotemp = fracreg_k401k$ltotemp) 
 res_emp <- fracreghet(y_adj, X_het, Z_emp, var.endog = X_het[, "mrate"], 
-                      type="QMLxv", link="logit", table=FALSE) 
-fracreghet.pe(res_emp, which.x="mrate")
+                      type="QMLxv", link="logit") 
+#> 
+#> -------------------------------------------------------------------------------- 
+#>         Fractional logit regression with heteroscedasticity/endogeneity 
+#> -------------------------------------------------------------------------------- 
+#> Estimator:                                                                 QMLxv 
+#> Data type:                                                       Cross-sectional 
+#> Number of observations:                                                     1534 
+#> Standard errors:                                                          robust 
+#> Wald chi2(6):                                                          1991.8748 
+#> Prob > chi2:                                                              0.0000 
+#> Convergence:                                                          Successful 
+#> -------------------------------------------------------------------------------- 
+#>                   Final Quasi-Maximum Likelihood xv estimates 
+#> -------------------------------------------------------------------------------- 
+#>             Coefficient Robust Std.Err.  z value [95% Conf. Interval] Pr(>|z|)
+#> (Intercept)    -0.10561         0.75224 -0.14040   -1.57997     1.369    0.888
+#> mrate           3.72138         0.68952  5.39703    2.36994     5.073 6.78e-08
+#> ltotemp        -0.07009         0.05348 -1.31060   -0.17491     0.035    0.190
+#> vhat           -2.79515         0.70026 -3.99157   -4.16764    -1.423 6.56e-05
+#>                
+#> (Intercept)    
+#> mrate       ***
+#> ltotemp        
+#> vhat        ***
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> 
+#>                                  Reduced form: 
+#> -------------------------------------------------------------------------------- 
+#>               Coefficient Robust Std.Err.  z value [95% Conf. Interval]
+#> Z_(Intercept)     0.95046         0.09550  9.95211    0.76327     1.138
+#> Z_age             0.01146         0.00231  4.95997    0.00693     0.016
+#> Z_ltotemp        -0.05534         0.01421 -3.89528   -0.08318    -0.027
+#>               Pr(>|z|)    
+#> Z_(Intercept)  < 2e-16 ***
+#> Z_age         7.05e-07 ***
+#> Z_ltotemp     9.81e-05 ***
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> -------------------------------------------------------------------------------- 
+#>                          Run Date: 2026-07-11 00:27:46 
+#> -------------------------------------------------------------------------------- 
+#> 
+pe_res <- fracreghet.pe(res_emp, which.x="mrate")
+summary(pe_res)
 #> 
 #> 
 #> -------------------------------------------------------------------------------- 
@@ -152,7 +196,7 @@ fracreghet.pe(res_emp, which.x="mrate")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 20:37:05 
+#>                          Run Date: 2026-07-11 00:27:47 
 #> -------------------------------------------------------------------------------- 
  
 ### Simulated Examples
@@ -168,10 +212,39 @@ dimnames(Z)[[2]] <- c("Z1","Z2","Z3")
 
 y <- exp(X[,1]+X[,2]+u)/(1+exp(X[,1]+X[,2]+u))
 
-res <- fracreghet(y,X,type="GMMx",table=FALSE)
+mod <- fracreghet(y,X,type="GMMx")
+#> 
+#> -------------------------------------------------------------------------------- 
+#>         Fractional logit regression with heteroscedasticity/endogeneity 
+#> -------------------------------------------------------------------------------- 
+#> Estimator:                                                                  GMMx 
+#> Data type:                                                       Cross-sectional 
+#> Number of observations:                                                      250 
+#> Standard errors:                                                          robust 
+#> Wald chi2(2):                                                           366.0228 
+#> Prob > chi2:                                                              0.0000 
+#> Convergence:                                                          Successful 
+#> -------------------------------------------------------------------------------- 
+#>                               Final GMMx estimates 
+#> -------------------------------------------------------------------------------- 
+#>             Coefficient Robust Std.Err.  z value [95% Conf. Interval] Pr(>|z|)
+#> (Intercept)     0.43511         0.07731  5.62808    0.28358     0.587 1.82e-08
+#> X1              0.98101         0.06676 14.69422    0.85016     1.112  < 2e-16
+#> X2              0.88568         0.07049 12.56529    0.74753     1.024  < 2e-16
+#>                
+#> (Intercept) ***
+#> X1          ***
+#> X2          ***
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> -------------------------------------------------------------------------------- 
+#>                          Run Date: 2026-07-11 00:27:47 
+#> -------------------------------------------------------------------------------- 
+#> 
 
 #Smearing estimator of average partial effects for variable X1
-fracreghet.pe(res,which.x="X1")
+pe_res <- fracreghet.pe(mod,which.x="X1")
+summary(pe_res)
 #> 
 #> 
 #> -------------------------------------------------------------------------------- 
@@ -185,12 +258,13 @@ fracreghet.pe(res,which.x="X1")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 20:37:05 
+#>                          Run Date: 2026-07-11 00:27:47 
 #> -------------------------------------------------------------------------------- 
 
 #Naive estimator of conditional partial effects for all covariates,
 #which are evaluated at X1=1 and X2=-1
-fracreghet.pe(res,smearing=FALSE,APE=FALSE,CPE=TRUE,at=c(1,-1))
+pe_res <- fracreghet.pe(mod,smearing=FALSE,APE=FALSE,CPE=TRUE,at=c(1,-1))
+summary(pe_res)
 #> 
 #> 
 #> -------------------------------------------------------------------------------- 
@@ -205,7 +279,7 @@ fracreghet.pe(res,smearing=FALSE,APE=FALSE,CPE=TRUE,at=c(1,-1))
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 20:37:05 
+#>                          Run Date: 2026-07-11 00:27:47 
 #> -------------------------------------------------------------------------------- 
 #> 
 #> Note: covariates evaluated at the following values:

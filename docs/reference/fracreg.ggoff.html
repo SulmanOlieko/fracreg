@@ -107,42 +107,8 @@ where \(g(\cdot)\) and \(g'(\cdot)\) are the first and second derivatives of \(G
 <span class="r-in"><span>           totemp <span class="op">=</span> <span class="va">fracreg_k401k</span><span class="op">$</span><span class="va">totemp</span>, sole <span class="op">=</span> <span class="va">fracreg_k401k</span><span class="op">$</span><span class="va">sole</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="fracreg.html">fracreg</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">X</span>, type<span class="op">=</span><span class="st">"1P"</span>, linkfrac<span class="op">=</span><span class="st">"logit"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                           Fractional logit regression </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Estimator:                                                                   QML </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Data type:                                                       Cross-sectional </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Number of observations:                                                     1534 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Pseudo R-squared:                                                        0.14667 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Log pseudolikelihood:                                                  -553.1626 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Wald chi2(4):                                                           147.3049 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Prob &gt; chi2:                                                              0.0000 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Standard errors:                                                          robust </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Small sample correction:                                                   FALSE </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Convergence:                                                          Successful </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                     Final Quasi-Maximum Likelihood estimates </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          Coefficient Robust Std.Err.    z value [95% Conf. Interval] Pr(&gt;|z|)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Constant   9.316e-01       8.408e-02  1.108e+01  7.668e-01     1.096  &lt; 2e-16</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> mrate      9.531e-01       1.371e-01  6.951e+00  6.843e-01     1.222 3.62e-12</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> age        2.791e-02       4.877e-03  5.723e+00  1.835e-02     0.037 1.05e-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> totemp    -8.182e-06       3.061e-06 -2.673e+00 -1.418e-05     0.000  0.00751</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> sole       3.405e-01       8.066e-02  4.222e+00  1.824e-01     0.499 2.43e-05</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Constant ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> mrate    ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> age      ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> totemp   ** </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> sole     ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-09 20:37:01 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span><span class="fu">fracreg.ggoff</span><span class="op">(</span><span class="va">m</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ggoff_res</span> <span class="op">&lt;-</span> <span class="fu">fracreg.ggoff</span><span class="op">(</span><span class="va">m</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">ggoff_res</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                    GGOFF test </span>
@@ -156,7 +122,7 @@ where \(g(\cdot)\) and \(g'(\cdot)\) are the first and second derivatives of \(G
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-09 20:37:01 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-11 00:27:41 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">### Simulated Examples</span></span></span>
@@ -174,8 +140,9 @@ where \(g(\cdot)\) and \(g'(\cdot)\) are the first and second derivatives of \(G
 <span class="r-in"><span><span class="co">#Testing the logit specification of a standard fractional response model</span></span></span>
 <span class="r-in"><span><span class="co">#using LM and Wald versions of the GGOFF test, based on 1 or 2 fitted powers of</span></span></span>
 <span class="r-in"><span><span class="co">#the linear predictor</span></span></span>
-<span class="r-in"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="fracreg.html">fracreg</a></span><span class="op">(</span><span class="va">y</span>,<span class="va">X</span>,linkfrac<span class="op">=</span><span class="st">"logit"</span>,table<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">fracreg.ggoff</span><span class="op">(</span><span class="va">res</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Wald"</span>,<span class="st">"LM"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="fracreg.html">fracreg</a></span><span class="op">(</span><span class="va">y</span>,<span class="va">X</span>,linkfrac<span class="op">=</span><span class="st">"logit"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ggoff_res</span> <span class="op">&lt;-</span> <span class="fu">fracreg.ggoff</span><span class="op">(</span><span class="va">mod</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Wald"</span>,<span class="st">"LM"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">ggoff_res</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                    GGOFF test </span>
@@ -192,14 +159,15 @@ where \(g(\cdot)\) and \(g'(\cdot)\) are the first and second derivatives of \(G
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-09 20:37:01 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-11 00:27:41 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#Testing the probit specification of the binary component of a two-part fractional</span></span></span>
 <span class="r-in"><span><span class="co">#regression model using a LR-based GGOFF test</span></span></span>
-<span class="r-in"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="fracreg.html">fracreg</a></span><span class="op">(</span><span class="va">y</span>,<span class="va">X</span>,linkbin<span class="op">=</span><span class="st">"probit"</span>,type<span class="op">=</span><span class="st">"2Pbin"</span>,inf<span class="op">=</span><span class="fl">1</span>,table<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">fracreg.ggoff</span><span class="op">(</span><span class="va">res</span>,<span class="st">"LR"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="fracreg.html">fracreg</a></span><span class="op">(</span><span class="va">y</span>,<span class="va">X</span>,linkbin<span class="op">=</span><span class="st">"probit"</span>,type<span class="op">=</span><span class="st">"2Pbin"</span>,inf<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ggoff_res</span> <span class="op">&lt;-</span> <span class="fu">fracreg.ggoff</span><span class="op">(</span><span class="va">mod</span>,<span class="st">"LR"</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>glm.fit: fitted probabilities numerically 0 or 1 occurred</span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">ggoff_res</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                    GGOFF test </span>
@@ -211,7 +179,7 @@ where \(g(\cdot)\) and \(g'(\cdot)\) are the first and second derivatives of \(G
 <span class="r-out co"><span class="r-pr">#&gt;</span> GOFF2 - LR     0.039   0.844</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> GGOFF - LR     0.717   0.699</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-09 20:37:01 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-11 00:27:41 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 </code></pre></div>
     </div>

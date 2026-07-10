@@ -1,4 +1,4 @@
-fracreg.ptest <- function(object1,object2,version="Wald",table=TRUE)
+fracreg.ptest <- function(object1,object2,version="Wald",table=FALSE)
 {
 	### 1. Error and warning messages
 
@@ -315,13 +315,17 @@ fracreg.ptest <- function(object1,object2,version="Wald",table=TRUE)
 	}
 
 	n.ver <- length(ver[-1])/2 
-	if(table==TRUE) fracreg.tests.table("P",S,Sp,ver,title1,title2,n.ver)
+	table.info <- list(test.which="P",S=S,Sp=Sp,ver=ver,title1=title1,title2=title2,n.ver=n.ver)
+	if(table==TRUE) do.call(fracreg.tests.table, table.info)
 
 	### 5. Return results
 
 	statistics=S[-1]
 	ver <- ver[-1]
 	names(statistics) <- paste(c(rep("H0-obj1",n.ver),rep("H0-obj2",n.ver)),ver,sep="-")
+
+	class(statistics) <- c("fracreg.ptest", "numeric")
+	attr(statistics, "table.info") <- table.info
 
 	return(invisible(statistics))
 }
