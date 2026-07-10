@@ -7,7 +7,7 @@ effects in fractional response models.
 
 ``` r
 fracreg.pe(object, APE = TRUE, CPE = FALSE, at = NULL, which.x = NULL, 
-           variance = TRUE, table = TRUE)
+           variance = TRUE, table = FALSE)
 ```
 
 ## Arguments
@@ -139,42 +139,8 @@ X <- cbind(mrate = fracreg_k401k$mrate, age = fracreg_k401k$age,
            totemp = fracreg_k401k$totemp, sole = fracreg_k401k$sole)
 
 m <- fracreg(y, X, type="1P", linkfrac="logit")
-#> 
-#> -------------------------------------------------------------------------------- 
-#>                           Fractional logit regression 
-#> -------------------------------------------------------------------------------- 
-#> Estimator:                                                                   QML 
-#> Data type:                                                       Cross-sectional 
-#> Number of observations:                                                     1534 
-#> Pseudo R-squared:                                                        0.14667 
-#> Log pseudolikelihood:                                                  -553.1626 
-#> Wald chi2(4):                                                           147.3049 
-#> Prob > chi2:                                                              0.0000 
-#> Standard errors:                                                          robust 
-#> Small sample correction:                                                   FALSE 
-#> Convergence:                                                          Successful 
-#> -------------------------------------------------------------------------------- 
-#>                     Final Quasi-Maximum Likelihood estimates 
-#> -------------------------------------------------------------------------------- 
-#>          Coefficient Robust Std.Err.    z value [95% Conf. Interval] Pr(>|z|)
-#> Constant   9.316e-01       8.408e-02  1.108e+01  7.668e-01     1.096  < 2e-16
-#> mrate      9.531e-01       1.371e-01  6.951e+00  6.843e-01     1.222 3.62e-12
-#> age        2.791e-02       4.877e-03  5.723e+00  1.835e-02     0.037 1.05e-08
-#> totemp    -8.182e-06       3.061e-06 -2.673e+00 -1.418e-05     0.000  0.00751
-#> sole       3.405e-01       8.066e-02  4.222e+00  1.824e-01     0.499 2.43e-05
-#>             
-#> Constant ***
-#> mrate    ***
-#> age      ***
-#> totemp   ** 
-#> sole     ***
-#> ---
-#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-#> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 17:40:58 
-#> -------------------------------------------------------------------------------- 
-#> 
-fracreg.pe(m)
+pe_res <- fracreg.pe(m)
+summary(pe_res)
 #> 
 #> 
 #> -------------------------------------------------------------------------------- 
@@ -190,7 +156,7 @@ fracreg.pe(m)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 17:40:58 
+#>                          Run Date: 2026-07-10 21:37:46 
 #> -------------------------------------------------------------------------------- 
 
 ### Simulated Examples
@@ -206,8 +172,9 @@ y <- rbeta(N,ym*20,20*(1-ym))
 y[y > 0.9] <- 1
 
 #Computing average partial effects for a logit fractional response model
-res <- fracreg(y,X,linkfrac="logit",table=FALSE)
-fracreg.pe(res)
+mod <- fracreg(y,X,linkfrac="logit")
+pe_res <- fracreg.pe(mod)
+summary(pe_res)
 #> 
 #> 
 #> -------------------------------------------------------------------------------- 
@@ -221,13 +188,14 @@ fracreg.pe(res)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 17:40:58 
+#>                          Run Date: 2026-07-10 21:37:46 
 #> -------------------------------------------------------------------------------- 
 
 #Computing average partial effects for a binary logit + fractional probit
 #two-part model
-res <- fracreg(y,X,linkbin="logit",linkfrac="probit",type="2P",inf=1,table=FALSE)
-fracreg.pe(res)
+mod <- fracreg(y,X,linkbin="logit",linkfrac="probit",type="2P",inf=1)
+pe_res <- fracreg.pe(mod)
+summary(pe_res)
 #> 
 #> 
 #> -------------------------------------------------------------------------------- 
@@ -241,14 +209,15 @@ fracreg.pe(res)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 17:40:58 
+#>                          Run Date: 2026-07-10 21:37:46 
 #> -------------------------------------------------------------------------------- 
 
 #Computing conditional partial effects for X2 in the logit component
 #of a two-part fractional response model, with the covariates evaluated
 #at their median values
-res <- fracreg(y,X,linkfrac="logit",type="2Pfrac",inf=1,table=FALSE)
-fracreg.pe(res,APE=FALSE,CPE=TRUE,at="median",which.x="X2")
+mod <- fracreg(y,X,linkfrac="logit",type="2Pfrac",inf=1)
+pe_res <- fracreg.pe(mod,APE=FALSE,CPE=TRUE,at="median",which.x="X2")
+summary(pe_res)
 #> 
 #> 
 #> -------------------------------------------------------------------------------- 
@@ -261,7 +230,7 @@ fracreg.pe(res,APE=FALSE,CPE=TRUE,at="median",which.x="X2")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 17:40:58 
+#>                          Run Date: 2026-07-10 21:37:46 
 #> -------------------------------------------------------------------------------- 
 #> 
 #> Note: covariates evaluated at median (or mode, for dummies) values
@@ -270,8 +239,9 @@ fracreg.pe(res,APE=FALSE,CPE=TRUE,at="median",which.x="X2")
 y3p <- y
 y3p[1:20] <- 0
 y3p[21:40] <- 1
-res3p <- fracreg(y3p,X,linkbin=c("logit","probit"),linkfrac="logit",type="3P",table=FALSE)
-fracreg.pe(res3p)
+res3p <- fracreg(y3p,X,linkbin=c("logit","probit"),linkfrac="logit",type="3P")
+pe_res <- fracreg.pe(res3p)
+summary(pe_res)
 #> 
 #> 
 #> -------------------------------------------------------------------------------- 
@@ -285,6 +255,6 @@ fracreg.pe(res3p)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 17:40:58 
+#>                          Run Date: 2026-07-10 21:37:46 
 #> -------------------------------------------------------------------------------- 
 ```

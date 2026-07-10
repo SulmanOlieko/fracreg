@@ -102,42 +102,8 @@ X <- cbind(mrate = fracreg_k401k$mrate, age = fracreg_k401k$age,
            totemp = fracreg_k401k$totemp, sole = fracreg_k401k$sole)
 
 m <- fracreg(y, X, type="1P", linkfrac="logit")
-#> 
-#> -------------------------------------------------------------------------------- 
-#>                           Fractional logit regression 
-#> -------------------------------------------------------------------------------- 
-#> Estimator:                                                                   QML 
-#> Data type:                                                       Cross-sectional 
-#> Number of observations:                                                     1534 
-#> Pseudo R-squared:                                                        0.14667 
-#> Log pseudolikelihood:                                                  -553.1626 
-#> Wald chi2(4):                                                           147.3049 
-#> Prob > chi2:                                                              0.0000 
-#> Standard errors:                                                          robust 
-#> Small sample correction:                                                   FALSE 
-#> Convergence:                                                          Successful 
-#> -------------------------------------------------------------------------------- 
-#>                     Final Quasi-Maximum Likelihood estimates 
-#> -------------------------------------------------------------------------------- 
-#>          Coefficient Robust Std.Err.    z value [95% Conf. Interval] Pr(>|z|)
-#> Constant   9.316e-01       8.408e-02  1.108e+01  7.668e-01     1.096  < 2e-16
-#> mrate      9.531e-01       1.371e-01  6.951e+00  6.843e-01     1.222 3.62e-12
-#> age        2.791e-02       4.877e-03  5.723e+00  1.835e-02     0.037 1.05e-08
-#> totemp    -8.182e-06       3.061e-06 -2.673e+00 -1.418e-05     0.000  0.00751
-#> sole       3.405e-01       8.066e-02  4.222e+00  1.824e-01     0.499 2.43e-05
-#>             
-#> Constant ***
-#> mrate    ***
-#> age      ***
-#> totemp   ** 
-#> sole     ***
-#> ---
-#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-#> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 17:40:59 
-#> -------------------------------------------------------------------------------- 
-#> 
-fracreg.reset(m)
+reset_res <- fracreg.reset(m)
+summary(reset_res)
 #> 
 #> -------------------------------------------------------------------------------- 
 #>                                    RESET test 
@@ -149,7 +115,7 @@ fracreg.reset(m)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 17:40:59 
+#>                          Run Date: 2026-07-10 21:37:47 
 #> -------------------------------------------------------------------------------- 
 
 ### Simulated Examples
@@ -167,8 +133,9 @@ y[y > 0.9] <- 1
 #Testing the logit specification of a standard fractional response model
 #using LM and Wald versions of the RESET test, based on 1 or 2 fitted powers of
 #the linear predictor
-res <- fracreg(y,X,linkfrac="logit",table=FALSE)
-fracreg.reset(res,2:3,c("Wald","LM"))
+mod <- fracreg(y,X,linkfrac="logit")
+reset_res <- fracreg.reset(mod,2:3,c("Wald","LM"))
+summary(reset_res)
 #> 
 #> -------------------------------------------------------------------------------- 
 #>                                    RESET test 
@@ -181,15 +148,16 @@ fracreg.reset(res,2:3,c("Wald","LM"))
 #> LM(3)       0.135   0.935
 #> Wald(3)     0.133   0.936
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 17:40:59 
+#>                          Run Date: 2026-07-10 21:37:47 
 #> -------------------------------------------------------------------------------- 
 
 #Testing the probit specification of the binary component of a two-part fractional
 #regression model using LR-based RESET tests with quadratic and cubic fitted 
 #powers of the linear predictor
-res <- fracreg(y,X,linkbin="probit",type="2Pbin",inf=1,table=FALSE)
-fracreg.reset(res,3,"LR")
+mod <- fracreg(y,X,linkbin="probit",type="2Pbin",inf=1)
+reset_res <- fracreg.reset(mod,3,"LR")
 #> Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred
+summary(reset_res)
 #> 
 #> -------------------------------------------------------------------------------- 
 #>                                    RESET test 
@@ -199,6 +167,6 @@ fracreg.reset(res,3,"LR")
 #>       Statistic p-value
 #> LR(3)     4.211   0.122
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 17:40:59 
+#>                          Run Date: 2026-07-10 21:37:47 
 #> -------------------------------------------------------------------------------- 
 ```

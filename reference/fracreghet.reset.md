@@ -99,8 +99,37 @@ y_adj[y_adj == 1] <- 0.999
 # Instrument mrate using age
 
 Z_emp <- cbind(age = fracreg_k401k$age, ltotemp = fracreg_k401k$ltotemp) 
-res_emp <- fracreghet(y_adj, X_het, type="GMMx", link="logit", table=FALSE) 
-fracreghet.reset(res_emp)
+res_emp <- fracreghet(y_adj, X_het, type="GMMx", link="logit") 
+#> 
+#> -------------------------------------------------------------------------------- 
+#>         Fractional logit regression with heteroscedasticity/endogeneity 
+#> -------------------------------------------------------------------------------- 
+#> Estimator:                                                                  GMMx 
+#> Data type:                                                       Cross-sectional 
+#> Number of observations:                                                     1534 
+#> Standard errors:                                                          robust 
+#> Wald chi2(2):                                                           153.0331 
+#> Prob > chi2:                                                              0.0000 
+#> Convergence:                                                          Successful 
+#> -------------------------------------------------------------------------------- 
+#>                               Final GMMx estimates 
+#> -------------------------------------------------------------------------------- 
+#>             Coefficient Robust Std.Err.  z value [95% Conf. Interval] Pr(>|z|)
+#> (Intercept)     6.86160         0.15854 43.28078    6.55087     7.172  < 2e-16
+#> mrate           0.39342         0.03450 11.40432    0.32581     0.461  < 2e-16
+#> ltotemp        -0.16558         0.02516 -6.58147   -0.21489    -0.116 4.66e-11
+#>                
+#> (Intercept) ***
+#> mrate       ***
+#> ltotemp     ***
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> -------------------------------------------------------------------------------- 
+#>                          Run Date: 2026-07-10 21:37:49 
+#> -------------------------------------------------------------------------------- 
+#> 
+reset_res <- fracreghet.reset(res_emp)
+summary(reset_res)
 #> 
 #> -------------------------------------------------------------------------------- 
 #>                                    RESET test 
@@ -114,7 +143,7 @@ fracreghet.reset(res_emp)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 17:41:01 
+#>                          Run Date: 2026-07-10 21:37:49 
 #> -------------------------------------------------------------------------------- 
  
 ### Simulated Examples
@@ -130,10 +159,39 @@ dimnames(Z)[[2]] <- c("Z1","Z2","Z3")
 
 y <- exp(X[,1]+X[,2]+u)/(1+exp(X[,1]+X[,2]+u))
 
-res <- fracreghet(y,X,type="GMMx",table=FALSE)
+mod <- fracreghet(y,X,type="GMMx")
+#> 
+#> -------------------------------------------------------------------------------- 
+#>         Fractional logit regression with heteroscedasticity/endogeneity 
+#> -------------------------------------------------------------------------------- 
+#> Estimator:                                                                  GMMx 
+#> Data type:                                                       Cross-sectional 
+#> Number of observations:                                                      250 
+#> Standard errors:                                                          robust 
+#> Wald chi2(2):                                                           344.3728 
+#> Prob > chi2:                                                              0.0000 
+#> Convergence:                                                          Successful 
+#> -------------------------------------------------------------------------------- 
+#>                               Final GMMx estimates 
+#> -------------------------------------------------------------------------------- 
+#>             Coefficient Robust Std.Err.  z value [95% Conf. Interval] Pr(>|z|)
+#> (Intercept)     0.54638         0.08980  6.08469    0.37038     0.722 1.17e-09
+#> X1              0.99706         0.08247 12.08968    0.83542     1.159  < 2e-16
+#> X2              0.91253         0.10010  9.11639    0.71634     1.109  < 2e-16
+#>                
+#> (Intercept) ***
+#> X1          ***
+#> X2          ***
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> -------------------------------------------------------------------------------- 
+#>                          Run Date: 2026-07-10 21:37:49 
+#> -------------------------------------------------------------------------------- 
+#> 
 
 #LM and Wald versions of the RESET test, based on 1 or 2 fitted powers of xb
-fracreghet.reset(res,2:3,c("Wald","LM"))
+reset_res <- fracreghet.reset(mod,2:3,c("Wald","LM"))
+summary(reset_res)
 #> 
 #> -------------------------------------------------------------------------------- 
 #>                                    RESET test 
@@ -150,6 +208,6 @@ fracreghet.reset(res,2:3,c("Wald","LM"))
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 17:41:01 
+#>                          Run Date: 2026-07-10 21:37:49 
 #> -------------------------------------------------------------------------------- 
 ```

@@ -266,7 +266,8 @@ X <- cbind(mrate = fracreg_k401k$mrate, age = fracreg_k401k$age,
 N_emp <- nrow(X)
 id_emp <- rep(1:(N_emp/2), each=2)
 time_emp <- rep(1:2, times=N_emp/2)
-fracregpd(id_emp, time_emp, y, X, type="QMLcre", link="probit")
+mod <- fracregpd(id_emp, time_emp, y, X, type="QMLcre", link="probit")
+summary(mod)
 #> 
 #> -------------------------------------------------------------------------------- 
 #>            Fractional probit (correlated random effects)  regression 
@@ -287,30 +288,30 @@ fracregpd(id_emp, time_emp, y, X, type="QMLcre", link="probit")
 #> -------------------------------------------------------------------------------- 
 #>       Final (Correlated Random Effects) Quasi-Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
-#>                Coefficient Cluster Std.Err.    z value [95% Conf. Interval]
-#> mrate            3.915e-01        7.007e-02  5.588e+00  2.542e-01     0.529
-#> age              1.386e-02        3.543e-03  3.911e+00  6.912e-03     0.021
-#> totemp          -5.250e-06        2.649e-06 -1.982e+00 -1.044e-05     0.000
-#> sole             2.378e-01        6.038e-02  3.938e+00  1.194e-01     0.356
-#> INTERCEPT_mean   6.235e-01        5.885e-02  1.060e+01  5.082e-01     0.739
-#> mrate_mean       5.726e-02        6.343e-02  9.027e-01 -6.706e-02     0.182
-#> age_mean         1.544e-03        4.233e-03  3.649e-01 -6.751e-03     0.010
-#> totemp_mean      1.223e-06        2.946e-06  4.152e-01 -4.551e-06     0.000
-#> sole_mean       -7.157e-02        8.424e-02 -8.495e-01 -2.367e-01     0.094
-#>                Pr(>|z|)    
-#> mrate          2.30e-08 ***
-#> age            9.20e-05 ***
-#> totemp           0.0475 *  
-#> sole           8.22e-05 ***
-#> INTERCEPT_mean  < 2e-16 ***
-#> mrate_mean       0.3667    
-#> age_mean         0.7152    
-#> totemp_mean      0.6780    
-#> sole_mean        0.3956    
+#>                  Coefficient Cluster Std.Err.    z value [95% Conf. Interval]
+#> mrate              3.915e-01        7.007e-02  5.588e+00  2.542e-01     0.529
+#> age                1.386e-02        3.543e-03  3.911e+00  6.912e-03     0.021
+#> totemp            -5.250e-06        2.649e-06 -1.982e+00 -1.044e-05     0.000
+#> sole               2.378e-01        6.038e-02  3.938e+00  1.194e-01     0.356
+#> (Intercept)_mean   6.235e-01        5.885e-02  1.060e+01  5.082e-01     0.739
+#> mrate_mean         5.726e-02        6.343e-02  9.027e-01 -6.706e-02     0.182
+#> age_mean           1.544e-03        4.233e-03  3.649e-01 -6.751e-03     0.010
+#> totemp_mean        1.223e-06        2.946e-06  4.152e-01 -4.551e-06     0.000
+#> sole_mean         -7.157e-02        8.424e-02 -8.495e-01 -2.367e-01     0.094
+#>                  Pr(>|z|)    
+#> mrate            2.30e-08 ***
+#> age              9.20e-05 ***
+#> totemp             0.0475 *  
+#> sole             8.22e-05 ***
+#> (Intercept)_mean  < 2e-16 ***
+#> mrate_mean         0.3667    
+#> age_mean           0.7152    
+#> totemp_mean        0.6780    
+#> sole_mean          0.3956    
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 17:41:01 
+#>                          Run Date: 2026-07-10 21:37:50 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -342,7 +343,8 @@ Z_inst <- cbind(x_panel = x_panel, z_panel = z_panel)
 
 # \donttest{
 # Estimate a Correlated Random Effects (CRE) Model
-fracregpd(id=id, time=time, y=y_panel, x=X, type="QMLcre", link="probit")
+mod <- fracregpd(id=id, time=time, y=y_panel, x=X, type="QMLcre", link="probit")
+summary(mod)
 #> 
 #> -------------------------------------------------------------------------------- 
 #>            Fractional probit (correlated random effects)  regression 
@@ -363,23 +365,24 @@ fracregpd(id=id, time=time, y=y_panel, x=X, type="QMLcre", link="probit")
 #> -------------------------------------------------------------------------------- 
 #>       Final (Correlated Random Effects) Quasi-Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
-#>                Coefficient Cluster Std.Err.  z value [95% Conf. Interval]
-#> x_panel            0.52902          0.01143 46.29965    0.50662     0.551
-#> INTERCEPT_mean    -0.01246          0.04901 -0.25433   -0.10851     0.084
-#> x_panel_mean      -0.17409          0.13491 -1.29040   -0.43850     0.090
-#>                Pr(>|z|)    
-#> x_panel          <2e-16 ***
-#> INTERCEPT_mean    0.799    
-#> x_panel_mean      0.197    
+#>                  Coefficient Cluster Std.Err.  z value [95% Conf. Interval]
+#> x_panel              0.52902          0.01143 46.29965    0.50662     0.551
+#> (Intercept)_mean    -0.01246          0.04901 -0.25433   -0.10851     0.084
+#> x_panel_mean        -0.17409          0.13491 -1.29040   -0.43850     0.090
+#>                  Pr(>|z|)    
+#> x_panel            <2e-16 ***
+#> (Intercept)_mean    0.799    
+#> x_panel_mean        0.197    
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 17:41:01 
+#>                          Run Date: 2026-07-10 21:37:50 
 #> -------------------------------------------------------------------------------- 
 #> 
 
 # Exogeneity, no lags, no time dummies, clustered standard errors, GMMbgw estimator
-fracregpd(id=id, time=time, y=y_panel, x=X, type="GMMbgw")
+mod <- fracregpd(id=id, time=time, y=y_panel, x=X, type="GMMbgw")
+summary(mod)
 #> 
 #> -------------------------------------------------------------------------------- 
 #>                           Fractional logit  regression 
@@ -406,12 +409,13 @@ fracregpd(id=id, time=time, y=y_panel, x=X, type="GMMbgw")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 17:41:01 
+#>                          Run Date: 2026-07-10 21:37:50 
 #> -------------------------------------------------------------------------------- 
 #> 
 
 # Estimate the GMMww estimator with odds ratios and 99% confidence intervals
-fracregpd(id=id, time=time, y=y_panel, x=X, type="GMMww", or=TRUE, level=0.99)
+mod <- fracregpd(id=id, time=time, y=y_panel, x=X, type="GMMww", or=TRUE, level=0.99)
+summary(mod)
 #> 
 #> -------------------------------------------------------------------------------- 
 #>                           Fractional logit  regression 
@@ -438,12 +442,13 @@ fracregpd(id=id, time=time, y=y_panel, x=X, type="GMMww", or=TRUE, level=0.99)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 17:41:01 
+#>                          Run Date: 2026-07-10 21:37:50 
 #> -------------------------------------------------------------------------------- 
 #> 
 
 # Lagged covariates and instruments, robust standard errors, GMMww estimator
-fracregpd(id=id, time=time, y=y_panel, x=X, lags=TRUE, type="GMMww", var.type="robust")
+mod <- fracregpd(id=id, time=time, y=y_panel, x=X, lags=TRUE, type="GMMww", var.type="robust")
+summary(mod)
 #> 
 #> -------------------------------------------------------------------------------- 
 #>                           Fractional logit  regression 
@@ -470,13 +475,14 @@ fracregpd(id=id, time=time, y=y_panel, x=X, lags=TRUE, type="GMMww", var.type="r
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 17:41:01 
+#>                          Run Date: 2026-07-10 21:37:50 
 #> -------------------------------------------------------------------------------- 
 #> 
 
 # Endogeneity, time dummies, GMMpfe estimator
-fracregpd(id=id, time=time, y=y_endog, x=X_endog, z=Z_inst, 
-          x.exogenous=FALSE, type="GMMpfe", tdummies=TRUE)
+mod <- fracregpd(id=id, time=time, y=y_endog, x=X_endog, z=Z_inst,
+                 x.exogenous=FALSE, type="GMMpfe", tdummies=TRUE)
+summary(mod)
 #> 
 #> -------------------------------------------------------------------------------- 
 #>               Fractional logit (pooled fixed effects)  regression 
@@ -513,7 +519,7 @@ fracregpd(id=id, time=time, y=y_endog, x=X_endog, z=Z_inst,
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 17:41:02 
+#>                          Run Date: 2026-07-10 21:37:50 
 #> -------------------------------------------------------------------------------- 
 #> 
 # }

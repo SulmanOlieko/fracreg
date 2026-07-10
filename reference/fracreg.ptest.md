@@ -97,78 +97,9 @@ X <- cbind(mrate = fracreg_k401k$mrate, age = fracreg_k401k$age,
            totemp = fracreg_k401k$totemp, sole = fracreg_k401k$sole)
 
 m1 <- fracreg(y, X, type="1P", linkfrac="logit")
-#> 
-#> -------------------------------------------------------------------------------- 
-#>                           Fractional logit regression 
-#> -------------------------------------------------------------------------------- 
-#> Estimator:                                                                   QML 
-#> Data type:                                                       Cross-sectional 
-#> Number of observations:                                                     1534 
-#> Pseudo R-squared:                                                        0.14667 
-#> Log pseudolikelihood:                                                  -553.1626 
-#> Wald chi2(4):                                                           147.3049 
-#> Prob > chi2:                                                              0.0000 
-#> Standard errors:                                                          robust 
-#> Small sample correction:                                                   FALSE 
-#> Convergence:                                                          Successful 
-#> -------------------------------------------------------------------------------- 
-#>                     Final Quasi-Maximum Likelihood estimates 
-#> -------------------------------------------------------------------------------- 
-#>          Coefficient Robust Std.Err.    z value [95% Conf. Interval] Pr(>|z|)
-#> Constant   9.316e-01       8.408e-02  1.108e+01  7.668e-01     1.096  < 2e-16
-#> mrate      9.531e-01       1.371e-01  6.951e+00  6.843e-01     1.222 3.62e-12
-#> age        2.791e-02       4.877e-03  5.723e+00  1.835e-02     0.037 1.05e-08
-#> totemp    -8.182e-06       3.061e-06 -2.673e+00 -1.418e-05     0.000  0.00751
-#> sole       3.405e-01       8.066e-02  4.222e+00  1.824e-01     0.499 2.43e-05
-#>             
-#> Constant ***
-#> mrate    ***
-#> age      ***
-#> totemp   ** 
-#> sole     ***
-#> ---
-#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-#> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 17:40:58 
-#> -------------------------------------------------------------------------------- 
-#> 
 m2 <- fracreg(y, X, type="1P", linkfrac="probit")
-#> 
-#> -------------------------------------------------------------------------------- 
-#>                           Fractional probit regression 
-#> -------------------------------------------------------------------------------- 
-#> Estimator:                                                                   QML 
-#> Data type:                                                       Cross-sectional 
-#> Number of observations:                                                     1534 
-#> Pseudo R-squared:                                                        0.14069 
-#> Log pseudolikelihood:                                                  -554.2692 
-#> Wald chi2(4):                                                           148.7649 
-#> Prob > chi2:                                                              0.0000 
-#> Standard errors:                                                          robust 
-#> Small sample correction:                                                   FALSE 
-#> Convergence:                                                          Successful 
-#> -------------------------------------------------------------------------------- 
-#>                     Final Quasi-Maximum Likelihood estimates 
-#> -------------------------------------------------------------------------------- 
-#>          Coefficient Robust Std.Err.    z value [95% Conf. Interval] Pr(>|z|)
-#> Constant   6.374e-01       4.517e-02  1.411e+01  5.489e-01     0.726  < 2e-16
-#> mrate      4.190e-01       6.820e-02  6.143e+00  2.853e-01     0.553 8.07e-10
-#> age        1.483e-02       2.536e-03  5.846e+00  9.855e-03     0.020 5.04e-09
-#> totemp    -4.546e-06       1.732e-06 -2.625e+00 -7.940e-06     0.000  0.00866
-#> sole       2.000e-01       4.311e-02  4.639e+00  1.155e-01     0.284 3.50e-06
-#>             
-#> Constant ***
-#> mrate    ***
-#> age      ***
-#> totemp   ** 
-#> sole     ***
-#> ---
-#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-#> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 17:40:58 
-#> -------------------------------------------------------------------------------- 
-#> 
-fracreg.ptest(m1, m2)
+ptest_res <- fracreg.ptest(m1, m2)
+summary(ptest_res)
 #> 
 #> -------------------------------------------------------------------------------- 
 #>                                      P test 
@@ -187,7 +118,7 @@ fracreg.ptest(m1, m2)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 17:40:58 
+#>                          Run Date: 2026-07-10 21:37:47 
 #> -------------------------------------------------------------------------------- 
 
 ### Simulated Examples
@@ -204,9 +135,10 @@ y[y > 0.9] <- 1
 
 #Testing logit versus loglog specifications for standard fractional
 #regression models using a LM version of the P test
-res1 <- fracreg(y,X,linkfrac="logit",table=FALSE)
-res2 <- fracreg(y,X,linkfrac="loglog",table=FALSE)
-fracreg.ptest(res1,res2,"LM")
+res1 <- fracreg(y,X,linkfrac="logit")
+res2 <- fracreg(y,X,linkfrac="loglog")
+ptest_res <- fracreg.ptest(res1,res2,"LM")
+summary(ptest_res)
 #> 
 #> -------------------------------------------------------------------------------- 
 #>                                      P test 
@@ -227,14 +159,15 @@ fracreg.ptest(res1,res2,"LM")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 17:40:58 
+#>                          Run Date: 2026-07-10 21:37:47 
 #> -------------------------------------------------------------------------------- 
 
 #Testing a logit one-part fractional response model versus a binary logit +
 #fractional probit two-part model using a Wald version of the P test
-res1 <- fracreg(y,X,linkfrac="logit",table=FALSE)
-res2 <- fracreg(y,X,linkbin="logit",linkfrac="probit",type="2P",inf=1,table=FALSE)
-fracreg.ptest(res1,res2,"Wald")
+res1 <- fracreg(y,X,linkfrac="logit")
+res2 <- fracreg(y,X,linkbin="logit",linkfrac="probit",type="2P",inf=1)
+ptest_res <- fracreg.ptest(res1,res2,"Wald")
+summary(ptest_res)
 #> 
 #> -------------------------------------------------------------------------------- 
 #>                                      P test 
@@ -255,6 +188,6 @@ fracreg.ptest(res1,res2,"Wald")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 17:40:58 
+#>                          Run Date: 2026-07-10 21:37:47 
 #> -------------------------------------------------------------------------------- 
 ```

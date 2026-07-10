@@ -74,7 +74,7 @@
                         <h4 data-toc-skip class="author">Sulman Olieko
 Owili</h4>
             
-            <h4 data-toc-skip class="date">2026-07-09</h4>
+            <h4 data-toc-skip class="date">2026-07-10</h4>
       
 
       <div class="d-none name"><code>fracreg_tutorial.Rmd</code></div>
@@ -153,7 +153,8 @@ data and general simulated boundaries.</p>
 <span>           totemp <span class="op">=</span> <span class="va">fracreg_k401k</span><span class="op">$</span><span class="va">totemp</span>, sole <span class="op">=</span> <span class="va">fracreg_k401k</span><span class="op">$</span><span class="va">sole</span><span class="op">)</span> </span>
 <span> </span>
 <span><span class="co"># 1P Model </span></span>
-<span><span class="fu"><a href="../reference/fracreg.html">fracreg</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">X</span>, type<span class="op">=</span><span class="st">"1P"</span>, linkfrac<span class="op">=</span><span class="st">"logit"</span><span class="op">)</span> </span></code></pre></div>
+<span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreg.html">fracreg</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">X</span>, type<span class="op">=</span><span class="st">"1P"</span>, linkfrac<span class="op">=</span><span class="st">"logit"</span><span class="op">)</span> </span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></code></pre></div>
 <details><summary>
 Toggle to see the output
 </summary><pre><code><span><span class="co">#&gt; </span></span>
@@ -173,27 +174,28 @@ Toggle to see the output
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
 <span><span class="co">#&gt;                     Final Quasi-Maximum Likelihood estimates </span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;          Coefficient Robust Std.Err.    z value [95% Conf. Interval] Pr(&gt;|z|)</span></span>
-<span><span class="co">#&gt; Constant   9.316e-01       8.408e-02  1.108e+01  7.668e-01     1.096  &lt; 2e-16</span></span>
-<span><span class="co">#&gt; mrate      9.531e-01       1.371e-01  6.951e+00  6.843e-01     1.222 3.62e-12</span></span>
-<span><span class="co">#&gt; age        2.791e-02       4.877e-03  5.723e+00  1.835e-02     0.037 1.05e-08</span></span>
-<span><span class="co">#&gt; totemp    -8.182e-06       3.061e-06 -2.673e+00 -1.418e-05     0.000  0.00751</span></span>
-<span><span class="co">#&gt; sole       3.405e-01       8.066e-02  4.222e+00  1.824e-01     0.499 2.43e-05</span></span>
-<span><span class="co">#&gt;             </span></span>
-<span><span class="co">#&gt; Constant ***</span></span>
-<span><span class="co">#&gt; mrate    ***</span></span>
-<span><span class="co">#&gt; age      ***</span></span>
-<span><span class="co">#&gt; totemp   ** </span></span>
-<span><span class="co">#&gt; sole     ***</span></span>
+<span><span class="co">#&gt;             Coefficient Robust Std.Err.    z value [95% Conf. Interval]</span></span>
+<span><span class="co">#&gt; (Intercept)   9.316e-01       8.408e-02  1.108e+01  7.668e-01     1.096</span></span>
+<span><span class="co">#&gt; mrate         9.531e-01       1.371e-01  6.951e+00  6.843e-01     1.222</span></span>
+<span><span class="co">#&gt; age           2.791e-02       4.877e-03  5.723e+00  1.835e-02     0.037</span></span>
+<span><span class="co">#&gt; totemp       -8.182e-06       3.061e-06 -2.673e+00 -1.418e-05     0.000</span></span>
+<span><span class="co">#&gt; sole          3.405e-01       8.066e-02  4.222e+00  1.824e-01     0.499</span></span>
+<span><span class="co">#&gt;             Pr(&gt;|z|)    </span></span>
+<span><span class="co">#&gt; (Intercept)  &lt; 2e-16 ***</span></span>
+<span><span class="co">#&gt; mrate       3.62e-12 ***</span></span>
+<span><span class="co">#&gt; age         1.05e-08 ***</span></span>
+<span><span class="co">#&gt; totemp       0.00751 ** </span></span>
+<span><span class="co">#&gt; sole        2.43e-05 ***</span></span>
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-09 17:41:04 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-10 21:37:53 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
 </details><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co"># 1P Model reporting odds ratios and 99% confidence intervals</span></span>
-<span><span class="fu"><a href="../reference/fracreg.html">fracreg</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">X</span>, type<span class="op">=</span><span class="st">"1P"</span>, linkfrac<span class="op">=</span><span class="st">"logit"</span>, or<span class="op">=</span><span class="cn">TRUE</span>, level<span class="op">=</span><span class="fl">0.99</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreg.html">fracreg</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">X</span>, type<span class="op">=</span><span class="st">"1P"</span>, linkfrac<span class="op">=</span><span class="st">"logit"</span>, or<span class="op">=</span><span class="cn">TRUE</span>, level<span class="op">=</span><span class="fl">0.99</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></code></pre></div>
 <details><summary>
 Toggle to see the output
 </summary><pre><code><span><span class="co">#&gt; </span></span>
@@ -213,27 +215,28 @@ Toggle to see the output
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
 <span><span class="co">#&gt;                     Final Quasi-Maximum Likelihood estimates </span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;          Odds Ratio Robust Std.Err.    z value [99% Conf. Interval] Pr(&gt;|z|)</span></span>
-<span><span class="co">#&gt; Constant  2.539e+00       2.134e-01  1.108e+01  2.044e+00     3.153  &lt; 2e-16</span></span>
-<span><span class="co">#&gt; mrate     2.594e+00       3.556e-01  6.951e+00  1.822e+00     3.692 3.62e-12</span></span>
-<span><span class="co">#&gt; age       1.028e+00       5.015e-03  5.723e+00  1.015e+00     1.041 1.05e-08</span></span>
-<span><span class="co">#&gt; totemp    1.000e+00       3.061e-06 -2.673e+00  1.000e+00     1.000  0.00751</span></span>
-<span><span class="co">#&gt; sole      1.406e+00       1.134e-01  4.222e+00  1.142e+00     1.730 2.43e-05</span></span>
-<span><span class="co">#&gt;             </span></span>
-<span><span class="co">#&gt; Constant ***</span></span>
-<span><span class="co">#&gt; mrate    ***</span></span>
-<span><span class="co">#&gt; age      ***</span></span>
-<span><span class="co">#&gt; totemp   ** </span></span>
-<span><span class="co">#&gt; sole     ***</span></span>
+<span><span class="co">#&gt;             Odds Ratio Robust Std.Err.    z value [99% Conf. Interval] Pr(&gt;|z|)</span></span>
+<span><span class="co">#&gt; (Intercept)  2.539e+00       2.134e-01  1.108e+01  2.044e+00     3.153  &lt; 2e-16</span></span>
+<span><span class="co">#&gt; mrate        2.594e+00       3.556e-01  6.951e+00  1.822e+00     3.692 3.62e-12</span></span>
+<span><span class="co">#&gt; age          1.028e+00       5.015e-03  5.723e+00  1.015e+00     1.041 1.05e-08</span></span>
+<span><span class="co">#&gt; totemp       1.000e+00       3.061e-06 -2.673e+00  1.000e+00     1.000  0.00751</span></span>
+<span><span class="co">#&gt; sole         1.406e+00       1.134e-01  4.222e+00  1.142e+00     1.730 2.43e-05</span></span>
+<span><span class="co">#&gt;                </span></span>
+<span><span class="co">#&gt; (Intercept) ***</span></span>
+<span><span class="co">#&gt; mrate       ***</span></span>
+<span><span class="co">#&gt; age         ***</span></span>
+<span><span class="co">#&gt; totemp      ** </span></span>
+<span><span class="co">#&gt; sole        ***</span></span>
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-09 17:41:04 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-10 21:37:53 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
 </details><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> </span>
 <span><span class="co"># 2P Model (modelling mass at 1) </span></span>
-<span><span class="fu"><a href="../reference/fracreg.html">fracreg</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">X</span>, type<span class="op">=</span><span class="st">"2P"</span>, inflation<span class="op">=</span><span class="fl">1</span>, linkbin<span class="op">=</span><span class="st">"logit"</span>, linkfrac<span class="op">=</span><span class="st">"logit"</span><span class="op">)</span> </span></code></pre></div>
+<span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreg.html">fracreg</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">X</span>, type<span class="op">=</span><span class="st">"2P"</span>, inflation<span class="op">=</span><span class="fl">1</span>, linkbin<span class="op">=</span><span class="st">"logit"</span>, linkfrac<span class="op">=</span><span class="st">"logit"</span><span class="op">)</span> </span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></code></pre></div>
 <details><summary>
 Toggle to see the output
 </summary><pre><code><span><span class="co">#&gt; </span></span>
@@ -252,12 +255,18 @@ Toggle to see the output
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
 <span><span class="co">#&gt;                        Final Maximum Likelihood estimates </span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;          Coefficient EIM Std.Err.    z value [95% Conf. Interval] Pr(&gt;|z|)    </span></span>
-<span><span class="co">#&gt; Constant  -1.396e+00    1.270e-01 -1.099e+01 -1.645e+00    -1.147   &lt;2e-16 ***</span></span>
-<span><span class="co">#&gt; mrate      9.053e-01    9.699e-02  9.334e+00  7.152e-01     1.095   &lt;2e-16 ***</span></span>
-<span><span class="co">#&gt; age        1.156e-02    6.218e-03  1.858e+00 -6.312e-04     0.024   0.0631 .  </span></span>
-<span><span class="co">#&gt; totemp    -1.418e-05    6.324e-06 -2.242e+00 -2.657e-05     0.000   0.0249 *  </span></span>
-<span><span class="co">#&gt; sole       8.651e-01    1.131e-01  7.651e+00  6.435e-01     1.087    2e-14 ***</span></span>
+<span><span class="co">#&gt;             Coefficient EIM Std.Err.    z value [95% Conf. Interval] Pr(&gt;|z|)</span></span>
+<span><span class="co">#&gt; (Intercept)  -1.396e+00    1.270e-01 -1.099e+01 -1.645e+00    -1.147   &lt;2e-16</span></span>
+<span><span class="co">#&gt; mrate         9.053e-01    9.699e-02  9.334e+00  7.152e-01     1.095   &lt;2e-16</span></span>
+<span><span class="co">#&gt; age           1.156e-02    6.218e-03  1.858e+00 -6.312e-04     0.024   0.0631</span></span>
+<span><span class="co">#&gt; totemp       -1.418e-05    6.324e-06 -2.242e+00 -2.657e-05     0.000   0.0249</span></span>
+<span><span class="co">#&gt; sole          8.651e-01    1.131e-01  7.651e+00  6.435e-01     1.087    2e-14</span></span>
+<span><span class="co">#&gt;                </span></span>
+<span><span class="co">#&gt; (Intercept) ***</span></span>
+<span><span class="co">#&gt; mrate       ***</span></span>
+<span><span class="co">#&gt; age         .  </span></span>
+<span><span class="co">#&gt; totemp      *  </span></span>
+<span><span class="co">#&gt; sole        ***</span></span>
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
@@ -279,37 +288,38 @@ Toggle to see the output
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
 <span><span class="co">#&gt;                     Final Quasi-Maximum Likelihood estimates </span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;          Coefficient Robust Std.Err.    z value [95% Conf. Interval] Pr(&gt;|z|)</span></span>
-<span><span class="co">#&gt; Constant   7.460e-01       6.850e-02  1.089e+01  6.118e-01     0.880  &lt; 2e-16</span></span>
-<span><span class="co">#&gt; mrate      3.877e-01       9.725e-02  3.987e+00  1.971e-01     0.578 6.69e-05</span></span>
-<span><span class="co">#&gt; age        2.562e-02       4.010e-03  6.390e+00  1.777e-02     0.033 1.66e-10</span></span>
-<span><span class="co">#&gt; totemp    -4.061e-06       3.073e-06 -1.322e+00 -1.008e-05     0.000    0.186</span></span>
-<span><span class="co">#&gt; sole      -1.510e-02       6.556e-02 -2.303e-01 -1.436e-01     0.113    0.818</span></span>
-<span><span class="co">#&gt;             </span></span>
-<span><span class="co">#&gt; Constant ***</span></span>
-<span><span class="co">#&gt; mrate    ***</span></span>
-<span><span class="co">#&gt; age      ***</span></span>
-<span><span class="co">#&gt; totemp      </span></span>
-<span><span class="co">#&gt; sole        </span></span>
+<span><span class="co">#&gt;             Coefficient Robust Std.Err.    z value [95% Conf. Interval]</span></span>
+<span><span class="co">#&gt; (Intercept)   7.460e-01       6.850e-02  1.089e+01  6.118e-01     0.880</span></span>
+<span><span class="co">#&gt; mrate         3.877e-01       9.725e-02  3.987e+00  1.971e-01     0.578</span></span>
+<span><span class="co">#&gt; age           2.562e-02       4.010e-03  6.390e+00  1.777e-02     0.033</span></span>
+<span><span class="co">#&gt; totemp       -4.061e-06       3.073e-06 -1.322e+00 -1.008e-05     0.000</span></span>
+<span><span class="co">#&gt; sole         -1.510e-02       6.556e-02 -2.303e-01 -1.436e-01     0.113</span></span>
+<span><span class="co">#&gt;             Pr(&gt;|z|)    </span></span>
+<span><span class="co">#&gt; (Intercept)  &lt; 2e-16 ***</span></span>
+<span><span class="co">#&gt; mrate       6.69e-05 ***</span></span>
+<span><span class="co">#&gt; age         1.66e-10 ***</span></span>
+<span><span class="co">#&gt; totemp         0.186    </span></span>
+<span><span class="co">#&gt; sole           0.818    </span></span>
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;              Two-part regression - binary logit + fractional logit </span></span>
+<span><span class="co">#&gt;         Two-part fractional regression: binary logit + fractional logit </span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
 <span><span class="co">#&gt; Data type:                                                       Cross-sectional </span></span>
 <span><span class="co">#&gt; Pseudo R-squared:                                                        0.11243 </span></span>
 <span><span class="co">#&gt; Convergence:                                                          Successful </span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-09 17:41:04 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-10 21:37:53 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
 </details><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> </span>
 <span><span class="co"># 3P Model (inject artificial 0s for demonstration) </span></span>
 <span><span class="va">y_3p</span> <span class="op">&lt;-</span> <span class="va">y</span>; <span class="va">y_3p</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">50</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">0</span> </span>
-<span><span class="fu"><a href="../reference/fracreg.html">fracreg</a></span><span class="op">(</span><span class="va">y_3p</span>, <span class="va">X</span>, type<span class="op">=</span><span class="st">"3P"</span>, linkbin<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"logit"</span>,<span class="st">"logit"</span><span class="op">)</span>, linkfrac<span class="op">=</span><span class="st">"logit"</span><span class="op">)</span> </span></code></pre></div>
+<span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreg.html">fracreg</a></span><span class="op">(</span><span class="va">y_3p</span>, <span class="va">X</span>, type<span class="op">=</span><span class="st">"3P"</span>, linkbin<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"logit"</span>,<span class="st">"logit"</span><span class="op">)</span>, linkfrac<span class="op">=</span><span class="st">"logit"</span><span class="op">)</span> </span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></code></pre></div>
 <details><summary>
 Toggle to see the output
 </summary><pre><code><span><span class="co">#&gt; </span></span>
@@ -328,12 +338,18 @@ Toggle to see the output
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
 <span><span class="co">#&gt;                        Final Maximum Likelihood estimates </span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;          Coefficient EIM Std.Err.    z value [95% Conf. Interval] Pr(&gt;|z|)    </span></span>
-<span><span class="co">#&gt; Constant   2.867e+00    3.157e-01  9.080e+00  2.248e+00     3.486   &lt;2e-16 ***</span></span>
-<span><span class="co">#&gt; mrate      1.147e-01    2.131e-01  5.381e-01 -3.030e-01     0.532    0.590    </span></span>
-<span><span class="co">#&gt; age        8.375e-03    1.765e-02  4.745e-01 -2.622e-02     0.043    0.635    </span></span>
-<span><span class="co">#&gt; totemp     1.036e-04    6.959e-05  1.489e+00 -3.275e-05     0.000    0.136    </span></span>
-<span><span class="co">#&gt; sole       3.371e-01    2.983e-01  1.130e+00 -2.476e-01     0.922    0.259    </span></span>
+<span><span class="co">#&gt;             Coefficient EIM Std.Err.    z value [95% Conf. Interval] Pr(&gt;|z|)</span></span>
+<span><span class="co">#&gt; (Intercept)   2.867e+00    3.157e-01  9.080e+00  2.248e+00     3.486   &lt;2e-16</span></span>
+<span><span class="co">#&gt; mrate         1.147e-01    2.131e-01  5.381e-01 -3.030e-01     0.532    0.590</span></span>
+<span><span class="co">#&gt; age           8.375e-03    1.765e-02  4.745e-01 -2.622e-02     0.043    0.635</span></span>
+<span><span class="co">#&gt; totemp        1.036e-04    6.959e-05  1.489e+00 -3.275e-05     0.000    0.136</span></span>
+<span><span class="co">#&gt; sole          3.371e-01    2.983e-01  1.130e+00 -2.476e-01     0.922    0.259</span></span>
+<span><span class="co">#&gt;                </span></span>
+<span><span class="co">#&gt; (Intercept) ***</span></span>
+<span><span class="co">#&gt; mrate          </span></span>
+<span><span class="co">#&gt; age            </span></span>
+<span><span class="co">#&gt; totemp         </span></span>
+<span><span class="co">#&gt; sole           </span></span>
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
@@ -354,12 +370,18 @@ Toggle to see the output
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
 <span><span class="co">#&gt;                        Final Maximum Likelihood estimates </span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;          Coefficient EIM Std.Err.    z value [95% Conf. Interval] Pr(&gt;|z|)    </span></span>
-<span><span class="co">#&gt; Constant  -1.435e+00    1.306e-01 -1.099e+01 -1.691e+00    -1.179  &lt; 2e-16 ***</span></span>
-<span><span class="co">#&gt; mrate      9.244e-01    9.877e-02  9.360e+00  7.309e-01     1.118  &lt; 2e-16 ***</span></span>
-<span><span class="co">#&gt; age        1.198e-02    6.339e-03  1.890e+00 -4.453e-04     0.024   0.0588 .  </span></span>
-<span><span class="co">#&gt; totemp    -1.371e-05    6.317e-06 -2.170e+00 -2.609e-05     0.000   0.0300 *  </span></span>
-<span><span class="co">#&gt; sole       8.852e-01    1.154e-01  7.674e+00  6.591e-01     1.111 1.67e-14 ***</span></span>
+<span><span class="co">#&gt;             Coefficient EIM Std.Err.    z value [95% Conf. Interval] Pr(&gt;|z|)</span></span>
+<span><span class="co">#&gt; (Intercept)  -1.435e+00    1.306e-01 -1.099e+01 -1.691e+00    -1.179  &lt; 2e-16</span></span>
+<span><span class="co">#&gt; mrate         9.244e-01    9.877e-02  9.360e+00  7.309e-01     1.118  &lt; 2e-16</span></span>
+<span><span class="co">#&gt; age           1.198e-02    6.339e-03  1.890e+00 -4.453e-04     0.024   0.0588</span></span>
+<span><span class="co">#&gt; totemp       -1.371e-05    6.317e-06 -2.170e+00 -2.609e-05     0.000   0.0300</span></span>
+<span><span class="co">#&gt; sole          8.852e-01    1.154e-01  7.674e+00  6.591e-01     1.111 1.67e-14</span></span>
+<span><span class="co">#&gt;                </span></span>
+<span><span class="co">#&gt; (Intercept) ***</span></span>
+<span><span class="co">#&gt; mrate       ***</span></span>
+<span><span class="co">#&gt; age         .  </span></span>
+<span><span class="co">#&gt; totemp      *  </span></span>
+<span><span class="co">#&gt; sole        ***</span></span>
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
@@ -381,31 +403,31 @@ Toggle to see the output
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
 <span><span class="co">#&gt;                     Final Quasi-Maximum Likelihood estimates </span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;          Coefficient Robust Std.Err.    z value [95% Conf. Interval] Pr(&gt;|z|)</span></span>
-<span><span class="co">#&gt; Constant   7.388e-01       7.039e-02  1.050e+01  6.008e-01     0.877  &lt; 2e-16</span></span>
-<span><span class="co">#&gt; mrate      3.960e-01       1.019e-01  3.885e+00  1.962e-01     0.596 0.000102</span></span>
-<span><span class="co">#&gt; age        2.531e-02       4.068e-03  6.223e+00  1.734e-02     0.033 4.88e-10</span></span>
-<span><span class="co">#&gt; totemp    -3.817e-06       3.088e-06 -1.236e+00 -9.869e-06     0.000 0.216472</span></span>
-<span><span class="co">#&gt; sole      -4.483e-03       6.672e-02 -6.719e-02 -1.353e-01     0.126 0.946434</span></span>
-<span><span class="co">#&gt;             </span></span>
-<span><span class="co">#&gt; Constant ***</span></span>
-<span><span class="co">#&gt; mrate    ***</span></span>
-<span><span class="co">#&gt; age      ***</span></span>
-<span><span class="co">#&gt; totemp      </span></span>
-<span><span class="co">#&gt; sole        </span></span>
+<span><span class="co">#&gt;             Coefficient Robust Std.Err.    z value [95% Conf. Interval]</span></span>
+<span><span class="co">#&gt; (Intercept)   7.388e-01       7.039e-02  1.050e+01  6.008e-01     0.877</span></span>
+<span><span class="co">#&gt; mrate         3.960e-01       1.019e-01  3.885e+00  1.962e-01     0.596</span></span>
+<span><span class="co">#&gt; age           2.531e-02       4.068e-03  6.223e+00  1.734e-02     0.033</span></span>
+<span><span class="co">#&gt; totemp       -3.817e-06       3.088e-06 -1.236e+00 -9.869e-06     0.000</span></span>
+<span><span class="co">#&gt; sole         -4.483e-03       6.672e-02 -6.719e-02 -1.353e-01     0.126</span></span>
+<span><span class="co">#&gt;             Pr(&gt;|z|)    </span></span>
+<span><span class="co">#&gt; (Intercept)  &lt; 2e-16 ***</span></span>
+<span><span class="co">#&gt; mrate       0.000102 ***</span></span>
+<span><span class="co">#&gt; age         4.88e-10 ***</span></span>
+<span><span class="co">#&gt; totemp      0.216472    </span></span>
+<span><span class="co">#&gt; sole        0.946434    </span></span>
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;      Three-part regression - binary logit , binary logit + fractional logit </span></span>
+<span><span class="co">#&gt; Three-part fractional regression: binary logit , binary logit + fractional logit </span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
 <span><span class="co">#&gt; Data type:                                                       Cross-sectional </span></span>
 <span><span class="co">#&gt; Pseudo R-squared:                                                        0.07934 </span></span>
 <span><span class="co">#&gt; Convergence:                                                          Successful </span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-09 17:41:04 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-10 21:37:53 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
 </details><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> </span>
@@ -428,7 +450,8 @@ Toggle to see the output
 <span><span class="va">X</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span>x1 <span class="op">=</span> <span class="va">x1</span>, x2 <span class="op">=</span> <span class="va">x2</span><span class="op">)</span> </span>
 <span> </span>
 <span><span class="co"># fracreg estimation of a logit fractional response model </span></span>
-<span><span class="fu"><a href="../reference/fracreg.html">fracreg</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">X</span>, type<span class="op">=</span><span class="st">"1P"</span>, linkfrac<span class="op">=</span><span class="st">"logit"</span><span class="op">)</span> </span></code></pre></div>
+<span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreg.html">fracreg</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">X</span>, type<span class="op">=</span><span class="st">"1P"</span>, linkfrac<span class="op">=</span><span class="st">"logit"</span><span class="op">)</span> </span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></code></pre></div>
 <details><summary>
 Toggle to see the output
 </summary><pre><code><span><span class="co">#&gt; </span></span>
@@ -448,20 +471,25 @@ Toggle to see the output
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
 <span><span class="co">#&gt;                     Final Quasi-Maximum Likelihood estimates </span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;          Coefficient Robust Std.Err.  z value [95% Conf. Interval] Pr(&gt;|z|)    </span></span>
-<span><span class="co">#&gt; Constant    -0.56969         0.06750 -8.43960   -0.70199    -0.437   &lt;2e-16 ***</span></span>
-<span><span class="co">#&gt; x1           0.78822         0.04015 19.63424    0.70954     0.867   &lt;2e-16 ***</span></span>
-<span><span class="co">#&gt; x2           1.35611         0.11899 11.39668    1.12289     1.589   &lt;2e-16 ***</span></span>
+<span><span class="co">#&gt;             Coefficient Robust Std.Err.  z value [95% Conf. Interval] Pr(&gt;|z|)</span></span>
+<span><span class="co">#&gt; (Intercept)    -0.56969         0.06750 -8.43960   -0.70199    -0.437   &lt;2e-16</span></span>
+<span><span class="co">#&gt; x1              0.78822         0.04015 19.63424    0.70954     0.867   &lt;2e-16</span></span>
+<span><span class="co">#&gt; x2              1.35611         0.11899 11.39668    1.12289     1.589   &lt;2e-16</span></span>
+<span><span class="co">#&gt;                </span></span>
+<span><span class="co">#&gt; (Intercept) ***</span></span>
+<span><span class="co">#&gt; x1          ***</span></span>
+<span><span class="co">#&gt; x2          ***</span></span>
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-09 17:41:04 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-10 21:37:53 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
 </details><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> </span>
 <span><span class="co"># fracreg estimation of the binary logit component of the two-part fractional </span></span>
 <span><span class="co"># regression model with y=0 as the relevant boundary value </span></span>
-<span><span class="fu"><a href="../reference/fracreg.html">fracreg</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">X</span>, type<span class="op">=</span><span class="st">"2Pbin"</span>, inflation<span class="op">=</span><span class="fl">0</span>, linkbin<span class="op">=</span><span class="st">"logit"</span><span class="op">)</span> </span></code></pre></div>
+<span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreg.html">fracreg</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">X</span>, type<span class="op">=</span><span class="st">"2Pbin"</span>, inflation<span class="op">=</span><span class="fl">0</span>, linkbin<span class="op">=</span><span class="st">"logit"</span><span class="op">)</span> </span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></code></pre></div>
 <details><summary>
 Toggle to see the output
 </summary><pre><code><span><span class="co">#&gt; </span></span>
@@ -480,10 +508,10 @@ Toggle to see the output
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
 <span><span class="co">#&gt;                        Final Maximum Likelihood estimates </span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;          Coefficient EIM Std.Err. z value [95% Conf. Interval] Pr(&gt;|z|)    </span></span>
-<span><span class="co">#&gt; Constant      1.4638       0.1933  7.5732     1.0849     1.843 3.64e-14 ***</span></span>
-<span><span class="co">#&gt; x1            1.1857       0.1287  9.2126     0.9335     1.438  &lt; 2e-16 ***</span></span>
-<span><span class="co">#&gt; x2            2.2279       0.3932  5.6662     1.4572     2.999 1.46e-08 ***</span></span>
+<span><span class="co">#&gt;             Coefficient EIM Std.Err. z value [95% Conf. Interval] Pr(&gt;|z|)    </span></span>
+<span><span class="co">#&gt; (Intercept)      1.4638       0.1933  7.5732     1.0849     1.843 3.64e-14 ***</span></span>
+<span><span class="co">#&gt; x1               1.1857       0.1287  9.2126     0.9335     1.438  &lt; 2e-16 ***</span></span>
+<span><span class="co">#&gt; x2               2.2279       0.3932  5.6662     1.4572     2.999 1.46e-08 ***</span></span>
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
@@ -492,7 +520,8 @@ Toggle to see the output
 <span><span class="co"># fracreg estimation of the fractional component of the two-part fractional </span></span>
 <span><span class="co"># regression model with y=0 as the relevant boundary value and using a </span></span>
 <span><span class="co"># probit link function </span></span>
-<span><span class="fu"><a href="../reference/fracreg.html">fracreg</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">X</span>, type<span class="op">=</span><span class="st">"2Pfrac"</span>, inflation<span class="op">=</span><span class="fl">0</span>, linkfrac<span class="op">=</span><span class="st">"probit"</span><span class="op">)</span> </span></code></pre></div>
+<span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreg.html">fracreg</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">X</span>, type<span class="op">=</span><span class="st">"2Pfrac"</span>, inflation<span class="op">=</span><span class="fl">0</span>, linkfrac<span class="op">=</span><span class="st">"probit"</span><span class="op">)</span> </span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></code></pre></div>
 <details><summary>
 Toggle to see the output
 </summary><pre><code><span><span class="co">#&gt; </span></span>
@@ -512,10 +541,14 @@ Toggle to see the output
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
 <span><span class="co">#&gt;                     Final Quasi-Maximum Likelihood estimates </span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;          Coefficient Robust Std.Err.  z value [95% Conf. Interval] Pr(&gt;|z|)    </span></span>
-<span><span class="co">#&gt; Constant    -0.10334         0.03566 -2.89793   -0.17323    -0.033  0.00376 ** </span></span>
-<span><span class="co">#&gt; x1           0.37512         0.02129 17.62293    0.33340     0.417  &lt; 2e-16 ***</span></span>
-<span><span class="co">#&gt; x2           0.61326         0.06529  9.39237    0.48529     0.741  &lt; 2e-16 ***</span></span>
+<span><span class="co">#&gt;             Coefficient Robust Std.Err.  z value [95% Conf. Interval] Pr(&gt;|z|)</span></span>
+<span><span class="co">#&gt; (Intercept)    -0.10334         0.03566 -2.89793   -0.17323    -0.033  0.00376</span></span>
+<span><span class="co">#&gt; x1              0.37512         0.02129 17.62293    0.33340     0.417  &lt; 2e-16</span></span>
+<span><span class="co">#&gt; x2              0.61326         0.06529  9.39237    0.48529     0.741  &lt; 2e-16</span></span>
+<span><span class="co">#&gt;                </span></span>
+<span><span class="co">#&gt; (Intercept) ** </span></span>
+<span><span class="co">#&gt; x1          ***</span></span>
+<span><span class="co">#&gt; x2          ***</span></span>
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
@@ -524,7 +557,8 @@ Toggle to see the output
 <span><span class="co"># fracreg estimation of both components of a two-part fractional response model </span></span>
 <span><span class="co"># with y=0 as the relevant boundary value and using a cloglog binary link </span></span>
 <span><span class="co"># function and a logit fractional link function </span></span>
-<span><span class="fu"><a href="../reference/fracreg.html">fracreg</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">X</span>, type<span class="op">=</span><span class="st">"2P"</span>, inflation<span class="op">=</span><span class="fl">0</span>, linkbin<span class="op">=</span><span class="st">"cloglog"</span>, linkfrac<span class="op">=</span><span class="st">"logit"</span><span class="op">)</span> </span></code></pre></div>
+<span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreg.html">fracreg</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">X</span>, type<span class="op">=</span><span class="st">"2P"</span>, inflation<span class="op">=</span><span class="fl">0</span>, linkbin<span class="op">=</span><span class="st">"cloglog"</span>, linkfrac<span class="op">=</span><span class="st">"logit"</span><span class="op">)</span> </span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></code></pre></div>
 <details><summary>
 Toggle to see the output
 </summary><pre><code><span><span class="co">#&gt; </span></span>
@@ -543,10 +577,10 @@ Toggle to see the output
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
 <span><span class="co">#&gt;                        Final Maximum Likelihood estimates </span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;          Coefficient EIM Std.Err. z value [95% Conf. Interval] Pr(&gt;|z|)    </span></span>
-<span><span class="co">#&gt; Constant     0.43428      0.08825 4.92113    0.26132     0.607 8.60e-07 ***</span></span>
-<span><span class="co">#&gt; x1           0.55192      0.06009 9.18429    0.43414     0.670  &lt; 2e-16 ***</span></span>
-<span><span class="co">#&gt; x2           1.05359      0.17403 6.05409    0.71250     1.395 1.41e-09 ***</span></span>
+<span><span class="co">#&gt;             Coefficient EIM Std.Err. z value [95% Conf. Interval] Pr(&gt;|z|)    </span></span>
+<span><span class="co">#&gt; (Intercept)     0.43428      0.08825 4.92113    0.26132     0.607 8.60e-07 ***</span></span>
+<span><span class="co">#&gt; x1              0.55192      0.06009 9.18429    0.43414     0.670  &lt; 2e-16 ***</span></span>
+<span><span class="co">#&gt; x2              1.05359      0.17403 6.05409    0.71250     1.395 1.41e-09 ***</span></span>
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
@@ -568,28 +602,33 @@ Toggle to see the output
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
 <span><span class="co">#&gt;                     Final Quasi-Maximum Likelihood estimates </span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;          Coefficient Robust Std.Err.  z value [95% Conf. Interval] Pr(&gt;|z|)    </span></span>
-<span><span class="co">#&gt; Constant    -0.17323         0.05786 -2.99384   -0.28664    -0.060  0.00275 ** </span></span>
-<span><span class="co">#&gt; x1           0.61205         0.03554 17.22078    0.54239     0.682  &lt; 2e-16 ***</span></span>
-<span><span class="co">#&gt; x2           1.00509         0.10703  9.39074    0.79531     1.215  &lt; 2e-16 ***</span></span>
+<span><span class="co">#&gt;             Coefficient Robust Std.Err.  z value [95% Conf. Interval] Pr(&gt;|z|)</span></span>
+<span><span class="co">#&gt; (Intercept)    -0.17323         0.05786 -2.99384   -0.28664    -0.060  0.00275</span></span>
+<span><span class="co">#&gt; x1              0.61205         0.03554 17.22078    0.54239     0.682  &lt; 2e-16</span></span>
+<span><span class="co">#&gt; x2              1.00509         0.10703  9.39074    0.79531     1.215  &lt; 2e-16</span></span>
+<span><span class="co">#&gt;                </span></span>
+<span><span class="co">#&gt; (Intercept) ** </span></span>
+<span><span class="co">#&gt; x1          ***</span></span>
+<span><span class="co">#&gt; x2          ***</span></span>
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;             Two-part regression - binary cloglog + fractional logit </span></span>
+<span><span class="co">#&gt;        Two-part fractional regression: binary cloglog + fractional logit </span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
 <span><span class="co">#&gt; Data type:                                                       Cross-sectional </span></span>
 <span><span class="co">#&gt; Pseudo R-squared:                                                        0.38829 </span></span>
 <span><span class="co">#&gt; Convergence:                                                          Successful </span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-09 17:41:04 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-10 21:37:53 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
 </details><div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> </span>
 <span><span class="co"># Three-part double-inflated model (y has both 0s and 1s) </span></span>
-<span><span class="fu"><a href="../reference/fracreg.html">fracreg</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">X</span>, type<span class="op">=</span><span class="st">"3P"</span>, linkbin<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"logit"</span>,<span class="st">"probit"</span><span class="op">)</span>, linkfrac<span class="op">=</span><span class="st">"logit"</span><span class="op">)</span> </span></code></pre></div>
+<span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreg.html">fracreg</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">X</span>, type<span class="op">=</span><span class="st">"3P"</span>, linkbin<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"logit"</span>,<span class="st">"probit"</span><span class="op">)</span>, linkfrac<span class="op">=</span><span class="st">"logit"</span><span class="op">)</span> </span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></code></pre></div>
 <details><summary>
 Toggle to see the output
 </summary><pre><code><span><span class="co">#&gt; </span></span>
@@ -608,10 +647,10 @@ Toggle to see the output
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
 <span><span class="co">#&gt;                        Final Maximum Likelihood estimates </span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;          Coefficient EIM Std.Err. z value [95% Conf. Interval] Pr(&gt;|z|)    </span></span>
-<span><span class="co">#&gt; Constant      1.4638       0.1933  7.5732     1.0849     1.843 3.64e-14 ***</span></span>
-<span><span class="co">#&gt; x1            1.1857       0.1287  9.2126     0.9335     1.438  &lt; 2e-16 ***</span></span>
-<span><span class="co">#&gt; x2            2.2279       0.3932  5.6662     1.4572     2.999 1.46e-08 ***</span></span>
+<span><span class="co">#&gt;             Coefficient EIM Std.Err. z value [95% Conf. Interval] Pr(&gt;|z|)    </span></span>
+<span><span class="co">#&gt; (Intercept)      1.4638       0.1933  7.5732     1.0849     1.843 3.64e-14 ***</span></span>
+<span><span class="co">#&gt; x1               1.1857       0.1287  9.2126     0.9335     1.438  &lt; 2e-16 ***</span></span>
+<span><span class="co">#&gt; x2               2.2279       0.3932  5.6662     1.4572     2.999 1.46e-08 ***</span></span>
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
@@ -632,10 +671,14 @@ Toggle to see the output
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
 <span><span class="co">#&gt;                        Final Maximum Likelihood estimates </span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;          Coefficient EIM Std.Err.   z value [95% Conf. Interval] Pr(&gt;|z|)    </span></span>
-<span><span class="co">#&gt; Constant    -1.71537      0.12933 -13.26354   -1.96885    -1.462  &lt; 2e-16 ***</span></span>
-<span><span class="co">#&gt; x1           0.64810      0.06323  10.25024    0.52418     0.772  &lt; 2e-16 ***</span></span>
-<span><span class="co">#&gt; x2           1.07752      0.19174   5.61978    0.70172     1.453 1.91e-08 ***</span></span>
+<span><span class="co">#&gt;             Coefficient EIM Std.Err.   z value [95% Conf. Interval] Pr(&gt;|z|)</span></span>
+<span><span class="co">#&gt; (Intercept)    -1.71537      0.12933 -13.26354   -1.96885    -1.462  &lt; 2e-16</span></span>
+<span><span class="co">#&gt; x1              0.64810      0.06323  10.25024    0.52418     0.772  &lt; 2e-16</span></span>
+<span><span class="co">#&gt; x2              1.07752      0.19174   5.61978    0.70172     1.453 1.91e-08</span></span>
+<span><span class="co">#&gt;                </span></span>
+<span><span class="co">#&gt; (Intercept) ***</span></span>
+<span><span class="co">#&gt; x1          ***</span></span>
+<span><span class="co">#&gt; x2          ***</span></span>
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
@@ -657,23 +700,27 @@ Toggle to see the output
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
 <span><span class="co">#&gt;                     Final Quasi-Maximum Likelihood estimates </span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;          Coefficient Robust Std.Err.  z value [95% Conf. Interval] Pr(&gt;|z|)    </span></span>
-<span><span class="co">#&gt; Constant    -0.26763         0.04539 -5.89578   -0.35660    -0.179 3.73e-09 ***</span></span>
-<span><span class="co">#&gt; x1           0.36198         0.02454 14.75144    0.31389     0.410  &lt; 2e-16 ***</span></span>
-<span><span class="co">#&gt; x2           0.58505         0.07969  7.34179    0.42886     0.741 2.11e-13 ***</span></span>
+<span><span class="co">#&gt;             Coefficient Robust Std.Err.  z value [95% Conf. Interval] Pr(&gt;|z|)</span></span>
+<span><span class="co">#&gt; (Intercept)    -0.26763         0.04539 -5.89578   -0.35660    -0.179 3.73e-09</span></span>
+<span><span class="co">#&gt; x1              0.36198         0.02454 14.75144    0.31389     0.410  &lt; 2e-16</span></span>
+<span><span class="co">#&gt; x2              0.58505         0.07969  7.34179    0.42886     0.741 2.11e-13</span></span>
+<span><span class="co">#&gt;                </span></span>
+<span><span class="co">#&gt; (Intercept) ***</span></span>
+<span><span class="co">#&gt; x1          ***</span></span>
+<span><span class="co">#&gt; x2          ***</span></span>
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;     Three-part regression - binary logit , binary probit + fractional logit </span></span>
+<span><span class="co">#&gt; Three-part fractional regression: binary logit , binary probit + fractional logit </span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
 <span><span class="co">#&gt; Data type:                                                       Cross-sectional </span></span>
 <span><span class="co">#&gt; Pseudo R-squared:                                                        0.38917 </span></span>
 <span><span class="co">#&gt; Convergence:                                                          Successful </span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-09 17:41:04 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-10 21:37:53 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
 </details><div class="section level3">
 <h3 id="partial-effects-fracreg-pe">1.1 Partial Effects (<code>fracreg.pe</code>)<a class="anchor" aria-label="anchor" href="#partial-effects-fracreg-pe"></a>
@@ -689,45 +736,9 @@ Effects (CPE) using the analytical delta method.</p>
 <span><span class="va">X</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span>mrate <span class="op">=</span> <span class="va">fracreg_k401k</span><span class="op">$</span><span class="va">mrate</span>, age <span class="op">=</span> <span class="va">fracreg_k401k</span><span class="op">$</span><span class="va">age</span>,  </span>
 <span>           totemp <span class="op">=</span> <span class="va">fracreg_k401k</span><span class="op">$</span><span class="va">totemp</span>, sole <span class="op">=</span> <span class="va">fracreg_k401k</span><span class="op">$</span><span class="va">sole</span><span class="op">)</span> </span>
 <span> </span>
-<span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreg.html">fracreg</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">X</span>, type<span class="op">=</span><span class="st">"1P"</span>, linkfrac<span class="op">=</span><span class="st">"logit"</span><span class="op">)</span> </span></code></pre></div>
-<details><summary>
-Toggle to see the output
-</summary><pre><code><span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                           Fractional logit regression </span></span>
-<span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt; Estimator:                                                                   QML </span></span>
-<span><span class="co">#&gt; Data type:                                                       Cross-sectional </span></span>
-<span><span class="co">#&gt; Number of observations:                                                     1534 </span></span>
-<span><span class="co">#&gt; Pseudo R-squared:                                                        0.14667 </span></span>
-<span><span class="co">#&gt; Log pseudolikelihood:                                                  -553.1626 </span></span>
-<span><span class="co">#&gt; Wald chi2(4):                                                           147.3049 </span></span>
-<span><span class="co">#&gt; Prob &gt; chi2:                                                              0.0000 </span></span>
-<span><span class="co">#&gt; Standard errors:                                                          robust </span></span>
-<span><span class="co">#&gt; Small sample correction:                                                   FALSE </span></span>
-<span><span class="co">#&gt; Convergence:                                                          Successful </span></span>
-<span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                     Final Quasi-Maximum Likelihood estimates </span></span>
-<span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;          Coefficient Robust Std.Err.    z value [95% Conf. Interval] Pr(&gt;|z|)</span></span>
-<span><span class="co">#&gt; Constant   9.316e-01       8.408e-02  1.108e+01  7.668e-01     1.096  &lt; 2e-16</span></span>
-<span><span class="co">#&gt; mrate      9.531e-01       1.371e-01  6.951e+00  6.843e-01     1.222 3.62e-12</span></span>
-<span><span class="co">#&gt; age        2.791e-02       4.877e-03  5.723e+00  1.835e-02     0.037 1.05e-08</span></span>
-<span><span class="co">#&gt; totemp    -8.182e-06       3.061e-06 -2.673e+00 -1.418e-05     0.000  0.00751</span></span>
-<span><span class="co">#&gt; sole       3.405e-01       8.066e-02  4.222e+00  1.824e-01     0.499 2.43e-05</span></span>
-<span><span class="co">#&gt;             </span></span>
-<span><span class="co">#&gt; Constant ***</span></span>
-<span><span class="co">#&gt; mrate    ***</span></span>
-<span><span class="co">#&gt; age      ***</span></span>
-<span><span class="co">#&gt; totemp   ** </span></span>
-<span><span class="co">#&gt; sole     ***</span></span>
-<span><span class="co">#&gt; ---</span></span>
-<span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
-<span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-09 17:41:04 </span></span>
-<span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
-</details><div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/fracreg.pe.html">fracreg.pe</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span> </span></code></pre></div>
+<span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreg.html">fracreg</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">X</span>, type<span class="op">=</span><span class="st">"1P"</span>, linkfrac<span class="op">=</span><span class="st">"logit"</span><span class="op">)</span> </span>
+<span><span class="va">pe_res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreg.pe.html">fracreg.pe</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span> </span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">pe_res</span><span class="op">)</span></span></code></pre></div>
 <details><summary>
 Toggle to see the output
 </summary><pre><code><span><span class="co">#&gt; </span></span>
@@ -745,9 +756,9 @@ Toggle to see the output
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-09 17:41:04 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-10 21:37:53 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
-</details><div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+</details><div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> </span>
 <span><span class="co">### Simulated Examples </span></span>
 <span> </span>
@@ -762,8 +773,9 @@ Toggle to see the output
 <span><span class="va">y</span><span class="op">[</span><span class="va">y</span> <span class="op">&gt;</span> <span class="fl">0.9</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">1</span> </span>
 <span> </span>
 <span><span class="co">#Computing average partial effects for a logit fractional response model </span></span>
-<span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreg.html">fracreg</a></span><span class="op">(</span><span class="va">y</span>,<span class="va">X</span>,linkfrac<span class="op">=</span><span class="st">"logit"</span>,table<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span> </span>
-<span><span class="fu"><a href="../reference/fracreg.pe.html">fracreg.pe</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span> </span></code></pre></div>
+<span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreg.html">fracreg</a></span><span class="op">(</span><span class="va">y</span>,<span class="va">X</span>,linkfrac<span class="op">=</span><span class="st">"logit"</span>,table<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span> </span>
+<span><span class="va">pe_res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreg.pe.html">fracreg.pe</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span> </span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">pe_res</span><span class="op">)</span></span></code></pre></div>
 <details><summary>
 Toggle to see the output
 </summary><pre><code><span><span class="co">#&gt; </span></span>
@@ -779,14 +791,15 @@ Toggle to see the output
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-09 17:41:04 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-10 21:37:53 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
-</details><div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+</details><div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> </span>
 <span><span class="co">#Computing average partial effects for a binary logit + fractional probit </span></span>
 <span><span class="co">#two-part model </span></span>
-<span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreg.html">fracreg</a></span><span class="op">(</span><span class="va">y</span>,<span class="va">X</span>,linkbin<span class="op">=</span><span class="st">"logit"</span>,linkfrac<span class="op">=</span><span class="st">"probit"</span>,type<span class="op">=</span><span class="st">"2P"</span>,inf<span class="op">=</span><span class="fl">1</span>,table<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span> </span>
-<span><span class="fu"><a href="../reference/fracreg.pe.html">fracreg.pe</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span> </span></code></pre></div>
+<span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreg.html">fracreg</a></span><span class="op">(</span><span class="va">y</span>,<span class="va">X</span>,linkbin<span class="op">=</span><span class="st">"logit"</span>,linkfrac<span class="op">=</span><span class="st">"probit"</span>,type<span class="op">=</span><span class="st">"2P"</span>,inf<span class="op">=</span><span class="fl">1</span>,table<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span> </span>
+<span><span class="va">pe_res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreg.pe.html">fracreg.pe</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span> </span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">pe_res</span><span class="op">)</span></span></code></pre></div>
 <details><summary>
 Toggle to see the output
 </summary><pre><code><span><span class="co">#&gt; </span></span>
@@ -802,15 +815,16 @@ Toggle to see the output
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-09 17:41:04 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-10 21:37:53 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
-</details><div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+</details><div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> </span>
 <span><span class="co">#Computing conditional partial effects for X2 in the logit component </span></span>
 <span><span class="co">#of a two-part fractional response model, with the covariates evaluated </span></span>
 <span><span class="co">#at their median values </span></span>
-<span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreg.html">fracreg</a></span><span class="op">(</span><span class="va">y</span>,<span class="va">X</span>,linkfrac<span class="op">=</span><span class="st">"logit"</span>,type<span class="op">=</span><span class="st">"2Pfrac"</span>,inf<span class="op">=</span><span class="fl">1</span>,table<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span> </span>
-<span><span class="fu"><a href="../reference/fracreg.pe.html">fracreg.pe</a></span><span class="op">(</span><span class="va">res</span>,APE<span class="op">=</span><span class="cn">FALSE</span>,CPE<span class="op">=</span><span class="cn">TRUE</span>,at<span class="op">=</span><span class="st">"median"</span>,which.x<span class="op">=</span><span class="st">"X2"</span><span class="op">)</span> </span></code></pre></div>
+<span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreg.html">fracreg</a></span><span class="op">(</span><span class="va">y</span>,<span class="va">X</span>,linkfrac<span class="op">=</span><span class="st">"logit"</span>,type<span class="op">=</span><span class="st">"2Pfrac"</span>,inf<span class="op">=</span><span class="fl">1</span>,table<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span> </span>
+<span><span class="va">pe_res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreg.pe.html">fracreg.pe</a></span><span class="op">(</span><span class="va">mod</span>,APE<span class="op">=</span><span class="cn">FALSE</span>,CPE<span class="op">=</span><span class="cn">TRUE</span>,at<span class="op">=</span><span class="st">"median"</span>,which.x<span class="op">=</span><span class="st">"X2"</span><span class="op">)</span> </span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">pe_res</span><span class="op">)</span></span></code></pre></div>
 <details><summary>
 Toggle to see the output
 </summary><pre><code><span><span class="co">#&gt; </span></span>
@@ -825,18 +839,19 @@ Toggle to see the output
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-09 17:41:05 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-10 21:37:53 </span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Note: covariates evaluated at median (or mode, for dummies) values</span></span></code></pre>
-</details><div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+</details><div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> </span>
 <span><span class="co">#Computing average partial effects for a three-part double-inflated model </span></span>
 <span><span class="va">y3p</span> <span class="op">&lt;-</span> <span class="va">y</span> </span>
 <span><span class="va">y3p</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">20</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">0</span> </span>
 <span><span class="va">y3p</span><span class="op">[</span><span class="fl">21</span><span class="op">:</span><span class="fl">40</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">1</span> </span>
 <span><span class="va">res3p</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreg.html">fracreg</a></span><span class="op">(</span><span class="va">y3p</span>,<span class="va">X</span>,linkbin<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"logit"</span>,<span class="st">"probit"</span><span class="op">)</span>,linkfrac<span class="op">=</span><span class="st">"logit"</span>,type<span class="op">=</span><span class="st">"3P"</span>,table<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span> </span>
-<span><span class="fu"><a href="../reference/fracreg.pe.html">fracreg.pe</a></span><span class="op">(</span><span class="va">res3p</span><span class="op">)</span> </span></code></pre></div>
+<span><span class="va">pe_res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreg.pe.html">fracreg.pe</a></span><span class="op">(</span><span class="va">res3p</span><span class="op">)</span> </span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">pe_res</span><span class="op">)</span></span></code></pre></div>
 <details><summary>
 Toggle to see the output
 </summary><pre><code><span><span class="co">#&gt; </span></span>
@@ -852,7 +867,7 @@ Toggle to see the output
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-09 17:41:05 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-10 21:37:53 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
 </details><hr>
 </div>
@@ -869,52 +884,16 @@ validate your model’s functional form and link function assumptions.</p>
 <p>The GGOFF test tests whether the chosen link function is adequate for
 the data. A significant result suggests the link may be
 misspecified.</p>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">### Empirical 401(k) Examples </span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"fracreg_k401k"</span><span class="op">)</span> </span>
 <span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">fracreg_k401k</span><span class="op">$</span><span class="va">prate</span> </span>
 <span><span class="va">X</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span>mrate <span class="op">=</span> <span class="va">fracreg_k401k</span><span class="op">$</span><span class="va">mrate</span>, age <span class="op">=</span> <span class="va">fracreg_k401k</span><span class="op">$</span><span class="va">age</span>,  </span>
 <span>           totemp <span class="op">=</span> <span class="va">fracreg_k401k</span><span class="op">$</span><span class="va">totemp</span>, sole <span class="op">=</span> <span class="va">fracreg_k401k</span><span class="op">$</span><span class="va">sole</span><span class="op">)</span> </span>
 <span> </span>
-<span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreg.html">fracreg</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">X</span>, type<span class="op">=</span><span class="st">"1P"</span>, linkfrac<span class="op">=</span><span class="st">"logit"</span><span class="op">)</span> </span></code></pre></div>
-<details><summary>
-Toggle to see the output
-</summary><pre><code><span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                           Fractional logit regression </span></span>
-<span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt; Estimator:                                                                   QML </span></span>
-<span><span class="co">#&gt; Data type:                                                       Cross-sectional </span></span>
-<span><span class="co">#&gt; Number of observations:                                                     1534 </span></span>
-<span><span class="co">#&gt; Pseudo R-squared:                                                        0.14667 </span></span>
-<span><span class="co">#&gt; Log pseudolikelihood:                                                  -553.1626 </span></span>
-<span><span class="co">#&gt; Wald chi2(4):                                                           147.3049 </span></span>
-<span><span class="co">#&gt; Prob &gt; chi2:                                                              0.0000 </span></span>
-<span><span class="co">#&gt; Standard errors:                                                          robust </span></span>
-<span><span class="co">#&gt; Small sample correction:                                                   FALSE </span></span>
-<span><span class="co">#&gt; Convergence:                                                          Successful </span></span>
-<span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                     Final Quasi-Maximum Likelihood estimates </span></span>
-<span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;          Coefficient Robust Std.Err.    z value [95% Conf. Interval] Pr(&gt;|z|)</span></span>
-<span><span class="co">#&gt; Constant   9.316e-01       8.408e-02  1.108e+01  7.668e-01     1.096  &lt; 2e-16</span></span>
-<span><span class="co">#&gt; mrate      9.531e-01       1.371e-01  6.951e+00  6.843e-01     1.222 3.62e-12</span></span>
-<span><span class="co">#&gt; age        2.791e-02       4.877e-03  5.723e+00  1.835e-02     0.037 1.05e-08</span></span>
-<span><span class="co">#&gt; totemp    -8.182e-06       3.061e-06 -2.673e+00 -1.418e-05     0.000  0.00751</span></span>
-<span><span class="co">#&gt; sole       3.405e-01       8.066e-02  4.222e+00  1.824e-01     0.499 2.43e-05</span></span>
-<span><span class="co">#&gt;             </span></span>
-<span><span class="co">#&gt; Constant ***</span></span>
-<span><span class="co">#&gt; mrate    ***</span></span>
-<span><span class="co">#&gt; age      ***</span></span>
-<span><span class="co">#&gt; totemp   ** </span></span>
-<span><span class="co">#&gt; sole     ***</span></span>
-<span><span class="co">#&gt; ---</span></span>
-<span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
-<span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-09 17:41:05 </span></span>
-<span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
-</details><div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/fracreg.ggoff.html">fracreg.ggoff</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span> </span></code></pre></div>
+<span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreg.html">fracreg</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">X</span>, type<span class="op">=</span><span class="st">"1P"</span>, linkfrac<span class="op">=</span><span class="st">"logit"</span><span class="op">)</span> </span>
+<span><span class="va">ggoff_res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreg.ggoff.html">fracreg.ggoff</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span> </span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">ggoff_res</span><span class="op">)</span></span></code></pre></div>
 <details><summary>
 Toggle to see the output
 </summary><pre><code><span><span class="co">#&gt; </span></span>
@@ -930,9 +909,9 @@ Toggle to see the output
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-09 17:41:05 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-10 21:37:53 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
-</details><div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+</details><div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> </span>
 <span><span class="co">### Simulated Examples </span></span>
 <span> </span>
@@ -949,8 +928,9 @@ Toggle to see the output
 <span><span class="co">#Testing the logit specification of a standard fractional response model </span></span>
 <span><span class="co">#using LM and Wald versions of the GGOFF test, based on 1 or 2 fitted powers of </span></span>
 <span><span class="co">#the linear predictor </span></span>
-<span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreg.html">fracreg</a></span><span class="op">(</span><span class="va">y</span>,<span class="va">X</span>,linkfrac<span class="op">=</span><span class="st">"logit"</span>,table<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span> </span>
-<span><span class="fu"><a href="../reference/fracreg.ggoff.html">fracreg.ggoff</a></span><span class="op">(</span><span class="va">res</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Wald"</span>,<span class="st">"LM"</span><span class="op">)</span><span class="op">)</span> </span></code></pre></div>
+<span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreg.html">fracreg</a></span><span class="op">(</span><span class="va">y</span>,<span class="va">X</span>,linkfrac<span class="op">=</span><span class="st">"logit"</span>,table<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span> </span>
+<span><span class="va">ggoff_res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreg.ggoff.html">fracreg.ggoff</a></span><span class="op">(</span><span class="va">mod</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Wald"</span>,<span class="st">"LM"</span><span class="op">)</span><span class="op">)</span> </span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">ggoff_res</span><span class="op">)</span></span></code></pre></div>
 <details><summary>
 Toggle to see the output
 </summary><pre><code><span><span class="co">#&gt; </span></span>
@@ -967,14 +947,15 @@ Toggle to see the output
 <span><span class="co">#&gt; GGOFF - LM       1.612   0.447</span></span>
 <span><span class="co">#&gt; GGOFF - Wald     1.336   0.513</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-09 17:41:05 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-10 21:37:53 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
-</details><div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+</details><div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> </span>
 <span><span class="co">#Testing the probit specification of the binary component of a two-part fractional </span></span>
 <span><span class="co">#regression model using a LR-based GGOFF test </span></span>
-<span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreg.html">fracreg</a></span><span class="op">(</span><span class="va">y</span>,<span class="va">X</span>,linkbin<span class="op">=</span><span class="st">"probit"</span>,type<span class="op">=</span><span class="st">"2Pbin"</span>,inf<span class="op">=</span><span class="fl">1</span>,table<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span> </span>
-<span><span class="fu"><a href="../reference/fracreg.ggoff.html">fracreg.ggoff</a></span><span class="op">(</span><span class="va">res</span>,<span class="st">"LR"</span><span class="op">)</span> </span></code></pre></div>
+<span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreg.html">fracreg</a></span><span class="op">(</span><span class="va">y</span>,<span class="va">X</span>,linkbin<span class="op">=</span><span class="st">"probit"</span>,type<span class="op">=</span><span class="st">"2Pbin"</span>,inf<span class="op">=</span><span class="fl">1</span>,table<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span> </span>
+<span><span class="va">ggoff_res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreg.ggoff.html">fracreg.ggoff</a></span><span class="op">(</span><span class="va">mod</span>,<span class="st">"LR"</span><span class="op">)</span> </span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">ggoff_res</span><span class="op">)</span></span></code></pre></div>
 <details><summary>
 Toggle to see the output
 </summary><pre><code><span><span class="co">#&gt; </span></span>
@@ -988,7 +969,7 @@ Toggle to see the output
 <span><span class="co">#&gt; GOFF2 - LR     0.017   0.895</span></span>
 <span><span class="co">#&gt; GGOFF - LR     0.024   0.988</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-09 17:41:05 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-10 21:37:53 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
 </details>
 </div>
@@ -1000,52 +981,16 @@ testing whether powers of the fitted values have explanatory power.
 Testing
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mn>0</mn></msub><mo>:</mo><mi>γ</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">H_0: \gamma = 0</annotation></semantics></math>
 provides a robust diagnostic check.</p>
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">### Empirical 401(k) Examples </span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"fracreg_k401k"</span><span class="op">)</span> </span>
 <span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">fracreg_k401k</span><span class="op">$</span><span class="va">prate</span> </span>
 <span><span class="va">X</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span>mrate <span class="op">=</span> <span class="va">fracreg_k401k</span><span class="op">$</span><span class="va">mrate</span>, age <span class="op">=</span> <span class="va">fracreg_k401k</span><span class="op">$</span><span class="va">age</span>,  </span>
 <span>           totemp <span class="op">=</span> <span class="va">fracreg_k401k</span><span class="op">$</span><span class="va">totemp</span>, sole <span class="op">=</span> <span class="va">fracreg_k401k</span><span class="op">$</span><span class="va">sole</span><span class="op">)</span> </span>
 <span> </span>
-<span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreg.html">fracreg</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">X</span>, type<span class="op">=</span><span class="st">"1P"</span>, linkfrac<span class="op">=</span><span class="st">"logit"</span><span class="op">)</span> </span></code></pre></div>
-<details><summary>
-Toggle to see the output
-</summary><pre><code><span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                           Fractional logit regression </span></span>
-<span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt; Estimator:                                                                   QML </span></span>
-<span><span class="co">#&gt; Data type:                                                       Cross-sectional </span></span>
-<span><span class="co">#&gt; Number of observations:                                                     1534 </span></span>
-<span><span class="co">#&gt; Pseudo R-squared:                                                        0.14667 </span></span>
-<span><span class="co">#&gt; Log pseudolikelihood:                                                  -553.1626 </span></span>
-<span><span class="co">#&gt; Wald chi2(4):                                                           147.3049 </span></span>
-<span><span class="co">#&gt; Prob &gt; chi2:                                                              0.0000 </span></span>
-<span><span class="co">#&gt; Standard errors:                                                          robust </span></span>
-<span><span class="co">#&gt; Small sample correction:                                                   FALSE </span></span>
-<span><span class="co">#&gt; Convergence:                                                          Successful </span></span>
-<span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                     Final Quasi-Maximum Likelihood estimates </span></span>
-<span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;          Coefficient Robust Std.Err.    z value [95% Conf. Interval] Pr(&gt;|z|)</span></span>
-<span><span class="co">#&gt; Constant   9.316e-01       8.408e-02  1.108e+01  7.668e-01     1.096  &lt; 2e-16</span></span>
-<span><span class="co">#&gt; mrate      9.531e-01       1.371e-01  6.951e+00  6.843e-01     1.222 3.62e-12</span></span>
-<span><span class="co">#&gt; age        2.791e-02       4.877e-03  5.723e+00  1.835e-02     0.037 1.05e-08</span></span>
-<span><span class="co">#&gt; totemp    -8.182e-06       3.061e-06 -2.673e+00 -1.418e-05     0.000  0.00751</span></span>
-<span><span class="co">#&gt; sole       3.405e-01       8.066e-02  4.222e+00  1.824e-01     0.499 2.43e-05</span></span>
-<span><span class="co">#&gt;             </span></span>
-<span><span class="co">#&gt; Constant ***</span></span>
-<span><span class="co">#&gt; mrate    ***</span></span>
-<span><span class="co">#&gt; age      ***</span></span>
-<span><span class="co">#&gt; totemp   ** </span></span>
-<span><span class="co">#&gt; sole     ***</span></span>
-<span><span class="co">#&gt; ---</span></span>
-<span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
-<span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-09 17:41:05 </span></span>
-<span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
-</details><div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/fracreg.reset.html">fracreg.reset</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span> </span></code></pre></div>
+<span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreg.html">fracreg</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">X</span>, type<span class="op">=</span><span class="st">"1P"</span>, linkfrac<span class="op">=</span><span class="st">"logit"</span><span class="op">)</span> </span>
+<span><span class="va">reset_res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreg.reset.html">fracreg.reset</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span> </span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">reset_res</span><span class="op">)</span></span></code></pre></div>
 <details><summary>
 Toggle to see the output
 </summary><pre><code><span><span class="co">#&gt; </span></span>
@@ -1059,9 +1004,9 @@ Toggle to see the output
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-09 17:41:05 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-10 21:37:53 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
-</details><div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+</details><div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> </span>
 <span><span class="co">### Simulated Examples </span></span>
 <span> </span>
@@ -1078,8 +1023,9 @@ Toggle to see the output
 <span><span class="co">#Testing the logit specification of a standard fractional response model </span></span>
 <span><span class="co">#using LM and Wald versions of the RESET test, based on 1 or 2 fitted powers of </span></span>
 <span><span class="co">#the linear predictor </span></span>
-<span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreg.html">fracreg</a></span><span class="op">(</span><span class="va">y</span>,<span class="va">X</span>,linkfrac<span class="op">=</span><span class="st">"logit"</span>,table<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span> </span>
-<span><span class="fu"><a href="../reference/fracreg.reset.html">fracreg.reset</a></span><span class="op">(</span><span class="va">res</span>,<span class="fl">2</span><span class="op">:</span><span class="fl">3</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Wald"</span>,<span class="st">"LM"</span><span class="op">)</span><span class="op">)</span> </span></code></pre></div>
+<span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreg.html">fracreg</a></span><span class="op">(</span><span class="va">y</span>,<span class="va">X</span>,linkfrac<span class="op">=</span><span class="st">"logit"</span>,table<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span> </span>
+<span><span class="va">reset_res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreg.reset.html">fracreg.reset</a></span><span class="op">(</span><span class="va">mod</span>,<span class="fl">2</span><span class="op">:</span><span class="fl">3</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Wald"</span>,<span class="st">"LM"</span><span class="op">)</span><span class="op">)</span> </span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">reset_res</span><span class="op">)</span></span></code></pre></div>
 <details><summary>
 Toggle to see the output
 </summary><pre><code><span><span class="co">#&gt; </span></span>
@@ -1096,16 +1042,17 @@ Toggle to see the output
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-09 17:41:05 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-10 21:37:53 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
-</details><div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+</details><div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> </span>
 <span><span class="co">#Testing the probit specification of the binary component of a two-part fractional </span></span>
 <span><span class="co">#regression model using LR-based RESET tests with quadratic and cubic fitted  </span></span>
 <span><span class="co">#powers of the linear predictor </span></span>
-<span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreg.html">fracreg</a></span><span class="op">(</span><span class="va">y</span>,<span class="va">X</span>,linkbin<span class="op">=</span><span class="st">"probit"</span>,type<span class="op">=</span><span class="st">"2Pbin"</span>,inf<span class="op">=</span><span class="fl">1</span>,table<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span> </span>
-<span><span class="fu"><a href="../reference/fracreg.reset.html">fracreg.reset</a></span><span class="op">(</span><span class="va">res</span>,<span class="fl">3</span>,<span class="st">"LR"</span><span class="op">)</span> </span>
-<span><span class="co">#&gt; Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred</span></span></code></pre></div>
+<span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreg.html">fracreg</a></span><span class="op">(</span><span class="va">y</span>,<span class="va">X</span>,linkbin<span class="op">=</span><span class="st">"probit"</span>,type<span class="op">=</span><span class="st">"2Pbin"</span>,inf<span class="op">=</span><span class="fl">1</span>,table<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span> </span>
+<span><span class="va">reset_res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreg.reset.html">fracreg.reset</a></span><span class="op">(</span><span class="va">mod</span>,<span class="fl">3</span>,<span class="st">"LR"</span><span class="op">)</span> </span>
+<span><span class="co">#&gt; Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">reset_res</span><span class="op">)</span></span></code></pre></div>
 <details><summary>
 Toggle to see the output
 </summary><pre><code><span><span class="co">#&gt; </span></span>
@@ -1117,7 +1064,7 @@ Toggle to see the output
 <span><span class="co">#&gt;       Statistic p-value</span></span>
 <span><span class="co">#&gt; LR(3)     0.976   0.614</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-09 17:41:05 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-10 21:37:53 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
 </details>
 </div>
@@ -1127,90 +1074,17 @@ Toggle to see the output
 <p>You can compare non-nested models (e.g., <code>logit</code>
 vs. <code>cloglog</code> link) using the Davidson-MacKinnon (1981)
 P-test.</p>
-<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">### Empirical 401(k) Examples </span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"fracreg_k401k"</span><span class="op">)</span> </span>
 <span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">fracreg_k401k</span><span class="op">$</span><span class="va">prate</span> </span>
 <span><span class="va">X</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span>mrate <span class="op">=</span> <span class="va">fracreg_k401k</span><span class="op">$</span><span class="va">mrate</span>, age <span class="op">=</span> <span class="va">fracreg_k401k</span><span class="op">$</span><span class="va">age</span>,  </span>
 <span>           totemp <span class="op">=</span> <span class="va">fracreg_k401k</span><span class="op">$</span><span class="va">totemp</span>, sole <span class="op">=</span> <span class="va">fracreg_k401k</span><span class="op">$</span><span class="va">sole</span><span class="op">)</span> </span>
 <span> </span>
-<span><span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreg.html">fracreg</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">X</span>, type<span class="op">=</span><span class="st">"1P"</span>, linkfrac<span class="op">=</span><span class="st">"logit"</span><span class="op">)</span> </span></code></pre></div>
-<details><summary>
-Toggle to see the output
-</summary><pre><code><span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                           Fractional logit regression </span></span>
-<span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt; Estimator:                                                                   QML </span></span>
-<span><span class="co">#&gt; Data type:                                                       Cross-sectional </span></span>
-<span><span class="co">#&gt; Number of observations:                                                     1534 </span></span>
-<span><span class="co">#&gt; Pseudo R-squared:                                                        0.14667 </span></span>
-<span><span class="co">#&gt; Log pseudolikelihood:                                                  -553.1626 </span></span>
-<span><span class="co">#&gt; Wald chi2(4):                                                           147.3049 </span></span>
-<span><span class="co">#&gt; Prob &gt; chi2:                                                              0.0000 </span></span>
-<span><span class="co">#&gt; Standard errors:                                                          robust </span></span>
-<span><span class="co">#&gt; Small sample correction:                                                   FALSE </span></span>
-<span><span class="co">#&gt; Convergence:                                                          Successful </span></span>
-<span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                     Final Quasi-Maximum Likelihood estimates </span></span>
-<span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;          Coefficient Robust Std.Err.    z value [95% Conf. Interval] Pr(&gt;|z|)</span></span>
-<span><span class="co">#&gt; Constant   9.316e-01       8.408e-02  1.108e+01  7.668e-01     1.096  &lt; 2e-16</span></span>
-<span><span class="co">#&gt; mrate      9.531e-01       1.371e-01  6.951e+00  6.843e-01     1.222 3.62e-12</span></span>
-<span><span class="co">#&gt; age        2.791e-02       4.877e-03  5.723e+00  1.835e-02     0.037 1.05e-08</span></span>
-<span><span class="co">#&gt; totemp    -8.182e-06       3.061e-06 -2.673e+00 -1.418e-05     0.000  0.00751</span></span>
-<span><span class="co">#&gt; sole       3.405e-01       8.066e-02  4.222e+00  1.824e-01     0.499 2.43e-05</span></span>
-<span><span class="co">#&gt;             </span></span>
-<span><span class="co">#&gt; Constant ***</span></span>
-<span><span class="co">#&gt; mrate    ***</span></span>
-<span><span class="co">#&gt; age      ***</span></span>
-<span><span class="co">#&gt; totemp   ** </span></span>
-<span><span class="co">#&gt; sole     ***</span></span>
-<span><span class="co">#&gt; ---</span></span>
-<span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
-<span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-09 17:41:05 </span></span>
-<span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
-</details><div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">m2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreg.html">fracreg</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">X</span>, type<span class="op">=</span><span class="st">"1P"</span>, linkfrac<span class="op">=</span><span class="st">"probit"</span><span class="op">)</span> </span></code></pre></div>
-<details><summary>
-Toggle to see the output
-</summary><pre><code><span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                           Fractional probit regression </span></span>
-<span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt; Estimator:                                                                   QML </span></span>
-<span><span class="co">#&gt; Data type:                                                       Cross-sectional </span></span>
-<span><span class="co">#&gt; Number of observations:                                                     1534 </span></span>
-<span><span class="co">#&gt; Pseudo R-squared:                                                        0.14069 </span></span>
-<span><span class="co">#&gt; Log pseudolikelihood:                                                  -554.2692 </span></span>
-<span><span class="co">#&gt; Wald chi2(4):                                                           148.7649 </span></span>
-<span><span class="co">#&gt; Prob &gt; chi2:                                                              0.0000 </span></span>
-<span><span class="co">#&gt; Standard errors:                                                          robust </span></span>
-<span><span class="co">#&gt; Small sample correction:                                                   FALSE </span></span>
-<span><span class="co">#&gt; Convergence:                                                          Successful </span></span>
-<span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                     Final Quasi-Maximum Likelihood estimates </span></span>
-<span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;          Coefficient Robust Std.Err.    z value [95% Conf. Interval] Pr(&gt;|z|)</span></span>
-<span><span class="co">#&gt; Constant   6.374e-01       4.517e-02  1.411e+01  5.489e-01     0.726  &lt; 2e-16</span></span>
-<span><span class="co">#&gt; mrate      4.190e-01       6.820e-02  6.143e+00  2.853e-01     0.553 8.07e-10</span></span>
-<span><span class="co">#&gt; age        1.483e-02       2.536e-03  5.846e+00  9.855e-03     0.020 5.04e-09</span></span>
-<span><span class="co">#&gt; totemp    -4.546e-06       1.732e-06 -2.625e+00 -7.940e-06     0.000  0.00866</span></span>
-<span><span class="co">#&gt; sole       2.000e-01       4.311e-02  4.639e+00  1.155e-01     0.284 3.50e-06</span></span>
-<span><span class="co">#&gt;             </span></span>
-<span><span class="co">#&gt; Constant ***</span></span>
-<span><span class="co">#&gt; mrate    ***</span></span>
-<span><span class="co">#&gt; age      ***</span></span>
-<span><span class="co">#&gt; totemp   ** </span></span>
-<span><span class="co">#&gt; sole     ***</span></span>
-<span><span class="co">#&gt; ---</span></span>
-<span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
-<span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-09 17:41:05 </span></span>
-<span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
-</details><div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/fracreg.ptest.html">fracreg.ptest</a></span><span class="op">(</span><span class="va">m1</span>, <span class="va">m2</span><span class="op">)</span> </span></code></pre></div>
+<span><span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreg.html">fracreg</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">X</span>, type<span class="op">=</span><span class="st">"1P"</span>, linkfrac<span class="op">=</span><span class="st">"logit"</span><span class="op">)</span> </span>
+<span><span class="va">m2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreg.html">fracreg</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">X</span>, type<span class="op">=</span><span class="st">"1P"</span>, linkfrac<span class="op">=</span><span class="st">"probit"</span><span class="op">)</span> </span>
+<span><span class="va">ptest_res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreg.ptest.html">fracreg.ptest</a></span><span class="op">(</span><span class="va">m1</span>, <span class="va">m2</span><span class="op">)</span> </span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">ptest_res</span><span class="op">)</span></span></code></pre></div>
 <details><summary>
 Toggle to see the output
 </summary><pre><code><span><span class="co">#&gt; </span></span>
@@ -1231,9 +1105,9 @@ Toggle to see the output
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-09 17:41:05 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-10 21:37:54 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
-</details><div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
+</details><div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> </span>
 <span><span class="co">### Simulated Examples </span></span>
 <span> </span>
@@ -1251,7 +1125,8 @@ Toggle to see the output
 <span><span class="co">#regression models using a LM version of the P test </span></span>
 <span><span class="va">res1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreg.html">fracreg</a></span><span class="op">(</span><span class="va">y</span>,<span class="va">X</span>,linkfrac<span class="op">=</span><span class="st">"logit"</span>,table<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span> </span>
 <span><span class="va">res2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreg.html">fracreg</a></span><span class="op">(</span><span class="va">y</span>,<span class="va">X</span>,linkfrac<span class="op">=</span><span class="st">"loglog"</span>,table<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span> </span>
-<span><span class="fu"><a href="../reference/fracreg.ptest.html">fracreg.ptest</a></span><span class="op">(</span><span class="va">res1</span>,<span class="va">res2</span>,<span class="st">"LM"</span><span class="op">)</span> </span></code></pre></div>
+<span><span class="va">ptest_res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreg.ptest.html">fracreg.ptest</a></span><span class="op">(</span><span class="va">res1</span>,<span class="va">res2</span>,<span class="st">"LM"</span><span class="op">)</span> </span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">ptest_res</span><span class="op">)</span></span></code></pre></div>
 <details><summary>
 Toggle to see the output
 </summary><pre><code><span><span class="co">#&gt; </span></span>
@@ -1272,15 +1147,16 @@ Toggle to see the output
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-09 17:41:05 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-10 21:37:54 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
-</details><div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
+</details><div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> </span>
 <span><span class="co">#Testing a logit one-part fractional response model versus a binary logit + </span></span>
 <span><span class="co">#fractional probit two-part model using a Wald version of the P test </span></span>
 <span><span class="va">res1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreg.html">fracreg</a></span><span class="op">(</span><span class="va">y</span>,<span class="va">X</span>,linkfrac<span class="op">=</span><span class="st">"logit"</span>,table<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span> </span>
 <span><span class="va">res2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreg.html">fracreg</a></span><span class="op">(</span><span class="va">y</span>,<span class="va">X</span>,linkbin<span class="op">=</span><span class="st">"logit"</span>,linkfrac<span class="op">=</span><span class="st">"probit"</span>,type<span class="op">=</span><span class="st">"2P"</span>,inf<span class="op">=</span><span class="fl">1</span>,table<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span> </span>
-<span><span class="fu"><a href="../reference/fracreg.ptest.html">fracreg.ptest</a></span><span class="op">(</span><span class="va">res1</span>,<span class="va">res2</span>,<span class="st">"Wald"</span><span class="op">)</span> </span></code></pre></div>
+<span><span class="va">ptest_res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreg.ptest.html">fracreg.ptest</a></span><span class="op">(</span><span class="va">res1</span>,<span class="va">res2</span>,<span class="st">"Wald"</span><span class="op">)</span> </span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">ptest_res</span><span class="op">)</span></span></code></pre></div>
 <details><summary>
 Toggle to see the output
 </summary><pre><code><span><span class="co">#&gt; </span></span>
@@ -1301,7 +1177,7 @@ Toggle to see the output
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-09 17:41:05 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-10 21:37:54 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
 </details><hr>
 </div>
@@ -1315,7 +1191,7 @@ the variance is heteroscedastic, <code><a href="../reference/fracreghet.html">fr
 instrumental variable correction. It natively supports IV through a
 <strong>Control Function (CF)</strong> approach or <strong>GMM</strong>
 estimation.</p>
-<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">### Empirical 401(k) Examples </span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"fracreg_k401k"</span><span class="op">)</span> </span>
 <span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">fracreg_k401k</span><span class="op">$</span><span class="va">prate</span> </span>
@@ -1328,7 +1204,7 @@ estimation.</p>
 <span><span class="co"># Instrument mrate using age</span></span>
 <span></span>
 <span><span class="va">Z_emp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span>age <span class="op">=</span> <span class="va">fracreg_k401k</span><span class="op">$</span><span class="va">age</span>, ltotemp <span class="op">=</span> <span class="va">fracreg_k401k</span><span class="op">$</span><span class="va">ltotemp</span><span class="op">)</span> </span>
-<span><span class="fu"><a href="../reference/fracreghet.html">fracreghet</a></span><span class="op">(</span><span class="va">y_adj</span>, <span class="va">X_het</span>, <span class="va">Z_emp</span>, var.endog <span class="op">=</span> <span class="va">X_het</span><span class="op">[</span>, <span class="st">"mrate"</span><span class="op">]</span>, type<span class="op">=</span><span class="st">"QMLxv"</span>, link<span class="op">=</span><span class="st">"logit"</span><span class="op">)</span> </span></code></pre></div>
+<span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreghet.html">fracreghet</a></span><span class="op">(</span><span class="va">y_adj</span>, <span class="va">X_het</span>, <span class="va">Z_emp</span>, var.endog <span class="op">=</span> <span class="va">X_het</span><span class="op">[</span>, <span class="st">"mrate"</span><span class="op">]</span>, type<span class="op">=</span><span class="st">"QMLxv"</span>, link<span class="op">=</span><span class="st">"logit"</span><span class="op">)</span> </span></code></pre></div>
 <details><summary>
 Toggle to see the output
 </summary><pre><code><span><span class="co">#&gt; </span></span>
@@ -1345,33 +1221,39 @@ Toggle to see the output
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
 <span><span class="co">#&gt;                   Final Quasi-Maximum Likelihood xv estimates </span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;          Coefficient Robust Std.Err.  z value [95% Conf. Interval] Pr(&gt;|z|)    </span></span>
-<span><span class="co">#&gt; Constant    -0.10561         0.75224 -0.14040   -1.57997     1.369    0.888    </span></span>
-<span><span class="co">#&gt; mrate        3.72138         0.68952  5.39703    2.36994     5.073 6.78e-08 ***</span></span>
-<span><span class="co">#&gt; ltotemp     -0.07009         0.05348 -1.31060   -0.17491     0.035    0.190    </span></span>
-<span><span class="co">#&gt; vhat        -2.79515         0.70026 -3.99157   -4.16764    -1.423 6.56e-05 ***</span></span>
+<span><span class="co">#&gt;             Coefficient Robust Std.Err.  z value [95% Conf. Interval] Pr(&gt;|z|)</span></span>
+<span><span class="co">#&gt; (Intercept)    -0.10561         0.75224 -0.14040   -1.57997     1.369    0.888</span></span>
+<span><span class="co">#&gt; mrate           3.72138         0.68952  5.39703    2.36994     5.073 6.78e-08</span></span>
+<span><span class="co">#&gt; ltotemp        -0.07009         0.05348 -1.31060   -0.17491     0.035    0.190</span></span>
+<span><span class="co">#&gt; vhat           -2.79515         0.70026 -3.99157   -4.16764    -1.423 6.56e-05</span></span>
+<span><span class="co">#&gt;                </span></span>
+<span><span class="co">#&gt; (Intercept)    </span></span>
+<span><span class="co">#&gt; mrate       ***</span></span>
+<span><span class="co">#&gt; ltotemp        </span></span>
+<span><span class="co">#&gt; vhat        ***</span></span>
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;                                  Reduced form: </span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;             Coefficient Robust Std.Err.  z value [95% Conf. Interval] Pr(&gt;|z|)</span></span>
-<span><span class="co">#&gt; Z_INTERCEPT     0.95046         0.09550  9.95211    0.76327     1.138  &lt; 2e-16</span></span>
-<span><span class="co">#&gt; Z_age           0.01146         0.00231  4.95997    0.00693     0.016 7.05e-07</span></span>
-<span><span class="co">#&gt; Z_ltotemp      -0.05534         0.01421 -3.89528   -0.08318    -0.027 9.81e-05</span></span>
-<span><span class="co">#&gt;                </span></span>
-<span><span class="co">#&gt; Z_INTERCEPT ***</span></span>
-<span><span class="co">#&gt; Z_age       ***</span></span>
-<span><span class="co">#&gt; Z_ltotemp   ***</span></span>
+<span><span class="co">#&gt;               Coefficient Robust Std.Err.  z value [95% Conf. Interval]</span></span>
+<span><span class="co">#&gt; Z_(Intercept)     0.95046         0.09550  9.95211    0.76327     1.138</span></span>
+<span><span class="co">#&gt; Z_age             0.01146         0.00231  4.95997    0.00693     0.016</span></span>
+<span><span class="co">#&gt; Z_ltotemp        -0.05534         0.01421 -3.89528   -0.08318    -0.027</span></span>
+<span><span class="co">#&gt;               Pr(&gt;|z|)    </span></span>
+<span><span class="co">#&gt; Z_(Intercept)  &lt; 2e-16 ***</span></span>
+<span><span class="co">#&gt; Z_age         7.05e-07 ***</span></span>
+<span><span class="co">#&gt; Z_ltotemp     9.81e-05 ***</span></span>
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-09 17:41:05 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-10 21:37:54 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
-</details><div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
+</details><div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span>
+<span></span>
 <span><span class="co"># Compute the same QMLxv estimator reporting Odds Ratios with 90% confidence intervals</span></span>
-<span><span class="fu"><a href="../reference/fracreghet.html">fracreghet</a></span><span class="op">(</span><span class="va">y_adj</span>, <span class="va">X_het</span>, <span class="va">Z_emp</span>, var.endog <span class="op">=</span> <span class="va">X_het</span><span class="op">[</span>, <span class="st">"mrate"</span><span class="op">]</span>, type<span class="op">=</span><span class="st">"QMLxv"</span>, link<span class="op">=</span><span class="st">"logit"</span>, or<span class="op">=</span><span class="cn">TRUE</span>, level<span class="op">=</span><span class="fl">0.90</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreghet.html">fracreghet</a></span><span class="op">(</span><span class="va">y_adj</span>, <span class="va">X_het</span>, <span class="va">Z_emp</span>, var.endog <span class="op">=</span> <span class="va">X_het</span><span class="op">[</span>, <span class="st">"mrate"</span><span class="op">]</span>, type<span class="op">=</span><span class="st">"QMLxv"</span>, link<span class="op">=</span><span class="st">"logit"</span>, or<span class="op">=</span><span class="cn">TRUE</span>, level<span class="op">=</span><span class="fl">0.90</span><span class="op">)</span></span></code></pre></div>
 <details><summary>
 Toggle to see the output
 </summary><pre><code><span><span class="co">#&gt; </span></span>
@@ -1388,31 +1270,37 @@ Toggle to see the output
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
 <span><span class="co">#&gt;                   Final Quasi-Maximum Likelihood xv estimates </span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;          Odds Ratio Robust Std.Err.  z value [90% Conf. Interval] Pr(&gt;|z|)    </span></span>
-<span><span class="co">#&gt; Constant    0.89977         0.67684 -0.14040    0.26108     3.101    0.888    </span></span>
-<span><span class="co">#&gt; mrate      41.32157        28.49225  5.39703   13.29273   128.452 6.78e-08 ***</span></span>
-<span><span class="co">#&gt; ltotemp     0.93231         0.04986 -1.31060    0.85380     1.018    0.190    </span></span>
-<span><span class="co">#&gt; vhat        0.06111         0.04279 -3.99157    0.01931     0.193 6.56e-05 ***</span></span>
+<span><span class="co">#&gt;             Odds Ratio Robust Std.Err.  z value [90% Conf. Interval] Pr(&gt;|z|)</span></span>
+<span><span class="co">#&gt; (Intercept)    0.89977         0.67684 -0.14040    0.26108     3.101    0.888</span></span>
+<span><span class="co">#&gt; mrate         41.32157        28.49225  5.39703   13.29273   128.452 6.78e-08</span></span>
+<span><span class="co">#&gt; ltotemp        0.93231         0.04986 -1.31060    0.85380     1.018    0.190</span></span>
+<span><span class="co">#&gt; vhat           0.06111         0.04279 -3.99157    0.01931     0.193 6.56e-05</span></span>
+<span><span class="co">#&gt;                </span></span>
+<span><span class="co">#&gt; (Intercept)    </span></span>
+<span><span class="co">#&gt; mrate       ***</span></span>
+<span><span class="co">#&gt; ltotemp        </span></span>
+<span><span class="co">#&gt; vhat        ***</span></span>
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;                                  Reduced form: </span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;             Odds Ratio Robust Std.Err.   z value [90% Conf. Interval] Pr(&gt;|z|)</span></span>
-<span><span class="co">#&gt; Z_INTERCEPT   2.586889        0.247056  9.952107   2.210829     3.027  &lt; 2e-16</span></span>
-<span><span class="co">#&gt; Z_age         1.011524        0.002337  4.959966   1.007688     1.015 7.05e-07</span></span>
-<span><span class="co">#&gt; Z_ltotemp     0.946168        0.013441 -3.895285   0.924315     0.969 9.81e-05</span></span>
-<span><span class="co">#&gt;                </span></span>
-<span><span class="co">#&gt; Z_INTERCEPT ***</span></span>
-<span><span class="co">#&gt; Z_age       ***</span></span>
-<span><span class="co">#&gt; Z_ltotemp   ***</span></span>
+<span><span class="co">#&gt;               Odds Ratio Robust Std.Err.   z value [90% Conf. Interval]</span></span>
+<span><span class="co">#&gt; Z_(Intercept)   2.586889        0.247056  9.952107   2.210829     3.027</span></span>
+<span><span class="co">#&gt; Z_age           1.011524        0.002337  4.959966   1.007688     1.015</span></span>
+<span><span class="co">#&gt; Z_ltotemp       0.946168        0.013441 -3.895285   0.924315     0.969</span></span>
+<span><span class="co">#&gt;               Pr(&gt;|z|)    </span></span>
+<span><span class="co">#&gt; Z_(Intercept)  &lt; 2e-16 ***</span></span>
+<span><span class="co">#&gt; Z_age         7.05e-07 ***</span></span>
+<span><span class="co">#&gt; Z_ltotemp     9.81e-05 ***</span></span>
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-09 17:41:05 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-10 21:37:54 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
-</details><div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span> </span>
+</details><div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span>
+<span> </span>
 <span><span class="co">### Simulated Examples </span></span>
 <span> </span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span> </span>
@@ -1433,7 +1321,7 @@ Toggle to see the output
 <span><span class="va">Z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span>x1 <span class="op">=</span> <span class="va">x1</span>, z1 <span class="op">=</span> <span class="va">z1</span><span class="op">)</span> </span>
 <span> </span>
 <span><span class="co"># Exogeneity (assuming var.endog is exogenous for comparison), GMMx estimator </span></span>
-<span><span class="fu"><a href="../reference/fracreghet.html">fracreghet</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">y_endog</span>, x <span class="op">=</span> <span class="va">X</span>, type <span class="op">=</span> <span class="st">"GMMx"</span>, link <span class="op">=</span> <span class="st">"logit"</span><span class="op">)</span> </span></code></pre></div>
+<span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreghet.html">fracreghet</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">y_endog</span>, x <span class="op">=</span> <span class="va">X</span>, type <span class="op">=</span> <span class="st">"GMMx"</span>, link <span class="op">=</span> <span class="st">"logit"</span><span class="op">)</span> </span></code></pre></div>
 <details><summary>
 Toggle to see the output
 </summary><pre><code><span><span class="co">#&gt; </span></span>
@@ -1450,23 +1338,24 @@ Toggle to see the output
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
 <span><span class="co">#&gt;                               Final GMMx estimates </span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;           Coefficient Robust Std.Err.   z value [95% Conf. Interval] Pr(&gt;|z|)</span></span>
-<span><span class="co">#&gt; Constant    9.132e-02       1.536e-02 5.947e+00  6.123e-02     0.121 2.73e-09</span></span>
-<span><span class="co">#&gt; x1          4.608e-01       1.538e-02 2.995e+01  4.306e-01     0.491  &lt; 2e-16</span></span>
-<span><span class="co">#&gt; var.endog   1.808e+00       9.021e-03 2.004e+02  1.790e+00     1.826  &lt; 2e-16</span></span>
-<span><span class="co">#&gt;              </span></span>
-<span><span class="co">#&gt; Constant  ***</span></span>
-<span><span class="co">#&gt; x1        ***</span></span>
-<span><span class="co">#&gt; var.endog ***</span></span>
+<span><span class="co">#&gt;             Coefficient Robust Std.Err.   z value [95% Conf. Interval] Pr(&gt;|z|)</span></span>
+<span><span class="co">#&gt; (Intercept)   9.132e-02       1.536e-02 5.947e+00  6.123e-02     0.121 2.73e-09</span></span>
+<span><span class="co">#&gt; x1            4.608e-01       1.538e-02 2.995e+01  4.306e-01     0.491  &lt; 2e-16</span></span>
+<span><span class="co">#&gt; var.endog     1.808e+00       9.021e-03 2.004e+02  1.790e+00     1.826  &lt; 2e-16</span></span>
+<span><span class="co">#&gt;                </span></span>
+<span><span class="co">#&gt; (Intercept) ***</span></span>
+<span><span class="co">#&gt; x1          ***</span></span>
+<span><span class="co">#&gt; var.endog   ***</span></span>
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-09 17:41:05 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-10 21:37:54 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
-</details><div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span> </span>
+</details><div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span>
+<span> </span>
 <span><span class="co"># Endogeneity, GMMz estimator (does not require reduced form for endog) </span></span>
-<span><span class="fu"><a href="../reference/fracreghet.html">fracreghet</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">y_endog</span>, x <span class="op">=</span> <span class="va">X</span>, z <span class="op">=</span> <span class="va">Z</span>, type <span class="op">=</span> <span class="st">"GMMz"</span>, link <span class="op">=</span> <span class="st">"logit"</span><span class="op">)</span> </span></code></pre></div>
+<span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreghet.html">fracreghet</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">y_endog</span>, x <span class="op">=</span> <span class="va">X</span>, z <span class="op">=</span> <span class="va">Z</span>, type <span class="op">=</span> <span class="st">"GMMz"</span>, link <span class="op">=</span> <span class="st">"logit"</span><span class="op">)</span> </span></code></pre></div>
 <details><summary>
 Toggle to see the output
 </summary><pre><code><span><span class="co">#&gt; </span></span>
@@ -1483,23 +1372,24 @@ Toggle to see the output
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
 <span><span class="co">#&gt;                               Final GMMz estimates </span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;           Coefficient Robust Std.Err.   z value [95% Conf. Interval] Pr(&gt;|z|)</span></span>
-<span><span class="co">#&gt; Constant      0.15277         0.02018   7.56931    0.11321     0.192 3.75e-14</span></span>
-<span><span class="co">#&gt; x1            0.47947         0.02051  23.37680    0.43927     0.520  &lt; 2e-16</span></span>
-<span><span class="co">#&gt; var.endog     1.61252         0.01445 111.61802    1.58421     1.641  &lt; 2e-16</span></span>
-<span><span class="co">#&gt;              </span></span>
-<span><span class="co">#&gt; Constant  ***</span></span>
-<span><span class="co">#&gt; x1        ***</span></span>
-<span><span class="co">#&gt; var.endog ***</span></span>
+<span><span class="co">#&gt;             Coefficient Robust Std.Err.   z value [95% Conf. Interval] Pr(&gt;|z|)</span></span>
+<span><span class="co">#&gt; (Intercept)     0.15277         0.02018   7.56931    0.11321     0.192 3.75e-14</span></span>
+<span><span class="co">#&gt; x1              0.47947         0.02051  23.37680    0.43927     0.520  &lt; 2e-16</span></span>
+<span><span class="co">#&gt; var.endog       1.61252         0.01445 111.61802    1.58421     1.641  &lt; 2e-16</span></span>
+<span><span class="co">#&gt;                </span></span>
+<span><span class="co">#&gt; (Intercept) ***</span></span>
+<span><span class="co">#&gt; x1          ***</span></span>
+<span><span class="co">#&gt; var.endog   ***</span></span>
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-09 17:41:05 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-10 21:37:54 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
-</details><div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span> </span>
+</details><div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span>
+<span> </span>
 <span><span class="co"># Endogeneity, GMMxv estimator (assumes linear reduced form for var.endog) </span></span>
-<span><span class="fu"><a href="../reference/fracreghet.html">fracreghet</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">y_endog</span>, x <span class="op">=</span> <span class="va">X</span>, z <span class="op">=</span> <span class="va">Z</span>, var.endog <span class="op">=</span> <span class="va">var.endog</span>, type <span class="op">=</span> <span class="st">"GMMxv"</span>, link <span class="op">=</span> <span class="st">"logit"</span><span class="op">)</span> </span>
+<span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreghet.html">fracreghet</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">y_endog</span>, x <span class="op">=</span> <span class="va">X</span>, z <span class="op">=</span> <span class="va">Z</span>, var.endog <span class="op">=</span> <span class="va">var.endog</span>, type <span class="op">=</span> <span class="st">"GMMxv"</span>, link <span class="op">=</span> <span class="st">"logit"</span><span class="op">)</span> </span>
 <span><span class="co">#&gt; Warning in dgamma(y, 1/disp, scale = mu * disp, log = TRUE): NaNs produced</span></span></code></pre></div>
 <details><summary>
 Toggle to see the output
@@ -1515,38 +1405,39 @@ Toggle to see the output
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
 <span><span class="co">#&gt;                              Final GMMxv estimates </span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;           Coefficient Robust Std.Err.   z value [95% Conf. Interval] Pr(&gt;|z|)</span></span>
-<span><span class="co">#&gt; Constant     -0.01262         0.01859  -0.67857   -0.04905     0.024    0.497</span></span>
-<span><span class="co">#&gt; x1            0.48705         0.01884  25.85287    0.45012     0.524   &lt;2e-16</span></span>
-<span><span class="co">#&gt; var.endog     1.59737         0.01339 119.33166    1.57113     1.624   &lt;2e-16</span></span>
-<span><span class="co">#&gt; vhat          0.60263         0.01339  45.01988    0.57640     0.629   &lt;2e-16</span></span>
-<span><span class="co">#&gt;              </span></span>
-<span><span class="co">#&gt; Constant     </span></span>
-<span><span class="co">#&gt; x1        ***</span></span>
-<span><span class="co">#&gt; var.endog ***</span></span>
-<span><span class="co">#&gt; vhat      ***</span></span>
+<span><span class="co">#&gt;             Coefficient Robust Std.Err.   z value [95% Conf. Interval] Pr(&gt;|z|)</span></span>
+<span><span class="co">#&gt; (Intercept)    -0.01262         0.01859  -0.67857   -0.04905     0.024    0.497</span></span>
+<span><span class="co">#&gt; x1              0.48705         0.01884  25.85287    0.45012     0.524   &lt;2e-16</span></span>
+<span><span class="co">#&gt; var.endog       1.59737         0.01339 119.33166    1.57113     1.624   &lt;2e-16</span></span>
+<span><span class="co">#&gt; vhat            0.60263         0.01339  45.01988    0.57640     0.629   &lt;2e-16</span></span>
+<span><span class="co">#&gt;                </span></span>
+<span><span class="co">#&gt; (Intercept)    </span></span>
+<span><span class="co">#&gt; x1          ***</span></span>
+<span><span class="co">#&gt; var.endog   ***</span></span>
+<span><span class="co">#&gt; vhat        ***</span></span>
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;                                  Reduced form: </span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;             Coefficient Robust Std.Err.  z value [95% Conf. Interval] Pr(&gt;|z|)</span></span>
-<span><span class="co">#&gt; Z_INTERCEPT    -0.02093         0.03082 -0.67933   -0.08133     0.039    0.497</span></span>
-<span><span class="co">#&gt; Z_x1           -0.02149         0.03132 -0.68612   -0.08288     0.040    0.493</span></span>
-<span><span class="co">#&gt; Z_z1            1.32751         0.02949 45.01988    1.26971     1.385   &lt;2e-16</span></span>
-<span><span class="co">#&gt;                </span></span>
-<span><span class="co">#&gt; Z_INTERCEPT    </span></span>
-<span><span class="co">#&gt; Z_x1           </span></span>
-<span><span class="co">#&gt; Z_z1        ***</span></span>
+<span><span class="co">#&gt;               Coefficient Robust Std.Err.  z value [95% Conf. Interval]</span></span>
+<span><span class="co">#&gt; Z_(Intercept)    -0.02093         0.03082 -0.67933   -0.08133     0.039</span></span>
+<span><span class="co">#&gt; Z_x1             -0.02149         0.03132 -0.68612   -0.08288     0.040</span></span>
+<span><span class="co">#&gt; Z_z1              1.32751         0.02949 45.01988    1.26971     1.385</span></span>
+<span><span class="co">#&gt;               Pr(&gt;|z|)    </span></span>
+<span><span class="co">#&gt; Z_(Intercept)    0.497    </span></span>
+<span><span class="co">#&gt; Z_x1             0.493    </span></span>
+<span><span class="co">#&gt; Z_z1            &lt;2e-16 ***</span></span>
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-09 17:41:05 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-10 21:37:54 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
-</details><div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span> </span>
+</details><div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span>
+<span> </span>
 <span><span class="co"># Endogeneity, QMLxv control function approach </span></span>
-<span><span class="fu"><a href="../reference/fracreghet.html">fracreghet</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">y_endog</span>, x <span class="op">=</span> <span class="va">X</span>, z <span class="op">=</span> <span class="va">Z</span>, var.endog <span class="op">=</span> <span class="va">var.endog</span>, type <span class="op">=</span> <span class="st">"QMLxv"</span>, link <span class="op">=</span> <span class="st">"logit"</span><span class="op">)</span> </span></code></pre></div>
+<span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreghet.html">fracreghet</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">y_endog</span>, x <span class="op">=</span> <span class="va">X</span>, z <span class="op">=</span> <span class="va">Z</span>, var.endog <span class="op">=</span> <span class="va">var.endog</span>, type <span class="op">=</span> <span class="st">"QMLxv"</span>, link <span class="op">=</span> <span class="st">"logit"</span><span class="op">)</span> </span></code></pre></div>
 <details><summary>
 Toggle to see the output
 </summary><pre><code><span><span class="co">#&gt; </span></span>
@@ -1561,39 +1452,41 @@ Toggle to see the output
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
 <span><span class="co">#&gt;                   Final Quasi-Maximum Likelihood xv estimates </span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;           Coefficient Robust Std.Err.   z value [95% Conf. Interval] Pr(&gt;|z|)</span></span>
-<span><span class="co">#&gt; Constant     -0.01262         0.01859  -0.67857   -0.04905     0.024    0.497</span></span>
-<span><span class="co">#&gt; x1            0.48705         0.01884  25.85287    0.45012     0.524   &lt;2e-16</span></span>
-<span><span class="co">#&gt; var.endog     1.59737         0.01339 119.33166    1.57113     1.624   &lt;2e-16</span></span>
-<span><span class="co">#&gt; vhat          0.60263         0.01339  45.01988    0.57640     0.629   &lt;2e-16</span></span>
-<span><span class="co">#&gt;              </span></span>
-<span><span class="co">#&gt; Constant     </span></span>
-<span><span class="co">#&gt; x1        ***</span></span>
-<span><span class="co">#&gt; var.endog ***</span></span>
-<span><span class="co">#&gt; vhat      ***</span></span>
+<span><span class="co">#&gt;             Coefficient Robust Std.Err.   z value [95% Conf. Interval] Pr(&gt;|z|)</span></span>
+<span><span class="co">#&gt; (Intercept)    -0.01262         0.01859  -0.67857   -0.04905     0.024    0.497</span></span>
+<span><span class="co">#&gt; x1              0.48705         0.01884  25.85287    0.45012     0.524   &lt;2e-16</span></span>
+<span><span class="co">#&gt; var.endog       1.59737         0.01339 119.33166    1.57113     1.624   &lt;2e-16</span></span>
+<span><span class="co">#&gt; vhat            0.60263         0.01339  45.01988    0.57640     0.629   &lt;2e-16</span></span>
+<span><span class="co">#&gt;                </span></span>
+<span><span class="co">#&gt; (Intercept)    </span></span>
+<span><span class="co">#&gt; x1          ***</span></span>
+<span><span class="co">#&gt; var.endog   ***</span></span>
+<span><span class="co">#&gt; vhat        ***</span></span>
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;                                  Reduced form: </span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;             Coefficient Robust Std.Err.  z value [95% Conf. Interval] Pr(&gt;|z|)</span></span>
-<span><span class="co">#&gt; Z_INTERCEPT    -0.02093         0.03082 -0.67933   -0.08133     0.039    0.497</span></span>
-<span><span class="co">#&gt; Z_x1           -0.02149         0.03132 -0.68612   -0.08288     0.040    0.493</span></span>
-<span><span class="co">#&gt; Z_z1            1.32751         0.02949 45.01988    1.26971     1.385   &lt;2e-16</span></span>
-<span><span class="co">#&gt;                </span></span>
-<span><span class="co">#&gt; Z_INTERCEPT    </span></span>
-<span><span class="co">#&gt; Z_x1           </span></span>
-<span><span class="co">#&gt; Z_z1        ***</span></span>
+<span><span class="co">#&gt;               Coefficient Robust Std.Err.  z value [95% Conf. Interval]</span></span>
+<span><span class="co">#&gt; Z_(Intercept)    -0.02093         0.03082 -0.67933   -0.08133     0.039</span></span>
+<span><span class="co">#&gt; Z_x1             -0.02149         0.03132 -0.68612   -0.08288     0.040</span></span>
+<span><span class="co">#&gt; Z_z1              1.32751         0.02949 45.01988    1.26971     1.385</span></span>
+<span><span class="co">#&gt;               Pr(&gt;|z|)    </span></span>
+<span><span class="co">#&gt; Z_(Intercept)    0.497    </span></span>
+<span><span class="co">#&gt; Z_x1             0.493    </span></span>
+<span><span class="co">#&gt; Z_z1            &lt;2e-16 ***</span></span>
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-09 17:41:06 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-10 21:37:54 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
-</details><div class="section level3">
+</details><div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></code></pre></div>
+<div class="section level3">
 <h3 id="partial-effects-for-endogenous-models-fracreghet-pe">4.1 Partial Effects for Endogenous Models
 (<code>fracreghet.pe</code>)<a class="anchor" aria-label="anchor" href="#partial-effects-for-endogenous-models-fracreghet-pe"></a>
 </h3>
-<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">### Empirical 401(k) Examples </span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"fracreg_k401k"</span><span class="op">)</span> </span>
 <span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">fracreg_k401k</span><span class="op">$</span><span class="va">prate</span> </span>
@@ -1607,7 +1500,8 @@ Toggle to see the output
 <span></span>
 <span><span class="va">Z_emp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span>age <span class="op">=</span> <span class="va">fracreg_k401k</span><span class="op">$</span><span class="va">age</span>, ltotemp <span class="op">=</span> <span class="va">fracreg_k401k</span><span class="op">$</span><span class="va">ltotemp</span><span class="op">)</span> </span>
 <span><span class="va">res_emp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreghet.html">fracreghet</a></span><span class="op">(</span><span class="va">y_adj</span>, <span class="va">X_het</span>, <span class="va">Z_emp</span>, var.endog <span class="op">=</span> <span class="va">X_het</span><span class="op">[</span>, <span class="st">"mrate"</span><span class="op">]</span>, type<span class="op">=</span><span class="st">"QMLxv"</span>, link<span class="op">=</span><span class="st">"logit"</span>, table<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span> </span>
-<span><span class="fu"><a href="../reference/fracreghet.pe.html">fracreghet.pe</a></span><span class="op">(</span><span class="va">res_emp</span>, which.x<span class="op">=</span><span class="st">"mrate"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">pe_res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreghet.pe.html">fracreghet.pe</a></span><span class="op">(</span><span class="va">res_emp</span>, which.x<span class="op">=</span><span class="st">"mrate"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">pe_res</span><span class="op">)</span></span></code></pre></div>
 <details><summary>
 Toggle to see the output
 </summary><pre><code><span><span class="co">#&gt; </span></span>
@@ -1623,9 +1517,9 @@ Toggle to see the output
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-09 17:41:06 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-10 21:37:54 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
-</details><div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
+</details><div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co">### Simulated Examples </span></span>
 <span> </span>
@@ -1640,10 +1534,11 @@ Toggle to see the output
 <span> </span>
 <span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="va">X</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span><span class="op">+</span><span class="va">X</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span><span class="op">+</span><span class="va">u</span><span class="op">)</span><span class="op">/</span><span class="op">(</span><span class="fl">1</span><span class="op">+</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="va">X</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span><span class="op">+</span><span class="va">X</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span><span class="op">+</span><span class="va">u</span><span class="op">)</span><span class="op">)</span> </span>
 <span> </span>
-<span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreghet.html">fracreghet</a></span><span class="op">(</span><span class="va">y</span>,<span class="va">X</span>,type<span class="op">=</span><span class="st">"GMMx"</span>,table<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span> </span>
+<span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreghet.html">fracreghet</a></span><span class="op">(</span><span class="va">y</span>,<span class="va">X</span>,type<span class="op">=</span><span class="st">"GMMx"</span>,table<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span> </span>
 <span> </span>
 <span><span class="co">#Smearing estimator of average partial effects for variable X1 </span></span>
-<span><span class="fu"><a href="../reference/fracreghet.pe.html">fracreghet.pe</a></span><span class="op">(</span><span class="va">res</span>,which.x<span class="op">=</span><span class="st">"X1"</span><span class="op">)</span> </span></code></pre></div>
+<span><span class="va">pe_res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreghet.pe.html">fracreghet.pe</a></span><span class="op">(</span><span class="va">mod</span>,which.x<span class="op">=</span><span class="st">"X1"</span><span class="op">)</span> </span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">pe_res</span><span class="op">)</span></span></code></pre></div>
 <details><summary>
 Toggle to see the output
 </summary><pre><code><span><span class="co">#&gt; </span></span>
@@ -1659,13 +1554,14 @@ Toggle to see the output
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-09 17:41:06 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-10 21:37:55 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
-</details><div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
+</details><div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> </span>
 <span><span class="co">#Naive estimator of conditional partial effects for all covariates, </span></span>
 <span><span class="co">#which are evaluated at X1=1 and X2=-1 </span></span>
-<span><span class="fu"><a href="../reference/fracreghet.pe.html">fracreghet.pe</a></span><span class="op">(</span><span class="va">res</span>,smearing<span class="op">=</span><span class="cn">FALSE</span>,APE<span class="op">=</span><span class="cn">FALSE</span>,CPE<span class="op">=</span><span class="cn">TRUE</span>,at<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span> </span></code></pre></div>
+<span><span class="va">pe_res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreghet.pe.html">fracreghet.pe</a></span><span class="op">(</span><span class="va">mod</span>,smearing<span class="op">=</span><span class="cn">FALSE</span>,APE<span class="op">=</span><span class="cn">FALSE</span>,CPE<span class="op">=</span><span class="cn">TRUE</span>,at<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span> </span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">pe_res</span><span class="op">)</span></span></code></pre></div>
 <details><summary>
 Toggle to see the output
 </summary><pre><code><span><span class="co">#&gt; </span></span>
@@ -1682,7 +1578,7 @@ Toggle to see the output
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-09 17:41:06 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-10 21:37:55 </span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Note: covariates evaluated at the following values:</span></span>
@@ -1695,7 +1591,7 @@ Toggle to see the output
 <h3 id="reset-test-for-endogenous-models-fracreghet-reset">4.2 RESET Test for Endogenous Models
 (<code>fracreghet.reset</code>)<a class="anchor" aria-label="anchor" href="#reset-test-for-endogenous-models-fracreghet-reset"></a>
 </h3>
-<div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">### Empirical 401(k) Examples </span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"fracreg_k401k"</span><span class="op">)</span> </span>
 <span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">fracreg_k401k</span><span class="op">$</span><span class="va">prate</span> </span>
@@ -1709,7 +1605,8 @@ Toggle to see the output
 <span></span>
 <span><span class="va">Z_emp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span>age <span class="op">=</span> <span class="va">fracreg_k401k</span><span class="op">$</span><span class="va">age</span>, ltotemp <span class="op">=</span> <span class="va">fracreg_k401k</span><span class="op">$</span><span class="va">ltotemp</span><span class="op">)</span> </span>
 <span><span class="va">res_emp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreghet.html">fracreghet</a></span><span class="op">(</span><span class="va">y_adj</span>, <span class="va">X_het</span>, type<span class="op">=</span><span class="st">"GMMx"</span>, link<span class="op">=</span><span class="st">"logit"</span>, table<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span> </span>
-<span><span class="fu"><a href="../reference/fracreghet.reset.html">fracreghet.reset</a></span><span class="op">(</span><span class="va">res_emp</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">reset_res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreghet.reset.html">fracreghet.reset</a></span><span class="op">(</span><span class="va">res_emp</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">reset_res</span><span class="op">)</span></span></code></pre></div>
 <details><summary>
 Toggle to see the output
 </summary><pre><code><span><span class="co">#&gt; </span></span>
@@ -1725,9 +1622,9 @@ Toggle to see the output
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-09 17:41:06 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-10 21:37:55 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
-</details><div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
+</details><div class="sourceCode" id="cb69"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co">### Simulated Examples </span></span>
 <span> </span>
@@ -1742,10 +1639,11 @@ Toggle to see the output
 <span> </span>
 <span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="va">X</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span><span class="op">+</span><span class="va">X</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span><span class="op">+</span><span class="va">u</span><span class="op">)</span><span class="op">/</span><span class="op">(</span><span class="fl">1</span><span class="op">+</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="va">X</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span><span class="op">+</span><span class="va">X</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span><span class="op">+</span><span class="va">u</span><span class="op">)</span><span class="op">)</span> </span>
 <span> </span>
-<span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreghet.html">fracreghet</a></span><span class="op">(</span><span class="va">y</span>,<span class="va">X</span>,type<span class="op">=</span><span class="st">"GMMx"</span>,table<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span> </span>
+<span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreghet.html">fracreghet</a></span><span class="op">(</span><span class="va">y</span>,<span class="va">X</span>,type<span class="op">=</span><span class="st">"GMMx"</span>,table<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span> </span>
 <span> </span>
 <span><span class="co">#LM and Wald versions of the RESET test, based on 1 or 2 fitted powers of xb </span></span>
-<span><span class="fu"><a href="../reference/fracreghet.reset.html">fracreghet.reset</a></span><span class="op">(</span><span class="va">res</span>,<span class="fl">2</span><span class="op">:</span><span class="fl">3</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Wald"</span>,<span class="st">"LM"</span><span class="op">)</span><span class="op">)</span> </span></code></pre></div>
+<span><span class="va">reset_res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracreghet.reset.html">fracreghet.reset</a></span><span class="op">(</span><span class="va">mod</span>,<span class="fl">2</span><span class="op">:</span><span class="fl">3</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Wald"</span>,<span class="st">"LM"</span><span class="op">)</span><span class="op">)</span> </span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">reset_res</span><span class="op">)</span></span></code></pre></div>
 <details><summary>
 Toggle to see the output
 </summary><pre><code><span><span class="co">#&gt; </span></span>
@@ -1764,7 +1662,7 @@ Toggle to see the output
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-09 17:41:06 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-10 21:37:55 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
 </details><hr>
 </div>
@@ -1774,7 +1672,7 @@ Toggle to see the output
 </h2>
 <p>For longitudinal or panel data where unobserved heterogeneity is a
 concern, <code><a href="../reference/fracregpd.html">fracregpd()</a></code> provides fixed-T panel estimators.</p>
-<div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">### Empirical 401(k) Examples </span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"fracreg_k401k"</span><span class="op">)</span> </span>
 <span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">fracreg_k401k</span><span class="op">$</span><span class="va">prate</span> </span>
@@ -1785,7 +1683,8 @@ concern, <code><a href="../reference/fracregpd.html">fracregpd()</a></code> prov
 <span><span class="va">N_emp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span> </span>
 <span><span class="va">id_emp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="va">N_emp</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span>, each<span class="op">=</span><span class="fl">2</span><span class="op">)</span> </span>
 <span><span class="va">time_emp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, times<span class="op">=</span><span class="va">N_emp</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span> </span>
-<span><span class="fu"><a href="../reference/fracregpd.html">fracregpd</a></span><span class="op">(</span><span class="va">id_emp</span>, <span class="va">time_emp</span>, <span class="va">y</span>, <span class="va">X</span>, type<span class="op">=</span><span class="st">"QMLcre"</span>, link<span class="op">=</span><span class="st">"probit"</span><span class="op">)</span> </span></code></pre></div>
+<span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracregpd.html">fracregpd</a></span><span class="op">(</span><span class="va">id_emp</span>, <span class="va">time_emp</span>, <span class="va">y</span>, <span class="va">X</span>, type<span class="op">=</span><span class="st">"QMLcre"</span>, link<span class="op">=</span><span class="st">"probit"</span><span class="op">)</span> </span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></code></pre></div>
 <details><summary>
 Toggle to see the output
 </summary><pre><code><span><span class="co">#&gt; </span></span>
@@ -1808,32 +1707,32 @@ Toggle to see the output
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
 <span><span class="co">#&gt;       Final (Correlated Random Effects) Quasi-Maximum Likelihood estimates </span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                Coefficient Cluster Std.Err.    z value [95% Conf. Interval]</span></span>
-<span><span class="co">#&gt; mrate            3.915e-01        7.007e-02  5.588e+00  2.542e-01     0.529</span></span>
-<span><span class="co">#&gt; age              1.386e-02        3.543e-03  3.911e+00  6.912e-03     0.021</span></span>
-<span><span class="co">#&gt; totemp          -5.250e-06        2.649e-06 -1.982e+00 -1.044e-05     0.000</span></span>
-<span><span class="co">#&gt; sole             2.378e-01        6.038e-02  3.938e+00  1.194e-01     0.356</span></span>
-<span><span class="co">#&gt; INTERCEPT_mean   6.235e-01        5.885e-02  1.060e+01  5.082e-01     0.739</span></span>
-<span><span class="co">#&gt; mrate_mean       5.726e-02        6.343e-02  9.027e-01 -6.706e-02     0.182</span></span>
-<span><span class="co">#&gt; age_mean         1.544e-03        4.233e-03  3.649e-01 -6.751e-03     0.010</span></span>
-<span><span class="co">#&gt; totemp_mean      1.223e-06        2.946e-06  4.152e-01 -4.551e-06     0.000</span></span>
-<span><span class="co">#&gt; sole_mean       -7.157e-02        8.424e-02 -8.495e-01 -2.367e-01     0.094</span></span>
-<span><span class="co">#&gt;                Pr(&gt;|z|)    </span></span>
-<span><span class="co">#&gt; mrate          2.30e-08 ***</span></span>
-<span><span class="co">#&gt; age            9.20e-05 ***</span></span>
-<span><span class="co">#&gt; totemp           0.0475 *  </span></span>
-<span><span class="co">#&gt; sole           8.22e-05 ***</span></span>
-<span><span class="co">#&gt; INTERCEPT_mean  &lt; 2e-16 ***</span></span>
-<span><span class="co">#&gt; mrate_mean       0.3667    </span></span>
-<span><span class="co">#&gt; age_mean         0.7152    </span></span>
-<span><span class="co">#&gt; totemp_mean      0.6780    </span></span>
-<span><span class="co">#&gt; sole_mean        0.3956    </span></span>
+<span><span class="co">#&gt;                  Coefficient Cluster Std.Err.    z value [95% Conf. Interval]</span></span>
+<span><span class="co">#&gt; mrate              3.915e-01        7.007e-02  5.588e+00  2.542e-01     0.529</span></span>
+<span><span class="co">#&gt; age                1.386e-02        3.543e-03  3.911e+00  6.912e-03     0.021</span></span>
+<span><span class="co">#&gt; totemp            -5.250e-06        2.649e-06 -1.982e+00 -1.044e-05     0.000</span></span>
+<span><span class="co">#&gt; sole               2.378e-01        6.038e-02  3.938e+00  1.194e-01     0.356</span></span>
+<span><span class="co">#&gt; (Intercept)_mean   6.235e-01        5.885e-02  1.060e+01  5.082e-01     0.739</span></span>
+<span><span class="co">#&gt; mrate_mean         5.726e-02        6.343e-02  9.027e-01 -6.706e-02     0.182</span></span>
+<span><span class="co">#&gt; age_mean           1.544e-03        4.233e-03  3.649e-01 -6.751e-03     0.010</span></span>
+<span><span class="co">#&gt; totemp_mean        1.223e-06        2.946e-06  4.152e-01 -4.551e-06     0.000</span></span>
+<span><span class="co">#&gt; sole_mean         -7.157e-02        8.424e-02 -8.495e-01 -2.367e-01     0.094</span></span>
+<span><span class="co">#&gt;                  Pr(&gt;|z|)    </span></span>
+<span><span class="co">#&gt; mrate            2.30e-08 ***</span></span>
+<span><span class="co">#&gt; age              9.20e-05 ***</span></span>
+<span><span class="co">#&gt; totemp             0.0475 *  </span></span>
+<span><span class="co">#&gt; sole             8.22e-05 ***</span></span>
+<span><span class="co">#&gt; (Intercept)_mean  &lt; 2e-16 ***</span></span>
+<span><span class="co">#&gt; mrate_mean         0.3667    </span></span>
+<span><span class="co">#&gt; age_mean           0.7152    </span></span>
+<span><span class="co">#&gt; totemp_mean        0.6780    </span></span>
+<span><span class="co">#&gt; sole_mean          0.3956    </span></span>
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-09 17:41:06 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-10 21:37:55 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
-</details><div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
+</details><div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> </span>
 <span><span class="co">### Simulated Examples </span></span>
 <span> </span>
@@ -1862,7 +1761,8 @@ Toggle to see the output
 <span><span class="va">Z_inst</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span>x_panel <span class="op">=</span> <span class="va">x_panel</span>, z_panel <span class="op">=</span> <span class="va">z_panel</span><span class="op">)</span> </span>
 <span> </span>
 <span><span class="co"># Estimate a Correlated Random Effects (CRE) Model </span></span>
-<span><span class="fu"><a href="../reference/fracregpd.html">fracregpd</a></span><span class="op">(</span>id<span class="op">=</span><span class="va">id</span>, time<span class="op">=</span><span class="va">time</span>, y<span class="op">=</span><span class="va">y_panel</span>, x<span class="op">=</span><span class="va">X</span>, type<span class="op">=</span><span class="st">"QMLcre"</span>, link<span class="op">=</span><span class="st">"probit"</span><span class="op">)</span> </span></code></pre></div>
+<span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracregpd.html">fracregpd</a></span><span class="op">(</span>id<span class="op">=</span><span class="va">id</span>, time<span class="op">=</span><span class="va">time</span>, y<span class="op">=</span><span class="va">y_panel</span>, x<span class="op">=</span><span class="va">X</span>, type<span class="op">=</span><span class="st">"QMLcre"</span>, link<span class="op">=</span><span class="st">"probit"</span><span class="op">)</span> </span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></code></pre></div>
 <details><summary>
 Toggle to see the output
 </summary><pre><code><span><span class="co">#&gt; </span></span>
@@ -1885,23 +1785,24 @@ Toggle to see the output
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
 <span><span class="co">#&gt;       Final (Correlated Random Effects) Quasi-Maximum Likelihood estimates </span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                Coefficient Cluster Std.Err.  z value [95% Conf. Interval]</span></span>
-<span><span class="co">#&gt; x_panel            0.52902          0.01143 46.29965    0.50662     0.551</span></span>
-<span><span class="co">#&gt; INTERCEPT_mean    -0.01246          0.04901 -0.25433   -0.10851     0.084</span></span>
-<span><span class="co">#&gt; x_panel_mean      -0.17409          0.13491 -1.29040   -0.43850     0.090</span></span>
-<span><span class="co">#&gt;                Pr(&gt;|z|)    </span></span>
-<span><span class="co">#&gt; x_panel          &lt;2e-16 ***</span></span>
-<span><span class="co">#&gt; INTERCEPT_mean    0.799    </span></span>
-<span><span class="co">#&gt; x_panel_mean      0.197    </span></span>
+<span><span class="co">#&gt;                  Coefficient Cluster Std.Err.  z value [95% Conf. Interval]</span></span>
+<span><span class="co">#&gt; x_panel              0.52902          0.01143 46.29965    0.50662     0.551</span></span>
+<span><span class="co">#&gt; (Intercept)_mean    -0.01246          0.04901 -0.25433   -0.10851     0.084</span></span>
+<span><span class="co">#&gt; x_panel_mean        -0.17409          0.13491 -1.29040   -0.43850     0.090</span></span>
+<span><span class="co">#&gt;                  Pr(&gt;|z|)    </span></span>
+<span><span class="co">#&gt; x_panel            &lt;2e-16 ***</span></span>
+<span><span class="co">#&gt; (Intercept)_mean    0.799    </span></span>
+<span><span class="co">#&gt; x_panel_mean        0.197    </span></span>
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-09 17:41:06 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-10 21:37:55 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
-</details><div class="sourceCode" id="cb84"><pre class="downlit sourceCode r">
+</details><div class="sourceCode" id="cb75"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> </span>
 <span><span class="co"># Exogeneity, no lags, no time dummies, clustered standard errors, GMMbgw estimator </span></span>
-<span><span class="fu"><a href="../reference/fracregpd.html">fracregpd</a></span><span class="op">(</span>id<span class="op">=</span><span class="va">id</span>, time<span class="op">=</span><span class="va">time</span>, y<span class="op">=</span><span class="va">y_panel</span>, x<span class="op">=</span><span class="va">X</span>, type<span class="op">=</span><span class="st">"GMMbgw"</span><span class="op">)</span> </span></code></pre></div>
+<span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracregpd.html">fracregpd</a></span><span class="op">(</span>id<span class="op">=</span><span class="va">id</span>, time<span class="op">=</span><span class="va">time</span>, y<span class="op">=</span><span class="va">y_panel</span>, x<span class="op">=</span><span class="va">X</span>, type<span class="op">=</span><span class="st">"GMMbgw"</span><span class="op">)</span> </span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></code></pre></div>
 <details><summary>
 Toggle to see the output
 </summary><pre><code><span><span class="co">#&gt; </span></span>
@@ -1930,12 +1831,13 @@ Toggle to see the output
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-09 17:41:07 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-10 21:37:55 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
-</details><div class="sourceCode" id="cb86"><pre class="downlit sourceCode r">
+</details><div class="sourceCode" id="cb77"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co"># Estimate the GMMww estimator with odds ratios and 99% confidence intervals</span></span>
-<span><span class="fu"><a href="../reference/fracregpd.html">fracregpd</a></span><span class="op">(</span>id<span class="op">=</span><span class="va">id</span>, time<span class="op">=</span><span class="va">time</span>, y<span class="op">=</span><span class="va">y_panel</span>, x<span class="op">=</span><span class="va">X</span>, type<span class="op">=</span><span class="st">"GMMww"</span>, or<span class="op">=</span><span class="cn">TRUE</span>, level<span class="op">=</span><span class="fl">0.99</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracregpd.html">fracregpd</a></span><span class="op">(</span>id<span class="op">=</span><span class="va">id</span>, time<span class="op">=</span><span class="va">time</span>, y<span class="op">=</span><span class="va">y_panel</span>, x<span class="op">=</span><span class="va">X</span>, type<span class="op">=</span><span class="st">"GMMww"</span>, or<span class="op">=</span><span class="cn">TRUE</span>, level<span class="op">=</span><span class="fl">0.99</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></code></pre></div>
 <details><summary>
 Toggle to see the output
 </summary><pre><code><span><span class="co">#&gt; </span></span>
@@ -1964,12 +1866,13 @@ Toggle to see the output
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-09 17:41:07 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-10 21:37:55 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
-</details><div class="sourceCode" id="cb88"><pre class="downlit sourceCode r">
+</details><div class="sourceCode" id="cb79"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> </span>
 <span><span class="co"># Lagged covariates and instruments, robust standard errors, GMMww estimator </span></span>
-<span><span class="fu"><a href="../reference/fracregpd.html">fracregpd</a></span><span class="op">(</span>id<span class="op">=</span><span class="va">id</span>, time<span class="op">=</span><span class="va">time</span>, y<span class="op">=</span><span class="va">y_panel</span>, x<span class="op">=</span><span class="va">X</span>, lags<span class="op">=</span><span class="cn">TRUE</span>, type<span class="op">=</span><span class="st">"GMMww"</span>, var.type<span class="op">=</span><span class="st">"robust"</span><span class="op">)</span> </span></code></pre></div>
+<span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracregpd.html">fracregpd</a></span><span class="op">(</span>id<span class="op">=</span><span class="va">id</span>, time<span class="op">=</span><span class="va">time</span>, y<span class="op">=</span><span class="va">y_panel</span>, x<span class="op">=</span><span class="va">X</span>, lags<span class="op">=</span><span class="cn">TRUE</span>, type<span class="op">=</span><span class="st">"GMMww"</span>, var.type<span class="op">=</span><span class="st">"robust"</span><span class="op">)</span> </span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></code></pre></div>
 <details><summary>
 Toggle to see the output
 </summary><pre><code><span><span class="co">#&gt; </span></span>
@@ -1998,13 +1901,14 @@ Toggle to see the output
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-09 17:41:07 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-10 21:37:55 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
-</details><div class="sourceCode" id="cb90"><pre class="downlit sourceCode r">
+</details><div class="sourceCode" id="cb81"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> </span>
 <span><span class="co"># Endogeneity, time dummies, GMMpfe estimator </span></span>
-<span><span class="fu"><a href="../reference/fracregpd.html">fracregpd</a></span><span class="op">(</span>id<span class="op">=</span><span class="va">id</span>, time<span class="op">=</span><span class="va">time</span>, y<span class="op">=</span><span class="va">y_endog</span>, x<span class="op">=</span><span class="va">X_endog</span>, z<span class="op">=</span><span class="va">Z_inst</span>,  </span>
-<span>          x.exogenous<span class="op">=</span><span class="cn">FALSE</span>, type<span class="op">=</span><span class="st">"GMMpfe"</span>, tdummies<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span> </span></code></pre></div>
+<span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fracregpd.html">fracregpd</a></span><span class="op">(</span>id<span class="op">=</span><span class="va">id</span>, time<span class="op">=</span><span class="va">time</span>, y<span class="op">=</span><span class="va">y_endog</span>, x<span class="op">=</span><span class="va">X_endog</span>, z<span class="op">=</span><span class="va">Z_inst</span>,  </span>
+<span>          x.exogenous<span class="op">=</span><span class="cn">FALSE</span>, type<span class="op">=</span><span class="st">"GMMpfe"</span>, tdummies<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span> </span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></code></pre></div>
 <details><summary>
 Toggle to see the output
 </summary><pre><code><span><span class="co">#&gt; </span></span>
@@ -2043,7 +1947,7 @@ Toggle to see the output
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; -------------------------------------------------------------------------------- </span></span>
-<span><span class="co">#&gt;                          Run Date: 2026-07-09 17:41:07 </span></span>
+<span><span class="co">#&gt;                          Run Date: 2026-07-10 21:37:56 </span></span>
 <span><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre>
 </details><hr>
 </div>
@@ -2130,7 +2034,7 @@ Errors in Classical Linear Least-Squares Regression Analysis”,
 <p>For more information, please visit the <a href="https://sulmanolieko.github.io/fracreg/">package website</a> or
 file an issue on <a href="https://github.com/SulmanOlieko/fracreg/issues" class="external-link">GitHub</a>.</p>
 <p>To cite this package in your research:</p>
-<div class="sourceCode" id="cb92"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb83"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html" class="external-link">citation</a></span><span class="op">(</span><span class="st">"fracreg"</span><span class="op">)</span></span></code></pre></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

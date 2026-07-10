@@ -277,7 +277,7 @@ y_adj[y_adj == 1] <- 0.999
 # Instrument mrate using age
 
 Z_emp <- cbind(age = fracreg_k401k$age, ltotemp = fracreg_k401k$ltotemp) 
-fracreghet(y_adj, X_het, Z_emp, var.endog = X_het[, "mrate"], type="QMLxv", link="logit")
+mod <- fracreghet(y_adj, X_het, Z_emp, var.endog = X_het[, "mrate"], type="QMLxv", link="logit")
 #> 
 #> -------------------------------------------------------------------------------- 
 #>         Fractional logit regression with heteroscedasticity/endogeneity 
@@ -292,33 +292,39 @@ fracreghet(y_adj, X_het, Z_emp, var.endog = X_het[, "mrate"], type="QMLxv", link
 #> -------------------------------------------------------------------------------- 
 #>                   Final Quasi-Maximum Likelihood xv estimates 
 #> -------------------------------------------------------------------------------- 
-#>          Coefficient Robust Std.Err.  z value [95% Conf. Interval] Pr(>|z|)    
-#> Constant    -0.10561         0.75224 -0.14040   -1.57997     1.369    0.888    
-#> mrate        3.72138         0.68952  5.39703    2.36994     5.073 6.78e-08 ***
-#> ltotemp     -0.07009         0.05348 -1.31060   -0.17491     0.035    0.190    
-#> vhat        -2.79515         0.70026 -3.99157   -4.16764    -1.423 6.56e-05 ***
+#>             Coefficient Robust Std.Err.  z value [95% Conf. Interval] Pr(>|z|)
+#> (Intercept)    -0.10561         0.75224 -0.14040   -1.57997     1.369    0.888
+#> mrate           3.72138         0.68952  5.39703    2.36994     5.073 6.78e-08
+#> ltotemp        -0.07009         0.05348 -1.31060   -0.17491     0.035    0.190
+#> vhat           -2.79515         0.70026 -3.99157   -4.16764    -1.423 6.56e-05
+#>                
+#> (Intercept)    
+#> mrate       ***
+#> ltotemp        
+#> vhat        ***
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> 
 #>                                  Reduced form: 
 #> -------------------------------------------------------------------------------- 
-#>             Coefficient Robust Std.Err.  z value [95% Conf. Interval] Pr(>|z|)
-#> Z_INTERCEPT     0.95046         0.09550  9.95211    0.76327     1.138  < 2e-16
-#> Z_age           0.01146         0.00231  4.95997    0.00693     0.016 7.05e-07
-#> Z_ltotemp      -0.05534         0.01421 -3.89528   -0.08318    -0.027 9.81e-05
-#>                
-#> Z_INTERCEPT ***
-#> Z_age       ***
-#> Z_ltotemp   ***
+#>               Coefficient Robust Std.Err.  z value [95% Conf. Interval]
+#> Z_(Intercept)     0.95046         0.09550  9.95211    0.76327     1.138
+#> Z_age             0.01146         0.00231  4.95997    0.00693     0.016
+#> Z_ltotemp        -0.05534         0.01421 -3.89528   -0.08318    -0.027
+#>               Pr(>|z|)    
+#> Z_(Intercept)  < 2e-16 ***
+#> Z_age         7.05e-07 ***
+#> Z_ltotemp     9.81e-05 ***
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 17:40:59 
+#>                          Run Date: 2026-07-10 21:37:48 
 #> -------------------------------------------------------------------------------- 
 #> 
+summary(mod)
 
 # Compute the same QMLxv estimator reporting Odds Ratios with 90% confidence intervals
-fracreghet(y_adj, X_het, Z_emp, var.endog = X_het[, "mrate"], type="QMLxv", 
+mod <- fracreghet(y_adj, X_het, Z_emp, var.endog = X_het[, "mrate"], type="QMLxv", 
            link="logit", or=TRUE, level=0.90) 
 #> 
 #> -------------------------------------------------------------------------------- 
@@ -334,28 +340,33 @@ fracreghet(y_adj, X_het, Z_emp, var.endog = X_het[, "mrate"], type="QMLxv",
 #> -------------------------------------------------------------------------------- 
 #>                   Final Quasi-Maximum Likelihood xv estimates 
 #> -------------------------------------------------------------------------------- 
-#>          Odds Ratio Robust Std.Err.  z value [90% Conf. Interval] Pr(>|z|)    
-#> Constant    0.89977         0.67684 -0.14040    0.26108     3.101    0.888    
-#> mrate      41.32157        28.49225  5.39703   13.29273   128.452 6.78e-08 ***
-#> ltotemp     0.93231         0.04986 -1.31060    0.85380     1.018    0.190    
-#> vhat        0.06111         0.04279 -3.99157    0.01931     0.193 6.56e-05 ***
+#>             Odds Ratio Robust Std.Err.  z value [90% Conf. Interval] Pr(>|z|)
+#> (Intercept)    0.89977         0.67684 -0.14040    0.26108     3.101    0.888
+#> mrate         41.32157        28.49225  5.39703   13.29273   128.452 6.78e-08
+#> ltotemp        0.93231         0.04986 -1.31060    0.85380     1.018    0.190
+#> vhat           0.06111         0.04279 -3.99157    0.01931     0.193 6.56e-05
+#>                
+#> (Intercept)    
+#> mrate       ***
+#> ltotemp        
+#> vhat        ***
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> 
 #>                                  Reduced form: 
 #> -------------------------------------------------------------------------------- 
-#>             Odds Ratio Robust Std.Err.   z value [90% Conf. Interval] Pr(>|z|)
-#> Z_INTERCEPT   2.586889        0.247056  9.952107   2.210829     3.027  < 2e-16
-#> Z_age         1.011524        0.002337  4.959966   1.007688     1.015 7.05e-07
-#> Z_ltotemp     0.946168        0.013441 -3.895285   0.924315     0.969 9.81e-05
-#>                
-#> Z_INTERCEPT ***
-#> Z_age       ***
-#> Z_ltotemp   ***
+#>               Odds Ratio Robust Std.Err.   z value [90% Conf. Interval]
+#> Z_(Intercept)   2.586889        0.247056  9.952107   2.210829     3.027
+#> Z_age           1.011524        0.002337  4.959966   1.007688     1.015
+#> Z_ltotemp       0.946168        0.013441 -3.895285   0.924315     0.969
+#>               Pr(>|z|)    
+#> Z_(Intercept)  < 2e-16 ***
+#> Z_age         7.05e-07 ***
+#> Z_ltotemp     9.81e-05 ***
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 17:41:00 
+#>                          Run Date: 2026-07-10 21:37:48 
 #> -------------------------------------------------------------------------------- 
 #> 
  
@@ -379,7 +390,7 @@ X <- cbind(x1 = x1, var.endog = var.endog)
 Z <- cbind(x1 = x1, z1 = z1)
 
 # Exogeneity (assuming var.endog is exogenous for comparison), GMMx estimator
-fracreghet(y = y_endog, x = X, type = "GMMx", link = "logit")
+mod <- fracreghet(y = y_endog, x = X, type = "GMMx", link = "logit")
 #> 
 #> -------------------------------------------------------------------------------- 
 #>         Fractional logit regression with heteroscedasticity/endogeneity 
@@ -394,23 +405,24 @@ fracreghet(y = y_endog, x = X, type = "GMMx", link = "logit")
 #> -------------------------------------------------------------------------------- 
 #>                               Final GMMx estimates 
 #> -------------------------------------------------------------------------------- 
-#>           Coefficient Robust Std.Err.   z value [95% Conf. Interval] Pr(>|z|)
-#> Constant    9.132e-02       1.536e-02 5.947e+00  6.123e-02     0.121 2.73e-09
-#> x1          4.608e-01       1.538e-02 2.995e+01  4.306e-01     0.491  < 2e-16
-#> var.endog   1.808e+00       9.021e-03 2.004e+02  1.790e+00     1.826  < 2e-16
-#>              
-#> Constant  ***
-#> x1        ***
-#> var.endog ***
+#>             Coefficient Robust Std.Err.   z value [95% Conf. Interval] Pr(>|z|)
+#> (Intercept)   9.132e-02       1.536e-02 5.947e+00  6.123e-02     0.121 2.73e-09
+#> x1            4.608e-01       1.538e-02 2.995e+01  4.306e-01     0.491  < 2e-16
+#> var.endog     1.808e+00       9.021e-03 2.004e+02  1.790e+00     1.826  < 2e-16
+#>                
+#> (Intercept) ***
+#> x1          ***
+#> var.endog   ***
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 17:41:00 
+#>                          Run Date: 2026-07-10 21:37:48 
 #> -------------------------------------------------------------------------------- 
 #> 
+summary(mod)
 
 # Endogeneity, GMMz estimator (does not require reduced form for endog)
-fracreghet(y = y_endog, x = X, z = Z, type = "GMMz", link = "logit")
+mod <- fracreghet(y = y_endog, x = X, z = Z, type = "GMMz", link = "logit")
 #> 
 #> -------------------------------------------------------------------------------- 
 #>         Fractional logit regression with heteroscedasticity/endogeneity 
@@ -425,23 +437,24 @@ fracreghet(y = y_endog, x = X, z = Z, type = "GMMz", link = "logit")
 #> -------------------------------------------------------------------------------- 
 #>                               Final GMMz estimates 
 #> -------------------------------------------------------------------------------- 
-#>           Coefficient Robust Std.Err.   z value [95% Conf. Interval] Pr(>|z|)
-#> Constant      0.15277         0.02018   7.56931    0.11321     0.192 3.75e-14
-#> x1            0.47947         0.02051  23.37680    0.43927     0.520  < 2e-16
-#> var.endog     1.61252         0.01445 111.61802    1.58421     1.641  < 2e-16
-#>              
-#> Constant  ***
-#> x1        ***
-#> var.endog ***
+#>             Coefficient Robust Std.Err.   z value [95% Conf. Interval] Pr(>|z|)
+#> (Intercept)     0.15277         0.02018   7.56931    0.11321     0.192 3.75e-14
+#> x1              0.47947         0.02051  23.37680    0.43927     0.520  < 2e-16
+#> var.endog       1.61252         0.01445 111.61802    1.58421     1.641  < 2e-16
+#>                
+#> (Intercept) ***
+#> x1          ***
+#> var.endog   ***
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 17:41:00 
+#>                          Run Date: 2026-07-10 21:37:48 
 #> -------------------------------------------------------------------------------- 
 #> 
+summary(mod)
 
 # Endogeneity, GMMxv estimator (assumes linear reduced form for var.endog)
-fracreghet(y = y_endog, x = X, z = Z, var.endog = var.endog, type = "GMMxv", link = "logit")
+mod <- fracreghet(y = y_endog, x = X, z = Z, var.endog = var.endog, type = "GMMxv", link = "logit")
 #> Warning: NaNs produced
 #> 
 #> -------------------------------------------------------------------------------- 
@@ -455,38 +468,39 @@ fracreghet(y = y_endog, x = X, z = Z, var.endog = var.endog, type = "GMMxv", lin
 #> -------------------------------------------------------------------------------- 
 #>                              Final GMMxv estimates 
 #> -------------------------------------------------------------------------------- 
-#>           Coefficient Robust Std.Err.   z value [95% Conf. Interval] Pr(>|z|)
-#> Constant     -0.01262         0.01859  -0.67857   -0.04905     0.024    0.497
-#> x1            0.48705         0.01884  25.85287    0.45012     0.524   <2e-16
-#> var.endog     1.59737         0.01339 119.33166    1.57113     1.624   <2e-16
-#> vhat          0.60263         0.01339  45.01988    0.57640     0.629   <2e-16
-#>              
-#> Constant     
-#> x1        ***
-#> var.endog ***
-#> vhat      ***
+#>             Coefficient Robust Std.Err.   z value [95% Conf. Interval] Pr(>|z|)
+#> (Intercept)    -0.01262         0.01859  -0.67857   -0.04905     0.024    0.497
+#> x1              0.48705         0.01884  25.85287    0.45012     0.524   <2e-16
+#> var.endog       1.59737         0.01339 119.33166    1.57113     1.624   <2e-16
+#> vhat            0.60263         0.01339  45.01988    0.57640     0.629   <2e-16
+#>                
+#> (Intercept)    
+#> x1          ***
+#> var.endog   ***
+#> vhat        ***
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> 
 #>                                  Reduced form: 
 #> -------------------------------------------------------------------------------- 
-#>             Coefficient Robust Std.Err.  z value [95% Conf. Interval] Pr(>|z|)
-#> Z_INTERCEPT    -0.02093         0.03082 -0.67933   -0.08133     0.039    0.497
-#> Z_x1           -0.02149         0.03132 -0.68612   -0.08288     0.040    0.493
-#> Z_z1            1.32751         0.02949 45.01988    1.26971     1.385   <2e-16
-#>                
-#> Z_INTERCEPT    
-#> Z_x1           
-#> Z_z1        ***
+#>               Coefficient Robust Std.Err.  z value [95% Conf. Interval]
+#> Z_(Intercept)    -0.02093         0.03082 -0.67933   -0.08133     0.039
+#> Z_x1             -0.02149         0.03132 -0.68612   -0.08288     0.040
+#> Z_z1              1.32751         0.02949 45.01988    1.26971     1.385
+#>               Pr(>|z|)    
+#> Z_(Intercept)    0.497    
+#> Z_x1             0.493    
+#> Z_z1            <2e-16 ***
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 17:41:00 
+#>                          Run Date: 2026-07-10 21:37:48 
 #> -------------------------------------------------------------------------------- 
 #> 
+summary(mod)
 
 # Endogeneity, QMLxv control function approach
-fracreghet(y = y_endog, x = X, z = Z, var.endog = var.endog, type = "QMLxv", link = "logit")
+mod <- fracreghet(y = y_endog, x = X, z = Z, var.endog = var.endog, type = "QMLxv", link = "logit")
 #> 
 #> -------------------------------------------------------------------------------- 
 #>         Fractional logit regression with heteroscedasticity/endogeneity 
@@ -499,33 +513,34 @@ fracreghet(y = y_endog, x = X, z = Z, var.endog = var.endog, type = "QMLxv", lin
 #> -------------------------------------------------------------------------------- 
 #>                   Final Quasi-Maximum Likelihood xv estimates 
 #> -------------------------------------------------------------------------------- 
-#>           Coefficient Robust Std.Err.   z value [95% Conf. Interval] Pr(>|z|)
-#> Constant     -0.01262         0.01859  -0.67857   -0.04905     0.024    0.497
-#> x1            0.48705         0.01884  25.85287    0.45012     0.524   <2e-16
-#> var.endog     1.59737         0.01339 119.33166    1.57113     1.624   <2e-16
-#> vhat          0.60263         0.01339  45.01988    0.57640     0.629   <2e-16
-#>              
-#> Constant     
-#> x1        ***
-#> var.endog ***
-#> vhat      ***
+#>             Coefficient Robust Std.Err.   z value [95% Conf. Interval] Pr(>|z|)
+#> (Intercept)    -0.01262         0.01859  -0.67857   -0.04905     0.024    0.497
+#> x1              0.48705         0.01884  25.85287    0.45012     0.524   <2e-16
+#> var.endog       1.59737         0.01339 119.33166    1.57113     1.624   <2e-16
+#> vhat            0.60263         0.01339  45.01988    0.57640     0.629   <2e-16
+#>                
+#> (Intercept)    
+#> x1          ***
+#> var.endog   ***
+#> vhat        ***
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> 
 #>                                  Reduced form: 
 #> -------------------------------------------------------------------------------- 
-#>             Coefficient Robust Std.Err.  z value [95% Conf. Interval] Pr(>|z|)
-#> Z_INTERCEPT    -0.02093         0.03082 -0.67933   -0.08133     0.039    0.497
-#> Z_x1           -0.02149         0.03132 -0.68612   -0.08288     0.040    0.493
-#> Z_z1            1.32751         0.02949 45.01988    1.26971     1.385   <2e-16
-#>                
-#> Z_INTERCEPT    
-#> Z_x1           
-#> Z_z1        ***
+#>               Coefficient Robust Std.Err.  z value [95% Conf. Interval]
+#> Z_(Intercept)    -0.02093         0.03082 -0.67933   -0.08133     0.039
+#> Z_x1             -0.02149         0.03132 -0.68612   -0.08288     0.040
+#> Z_z1              1.32751         0.02949 45.01988    1.26971     1.385
+#>               Pr(>|z|)    
+#> Z_(Intercept)    0.497    
+#> Z_x1             0.493    
+#> Z_z1            <2e-16 ***
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-09 17:41:00 
+#>                          Run Date: 2026-07-10 21:37:48 
 #> -------------------------------------------------------------------------------- 
 #> 
+summary(mod)
 ```

@@ -50,7 +50,7 @@ under unobserved heterogeneity.</p>
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">fracreghet.pe</span><span class="op">(</span><span class="va">object</span>, smearing <span class="op">=</span> <span class="cn">T</span>, APE <span class="op">=</span> <span class="cn">T</span>, CPE <span class="op">=</span> <span class="cn">F</span>, at <span class="op">=</span> <span class="cn">NULL</span>, </span>
-<span>              which.x <span class="op">=</span> <span class="cn">NULL</span>, table <span class="op">=</span> <span class="cn">T</span>, variance <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
+<span>              which.x <span class="op">=</span> <span class="cn">NULL</span>, table <span class="op">=</span> <span class="cn">FALSE</span>, variance <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -135,8 +135,52 @@ $$PE_k(x) = g(x\beta) \beta_k$$</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">Z_emp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span>age <span class="op">=</span> <span class="va">fracreg_k401k</span><span class="op">$</span><span class="va">age</span>, ltotemp <span class="op">=</span> <span class="va">fracreg_k401k</span><span class="op">$</span><span class="va">ltotemp</span><span class="op">)</span> </span></span>
 <span class="r-in"><span><span class="va">res_emp</span> <span class="op">&lt;-</span> <span class="fu"><a href="fracreghet.html">fracreghet</a></span><span class="op">(</span><span class="va">y_adj</span>, <span class="va">X_het</span>, <span class="va">Z_emp</span>, var.endog <span class="op">=</span> <span class="va">X_het</span><span class="op">[</span>, <span class="st">"mrate"</span><span class="op">]</span>, </span></span>
-<span class="r-in"><span>                      type<span class="op">=</span><span class="st">"QMLxv"</span>, link<span class="op">=</span><span class="st">"logit"</span>, table<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span> </span></span>
-<span class="r-in"><span><span class="fu">fracreghet.pe</span><span class="op">(</span><span class="va">res_emp</span>, which.x<span class="op">=</span><span class="st">"mrate"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>                      type<span class="op">=</span><span class="st">"QMLxv"</span>, link<span class="op">=</span><span class="st">"logit"</span><span class="op">)</span> </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         Fractional logit regression with heteroscedasticity/endogeneity </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Estimator:                                                                 QMLxv </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Data type:                                                       Cross-sectional </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Number of observations:                                                     1534 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Standard errors:                                                          robust </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Wald chi2(6):                                                          1991.8748 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Prob &gt; chi2:                                                              0.0000 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Convergence:                                                          Successful </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                   Final Quasi-Maximum Likelihood xv estimates </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             Coefficient Robust Std.Err.  z value [95% Conf. Interval] Pr(&gt;|z|)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)    -0.10561         0.75224 -0.14040   -1.57997     1.369    0.888</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mrate           3.72138         0.68952  5.39703    2.36994     5.073 6.78e-08</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ltotemp        -0.07009         0.05348 -1.31060   -0.17491     0.035    0.190</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> vhat           -2.79515         0.70026 -3.99157   -4.16764    -1.423 6.56e-05</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mrate       ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ltotemp        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> vhat        ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                  Reduced form: </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>               Coefficient Robust Std.Err.  z value [95% Conf. Interval]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Z_(Intercept)     0.95046         0.09550  9.95211    0.76327     1.138</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Z_age             0.01146         0.00231  4.95997    0.00693     0.016</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Z_ltotemp        -0.05534         0.01421 -3.89528   -0.08318    -0.027</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>               Pr(&gt;|z|)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Z_(Intercept)  &lt; 2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Z_age         7.05e-07 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Z_ltotemp     9.81e-05 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-10 21:37:49 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span><span class="va">pe_res</span> <span class="op">&lt;-</span> <span class="fu">fracreghet.pe</span><span class="op">(</span><span class="va">res_emp</span>, which.x<span class="op">=</span><span class="st">"mrate"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">pe_res</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
@@ -150,7 +194,7 @@ $$PE_k(x) = g(x\beta) \beta_k$$</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-09 17:41:00 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-10 21:37:49 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-in"><span> </span></span>
 <span class="r-in"><span><span class="co">### Simulated Examples</span></span></span>
@@ -166,10 +210,39 @@ $$PE_k(x) = g(x\beta) \beta_k$$</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="va">X</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span><span class="op">+</span><span class="va">X</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span><span class="op">+</span><span class="va">u</span><span class="op">)</span><span class="op">/</span><span class="op">(</span><span class="fl">1</span><span class="op">+</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="va">X</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span><span class="op">+</span><span class="va">X</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span><span class="op">+</span><span class="va">u</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="fracreghet.html">fracreghet</a></span><span class="op">(</span><span class="va">y</span>,<span class="va">X</span>,type<span class="op">=</span><span class="st">"GMMx"</span>,table<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="fracreghet.html">fracreghet</a></span><span class="op">(</span><span class="va">y</span>,<span class="va">X</span>,type<span class="op">=</span><span class="st">"GMMx"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         Fractional logit regression with heteroscedasticity/endogeneity </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Estimator:                                                                  GMMx </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Data type:                                                       Cross-sectional </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Number of observations:                                                      250 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Standard errors:                                                          robust </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Wald chi2(2):                                                           368.8403 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Prob &gt; chi2:                                                              0.0000 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Convergence:                                                          Successful </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                               Final GMMx estimates </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             Coefficient Robust Std.Err.  z value [95% Conf. Interval] Pr(&gt;|z|)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)     0.43394         0.07745  5.60291    0.28214     0.586 2.11e-08</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X1              0.98087         0.06730 14.57560    0.84897     1.113  &lt; 2e-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X2              0.88338         0.07066 12.50206    0.74489     1.022  &lt; 2e-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept) ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X1          ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X2          ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-10 21:37:49 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#Smearing estimator of average partial effects for variable X1</span></span></span>
-<span class="r-in"><span><span class="fu">fracreghet.pe</span><span class="op">(</span><span class="va">res</span>,which.x<span class="op">=</span><span class="st">"X1"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">pe_res</span> <span class="op">&lt;-</span> <span class="fu">fracreghet.pe</span><span class="op">(</span><span class="va">mod</span>,which.x<span class="op">=</span><span class="st">"X1"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">pe_res</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
@@ -183,12 +256,13 @@ $$PE_k(x) = g(x\beta) \beta_k$$</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-09 17:41:00 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-10 21:37:49 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#Naive estimator of conditional partial effects for all covariates,</span></span></span>
 <span class="r-in"><span><span class="co">#which are evaluated at X1=1 and X2=-1</span></span></span>
-<span class="r-in"><span><span class="fu">fracreghet.pe</span><span class="op">(</span><span class="va">res</span>,smearing<span class="op">=</span><span class="cn">FALSE</span>,APE<span class="op">=</span><span class="cn">FALSE</span>,CPE<span class="op">=</span><span class="cn">TRUE</span>,at<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">pe_res</span> <span class="op">&lt;-</span> <span class="fu">fracreghet.pe</span><span class="op">(</span><span class="va">mod</span>,smearing<span class="op">=</span><span class="cn">FALSE</span>,APE<span class="op">=</span><span class="cn">FALSE</span>,CPE<span class="op">=</span><span class="cn">TRUE</span>,at<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">pe_res</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
@@ -203,7 +277,7 @@ $$PE_k(x) = g(x\beta) \beta_k$$</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-09 17:41:00 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-10 21:37:49 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Note: covariates evaluated at the following values:</span>
