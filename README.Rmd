@@ -30,13 +30,13 @@ devtools::load_all(".")
 <img src="man/figures/logo.png" align="right" height="139" alt="fracreg logo" />
 
 [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
-[![](https://img.shields.io/badge/R->=%203.5.0-blue.svg)](https://cran.r-project.org/)
-[![](https://img.shields.io/github/last-commit/SulmanOlieko/fracreg.svg)](https://github.com/SulmanOlieko/fracreg/commits/main)
-[![](https://img.shields.io/github/issues/SulmanOlieko/fracreg.svg)](https://github.com/SulmanOlieko/fracreg/issues)
+[![R version](https://img.shields.io/badge/R->=%203.5.0-blue.svg)](https://cran.r-project.org/)
+[![Last commit](https://img.shields.io/github/last-commit/SulmanOlieko/fracreg.svg)](https://github.com/SulmanOlieko/fracreg/commits/main)
+[![Issues](https://img.shields.io/github/issues/SulmanOlieko/fracreg.svg)](https://github.com/SulmanOlieko/fracreg/issues)
 [![R-CMD-check](https://github.com/SulmanOlieko/fracreg/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/SulmanOlieko/fracreg/actions/workflows/R-CMD-check.yaml)
 
-[![](https://img.shields.io/badge/license-GPL-blue)](https://github.com/SulmanOlieko/fracreg)
-[![](https://img.shields.io/github/languages/code-size/SulmanOlieko/fracreg.svg)](https://github.com/SulmanOlieko/fracreg)
+[![License: GPL](https://img.shields.io/badge/license-GPL-blue)](https://github.com/SulmanOlieko/fracreg)
+[![Code size](https://img.shields.io/github/languages/code-size/SulmanOlieko/fracreg.svg)](https://github.com/SulmanOlieko/fracreg)
 [![Visitors](https://visitor-badge.laobi.icu/badge?page_id=sulmanolieko.fracreg)](https://github.com/SulmanOlieko/fracreg)
 
 [![CRAN Total Downloads](https://cranlogs.r-pkg.org/badges/grand-total/fracreg)](https://cran.r-project.org/package=fracreg)
@@ -44,7 +44,7 @@ devtools::load_all(".")
 [![CRAN Weekly Downloads](https://cranlogs.r-pkg.org/badges/last-week/fracreg)](https://cran.r-project.org/package=fracreg)
 [![CRAN Daily Downloads](https://cranlogs.r-pkg.org/badges/last-day/fracreg)](https://cran.r-project.org/package=fracreg)
 
-[![](https://img.shields.io/badge/devel%20version-1.0.0-darkred.svg)](https://github.com/SulmanOlieko/fracreg)
+[![Development version](https://img.shields.io/badge/devel%20version-1.0.0-darkred.svg)](https://github.com/SulmanOlieko/fracreg)
 [![fracreg status badge](https://sulmanolieko.r-universe.dev/fracreg/badges/version)](https://sulmanolieko.r-universe.dev/fracreg)
 [![CRAN status](https://www.r-pkg.org/badges/version/fracreg)](https://CRAN.R-project.org/package=fracreg)
 
@@ -565,6 +565,59 @@ summary(mod)
 mod <- fracregpd(id=id, time=time, y=y_endog, x=X_endog, z=Z_inst,
                  x.exogenous=FALSE, type="GMMpfe", tdummies=TRUE)
 summary(mod) 
+
+# Computing Average Partial Effects for a fracregpd model
+pe_res <- fracregpd.pe(mod)
+summary(pe_res)
+```
+
+---
+
+## 5. Fractional Ridge Regression
+
+The `fracreg` package also includes an implementation of Fractional Ridge Regression (`fracregridge`). Unlike standard ridge regression where the penalty term $\alpha$ is chosen directly, `fracregridge` allows you to specify the desired *fraction* of the unregularized OLS coefficient vector length. The algorithm then automatically determines the corresponding $\alpha$ penalties.
+
+### 5.1 Empirical 401(k) Example
+
+We can also apply this to the 401(k) participation rate data to observe how the coefficients dynamically shrink across different target vector length fractions.
+
+```{r fracregridge-empirical}
+data("fracreg_k401k")
+y_401k <- fracreg_k401k$prate
+X_401k <- cbind(mrate = fracreg_k401k$mrate, age = fracreg_k401k$age,
+                totemp = fracreg_k401k$totemp, sole = fracreg_k401k$sole)
+
+# Fit fractional ridge regression
+mod_401k <- fracregridge(y = y_401k, x = X_401k, fracs = seq(0.2, 1.0, by = 0.2))
+
+# View full detailed summary showing the chosen alphas
+summary(mod_401k)
+
+# Compute Average Partial Effects for Ridge
+pe_401k <- fracregridge.pe(mod_401k)
+summary(pe_401k)
+```
+
+### 5.2 Simulated Data Example
+
+```{r fracregridge-simulated}
+# Generate random data
+set.seed(123)
+n <- 100
+p <- 10
+y_sim <- rnorm(n)
+X_sim <- matrix(rnorm(n * p), n, p)
+colnames(X_sim) <- paste0("X", 1:p)
+
+# Fit Fractional Ridge Regression for 30%, 50%, and 80% fractions
+mod_sim <- fracregridge(y = y_sim, x = X_sim, fracs = c(0.3, 0.5, 0.8))
+
+# View brief summary
+print(mod_sim)
+
+# Compute Partial Effects
+pe_sim <- fracregridge.pe(mod_sim)
+summary(pe_sim)
 ```
 
 ---
@@ -592,15 +645,15 @@ ensuring these econometric tools remain available to the R community.
 - **Ramalho, J. J. S. (2023).** *frmpd: Fractional Regression Models for
   Panel Data*. R package. Formerly available on CRAN, currently
   archived.
-- **Davidson, R. and MacKinnon, J.G. (1981).** "Several tests for model specification in the presence of alternative hypotheses", *Econometrica*, 49(3), 781-793.
-- **Fang, K., & Ma, S. (2013).** "Three-part model for fractional response variables with application to Chinese household health insurance coverage", *Journal of Applied Statistics*, 40(5), 925-940.
+
+- **Mullahy, J. (2015).** "Multivariate fractional regression estimation of econometric share models", *Journal of Econometric Methods*, 4(1), 71-100.
 - **Papke, L. E. and Wooldridge, J. M. (1996).** "Econometric methods for fractional response variables with an application to 401(k) plan participation rates", *Journal of Applied Econometrics*, 11(6), 619-632.
-- **Papke, L. and Wooldridge, J.M. (2008).** "Panel data methods for fractional response variables with an application to test pass rates", *Journal of Econometrics*, 145(1-2), 121-233.
-- **Pregibon, D. (1980).** "Goodness of Link Tests for Generalized Linear Models", *Journal of the Royal Statistical Society: Series C (Applied Statistics)*, 29(1), 15-24.
+- **Papke, L. E., & Wooldridge, J. M. (2008).** "Panel data methods for fractional response variables with an application to test pass rates", *Journal of Econometrics*, 145(1-2), 121-133.
 - **Ramalho, E. A., & Ramalho, J. J. S. (2017).** "Moment-based estimation of nonlinear regression models with boundary outcomes and endogeneity, with applications to nonnegative and fractional responses", *Econometric Reviews*, 36(4), 397-420.
 - **Ramalho, E.A., Ramalho, J.J.S. and Murteira, J.M.R. (2011).** "Alternative estimating and testing empirical strategies for fractional response models", *Journal of Economic Surveys*, 25(1), 19-68.
 - **Ramalho, E.A., Ramalho, J.J.S. and Murteira, J.M.R. (2014).** "A generalized goodness-of-functional form test for binary and fractional response models", *Manchester School*, 82(4), 488-507.
 - **Ramsey, J.B. (1969).** "Tests for Specification Errors in Classical Linear Least-Squares Regression Analysis", *Journal of the Royal Statistical Society: Series B (Methodological)*, 31(2), 350-371.
+- **Rokem, A., & Kay, K. (2020).** "Fractional ridge regression: a fast, interpretable reparameterization of ridge regression", *GigaScience*, 9(12).
 
 For more information, please visit the [package website](https://sulmanolieko.github.io/fracreg/) or file an issue on [GitHub](https://github.com/SulmanOlieko/fracreg/issues).
 

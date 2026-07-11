@@ -1,0 +1,48 @@
+\name{fracregridge.pe}
+\alias{fracregridge.pe}
+\title{Partial Effects for Fractional Ridge Regression}
+\usage{
+fracregridge.pe(object, APE = TRUE, CPE = FALSE, at = NULL, variance = TRUE, 
+                table = FALSE, ...)
+}
+\arguments{
+\item{object}{An object of class \code{fracregridge}.}
+
+\item{APE}{logical. Ignored for ridge regression.}
+
+\item{CPE}{logical. Ignored for ridge regression.}
+
+\item{at}{numeric vector. Ignored for ridge regression.}
+
+\item{variance}{logical. Ignored for ridge regression.}
+
+\item{table}{logical. Ignored for ridge regression.}
+
+\item{...}{further arguments passed to or from other methods.}
+}
+\value{
+An object of class \code{fracreg.pe} containing the standard coefficient tables.
+}
+\description{
+Because Fractional Ridge Regression fits a linear model without a link function, the partial effects are mathematically identical to the estimated ridge coefficients. This function serves as a wrapper to maintain API compatibility with the rest of the \code{fracreg} package, printing a brief notification and returning the standard coefficient tables.
+}
+\seealso{
+\code{\link{fracregridge}}, \code{\link{fracreg.pe}}
+}
+\author{
+Sulman Olieko Owili <oliekosulman@gmail.com>
+}
+\examples{
+# Generate random data
+set.seed(123)
+y <- rnorm(100)
+X <- matrix(rnorm(1000), 100, 10)
+colnames(X) <- paste0("X", 1:10)
+
+# Fit Fractional Ridge Regression
+mod <- fracregridge(y, X, fracs = c(0.3, 0.5))
+
+# Compute Partial Effects (identical to coefficients)
+pe <- fracregridge.pe(mod)
+print(pe)
+}

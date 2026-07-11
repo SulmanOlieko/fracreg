@@ -66,8 +66,15 @@ reference:
     desc: "Functions for panel data, unobserved heterogeneity, and endogenous regressors."
     contents:
       - fracregpd
+      - fracregpd.pe
       - fracreghet
       - fracreghet.pe
+
+  - title: "Fractional Ridge Regression"
+    desc: "Functions for applying ridge penalization to fractional regression models."
+    contents:
+      - fracregridge
+      - fracregridge.pe
 
   - title: "Specification Testing & Diagnostics"
     desc: "Tools for testing functional form, link specification, and non-nested models."

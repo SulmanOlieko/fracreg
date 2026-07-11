@@ -613,6 +613,37 @@ print.fracreg.pe <- function(x, ...) {
 }
 
 #' @export
+summary.fracregpd.pe <- function(object, ...) {
+    if(!is.null(object$table.info)) {
+        do.call(fracreg.pe.table, object$table.info)
+    } else if(!is.null(object$ape) || !is.null(object$cpe)) {
+        if(!is.null(object$ape$table.info)) do.call(fracreg.pe.table, object$ape$table.info)
+        if(!is.null(object$cpe$table.info)) do.call(fracreg.pe.table, object$cpe$table.info)
+    }
+    invisible(object)
+}
+
+#' @export
+print.fracregpd.pe <- function(x, ...) {
+    cat("\nPartial Effects for Fractional Panel Data Regression\n")
+    if(!is.null(x$ape)) {
+        cat("\nAverage Partial Effects (APE):\n")
+        print.default(x$ape$table.info$PE.p)
+    }
+    if(!is.null(x$cpe)) {
+        cat("\nConditional Partial Effects (CPE):\n")
+        print.default(x$cpe$table.info$PE.p)
+    }
+    if(!is.null(x$table.info)) {
+        if(x$table.info$PE.type == "APE") cat("\nAverage Partial Effects (APE):\n")
+        else cat("\nConditional Partial Effects (CPE):\n")
+        print.default(x$table.info$PE.p)
+    }
+    cat("\n")
+    invisible(x)
+}
+
+#' @export
 summary.fracreghet.pe <- function(object, ...) {
     if(!is.null(object$table.info)) {
         do.call(fracreghet.pe.table, object$table.info)
@@ -699,6 +730,80 @@ summary.fracreg.ptest <- function(object, ...) {
 print.fracreg.ptest <- function(x, ...) {
     cat("\nP-Test for Fractional Regression\n\n")
     print.default(c(x))
+    cat("\n")
+    invisible(x)
+}
+
+#' @export
+print.fracregridge <- function(x, ...) {
+    cat("\nFractional Ridge Regression\n")
+    if(!is.null(x$call)) {
+        cat("\nCall:\n")
+        print(x$call)
+    }
+    cat("\nRidge Coefficients at Target Fractions:\n")
+    print(x$coef)
+    cat("\n")
+    invisible(x)
+}
+
+#' @export
+summary.fracregridge <- function(object, ...) {
+    cat("\n")
+    cat(.fracreg.sep(), "\n")
+    cat(.fracreg.center("Fractional Ridge Regression"), "\n")
+    cat(.fracreg.sep(), "\n")
+    
+    .fracreg.cat.right("Data type:", "Cross-sectional")
+    .fracreg.cat.right("Convergence:", "Successful")
+    cat(.fracreg.sep(), "\n")
+    
+    for (name in names(object$table.info)) {
+        cat(.fracreg.center(paste("Target Fraction:", name)), "\n")
+        cat(.fracreg.sep(), "\n")
+        if(!is.null(object$stats.info)) {
+            stats <- object$stats.info[[name]]
+            .fracreg.cat.right("Number of observations:", stats$n_obs)
+            .fracreg.cat.right("Pseudo R-squared:", round(stats$R2, 5))
+            .fracreg.cat.right("Degrees of freedom:", round(stats$n_obs - stats$df_alpha, 2))
+            cat(.fracreg.sep(), "\n")
+        }
+        suppressWarnings(stats::printCoefmat(object$table.info[[name]], P.values=TRUE, has.Pvalue=TRUE, digits=4, signif.legend=TRUE))
+        cat(.fracreg.sep(), "\n")
+    }
+    
+    cat(.fracreg.center(paste("Run Date:", format(Sys.time(), "%Y-%m-%d %H:%M:%S"))), "\n")
+    cat(.fracreg.sep(), "\n\n")
+    invisible(object)
+}
+
+#' @export
+summary.fracregridge.pe <- function(object, ...) {
+    cat("\n\n")
+    cat(.fracreg.sep(), "\n")
+    cat(.fracreg.center("Average partial effects"), "\n")
+    cat(.fracreg.sep(), "\n")
+    cat(.fracreg.center("Fractional Ridge Regression"), "\n")
+    cat(.fracreg.sep(), "\n")
+    
+    for (name in names(object$table.info)) {
+        cat(.fracreg.center(paste("Target Fraction:", name)), "\n")
+        cat(.fracreg.sep(), "\n")
+        suppressWarnings(stats::printCoefmat(object$table.info[[name]], P.values=TRUE, has.Pvalue=TRUE, digits=4, signif.legend=TRUE))
+        cat(.fracreg.sep(), "\n")
+    }
+    cat(.fracreg.center(paste("Run Date:", format(Sys.time(), "%Y-%m-%d %H:%M:%S"))), "\n")
+    cat(.fracreg.sep(), "\n\n")
+    invisible(object)
+}
+
+#' @export
+print.fracregridge.pe <- function(x, ...) {
+    cat("\nPartial Effects for Fractional Ridge Regression\n")
+    if(!is.null(x$call)) {
+        cat("\nCall:\n")
+        print(x$call)
+    }
     cat("\n")
     invisible(x)
 }

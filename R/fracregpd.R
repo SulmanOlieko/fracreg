@@ -221,6 +221,8 @@ fracregpd.est <- function(type,x.exogenous,lags,id,Ti,Hy,x,z,link,var.type,start
 		LL <- sum(ifelse(Hy > 0, Hy * log(pmax(yhat, eps)), 0) + ifelse(Hy < 1, (1-Hy) * log(pmax(1-yhat, eps)), 0))
 		ret.list[["LL"]] <- LL
 	}
+	
+	ret.list[["xbhat"]] <- XB
 
 	if(variance==F | converged==F | bootstrap==T) return(ret.list)
 
@@ -956,7 +958,7 @@ fracregpd <- function(id,time,y,x,z,var.endog,x.exogenous=T,lags,start,type,GMMw
 	if(table==T) do.call(fracregpd.table, table.info)
 
 	names(p) <- x.names
-	res <- list(call=cl, type=type,link=link,Hy=Hy,p=p,converged=converged,table.info=table.info)
+	res <- list(call=cl, type=type,link=link,Hy=Hy,p=p,converged=converged,table.info=table.info,x=x,xbhat=results$xbhat)
 	if(!is.null(offset)) res[["offset"]] <- offset
 	if(dfJ>0) res[["J"]] <- J
 

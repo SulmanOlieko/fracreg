@@ -1,0 +1,83 @@
+\name{fracregridge}
+\alias{fracregridge}
+\title{Fractional Ridge Regression}
+\usage{
+fracregridge(y, x, fracs = seq(0.1, 1.0, by = 0.1), tol = 1e-10, intercept = TRUE, ...)
+}
+\arguments{
+\item{y}{A numeric vector or matrix of the dependent variable(s).}
+
+\item{x}{A numeric matrix of the explanatory variables.}
+
+\item{fracs}{A numeric vector indicating the desired fractions of the unregularized coefficient vector length. Default is \code{seq(0.1, 1.0, by=0.1)}. Values must be sorted in ascending order.}
+
+\item{tol}{A numeric tolerance under which singular values of the \code{x} matrix are considered to be zero. Default is \code{1e-10}.}
+
+\item{intercept}{logical. If \code{TRUE}, an intercept is included in the model. Default is \code{TRUE}.}
+
+\item{...}{further arguments passed to or from other methods.}
+}
+\value{
+An object of class \code{fracregridge} containing:
+\item{coef}{The estimated ridge coefficients for each requested fraction.}
+\item{alphas}{The corresponding \eqn{\alpha} penalty values.}
+\item{fracs}{The grid of fractions.}
+\item{call}{The matched call.}
+}
+\description{
+\code{fracregridge} implements Fractional Ridge Regression (Rokem & Kay, 2020), which is an approach to regularized linear regression.
+Unlike standard ridge regression where the penalty term \eqn{\alpha} is chosen directly, \code{fracregridge} allows you to specify the desired \emph{fraction} of the unregularized OLS coefficient vector length. The algorithm then automatically determines the corresponding \eqn{\alpha} penalties.
+}
+\details{
+Standard ridge regression minimizes the following objective function:
+\deqn{L = (y - X\beta)'(y - X\beta) + \alpha \beta'\beta}
+
+The penalty \eqn{\alpha} shrinks the coefficients towards zero, reducing the length of the coefficient vector \eqn{||\beta||_2}. However, choosing \eqn{\alpha} can be unintuitive. 
+\code{fracregridge} re-parameterizes the problem so the user specifies \code{fracs}, the fraction of the unregularized Ordinary Least Squares (OLS) vector length \eqn{\gamma = \frac{||\beta(\alpha)||_2}{||\beta(0)||_2}}.
+The function automatically determines the \eqn{\alpha} values corresponding to these fractions.
+}
+\references{
+Rokem, A., & Kay, K. (2020). Fractional ridge regression: a fast, interpretable reparameterization of ridge regression. \emph{GigaScience}, 9(12).
+}
+\seealso{
+\code{\link{fracreg}}
+}
+\author{
+Sulman Olieko Owili <oliekosulman@gmail.com>
+}
+\examples{
+# Empirical 401(k) Example
+data("fracreg_k401k")
+y_401k <- fracreg_k401k$prate
+X_401k <- cbind(mrate = fracreg_k401k$mrate, age = fracreg_k401k$age,
+                totemp = fracreg_k401k$totemp, sole = fracreg_k401k$sole)
+
+# Fit fractional ridge regression for the 401(k) participation rates
+mod_401k <- fracregridge(y = y_401k, x = X_401k, fracs = seq(0.2, 1.0, by = 0.2))
+
+# View full detailed summary
+summary(mod_401k)
+
+# Compute Average Partial Effects for Ridge
+pe_401k <- fracregridge.pe(mod_401k)
+summary(pe_401k)
+
+# Simulated Data Example
+set.seed(123)
+n <- 100
+p <- 10
+y <- rnorm(n)
+X <- matrix(rnorm(n * p), n, p)
+colnames(X) <- paste0("X", 1:p)
+
+# Fit Fractional Ridge Regression
+# We want the coefficients that correspond to 30\\%, 50\\%, and 80\\% of the OLS length
+mod_sim <- fracregridge(y, X, fracs = c(0.3, 0.5, 0.8))
+
+# View brief summary
+print(mod_sim)
+
+# Compute Partial Effects
+pe_sim <- fracregridge.pe(mod_sim)
+summary(pe_sim)
+}

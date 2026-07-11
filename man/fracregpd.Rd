@@ -179,6 +179,10 @@ Z_inst <- cbind(x_panel = x_panel, z_panel = z_panel)
 mod <- fracregpd(id=id, time=time, y=y_panel, x=X, type="QMLcre", link="probit")
 summary(mod)
 
+# Compute Partial Effects
+pe_res <- fracregpd.pe(mod)
+summary(pe_res)
+
 # Exogeneity, no lags, no time dummies, clustered standard errors, GMMbgw estimator
 mod <- fracregpd(id=id, time=time, y=y_panel, x=X, type="GMMbgw")
 summary(mod)

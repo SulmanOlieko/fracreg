@@ -1,4 +1,4 @@
-export(fracreg,fracreg.reset,fracreg.ggoff,fracreg.ptest,fracreg.pe,fracregpd,fracreghet,fracreghet.reset,fracreghet.pe)
+export(fracreg,fracregridge,fracregridge.pe,fracreg.reset,fracreg.ggoff,fracreg.ptest,fracreg.pe,fracregpd,fracregpd.pe,fracreghet,fracreghet.reset,fracreghet.pe)
 importFrom("stats", "binomial", "cor", "dcauchy", "dlogis", "dnorm",
            "glm", "lm", "logLik", "median", "model.frame",
            "model.matrix", "model.response", "pcauchy", "pchisq",
@@ -7,6 +7,8 @@ importFrom("stats", "binomial", "cor", "dcauchy", "dlogis", "dnorm",
 
 S3method(print, fracreg)
 S3method(summary, fracreg)
+S3method(print, fracregridge)
+S3method(summary, fracregridge)
 S3method(print, fracregpd)
 S3method(summary, fracregpd)
 S3method(print, fracreghet)
@@ -16,6 +18,10 @@ S3method(print, fracreg.pe)
 S3method(summary, fracreg.pe)
 S3method(print, fracreghet.pe)
 S3method(summary, fracreghet.pe)
+S3method(print, fracregpd.pe)
+S3method(summary, fracregpd.pe)
+S3method(print, fracregridge.pe)
+S3method(summary, fracregridge.pe)
 
 S3method(print, fracreg.reset)
 S3method(summary, fracreg.reset)
