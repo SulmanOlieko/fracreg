@@ -7,21 +7,21 @@
 wtp(object, wtp.vec, varlist = NULL, indv.obs = FALSE)
 }
 \arguments{
-\item{object}{A fracregmlogit.pe object.}
+\item{object}{A \code{fracregmlogit.pe} object.}
 
-\item{wtp.vec}{A numeric vector containing the outcome arbitrary values to be evaluated.}
+\item{wtp.vec}{A numeric vector containing the arbitrary outcome values to be evaluated for each choice j.}
 
-\item{varlist}{A string or vector of strings of covariates to be evaluated. Default is all available explanatory variables.}
+\item{varlist}{A string vector which provides the names of variables to calculate 
+the wtp for. If missing, all variables in the object will be calculated.}
 
-\item{indv.obs}{boolean. Provide WTP values for individual observations?}
+\item{indv.obs}{A logical value indicating whether to return individual observations.}
 }
 \value{
-A matrix containing the estimates, standard error, z-stats, and p-value.
-
-A "fracregmlogit.wtp" object.
+A "fracregmlogit.wtp" object containing the estimates, standard error, z-stats, and p-value.
 }
 \description{
-Calculates the willingness to pay for fractional multinomial logit models.
+Evaluate the "Willingness to Pay" given a set of arbitrary values for outcome variables. 
+Usually used for policy evaluations where the total magnitude of marginal change matters.
 }
 \details{
 This function calculates the aggregate effect of a variable on the 
@@ -38,19 +38,18 @@ A simple z-test is provided to test whether the aggregate effect is different fr
 Note that if the input \code{fracregmlogit.pe} object has no standard error computation, then no standard error
 will be computed for the willingness to pay.
 }
+\seealso{
+\code{\link{fracregmlogit.pe}}, \code{\link{plot.fracregmlogit}}
+}
 \examples{
+\donttest{
 data("fracreg_spending")
 X = fracreg_spending[,2:5]
 y = fracreg_spending[,6:11]
 results1 = fracregmlogit(y, X)
-Evaluate the "Willingness to Pay" given a set of arbitrary values for outcome variables. 
-Usually used for policy evaluations where the total magnitude of marginal change matters.
-\donttest{
-# Assuming `results` is a fitted fracregmlogit model and `pe` is a fracregmlogit.pe object
-wtp_est = wtp(pe, wtp.vec = c(1, 2, 3), varlist = "houseval")
+pe = fracregmlogit.pe(results1)
+# Assuming arbitrary WTP values for the 6 choices
+wtp_est = wtp(pe, wtp.vec = c(1, 2, 3, 4, 5, 6), varlist = "houseval")
 summary(wtp_est)
 }
-}
-\seealso{
-\code{\link{fracregmlogit.pe}}, \code{\link{plot.fracregmlogit}}
 }

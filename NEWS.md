@@ -9,7 +9,7 @@
 * **S3 Methods & Output Display:** Standardised console output by adding dedicated `summary()` and `print()` S3 methods across the package to align with R's standard practices. Changed output tables to say "regression" rather than "model" for clarity.
 
 ### Documentation & Website
-* **Citations & References:** Added robust citations for the foundational `fmlogit` (Ji and Woodill) and `fracridge` (Rokem and Kay) packages across manual pages, README, and vignettes, formatting URLs properly for rendering.
+* **Citations & References:** Added citations for the foundational `fmlogit` (Ji and Woodill) and `fracridge` (Rokem and Kay) packages across manual pages, README, and vignettes, formatting URLs properly for rendering.
 * **Logo & Badges:** Improved the package hex logo and added status badges to the `README`.
 * **Website (`pkgdown`):** Added a `sitemap.xml` and reordered the `README` and `vignettes` sections to properly showcase Fractional Multinomial Logit and Fractional Ridge Regression alongside Panel Data models. Added Willingness to Pay (WTP) plot visualizations in tutorials.
 * **Help Files:** Updated `.Rd` files to properly reflect `table = FALSE` default arguments and fixed `\usage` widths. Updated the package title for clarity and consistency.

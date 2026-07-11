@@ -721,14 +721,15 @@ summary.fracregmlogit.wtp = function(object, ...) {
 }
 #' "Willingness to Pay" for fracregmlogit models
 #' 
-#' Calculates the willingness to pay for fractional multinomial logit models.  
+#' Evaluate the "Willingness to Pay" given a set of arbitrary values for outcome variables. 
+#' Usually used for policy evaluations where the total magnitude of marginal change matters.
 #' 
-#' @param object A "fracregmlogit.pe" object.
-#' @param wtp.vec A 1*J vector that contains the willingness to pay for each choice j.
+#' @param object A \code{fracregmlogit.pe} object.
+#' @param wtp.vec A numeric vector containing the arbitrary outcome values to be evaluated for each choice j.
 #' @param varlist A string vector which provides the names of variables to calculate 
 #' the wtp for. If missing, all variables in the object will be calculated.
 #' @param indv.obs A logical value indicating whether to return individual observations.
-#' @return A matrix containing the estimates, standard error, z-stats, and p-value. 
+#' @return A "fracregmlogit.wtp" object containing the estimates, standard error, z-stats, and p-value.
 #' @details This function calculates the aggregate effect of a variable on the 
 #' "willingness to pay" by linearly multiplying the average partial effect with ex-ante (arbitrary) 
 #' willingness to pay numbers associated with each choice. 
@@ -746,21 +747,14 @@ summary.fracregmlogit.wtp = function(object, ...) {
 #' @seealso \code{\link{fracregmlogit.pe}}, \code{\link{plot.fracregmlogit}}
 #' 
 #' @examples
+#' \donttest{
 #' data("fracreg_spending")
 #' X = fracreg_spending[,2:5]
 #' y = fracreg_spending[,6:11]
 #' results1 = fracregmlogit(y, X)
-#' Evaluate the "Willingness to Pay" given a set of arbitrary values for outcome variables. 
-#' Usually used for policy evaluations where the total magnitude of marginal change matters.
-#' @param object A fracregmlogit.pe object.
-#' @param wtp.vec A numeric vector containing the outcome arbitrary values to be evaluated.
-#' @param varlist A string or vector of strings of covariates to be evaluated. Default is all available explanatory variables.
-#' @param indv.obs boolean. Provide WTP values for individual observations?
-#' @return A "fracregmlogit.wtp" object.
-#' @examples
-#' \donttest{
-#' # Assuming `results` is a fitted fracregmlogit model and `pe` is a fracregmlogit.pe object
-#' wtp_est = wtp(pe, wtp.vec = c(1, 2, 3), varlist = "houseval")
+#' pe = fracregmlogit.pe(results1)
+#' # Assuming arbitrary WTP values for the 6 choices
+#' wtp_est = wtp(pe, wtp.vec = c(1, 2, 3, 4, 5, 6), varlist = "houseval")
 #' summary(wtp_est)
 #' }
 #' @export wtp
