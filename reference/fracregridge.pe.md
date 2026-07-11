@@ -78,12 +78,9 @@ pe <- fracregridge.pe(mod)
 #> 
 print(pe)
 #> 
-#> Fractional Ridge Regression
+#> Partial Effects for Fractional Ridge Regression
 #> 
 #> Call:
 #> fracregridge.pe(object = mod)
-#> 
-#> Ridge Coefficients at Target Fractions:
-#> NULL
 #> 
 ```
