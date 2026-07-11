@@ -60,8 +60,8 @@ An R package for fitting and testing specifications of fractional regression mod
 3. **Endogeneity & Heteroscedasticity (`fracreghet`)**: Correct for endogenous covariates using Instrumental Variables (IV) via Control Function and GMM approaches.
 4. **Fractional Multinomial Logit (`fracregmlogit`)**: Estimate multivariate fractional responses where outcomes across multiple categories sum to 1.
 5. **Fractional Ridge Regression (`fracregridge`)**: Perform L2 regularization using dynamic fraction penalties of the unregularized vector length.
-6. **Diagnostic Testing**: Includes generalised goodness-of-functional-form (`fracreg.ggoff`), RESET (`fracreg.reset`), and non-nested P-tests (`fracreg.ptest`).
-7. **Analytical Partial Effects**: Compute exact marginal effects for all model types (including 3-part composite effects) via the Delta method using `fracreg.pe()` and `fracregmlogit.pe()`.
+6. **Diagnostic Testing**: Includes model-specific routines for generalised goodness-of-functional-form, RESET, and non-nested P-tests (e.g., `fracreg.ggoff`, `fracreghet.reset`, `fracreg.ptest`).
+7. **Analytical Partial Effects**: Compute exact marginal effects for all model types via the Delta method using their respective functions (e.g., `fracreg.pe()`, `fracregpd.pe()`, `fracreghet.pe()`, `fracregridge.pe()`, and `fracregmlogit.pe()`).
 
 ---
 
