@@ -4,6 +4,7 @@ importFrom("stats", "binomial", "cor", "dcauchy", "dlogis", "dnorm",
            "model.matrix", "model.response", "pcauchy", "pchisq",
            "plogis", "pnorm", "pt", "qcauchy", "qlogis", "qnorm",
            "quasibinomial", "Gamma", "nlminb", "var")
+importFrom("MASS", "mvrnorm")
 
 S3method(print, fracreg)
 S3method(summary, fracreg)
@@ -35,3 +36,22 @@ S3method(print, fracreg.ptest)
 S3method(summary, fracreg.ptest)
 
 importFrom("stats", "printCoefmat")
+importFrom("maxLik", "maxLik")
+
+export(fracregmlogit, fracregmlogit.pe, wtp)
+
+S3method(summary, fracregmlogit)
+S3method(plot, fracregmlogit)
+S3method(fitted, fracregmlogit)
+S3method(residuals, fracregmlogit)
+S3method(predict, fracregmlogit)
+
+S3method(summary, fracregmlogit.pe)
+S3method(plot, fracregmlogit.pe)
+
+S3method(summary, fracregmlogit.wtp)
+
+import(ggplot2)
+import(grid)
+importFrom("stats", "as.formula", "effects", "fitted", "na.omit", "predict", "rnorm", "sd")
+importFrom("graphics", "par")

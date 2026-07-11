@@ -807,3 +807,101 @@ print.fracregridge.pe <- function(x, ...) {
     cat("\n")
     invisible(x)
 }
+
+#' @export
+print.fracregmlogit <- function(x, ...) {
+    cat("\n")
+    cat(.fracreg.sep(), "\n")
+    cat(.fracreg.center("Fractional multinomial logit model"), "\n")
+    cat(.fracreg.sep(), "\n")
+    if(!is.null(x$call)) {
+        cat("\nCall:\n")
+        print(x$call)
+    }
+    cat("\nCoefficients:\n")
+    print.default(x$coefficient)
+    cat("\n")
+    invisible(x)
+}
+
+#' @export
+summary.fracregmlogit <- function(object, ...) {
+    cat("\n")
+    cat(.fracreg.sep(), "\n")
+    cat(.fracreg.center("Fractional multinomial logit model"), "\n")
+    cat(.fracreg.sep(), "\n")
+    
+    .fracreg.cat.right("Number of observations:", object$count["Obs"])
+    .fracreg.cat.right("Baseline choice:", object$baseline)
+    if (!is.null(object$likelihood)) {
+        .fracreg.cat.right("Log pseudolikelihood:", round(object$likelihood, 4))
+    }
+    if (object$reps > 0) {
+        .fracreg.cat.right("Standard errors:", "bootstrap")
+        .fracreg.cat.right("Bootstrap reps:", object$reps)
+    } else {
+        .fracreg.cat.right("Standard errors:", "robust")
+    }
+    cat("\n")
+
+    for(i in 1:length(object$estimates)){
+        cat(.fracreg.sep(), "\n")
+        cat(.fracreg.center(paste("Choice:", names(object$estimates)[i])), "\n")
+        cat(.fracreg.sep(), "\n")
+        
+        res <- object$estimates[[i]]
+        colnames(res) <- c("Coefficient", "Std.Err.", "z value", "Pr(>|z|)")
+        rownames(res)[rownames(res) == "(Intercept)"] <- "(Intercept)"
+        stats::printCoefmat(res, P.values = TRUE, has.Pvalue = TRUE, digits = 4, signif.legend = TRUE)
+        cat("\n")
+    }
+    
+    cat(.fracreg.sep(), "\n")
+    cat(.fracreg.center(paste("Run Date:", format(Sys.time(), "%Y-%m-%d %H:%M:%S"))), "\n")
+    cat(.fracreg.sep(), "\n")
+
+    invisible(object)
+}
+
+#' @export
+print.fracregmlogit.pe <- function(x, ...) {
+    cat("\n")
+    cat(.fracreg.sep(), "\n")
+    cat(.fracreg.center(x$expl), "\n")
+    cat(.fracreg.sep(), "\n")
+    cat("\nEffects:\n")
+    print.default(x$effects)
+    cat("\n")
+    invisible(x)
+}
+
+#' @export
+summary.fracregmlogit.pe <- function(object, ...) {
+    cat("\n")
+    cat(.fracreg.sep(), "\n")
+    cat(.fracreg.center(object$expl), "\n")
+    cat(.fracreg.sep(), "\n")
+    
+    if(!is.null(object$ztable)){
+        for(i in 1:length(object$ztable)){
+            cat("\n")
+            cat(.fracreg.sep(), "\n")
+            cat(.fracreg.center(paste("Variable:", names(object$ztable)[i])), "\n")
+            cat(.fracreg.sep(), "\n")
+            
+            res <- object$ztable[[i]]
+            colnames(res) <- c("Estimate", "Std. Error", "z value", "Pr(>|z|)")
+            stats::printCoefmat(res, P.values = TRUE, has.Pvalue = TRUE, digits = 4, signif.legend = TRUE)
+        }
+        cat("\n")
+    } else {
+        cat("Effects:\n")
+        print.default(object$effects)
+    }
+    
+    cat(.fracreg.sep(), "\n")
+    cat(.fracreg.center(paste("Run Date:", format(Sys.time(), "%Y-%m-%d %H:%M:%S"))), "\n")
+    cat(.fracreg.sep(), "\n")
+
+    invisible(object)
+}

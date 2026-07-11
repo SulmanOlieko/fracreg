@@ -38,6 +38,8 @@ The function automatically determines the \eqn{\alpha} values corresponding to t
 }
 \references{
 Rokem, A., & Kay, K. (2020). Fractional ridge regression: a fast, interpretable reparameterization of ridge regression. \emph{GigaScience}, 9(12).
+
+Rokem, A., and Kay, K., fracridge: Fractional Ridge Regression. Package repository. <https://github.com/nrdg/fracridge>.
 }
 \seealso{
 \code{\link{fracreg}}

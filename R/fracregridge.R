@@ -16,6 +16,9 @@
 #' \item{alphas}{The corresponding \eqn{\alpha} penalty values.}
 #' \item{fracs}{The grid of fractions.}
 #' \item{call}{The matched call.}
+#' @references Rokem, A., and Kay, K. (2020), Fractional ridge regression: a fast, 
+#'   interpretable reparameterization of ridge regression. GigaScience, 9(12): giaa133.
+#' @references Rokem, A., and Kay, K., fracridge: Fractional Ridge Regression. Package repository. <https://github.com/nrdg/fracridge>.
 #' @export
 #'
 #' @examples
@@ -154,7 +157,7 @@ fracregridge <- function(y, x, fracs = seq(0.1, 1.0, by=0.1), tol = 1e-10, inter
 	        } else {
 	            beta <- coef_final[, jj, ii]
 	        }
-	        
+	    
 	        y_pred <- x %*% beta
 	        yhat[, jj, ii] <- y_pred
 	        xbhat[, jj, ii] <- y_pred

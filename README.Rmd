@@ -622,6 +622,43 @@ summary(pe_sim)
 
 ---
 
+## 6. Fractional Multinomial Logit
+
+The `fracreg` package incorporates the fractional multinomial logit (`fracregmlogit`) to estimate fractional response data where the response variable consists of fractions that sum up to one across multiple categories.
+
+```{r fracregmlogit_example}
+# Load the empirical spending data
+data("fracreg_spending")
+
+# Define covariates and fractional responses
+X <- fracreg_spending[, c("houseval", "popdens", "noleft", "minorityleft", "tot")]
+y <- fracreg_spending[, c("governing", "safety", "education", "recreation", "social", "urbanplanning")]
+
+# Fit the Fractional Multinomial Logit model
+mn_fit <- fracregmlogit(y, X)
+
+# View estimates
+summary(mn_fit)
+
+# Compute Average Partial Effects (discrete)
+mn_pe <- fracregmlogit.pe(mn_fit, effect = "discrete", varlist = c("noleft", "minorityleft"))
+summary(mn_pe)
+```
+
+You can also calculate the Willingness to Pay (WTP) and visualize the estimates using the built-in plot methods:
+
+```{r fracregmlogit_wtp}
+# Calculate Willingness to Pay for the 'noleft' variable using a hypothetical WTP vector
+# Assuming WTP = 1, 2, 3, 4, 5, 6 for each of the 6 choices
+wtp_est <- wtp(mn_pe, wtp.vec = 1:6, varlist = "noleft")
+summary(wtp_est)
+
+# Plot the Willingness to Pay effect across observations
+plot(mn_fit, wtp.vec = 1:6, varlist = "noleft")
+```
+
+---
+
 ## Conclusion
 
 With `fracreg`, `fracreghet`, and `fracregpd`, you have a complete, mathematically robust toolkit for modelling fractional responses bounded between $[0,1]$, regardless of inflation, endogeneity, or unobserved panel effects.
@@ -635,7 +672,12 @@ packages have been deprecated and removed from the active CRAN
 repository, `fracreg` serves as an actively maintained successor,
 ensuring these econometric tools remain available to the R community.
 
+Furthermore, we acknowledge James Ji (@f1kidd) and A. John Woodill (@johnwoodill), the authors of the `fmlogit` R package on GitHub, whose foundational work on fractional multinomial logit models inspired the implementation of `fracregmlogit`. We also extend our gratitude to Ariel Rokem and Kendrick Kay, the authors of the `fracridge` package, whose methodological contributions to fractional ridge regression are incorporated into the `fracregridge` functionalities of this package.
+
 ## References
+
+- **Ji, J., and Woodill, A. J.** *fmlogit: Fractional Multinomial Logit*. R package repository. <https://github.com/f1kidd/fmlogit>
+- **Rokem, A., and Kay, K.** *fracridge: Fractional Ridge Regression*. Package repository. <https://github.com/nrdg/fracridge>
 
 - **Ramalho, J. J. S. (2022).** *frm: Fractional Regression Models*. R
   package. Formerly available on CRAN, currently archived.
@@ -646,7 +688,9 @@ ensuring these econometric tools remain available to the R community.
   Panel Data*. R package. Formerly available on CRAN, currently
   archived.
 
+- **Buis, M. L. (2008).** "fmlogit: Stata module fitting a fractional multinomial logit model by quasi maximum likelihood", *Statistical Software Components*, Boston College Department of Economics.
 - **Mullahy, J. (2015).** "Multivariate fractional regression estimation of econometric share models", *Journal of Econometric Methods*, 4(1), 71-100.
+- **Murteira, J. M. R., and Ramalho, J. J. S. (2016).** "Regression analysis of multivariate fractional data", *Econometric Reviews*, 35(4), 515-552.
 - **Papke, L. E. and Wooldridge, J. M. (1996).** "Econometric methods for fractional response variables with an application to 401(k) plan participation rates", *Journal of Applied Econometrics*, 11(6), 619-632.
 - **Papke, L. E., & Wooldridge, J. M. (2008).** "Panel data methods for fractional response variables with an application to test pass rates", *Journal of Econometrics*, 145(1-2), 121-133.
 - **Ramalho, E. A., & Ramalho, J. J. S. (2017).** "Moment-based estimation of nonlinear regression models with boundary outcomes and endogeneity, with applications to nonnegative and fractional responses", *Econometric Reviews*, 36(4), 397-420.

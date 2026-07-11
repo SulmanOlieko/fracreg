@@ -15,6 +15,12 @@ Packaged: 2026-07-05 12:38:54 UTC; Sulman
 NeedsCompilation: no
 Repository: CRAN
 URL: https://sulmanolieko.github.io/fracreg/
+Imports:
+    stats,
+    maxLik,
+    ggplot2,
+    grid,
+    MASS
 Suggests: 
     knitr,
     rmarkdown,
@@ -22,3 +28,4 @@ Suggests:
 VignetteBuilder: knitr
 RoxygenNote: 7.3.3
 Config/testthat/edition: 3
+Encoding: UTF-8

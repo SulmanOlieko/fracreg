@@ -18,6 +18,8 @@ License: \tab GPL-3\cr
 
 \section{Acknowledgements}{
 This package builds upon, consolidates, and modernises the fractional regression frameworks originally implemented in the \code{frm}, \code{frmhet}, and \code{frmpd} R packages developed by Joaquim J.S. Ramalho. As those original packages have been deprecated and removed from the active CRAN repository, \code{fracreg} serves as an actively maintained successor, ensuring these econometric tools remain available to the R community.
+
+Furthermore, we acknowledge James Ji (@f1kidd) and A. John Woodill (@johnwoodill), the authors of the \code{fmlogit} R package on GitHub, whose foundational work on fractional multinomial logit models inspired the implementation of \code{fracregmlogit}. We also extend our gratitude to Ariel Rokem and Kendrick Kay, the authors of the \code{fracridge} package, whose methodological contributions to fractional ridge regression are incorporated into the \code{fracregridge} functionalities of this package.
 }
 
 \references{
@@ -34,4 +36,8 @@ Ramalho, E.A., J.J.S. Ramalho and J.M.R. Murteira (2011), "Alternative estimatin
 Ramalho, E. A., Ramalho, J. J. S., and Murteira, J. M. R. (2014), "A two-part fractional response model for the spatial distribution of vineyards in Portugal", \emph{Journal of Applied Econometrics}, 29(4), 607-630.
 
 Fang, K., & Ma, S. (2013), "Three-part model for fractional response variables with application to Chinese household health insurance coverage", \emph{Journal of Applied Statistics}, 40(5), 925-940.
+
+Ji, J., and Woodill, A. J., \emph{fmlogit: Fractional Multinomial Logit}. R package repository. <https://github.com/f1kidd/fmlogit>.
+
+Rokem, A., and Kay, K., \emph{fracridge: Fractional Ridge Regression}. Package repository. <https://github.com/nrdg/fracridge>.
 }

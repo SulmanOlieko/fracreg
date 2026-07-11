@@ -76,6 +76,18 @@ reference:
       - fracregridge
       - fracregridge.pe
 
+  - title: "Fractional Multinomial Logit"
+    desc: "Functions for estimating fractional multinomial logit models."
+    contents:
+      - fracregmlogit
+      - fracregmlogit.pe
+      - fracreg_spending
+      - summary.fracregmlogit
+      - plot.fracregmlogit
+      - plot.fracregmlogit.pe
+      - fitted.fracregmlogit
+      - wtp
+
   - title: "Specification Testing & Diagnostics"
     desc: "Tools for testing functional form, link specification, and non-nested models."
     contents:

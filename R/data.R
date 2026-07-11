@@ -23,3 +23,30 @@
 #' data("fracreg_k401k")
 #' summary(fracreg_k401k$prate)
 "fracreg_k401k"
+
+#' Government Spending Data
+#'
+#' Spending on different categories by Dutch cities in 2005. 
+#' This dataset is commonly used to demonstrate fractional multinomial logit models.
+#'
+#' @format A data frame with 429 observations and 12 variables:
+#' \describe{
+#'   \item{muni}{Name of municipality}
+#'   \item{houseval}{Average value of a house in 100,000 euros}
+#'   \item{popdens}{Population density in 1000s of persons per square km}
+#'   \item{noleft}{No left party in city government}
+#'   \item{minorityleft}{Minority left party in city government}
+#'   \item{governing}{Fraction of spending on governing}
+#'   \item{safety}{Fraction of spending on safety}
+#'   \item{education}{Fraction of spending on education}
+#'   \item{recreation}{Fraction of spending on recreation}
+#'   \item{social}{Fraction of spending on social services}
+#'   \item{urbanplanning}{Fraction of spending on urban planning}
+#'   \item{tot}{Total spending or population}
+#' }
+#' @source <http://fmwww.bc.edu/repec/bocode/c/citybudget.dta>
+#' @usage data("fracreg_spending")
+#' @examples
+#' data("fracreg_spending")
+#' head(fracreg_spending)
+"fracreg_spending"
