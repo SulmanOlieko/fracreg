@@ -36,11 +36,14 @@ status](https://www.r-pkg.org/badges/version/fracreg)](https://CRAN.R-project.or
 An R package for fitting and testing specifications of fractional
 regression models. It handles fractional, univariate proportions, and
 bounded data ($`0 \le y \le 1`$), and provides estimators for one-part,
-two-part (hurdle), and three-part (double-inflated) models.
+two-part (hurdle), and three-part (double-inflated) models. It also
+extends fractional modelling to multivariate data through fractional
+multinomial logit and introduces fractional ridge regression for
+multicollinear, high-dimensional datasets.
 
 ## Features
 
-`fracreg` is handles:
+`fracreg` handles:
 
 1.  **Univariate Fractional Models (`fracreg`)**: Fit standard 1-part
     models, hurdle 2-part models (mass at 0 or 1), and double-inflated
@@ -51,13 +54,25 @@ two-part (hurdle), and three-part (double-inflated) models.
 3.  **Endogeneity & Heteroscedasticity (`fracreghet`)**: Correct for
     endogenous covariates using Instrumental Variables (IV) via Control
     Function and GMM approaches.
-4.  **Diagnostic Testing**: Includes generalised
-    goodness-of-functional-form (`fracreg.ggoff`), RESET
-    (`fracreg.reset`), and non-nested P-tests (`fracreg.ptest`).
-5.  **Analytical Partial Effects**: Compute exact marginal effects for
-    all model types (including 3-part composite effects) via the Delta
-    method using
-    [`fracreg.pe()`](https://sulmanolieko.github.io/fracreg/reference/fracreg.pe.md).
+4.  **Fractional Multinomial Logit (`fracregmlogit`)**: Estimate
+    multivariate fractional responses where outcomes across multiple
+    categories sum to 1.
+5.  **Fractional Ridge Regression (`fracregridge`)**: Perform L2
+    regularization using dynamic fraction penalties of the unregularized
+    vector length.
+6.  **Diagnostic Testing**: Includes model-specific routines for
+    generalised goodness-of-functional-form, RESET, and non-nested
+    P-tests (e.g., `fracreg.ggoff`, `fracreghet.reset`,
+    `fracreg.ptest`).
+7.  **Analytical Partial Effects**: Compute exact marginal effects for
+    all model types via the Delta method using their respective
+    functions (e.g.,
+    [`fracreg.pe()`](https://sulmanolieko.github.io/fracreg/reference/fracreg.pe.md),
+    [`fracregpd.pe()`](https://sulmanolieko.github.io/fracreg/reference/fracregpd.pe.md),
+    [`fracreghet.pe()`](https://sulmanolieko.github.io/fracreg/reference/fracreghet.pe.md),
+    [`fracregridge.pe()`](https://sulmanolieko.github.io/fracreg/reference/fracregridge.pe.md),
+    and
+    [`fracregmlogit.pe()`](https://sulmanolieko.github.io/fracreg/reference/fracregmlogit.pe.md)).
 
 ------------------------------------------------------------------------
 

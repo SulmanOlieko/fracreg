@@ -4,21 +4,29 @@
 
 The **`fracreg`** package is the most comprehensive tool available in R
 for estimating, diagnosing, and interpreting fractional response models.
-It supports:
+Originally focused on standard cross-sectional models, it has been
+substantially expanded to provide a complete suite of fractional
+response methodologies. The package supports:
 
-- **One-part models (1P)**: A single process governs the entire
-  distribution of $`y \in [0, 1]`$.
-- **Two-part hurdle models (2P)**: Separately models the binary hurdle
-  ($`y > 0`$) and the continuous fractional part ($`0 < y \le 1`$).
-- **Three-part double-inflated models (3P)**: Handles inflation at
-  **both** 0 and 1.
-- **Panel data models** (`fracregpd`): CRE, QML, and GMM approaches for
-  longitudinal data.
-- **Endogeneity correction** (`fracreghet`): Control function and IV-GMM
-  approaches.
+- **Cross-Sectional Models (`fracreg`)**: Includes one-part models (1P)
+  for standard $`[0, 1]`$ fractions, two-part hurdle models (2P) for
+  fractions with boundaries at 0 or 1, and three-part double-inflated
+  models (3P) for inflation at both boundaries.
+- **Panel Data Models (`fracregpd`)**: Utilises Correlated Random
+  Effects (CRE), Quasi-Maximum Likelihood (QML), and Generalised Method
+  of Moments (GMM) approaches for longitudinal data.
+- **Endogeneity Correction (`fracreghet`)**: Corrects for endogenous
+  covariates using Control Function and IV-GMM approaches.
+- **Fractional Multinomial Logit (`fracregmlogit`)**: Models
+  multivariate fractional outcomes where multiple fractions sum to 1.
+- **Fractional Ridge Regression (`fracregridge`)**: Incorporates L2
+  regularization dynamically controlled by the fraction of the
+  unregularized coefficient vector length.
 
 This vignette walks you through comprehensive empirical examples (using
-the 401(k) dataset) and simulated examples for each estimator.
+the built-in 401(k) and spending datasets) and simulated examples for
+each estimator. We provide detailed explanations of why each model is
+used and how to interpret the associated outputs.
 
 ``` r
 
@@ -27,20 +35,21 @@ library(fracreg)
 
 ## 1. Data Description and Preparation
 
-We use the built-in `fracreg_k401k` dataset, which is the canonical
-firm-level 401(k) plan participation data used in **Papke and Wooldridge
-(1996)** (*“Econometric methods for fractional response variables with
-an application to 401(k) plan participation rates”*, Journal of Applied
+We use the built-in `fracreg_k401k` dataset to demonstrate univariate
+fractional models. This is the canonical firm-level 401(k) plan
+participation data used in **Papke and Wooldridge (1996)**
+(*“Econometric methods for fractional response variables with an
+application to 401(k) plan participation rates”*, Journal of Applied
 Econometrics). The dataset contains 1,534 observations of 401(k) plans.
 
 The primary variables we use are: - `prate`: The plan participation rate
 (the fraction of eligible employees who are active participants). It
-strictly falls in the $`[0, 1]`$ interval and is our dependent variable
-($`y`$). - `mrate`: The firm’s matching rate (the firm’s contribution
-per \$1 of employee contribution). - `age`: The age of the 401(k)
-plan. - `totemp`: Total number of employees at the firm. - `sole`: A
-binary indicator equal to 1 if the 401(k) plan is the sole retirement
-plan offered by the firm.
+strictly falls in the $`[0, 1]`$ interval and serves as our dependent
+variable ($`y`$). - `mrate`: The firm’s matching rate (the firm’s
+contribution per \$1 of employee contribution). - `age`: The age of the
+401(k) plan. - `totemp`: Total number of employees at the firm. -
+`sole`: A binary indicator equal to 1 if the 401(k) plan is the sole
+retirement plan offered by the firm.
 
 ------------------------------------------------------------------------
 
@@ -49,9 +58,23 @@ plan offered by the firm.
 The core
 [`fracreg()`](https://sulmanolieko.github.io/fracreg/reference/fracreg.md)
 function is designed for univariate models where the dependent variable
-is bounded between 0 and 1 inclusive ($`0 \le y \le 1`$). The examples
-below demonstrate both empirical 401(k) plan participation data and
-general simulated boundaries.
+is bounded between 0 and 1 inclusive ($`0 \le y \le 1`$). We explore how
+to fit 1P, 2P, and 3P models using both the empirical 401(k) data and
+simulated data with strict boundaries.
+
+### 2.1 Empirical and Simulated Fractional Regressions
+
+In this section, we start with a standard 1-part (1P) fractional logit
+model to estimate participation rates in the 401(k) data. Since we might
+also be interested in multiplicative effects, we show how to extract
+odds ratios (`or=TRUE`). Next, we demonstrate how to tackle boundary
+inflation. For example, some firms might have 100% participation
+(`prate = 1`), so we fit a 2-part model (`inflation=1`).
+
+The simulated section further demonstrates generating artificial
+inflation at exactly 0 and 1. We then isolate the components of the
+2-part model (using `type="2Pbin"` and `type="2Pfrac"`) and fit full
+3-part models.
 
 ``` r
 
@@ -100,7 +123,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-11 22:01:42 
+    #>                          Run Date: 2026-07-11 22:30:26 
     #> --------------------------------------------------------------------------------
 
 ``` r
@@ -145,7 +168,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-11 22:01:42 
+    #>                          Run Date: 2026-07-11 22:30:26 
     #> --------------------------------------------------------------------------------
 
 ``` r
@@ -231,7 +254,7 @@ Toggle to see the output
     #> Pseudo R-squared:                                                        0.11243 
     #> Convergence:                                                          Successful 
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-11 22:01:42 
+    #>                          Run Date: 2026-07-11 22:30:27 
     #> --------------------------------------------------------------------------------
 
 ``` r
@@ -350,7 +373,7 @@ Toggle to see the output
     #> Pseudo R-squared:                                                        0.07934 
     #> Convergence:                                                          Successful 
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-11 22:01:42 
+    #>                          Run Date: 2026-07-11 22:30:27 
     #> --------------------------------------------------------------------------------
 
 ``` r
@@ -409,14 +432,20 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-11 22:01:42 
+    #>                          Run Date: 2026-07-11 22:30:27 
     #> --------------------------------------------------------------------------------
+
+#### 2.1.2 Binary Logit Component of a Two-Part Model
+
+Here, we estimate the binary (hurdle) component of a two-part fractional
+regression model. We specify `type="2Pbin"`, which instructs the
+function to model the probability of observing a non-boundary value
+versus the boundary value (in this case, 0). The `inflation=0` argument
+explicitly sets 0 as the relevant boundary.
 
 ``` r
 
- 
-# fracreg estimation of the binary logit component of the two-part fractional 
-# regression model with y=0 as the relevant boundary value 
+# Estimate the binary logit component 
 mod <- fracreg(y, X, type="2Pbin", inflation=0, linkbin="logit") 
 summary(mod)
 ```
@@ -447,12 +476,17 @@ Toggle to see the output
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> --------------------------------------------------------------------------------
 
+#### 2.1.3 Fractional Component of a Two-Part Model
+
+After modelling the hurdle, we estimate the continuous fractional
+component using `type="2Pfrac"`. This component only uses observations
+that are strictly bounded away from the inflated boundary ($`y > 0`$).
+In this example, we apply a **probit** link function to model the
+fractional values.
+
 ``` r
 
- 
-# fracreg estimation of the fractional component of the two-part fractional 
-# regression model with y=0 as the relevant boundary value and using a 
-# probit link function 
+# Estimate the fractional component using a probit link 
 mod <- fracreg(y, X, type="2Pfrac", inflation=0, linkfrac="probit") 
 summary(mod)
 ```
@@ -488,12 +522,17 @@ Toggle to see the output
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> --------------------------------------------------------------------------------
 
+#### 2.1.4 Full Two-Part Model (Joint Estimation)
+
+Alternatively, we can estimate both the binary and fractional components
+simultaneously by specifying `type="2P"`. Here we use different link
+functions for each part: a **cloglog** link for the binary hurdle (which
+is useful for asymmetric data) and a **logit** link for the fractional
+continuous part.
+
 ``` r
 
- 
-# fracreg estimation of both components of a two-part fractional response model 
-# with y=0 as the relevant boundary value and using a cloglog binary link 
-# function and a logit fractional link function 
+# Estimate both components jointly 
 mod <- fracreg(y, X, type="2P", inflation=0, linkbin="cloglog", linkfrac="logit") 
 summary(mod)
 ```
@@ -561,13 +600,20 @@ Toggle to see the output
     #> Pseudo R-squared:                                                        0.38829 
     #> Convergence:                                                          Successful 
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-11 22:01:42 
+    #>                          Run Date: 2026-07-11 22:30:27 
     #> --------------------------------------------------------------------------------
+
+#### 2.1.5 Three-Part Double-Inflated Model
+
+When the data exhibits inflation at **both** 0 and 1, a three-part model
+(`type="3P"`) is required. This models the probability of observing 0,
+the probability of observing 1, and the continuous fractional outcomes
+in between. We pass a vector of link functions `c("logit", "probit")`
+for the binary components, alongside the `logit` fractional link.
 
 ``` r
 
- 
-# Three-part double-inflated model (y has both 0s and 1s) 
+# Three-part double-inflated model 
 mod <- fracreg(y, X, type="3P", linkbin=c("logit","probit"), linkfrac="logit") 
 summary(mod)
 ```
@@ -663,16 +709,19 @@ Toggle to see the output
     #> Pseudo R-squared:                                                        0.38917 
     #> Convergence:                                                          Successful 
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-11 22:01:42 
+    #>                          Run Date: 2026-07-11 22:30:27 
     #> --------------------------------------------------------------------------------
 
-### 1.1 Partial Effects (`fracreg.pe`)
+### 2.2 Partial Effects (`fracreg.pe`)
 
-Raw coefficients from fractional models are not directly interpretable
-as marginal effects. Use
+Because fractional models are inherently non-linear, raw coefficients
+cannot be interpreted directly as constant marginal effects. The
 [`fracreg.pe()`](https://sulmanolieko.github.io/fracreg/reference/fracreg.pe.md)
-to compute the Average Partial Effects (APE) and Conditional Partial
-Effects (CPE) using the analytical delta method.
+function computes the actual marginal effects. We can compute Average
+Partial Effects (APE) across all observations or Conditional Partial
+Effects (CPE) evaluated at specific covariate values (e.g., holding
+covariates at their median). The examples below demonstrate how to
+extract these effects across standard, 2-part, and 3-part models.
 
 ``` r
 
@@ -704,7 +753,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-11 22:01:42 
+    #>                          Run Date: 2026-07-11 22:30:27 
     #> --------------------------------------------------------------------------------
 
 ``` r
@@ -743,14 +792,21 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-11 22:01:42 
+    #>                          Run Date: 2026-07-11 22:30:27 
     #> --------------------------------------------------------------------------------
+
+#### 2.2.2 APEs for a Two-Part Model
+
+When the data has boundary inflation (e.g., at 1), partial effects must
+account for both the hurdle process and the fractional continuous
+process. The
+[`fracreg.pe()`](https://sulmanolieko.github.io/fracreg/reference/fracreg.pe.md)
+function automatically handles this composite calculation for
+`type="2P"`.
 
 ``` r
 
- 
-#Computing average partial effects for a binary logit + fractional probit 
-#two-part model 
+# Compute average partial effects for a binary logit + fractional probit two-part model 
 mod <- fracreg(y,X,linkbin="logit",linkfrac="probit",type="2P",inf=1,table=FALSE) 
 pe_res <- fracreg.pe(mod) 
 summary(pe_res)
@@ -771,15 +827,20 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-11 22:01:42 
+    #>                          Run Date: 2026-07-11 22:30:27 
     #> --------------------------------------------------------------------------------
+
+#### 2.2.3 Conditional Partial Effects (CPE)
+
+Instead of averaging the effects over all observations (APE), you may
+want the effect for a “typical” observation. By setting `APE=FALSE` and
+`CPE=TRUE`, and providing `at="median"`, we compute the Conditional
+Partial Effect evaluated at the median values of all covariates. We
+isolate the effect of `X2` using `which.x="X2"`.
 
 ``` r
 
- 
-#Computing conditional partial effects for X2 in the logit component 
-#of a two-part fractional response model, with the covariates evaluated 
-#at their median values 
+# Compute conditional partial effects for X2 at median values 
 mod <- fracreg(y,X,linkfrac="logit",type="2Pfrac",inf=1,table=FALSE) 
 pe_res <- fracreg.pe(mod,APE=FALSE,CPE=TRUE,at="median",which.x="X2") 
 summary(pe_res)
@@ -799,15 +860,20 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-11 22:01:42 
+    #>                          Run Date: 2026-07-11 22:30:27 
     #> -------------------------------------------------------------------------------- 
     #> 
     #> Note: covariates evaluated at median (or mode, for dummies) values
 
+#### 2.2.4 APEs for a Three-Part Model
+
+For double-inflated models (`type="3P"`), the partial effect calculation
+incorporates both boundary probabilities and the interior fractional
+distribution.
+
 ``` r
 
- 
-#Computing average partial effects for a three-part double-inflated model 
+# Compute average partial effects for a three-part double-inflated model 
 y3p <- y 
 y3p[1:20] <- 0 
 y3p[21:40] <- 1 
@@ -831,7 +897,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-11 22:01:42 
+    #>                          Run Date: 2026-07-11 22:30:27 
     #> --------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------
@@ -843,8 +909,11 @@ model’s functional form and link function assumptions.
 
 ### 3.1 Generalised Goodness-Of-Functional-Form (`fracreg.ggoff`)
 
-The GGOFF test tests whether the chosen link function is adequate for
-the data. A significant result suggests the link may be misspecified.
+The GGOFF test checks if the chosen link function (e.g., `logit`,
+`probit`) is appropriate for the data. A significant test statistic
+suggests that the link function may be misspecified and an alternative
+should be explored. Here, we run the LM, Wald, and LR variations of the
+test on our fitted fractional models.
 
 ``` r
 
@@ -874,7 +943,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-11 22:01:42 
+    #>                          Run Date: 2026-07-11 22:30:27 
     #> --------------------------------------------------------------------------------
 
 ``` r
@@ -916,14 +985,18 @@ Toggle to see the output
     #> GGOFF - LM       1.612   0.447
     #> GGOFF - Wald     1.336   0.513
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-11 22:01:42 
+    #>                          Run Date: 2026-07-11 22:30:27 
     #> --------------------------------------------------------------------------------
+
+#### 3.1.2 GGOFF Test for the Binary Component
+
+The GGOFF test can also be applied to individual components of hurdle
+models. Here, we test the **probit** specification of the binary
+component (`2Pbin`) using a Likelihood Ratio (LR) test approach.
 
 ``` r
 
- 
-#Testing the probit specification of the binary component of a two-part fractional 
-#regression model using a LR-based GGOFF test 
+# Test the probit specification of the binary component 
 mod <- fracreg(y,X,linkbin="probit",type="2Pbin",inf=1,table=FALSE) 
 ggoff_res <- fracreg.ggoff(mod,"LR") 
 summary(ggoff_res)
@@ -942,14 +1015,15 @@ Toggle to see the output
     #> GOFF2 - LR     0.017   0.895
     #> GGOFF - LR     0.024   0.988
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-11 22:01:42 
+    #>                          Run Date: 2026-07-11 22:30:28 
     #> --------------------------------------------------------------------------------
 
 ### 3.2 RESET Test (`fracreg.reset`)
 
 The RESET test detects general functional form misspecification by
 testing whether powers of the fitted values have explanatory power.
-Testing $`H_0: \gamma = 0`$ provides a robust diagnostic check.
+Testing $`H_0: \gamma = 0`$ provides a robust diagnostic check against
+omitted non-linearities.
 
 ``` r
 
@@ -977,7 +1051,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-11 22:01:42 
+    #>                          Run Date: 2026-07-11 22:30:28 
     #> --------------------------------------------------------------------------------
 
 ``` r
@@ -1019,15 +1093,19 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-11 22:01:42 
+    #>                          Run Date: 2026-07-11 22:30:28 
     #> --------------------------------------------------------------------------------
+
+#### 3.2.2 RESET Test for the Binary Component
+
+Similar to GGOFF, the RESET test can validate individual hurdle
+components. Here, we use the Likelihood Ratio (LR) version of the RESET
+test on the binary probit component, checking up to cubic fitted powers
+of the linear predictor.
 
 ``` r
 
- 
-#Testing the probit specification of the binary component of a two-part fractional 
-#regression model using LR-based RESET tests with quadratic and cubic fitted  
-#powers of the linear predictor 
+# Test the probit specification of the binary component using LR RESET 
 mod <- fracreg(y,X,linkbin="probit",type="2Pbin",inf=1,table=FALSE) 
 reset_res <- fracreg.reset(mod,3,"LR") 
 #> Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred
@@ -1045,13 +1123,15 @@ Toggle to see the output
     #>       Statistic p-value
     #> LR(3)     0.976   0.614
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-11 22:01:42 
+    #>                          Run Date: 2026-07-11 22:30:28 
     #> --------------------------------------------------------------------------------
 
 ### 3.3 P-Test for Non-Nested Models (`fracreg.ptest`)
 
-You can compare non-nested models (e.g., `logit` vs. `cloglog` link)
-using the Davidson-MacKinnon (1981) P-test.
+When you need to choose between two non-nested model specifications (for
+example, a `logit` link vs. a `probit` or `loglog` link, or a 1P vs. a
+2P model), the P-test compares them directly to see if one statistically
+dominates the other.
 
 ``` r
 
@@ -1087,7 +1167,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-11 22:01:42 
+    #>                          Run Date: 2026-07-11 22:30:28 
     #> --------------------------------------------------------------------------------
 
 ``` r
@@ -1133,14 +1213,19 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-11 22:01:43 
+    #>                          Run Date: 2026-07-11 22:30:28 
     #> --------------------------------------------------------------------------------
+
+#### 3.3.2 P-Test: 1P vs. 2P Model
+
+The P-test is exceptionally useful for deciding whether a simple 1-part
+model suffices, or if the extra complexity of a 2-part model is
+statistically justified. We test the `1P` logit model against a `2P`
+(binary logit + fractional probit) model using the Wald test statistic.
 
 ``` r
 
- 
-#Testing a logit one-part fractional response model versus a binary logit + 
-#fractional probit two-part model using a Wald version of the P test 
+# Test 1P logit versus 2P logit-probit using Wald P-test 
 res1 <- fracreg(y,X,linkfrac="logit",table=FALSE) 
 res2 <- fracreg(y,X,linkbin="logit",linkfrac="probit",type="2P",inf=1,table=FALSE) 
 ptest_res <- fracreg.ptest(res1,res2,"Wald") 
@@ -1167,18 +1252,27 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-11 22:01:43 
+    #>                          Run Date: 2026-07-11 22:30:28 
     #> --------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------
 
 ## 4. Endogeneity & Heteroscedasticity (`fracreghet`)
 
-When you suspect that one of your covariates is endogenous, or that the
-variance is heteroscedastic,
+When a covariate is endogenous (correlated with the error term) or
+heteroscedasticity is present, standard maximum likelihood estimation
+becomes inconsistent.
 [`fracreghet()`](https://sulmanolieko.github.io/fracreg/reference/fracreghet.md)
-provides instrumental variable correction. It natively supports IV
-through a **Control Function (CF)** approach or **GMM** estimation.
+provides Instrumental Variable (IV) corrections using Control Function
+(CF) and Generalised Method of Moments (GMM) approaches.
+
+In the empirical example below, we suspect `mrate` (matching rate) might
+be endogenous. We use `age` and `ltotemp` (log of total employees) as
+instruments. We estimate the model using a Quasi-Maximum Likelihood
+control function approach (`QMLxv`). We also show how to extract odds
+ratios. In the simulated examples, we explore `GMMx`, `GMMz`, and
+`GMMxv` estimators which relax the need for a linear first-stage
+relationship in different ways.
 
 ``` r
 
@@ -1239,7 +1333,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-11 22:01:43 
+    #>                          Run Date: 2026-07-11 22:30:28 
     #> --------------------------------------------------------------------------------
 
 ``` r
@@ -1292,7 +1386,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-11 22:01:43 
+    #>                          Run Date: 2026-07-11 22:30:28 
     #> --------------------------------------------------------------------------------
 
 ``` r
@@ -1349,14 +1443,25 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-11 22:01:43 
+    #>                          Run Date: 2026-07-11 22:30:28 
     #> --------------------------------------------------------------------------------
 
 ``` r
 
 summary(mod)
  
-# Endogeneity, GMMz estimator (does not require reduced form for endog) 
+```
+
+#### 4.1.2 GMMz Estimator
+
+The **GMMz** estimator handles endogeneity directly through moment
+conditions using the instruments $`Z`$, without requiring an explicit
+linear reduced form equation for the endogenous variable. This approach
+is more robust to first-stage misspecification.
+
+``` r
+
+# Endogeneity, GMMz estimator 
 mod <- fracreghet(y = y_endog, x = X, z = Z, type = "GMMz", link = "logit") 
 ```
 
@@ -1387,14 +1492,25 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-11 22:01:43 
+    #>                          Run Date: 2026-07-11 22:30:29 
     #> --------------------------------------------------------------------------------
 
 ``` r
 
 summary(mod)
  
-# Endogeneity, GMMxv estimator (assumes linear reduced form for var.endog) 
+```
+
+#### 4.1.3 GMMxv Estimator
+
+The **GMMxv** estimator is a variation that does assume a linear reduced
+form for the endogenous variable, utilizing the first-stage residuals
+within the generalized method of moments framework to correct for
+endogeneity.
+
+``` r
+
+# Endogeneity, GMMxv estimator 
 mod <- fracreghet(y = y_endog, x = X, z = Z, var.endog = var.endog, type = "GMMxv", link = "logit") 
 #> Warning in dgamma(y, 1/disp, scale = mu * disp, log = TRUE): NaNs produced
 ```
@@ -1439,13 +1555,24 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-11 22:01:43 
+    #>                          Run Date: 2026-07-11 22:30:29 
     #> --------------------------------------------------------------------------------
 
 ``` r
 
 summary(mod)
  
+```
+
+#### 4.1.4 QMLxv Control Function Estimator
+
+The **QMLxv** approach utilizes a Control Function (CF). It explicitly
+estimates the first-stage linear reduced form, extracts the residuals,
+and includes them as control variables in the second-stage Quasi-Maximum
+Likelihood estimation to absorb the endogeneity.
+
+``` r
+
 # Endogeneity, QMLxv control function approach 
 mod <- fracreghet(y = y_endog, x = X, z = Z, var.endog = var.endog, type = "QMLxv", link = "logit") 
 ```
@@ -1490,7 +1617,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-11 22:01:43 
+    #>                          Run Date: 2026-07-11 22:30:29 
     #> --------------------------------------------------------------------------------
 
 ``` r
@@ -1499,6 +1626,11 @@ summary(mod)
 ```
 
 ### 4.1 Partial Effects for Endogenous Models (`fracreghet.pe`)
+
+Partial effects can also be calculated for endogenous models. When using
+a control function approach (`QMLxv`), `fracreghet.pe` accurately
+integrates over the estimated first-stage residuals, offering a
+corrected smearing estimation.
 
 ``` r
 
@@ -1534,7 +1666,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-11 22:01:43 
+    #>                          Run Date: 2026-07-11 22:30:29 
     #> --------------------------------------------------------------------------------
 
 ``` r
@@ -1575,14 +1707,19 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-11 22:01:43 
+    #>                          Run Date: 2026-07-11 22:30:29 
     #> --------------------------------------------------------------------------------
+
+#### 4.1.2 Naive Estimator for CPEs
+
+For a targeted interpretation, we can calculate Conditional Partial
+Effects (CPE) evaluated at specific fixed values (e.g., $`X1=1`$ and
+$`X2=-1`$). By setting `smearing=FALSE`, we use a naive estimator that
+does not integrate over the estimated unobserved heterogeneity.
 
 ``` r
 
- 
-#Naive estimator of conditional partial effects for all covariates, 
-#which are evaluated at X1=1 and X2=-1 
+# Naive estimator of CPE evaluated at fixed values 
 pe_res <- fracreghet.pe(mod,smearing=FALSE,APE=FALSE,CPE=TRUE,at=c(1,-1)) 
 summary(pe_res)
 ```
@@ -1603,7 +1740,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-11 22:01:43 
+    #>                          Run Date: 2026-07-11 22:30:29 
     #> -------------------------------------------------------------------------------- 
     #> 
     #> Note: covariates evaluated at the following values:
@@ -1612,6 +1749,10 @@ Toggle to see the output
     #>  1 -1
 
 ### 4.2 RESET Test for Endogenous Models (`fracreghet.reset`)
+
+Just as with `fracreg`, we can run RESET specification tests on our
+heteroscedasticity and endogeneity-robust models to assure proper
+functional form.
 
 ``` r
 
@@ -1647,7 +1788,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-11 22:01:44 
+    #>                          Run Date: 2026-07-11 22:30:29 
     #> --------------------------------------------------------------------------------
 
 ``` r
@@ -1691,17 +1832,21 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-11 22:01:44 
+    #>                          Run Date: 2026-07-11 22:30:29 
     #> --------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------
 
 ## 5. Panel Data Fractional Models (`fracregpd`)
 
-For longitudinal or panel data where unobserved heterogeneity is a
-concern,
+When you observe the same entities over multiple time periods,
+unobserved individual heterogeneity must be accounted for.
 [`fracregpd()`](https://sulmanolieko.github.io/fracreg/reference/fracregpd.md)
-provides fixed-T panel estimators.
+provides fixed-T panel estimators. We explore Correlated Random Effects
+(CRE) which includes time-averages of the covariates to proxy the
+unobserved effect, as well as various panel GMM estimators (like
+`GMMbgw`, `GMMww`, and `GMMpfe`) which can handle lagged dependent
+variables, endogenous covariates, and time dummies.
 
 ``` r
 
@@ -1764,7 +1909,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-11 22:01:44 
+    #>                          Run Date: 2026-07-11 22:30:30 
     #> --------------------------------------------------------------------------------
 
 ``` r
@@ -1834,13 +1979,18 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-11 22:01:44 
+    #>                          Run Date: 2026-07-11 22:30:30 
     #> --------------------------------------------------------------------------------
+
+#### 5.1.2 Standard Panel GMM (GMMbgw)
+
+The **GMMbgw** estimator is a standard GMM panel approach that doesn’t
+explicitly model unobserved effects via time-averages, but relies on
+moment conditions. Here we apply it with clustered standard errors.
 
 ``` r
 
- 
-# Exogeneity, no lags, no time dummies, clustered standard errors, GMMbgw estimator 
+# Exogeneity, GMMbgw estimator 
 mod <- fracregpd(id=id, time=time, y=y_panel, x=X, type="GMMbgw") 
 summary(mod)
 ```
@@ -1873,13 +2023,18 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-11 22:01:44 
+    #>                          Run Date: 2026-07-11 22:30:30 
     #> --------------------------------------------------------------------------------
+
+#### 5.1.3 Generalized Method of Moments (GMMww)
+
+The **GMMww** estimator extends panel GMM capabilities. Below, we
+estimate the model and demonstrate how to extract odds ratios
+(`or=TRUE`) with a 99% confidence level.
 
 ``` r
 
-
-# Estimate the GMMww estimator with odds ratios and 99% confidence intervals
+# Estimate GMMww estimator with odds ratios
 mod <- fracregpd(id=id, time=time, y=y_panel, x=X, type="GMMww", or=TRUE, level=0.99)
 summary(mod)
 ```
@@ -1912,13 +2067,19 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-11 22:01:44 
+    #>                          Run Date: 2026-07-11 22:30:30 
     #> --------------------------------------------------------------------------------
+
+#### 5.1.4 GMMww with Lagged Covariates
+
+Dynamic panel data often require the inclusion of lagged covariates as
+instruments. By setting `lags=TRUE`, the model automatically configures
+the moment conditions using lagged values, employing robust standard
+errors to handle potential heteroscedasticity across time periods.
 
 ``` r
 
- 
-# Lagged covariates and instruments, robust standard errors, GMMww estimator 
+# Lagged covariates and instruments 
 mod <- fracregpd(id=id, time=time, y=y_panel, x=X, lags=TRUE, type="GMMww", var.type="robust") 
 summary(mod)
 ```
@@ -1951,12 +2112,19 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-11 22:01:44 
+    #>                          Run Date: 2026-07-11 22:30:30 
     #> --------------------------------------------------------------------------------
+
+#### 5.1.5 Endogenous Panel GMM (GMMpfe)
+
+When covariates are endogenous in a panel setting, we combine
+instruments ($`Z`$) with panel structure. The **GMMpfe** estimator
+allows for endogenous variables (`x.exogenous=FALSE`) and includes time
+dummies (`tdummies=TRUE`) to control for macroeconomic or aggregate time
+shocks.
 
 ``` r
 
- 
 # Endogeneity, time dummies, GMMpfe estimator 
 mod <- fracregpd(id=id, time=time, y=y_endog, x=X_endog, z=Z_inst,  
           x.exogenous=FALSE, type="GMMpfe", tdummies=TRUE) 
@@ -2001,25 +2169,33 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-11 22:01:45 
+    #>                          Run Date: 2026-07-11 22:30:31 
     #> --------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------
 
-## 5. Fractional Ridge Regression
+## 6. Fractional Ridge Regression
 
 The `fracreg` package also includes an implementation of Fractional
-Ridge Regression (`fracregridge`). Unlike standard ridge regression
-where the penalty term $`\alpha`$ is chosen directly, `fracregridge`
-allows you to specify the desired *fraction* of the unregularized OLS
-coefficient vector length. The algorithm then automatically determines
-the corresponding $`\alpha`$ penalties.
+Ridge Regression (`fracregridge`). Standard maximum likelihood
+approaches can suffer from multicollinearity or overfitting when the
+number of covariates is large relative to the sample size.
+`fracregridge` implements Fractional Ridge Regression, which applies L2
+regularization to shrink coefficients.
 
-### 5.1 Empirical 401(k) Example
+Unlike standard ridge regression where the penalty term $`\alpha`$ is
+chosen directly, `fracregridge` allows you to specify the desired
+*fraction* of the unregularized OLS coefficient vector length
+(e.g. `0.2` implies shrinking to 20% of the full OLS length). The
+algorithm then automatically determines the corresponding $`\alpha`$
+penalties.
 
-We can also apply this to the 401(k) participation rate data to observe
-how the coefficients dynamically shrink across different target vector
-length fractions.
+### 6.1 Empirical 401(k) Example
+
+We can apply this to the 401(k) participation rate data to observe how
+the coefficients dynamically shrink across different target vector
+length fractions (from 20% to 100%). We also demonstrate how to compute
+partial effects on the regularized coefficients.
 
 ``` r
 
@@ -2119,7 +2295,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-11 22:01:45 
+    #>                          Run Date: 2026-07-11 22:30:31 
     #> --------------------------------------------------------------------------------
 
 ``` r
@@ -2204,10 +2380,14 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-11 22:01:45 
+    #>                          Run Date: 2026-07-11 22:30:31 
     #> --------------------------------------------------------------------------------
 
-### 5.2 Simulated Data Example
+### 6.2 Simulated Data Example
+
+Using a random matrix of 10 predictors on 100 observations, we can see
+how the fraction parameters precisely constrain the output coefficients
+to 30%, 50%, and 80% lengths.
 
 ``` r
 
@@ -2326,17 +2506,27 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-11 22:01:45 
+    #>                          Run Date: 2026-07-11 22:30:31 
     #> --------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------
 
-## 6. Fractional Multinomial Logit
+## 7. Fractional Multinomial Logit
 
 The `fracreg` package incorporates the fractional multinomial logit
 (`fracregmlogit`) to estimate fractional response data where the
 response variable consists of fractions that sum up to one across
-multiple categories.
+multiple categories (e.g., budget allocations across departments). A
+univariate model is insufficient because the bounded choices are
+perfectly collinear in sum.
+
+### 7.1 Estimating Budget Shares
+
+We use the built-in `fracreg_spending` dataset, which records the budget
+share allocations of local governments across 6 distinct sectors. The
+sum of these 6 sectoral fractions for any given government is exactly 1.
+We compute both the model summary and the discrete partial effects for
+specific explanatory variables.
 
 ``` r
 
@@ -2353,7 +2543,7 @@ mn_fit <- fracregmlogit(y, X)
 
 Toggle to see the output
 
-    #> [1] "Fractional logit model estimation completed. Time: 8.1 seconds"
+    #> [1] "Fractional logit model estimation completed. Time: 8.5 seconds"
 
 ``` r
 
@@ -2439,7 +2629,7 @@ Toggle to see the output
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> 
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-11 22:01:53 
+    #>                          Run Date: 2026-07-11 22:30:39 
     #> --------------------------------------------------------------------------------
 
 ``` r
@@ -2465,11 +2655,19 @@ Toggle to see the output
     #> social        -0.022157074 -0.004293717
     #> urbanplanning  0.021425001  0.021045798
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-11 22:01:53 
+    #>                          Run Date: 2026-07-11 22:30:39 
     #> --------------------------------------------------------------------------------
 
-You can also calculate the Willingness to Pay (WTP) and visualize the
-estimates using the built-in plot methods:
+### 7.2 Willingness to Pay (WTP)
+
+In policy or consumer choice applications, you might want to calculate
+the aggregate effect of a variable scaled by arbitrary outcome weights
+(such as cost, budget, or willingness to pay associated with each
+choice). The
+[`wtp()`](https://sulmanolieko.github.io/fracreg/reference/wtp.md)
+function multiplies the average partial effects by these arbitrary
+values and tests if the aggregate effect differs from zero. We define a
+vector of length 6 (to match the 6 categories) and plot the effect.
 
 ``` r
 
@@ -2916,10 +3114,11 @@ Toggle to see the output
 
 ## Conclusion
 
-With `fracreg`, `fracreghet`, and `fracregpd`, you have a complete,
-mathematically robust toolkit for modelling fractional responses bounded
-between $`[0,1]`$, regardless of inflation, endogeneity, or unobserved
-panel effects.
+With `fracreg`, `fracreghet`, `fracregpd`, `fracregmlogit`, and
+`fracregridge`, you have a complete, mathematically robust toolkit for
+modelling fractional responses bounded between $`[0,1]`$, regardless of
+inflation, endogeneity, unobserved panel effects, multinomial structure,
+or multicollinearity.
 
 ## Acknowledgements
 

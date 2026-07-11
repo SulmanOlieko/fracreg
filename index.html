@@ -19,9 +19,9 @@
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><link href="extra.css" rel="stylesheet">
 <meta property="og:title" content="fracreg — Fractional Response Regressions">
-<meta name="description" content="A comprehensive R package for estimation, specification testing, and interpretation of one-part, two-part hurdle, and three-part double-inflated fractional regression models. Supports panel data (CRE, GMM, QML) and endogeneity correction via control function and GMM approaches.
+<meta name="description" content="A comprehensive R package for estimation, specification testing, and interpretation of one-part, two-part hurdle, and three-part double-inflated fractional regression models. Supports panel data (CRE, GMM, QML), endogeneity  correction via control function and GMM approaches, fractional multinomial  logit models for multivariate shares, and fractional ridge regression.
 ">
-<meta property="og:description" content="A comprehensive R package for estimation, specification testing, and interpretation of one-part, two-part hurdle, and three-part double-inflated fractional regression models. Supports panel data (CRE, GMM, QML) and endogeneity correction via control function and GMM approaches.
+<meta property="og:description" content="A comprehensive R package for estimation, specification testing, and interpretation of one-part, two-part hurdle, and three-part double-inflated fractional regression models. Supports panel data (CRE, GMM, QML), endogeneity  correction via control function and GMM approaches, fractional multinomial  logit models for multivariate shares, and fractional ridge regression.
 ">
 <meta property="og:image" content="https://sulmanolieko.github.io/fracreg/logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -80,11 +80,11 @@
 <p><a href="https://github.com/SulmanOlieko/fracreg" class="external-link"><img src="https://img.shields.io/badge/license-GPL-blue" alt="License: GPL"></a> <a href="https://github.com/SulmanOlieko/fracreg" class="external-link"><img src="https://img.shields.io/github/languages/code-size/SulmanOlieko/fracreg.svg" alt="Code size"></a> <a href="https://github.com/SulmanOlieko/fracreg" class="external-link"><img src="https://visitor-badge.laobi.icu/badge?page_id=sulmanolieko.fracreg" alt="Visitors"></a></p>
 <p><a href="https://cran.r-project.org/package=fracreg" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/grand-total/fracreg" alt="CRAN Total Downloads"></a> <a href="https://cran.r-project.org/package=fracreg" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/fracreg" alt="CRAN Monthly Downloads"></a> <a href="https://cran.r-project.org/package=fracreg" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/last-week/fracreg" alt="CRAN Weekly Downloads"></a> <a href="https://cran.r-project.org/package=fracreg" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/last-day/fracreg" alt="CRAN Daily Downloads"></a></p>
 <p><a href="https://github.com/SulmanOlieko/fracreg" class="external-link"><img src="https://img.shields.io/badge/devel%20version-1.0.0-darkred.svg" alt="Development version"></a> <a href="https://sulmanolieko.r-universe.dev/fracreg" class="external-link"><img src="https://sulmanolieko.r-universe.dev/fracreg/badges/version" alt="fracreg status badge"></a> <a href="https://CRAN.R-project.org/package=fracreg" class="external-link"><img src="https://www.r-pkg.org/badges/version/fracreg" alt="CRAN status"></a></p>
-<p>An R package for fitting and testing specifications of fractional regression models. It handles fractional, univariate proportions, and bounded data (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>≤</mo><mi>y</mi><mo>≤</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">0 \le y \le 1</annotation></semantics></math>), and provides estimators for one-part, two-part (hurdle), and three-part (double-inflated) models.</p>
+<p>An R package for fitting and testing specifications of fractional regression models. It handles fractional, univariate proportions, and bounded data (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>≤</mo><mi>y</mi><mo>≤</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">0 \le y \le 1</annotation></semantics></math>), and provides estimators for one-part, two-part (hurdle), and three-part (double-inflated) models. It also extends fractional modelling to multivariate data through fractional multinomial logit and introduces fractional ridge regression for multicollinear, high-dimensional datasets.</p>
 <div class="section level2">
 <h2 id="features">Features<a class="anchor" aria-label="anchor" href="#features"></a>
 </h2>
-<p><code>fracreg</code> is handles:</p>
+<p><code>fracreg</code> handles:</p>
 <ol style="list-style-type: decimal">
 <li>
 <strong>Univariate Fractional Models (<code>fracreg</code>)</strong>: Fit standard 1-part models, hurdle 2-part models (mass at 0 or 1), and double-inflated 3-part models.</li>
@@ -93,9 +93,13 @@
 <li>
 <strong>Endogeneity &amp; Heteroscedasticity (<code>fracreghet</code>)</strong>: Correct for endogenous covariates using Instrumental Variables (IV) via Control Function and GMM approaches.</li>
 <li>
-<strong>Diagnostic Testing</strong>: Includes generalised goodness-of-functional-form (<code>fracreg.ggoff</code>), RESET (<code>fracreg.reset</code>), and non-nested P-tests (<code>fracreg.ptest</code>).</li>
+<strong>Fractional Multinomial Logit (<code>fracregmlogit</code>)</strong>: Estimate multivariate fractional responses where outcomes across multiple categories sum to 1.</li>
 <li>
-<strong>Analytical Partial Effects</strong>: Compute exact marginal effects for all model types (including 3-part composite effects) via the Delta method using <code><a href="reference/fracreg.pe.html">fracreg.pe()</a></code>.</li>
+<strong>Fractional Ridge Regression (<code>fracregridge</code>)</strong>: Perform L2 regularization using dynamic fraction penalties of the unregularized vector length.</li>
+<li>
+<strong>Diagnostic Testing</strong>: Includes model-specific routines for generalised goodness-of-functional-form, RESET, and non-nested P-tests (e.g., <code>fracreg.ggoff</code>, <code>fracreghet.reset</code>, <code>fracreg.ptest</code>).</li>
+<li>
+<strong>Analytical Partial Effects</strong>: Compute exact marginal effects for all model types via the Delta method using their respective functions (e.g., <code><a href="reference/fracreg.pe.html">fracreg.pe()</a></code>, <code><a href="reference/fracregpd.pe.html">fracregpd.pe()</a></code>, <code><a href="reference/fracreghet.pe.html">fracreghet.pe()</a></code>, <code><a href="reference/fracregridge.pe.html">fracregridge.pe()</a></code>, and <code><a href="reference/fracregmlogit.pe.html">fracregmlogit.pe()</a></code>).</li>
 </ol>
 <hr>
 </div>
