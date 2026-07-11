@@ -25,12 +25,24 @@ regressors.
 
 - [`fracregpd()`](https://sulmanolieko.github.io/fracreg/reference/fracregpd.md)
   : Fitting Panel Data Fractional Response Regressions
+- [`fracregpd.pe()`](https://sulmanolieko.github.io/fracreg/reference/fracregpd.pe.md)
+  : Partial Effects for Fractional Panel Data Regression
 - [`fracreghet()`](https://sulmanolieko.github.io/fracreg/reference/fracreghet.md)
   : Fitting Fractional Response Regressions under Unobserved
   Heterogeneity
 - [`fracreghet.pe()`](https://sulmanolieko.github.io/fracreg/reference/fracreghet.pe.md)
   : Fractional Response Regressions under Unobserved Heterogeneity -
   Partial Effects
+
+## Fractional Ridge Regression
+
+Functions for applying ridge penalization to fractional regression
+models.
+
+- [`fracregridge()`](https://sulmanolieko.github.io/fracreg/reference/fracregridge.md)
+  : Fractional Ridge Regression
+- [`fracregridge.pe()`](https://sulmanolieko.github.io/fracreg/reference/fracregridge.pe.md)
+  : Partial Effects for Fractional Ridge Regression
 
 ## Specification Testing & Diagnostics
 
