@@ -69,7 +69,7 @@ y = fracreg_spending[,6:11]
 results1 = fracregmlogit(y, X)
 
 # Define a willingness to pay vector
-wtp.vec = c(1, 1, 1, 1, 1)
+wtp.vec = c(1, 1, 1, 1, 1, 1)
 
 # Plot WTP for 'popdens'
 plot(results1, wtp.vec=wtp.vec, varlist="popdens")
