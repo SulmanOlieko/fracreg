@@ -1,7 +1,8 @@
 # "Willingness to Pay" for fracregmlogit models
 
-Calculates the willingness to pay for fractional multinomial logit
-models.
+Evaluate the "Willingness to Pay" given a set of arbitrary values for
+outcome variables. Usually used for policy evaluations where the total
+magnitude of marginal change matters.
 
 ## Usage
 
@@ -13,27 +14,26 @@ wtp(object, wtp.vec, varlist = NULL, indv.obs = FALSE)
 
 - object:
 
-  A fracregmlogit.pe object.
+  A `fracregmlogit.pe` object.
 
 - wtp.vec:
 
-  A numeric vector containing the outcome arbitrary values to be
-  evaluated.
+  A numeric vector containing the arbitrary outcome values to be
+  evaluated for each choice j.
 
 - varlist:
 
-  A string or vector of strings of covariates to be evaluated. Default
-  is all available explanatory variables.
+  A string vector which provides the names of variables to calculate the
+  wtp for. If missing, all variables in the object will be calculated.
 
 - indv.obs:
 
-  boolean. Provide WTP values for individual observations?
+  A logical value indicating whether to return individual observations.
 
 ## Value
 
-A matrix containing the estimates, standard error, z-stats, and p-value.
-
-A "fracregmlogit.wtp" object.
+A "fracregmlogit.wtp" object containing the estimates, standard error,
+z-stats, and p-value.
 
 ## Details
 
@@ -61,3 +61,19 @@ to pay.
 [`plot.fracregmlogit`](https://sulmanolieko.github.io/fracreg/reference/plot.fracregmlogit.md)
 
 ## Examples
+
+``` r
+# \donttest{
+data("fracreg_spending")
+X = fracreg_spending[,2:5]
+y = fracreg_spending[,6:11]
+results1 = fracregmlogit(y, X)
+#> [1] "Fractional logit model estimation completed. Time: 0.2 seconds"
+pe = fracregmlogit.pe(results1)
+# Assuming arbitrary WTP values for the 6 choices
+wtp_est = wtp(pe, wtp.vec = c(1, 2, 3, 4, 5, 6), varlist = "houseval")
+summary(wtp_est)
+#>        houseval
+#> [1,] -0.1230025
+# }
+```

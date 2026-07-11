@@ -28,10 +28,10 @@
 
 #### Documentation & Website
 
-- **Citations & References:** Added robust citations for the
-  foundational `fmlogit` (Ji and Woodill) and `fracridge` (Rokem and
-  Kay) packages across manual pages, README, and vignettes, formatting
-  URLs properly for rendering.
+- **Citations & References:** Added citations for the foundational
+  `fmlogit` (Ji and Woodill) and `fracridge` (Rokem and Kay) packages
+  across manual pages, README, and vignettes, formatting URLs properly
+  for rendering.
 - **Logo & Badges:** Improved the package hex logo and added status
   badges to the `README`.
 - **Website (`pkgdown`):** Added a `sitemap.xml` and reordered the
