@@ -113,24 +113,47 @@ X <- cbind(x1 = x1, x2 = x2)
 mod <- fracreg(y, X, type="1P", linkfrac="logit") 
 summary(mod)
  
-# fracreg estimation of the binary logit component of the two-part fractional 
-# regression model with y=0 as the relevant boundary value 
+```
+        
+#### 2.1.2 Binary Logit Component of a Two-Part Model
+
+Here, we estimate the binary (hurdle) component of a two-part fractional regression model. We specify `type="2Pbin"`, which instructs the function to model the probability of observing a non-boundary value versus the boundary value (in this case, 0). The `inflation=0` argument explicitly sets 0 as the relevant boundary.
+
+```{r fracreg_2pbin}
+# Estimate the binary logit component 
 mod <- fracreg(y, X, type="2Pbin", inflation=0, linkbin="logit") 
 summary(mod)
  
-# fracreg estimation of the fractional component of the two-part fractional 
-# regression model with y=0 as the relevant boundary value and using a 
-# probit link function 
+```
+        
+#### 2.1.3 Fractional Component of a Two-Part Model
+
+After modelling the hurdle, we estimate the continuous fractional component using `type="2Pfrac"`. This component only uses observations that are strictly bounded away from the inflated boundary ($y > 0$). In this example, we apply a **probit** link function to model the fractional values.
+
+```{r fracreg_2pfrac}
+# Estimate the fractional component using a probit link 
 mod <- fracreg(y, X, type="2Pfrac", inflation=0, linkfrac="probit") 
 summary(mod)
  
-# fracreg estimation of both components of a two-part fractional response model 
-# with y=0 as the relevant boundary value and using a cloglog binary link 
-# function and a logit fractional link function 
+```
+
+#### 2.1.4 Full Two-Part Model (Joint Estimation)
+
+Alternatively, we can estimate both the binary and fractional components simultaneously by specifying `type="2P"`. Here we use different link functions for each part: a **cloglog** link for the binary hurdle (which is useful for asymmetric data) and a **logit** link for the fractional continuous part.
+
+```{r fracreg_2p_joint}
+# Estimate both components jointly 
 mod <- fracreg(y, X, type="2P", inflation=0, linkbin="cloglog", linkfrac="logit") 
 summary(mod)
  
-# Three-part double-inflated model (y has both 0s and 1s) 
+```
+
+#### 2.1.5 Three-Part Double-Inflated Model
+
+When the data exhibits inflation at **both** 0 and 1, a three-part model (`type="3P"`) is required. This models the probability of observing 0, the probability of observing 1, and the continuous fractional outcomes in between. We pass a vector of link functions `c("logit", "probit")` for the binary components, alongside the `logit` fractional link.
+
+```{r fracreg_3p_simulated}
+# Three-part double-inflated model 
 mod <- fracreg(y, X, type="3P", linkbin=c("logit","probit"), linkfrac="logit") 
 summary(mod)
 ```
@@ -167,20 +190,38 @@ mod <- fracreg(y,X,linkfrac="logit",table=FALSE)
 pe_res <- fracreg.pe(mod) 
 summary(pe_res)
  
-#Computing average partial effects for a binary logit + fractional probit 
-#two-part model 
+```
+
+#### 2.2.2 APEs for a Two-Part Model
+
+When the data has boundary inflation (e.g., at 1), partial effects must account for both the hurdle process and the fractional continuous process. The `fracreg.pe()` function automatically handles this composite calculation for `type="2P"`.
+
+```{r fracreg_pe_2p}
+# Compute average partial effects for a binary logit + fractional probit two-part model 
 mod <- fracreg(y,X,linkbin="logit",linkfrac="probit",type="2P",inf=1,table=FALSE) 
 pe_res <- fracreg.pe(mod) 
 summary(pe_res)
  
-#Computing conditional partial effects for X2 in the logit component 
-#of a two-part fractional response model, with the covariates evaluated 
-#at their median values 
+```
+
+#### 2.2.3 Conditional Partial Effects (CPE)
+
+Instead of averaging the effects over all observations (APE), you may want the effect for a "typical" observation. By setting `APE=FALSE` and `CPE=TRUE`, and providing `at="median"`, we compute the Conditional Partial Effect evaluated at the median values of all covariates. We isolate the effect of `X2` using `which.x="X2"`.
+
+```{r fracreg_pe_cpe}
+# Compute conditional partial effects for X2 at median values 
 mod <- fracreg(y,X,linkfrac="logit",type="2Pfrac",inf=1,table=FALSE) 
 pe_res <- fracreg.pe(mod,APE=FALSE,CPE=TRUE,at="median",which.x="X2") 
 summary(pe_res)
  
-#Computing average partial effects for a three-part double-inflated model 
+```
+
+#### 2.2.4 APEs for a Three-Part Model
+
+For double-inflated models (`type="3P"`), the partial effect calculation incorporates both boundary probabilities and the interior fractional distribution.
+
+```{r fracreg_pe_3p}
+# Compute average partial effects for a three-part double-inflated model 
 y3p <- y 
 y3p[1:20] <- 0 
 y3p[21:40] <- 1 
@@ -229,8 +270,14 @@ mod <- fracreg(y,X,linkfrac="logit",table=FALSE)
 ggoff_res <- fracreg.ggoff(mod,c("Wald","LM")) 
 summary(ggoff_res)
  
-#Testing the probit specification of the binary component of a two-part fractional 
-#regression model using a LR-based GGOFF test 
+```
+
+#### 3.1.2 GGOFF Test for the Binary Component
+
+The GGOFF test can also be applied to individual components of hurdle models. Here, we test the **probit** specification of the binary component (`2Pbin`) using a Likelihood Ratio (LR) test approach.
+
+```{r fracreg_ggoff_2pbin}
+# Test the probit specification of the binary component 
 mod <- fracreg(y,X,linkbin="probit",type="2Pbin",inf=1,table=FALSE) 
 ggoff_res <- fracreg.ggoff(mod,"LR") 
 summary(ggoff_res)
@@ -270,9 +317,14 @@ mod <- fracreg(y,X,linkfrac="logit",table=FALSE)
 reset_res <- fracreg.reset(mod,2:3,c("Wald","LM")) 
 summary(reset_res)
  
-#Testing the probit specification of the binary component of a two-part fractional 
-#regression model using LR-based RESET tests with quadratic and cubic fitted  
-#powers of the linear predictor 
+```
+
+#### 3.2.2 RESET Test for the Binary Component
+
+Similar to GGOFF, the RESET test can validate individual hurdle components. Here, we use the Likelihood Ratio (LR) version of the RESET test on the binary probit component, checking up to cubic fitted powers of the linear predictor.
+
+```{r fracreg_reset_2pbin}
+# Test the probit specification of the binary component using LR RESET 
 mod <- fracreg(y,X,linkbin="probit",type="2Pbin",inf=1,table=FALSE) 
 reset_res <- fracreg.reset(mod,3,"LR") 
 summary(reset_res)
@@ -313,8 +365,14 @@ res2 <- fracreg(y,X,linkfrac="loglog",table=FALSE)
 ptest_res <- fracreg.ptest(res1,res2,"LM") 
 summary(ptest_res)
  
-#Testing a logit one-part fractional response model versus a binary logit + 
-#fractional probit two-part model using a Wald version of the P test 
+```
+
+#### 3.3.2 P-Test: 1P vs. 2P Model
+
+The P-test is exceptionally useful for deciding whether a simple 1-part model suffices, or if the extra complexity of a 2-part model is statistically justified. We test the `1P` logit model against a `2P` (binary logit + fractional probit) model using the Wald test statistic.
+
+```{r fracreg_ptest_1p_vs_2p}
+# Test 1P logit versus 2P logit-probit using Wald P-test 
 res1 <- fracreg(y,X,linkfrac="logit",table=FALSE) 
 res2 <- fracreg(y,X,linkbin="logit",linkfrac="probit",type="2P",inf=1,table=FALSE) 
 ptest_res <- fracreg.ptest(res1,res2,"Wald") 
@@ -372,14 +430,35 @@ Z <- cbind(x1 = x1, z1 = z1)
 mod <- fracreghet(y = y_endog, x = X, type = "GMMx", link = "logit") 
 summary(mod)
  
-# Endogeneity, GMMz estimator (does not require reduced form for endog) 
+```
+
+#### 4.1.2 GMMz Estimator
+
+The **GMMz** estimator handles endogeneity directly through moment conditions using the instruments $Z$, without requiring an explicit linear reduced form equation for the endogenous variable. This approach is more robust to first-stage misspecification.
+
+```{r fracreghet_gmmz}
+# Endogeneity, GMMz estimator 
 mod <- fracreghet(y = y_endog, x = X, z = Z, type = "GMMz", link = "logit") 
 summary(mod)
  
-# Endogeneity, GMMxv estimator (assumes linear reduced form for var.endog) 
+```
+
+#### 4.1.3 GMMxv Estimator
+
+The **GMMxv** estimator is a variation that does assume a linear reduced form for the endogenous variable, utilizing the first-stage residuals within the generalized method of moments framework to correct for endogeneity.
+
+```{r fracreghet_gmmxv}
+# Endogeneity, GMMxv estimator 
 mod <- fracreghet(y = y_endog, x = X, z = Z, var.endog = var.endog, type = "GMMxv", link = "logit") 
 summary(mod)
  
+```
+
+#### 4.1.4 QMLxv Control Function Estimator
+
+The **QMLxv** approach utilizes a Control Function (CF). It explicitly estimates the first-stage linear reduced form, extracts the residuals, and includes them as control variables in the second-stage Quasi-Maximum Likelihood estimation to absorb the endogeneity.
+
+```{r fracreghet_qmlxv}
 # Endogeneity, QMLxv control function approach 
 mod <- fracreghet(y = y_endog, x = X, z = Z, var.endog = var.endog, type = "QMLxv", link = "logit") 
 summary(mod)
@@ -425,8 +504,14 @@ mod <- fracreghet(y,X,type="GMMx",table=FALSE)
 pe_res <- fracreghet.pe(mod,which.x="X1") 
 summary(pe_res)
  
-#Naive estimator of conditional partial effects for all covariates, 
-#which are evaluated at X1=1 and X2=-1 
+```
+
+#### 4.1.2 Naive Estimator for CPEs
+
+For a targeted interpretation, we can calculate Conditional Partial Effects (CPE) evaluated at specific fixed values (e.g., $X1=1$ and $X2=-1$). By setting `smearing=FALSE`, we use a naive estimator that does not integrate over the estimated unobserved heterogeneity.
+
+```{r fracreghet_pe_cpe}
+# Naive estimator of CPE evaluated at fixed values 
 pe_res <- fracreghet.pe(mod,smearing=FALSE,APE=FALSE,CPE=TRUE,at=c(1,-1)) 
 summary(pe_res)
 ```
@@ -522,18 +607,46 @@ Z_inst <- cbind(x_panel = x_panel, z_panel = z_panel)
 mod <- fracregpd(id=id, time=time, y=y_panel, x=X, type="QMLcre", link="probit") 
 summary(mod)
  
-# Exogeneity, no lags, no time dummies, clustered standard errors, GMMbgw estimator 
+```
+
+#### 5.1.2 Standard Panel GMM (GMMbgw)
+
+The **GMMbgw** estimator is a standard GMM panel approach that doesn't explicitly model unobserved effects via time-averages, but relies on moment conditions. Here we apply it with clustered standard errors.
+
+```{r fracregpd_gmmbgw}
+# Exogeneity, GMMbgw estimator 
 mod <- fracregpd(id=id, time=time, y=y_panel, x=X, type="GMMbgw") 
 summary(mod)
 
-# Estimate the GMMww estimator with odds ratios and 99% confidence intervals
+```
+
+#### 5.1.3 Generalized Method of Moments (GMMww)
+
+The **GMMww** estimator extends panel GMM capabilities. Below, we estimate the model and demonstrate how to extract odds ratios (`or=TRUE`) with a 99% confidence level.
+
+```{r fracregpd_gmmww}
+# Estimate GMMww estimator with odds ratios
 mod <- fracregpd(id=id, time=time, y=y_panel, x=X, type="GMMww", or=TRUE, level=0.99)
 summary(mod)
  
-# Lagged covariates and instruments, robust standard errors, GMMww estimator 
+```
+
+#### 5.1.4 GMMww with Lagged Covariates
+
+Dynamic panel data often require the inclusion of lagged covariates as instruments. By setting `lags=TRUE`, the model automatically configures the moment conditions using lagged values, employing robust standard errors to handle potential heteroscedasticity across time periods.
+
+```{r fracregpd_gmmww_lags}
+# Lagged covariates and instruments 
 mod <- fracregpd(id=id, time=time, y=y_panel, x=X, lags=TRUE, type="GMMww", var.type="robust") 
 summary(mod)
  
+```
+
+#### 5.1.5 Endogenous Panel GMM (GMMpfe)
+
+When covariates are endogenous in a panel setting, we combine instruments ($Z$) with panel structure. The **GMMpfe** estimator allows for endogenous variables (`x.exogenous=FALSE`) and includes time dummies (`tdummies=TRUE`) to control for macroeconomic or aggregate time shocks.
+
+```{r fracregpd_gmmpfe}
 # Endogeneity, time dummies, GMMpfe estimator 
 mod <- fracregpd(id=id, time=time, y=y_endog, x=X_endog, z=Z_inst,  
           x.exogenous=FALSE, type="GMMpfe", tdummies=TRUE) 
