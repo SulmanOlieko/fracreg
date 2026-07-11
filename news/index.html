@@ -46,6 +46,8 @@
 <ul><li>
 <strong>Fractional Ridge Regression:</strong> Added <code>fracregridge</code> and <code>fracregridge.pe</code> to implement fractional ridge regression and its corresponding partial effects.</li>
 <li>
+<strong>Fractional Multinomial Logit &amp; Krinsky-Robb:</strong> Refactored <code>fracregmlogit.pe</code> to use <code><a href="https://rdrr.io/pkg/MASS/man/mvrnorm.html" class="external-link">MASS::mvrnorm</a></code> for Krinsky-Robb standard error simulations, resolving hardcoded constraints.</li>
+<li>
 <strong>Panel Data Partial Effects:</strong> Implemented <code>fracregpd.pe</code> for computing Average Partial Effects (APE) in panel data settings, including full support for Correlated Random Effects (CRE) models and Delta method standard errors.</li>
 <li>
 <strong>Odds Ratios:</strong> Added support for computing Odds Ratios and adjustable confidence intervals (<code>level</code>) in output summaries.</li>
@@ -57,15 +59,20 @@
 <div class="section level4">
 <h4 id="documentation--website-1-0-1">Documentation &amp; Website<a class="anchor" aria-label="anchor" href="#documentation--website-1-0-1"></a></h4>
 <ul><li>
+<strong>Citations &amp; References:</strong> Added robust citations for the foundational <code>fmlogit</code> (Ji and Woodill) and <code>fracridge</code> (Rokem and Kay) packages across manual pages, README, and vignettes, formatting URLs properly for rendering.</li>
+<li>
 <strong>Logo &amp; Badges:</strong> Improved the package hex logo and added status badges to the <code>README</code>.</li>
 <li>
-<strong>Website (<code>pkgdown</code>):</strong> Added a <code>sitemap.xml</code> and reordered the <code>README</code> and <code>vignettes</code> sections to properly showcase Fractional Ridge Regression alongside Panel Data models.</li>
+<strong>Website (<code>pkgdown</code>):</strong> Added a <code>sitemap.xml</code> and reordered the <code>README</code> and <code>vignettes</code> sections to properly showcase Fractional Multinomial Logit and Fractional Ridge Regression alongside Panel Data models. Added Willingness to Pay (WTP) plot visualizations in tutorials.</li>
 <li>
 <strong>Help Files:</strong> Updated <code>.Rd</code> files to properly reflect <code>table = FALSE</code> default arguments and fixed <code>\usage</code> widths. Updated the package title for clarity and consistency.</li>
 </ul></div>
 <div class="section level4">
 <h4 id="bug-fixes--under-the-hood-improvements-1-0-1">Bug Fixes &amp; Under-the-Hood Improvements<a class="anchor" aria-label="anchor" href="#bug-fixes--under-the-hood-improvements-1-0-1"></a></h4>
-<ul><li>Fixed <code>NA/NaN</code> evaluation errors in <code>nlminb</code> during <code>fracreghet</code> estimations.</li>
+<ul><li>Resolved <code>length &gt; 1</code> logical condition errors in <code>plot.fracregmlogit</code> standard error rendering by properly adopting <code><a href="https://rdrr.io/r/base/match.arg.html" class="external-link">match.arg()</a></code>.</li>
+<li>Resolved WTP matrix subsetting issues by enforcing <code>drop = FALSE</code>.</li>
+<li>Cleaned up legacy <code>fmlogit</code> code dependencies and unified the namespace fully under <code>fracregmlogit</code>.</li>
+<li>Fixed <code>NA/NaN</code> evaluation errors in <code>nlminb</code> during <code>fracreghet</code> estimations.</li>
 <li>Resolved <code>devtools::check()</code> formatting issues, including S3 class inheritance checks (<code><a href="https://rdrr.io/r/base/class.html" class="external-link">inherits()</a></code>), <code><a href="https://rdrr.io/r/stats/approxfun.html" class="external-link">stats::approx</a></code> scoping, and fixing missing alt-text for accessibility.</li>
 </ul></div>
 </div>

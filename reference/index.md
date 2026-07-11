@@ -44,6 +44,29 @@ models.
 - [`fracregridge.pe()`](https://sulmanolieko.github.io/fracreg/reference/fracregridge.pe.md)
   : Partial Effects for Fractional Ridge Regression
 
+## Fractional Multinomial Logit
+
+Functions for estimating fractional multinomial logit models.
+
+- [`fracregmlogit()`](https://sulmanolieko.github.io/fracreg/reference/fracregmlogit.md)
+  : Estimate Fractional Multinomial Logit Models
+- [`fracregmlogit.pe()`](https://sulmanolieko.github.io/fracreg/reference/fracregmlogit.pe.md)
+  : Fractional Multinomial Logit Average Partial Effects
+- [`fracreg_spending`](https://sulmanolieko.github.io/fracreg/reference/fracreg_spending.md)
+  : Government Spending Data
+- [`summary(`*`<fracregmlogit.wtp>`*`)`](https://sulmanolieko.github.io/fracreg/reference/summary.fracregmlogit.md)
+  : Generate Summary Tables for fracregmlogit Objects
+- [`plot(`*`<fracregmlogit>`*`)`](https://sulmanolieko.github.io/fracreg/reference/plot.fracregmlogit.md)
+  : Plot Marginal or Discrete Effects of Willingness to Pay
+- [`plot(`*`<fracregmlogit.pe>`*`)`](https://sulmanolieko.github.io/fracreg/reference/plot.fracregmlogit.pe.md)
+  : Plot Marginal or Discrete Effects
+- [`fitted(`*`<fracregmlogit>`*`)`](https://sulmanolieko.github.io/fracreg/reference/fitted.fracregmlogit.md)
+  [`residuals(`*`<fracregmlogit>`*`)`](https://sulmanolieko.github.io/fracreg/reference/fitted.fracregmlogit.md)
+  [`predict(`*`<fracregmlogit>`*`)`](https://sulmanolieko.github.io/fracreg/reference/fitted.fracregmlogit.md)
+  : Extract Fitted Values, Residuals, and Predictions
+- [`wtp()`](https://sulmanolieko.github.io/fracreg/reference/wtp.md) :
+  "Willingness to Pay" for fracregmlogit models
+
 ## Specification Testing & Diagnostics
 
 Tools for testing functional form, link specification, and non-nested

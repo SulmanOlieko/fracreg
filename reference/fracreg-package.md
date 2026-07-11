@@ -33,6 +33,14 @@ packages have been deprecated and removed from the active CRAN
 repository, `fracreg` serves as an actively maintained successor,
 ensuring these econometric tools remain available to the R community.
 
+Furthermore, we acknowledge James Ji (@f1kidd) and A. John Woodill
+(@johnwoodill), the authors of the `fmlogit` R package on GitHub, whose
+foundational work on fractional multinomial logit models inspired the
+implementation of `fracregmlogit`. We also extend our gratitude to Ariel
+Rokem and Kendrick Kay, the authors of the `fracridge` package, whose
+methodological contributions to fractional ridge regression are
+incorporated into the `fracregridge` functionalities of this package.
+
 ## References
 
 Ramalho, J. J. S. *frm: Fractional Regression Models*. R package.
@@ -61,3 +69,9 @@ vineyards in Portugal", *Journal of Applied Econometrics*, 29(4),
 Fang, K., & Ma, S. (2013), "Three-part model for fractional response
 variables with application to Chinese household health insurance
 coverage", *Journal of Applied Statistics*, 40(5), 925-940.
+
+Ji, J., and Woodill, A. J., *fmlogit: Fractional Multinomial Logit*. R
+package repository. \<https://github.com/f1kidd/fmlogit\>.
+
+Rokem, A., and Kay, K., *fracridge: Fractional Ridge Regression*.
+Package repository. \<https://github.com/nrdg/fracridge\>.
