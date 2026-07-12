@@ -30,7 +30,7 @@ Downloads](https://cranlogs.r-pkg.org/badges/last-week/fracreg)](https://cran.r-
 Downloads](https://cranlogs.r-pkg.org/badges/last-day/fracreg)](https://cran.r-project.org/package=fracreg)
 
 [![Development
-version](https://img.shields.io/badge/devel%20version-1.0.0-darkred.svg)](https://github.com/SulmanOlieko/fracreg)
+version](https://img.shields.io/badge/devel%20version-1.0.1-darkred.svg)](https://github.com/SulmanOlieko/fracreg)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/fracreg)](https://CRAN.R-project.org/package=fracreg)
 
