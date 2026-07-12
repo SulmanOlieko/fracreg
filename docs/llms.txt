@@ -3220,16 +3220,15 @@ Toggle to see the output
 #> [390,] -9.305453e-03
 #> [391,]  4.034912e-03
 #> [392,] -2.122672e-03
-```
 
 ------------------------------------------------------------------------
 
 ## Conclusion
 
-With `fracreg`, `fracreghet`, and `fracregpd`, you have a complete,
+With `fracreg`, `fracreghet`, `fracregpd`, `fracregmlogit`, and `fracregridge`, you have a complete,
 mathematically robust toolkit for modelling fractional responses bounded
-between $`[0,1]`$, regardless of inflation, endogeneity, or unobserved
-panel effects.
+between $[0,1]$, regardless of inflation, endogeneity, unobserved
+panel effects, multinomial structure, or multicollinearity.
 
 ## Acknowledgements
 

@@ -3497,10 +3497,10 @@ Toggle to see the output
 
 ## Conclusion
 
-With `fracreg`, `fracreghet`, and `fracregpd`, you have a complete,
-mathematically robust toolkit for modelling fractional responses bounded
-between $[0,1]$, regardless of inflation, endogeneity, or unobserved
-panel effects.
+With `fracreg`, `fracreghet`, `fracregpd`, `fracregmlogit`, and `fracregridge`, you have a complete,
+ robust toolkit for modelling fractional responses bounded
+between $[0,1]$, regardless of inflation, endogeneity, unobserved
+panel effects, multinomial structure, or multicollinearity.
 
 ## Acknowledgements
 

@@ -320,10 +320,10 @@ summary(model_pd)
 
 ## Conclusion
 
-With `fracreg`, `fracreghet`, and `fracregpd`, you have a complete,
+With `fracreg`, `fracreghet`, `fracregpd`, `fracregmlogit`, and `fracregridge`, you have a complete,
 mathematically robust toolkit for modeling fractional responses bounded
-between $`[0,1]`$, regardless of inflation, endogeneity, or unobserved
-panel effects.
+between $[0,1]$, regardless of inflation, endogeneity, unobserved
+panel effects, multinomial structure, or multicollinearity.
 
 For more information, please visit the [package
 website](https://SulmanOlieko.github.io/fracreg) or file an issue on
