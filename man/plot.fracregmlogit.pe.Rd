@@ -74,6 +74,7 @@ which provides an algebra operation that will be evaluated on the group vector. 
 \code{group.x = "a"} and \code{group.algebra = ">0"} will create two groups, one with X$a > 0, and one with X$a <= 0.
 }
 \examples{
+\donttest{
 data("fracreg_spending")
 X = fracreg_spending[,2:5]
 y = fracreg_spending[,6:11]
@@ -84,6 +85,7 @@ effect1 = fracregmlogit.pe(results1, effect="marginal", marg.type="aveacr", se=F
 
 # Plot effects
 plot(effect1, X=results1$X, against.x = "houseval", group.x = "popdens", group.algebra = ">10")
+}
 }
 \seealso{
 \code{\link{fracregmlogit.pe}}
