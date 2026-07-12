@@ -118,6 +118,7 @@ two groups, one with X\$a \> 0, and one with X\$a \<= 0.
 ## Examples
 
 ``` r
+# \donttest{
 data("fracreg_spending")
 X = fracreg_spending[,2:5]
 y = fracreg_spending[,6:11]
@@ -129,4 +130,6 @@ effect1 = fracregmlogit.pe(results1, effect="marginal", marg.type="aveacr", se=F
 
 # Plot effects
 plot(effect1, X=results1$X, against.x = "houseval", group.x = "popdens", group.algebra = ">10")
+
+# }
 ```
