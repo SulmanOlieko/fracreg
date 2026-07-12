@@ -6,7 +6,7 @@ willingness to pay from fracregmlogit-type objects.
 ## Usage
 
 ``` r
-# S3 method for class 'fracregmlogit.wtp'
+# S3 method for class 'fracregmlogit'
 summary(object, ...)
 ```
 
@@ -56,7 +56,7 @@ y = fracreg_spending[,6:11]
 
 # generate fracregmlogit summary
 results1 = fracregmlogit(y, X)
-#> [1] "Fractional logit model estimation completed. Time: 0.2 seconds"
+#> [1] "Fractional logit model estimation completed. Time: 0.1 seconds"
 summary(results1)
 #> 
 #> -------------------------------------------------------------------------------- 
@@ -128,7 +128,7 @@ summary(results1)
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> 
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-11 22:30:22 
+#>                          Run Date: 2026-07-12 10:09:00 
 #> -------------------------------------------------------------------------------- 
 
 # generate marginal effects summary
@@ -147,6 +147,6 @@ summary(effects1)
 #> social        -0.07220130  0.021568719 -0.022384532 -0.004810849
 #> urbanplanning  0.03484736  0.012712591  0.020556405  0.019199268
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-11 22:30:22 
+#>                          Run Date: 2026-07-12 10:09:00 
 #> -------------------------------------------------------------------------------- 
 ```

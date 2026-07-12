@@ -135,7 +135,7 @@ data("fracreg_spending")
 X = fracreg_spending[,2:5]
 y = fracreg_spending[,6:11]
 results1 = fracregmlogit(y, X)
-#> [1] "Fractional logit model estimation completed. Time: 0.2 seconds"
+#> [1] "Fractional logit model estimation completed. Time: 0.1 seconds"
 
 # Calculate marginal effects at the mean (without standard errors for speed)
 pe_marg = fracregmlogit.pe(results1, effect="marginal", se=FALSE)
@@ -154,12 +154,12 @@ summary(pe_disc)
 #>                                Variable: houseval 
 #> -------------------------------------------------------------------------------- 
 #>               Estimate Std. Error z value Pr(>|z|)    
-#> governing      0.09494    0.01098   8.646  < 2e-16 ***
-#> safety         0.08406    0.02420   3.474 0.000513 ***
-#> education     -0.09363    0.02448  -3.824 0.000131 ***
-#> recreation     0.01958    0.01419   1.380 0.167504    
-#> social        -0.18532    0.02986  -6.207 5.41e-10 ***
-#> urbanplanning  0.08037    0.04110   1.956 0.050515 .  
+#> governing      0.09494    0.01105   8.594  < 2e-16 ***
+#> safety         0.08406    0.02428   3.462 0.000537 ***
+#> education     -0.09363    0.02477  -3.780 0.000157 ***
+#> recreation     0.01958    0.01422   1.377 0.168481    
+#> social        -0.18532    0.02983  -6.212 5.23e-10 ***
+#> urbanplanning  0.08037    0.04111   1.955 0.050581 .  
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> 
@@ -167,16 +167,16 @@ summary(pe_disc)
 #>                                 Variable: noleft 
 #> -------------------------------------------------------------------------------- 
 #>                Estimate Std. Error z value Pr(>|z|)    
-#> governing      0.004907   0.002626   1.868 0.061747 .  
-#> safety         0.024975   0.008211   3.042 0.002352 ** 
-#> education     -0.035370   0.009414  -3.757 0.000172 ***
-#> recreation     0.007870   0.005109   1.540 0.123487    
-#> social        -0.022586   0.011787  -1.916 0.055341 .  
-#> urbanplanning  0.020206   0.015440   1.309 0.190647    
+#> governing      0.004907   0.002498   1.965  0.04946 *  
+#> safety         0.024975   0.008218   3.039  0.00237 ** 
+#> education     -0.035370   0.009543  -3.706  0.00021 ***
+#> recreation     0.007870   0.005160   1.525  0.12718    
+#> social        -0.022586   0.011468  -1.970  0.04889 *  
+#> urbanplanning  0.020206   0.015703   1.287  0.19819    
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> 
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-11 22:30:13 
+#>                          Run Date: 2026-07-12 10:08:53 
 #> -------------------------------------------------------------------------------- 
 ```
