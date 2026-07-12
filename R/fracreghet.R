@@ -313,6 +313,7 @@ fracreghet.var <- function(type,p,XB,x,z,link,Hy,var.type,id,step.one,gixv,vhat)
 #' @param offset an optional numeric vector containing an offset. It must be of the same dimension as the response variable. It specifies that the variable should be included in the model with its coefficient constrained to 1.
 #' @param or a logical value indicating whether to report odds ratios. Only valid when the link function is \code{"logit"}. Defaults to \code{FALSE}.
 #' @param level a numeric value between 0 and 1 indicating the confidence level for the confidence intervals. Defaults to \code{0.95}.
+#' @param na.action A function specifying how to handle missing values, default is \code{stats::na.omit}. If \code{NULL}, no action is taken.
 #' @param \dots Arguments to pass to \link[stats]{nlminb}.
 #'
 #' @details
@@ -448,11 +449,28 @@ fracreghet.var <- function(type,p,XB,x,z,link,Hy,var.type,id,step.one,gixv,vhat)
 #' mod <- fracreghet(y = y_endog, x = X, z = Z, var.endog = var.endog, type = "QMLxv", link = "logit")
 #' summary(mod)
 #' @export
-fracreghet <- function(y,x,z=x,var.endog,start,type="GMMx",link="logit",intercept=T,table=T,variance=T,var.type="robust",var.cluster,adjust=0,offset=NULL,or=FALSE,level=0.95,...)
+fracreghet <- function(y,x,z=x,var.endog,start,type="GMMx",link="logit",intercept=T,table=T,variance=T,var.type="robust",var.cluster,adjust=0,offset=NULL,or=FALSE,level=0.95,na.action=stats::na.omit,...)
 {
 	cl <- match.call()
 	LL <- NULL
-
+	
+	if (!missing(y) && !missing(x)) {
+	    args_to_clean <- list(y=y, x=x, offset=offset)
+	    if (!missing(z)) args_to_clean$z <- z
+	    if (!missing(var.endog)) args_to_clean$var.endog <- var.endog
+	    if (!missing(var.cluster)) args_to_clean$var.cluster <- var.cluster
+	    
+	    args_to_clean$na.action <- na.action
+	    cleaned <- do.call(fracreg_clean_data, args_to_clean)
+	    
+	    y <- cleaned$y
+	    x <- cleaned$x
+	    offset <- cleaned$offset
+	    if (!missing(z)) z <- cleaned$z
+	    if (!missing(var.endog)) var.endog <- cleaned$var.endog
+	    if (!missing(var.cluster)) var.cluster <- cleaned$var.cluster
+	}
+	
 	### 1. Error and warning messages
 
 	if(missing(y)) stop("dependent variable is missing")

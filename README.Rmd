@@ -61,6 +61,7 @@ An R package for fitting and testing specifications of fractional regression mod
 5. **Fractional Ridge Regression (`fracregridge`)**: Perform L2 regularization using dynamic fraction penalties of the unregularized vector length.
 6. **Diagnostic Testing**: Includes model-specific routines for generalised goodness-of-functional-form, RESET, and non-nested P-tests (e.g., `fracreg.ggoff`, `fracreghet.reset`, `fracreg.ptest`).
 7. **Analytical Partial Effects**: Compute exact marginal effects for all model types via the Delta method using their respective functions (e.g., `fracreg.pe()`, `fracregpd.pe()`, `fracreghet.pe()`, `fracregridge.pe()`, and `fracregmlogit.pe()`).
+8. **Native S3 Integration & NA Handling**: Provides standard extractors (`coef()`, `predict()`, `fitted()`, `residuals()`, `vcov()`, `logLik()`, `nobs()`) and native `na.action` missing data handling across all estimators.
 
 ---
 

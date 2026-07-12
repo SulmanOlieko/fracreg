@@ -22,6 +22,7 @@ fracreg(
   offset = NULL,
   or = FALSE,
   level = 0.95,
+  na.action = stats::na.omit,
   ...
 )
 }
@@ -59,6 +60,8 @@ fracreg(
 \item{or}{a logical value indicating whether to report odds ratios. Only valid when the link function is \code{"logit"}. Defaults to \code{FALSE}.}
 
 \item{level}{a numeric value between 0 and 1 indicating the confidence level for the confidence intervals. Defaults to \code{0.95}.}
+
+\item{na.action}{A function specifying how to handle missing values, default is \code{stats::na.omit}. If \code{NULL}, no action is taken.}
 
 \item{\dots}{Arguments to pass to \link[stats]{glm}.}
 }

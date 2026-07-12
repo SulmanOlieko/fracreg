@@ -17,6 +17,7 @@
 #' @param cluster A vector of clusters to be used for clustered standard error computation. 
 #' Default to NULL, no cluster computed. 
 #' @param reps Number of bootstrap replications to be computed for clustered standard errors.
+#' @param na.action A function specifying how to handle missing values, default is \code{stats::na.omit}. If \code{NULL}, no action is taken.
 #' @param ... additional parameters that go into \code{maxLik()}
 #' @return The function returns an object of class "fracregmlogit". Use \code{fracregmlogit.pe}, \code{predict}, 
 #'  \code{residuals}, \code{fitted} to extract various useful features of the value returned by 
@@ -102,8 +103,20 @@
 
 
 fracregmlogit=function(y, X, beta0 = NULL, MLEmethod = "CG", maxit = 5e+05, 
-                          abstol = 1e-05,cluster=NULL,reps=1000, ...){
+                          abstol = 1e-05,cluster=NULL,reps=1000, na.action=stats::na.omit, ...){
   start.time = proc.time()
+  
+  if (!missing(y) && !missing(X)) {
+      args_to_clean <- list(y=y, X=X)
+      if (!is.null(cluster)) args_to_clean$cluster <- cluster
+      
+      args_to_clean$na.action <- na.action
+      cleaned <- do.call(fracreg_clean_data, args_to_clean)
+      
+      y <- cleaned$y
+      X <- cleaned$X
+      if (!is.null(cluster)) cluster <- cleaned$cluster
+  }
   
   if(length(cluster)!=nrow(y) & !is.null(cluster)){
     warning("Length of the cluster does not match the data. Cluster is ignored.")

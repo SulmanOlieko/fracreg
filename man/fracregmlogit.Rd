@@ -13,6 +13,7 @@ fracregmlogit(
   abstol = 0.00001,
   cluster = NULL,
   reps = 1000,
+  na.action = stats::na.omit,
   ...
 )
 }
@@ -39,6 +40,8 @@ Default to "CG", the conjugate gradients method. See Details.}
 Default to NULL, no cluster computed.}
 
 \item{reps}{Number of bootstrap replications to be computed for clustered standard errors.}
+
+\item{na.action}{A function specifying how to handle missing values, default is \code{stats::na.omit}. If \code{NULL}, no action is taken.}
 
 \item{...}{additional parameters that go into \code{maxLik()}}
 }

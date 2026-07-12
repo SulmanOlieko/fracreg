@@ -10,6 +10,7 @@ fracregridge(
   fracs = seq(0.1, 1, by = 0.1),
   tol = 0.0000000001,
   intercept = TRUE,
+  na.action = stats::na.omit,
   ...
 )
 }
@@ -23,6 +24,8 @@ fracregridge(
 \item{tol}{A numeric tolerance under which singular values of the \code{x} matrix are considered to be zero. Default is \code{1e-10}.}
 
 \item{intercept}{logical. If \code{TRUE}, an intercept is included in the model. Default is \code{TRUE}.}
+
+\item{na.action}{A function specifying how to handle missing values, default is \code{stats::na.omit}. If \code{NULL}, no action is taken.}
 
 \item{...}{further arguments passed to or from other methods.}
 }

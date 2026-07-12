@@ -38,7 +38,7 @@
 #'
 #' @author Sulman Olieko Owili <oliekosulman@gmail.com>
 #' @importFrom graphics par
-#' @importFrom stats Gamma as.formula binomial cor dcauchy dlogis dnorm fitted glm lm logLik median model.frame model.matrix model.response na.omit nlminb pcauchy pchisq plogis pnorm predict printCoefmat pt qcauchy qlogis qnorm quasibinomial sd var
+#' @importFrom stats Gamma as.formula binomial coef cor dcauchy dlogis dnorm fitted glm lm logLik median model.frame model.matrix model.response na.omit nlminb nobs pcauchy pchisq plogis pnorm predict printCoefmat pt qcauchy qlogis qnorm quasibinomial residuals sd var vcov
 #' @importFrom ggplot2 ggplot aes_string geom_point geom_hline theme_classic ggtitle theme element_text scale_color_discrete
 #' @importFrom grid pushViewport viewport grid.layout
 "_PACKAGE"

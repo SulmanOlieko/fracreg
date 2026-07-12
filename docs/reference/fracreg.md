@@ -27,6 +27,7 @@ fracreg(
   offset = NULL,
   or = FALSE,
   level = 0.95,
+  na.action = stats::na.omit,
   ...
 )
 ```
@@ -136,6 +137,12 @@ fracreg(
 
   a numeric value between 0 and 1 indicating the confidence level for
   the confidence intervals. Defaults to `0.95`.
+
+- na.action:
+
+  A function specifying how to handle missing values, default is
+  [`stats::na.omit`](https://rdrr.io/r/stats/na.fail.html). If `NULL`,
+  no action is taken.
 
 - ...:
 
@@ -403,7 +410,6 @@ summary(mod)
 #> Prob > chi2:                                                              0.0000 
 #> Standard errors:                                                             HC0 
 #> Small sample correction:                                                   FALSE 
-#> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
 #>                     Final Quasi-Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
@@ -422,7 +428,7 @@ summary(mod)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 21:42:18 
+#>                          Run Date: 2026-07-13 01:18:51 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -443,7 +449,6 @@ summary(mod)
 #> Prob > chi2:                                                              0.0000 
 #> Standard errors:                                                             HC0 
 #> Small sample correction:                                                   FALSE 
-#> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
 #>                     Final Quasi-Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
@@ -462,7 +467,7 @@ summary(mod)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 21:42:18 
+#>                          Run Date: 2026-07-13 01:18:51 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -482,7 +487,6 @@ summary(mod)
 #> Wald chi2(4):                                                           173.5169 
 #> Prob > chi2:                                                              0.0000 
 #> Small sample correction:                                                   FALSE 
-#> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
 #>                        Final Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
@@ -516,7 +520,6 @@ summary(mod)
 #> Prob > chi2:                                                              0.0000 
 #> Standard errors:                                                             HC0 
 #> Small sample correction:                                                   FALSE 
-#> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
 #>                     Final Quasi-Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
@@ -544,7 +547,7 @@ summary(mod)
 #> Convergence:                                                          Successful 
 #> Pseudo R-squared:                                                        0.11243 
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 21:42:18 
+#>                          Run Date: 2026-07-13 01:18:51 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -565,7 +568,6 @@ summary(mod)
 #> Wald chi2(4):                                                             3.7679 
 #> Prob > chi2:                                                              0.4383 
 #> Small sample correction:                                                   FALSE 
-#> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
 #>                        Final Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
@@ -598,7 +600,6 @@ summary(mod)
 #> Wald chi2(4):                                                            172.201 
 #> Prob > chi2:                                                              0.0000 
 #> Small sample correction:                                                   FALSE 
-#> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
 #>                        Final Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
@@ -632,7 +633,6 @@ summary(mod)
 #> Prob > chi2:                                                              0.0000 
 #> Standard errors:                                                             HC0 
 #> Small sample correction:                                                   FALSE 
-#> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
 #>                     Final Quasi-Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
@@ -660,7 +660,7 @@ summary(mod)
 #> Convergence:                                                          Successful 
 #> Pseudo R-squared:                                                        0.07934 
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 21:42:18 
+#>                          Run Date: 2026-07-13 01:18:51 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -699,7 +699,6 @@ summary(mod)
 #> Prob > chi2:                                                              0.0000 
 #> Standard errors:                                                             HC0 
 #> Small sample correction:                                                   FALSE 
-#> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
 #>                     Final Quasi-Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
@@ -714,7 +713,7 @@ summary(mod)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 21:42:18 
+#>                          Run Date: 2026-07-13 01:18:51 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -735,7 +734,6 @@ summary(mod)
 #> Wald chi2(2):                                                           102.5171 
 #> Prob > chi2:                                                              0.0000 
 #> Small sample correction:                                                   FALSE 
-#> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
 #>                        Final Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
@@ -767,7 +765,6 @@ summary(mod)
 #> Prob > chi2:                                                              0.0000 
 #> Standard errors:                                                             HC0 
 #> Small sample correction:                                                   FALSE 
-#> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
 #>                     Final Quasi-Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
@@ -802,7 +799,6 @@ summary(mod)
 #> Wald chi2(2):                                                           100.5683 
 #> Prob > chi2:                                                              0.0000 
 #> Small sample correction:                                                   FALSE 
-#> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
 #>                        Final Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
@@ -828,7 +824,6 @@ summary(mod)
 #> Prob > chi2:                                                              0.0000 
 #> Standard errors:                                                             HC0 
 #> Small sample correction:                                                   FALSE 
-#> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
 #>                     Final Quasi-Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
@@ -852,7 +847,7 @@ summary(mod)
 #> Convergence:                                                          Successful 
 #> Pseudo R-squared:                                                        0.38829 
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 21:42:18 
+#>                          Run Date: 2026-07-13 01:18:52 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -872,7 +867,6 @@ summary(mod)
 #> Wald chi2(2):                                                           102.5171 
 #> Prob > chi2:                                                              0.0000 
 #> Small sample correction:                                                   FALSE 
-#> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
 #>                        Final Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
@@ -897,7 +891,6 @@ summary(mod)
 #> Wald chi2(2):                                                           123.5731 
 #> Prob > chi2:                                                              0.0000 
 #> Small sample correction:                                                   FALSE 
-#> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
 #>                        Final Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
@@ -927,7 +920,6 @@ summary(mod)
 #> Prob > chi2:                                                              0.0000 
 #> Standard errors:                                                             HC0 
 #> Small sample correction:                                                   FALSE 
-#> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
 #>                     Final Quasi-Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
@@ -951,7 +943,7 @@ summary(mod)
 #> Convergence:                                                          Successful 
 #> Pseudo R-squared:                                                        0.38917 
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 21:42:19 
+#>                          Run Date: 2026-07-13 01:18:52 
 #> -------------------------------------------------------------------------------- 
 #> 
 ```

@@ -64,6 +64,7 @@
 <span>  offset <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  or <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  level <span class="op">=</span> <span class="fl">0.95</span>,</span>
+<span>  na.action <span class="op">=</span> <span class="fu">stats</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/r/stats/na.fail.html" class="external-link">na.omit</a></span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -138,6 +139,10 @@
 
 <dt id="arg-level">level<a class="anchor" aria-label="anchor" href="#arg-level"></a></dt>
 <dd><p>a numeric value between 0 and 1 indicating the confidence level for the confidence intervals. Defaults to <code>0.95</code>.</p></dd>
+
+
+<dt id="arg-na-action">na.action<a class="anchor" aria-label="anchor" href="#arg-na-action"></a></dt>
+<dd><p>A function specifying how to handle missing values, default is <code><a href="https://rdrr.io/r/stats/na.fail.html" class="external-link">stats::na.omit</a></code>. If <code>NULL</code>, no action is taken.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
@@ -315,7 +320,6 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-out co"><span class="r-pr">#&gt;</span> Prob &gt; chi2:                                                              0.0000 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Standard errors:                                                             HC0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Small sample correction:                                                   FALSE </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Convergence:                                                          Successful </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                     Final Quasi-Maximum Likelihood estimates </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
@@ -334,7 +338,7 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 21:42:18 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-13 01:18:51 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
@@ -355,7 +359,6 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-out co"><span class="r-pr">#&gt;</span> Prob &gt; chi2:                                                              0.0000 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Standard errors:                                                             HC0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Small sample correction:                                                   FALSE </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Convergence:                                                          Successful </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                     Final Quasi-Maximum Likelihood estimates </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
@@ -374,7 +377,7 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 21:42:18 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-13 01:18:51 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
@@ -394,7 +397,6 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-out co"><span class="r-pr">#&gt;</span> Wald chi2(4):                                                           173.5169 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Prob &gt; chi2:                                                              0.0000 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Small sample correction:                                                   FALSE </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Convergence:                                                          Successful </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                        Final Maximum Likelihood estimates </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
@@ -428,7 +430,6 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-out co"><span class="r-pr">#&gt;</span> Prob &gt; chi2:                                                              0.0000 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Standard errors:                                                             HC0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Small sample correction:                                                   FALSE </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Convergence:                                                          Successful </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                     Final Quasi-Maximum Likelihood estimates </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
@@ -456,7 +457,7 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-out co"><span class="r-pr">#&gt;</span> Convergence:                                                          Successful </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Pseudo R-squared:                                                        0.11243 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 21:42:18 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-13 01:18:51 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
@@ -477,7 +478,6 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-out co"><span class="r-pr">#&gt;</span> Wald chi2(4):                                                             3.7679 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Prob &gt; chi2:                                                              0.4383 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Small sample correction:                                                   FALSE </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Convergence:                                                          Successful </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                        Final Maximum Likelihood estimates </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
@@ -510,7 +510,6 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-out co"><span class="r-pr">#&gt;</span> Wald chi2(4):                                                            172.201 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Prob &gt; chi2:                                                              0.0000 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Small sample correction:                                                   FALSE </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Convergence:                                                          Successful </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                        Final Maximum Likelihood estimates </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
@@ -544,7 +543,6 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-out co"><span class="r-pr">#&gt;</span> Prob &gt; chi2:                                                              0.0000 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Standard errors:                                                             HC0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Small sample correction:                                                   FALSE </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Convergence:                                                          Successful </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                     Final Quasi-Maximum Likelihood estimates </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
@@ -572,7 +570,7 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-out co"><span class="r-pr">#&gt;</span> Convergence:                                                          Successful </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Pseudo R-squared:                                                        0.07934 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 21:42:18 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-13 01:18:51 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
@@ -611,7 +609,6 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-out co"><span class="r-pr">#&gt;</span> Prob &gt; chi2:                                                              0.0000 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Standard errors:                                                             HC0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Small sample correction:                                                   FALSE </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Convergence:                                                          Successful </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                     Final Quasi-Maximum Likelihood estimates </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
@@ -626,7 +623,7 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 21:42:18 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-13 01:18:51 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
@@ -647,7 +644,6 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-out co"><span class="r-pr">#&gt;</span> Wald chi2(2):                                                           102.5171 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Prob &gt; chi2:                                                              0.0000 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Small sample correction:                                                   FALSE </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Convergence:                                                          Successful </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                        Final Maximum Likelihood estimates </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
@@ -679,7 +675,6 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-out co"><span class="r-pr">#&gt;</span> Prob &gt; chi2:                                                              0.0000 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Standard errors:                                                             HC0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Small sample correction:                                                   FALSE </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Convergence:                                                          Successful </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                     Final Quasi-Maximum Likelihood estimates </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
@@ -714,7 +709,6 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-out co"><span class="r-pr">#&gt;</span> Wald chi2(2):                                                           100.5683 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Prob &gt; chi2:                                                              0.0000 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Small sample correction:                                                   FALSE </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Convergence:                                                          Successful </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                        Final Maximum Likelihood estimates </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
@@ -740,7 +734,6 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-out co"><span class="r-pr">#&gt;</span> Prob &gt; chi2:                                                              0.0000 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Standard errors:                                                             HC0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Small sample correction:                                                   FALSE </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Convergence:                                                          Successful </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                     Final Quasi-Maximum Likelihood estimates </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
@@ -764,7 +757,7 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-out co"><span class="r-pr">#&gt;</span> Convergence:                                                          Successful </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Pseudo R-squared:                                                        0.38829 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 21:42:18 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-13 01:18:52 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
@@ -784,7 +777,6 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-out co"><span class="r-pr">#&gt;</span> Wald chi2(2):                                                           102.5171 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Prob &gt; chi2:                                                              0.0000 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Small sample correction:                                                   FALSE </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Convergence:                                                          Successful </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                        Final Maximum Likelihood estimates </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
@@ -809,7 +801,6 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-out co"><span class="r-pr">#&gt;</span> Wald chi2(2):                                                           123.5731 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Prob &gt; chi2:                                                              0.0000 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Small sample correction:                                                   FALSE </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Convergence:                                                          Successful </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                        Final Maximum Likelihood estimates </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
@@ -839,7 +830,6 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-out co"><span class="r-pr">#&gt;</span> Prob &gt; chi2:                                                              0.0000 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Standard errors:                                                             HC0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Small sample correction:                                                   FALSE </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Convergence:                                                          Successful </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                     Final Quasi-Maximum Likelihood estimates </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
@@ -863,7 +853,7 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-out co"><span class="r-pr">#&gt;</span> Convergence:                                                          Successful </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Pseudo R-squared:                                                        0.38917 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 21:42:19 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-13 01:18:52 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 </code></pre></div>

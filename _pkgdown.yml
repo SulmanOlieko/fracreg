@@ -96,3 +96,15 @@ reference:
       - fracreg.reset
       - fracreg.ptest
       - fracreghet.reset
+
+  - title: "Model Extractors & Utility Functions"
+    desc: "S3 methods for extracting components from fitted models and data cleaning."
+    contents:
+      - fracreg_clean_data
+      - starts_with("coef")
+      - starts_with("fitted")
+      - starts_with("residuals")
+      - starts_with("predict")
+      - starts_with("vcov")
+      - starts_with("logLik")
+      - starts_with("nobs")

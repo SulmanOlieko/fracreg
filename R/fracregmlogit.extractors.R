@@ -1,3 +1,13 @@
+#' @title Extract Model Coefficients for fracregmlogit
+#' @description Extracts the estimated coefficients from a fitted \code{fracregmlogit} model.
+#' @param object A fitted model object of class \code{fracregmlogit}.
+#' @param ... Further arguments passed to or from other methods.
+#' @return A matrix of coefficients for each choice equation.
+#' @exportS3Method coef fracregmlogit
+coef.fracregmlogit <- function(object, ...) {
+    return(object$coefficient)
+}
+
 #' Extract Fitted Values, Residuals, and Predictions
 #' 
 #' @name fitted.fracregmlogit
@@ -15,8 +25,9 @@
 #' @seealso \code{\link{fracregmlogit}}
 #' @examples
 #' data("fracreg_spending")
-#' X = fracreg_spending[,2:5]
-#' y = fracreg_spending[,6:11]
+#' df <- na.omit(fracreg_spending)
+#' X = df[,2:5]
+#' y = df[,6:11]
 #' results1 = fracregmlogit(y, X)
 #' 
 #' # Extract fitted values
@@ -29,9 +40,6 @@
 #' pred = predict(results1, newdata = X[1,])
 #' @rdname fitted.fracregmlogit
 #' @exportS3Method fitted fracregmlogit
-#' 
-
-
 fitted.fracregmlogit <- function(object, ...) {
   j=length(object$estimates)+1; k=dim(object$estimates[[1]])[1]; N=dim(object$y)[1]
   betamat_aug = object$coefficient; X=object$X; y=object$y
@@ -46,7 +54,6 @@ fitted.fracregmlogit <- function(object, ...) {
 
 #' @rdname fitted.fracregmlogit
 #' @exportS3Method residuals fracregmlogit
-#' 
 residuals.fracregmlogit <- function(object, ...) {
   yhat = fitted(object)
   return(as.data.frame(object$y-yhat))
@@ -54,7 +61,6 @@ residuals.fracregmlogit <- function(object, ...) {
 
 #' @rdname fitted.fracregmlogit
 #' @exportS3Method predict fracregmlogit
-#' 
 predict.fracregmlogit <- function(object, newdata=NULL, newbeta = NULL, ...) {
   if(length(newdata)==0) return(fitted(object))
   if(length(newbeta)>0) object$coefficient = newbeta
@@ -73,4 +79,42 @@ predict.fracregmlogit <- function(object, newdata=NULL, newbeta = NULL, ...) {
   return(as.data.frame(yhat))
 }
 
+#' @title Extract the Number of Observations for fracregmlogit
+#' @description Extracts the number of observations used to estimate a \code{fracregmlogit} model.
+#' @param object A fitted model object of class \code{fracregmlogit}.
+#' @param ... Further arguments passed to or from other methods.
+#' @return An integer denoting the number of observations.
+#' @exportS3Method nobs fracregmlogit
+nobs.fracregmlogit <- function(object, ...) {
+    return(unname(object$count["Obs"]))
+}
 
+#' @title Extract Log-Likelihood for fracregmlogit
+#' @description Extracts the log-pseudolikelihood from a fitted \code{fracregmlogit} model.
+#' @param object A fitted model object of class \code{fracregmlogit}.
+#' @param ... Further arguments passed to or from other methods.
+#' @return An object of class \code{logLik}.
+#' @exportS3Method logLik fracregmlogit
+logLik.fracregmlogit <- function(object, ...) {
+    if(is.null(object$likelihood)) {
+        return(NA)
+    }
+    val <- object$likelihood
+    # df is roughly number of choices * number of params
+    k <- dim(object$coefficient)[2]
+    j <- dim(object$coefficient)[1] - 1
+    attr(val, "df") <- k * j
+    attr(val, "nobs") <- nobs(object)
+    class(val) <- "logLik"
+    return(val)
+}
+
+#' @title Extract Covariance Matrix for fracregmlogit
+#' @description Extracts the estimated variance-covariance matrices of the parameters.
+#' @param object A fitted model object of class \code{fracregmlogit}.
+#' @param ... Further arguments passed to or from other methods.
+#' @return A list of covariance matrices for each choice equation.
+#' @exportS3Method vcov fracregmlogit
+vcov.fracregmlogit <- function(object, ...) {
+    return(object$vcov)
+}

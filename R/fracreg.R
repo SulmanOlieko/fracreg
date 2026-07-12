@@ -19,6 +19,7 @@
 #' @param offset an optional numeric vector containing an offset. It must be of the same dimension as the response variable. It specifies that the variable should be included in the model with its coefficient constrained to 1.
 #' @param or a logical value indicating whether to report odds ratios. Only valid when the link function is \code{"logit"}. Defaults to \code{FALSE}.
 #' @param level a numeric value between 0 and 1 indicating the confidence level for the confidence intervals. Defaults to \code{0.95}.
+#' @param na.action A function specifying how to handle missing values, default is \code{stats::na.omit}. If \code{NULL}, no action is taken.
 #' @param \dots Arguments to pass to \link[stats]{glm}.
 #'
 #' @details
@@ -206,9 +207,23 @@
 #' mod <- fracreg(y, X, type="3P", linkbin=c("logit","probit"), linkfrac="logit")
 #' summary(mod)
 #' @export
-fracreg <- function(y,x,x2=x,linkbin,linkfrac,type="1P",inflation=0,intercept=TRUE,table=FALSE,variance=TRUE,var.type="default",var.eim=TRUE,var.cluster,dfc=FALSE,offset=NULL,or=FALSE,level=0.95,...)
+fracreg <- function(y,x,x2=x,linkbin,linkfrac,type="1P",inflation=0,intercept=TRUE,table=FALSE,variance=TRUE,var.type="default",var.eim=TRUE,var.cluster,dfc=FALSE,offset=NULL,or=FALSE,level=0.95,na.action=stats::na.omit,...)
 {
 	cl <- match.call()
+	
+	if (!missing(y) && !missing(x)) {
+	    if (!missing(var.cluster)) {
+	        cleaned <- fracreg_clean_data(y=y, x=x, x2=x2, var.cluster=var.cluster, offset=offset, na.action=na.action)
+	        var.cluster <- cleaned$var.cluster
+	    } else {
+	        cleaned <- fracreg_clean_data(y=y, x=x, x2=x2, offset=offset, na.action=na.action)
+	    }
+	    y <- cleaned$y
+	    x <- cleaned$x
+	    x2 <- cleaned$x2
+	    offset <- cleaned$offset
+	}
+	
 	### 1. Error and warning messages
 
 	if(missing(y)) stop("dependent variable is missing")

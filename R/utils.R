@@ -1,3 +1,59 @@
+#' @title Clean Data for Fractional Regression Models
+#' @description An internal helper to gracefully drop missing values across an arbitrary number of vectors and matrices, replicating the functionality of na.action = na.omit for multi-array model inputs.
+#' @param ... A variable number of vectors, matrices, or data frames.
+#' @param na.action A function specifying how to handle missing values, default is \code{stats::na.omit}. If \code{NULL}, no action is taken.
+#' @return A named list containing the subsets of the provided arrays without missing values.
+fracreg_clean_data <- function(..., na.action = stats::na.omit) {
+  if (is.null(na.action)) return(list(...))
+  
+  args <- list(...)
+  non_null <- !sapply(args, is.null)
+  
+  if (sum(non_null) > 0) {
+    # 1. Determine the target number of observations (N)
+    # We look for the first matrix, data.frame, or vector that likely represents the dataset.
+    N_target <- 0
+    for (i in seq_along(args)) {
+        if (!is.null(args[[i]])) {
+            if (is.matrix(args[[i]]) || is.data.frame(args[[i]])) {
+                N_target <- max(N_target, nrow(args[[i]]))
+            } else if (is.vector(args[[i]]) && !is.character(args[[i]])) {
+                N_target <- max(N_target, length(args[[i]]))
+            }
+        }
+    }
+    
+    # If no data structure of length > 1 is found, return as-is
+    if (N_target <= 1) return(args)
+    
+    # 2. Extract ONLY arrays/vectors that match the target N exactly
+    valid_idx <- sapply(args, function(x) {
+        if (is.null(x)) return(FALSE)
+        if (is.matrix(x) || is.data.frame(x)) return(nrow(x) == N_target)
+        if (is.vector(x)) return(length(x) == N_target)
+        return(FALSE)
+    })
+    
+    if (sum(valid_idx) > 0) {
+      valid_args <- args[valid_idx]
+      valid_rows <- do.call(stats::complete.cases, valid_args)
+      
+      if (!all(valid_rows)) {
+        for (i in seq_along(args)) {
+          if (valid_idx[i]) {
+            if (is.matrix(args[[i]]) || is.data.frame(args[[i]])) {
+              args[[i]] <- args[[i]][valid_rows, , drop = FALSE]
+            } else {
+              args[[i]] <- args[[i]][valid_rows]
+            }
+          }
+        }
+      }
+    }
+  }
+  return(args)
+}
+
 fracreg.links <- function(link) 
 {
 	switch(link,

@@ -334,6 +334,7 @@ fracregpd.var <- function(type,x.exogenous,var.type,id,Ti,Hy,x,z,XB,link,at,at1,
 #' @param offset an optional numeric vector containing an offset. It must be of the same dimension as the response variable. It specifies that the variable should be included in the model with its coefficient constrained to 1.
 #' @param or a logical value indicating whether to report odds ratios. Only valid when the link function is \code{"logit"}. Defaults to \code{FALSE}.
 #' @param level a numeric value between 0 and 1 indicating the confidence level for the confidence intervals. Defaults to \code{0.95}.
+#' @param na.action A function specifying how to handle missing values, default is \code{stats::na.omit}. If \code{NULL}, no action is taken.
 #' @param \dots Arguments to pass to \link[stats]{nlminb}.
 #'
 #' @details
@@ -464,9 +465,27 @@ fracregpd.var <- function(type,x.exogenous,var.type,id,Ti,Hy,x,z,XB,link,at,at1,
 #' summary(mod)
 #' }
 #' @export
-fracregpd <- function(id,time,y,x,z,var.endog,x.exogenous=T,lags,start,type,GMMww.cor=T,link="logit",intercept=T,table=FALSE,variance=T,var.type="cluster",tdummies=F,bootstrap=F,B=200,offset=NULL,or=FALSE,level=0.95,...)
+fracregpd <- function(id,time,y,x,z,var.endog,x.exogenous=T,lags,start,type,GMMww.cor=T,link="logit",intercept=T,table=FALSE,variance=T,var.type="cluster",tdummies=F,bootstrap=F,B=200,offset=NULL,or=FALSE,level=0.95,na.action=stats::na.omit,...)
 {
 	cl <- match.call()
+	
+	if (!missing(id) && !missing(time) && !missing(y) && !missing(x)) {
+	    args_to_clean <- list(id=id, time=time, y=y, x=x, offset=offset)
+	    if (!missing(z)) args_to_clean$z <- z
+	    if (!missing(var.endog)) args_to_clean$var.endog <- var.endog
+	    
+	    args_to_clean$na.action <- na.action
+	    cleaned <- do.call(fracreg_clean_data, args_to_clean)
+	    
+	    id <- cleaned$id
+	    time <- cleaned$time
+	    y <- cleaned$y
+	    x <- cleaned$x
+	    offset <- cleaned$offset
+	    if (!missing(z)) z <- cleaned$z
+	    if (!missing(var.endog)) var.endog <- cleaned$var.endog
+	}
+	
 	### 1. Error and warning messages
 
 	if(missing(id)) stop("variable id is missing")

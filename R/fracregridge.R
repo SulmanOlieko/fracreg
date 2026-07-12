@@ -8,6 +8,7 @@
 #' @param fracs A numeric vector indicating the desired fractions of the unregularized coefficient vector length. Default is \code{seq(0.1, 1.0, by=0.1)}. Values must be sorted in ascending order.
 #' @param tol A numeric tolerance under which singular values of the \code{x} matrix are considered to be zero. Default is \code{1e-10}.
 #' @param intercept logical. If \code{TRUE}, an intercept is included in the model. Default is \code{TRUE}.
+#' @param na.action A function specifying how to handle missing values, default is \code{stats::na.omit}. If \code{NULL}, no action is taken.
 #' @param ... further arguments passed to or from other methods.
 #'
 #' @details
@@ -82,8 +83,13 @@
 #' mod <- fracregridge(y, x, fracs = c(0.3, 0.5, 0.8))
 #' print(mod)
 #' summary(mod)
-fracregridge <- function(y, x, fracs = seq(0.1, 1.0, by=0.1), tol = 1e-10, intercept = TRUE, ...)
+fracregridge <- function(y, x, fracs = seq(0.1, 1.0, by=0.1), tol = 1e-10, intercept = TRUE, na.action = stats::na.omit, ...)
 {
+    if (!missing(y) && !missing(x)) {
+        cleaned <- fracreg_clean_data(y=y, x=x, na.action=na.action)
+        y <- cleaned$y
+        x <- cleaned$x
+    }
 	cl <- match.call()
 
 	if(missing(y)) stop("dependent variable is missing")
@@ -279,6 +285,7 @@ fracregridge <- function(y, x, fracs = seq(0.1, 1.0, by=0.1), tol = 1e-10, inter
 	}
 	
 	res <- list(call = cl, 
+	            y = y_mat,
 	            coef = coef_final, 
 	            alphas = alphas_res, 
 	            fracs = fracs, 
