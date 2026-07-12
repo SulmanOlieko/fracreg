@@ -824,7 +824,49 @@ print.fracregmlogit <- function(x, ...) {
     invisible(x)
 }
 
-#' @export
+#' Generate Summary Tables for fracregmlogit Objects
+#' 
+#' Generate tables of coefficient estimates, partial effects, and willingness to pay from
+#' fracregmlogit-type objects. 
+#' 
+#' @name summary.fracregmlogit
+#' @aliases summary.fracregmlogit.pe
+#' @aliases summary.fracregmlogit.wtp
+#' 
+#' @param object an object with class "fracregmlogit", "fracregmlogit.pe", or "fracregmlogit.wtp".
+#' @param ... Additional arguments passed to the printCoefmat function.
+#' @return Returns the object invisibly.
+#' 
+#' @details This module provides summary methods for three fracregmlogit objects: \code{fracregmlogit}, \code{fracregmlogit.pe}
+#' , and \code{fracregmlogit.wtp}. 
+#' 
+#' For \code{fracregmlogit} objects, the summary prints the number of observations, log pseudo-likelihood,
+#' baseline choice, and the coefficient estimates with standard errors, z-statistics, and p-values
+#' for each choice equation. 
+#' 
+#' For \code{fracregmlogit.pe} objects, it displays the marginal or discrete effects 
+#' along with their computed standard errors (if Krinsky-Robb sampling was performed) for each choice.
+#' 
+#' For \code{fracregmlogit.wtp} objects, it provides a table of the aggregated willingness to pay 
+#' along with its standard errors and test statistics.
+#' @seealso \code{\link{fracregmlogit}}, \code{\link{fracregmlogit.pe}}
+#' @examples
+#' data("fracreg_spending")
+#' X = fracreg_spending[,2:5]
+#' y = fracreg_spending[,6:11]
+#' 
+#' # generate fracregmlogit summary
+#' results1 = fracregmlogit(y, X)
+#' summary(results1)
+#' 
+#' # generate marginal effects summary
+#' effects1 = fracregmlogit.pe(results1, effect="marginal", se=FALSE)
+#' summary(effects1)
+#' 
+#' @rdname summary.fracregmlogit
+#' @export summary.fracregmlogit
+#' @export summary.fracregmlogit.pe
+#' @export summary.fracregmlogit.wtp
 summary.fracregmlogit <- function(object, ...) {
     cat("\n")
     cat(.fracreg.sep(), "\n")
@@ -904,4 +946,20 @@ summary.fracregmlogit.pe <- function(object, ...) {
     cat(.fracreg.sep(), "\n")
 
     invisible(object)
+}
+############
+# generate willingness to pay tables
+############
+
+#' @export
+summary.fracregmlogit.wtp = function(object, ...) {
+  if(!inherits(object, "fracregmlogit.wtp")) stop("Expect an fracregmlogit.wtp object. Wrong object type given.")
+  if (is.null(dim(object$wtp))) return(object$wtp)
+  if(is.null(colnames(object$wtp)) || colnames(object$wtp)[1]!="estimate") return(object$wtp) # no need to summary.
+  
+  cat("\nFractional Multinomial Logit Model - Willingness to Pay\n")
+  stats::printCoefmat(object$wtp, digits = max(3, getOption("digits") - 2), 
+                      signif.stars = TRUE, P.values = TRUE, has.Pvalue = TRUE)
+  cat("\n")
+  invisible(object)
 }
