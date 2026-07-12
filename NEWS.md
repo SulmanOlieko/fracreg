@@ -9,12 +9,16 @@
 * **S3 Methods & Output Display:** Standardised console output by adding dedicated `summary()` and `print()` S3 methods across the package to align with R's standard practices. Changed output tables to say "regression" rather than "model" for clarity.
 
 ### Documentation & Website
+* **Roxygen2 Migration:** Fully automated package documentation by migrating all manual `.Rd` files into `roxygen2` comments embedded directly within the R source files, ensuring airtight synchronization between code and documentation.
 * **Citations & References:** Added citations for the foundational `fmlogit` (Ji and Woodill) and `fracridge` (Rokem and Kay) packages across manual pages, README, and vignettes, formatting URLs properly for rendering.
 * **Logo & Badges:** Improved the package hex logo and added status badges to the `README`.
 * **Website (`pkgdown`):** Added a `sitemap.xml` and reordered the `README` and `vignettes` sections to properly showcase Fractional Multinomial Logit and Fractional Ridge Regression alongside Panel Data models. Added Willingness to Pay (WTP) plot visualizations in tutorials.
 * **Help Files:** Updated `.Rd` files to properly reflect `table = FALSE` default arguments and fixed `\usage` widths. Updated the package title for clarity and consistency.
 
 ### Bug Fixes & Under-the-Hood Improvements
+* **Namespace Imports:** Added comprehensive `@importFrom` tags for base R `stats`, `graphics`, and `grid` functions, alongside `ggplot2`, eliminating all undefined global function NOTEs during checking.
+* **S3 Method Registration:** Explicitly registered S3 methods (like `summary` and `plot`) using `@exportS3Method` to comply with strict `R CMD check` standards.
+* **CRAN Compliance:** Wrapped computationally heavy examples (like `plot.fracregmlogit.pe`) in `\donttest{}` blocks to strictly respect CRAN's 5-second execution limit.
 * Resolved `length > 1` logical condition errors in `plot.fracregmlogit` standard error rendering by properly adopting `match.arg()`.
 * Resolved WTP matrix subsetting issues by enforcing `drop = FALSE`.
 * Cleaned up legacy `fmlogit` code dependencies and unified the namespace fully under `fracregmlogit`.
