@@ -6,7 +6,13 @@ response models estimated by GMMx or LINx.
 ## Usage
 
 ``` r
-fracreghet.reset(object, lastpower.vec = 3, version = "Wald", table = FALSE, ...)
+fracreghet.reset(
+  object,
+  lastpower.vec = 3,
+  version = "Wald",
+  table = FALSE,
+  ...
+)
 ```
 
 ## Arguments
@@ -37,6 +43,10 @@ fracreghet.reset(object, lastpower.vec = 3, version = "Wald", table = FALSE, ...
   when `version` is equal to `"Wald"` and the null model was estimated
   by `GMMx`.
 
+## Value
+
+`fracreghet.reset` returns a named vector with the test results.
+
 ## Details
 
 `fracreghet.reset` applies the RESET test statistic to fractional
@@ -58,10 +68,6 @@ It is taken into account the option that was chosen for computing
 standard errors in the model under evaluation. See Ramalho and Ramalho
 (2017) for details.
 
-## Value
-
-`fracreghet.reset` returns a named vector with the test results.
-
 ## References
 
 Ramalho, E. A., & Ramalho, J. J. S. (2017), "Moment-based estimation of
@@ -73,16 +79,16 @@ Ramsey, J.B. (1969), "Tests for Specification Errors in Classical Linear
 Least-Squares Regression Analysis", *Journal of the Royal Statistical
 Society: Series B (Methodological)*, 31(2), 350-371.
 
-## Author
-
-Sulman Olieko Owili \<oliekosulman@gmail.com\>
-
 ## See also
 
 [`fracreghet`](https://sulmanolieko.github.io/fracreg/reference/fracreghet.md),
 for fitting fractional response models under unobserved heterogeneity.  
 [`fracreghet.pe`](https://sulmanolieko.github.io/fracreg/reference/fracreghet.pe.md),
 for computing partial effects.
+
+## Author
+
+Sulman Olieko Owili \<oliekosulman@gmail.com\>
 
 ## Examples
 
@@ -125,7 +131,7 @@ res_emp <- fracreghet(y_adj, X_het, type="GMMx", link="logit")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 11:35:06 
+#>                          Run Date: 2026-07-12 13:14:29 
 #> -------------------------------------------------------------------------------- 
 #> 
 reset_res <- fracreghet.reset(res_emp)
@@ -143,7 +149,7 @@ summary(reset_res)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 11:35:06 
+#>                          Run Date: 2026-07-12 13:14:29 
 #> -------------------------------------------------------------------------------- 
  
 ### Simulated Examples
@@ -185,7 +191,7 @@ mod <- fracreghet(y,X,type="GMMx")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 11:35:06 
+#>                          Run Date: 2026-07-12 13:14:29 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -208,6 +214,6 @@ summary(reset_res)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 11:35:06 
+#>                          Run Date: 2026-07-12 13:14:29 
 #> -------------------------------------------------------------------------------- 
 ```

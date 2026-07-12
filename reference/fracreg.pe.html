@@ -46,38 +46,63 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">fracreg.pe</span><span class="op">(</span><span class="va">object</span>, APE <span class="op">=</span> <span class="cn">TRUE</span>, CPE <span class="op">=</span> <span class="cn">FALSE</span>, at <span class="op">=</span> <span class="cn">NULL</span>, which.x <span class="op">=</span> <span class="cn">NULL</span>, </span>
-<span>           variance <span class="op">=</span> <span class="cn">TRUE</span>, table <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">fracreg.pe</span><span class="op">(</span></span>
+<span>  <span class="va">object</span>,</span>
+<span>  APE <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  CPE <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  at <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  which.x <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  variance <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  table <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <p></p>
+
+
 <dl><dt id="arg-object">object<a class="anchor" aria-label="anchor" href="#arg-object"></a></dt>
 <dd><p>an object containing the results of an <code>fracreg</code> command.</p></dd>
 
-  <dt id="arg-ape">APE<a class="anchor" aria-label="anchor" href="#arg-ape"></a></dt>
+
+<dt id="arg-ape">APE<a class="anchor" aria-label="anchor" href="#arg-ape"></a></dt>
 <dd><p>a logical value indicating whether average partial effects are to be computed.</p></dd>
 
-  <dt id="arg-cpe">CPE<a class="anchor" aria-label="anchor" href="#arg-cpe"></a></dt>
+
+<dt id="arg-cpe">CPE<a class="anchor" aria-label="anchor" href="#arg-cpe"></a></dt>
 <dd><p>a logical value indicating whether conditional partial effects are to be computed.</p></dd>
 
-  <dt id="arg-at">at<a class="anchor" aria-label="anchor" href="#arg-at"></a></dt>
-<dd><p>a numeric vector containing the covariates' values at which the conditional partial effects are to be computed or
-the strings <code>"mean"</code> (the default) or <code>"median"</code>, in which cases the covariates are evaluated at their
-mean or median values (or mode, in case of dummy variables), respectively.</p></dd>
 
-  <dt id="arg-which-x">which.x<a class="anchor" aria-label="anchor" href="#arg-which-x"></a></dt>
+<dt id="arg-at">at<a class="anchor" aria-label="anchor" href="#arg-at"></a></dt>
+<dd><p>a numeric vector containing the covariates' values at which the conditional partial effects are to be computed or  the strings <code>"mean"</code> (the default) or <code>"median"</code>, in which cases the covariates are evaluated at their  mean or median values (or mode, in case of dummy variables), respectively.</p></dd>
+
+
+<dt id="arg-which-x">which.x<a class="anchor" aria-label="anchor" href="#arg-which-x"></a></dt>
 <dd><p>a vector containing the names of the covariates to which the partial effects are to be computed.</p></dd>
 
-  <dt id="arg-variance">variance<a class="anchor" aria-label="anchor" href="#arg-variance"></a></dt>
-<dd><p>a logical value indicating whether the variance of the estimated partial effects should be calculated. Defaults to
-<code>TRUE</code> whenever <code>table = TRUE</code>.</p></dd>
 
-  <dt id="arg-table">table<a class="anchor" aria-label="anchor" href="#arg-table"></a></dt>
+<dt id="arg-variance">variance<a class="anchor" aria-label="anchor" href="#arg-variance"></a></dt>
+<dd><p>a logical value indicating whether the variance of the estimated partial effects should be calculated. Defaults to  <code>TRUE</code> whenever <code>table = TRUE</code>.</p></dd>
+
+
+<dt id="arg-table">table<a class="anchor" aria-label="anchor" href="#arg-table"></a></dt>
 <dd><p>a logical value indicating whether a summary table with the results should be printed.</p></dd>
 
 </dl></div>
+    <div class="section level2">
+    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
+    <p><code>fracreg.pe</code> returns a list with the following element:</p>
+<dl><dt>PE.p</dt>
+<dd><p>a named vector of partial effects.</p></dd>
+
+
+</dl><p>If <code>variance = TRUE</code> or <code>table = TRUE</code>, the previous list also contains the following element:</p>
+<dl><dt>PE.sd</dt>
+<dd><p>a named vector of standard errors of the estimated partial effects.</p></dd>
+
+
+</dl><p>When both average and conditional partial effects are requested, two lists containing the previous elements are returned, indexed by the prefixes <code>ape</code> and <code>cpe</code>.</p>
+    </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p><code>fracreg.pe</code> calculates partial effects for fractional response models estimated via <code>fracreg</code>. <code>fracreg.pe</code> may be used to compute average or conditional partial effects for: (i) one-part fractional response models; (ii) the binary components of two-part and three-part fractional response models; (iii) the fractional components of two-part and three-part fractional response models; and (iv) two-part and three-part fractional response models overall.</p>
@@ -96,20 +121,6 @@ $$CPE_k = PE_k(x^*)$$</p>
 <p>For calculating standard errors, it is taken into account the option that was previously chosen for estimating the model. See Ramalho, Ramalho and Murteira (2011) and Fang and Ma (2013) for details on the computation of partial effects in the fractional response framework.</p>
     </div>
     <div class="section level2">
-    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p><code>fracreg.pe</code> returns a list with the following element:</p>
-<dl><dt>PE.p</dt>
-<dd><p>a named vector of partial effects.</p></dd>
-
-
-</dl><p>If <code>variance = TRUE</code> or <code>table = TRUE</code>, the previous list also contains the following element:</p>
-<dl><dt>PE.sd</dt>
-<dd><p>a named vector of standard errors of the estimated partial effects.</p></dd>
-
-
-</dl><p>When both average and conditional partial effects are requested, two lists containing the previous elements are returned, indexed by the prefixes <code>ape</code> and <code>cpe</code>.</p>
-    </div>
-    <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
     <p>Ramalho, E.A., J.J.S. Ramalho and J.M.R. Murteira (2011), "Alternative
 estimating and testing empirical strategies for fractional response models",
@@ -117,12 +128,12 @@ estimating and testing empirical strategies for fractional response models",
 <p>Fang, K., &amp; Ma, S. (2013), "Three-part model for fractional response variables with application to Chinese household health insurance coverage", <em>Journal of Applied Statistics</em>, 40(5), 925-940.</p>
     </div>
     <div class="section level2">
-    <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
-    <p>Sulman Olieko Owili &lt;oliekosulman@gmail.com&gt;</p>
-    </div>
-    <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><code><a href="fracreg.html">fracreg</a></code>, for fitting fractional response models.<br><code><a href="fracreg.reset.html">fracreg.reset</a></code> and <code><a href="fracreg.ggoff.html">fracreg.ggoff</a></code>, for specification tests.<br><code><a href="fracreg.ptest.html">fracreg.ptest</a></code>, for non-nested hypothesis tests.</p></div>
+    </div>
+    <div class="section level2">
+    <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
+    <p>Sulman Olieko Owili &lt;oliekosulman@gmail.com&gt;</p>
     </div>
 
     <div class="section level2">
@@ -151,7 +162,7 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 11:35:03 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 13:14:26 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">### Simulated Examples</span></span></span>
@@ -183,7 +194,7 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 11:35:03 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 13:14:26 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#Computing average partial effects for a binary logit + fractional probit</span></span></span>
@@ -204,7 +215,7 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 11:35:03 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 13:14:26 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#Computing conditional partial effects for X2 in the logit component</span></span></span>
@@ -225,7 +236,7 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 11:35:03 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 13:14:26 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Note: covariates evaluated at median (or mode, for dummies) values</span>
@@ -250,7 +261,7 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 11:35:03 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 13:14:26 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 </code></pre></div>
     </div>

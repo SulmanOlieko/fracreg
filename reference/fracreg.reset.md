@@ -38,6 +38,10 @@ fracreg.reset(object, lastpower.vec = 3, version = "LM", table = FALSE, ...)
   used to estimate the model under the alternative hypothesis when
   `version` is a vector containing `"Wald"` or `"LR"`.
 
+## Value
+
+`fracreg.reset` returns a named vector with the test results.
+
 ## Details
 
 `fracreg.reset` applies the RESET test statistic to fractional response
@@ -63,10 +67,6 @@ evaluation. For the `LM` version, a robust version is computed in cases
 Ramalho and Murteira (2011) for details on the application of the RESET
 test in the fractional response framework.
 
-## Value
-
-`fracreg.reset` returns a named vector with the test results.
-
 ## References
 
 Ramalho, E.A., J.J.S. Ramalho and J.M.R. Murteira (2011), "Alternative
@@ -76,10 +76,6 @@ models", *Journal of Economic Surveys*, 25(1), 19-68.
 Ramsey, J.B. (1969), "Tests for Specification Errors in Classical Linear
 Least-Squares Regression Analysis", *Journal of the Royal Statistical
 Society: Series B (Methodological)*, 31(2), 350-371.
-
-## Author
-
-Sulman Olieko Owili \<oliekosulman@gmail.com\>
 
 ## See also
 
@@ -91,6 +87,10 @@ for asymptotically equivalent specification tests.
 for non-nested hypothesis tests.  
 [`fracreg.pe`](https://sulmanolieko.github.io/fracreg/reference/fracreg.pe.md),
 for computing partial effects.
+
+## Author
+
+Sulman Olieko Owili \<oliekosulman@gmail.com\>
 
 ## Examples
 
@@ -115,7 +115,7 @@ summary(reset_res)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 11:35:04 
+#>                          Run Date: 2026-07-12 13:14:26 
 #> -------------------------------------------------------------------------------- 
 
 ### Simulated Examples
@@ -148,7 +148,7 @@ summary(reset_res)
 #> LM(3)       0.135   0.935
 #> Wald(3)     0.133   0.936
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 11:35:04 
+#>                          Run Date: 2026-07-12 13:14:26 
 #> -------------------------------------------------------------------------------- 
 
 #Testing the probit specification of the binary component of a two-part fractional
@@ -167,6 +167,6 @@ summary(reset_res)
 #>       Statistic p-value
 #> LR(3)     4.211   0.122
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 11:35:04 
+#>                          Run Date: 2026-07-12 13:14:26 
 #> -------------------------------------------------------------------------------- 
 ```

@@ -6,10 +6,31 @@ dependent variable has a bounded, fractional nature.
 ## Usage
 
 ``` r
-fracregpd(id, time, y, x, z, var.endog, x.exogenous = T, lags, start, type,
-  GMMww.cor = T, link = "logit", intercept = T, table = FALSE, variance = T,
-  var.type = "cluster", tdummies = F, bootstrap = F, B = 200, offset = NULL, 
-    or = FALSE, level = 0.95, ...)
+fracregpd(
+  id,
+  time,
+  y,
+  x,
+  z,
+  var.endog,
+  x.exogenous = T,
+  lags,
+  start,
+  type,
+  GMMww.cor = T,
+  link = "logit",
+  intercept = T,
+  table = FALSE,
+  variance = T,
+  var.type = "cluster",
+  tdummies = F,
+  bootstrap = F,
+  B = 200,
+  offset = NULL,
+  or = FALSE,
+  level = 0.95,
+  ...
+)
 ```
 
 ## Arguments
@@ -137,41 +158,6 @@ fracregpd(id, time, y, x, z, var.endog, x.exogenous = T, lags, start, type,
 
   Arguments to pass to [nlminb](https://rdrr.io/r/stats/nlminb.html).
 
-## Details
-
-`fracregpd` computes the GMM estimators proposed in Ramalho, Ramalho and
-Coelho (2018) for panel data fractional response models with both
-time-variant and time-invariant unobserved heterogeneity and endogeneous
-covariates: GMMww, GMMc, GMMbgw, GMMpfe, GMMcre and GMMpre. In addition,
-`fracregpd` also computes QMLcre, which was proposed by Papke and
-Wooldridge (2008) and Wooldridge (2019).
-
-**Correlated Random Effects (CRE) - QMLcre:** In panel data, unobserved
-individual-specific heterogeneity \\c_i\\ may be correlated with the
-covariates \\x\_{it}\\. The CRE approach (Papke and Wooldridge, 2008)
-models this dependence by projecting \\c_i\\ onto the time averages of
-the strictly exogenous covariates \\\bar{x}\_i\\: \$\$c_i = \psi +
-\bar{x}\_i \xi + a_i\$\$ where \\a_i\\ is an error term independent of
-\\x_i\\. Assuming \\a_i \| x_i \sim N(0, \sigma_a^2)\\ and a probit
-link, integrating out \\a_i\\ yields the "population-averaged" or scaled
-conditional mean: \$\$E(y\_{it} \| x_i) = G(x\_{it} \beta_a + \psi_a +
-\bar{x}\_i \xi_a)\$\$ where the parameters with subscript \\a\\ are
-scaled by \\(1 + \sigma_a^2)^{-1/2}\\. This equation is estimated via
-pooled Bernoulli QML.
-
-**Generalised Method of Moments (GMM):** For models where strict
-exogeneity fails or the link function is an exponential-type link,
-Ramalho et al. (2018) propose GMM estimators based on the following
-general moment conditions: \$\$E\[Z\_{it} (H(y\_{it}) -
-\exp(x\_{it}\beta + c_i))\] = 0\$\$ where \\H(\cdot)\\ is a
-transformation function and \\Z\_{it}\\ is a matrix of valid
-instruments. Estimators such as GMMww, GMMc, and GMMbgw use different
-transformations to eliminate the unobserved fixed effect \\c_i\\ before
-applying GMM.
-
-For overidentified models, `fracregpd` calculates Hansen's J statistic
-to test the validity of the overidentifying restrictions.
-
 ## Value
 
 `fracregpd` returns a list with the following elements:
@@ -215,6 +201,41 @@ successfully, the previous list also contains the following elements:
 
   covariance matrix type.
 
+## Details
+
+`fracregpd` computes the GMM estimators proposed in Ramalho, Ramalho and
+Coelho (2018) for panel data fractional response models with both
+time-variant and time-invariant unobserved heterogeneity and endogeneous
+covariates: GMMww, GMMc, GMMbgw, GMMpfe, GMMcre and GMMpre. In addition,
+`fracregpd` also computes QMLcre, which was proposed by Papke and
+Wooldridge (2008) and Wooldridge (2019).
+
+**Correlated Random Effects (CRE) - QMLcre:** In panel data, unobserved
+individual-specific heterogeneity \\c_i\\ may be correlated with the
+covariates \\x\_{it}\\. The CRE approach (Papke and Wooldridge, 2008)
+models this dependence by projecting \\c_i\\ onto the time averages of
+the strictly exogenous covariates \\\bar{x}\_i\\: \$\$c_i = \psi +
+\bar{x}\_i \xi + a_i\$\$ where \\a_i\\ is an error term independent of
+\\x_i\\. Assuming \\a_i \| x_i \sim N(0, \sigma_a^2)\\ and a probit
+link, integrating out \\a_i\\ yields the "population-averaged" or scaled
+conditional mean: \$\$E(y\_{it} \| x_i) = G(x\_{it} \beta_a + \psi_a +
+\bar{x}\_i \xi_a)\$\$ where the parameters with subscript \\a\\ are
+scaled by \\(1 + \sigma_a^2)^{-1/2}\\. This equation is estimated via
+pooled Bernoulli QML.
+
+**Generalised Method of Moments (GMM):** For models where strict
+exogeneity fails or the link function is an exponential-type link,
+Ramalho et al. (2018) propose GMM estimators based on the following
+general moment conditions: \$\$E\[Z\_{it} (H(y\_{it}) -
+\exp(x\_{it}\beta + c_i))\] = 0\$\$ where \\H(\cdot)\\ is a
+transformation function and \\Z\_{it}\\ is a matrix of valid
+instruments. Estimators such as GMMww, GMMc, and GMMbgw use different
+transformations to eliminate the unobserved fixed effect \\c_i\\ before
+applying GMM.
+
+For overidentified models, `fracregpd` calculates Hansen's J statistic
+to test the validity of the overidentifying restrictions.
+
 ## Odds Ratios
 
 When `or=TRUE` and the fractional link function (`linkfrac` or `link`)
@@ -241,10 +262,6 @@ Methods*, 7(1), 20150019.
 Wooldridge, J. M. (2019). Correlated random effects models with
 unbalanced panels. *Journal of Econometrics*, 211(1), 137-150.
 
-## Author
-
-Sulman Olieko Owili \<oliekosulman@gmail.com\>
-
 ## See also
 
 [`fracreg`](https://sulmanolieko.github.io/fracreg/reference/fracreg.md),
@@ -252,6 +269,10 @@ for fitting standard cross-sectional fractional response models.
 [`fracreghet`](https://sulmanolieko.github.io/fracreg/reference/fracreghet.md),
 for fitting cross-sectional fractional response models with unobserved
 heterogeneity.
+
+## Author
+
+Sulman Olieko Owili \<oliekosulman@gmail.com\>
 
 ## Examples
 
@@ -311,7 +332,7 @@ summary(mod)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 11:35:08 
+#>                          Run Date: 2026-07-12 13:14:31 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -376,7 +397,7 @@ summary(mod)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 11:35:08 
+#>                          Run Date: 2026-07-12 13:14:31 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -395,7 +416,7 @@ summary(pe_res)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 11:35:08 
+#>                          Run Date: 2026-07-12 13:14:31 
 #> -------------------------------------------------------------------------------- 
 
 # Exogeneity, no lags, no time dummies, clustered standard errors, GMMbgw estimator
@@ -427,7 +448,7 @@ summary(mod)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 11:35:08 
+#>                          Run Date: 2026-07-12 13:14:31 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -460,7 +481,7 @@ summary(mod)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 11:35:08 
+#>                          Run Date: 2026-07-12 13:14:31 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -493,7 +514,7 @@ summary(mod)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 11:35:08 
+#>                          Run Date: 2026-07-12 13:14:31 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -537,7 +558,7 @@ summary(mod)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 11:35:09 
+#>                          Run Date: 2026-07-12 13:14:32 
 #> -------------------------------------------------------------------------------- 
 #> 
 # }

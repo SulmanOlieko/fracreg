@@ -46,83 +46,99 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">fracreghet</span><span class="op">(</span><span class="va">y</span>, <span class="va">x</span>, z <span class="op">=</span> <span class="va">x</span>, <span class="va">var.endog</span>, <span class="va">start</span>, type <span class="op">=</span> <span class="st">"GMMx"</span>, link <span class="op">=</span> <span class="st">"logit"</span>, </span>
-<span>           intercept <span class="op">=</span> <span class="cn">T</span>, table <span class="op">=</span> <span class="cn">T</span>, variance <span class="op">=</span> <span class="cn">T</span>, </span>
-<span>           var.type <span class="op">=</span> <span class="st">"robust"</span>, <span class="va">var.cluster</span>, adjust <span class="op">=</span> <span class="fl">0</span>, offset <span class="op">=</span> <span class="cn">NULL</span>, </span>
-<span>           or <span class="op">=</span> <span class="cn">FALSE</span>, level <span class="op">=</span> <span class="fl">0.95</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">fracreghet</span><span class="op">(</span></span>
+<span>  <span class="va">y</span>,</span>
+<span>  <span class="va">x</span>,</span>
+<span>  z <span class="op">=</span> <span class="va">x</span>,</span>
+<span>  <span class="va">var.endog</span>,</span>
+<span>  <span class="va">start</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"GMMx"</span>,</span>
+<span>  link <span class="op">=</span> <span class="st">"logit"</span>,</span>
+<span>  intercept <span class="op">=</span> <span class="cn">T</span>,</span>
+<span>  table <span class="op">=</span> <span class="cn">T</span>,</span>
+<span>  variance <span class="op">=</span> <span class="cn">T</span>,</span>
+<span>  var.type <span class="op">=</span> <span class="st">"robust"</span>,</span>
+<span>  <span class="va">var.cluster</span>,</span>
+<span>  adjust <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  offset <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  or <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  level <span class="op">=</span> <span class="fl">0.95</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <p></p>
+
+
 <dl><dt id="arg-y">y<a class="anchor" aria-label="anchor" href="#arg-y"></a></dt>
 <dd><p>a numeric vector containing the values of the response variable.</p></dd>
 
-  <dt id="arg-x">x<a class="anchor" aria-label="anchor" href="#arg-x"></a></dt>
+
+<dt id="arg-x">x<a class="anchor" aria-label="anchor" href="#arg-x"></a></dt>
 <dd><p>a numeric matrix, with column names, containing the values of all covariates (exogenous and endogenous).</p></dd>
 
-  <dt id="arg-z">z<a class="anchor" aria-label="anchor" href="#arg-z"></a></dt>
-<dd><p>a numeric matrix, with column names, containing the values of all exogenous variables (covariates and instrumental
-variables). Defaults to <code>x</code>.</p></dd>
 
-  <dt id="arg-var-endog">var.endog<a class="anchor" aria-label="anchor" href="#arg-var-endog"></a></dt>
+<dt id="arg-z">z<a class="anchor" aria-label="anchor" href="#arg-z"></a></dt>
+<dd><p>a numeric matrix, with column names, containing the values of all exogenous variables (covariates and instrumental  variables). Defaults to <code>x</code>.</p></dd>
+
+
+<dt id="arg-var-endog">var.endog<a class="anchor" aria-label="anchor" href="#arg-var-endog"></a></dt>
 <dd><p>a numeric vector containing the values of the endogenous covariate (or of some transformation of it), which will be used as dependent variable in the linear reduced form assumed for application of xv-type estimators.</p></dd>
 
-  <dt id="arg-start">start<a class="anchor" aria-label="anchor" href="#arg-start"></a></dt>
+
+<dt id="arg-start">start<a class="anchor" aria-label="anchor" href="#arg-start"></a></dt>
 <dd><p>a numeric vector containing the initial values for the parameters to be optimised. Optional.</p></dd>
 
-  <dt id="arg-type">type<a class="anchor" aria-label="anchor" href="#arg-type"></a></dt>
+
+<dt id="arg-type">type<a class="anchor" aria-label="anchor" href="#arg-type"></a></dt>
 <dd><p>a description of the estimator to compute: <code>GMMx</code> (the default), <code>GMMxv</code>, <code>GMMz</code>, <code>LINx</code>, <code>LINxv</code>, <code>LINz</code> or <code>QMLxv</code>.</p></dd>
 
-  <dt id="arg-link">link<a class="anchor" aria-label="anchor" href="#arg-link"></a></dt>
+
+<dt id="arg-link">link<a class="anchor" aria-label="anchor" href="#arg-link"></a></dt>
 <dd><p>a description of the link function to use. Available options for all estimators: <code>logit</code> and <code>cloglog</code>. Additional available options for QML and LIN estimators: <code>probit</code>, <code>cauchit</code> and <code>loglog</code>.</p></dd>
 
-  <dt id="arg-intercept">intercept<a class="anchor" aria-label="anchor" href="#arg-intercept"></a></dt>
+
+<dt id="arg-intercept">intercept<a class="anchor" aria-label="anchor" href="#arg-intercept"></a></dt>
 <dd><p>a logical value indicating whether the model should include a constant term or not.</p></dd>
 
-  <dt id="arg-table">table<a class="anchor" aria-label="anchor" href="#arg-table"></a></dt>
+
+<dt id="arg-table">table<a class="anchor" aria-label="anchor" href="#arg-table"></a></dt>
 <dd><p>a logical value indicating whether a summary table with the regression results should be printed.</p></dd>
 
-  <dt id="arg-variance">variance<a class="anchor" aria-label="anchor" href="#arg-variance"></a></dt>
+
+<dt id="arg-variance">variance<a class="anchor" aria-label="anchor" href="#arg-variance"></a></dt>
 <dd><p>a logical value indicating whether the variance of the estimated parameters should be calculated. Defaults to <code>TRUE</code> whenever <code>table = TRUE</code>.</p></dd>
 
-  <dt id="arg-var-type">var.type<a class="anchor" aria-label="anchor" href="#arg-var-type"></a></dt>
+
+<dt id="arg-var-type">var.type<a class="anchor" aria-label="anchor" href="#arg-var-type"></a></dt>
 <dd><p>a description of the type of variance of the estimated parameters to be calculated. Options are <code>robust</code>, the default, and <code>cluster</code>.</p></dd>
 
-  <dt id="arg-var-cluster">var.cluster<a class="anchor" aria-label="anchor" href="#arg-var-cluster"></a></dt>
+
+<dt id="arg-var-cluster">var.cluster<a class="anchor" aria-label="anchor" href="#arg-var-cluster"></a></dt>
 <dd><p>a numeric vector containing the values of the variable that specifies to which cluster each observation belongs.</p></dd>
 
-  <dt id="arg-adjust">adjust<a class="anchor" aria-label="anchor" href="#arg-adjust"></a></dt>
+
+<dt id="arg-adjust">adjust<a class="anchor" aria-label="anchor" href="#arg-adjust"></a></dt>
 <dd><p>the numeric value to be added to the response variable in case of boundary observations when the LIN estimators are applied or the string <code>drop</code>, which implies that the boundary observations are dropped.</p></dd>
 
-  <dt id="arg-offset">offset<a class="anchor" aria-label="anchor" href="#arg-offset"></a></dt>
+
+<dt id="arg-offset">offset<a class="anchor" aria-label="anchor" href="#arg-offset"></a></dt>
 <dd><p>an optional numeric vector containing an offset. It must be of the same dimension as the response variable. It specifies that the variable should be included in the model with its coefficient constrained to 1.</p></dd>
 
-  <dt id="arg-or">or<a class="anchor" aria-label="anchor" href="#arg-or"></a></dt>
+
+<dt id="arg-or">or<a class="anchor" aria-label="anchor" href="#arg-or"></a></dt>
 <dd><p>a logical value indicating whether to report odds ratios. Only valid when the link function is <code>"logit"</code>. Defaults to <code>FALSE</code>.</p></dd>
 
-  <dt id="arg-level">level<a class="anchor" aria-label="anchor" href="#arg-level"></a></dt>
+
+<dt id="arg-level">level<a class="anchor" aria-label="anchor" href="#arg-level"></a></dt>
 <dd><p>a numeric value between 0 and 1 indicating the confidence level for the confidence intervals. Defaults to <code>0.95</code>.</p></dd>
 
-  <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
+
+<dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>Arguments to pass to <a href="https://rdrr.io/r/stats/nlminb.html" class="external-link">nlminb</a>.</p></dd>
 
 </dl></div>
-    <div class="section level2">
-    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p><code>fracreghet</code> computes the GMM estimators proposed in Ramalho and Ramalho (2017) for fractional response models with unobserved heterogeneity: GMMx, which allows for neglected heterogeneity but not for endogeneity; GMMxv, which allows both issues and assumes a linear reduced form for the endogeneous covariate (or for a transformation of it); and GMMz, which also allows for both issues but does not require the assumption of a reduced form for the endogenous covariate. In addition, <code>fracreghet</code> also computes three linearised estimators (LINx, LINxv and LINz) that have similar features to their GMM counterparts. It also provides a QML estimator (QMLxv) that addresses endogeneity using a Control Function (CF) approach, which includes the first-stage reduced-form residuals as an additional regressor in the main fractional equation, providing a Hausman-type test for endogeneity.</p>
-<p><strong>Control Function (CF) Approach - QMLxv:</strong>
-When a continuous regressor \(y_{2i}\) is endogenous, the CF approach (Papke and Wooldridge, 2008; Terza et al., 2008) uses a two-stage procedure. First, a linear reduced form is estimated:
-$$y_{2i} = z_i \pi + v_i$$
-where \(z_i\) includes all exogenous variables and external instruments. The residuals \(\hat{v}_i\) are then included in the fractional response model:
-$$E(y_{1i} | z_i, y_{2i}, v_i) = G(x_i \beta + \gamma \hat{v}_i)$$
-A test of \(H_0: \gamma = 0\) serves as a robust Hausman-type test for endogeneity.</p>
-<p><strong>Generalised Method of Moments (GMM):</strong>
-For estimators like GMMz, which do not strictly require a linear reduced form, the estimation relies on population orthogonality conditions between the instruments \(Z_i\) and the model residuals:
-$$E[Z_{i} (y_i - G(x_i \beta))] = 0$$
-or via specific transformations of the dependent variable to eliminate unobserved heterogeneity (Ramalho and Ramalho, 2017).</p>
-<p>For overidentified models, <code>fracreghet</code> calculates Hansen's J statistic. For <code>GMMx</code> and <code>LINx</code>, <code>fracreghet</code> stores the information needed to implement the RESET test (<a href="fracreghet.reset.html">fracreghet.reset</a>). For all estimators, <code>fracreghet</code> stores the information needed to calculate partial effects (<a href="fracreghet.pe.html">fracreghet.pe</a>).</p>
-    </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p><code>fracreghet</code> returns a list with the following elements:</p>
@@ -178,8 +194,25 @@ or via specific transformations of the dependent variable to eliminate unobserve
 
 </dl></div>
     <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p><code>fracreghet</code> computes the GMM estimators proposed in Ramalho and Ramalho (2017) for fractional response models with unobserved heterogeneity: GMMx, which allows for neglected heterogeneity but not for endogeneity; GMMxv, which allows both issues and assumes a linear reduced form for the endogeneous covariate (or for a transformation of it); and GMMz, which also allows for both issues but does not require the assumption of a reduced form for the endogenous covariate. In addition, <code>fracreghet</code> also computes three linearised estimators (LINx, LINxv and LINz) that have similar features to their GMM counterparts. It also provides a QML estimator (QMLxv) that addresses endogeneity using a Control Function (CF) approach, which includes the first-stage reduced-form residuals as an additional regressor in the main fractional equation, providing a Hausman-type test for endogeneity.</p>
+<p><strong>Control Function (CF) Approach - QMLxv:</strong>
+When a continuous regressor \(y_{2i}\) is endogenous, the CF approach (Papke and Wooldridge, 2008; Terza et al., 2008) uses a two-stage procedure. First, a linear reduced form is estimated:
+$$y_{2i} = z_i \pi + v_i$$
+where \(z_i\) includes all exogenous variables and external instruments. The residuals \(\hat{v}_i\) are then included in the fractional response model:
+$$E(y_{1i} | z_i, y_{2i}, v_i) = G(x_i \beta + \gamma \hat{v}_i)$$
+A test of \(H_0: \gamma = 0\) serves as a robust Hausman-type test for endogeneity.</p>
+<p><strong>Generalised Method of Moments (GMM):</strong>
+For estimators like GMMz, which do not strictly require a linear reduced form, the estimation relies on population orthogonality conditions between the instruments \(Z_i\) and the model residuals:
+$$E[Z_{i} (y_i - G(x_i \beta))] = 0$$
+or via specific transformations of the dependent variable to eliminate unobserved heterogeneity (Ramalho and Ramalho, 2017).</p>
+<p>For overidentified models, <code>fracreghet</code> calculates Hansen's J statistic. For <code>GMMx</code> and <code>LINx</code>, <code>fracreghet</code> stores the information needed to implement the RESET test (<a href="fracreghet.reset.html">fracreghet.reset</a>). For all estimators, <code>fracreghet</code> stores the information needed to calculate partial effects (<a href="fracreghet.pe.html">fracreghet.pe</a>).</p>
+    </div>
+    <div class="section level2">
     <h2 id="odds-ratios">Odds Ratios<a class="anchor" aria-label="anchor" href="#odds-ratios"></a></h2>
-    <p>When <code>or=TRUE</code> and the fractional link function (<code>linkfrac</code> or <code>link</code>) is <code>"logit"</code>, the model additionally computes odds ratios for the coefficients.
+
+
+<p>When <code>or=TRUE</code> and the fractional link function (<code>linkfrac</code> or <code>link</code>) is <code>"logit"</code>, the model additionally computes odds ratios for the coefficients.
 Odds Ratios are exponentiated coefficients.
 The corresponding standard errors for the odds ratios are calculated using the Delta method.
 The confidence intervals for the odds ratios are calculated using the adjusted standard errors and the specified <code>level</code> (defaulting to 95%).
@@ -192,12 +225,12 @@ Odds ratios are particularly useful in fractional logit models as they provide a
 <p>Terza, J. V., Basu, A., and Rathouz, P. J. (2008), "Two-stage residual inclusion estimation: addressing endogeneity in health econometric modeling", <em>Journal of Health Economics</em>, 27(3), 531-543.</p>
     </div>
     <div class="section level2">
-    <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
-    <p>Sulman Olieko Owili &lt;oliekosulman@gmail.com&gt;</p>
-    </div>
-    <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><code><a href="fracreghet.reset.html">fracreghet.reset</a></code>, for the RESET test.<br><code><a href="fracreghet.pe.html">fracreghet.pe</a></code>, for computing partial effects.<br><code><a href="fracreg.html">fracreg</a></code>, for fitting standard cross-sectional fractional response models.<br><code><a href="fracregpd.html">fracregpd</a></code>, for fitting panel data fractional response models.</p></div>
+    </div>
+    <div class="section level2">
+    <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
+    <p>Sulman Olieko Owili &lt;oliekosulman@gmail.com&gt;</p>
     </div>
 
     <div class="section level2">
@@ -255,7 +288,7 @@ Odds ratios are particularly useful in fractional logit models as they provide a
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 11:35:04 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 13:14:27 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></span>
@@ -271,7 +304,7 @@ Odds ratios are particularly useful in fractional logit models as they provide a
 <span class="r-out co"><span class="r-pr">#&gt;</span> Data type:                                                       Cross-sectional </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of observations:                                                     1534 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Standard errors:                                                          robust </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Wald chi2(6):                                                       2243425.9703 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Wald chi2(6):                                                       2243425.9766 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Prob &gt; chi2:                                                              0.0000 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Convergence:                                                          Successful </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
@@ -279,7 +312,7 @@ Odds ratios are particularly useful in fractional logit models as they provide a
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             Odds Ratio Robust Std.Err.  z value [90% Conf. Interval] Pr(&gt;|z|)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)    0.89977         0.67684 -0.14040    0.26108     3.101    0.888</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> mrate         41.32156        28.49225  5.39703   13.29273   128.452 6.78e-08</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mrate         41.32157        28.49225  5.39703   13.29273   128.452 6.78e-08</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ltotemp        0.93231         0.04986 -1.31060    0.85380     1.018    0.190</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> vhat           0.06111         0.04279 -3.99157    0.01931     0.193 6.56e-05</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                </span>
@@ -303,7 +336,7 @@ Odds ratios are particularly useful in fractional logit models as they provide a
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 11:35:05 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 13:14:28 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span> </span></span>
@@ -353,7 +386,7 @@ Odds ratios are particularly useful in fractional logit models as they provide a
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 11:35:05 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 13:14:28 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></span>
@@ -368,7 +401,7 @@ Odds ratios are particularly useful in fractional logit models as they provide a
 <span class="r-out co"><span class="r-pr">#&gt;</span> Data type:                                                       Cross-sectional </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of observations:                                                     1000 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Standard errors:                                                          robust </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Wald chi2(2):                                                         14903.8563 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Wald chi2(2):                                                         14903.8562 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Prob &gt; chi2:                                                              0.0000 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Convergence:                                                          Successful </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
@@ -385,7 +418,7 @@ Odds ratios are particularly useful in fractional logit models as they provide a
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 11:35:05 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 13:14:28 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></span>
@@ -431,7 +464,7 @@ Odds ratios are particularly useful in fractional logit models as they provide a
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 11:35:05 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 13:14:28 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></span>
@@ -476,7 +509,7 @@ Odds ratios are particularly useful in fractional logit models as they provide a
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 11:35:05 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 13:14:28 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></span>

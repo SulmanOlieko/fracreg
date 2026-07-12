@@ -11,8 +11,16 @@ matrix.
 ## Usage
 
 ``` r
-fracregpd.pe(object, APE = TRUE, CPE = FALSE, at = NULL, which.x = NULL, 
-             variance = TRUE, table = FALSE, ...)
+fracregpd.pe(
+  object,
+  APE = TRUE,
+  CPE = FALSE,
+  at = NULL,
+  which.x = NULL,
+  variance = TRUE,
+  table = FALSE,
+  ...
+)
 ```
 
 ## Arguments

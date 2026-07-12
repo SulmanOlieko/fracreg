@@ -49,7 +49,14 @@ Unlike standard ridge regression where the penalty term \(\alpha\) is chosen dir
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">fracregridge</span><span class="op">(</span><span class="va">y</span>, <span class="va">x</span>, fracs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">1.0</span>, by <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span>, tol <span class="op">=</span> <span class="fl">1e-10</span>, intercept <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">fracregridge</span><span class="op">(</span></span>
+<span>  <span class="va">y</span>,</span>
+<span>  <span class="va">x</span>,</span>
+<span>  fracs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">1</span>, by <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span>,</span>
+<span>  tol <span class="op">=</span> <span class="fl">1e-10</span>,</span>
+<span>  intercept <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -213,7 +220,7 @@ The function automatically determines the \(\alpha\) values corresponding to the
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 11:35:09 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 13:14:32 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
@@ -286,7 +293,7 @@ The function automatically determines the \(\alpha\) values corresponding to the
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 11:35:09 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 13:14:32 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
@@ -390,7 +397,109 @@ The function automatically determines the \(\alpha\) values corresponding to the
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 11:35:09 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 13:14:32 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">1000</span><span class="op">)</span>, <span class="fl">100</span>, <span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Fit fractional ridge regression</span></span></span>
+<span class="r-in"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu">fracregridge</span><span class="op">(</span><span class="va">y</span>, <span class="va">x</span>, fracs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.3</span>, <span class="fl">0.5</span>, <span class="fl">0.8</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Fractional Ridge Regression</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Call:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> fracregridge(y = y, x = x, fracs = c(0.3, 0.5, 0.8))</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Ridge Coefficients at Target Fractions:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                 frac_0.3     frac_0.5    frac_0.8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)  0.025969041  0.043431002  0.06995586</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x1          -0.015190037 -0.025277903 -0.04006089</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x2          -0.029634697 -0.050625055 -0.08391206</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x3          -0.017972923 -0.035289788 -0.06765584</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x4          -0.048194568 -0.081684776 -0.13262875</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x5          -0.013807840 -0.021406027 -0.02901469</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x6          -0.013152916 -0.022143313 -0.03593916</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x7           0.048353290  0.078031858  0.11711702</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x8          -0.006353284 -0.014086532 -0.03160760</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x9           0.001567879  0.002529806  0.00567404</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x10          0.020836124  0.031879315  0.04441221</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                           Fractional Ridge Regression </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Data type:                                                       Cross-sectional </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Convergence:                                                          Successful </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                            Target Fraction: frac_0.3 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Number of observations:                                                      100 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Pseudo R-squared:                                                        0.09027 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Degrees of freedom:                                                        96.78 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              Estimate Std. Error z value Pr(&gt;|z|)  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)  0.025969   0.026424   0.983   0.3257  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x1          -0.015190   0.026179  -0.580   0.5618  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x2          -0.029635   0.026080  -1.136   0.2558  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x3          -0.017973   0.026498  -0.678   0.4976  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x4          -0.048195   0.026318  -1.831   0.0671 .</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x5          -0.013808   0.025679  -0.538   0.5908  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x6          -0.013153   0.026949  -0.488   0.6255  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x7           0.048353   0.026532   1.822   0.0684 .</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x8          -0.006353   0.027076  -0.235   0.8145  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x9           0.001568   0.026610   0.059   0.9530  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x10          0.020836   0.026763   0.779   0.4362  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                            Target Fraction: frac_0.5 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Number of observations:                                                      100 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Pseudo R-squared:                                                        0.09187 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Degrees of freedom:                                                        94.58 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             Estimate Std. Error z value Pr(&gt;|z|)  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)  0.04343    0.04478   0.970   0.3322  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x1          -0.02528    0.04490  -0.563   0.5735  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x2          -0.05063    0.04501  -1.125   0.2607  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x3          -0.03529    0.04449  -0.793   0.4277  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x4          -0.08168    0.04471  -1.827   0.0677 .</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x5          -0.02141    0.04462  -0.480   0.6314  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x6          -0.02214    0.04502  -0.492   0.6228  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x7           0.07803    0.04477   1.743   0.0814 .</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x8          -0.01409    0.04497  -0.313   0.7541  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x9           0.00253    0.04489   0.056   0.9551  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x10          0.03188    0.04471   0.713   0.4758  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                            Target Fraction: frac_0.8 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Number of observations:                                                      100 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Pseudo R-squared:                                                        0.09327 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Degrees of freedom:                                                        91.24 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              Estimate Std. Error z value Pr(&gt;|z|)  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)  0.069956   0.074554   0.938   0.3481  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x1          -0.040061   0.075645  -0.530   0.5964  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x2          -0.083912   0.076139  -1.102   0.2704  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x3          -0.067656   0.073864  -0.916   0.3597  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x4          -0.132629   0.074935  -1.770   0.0767 .</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x5          -0.029015   0.077330  -0.375   0.7075  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x6          -0.035939   0.072614  -0.495   0.6206  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x7           0.117117   0.074087   1.581   0.1139  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x8          -0.031608   0.072003  -0.439   0.6607  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x9           0.005674   0.073844   0.077   0.9388  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x10          0.044412   0.072992   0.608   0.5429  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 13:14:32 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 </code></pre></div>

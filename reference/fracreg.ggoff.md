@@ -33,6 +33,10 @@ fracreg.ggoff(object, version = "LM", table = FALSE, ...)
   used to estimate the model under the alternative hypothesis when
   `version` is a vector containing `"Wald"` or `"LR"`.
 
+## Value
+
+`fracreg.ggoff` returns a named vector with the test results.
+
 ## Details
 
 `fracreg.ggoff` applies the GGOFF, GOFF1 and GOOFF2 test statistics to
@@ -60,10 +64,6 @@ evaluation. For the `LM` version, a robust version is computed in cases
 Ramalho and Murteira (2014) for details on the application of the GGOFF,
 GOFF1 and GOOFF2 tests in the fractional response framework.
 
-## Value
-
-`fracreg.ggoff` returns a named vector with the test results.
-
 ## References
 
 Ramalho, E.A., J.J.S. Ramalho and J.M.R. Murteira (2014), "A generalized
@@ -73,10 +73,6 @@ models", *Manchester School*, 82(4), 488-507.
 Pregibon, D. (1980), "Goodness of Link Tests for Generalized Linear
 Models", *Journal of the Royal Statistical Society: Series C (Applied
 Statistics)*, 29(1), 15-24.
-
-## Author
-
-Sulman Olieko Owili \<oliekosulman@gmail.com\>
 
 ## See also
 
@@ -88,6 +84,10 @@ for asymptotically equivalent specification tests.
 for non-nested hypothesis tests.  
 [`fracreg.pe`](https://sulmanolieko.github.io/fracreg/reference/fracreg.pe.md),
 for computing partial effects.
+
+## Author
+
+Sulman Olieko Owili \<oliekosulman@gmail.com\>
 
 ## Examples
 
@@ -114,7 +114,7 @@ summary(ggoff_res)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 11:35:02 
+#>                          Run Date: 2026-07-12 13:14:25 
 #> -------------------------------------------------------------------------------- 
 
 ### Simulated Examples
@@ -151,7 +151,7 @@ summary(ggoff_res)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 11:35:03 
+#>                          Run Date: 2026-07-12 13:14:25 
 #> -------------------------------------------------------------------------------- 
 
 #Testing the probit specification of the binary component of a two-part fractional
@@ -171,6 +171,6 @@ summary(ggoff_res)
 #> GOFF2 - LR     0.038   0.845
 #> GGOFF - LR     0.733   0.693
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 11:35:03 
+#>                          Run Date: 2026-07-12 13:14:25 
 #> -------------------------------------------------------------------------------- 
 ```

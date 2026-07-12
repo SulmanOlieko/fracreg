@@ -10,8 +10,15 @@ tables.
 ## Usage
 
 ``` r
-fracregridge.pe(object, APE = TRUE, CPE = FALSE, at = NULL, variance = TRUE, 
-                table = FALSE, ...)
+fracregridge.pe(
+  object,
+  APE = TRUE,
+  CPE = FALSE,
+  at = NULL,
+  variance = TRUE,
+  table = FALSE,
+  ...
+)
 ```
 
 ## Arguments

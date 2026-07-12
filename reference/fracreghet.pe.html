@@ -49,50 +49,54 @@ under unobserved heterogeneity.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">fracreghet.pe</span><span class="op">(</span><span class="va">object</span>, smearing <span class="op">=</span> <span class="cn">T</span>, APE <span class="op">=</span> <span class="cn">T</span>, CPE <span class="op">=</span> <span class="cn">F</span>, at <span class="op">=</span> <span class="cn">NULL</span>, </span>
-<span>              which.x <span class="op">=</span> <span class="cn">NULL</span>, table <span class="op">=</span> <span class="cn">FALSE</span>, variance <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">fracreghet.pe</span><span class="op">(</span></span>
+<span>  <span class="va">object</span>,</span>
+<span>  smearing <span class="op">=</span> <span class="cn">T</span>,</span>
+<span>  APE <span class="op">=</span> <span class="cn">T</span>,</span>
+<span>  CPE <span class="op">=</span> <span class="cn">F</span>,</span>
+<span>  at <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  which.x <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  table <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  variance <span class="op">=</span> <span class="cn">T</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <p></p>
+
+
 <dl><dt id="arg-object">object<a class="anchor" aria-label="anchor" href="#arg-object"></a></dt>
 <dd><p>an object containing the results of an <code>fracreghet</code> command.</p></dd>
 
-  <dt id="arg-smearing">smearing<a class="anchor" aria-label="anchor" href="#arg-smearing"></a></dt>
+
+<dt id="arg-smearing">smearing<a class="anchor" aria-label="anchor" href="#arg-smearing"></a></dt>
 <dd><p>a logical value indicating whether the smearing correction is to be applied</p></dd>
 
-  <dt id="arg-ape">APE<a class="anchor" aria-label="anchor" href="#arg-ape"></a></dt>
+
+<dt id="arg-ape">APE<a class="anchor" aria-label="anchor" href="#arg-ape"></a></dt>
 <dd><p>a logical value indicating whether average partial effects are to be computed.</p></dd>
 
-  <dt id="arg-cpe">CPE<a class="anchor" aria-label="anchor" href="#arg-cpe"></a></dt>
+
+<dt id="arg-cpe">CPE<a class="anchor" aria-label="anchor" href="#arg-cpe"></a></dt>
 <dd><p>a logical value indicating whether conditional partial effects are to be computed.</p></dd>
 
-  <dt id="arg-at">at<a class="anchor" aria-label="anchor" href="#arg-at"></a></dt>
+
+<dt id="arg-at">at<a class="anchor" aria-label="anchor" href="#arg-at"></a></dt>
 <dd><p>a numeric vector containing the covariates' values at which the conditional partial effects are to be computed or the strings <code>"mean"</code> (the default) or <code>"median"</code>, in which cases the covariates are evaluated at their mean or median values (or mode, in case of dummy variables), respectively.</p></dd>
 
-  <dt id="arg-which-x">which.x<a class="anchor" aria-label="anchor" href="#arg-which-x"></a></dt>
+
+<dt id="arg-which-x">which.x<a class="anchor" aria-label="anchor" href="#arg-which-x"></a></dt>
 <dd><p>a vector containing the names of the covariates to which the partial effects are to be computed.</p></dd>
 
-  <dt id="arg-table">table<a class="anchor" aria-label="anchor" href="#arg-table"></a></dt>
+
+<dt id="arg-table">table<a class="anchor" aria-label="anchor" href="#arg-table"></a></dt>
 <dd><p>a logical value indicating whether a summary table with the results should be printed.</p></dd>
 
-  <dt id="arg-variance">variance<a class="anchor" aria-label="anchor" href="#arg-variance"></a></dt>
+
+<dt id="arg-variance">variance<a class="anchor" aria-label="anchor" href="#arg-variance"></a></dt>
 <dd><p>a logical value indicating whether the variance of the estimated partial effects should be calculated. Defaults to <code>TRUE</code> whenever <code>table = TRUE</code>.</p></dd>
 
 </dl></div>
-    <div class="section level2">
-    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p><code>fracreghet.pe</code> calculates partial effects for fractional response models estimated via <code>fracreghet</code>. <code>fracreghet.pe</code> may be used to compute average or conditional partial effects. These partial effects may be conditional only on observables, using the smearing estimator, or also on unobservables, setting the error term to zero.</p>
-<p><strong>Partial Effects under Unobserved Heterogeneity:</strong>
-When unobserved heterogeneity or endogeneity is present, calculating partial effects requires dealing with the unobserved error \(v_i\). Let the conditional mean be \(E(y|x, v) = G(x\beta + \gamma v)\).
-- <strong>Conditional on Observables (Smearing):</strong> The unobserved heterogeneity is integrated out over its empirical distribution. The average partial effect for a continuous variable \(x_k\) is computed as:
-$$PE_k(x) = \frac{1}{N} \sum_{i=1}^N g(x\beta + \gamma \hat{v}_i) \beta_k$$
-- <strong>Conditional on Unobservables (Error = 0):</strong> The partial effect is evaluated for an individual with the mean level of unobserved heterogeneity (\(v = 0\)):
-$$PE_k(x) = g(x\beta) \beta_k$$</p>
-<p>For discrete variables, the partial effects are calculated as the discrete differences evaluated using either the smearing approach or setting the error term to zero.</p>
-<p>For calculating standard errors, it is taken into account the option that was previously chosen for estimating the model. See Ramalho and Ramalho (2017) for details on the computation of partial effects for fractional response models under unobserved heterogeneity.</p>
-    </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p><code>fracreghet.pe</code> returns a list with the following element:</p>
@@ -108,16 +112,28 @@ $$PE_k(x) = g(x\beta) \beta_k$$</p>
 </dl><p>When both average and conditional partial effects are requested, two lists containing the previous elements are returned, indexed by the prefixes <code>ape</code> and <code>cpe</code>.</p>
     </div>
     <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p><code>fracreghet.pe</code> calculates partial effects for fractional response models estimated via <code>fracreghet</code>. <code>fracreghet.pe</code> may be used to compute average or conditional partial effects. These partial effects may be conditional only on observables, using the smearing estimator, or also on unobservables, setting the error term to zero.</p>
+<p><strong>Partial Effects under Unobserved Heterogeneity:</strong>
+When unobserved heterogeneity or endogeneity is present, calculating partial effects requires dealing with the unobserved error \(v_i\). Let the conditional mean be \(E(y|x, v) = G(x\beta + \gamma v)\).
+- <strong>Conditional on Observables (Smearing):</strong> The unobserved heterogeneity is integrated out over its empirical distribution. The average partial effect for a continuous variable \(x_k\) is computed as:
+$$PE_k(x) = \frac{1}{N} \sum_{i=1}^N g(x\beta + \gamma \hat{v}_i) \beta_k$$
+- <strong>Conditional on Unobservables (Error = 0):</strong> The partial effect is evaluated for an individual with the mean level of unobserved heterogeneity (\(v = 0\)):
+$$PE_k(x) = g(x\beta) \beta_k$$</p>
+<p>For discrete variables, the partial effects are calculated as the discrete differences evaluated using either the smearing approach or setting the error term to zero.</p>
+<p>For calculating standard errors, it is taken into account the option that was previously chosen for estimating the model. See Ramalho and Ramalho (2017) for details on the computation of partial effects for fractional response models under unobserved heterogeneity.</p>
+    </div>
+    <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
     <p>Ramalho, E. A., &amp; Ramalho, J. J. S. (2017), "Moment-based estimation of nonlinear regression models with boundary outcomes and endogeneity, with applications to nonnegative and fractional responses", <em>Econometric Reviews</em>, 36(4), 397-420.</p>
     </div>
     <div class="section level2">
-    <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
-    <p>Sulman Olieko Owili &lt;oliekosulman@gmail.com&gt;</p>
-    </div>
-    <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><code><a href="fracreghet.html">fracreghet</a></code>, for fitting fractional response models under unobserved heterogeneity.<br><code><a href="fracreghet.reset.html">fracreghet.reset</a></code>, for the RESET test.<br></p></div>
+    </div>
+    <div class="section level2">
+    <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
+    <p>Sulman Olieko Owili &lt;oliekosulman@gmail.com&gt;</p>
     </div>
 
     <div class="section level2">
@@ -176,7 +192,7 @@ $$PE_k(x) = g(x\beta) \beta_k$$</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 11:35:05 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 13:14:28 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="va">pe_res</span> <span class="op">&lt;-</span> <span class="fu">fracreghet.pe</span><span class="op">(</span><span class="va">res_emp</span>, which.x<span class="op">=</span><span class="st">"mrate"</span><span class="op">)</span></span></span>
@@ -194,7 +210,7 @@ $$PE_k(x) = g(x\beta) \beta_k$$</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 11:35:05 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 13:14:28 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-in"><span> </span></span>
 <span class="r-in"><span><span class="co">### Simulated Examples</span></span></span>
@@ -236,7 +252,7 @@ $$PE_k(x) = g(x\beta) \beta_k$$</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 11:35:05 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 13:14:28 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
@@ -256,7 +272,7 @@ $$PE_k(x) = g(x\beta) \beta_k$$</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 11:35:05 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 13:14:28 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#Naive estimator of conditional partial effects for all covariates,</span></span></span>
@@ -277,7 +293,7 @@ $$PE_k(x) = g(x\beta) \beta_k$$</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 11:35:05 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 13:14:28 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Note: covariates evaluated at the following values:</span>

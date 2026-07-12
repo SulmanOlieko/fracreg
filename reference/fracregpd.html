@@ -46,103 +46,129 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">fracregpd</span><span class="op">(</span><span class="va">id</span>, <span class="va">time</span>, <span class="va">y</span>, <span class="va">x</span>, <span class="va">z</span>, <span class="va">var.endog</span>, x.exogenous <span class="op">=</span> <span class="cn">T</span>, <span class="va">lags</span>, <span class="va">start</span>, <span class="va">type</span>,</span>
-<span>  GMMww.cor <span class="op">=</span> <span class="cn">T</span>, link <span class="op">=</span> <span class="st">"logit"</span>, intercept <span class="op">=</span> <span class="cn">T</span>, table <span class="op">=</span> <span class="cn">FALSE</span>, variance <span class="op">=</span> <span class="cn">T</span>,</span>
-<span>  var.type <span class="op">=</span> <span class="st">"cluster"</span>, tdummies <span class="op">=</span> <span class="cn">F</span>, bootstrap <span class="op">=</span> <span class="cn">F</span>, B <span class="op">=</span> <span class="fl">200</span>, offset <span class="op">=</span> <span class="cn">NULL</span>, </span>
-<span>    or <span class="op">=</span> <span class="cn">FALSE</span>, level <span class="op">=</span> <span class="fl">0.95</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">fracregpd</span><span class="op">(</span></span>
+<span>  <span class="va">id</span>,</span>
+<span>  <span class="va">time</span>,</span>
+<span>  <span class="va">y</span>,</span>
+<span>  <span class="va">x</span>,</span>
+<span>  <span class="va">z</span>,</span>
+<span>  <span class="va">var.endog</span>,</span>
+<span>  x.exogenous <span class="op">=</span> <span class="cn">T</span>,</span>
+<span>  <span class="va">lags</span>,</span>
+<span>  <span class="va">start</span>,</span>
+<span>  <span class="va">type</span>,</span>
+<span>  GMMww.cor <span class="op">=</span> <span class="cn">T</span>,</span>
+<span>  link <span class="op">=</span> <span class="st">"logit"</span>,</span>
+<span>  intercept <span class="op">=</span> <span class="cn">T</span>,</span>
+<span>  table <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  variance <span class="op">=</span> <span class="cn">T</span>,</span>
+<span>  var.type <span class="op">=</span> <span class="st">"cluster"</span>,</span>
+<span>  tdummies <span class="op">=</span> <span class="cn">F</span>,</span>
+<span>  bootstrap <span class="op">=</span> <span class="cn">F</span>,</span>
+<span>  B <span class="op">=</span> <span class="fl">200</span>,</span>
+<span>  offset <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  or <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  level <span class="op">=</span> <span class="fl">0.95</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <p></p>
+
+
 <dl><dt id="arg-id">id<a class="anchor" aria-label="anchor" href="#arg-id"></a></dt>
 <dd><p>a numeric vector identifying the cross-sectional units.</p></dd>
 
-  <dt id="arg-time">time<a class="anchor" aria-label="anchor" href="#arg-time"></a></dt>
+
+<dt id="arg-time">time<a class="anchor" aria-label="anchor" href="#arg-time"></a></dt>
 <dd><p>a numeric vector identifying the time periods in which the cross-sectional units were observed.</p></dd>
 
-  <dt id="arg-y">y<a class="anchor" aria-label="anchor" href="#arg-y"></a></dt>
+
+<dt id="arg-y">y<a class="anchor" aria-label="anchor" href="#arg-y"></a></dt>
 <dd><p>a numeric vector containing the values of the response variable.</p></dd>
 
-  <dt id="arg-x">x<a class="anchor" aria-label="anchor" href="#arg-x"></a></dt>
+
+<dt id="arg-x">x<a class="anchor" aria-label="anchor" href="#arg-x"></a></dt>
 <dd><p>a numeric matrix, with column names, containing the values of all covariates (exogenous and endogenous).</p></dd>
 
-  <dt id="arg-z">z<a class="anchor" aria-label="anchor" href="#arg-z"></a></dt>
-<dd><p>a numeric matrix, with column names, containing the values of all exogenous variables (covariates and external
-instrumental variables). Only required in case of endogenous explanatory variables.</p></dd>
 
-  <dt id="arg-var-endog">var.endog<a class="anchor" aria-label="anchor" href="#arg-var-endog"></a></dt>
+<dt id="arg-z">z<a class="anchor" aria-label="anchor" href="#arg-z"></a></dt>
+<dd><p>a numeric matrix, with column names, containing the values of all exogenous variables (covariates and external instrumental variables). Only required in case of endogenous explanatory variables.</p></dd>
+
+
+<dt id="arg-var-endog">var.endog<a class="anchor" aria-label="anchor" href="#arg-var-endog"></a></dt>
 <dd><p>a numeric vector containing the values of the endogenous covariate (or of some transformation of it), which will be used as dependent variable in the linear reduced form assumed for application of the <code>QMLcre</code> estimator. Only required for this estimator.</p></dd>
 
-  <dt id="arg-x-exogenous">x.exogenous<a class="anchor" aria-label="anchor" href="#arg-x-exogenous"></a></dt>
+
+<dt id="arg-x-exogenous">x.exogenous<a class="anchor" aria-label="anchor" href="#arg-x-exogenous"></a></dt>
 <dd><p>a logical value indicating whether all explanatory variables are assumed to be exogenous or not.</p></dd>
 
-  <dt id="arg-lags">lags<a class="anchor" aria-label="anchor" href="#arg-lags"></a></dt>
+
+<dt id="arg-lags">lags<a class="anchor" aria-label="anchor" href="#arg-lags"></a></dt>
 <dd><p>a logical value indicating whether the first lags of <code>x</code> or  <code>z</code> should be used as instruments for <code>x</code>. Defaults to <code>TRUE</code> for the GMMww and GMMc estimators and to <code>FALSE</code> for the remaining estimators. The <code>GMMcre</code> and <code>QMLcre</code> estimators do not admit lagged instruments.</p></dd>
 
-  <dt id="arg-start">start<a class="anchor" aria-label="anchor" href="#arg-start"></a></dt>
+
+<dt id="arg-start">start<a class="anchor" aria-label="anchor" href="#arg-start"></a></dt>
 <dd><p>a numeric vector containing the initial values for the parameters to be optimised. Optional.</p></dd>
 
-  <dt id="arg-type">type<a class="anchor" aria-label="anchor" href="#arg-type"></a></dt>
+
+<dt id="arg-type">type<a class="anchor" aria-label="anchor" href="#arg-type"></a></dt>
 <dd><p>a description of the estimator to compute: <code>GMMww</code>, <code>GMMc</code>, <code>GMMbgw</code>, <code>GMMpfe</code>, <code>GMMcre</code>, <code>GMMpre</code> or <code>QMLcre</code>.</p></dd>
 
-  <dt id="arg-gmmww-cor">GMMww.cor<a class="anchor" aria-label="anchor" href="#arg-gmmww-cor"></a></dt>
+
+<dt id="arg-gmmww-cor">GMMww.cor<a class="anchor" aria-label="anchor" href="#arg-gmmww-cor"></a></dt>
 <dd><p>a logical value indicating whether each explanatory variable should be transformed in deviations from its overall mean before computing the <code>GMMww</code> estimator.</p></dd>
 
-  <dt id="arg-link">link<a class="anchor" aria-label="anchor" href="#arg-link"></a></dt>
+
+<dt id="arg-link">link<a class="anchor" aria-label="anchor" href="#arg-link"></a></dt>
 <dd><p>a description of the link function to use. Available options for all GMM estimators: <code>logit</code> and <code>cloglog</code>. Only option for the <code>QMLcre</code> estimator: <code>probit</code>.</p></dd>
 
-  <dt id="arg-intercept">intercept<a class="anchor" aria-label="anchor" href="#arg-intercept"></a></dt>
-<dd><p>a logical value indicating whether the model should include a constant term or not. Only relevant for the
-<code>GMMpre</code> estimator.</p></dd>
 
-  <dt id="arg-table">table<a class="anchor" aria-label="anchor" href="#arg-table"></a></dt>
+<dt id="arg-intercept">intercept<a class="anchor" aria-label="anchor" href="#arg-intercept"></a></dt>
+<dd><p>a logical value indicating whether the model should include a constant term or not. Only relevant for the  <code>GMMpre</code> estimator.</p></dd>
+
+
+<dt id="arg-table">table<a class="anchor" aria-label="anchor" href="#arg-table"></a></dt>
 <dd><p>a logical value indicating whether a summary table with the regression results should be printed.</p></dd>
 
-  <dt id="arg-variance">variance<a class="anchor" aria-label="anchor" href="#arg-variance"></a></dt>
-<dd><p>a logical value indicating whether the variance of the estimated parameters should be calculated. Defaults to
-<code>TRUE</code> whenever <code>table = FALSERUE</code>.</p></dd>
 
-  <dt id="arg-var-type">var.type<a class="anchor" aria-label="anchor" href="#arg-var-type"></a></dt>
+<dt id="arg-variance">variance<a class="anchor" aria-label="anchor" href="#arg-variance"></a></dt>
+<dd><p>a logical value indicating whether the variance of the estimated parameters should be calculated. Defaults to  <code>TRUE</code> whenever <code>table = FALSERUE</code>.</p></dd>
+
+
+<dt id="arg-var-type">var.type<a class="anchor" aria-label="anchor" href="#arg-var-type"></a></dt>
 <dd><p>a description of the type of variance of the estimated parameters to be calculated. Options are <code>cluster</code>, the default, and <code>robust</code>. In overidentified models, it also affects the parameter estimates via the GMM weighting matrix.</p></dd>
 
-  <dt id="arg-tdummies">tdummies<a class="anchor" aria-label="anchor" href="#arg-tdummies"></a></dt>
+
+<dt id="arg-tdummies">tdummies<a class="anchor" aria-label="anchor" href="#arg-tdummies"></a></dt>
 <dd><p>a logical value indicating whether time dummies should be included among the model explanatory variables.</p></dd>
 
-  <dt id="arg-bootstrap">bootstrap<a class="anchor" aria-label="anchor" href="#arg-bootstrap"></a></dt>
+
+<dt id="arg-bootstrap">bootstrap<a class="anchor" aria-label="anchor" href="#arg-bootstrap"></a></dt>
 <dd><p>a logical value indicating whether bootstrap should be used in the estimation of the parameter standard errors.</p></dd>
 
-  <dt id="arg-b">B<a class="anchor" aria-label="anchor" href="#arg-b"></a></dt>
+
+<dt id="arg-b">B<a class="anchor" aria-label="anchor" href="#arg-b"></a></dt>
 <dd><p>the number of bootstrap replications.</p></dd>
 
-  <dt id="arg-offset">offset<a class="anchor" aria-label="anchor" href="#arg-offset"></a></dt>
+
+<dt id="arg-offset">offset<a class="anchor" aria-label="anchor" href="#arg-offset"></a></dt>
 <dd><p>an optional numeric vector containing an offset. It must be of the same dimension as the response variable. It specifies that the variable should be included in the model with its coefficient constrained to 1.</p></dd>
 
-  <dt id="arg-or">or<a class="anchor" aria-label="anchor" href="#arg-or"></a></dt>
+
+<dt id="arg-or">or<a class="anchor" aria-label="anchor" href="#arg-or"></a></dt>
 <dd><p>a logical value indicating whether to report odds ratios. Only valid when the link function is <code>"logit"</code>. Defaults to <code>FALSE</code>.</p></dd>
 
-  <dt id="arg-level">level<a class="anchor" aria-label="anchor" href="#arg-level"></a></dt>
+
+<dt id="arg-level">level<a class="anchor" aria-label="anchor" href="#arg-level"></a></dt>
 <dd><p>a numeric value between 0 and 1 indicating the confidence level for the confidence intervals. Defaults to <code>0.95</code>.</p></dd>
 
-  <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
+
+<dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>Arguments to pass to <a href="https://rdrr.io/r/stats/nlminb.html" class="external-link">nlminb</a>.</p></dd>
 
 </dl></div>
-    <div class="section level2">
-    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p><code>fracregpd</code> computes the GMM estimators proposed in Ramalho, Ramalho and Coelho (2018) for panel data fractional response models with both time-variant and time-invariant unobserved heterogeneity and endogeneous covariates: GMMww, GMMc, GMMbgw, GMMpfe, GMMcre and GMMpre. In addition, <code>fracregpd</code> also computes QMLcre, which was proposed by Papke and Wooldridge (2008) and Wooldridge (2019).</p>
-<p><strong>Correlated Random Effects (CRE) - QMLcre:</strong>
-In panel data, unobserved individual-specific heterogeneity \(c_i\) may be correlated with the covariates \(x_{it}\). The CRE approach (Papke and Wooldridge, 2008) models this dependence by projecting \(c_i\) onto the time averages of the strictly exogenous covariates \(\bar{x}_i\):
-$$c_i = \psi + \bar{x}_i \xi + a_i$$
-where \(a_i\) is an error term independent of \(x_i\). Assuming \(a_i | x_i \sim N(0, \sigma_a^2)\) and a probit link, integrating out \(a_i\) yields the "population-averaged" or scaled conditional mean:
-$$E(y_{it} | x_i) = G(x_{it} \beta_a + \psi_a + \bar{x}_i \xi_a)$$
-where the parameters with subscript \(a\) are scaled by \((1 + \sigma_a^2)^{-1/2}\). This equation is estimated via pooled Bernoulli QML.</p>
-<p><strong>Generalised Method of Moments (GMM):</strong>
-For models where strict exogeneity fails or the link function is an exponential-type link, Ramalho et al. (2018) propose GMM estimators based on the following general moment conditions:
-$$E[Z_{it} (H(y_{it}) - \exp(x_{it}\beta + c_i))] = 0$$
-where \(H(\cdot)\) is a transformation function and \(Z_{it}\) is a matrix of valid instruments. Estimators such as GMMww, GMMc, and GMMbgw use different transformations to eliminate the unobserved fixed effect \(c_i\) before applying GMM.</p>
-<p>For overidentified models, <code>fracregpd</code> calculates Hansen's J statistic to test the validity of the overidentifying restrictions.</p>
-    </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p><code>fracregpd</code> returns a list with the following elements:</p>
@@ -177,8 +203,25 @@ where \(H(\cdot)\) is a transformation function and \(Z_{it}\) is a matrix of va
 
 </dl></div>
     <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p><code>fracregpd</code> computes the GMM estimators proposed in Ramalho, Ramalho and Coelho (2018) for panel data fractional response models with both time-variant and time-invariant unobserved heterogeneity and endogeneous covariates: GMMww, GMMc, GMMbgw, GMMpfe, GMMcre and GMMpre. In addition, <code>fracregpd</code> also computes QMLcre, which was proposed by Papke and Wooldridge (2008) and Wooldridge (2019).</p>
+<p><strong>Correlated Random Effects (CRE) - QMLcre:</strong>
+In panel data, unobserved individual-specific heterogeneity \(c_i\) may be correlated with the covariates \(x_{it}\). The CRE approach (Papke and Wooldridge, 2008) models this dependence by projecting \(c_i\) onto the time averages of the strictly exogenous covariates \(\bar{x}_i\):
+$$c_i = \psi + \bar{x}_i \xi + a_i$$
+where \(a_i\) is an error term independent of \(x_i\). Assuming \(a_i | x_i \sim N(0, \sigma_a^2)\) and a probit link, integrating out \(a_i\) yields the "population-averaged" or scaled conditional mean:
+$$E(y_{it} | x_i) = G(x_{it} \beta_a + \psi_a + \bar{x}_i \xi_a)$$
+where the parameters with subscript \(a\) are scaled by \((1 + \sigma_a^2)^{-1/2}\). This equation is estimated via pooled Bernoulli QML.</p>
+<p><strong>Generalised Method of Moments (GMM):</strong>
+For models where strict exogeneity fails or the link function is an exponential-type link, Ramalho et al. (2018) propose GMM estimators based on the following general moment conditions:
+$$E[Z_{it} (H(y_{it}) - \exp(x_{it}\beta + c_i))] = 0$$
+where \(H(\cdot)\) is a transformation function and \(Z_{it}\) is a matrix of valid instruments. Estimators such as GMMww, GMMc, and GMMbgw use different transformations to eliminate the unobserved fixed effect \(c_i\) before applying GMM.</p>
+<p>For overidentified models, <code>fracregpd</code> calculates Hansen's J statistic to test the validity of the overidentifying restrictions.</p>
+    </div>
+    <div class="section level2">
     <h2 id="odds-ratios">Odds Ratios<a class="anchor" aria-label="anchor" href="#odds-ratios"></a></h2>
-    <p>When <code>or=TRUE</code> and the fractional link function (<code>linkfrac</code> or <code>link</code>) is <code>"logit"</code>, the model additionally computes odds ratios for the coefficients.
+
+
+<p>When <code>or=TRUE</code> and the fractional link function (<code>linkfrac</code> or <code>link</code>) is <code>"logit"</code>, the model additionally computes odds ratios for the coefficients.
 Odds Ratios are exponentiated coefficients.
 The corresponding standard errors for the odds ratios are calculated using the Delta method.
 The confidence intervals for the odds ratios are calculated using the adjusted standard errors and the specified <code>level</code> (defaulting to 95%).
@@ -191,12 +234,12 @@ Odds ratios are particularly useful in fractional logit models as they provide a
 <p>Wooldridge, J. M. (2019). Correlated random effects models with unbalanced panels. <em>Journal of Econometrics</em>, 211(1), 137-150.</p>
     </div>
     <div class="section level2">
-    <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
-    <p>Sulman Olieko Owili &lt;oliekosulman@gmail.com&gt;</p>
-    </div>
-    <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><code><a href="fracreg.html">fracreg</a></code>, for fitting standard cross-sectional fractional response models.<br><code><a href="fracreghet.html">fracreghet</a></code>, for fitting cross-sectional fractional response models with unobserved heterogeneity.</p></div>
+    </div>
+    <div class="section level2">
+    <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
+    <p>Sulman Olieko Owili &lt;oliekosulman@gmail.com&gt;</p>
     </div>
 
     <div class="section level2">
@@ -256,7 +299,7 @@ Odds ratios are particularly useful in fractional logit models as they provide a
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 11:35:08 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 13:14:31 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
@@ -321,7 +364,7 @@ Odds ratios are particularly useful in fractional logit models as they provide a
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 11:35:08 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 13:14:31 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
@@ -340,7 +383,7 @@ Odds ratios are particularly useful in fractional logit models as they provide a
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 11:35:08 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 13:14:31 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Exogeneity, no lags, no time dummies, clustered standard errors, GMMbgw estimator</span></span></span>
@@ -372,7 +415,7 @@ Odds ratios are particularly useful in fractional logit models as they provide a
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 11:35:08 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 13:14:31 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
@@ -405,7 +448,7 @@ Odds ratios are particularly useful in fractional logit models as they provide a
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 11:35:08 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 13:14:31 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
@@ -438,7 +481,7 @@ Odds ratios are particularly useful in fractional logit models as they provide a
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 11:35:08 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 13:14:31 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
@@ -482,7 +525,7 @@ Odds ratios are particularly useful in fractional logit models as they provide a
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 11:35:09 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 13:14:32 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="co"># }</span></span></span>

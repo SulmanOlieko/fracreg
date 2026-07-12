@@ -31,6 +31,10 @@ fracreg.ptest(object1, object2, version = "Wald", table = FALSE)
   a logical value indicating whether a summary table with the test
   results should be printed.
 
+## Value
+
+`fracreg.reset` returns a named vector with the test results.
+
 ## Details
 
 `fracreg.ptest` applies the P test statistic proposed by Davidson and
@@ -58,10 +62,6 @@ the same but the regressors are non-nested. See Ramalho, Ramalho and
 Murteira (2011) for details on the application of the P test in the
 fractional response framework.
 
-## Value
-
-`fracreg.reset` returns a named vector with the test results.
-
 ## References
 
 Davidson, R. and J.G. MacKinnon (1981), "Several tests for model
@@ -71,10 +71,6 @@ specification on the presence of alternative hypotheses",
 Ramalho, E.A., J.J.S. Ramalho and J.M.R. Murteira (2011), "Alternative
 estimating and testing empirical strategies for fractional response
 models", *Journal of Economic Surveys*, 25(1), 19-68.
-
-## Author
-
-Sulman Olieko Owili \<oliekosulman@gmail.com\>
 
 ## See also
 
@@ -86,6 +82,10 @@ and
 for specification tests.  
 [`fracreg.pe`](https://sulmanolieko.github.io/fracreg/reference/fracreg.pe.md),
 for computing partial effects.
+
+## Author
+
+Sulman Olieko Owili \<oliekosulman@gmail.com\>
 
 ## Examples
 
@@ -118,7 +118,7 @@ summary(ptest_res)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 11:35:03 
+#>                          Run Date: 2026-07-12 13:14:26 
 #> -------------------------------------------------------------------------------- 
 
 ### Simulated Examples
@@ -159,7 +159,7 @@ summary(ptest_res)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 11:35:03 
+#>                          Run Date: 2026-07-12 13:14:26 
 #> -------------------------------------------------------------------------------- 
 
 #Testing a logit one-part fractional response model versus a binary logit +
@@ -188,6 +188,6 @@ summary(ptest_res)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 11:35:03 
+#>                          Run Date: 2026-07-12 13:14:26 
 #> -------------------------------------------------------------------------------- 
 ```
