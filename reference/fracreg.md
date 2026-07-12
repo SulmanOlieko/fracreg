@@ -393,16 +393,16 @@ summary(mod)
 #> -------------------------------------------------------------------------------- 
 #>                           Fractional logit regression 
 #> -------------------------------------------------------------------------------- 
-#> Estimator:                                                                   QML 
 #> Data type:                                                       Cross-sectional 
+#> Estimator:                                                                   QML 
+#> Convergence:                                                          Successful 
 #> Number of observations:                                                     1534 
-#> Pseudo R-squared:                                                        0.14667 
 #> Log pseudolikelihood:                                                  -553.1626 
+#> Pseudo R-squared:                                                        0.14667 
 #> Wald chi2(4):                                                           147.3049 
 #> Prob > chi2:                                                              0.0000 
-#> Standard errors:                                                          robust 
+#> Standard errors:                                                             HC0 
 #> Small sample correction:                                                   FALSE 
-#> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
 #>                     Final Quasi-Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
@@ -421,7 +421,7 @@ summary(mod)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 14:57:27 
+#>                          Run Date: 2026-07-12 19:06:00 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -432,16 +432,16 @@ summary(mod)
 #> -------------------------------------------------------------------------------- 
 #>                           Fractional logit regression 
 #> -------------------------------------------------------------------------------- 
-#> Estimator:                                                                   QML 
 #> Data type:                                                       Cross-sectional 
+#> Estimator:                                                                   QML 
+#> Convergence:                                                          Successful 
 #> Number of observations:                                                     1534 
-#> Pseudo R-squared:                                                        0.14667 
 #> Log pseudolikelihood:                                                  -553.1626 
+#> Pseudo R-squared:                                                        0.14667 
 #> Wald chi2(4):                                                           147.3049 
 #> Prob > chi2:                                                              0.0000 
-#> Standard errors:                                                          robust 
+#> Standard errors:                                                             HC0 
 #> Small sample correction:                                                   FALSE 
-#> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
 #>                     Final Quasi-Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
@@ -460,7 +460,7 @@ summary(mod)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 14:57:27 
+#>                          Run Date: 2026-07-12 19:06:00 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -471,15 +471,15 @@ summary(mod)
 #> -------------------------------------------------------------------------------- 
 #>                         Part 1: Binary logit regression 
 #> -------------------------------------------------------------------------------- 
-#> Estimator:                                                                    ML 
 #> Data type:                                                       Cross-sectional 
+#> Estimator:                                                                    ML 
+#> Convergence:                                                          Successful 
 #> Number of observations:                                                     1534 
-#> Pseudo R-squared:                                                         0.1485 
 #> Log-likelihood:                                                        -938.1759 
+#> Pseudo R-squared:                                                         0.1485 
 #> Wald chi2(4):                                                           173.5169 
 #> Prob > chi2:                                                              0.0000 
 #> Small sample correction:                                                   FALSE 
-#> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
 #>                        Final Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
@@ -503,16 +503,16 @@ summary(mod)
 #> -------------------------------------------------------------------------------- 
 #>                       Part 2: Fractional logit regression 
 #> -------------------------------------------------------------------------------- 
-#> Estimator:                                                                   QML 
 #> Data type:                                                       Cross-sectional 
+#> Estimator:                                                                   QML 
+#> Convergence:                                                          Successful 
 #> Number of observations:                                                      852 
-#> Pseudo R-squared:                                                        0.10004 
 #> Log pseudolikelihood:                                                  -450.8391 
+#> Pseudo R-squared:                                                        0.10004 
 #> Wald chi2(4):                                                            65.4063 
 #> Prob > chi2:                                                              0.0000 
-#> Standard errors:                                                          robust 
+#> Standard errors:                                                             HC0 
 #> Small sample correction:                                                   FALSE 
-#> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
 #>                     Final Quasi-Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
@@ -537,10 +537,10 @@ summary(mod)
 #>         Two-part fractional regression: binary logit + fractional logit 
 #> -------------------------------------------------------------------------------- 
 #> Data type:                                                       Cross-sectional 
-#> Pseudo R-squared:                                                        0.11243 
 #> Convergence:                                                          Successful 
+#> Pseudo R-squared:                                                        0.11243 
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 14:57:28 
+#>                          Run Date: 2026-07-12 19:06:00 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -552,15 +552,15 @@ summary(mod)
 #> -------------------------------------------------------------------------------- 
 #>                         Part 1: Binary logit regression 
 #> -------------------------------------------------------------------------------- 
-#> Estimator:                                                                    ML 
 #> Data type:                                                       Cross-sectional 
+#> Estimator:                                                                    ML 
+#> Convergence:                                                          Successful 
 #> Number of observations:                                                     1534 
-#> Pseudo R-squared:                                                        0.00324 
 #> Log-likelihood:                                                        -216.6222 
+#> Pseudo R-squared:                                                        0.00324 
 #> Wald chi2(4):                                                             3.7679 
 #> Prob > chi2:                                                              0.4383 
 #> Small sample correction:                                                   FALSE 
-#> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
 #>                        Final Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
@@ -584,15 +584,15 @@ summary(mod)
 #> -------------------------------------------------------------------------------- 
 #>                         Part 2: Binary logit regression 
 #> -------------------------------------------------------------------------------- 
-#> Estimator:                                                                    ML 
 #> Data type:                                                       Cross-sectional 
+#> Estimator:                                                                    ML 
+#> Convergence:                                                          Successful 
 #> Number of observations:                                                     1484 
-#> Pseudo R-squared:                                                        0.15199 
 #> Log-likelihood:                                                        -903.5457 
+#> Pseudo R-squared:                                                        0.15199 
 #> Wald chi2(4):                                                            172.201 
 #> Prob > chi2:                                                              0.0000 
 #> Small sample correction:                                                   FALSE 
-#> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
 #>                        Final Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
@@ -616,16 +616,16 @@ summary(mod)
 #> -------------------------------------------------------------------------------- 
 #>                       Part 3: Fractional logit regression 
 #> -------------------------------------------------------------------------------- 
-#> Estimator:                                                                   QML 
 #> Data type:                                                       Cross-sectional 
+#> Estimator:                                                                   QML 
+#> Convergence:                                                          Successful 
 #> Number of observations:                                                      826 
-#> Pseudo R-squared:                                                        0.09937 
 #> Log pseudolikelihood:                                                  -437.3715 
+#> Pseudo R-squared:                                                        0.09937 
 #> Wald chi2(4):                                                            62.3685 
 #> Prob > chi2:                                                              0.0000 
-#> Standard errors:                                                          robust 
+#> Standard errors:                                                             HC0 
 #> Small sample correction:                                                   FALSE 
-#> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
 #>                     Final Quasi-Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
@@ -650,10 +650,10 @@ summary(mod)
 #> Three-part fractional regression: binary logit , binary logit + fractional logit 
 #> -------------------------------------------------------------------------------- 
 #> Data type:                                                       Cross-sectional 
-#> Pseudo R-squared:                                                        0.07934 
 #> Convergence:                                                          Successful 
+#> Pseudo R-squared:                                                        0.07934 
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 14:57:28 
+#>                          Run Date: 2026-07-12 19:06:00 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -682,16 +682,16 @@ summary(mod)
 #> -------------------------------------------------------------------------------- 
 #>                           Fractional logit regression 
 #> -------------------------------------------------------------------------------- 
-#> Estimator:                                                                   QML 
 #> Data type:                                                       Cross-sectional 
+#> Estimator:                                                                   QML 
+#> Convergence:                                                          Successful 
 #> Number of observations:                                                     1000 
-#> Pseudo R-squared:                                                         0.3903 
 #> Log pseudolikelihood:                                                   -614.973 
+#> Pseudo R-squared:                                                         0.3903 
 #> Wald chi2(2):                                                           472.2453 
 #> Prob > chi2:                                                              0.0000 
-#> Standard errors:                                                          robust 
+#> Standard errors:                                                             HC0 
 #> Small sample correction:                                                   FALSE 
-#> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
 #>                     Final Quasi-Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
@@ -706,7 +706,7 @@ summary(mod)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 14:57:28 
+#>                          Run Date: 2026-07-12 19:06:00 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -718,15 +718,15 @@ summary(mod)
 #> -------------------------------------------------------------------------------- 
 #>                         Part 1: Binary logit regression 
 #> -------------------------------------------------------------------------------- 
-#> Estimator:                                                                    ML 
 #> Data type:                                                       Cross-sectional 
+#> Estimator:                                                                    ML 
+#> Convergence:                                                          Successful 
 #> Number of observations:                                                     1000 
-#> Pseudo R-squared:                                                        0.14527 
 #> Log-likelihood:                                                        -295.2068 
+#> Pseudo R-squared:                                                        0.14527 
 #> Wald chi2(2):                                                           102.5171 
 #> Prob > chi2:                                                              0.0000 
 #> Small sample correction:                                                   FALSE 
-#> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
 #>                        Final Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
@@ -748,16 +748,16 @@ summary(mod)
 #> -------------------------------------------------------------------------------- 
 #>                       Part 2: Fractional probit regression 
 #> -------------------------------------------------------------------------------- 
-#> Estimator:                                                                   QML 
 #> Data type:                                                       Cross-sectional 
+#> Estimator:                                                                   QML 
+#> Convergence:                                                          Successful 
 #> Number of observations:                                                      881 
-#> Pseudo R-squared:                                                        0.32474 
 #> Log pseudolikelihood:                                                  -555.3304 
+#> Pseudo R-squared:                                                        0.32474 
 #> Wald chi2(2):                                                           391.6944 
 #> Prob > chi2:                                                              0.0000 
-#> Standard errors:                                                          robust 
+#> Standard errors:                                                             HC0 
 #> Small sample correction:                                                   FALSE 
-#> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
 #>                     Final Quasi-Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
@@ -783,15 +783,15 @@ summary(mod)
 #> -------------------------------------------------------------------------------- 
 #>                        Part 1: Binary cloglog regression 
 #> -------------------------------------------------------------------------------- 
-#> Estimator:                                                                    ML 
 #> Data type:                                                       Cross-sectional 
+#> Estimator:                                                                    ML 
+#> Convergence:                                                          Successful 
 #> Number of observations:                                                     1000 
-#> Pseudo R-squared:                                                        0.14837 
 #> Log-likelihood:                                                        -291.7986 
+#> Pseudo R-squared:                                                        0.14837 
 #> Wald chi2(2):                                                           100.5683 
 #> Prob > chi2:                                                              0.0000 
 #> Small sample correction:                                                   FALSE 
-#> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
 #>                        Final Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
@@ -807,16 +807,16 @@ summary(mod)
 #> -------------------------------------------------------------------------------- 
 #>                       Part 2: Fractional logit regression 
 #> -------------------------------------------------------------------------------- 
-#> Estimator:                                                                   QML 
 #> Data type:                                                       Cross-sectional 
+#> Estimator:                                                                   QML 
+#> Convergence:                                                          Successful 
 #> Number of observations:                                                      881 
-#> Pseudo R-squared:                                                        0.32412 
 #> Log pseudolikelihood:                                                  -555.4465 
+#> Pseudo R-squared:                                                        0.32412 
 #> Wald chi2(2):                                                           368.0384 
 #> Prob > chi2:                                                              0.0000 
-#> Standard errors:                                                          robust 
+#> Standard errors:                                                             HC0 
 #> Small sample correction:                                                   FALSE 
-#> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
 #>                     Final Quasi-Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
@@ -837,10 +837,10 @@ summary(mod)
 #>        Two-part fractional regression: binary cloglog + fractional logit 
 #> -------------------------------------------------------------------------------- 
 #> Data type:                                                       Cross-sectional 
-#> Pseudo R-squared:                                                        0.38829 
 #> Convergence:                                                          Successful 
+#> Pseudo R-squared:                                                        0.38829 
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 14:57:28 
+#>                          Run Date: 2026-07-12 19:06:00 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -851,15 +851,15 @@ summary(mod)
 #> -------------------------------------------------------------------------------- 
 #>                         Part 1: Binary logit regression 
 #> -------------------------------------------------------------------------------- 
-#> Estimator:                                                                    ML 
 #> Data type:                                                       Cross-sectional 
+#> Estimator:                                                                    ML 
+#> Convergence:                                                          Successful 
 #> Number of observations:                                                     1000 
-#> Pseudo R-squared:                                                        0.14527 
 #> Log-likelihood:                                                        -295.2068 
+#> Pseudo R-squared:                                                        0.14527 
 #> Wald chi2(2):                                                           102.5171 
 #> Prob > chi2:                                                              0.0000 
 #> Small sample correction:                                                   FALSE 
-#> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
 #>                        Final Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
@@ -875,15 +875,15 @@ summary(mod)
 #> -------------------------------------------------------------------------------- 
 #>                         Part 2: Binary probit regression 
 #> -------------------------------------------------------------------------------- 
-#> Estimator:                                                                    ML 
 #> Data type:                                                       Cross-sectional 
+#> Estimator:                                                                    ML 
+#> Convergence:                                                          Successful 
 #> Number of observations:                                                      881 
-#> Pseudo R-squared:                                                        0.18634 
 #> Log-likelihood:                                                        -348.8644 
+#> Pseudo R-squared:                                                        0.18634 
 #> Wald chi2(2):                                                           123.5731 
 #> Prob > chi2:                                                              0.0000 
 #> Small sample correction:                                                   FALSE 
-#> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
 #>                        Final Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
@@ -903,16 +903,16 @@ summary(mod)
 #> -------------------------------------------------------------------------------- 
 #>                       Part 3: Fractional logit regression 
 #> -------------------------------------------------------------------------------- 
-#> Estimator:                                                                   QML 
 #> Data type:                                                       Cross-sectional 
+#> Estimator:                                                                   QML 
+#> Convergence:                                                          Successful 
 #> Number of observations:                                                      715 
-#> Pseudo R-squared:                                                        0.24292 
 #> Log pseudolikelihood:                                                  -484.9654 
+#> Pseudo R-squared:                                                        0.24292 
 #> Wald chi2(2):                                                            261.436 
 #> Prob > chi2:                                                              0.0000 
-#> Standard errors:                                                          robust 
+#> Standard errors:                                                             HC0 
 #> Small sample correction:                                                   FALSE 
-#> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
 #>                     Final Quasi-Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
@@ -933,10 +933,10 @@ summary(mod)
 #> Three-part fractional regression: binary logit , binary probit + fractional logit 
 #> -------------------------------------------------------------------------------- 
 #> Data type:                                                       Cross-sectional 
-#> Pseudo R-squared:                                                        0.38917 
 #> Convergence:                                                          Successful 
+#> Pseudo R-squared:                                                        0.38917 
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 14:57:28 
+#>                          Run Date: 2026-07-12 19:06:00 
 #> -------------------------------------------------------------------------------- 
 #> 
 ```

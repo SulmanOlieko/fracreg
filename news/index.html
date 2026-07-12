@@ -55,10 +55,11 @@
 <strong>Offset Parameter:</strong> Added support for an <code>offset</code> parameter in model specifications.</li>
 <li>
 <strong>S3 Methods &amp; Output Display:</strong> Standardised console output by adding dedicated <code><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary()</a></code> and <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> S3 methods across the package to align with R’s standard practices. Changed output tables to say “regression” rather than “model” for clarity.</li>
-</ul></div>
-<div class="section level4">
-<h4 id="documentation--website-1-0-1">Documentation &amp; Website<a class="anchor" aria-label="anchor" href="#documentation--website-1-0-1"></a></h4>
-<ul><li>
+<li>
+<strong>Econometric Terminology &amp; Standardization:</strong> Renamed <code>Estimate</code> column headers to <code>dy/dx</code> universally across all partial effects tables (<code>fracreg.pe</code>, <code>fracreghet.pe</code>, <code>fracregmlogit.pe</code>, <code>fracregpd.pe</code>, <code>fracregridge.pe</code>), while enforcing <code>Coefficient</code> for non-partial effects outputs.</li>
+<li>
+<strong>Standard Error Annotations:</strong> Output tables now dynamically label column headers according to standard error type (e.g. <code>Robust Std.Err.</code>, <code>Cluster Std.Err.</code>) and cleanly append specific methodological notes to the tables (e.g., Delta Method, Krinsky-Robb, HC0, CRVE). ### Documentation &amp; Website</li>
+<li>
 <strong>Roxygen2 Migration:</strong> Fully automated package documentation by migrating all manual <code>.Rd</code> files into <code>roxygen2</code> comments embedded directly within the R source files, ensuring airtight synchronization between code and documentation.</li>
 <li>
 <strong>Citations &amp; References:</strong> Added citations for the foundational <code>fmlogit</code> (Ji and Woodill) and <code>fracridge</code> (Rokem and Kay) packages across manual pages, README, and vignettes, formatting URLs properly for rendering.</li>

@@ -293,19 +293,18 @@ summary(mod)
 #> -------------------------------------------------------------------------------- 
 #>            Fractional probit (correlated random effects)  regression 
 #> -------------------------------------------------------------------------------- 
-#> Estimator:                                                                QMLcre 
 #> Data type:                                                                 Panel 
-#> Exogeneity:                                                                 TRUE 
-#> Use first lag of instruments:                                              FALSE 
-#> Standard errors:                                                         cluster 
-#> -------------------------------------------------------------------------------- 
+#> Estimator:                                                                QMLcre 
+#> Convergence:                                                          Successful 
 #> Number of observations:                                                     1534 
 #> Number of groups:                                                            767 
 #> Obs per group:                                                                 2 
 #> Log pseudolikelihood:                                                  -554.0205 
 #> Wald chi2(9):                                                          3191.0501 
 #> Prob > chi2:                                                              0.0000 
-#> Convergence:                                                          Successful 
+#> Exogeneity:                                                                 TRUE 
+#> Use first lag of instruments:                                              FALSE 
+#> Standard errors:                                                            CRVE 
 #> -------------------------------------------------------------------------------- 
 #>       Final (Correlated Random Effects) Quasi-Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
@@ -332,7 +331,7 @@ summary(mod)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 14:57:33 
+#>                          Run Date: 2026-07-12 19:06:07 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -370,19 +369,18 @@ summary(mod)
 #> -------------------------------------------------------------------------------- 
 #>            Fractional probit (correlated random effects)  regression 
 #> -------------------------------------------------------------------------------- 
-#> Estimator:                                                                QMLcre 
 #> Data type:                                                                 Panel 
-#> Exogeneity:                                                                 TRUE 
-#> Use first lag of instruments:                                              FALSE 
-#> Standard errors:                                                         cluster 
-#> -------------------------------------------------------------------------------- 
+#> Estimator:                                                                QMLcre 
+#> Convergence:                                                          Successful 
 #> Number of observations:                                                      500 
 #> Number of groups:                                                            100 
 #> Obs per group:                                                                 5 
 #> Log pseudolikelihood:                                                  -313.6436 
 #> Wald chi2(3):                                                          2156.6004 
 #> Prob > chi2:                                                              0.0000 
-#> Convergence:                                                          Successful 
+#> Exogeneity:                                                                 TRUE 
+#> Use first lag of instruments:                                              FALSE 
+#> Standard errors:                                                            CRVE 
 #> -------------------------------------------------------------------------------- 
 #>       Final (Correlated Random Effects) Quasi-Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
@@ -397,7 +395,7 @@ summary(mod)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 14:57:33 
+#>                          Run Date: 2026-07-12 19:06:07 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -411,12 +409,14 @@ summary(pe_res)
 #> -------------------------------------------------------------------------------- 
 #>                     Panel Data Fractional probit regression 
 #> -------------------------------------------------------------------------------- 
-#>         Estimate Std. Error z value Pr(>|z|)    
+#> 
+#> Note: Standard errors computed using the Delta method
+#>            dy/dx Std. Error z value Pr(>|z|)    
 #> x_panel 0.189526   0.003544   53.48   <2e-16 ***
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 14:57:33 
+#>                          Run Date: 2026-07-12 19:06:07 
 #> -------------------------------------------------------------------------------- 
 
 # Exogeneity, no lags, no time dummies, clustered standard errors, GMMbgw estimator
@@ -426,18 +426,17 @@ summary(mod)
 #> -------------------------------------------------------------------------------- 
 #>                           Fractional logit  regression 
 #> -------------------------------------------------------------------------------- 
-#> Estimator:                                                                GMMbgw 
 #> Data type:                                                                 Panel 
-#> Exogeneity:                                                                 TRUE 
-#> Use first lag of instruments:                                              FALSE 
-#> Standard errors:                                                         cluster 
-#> -------------------------------------------------------------------------------- 
+#> Estimator:                                                                GMMbgw 
+#> Convergence:                                                          Successful 
 #> Number of observations:                                                      500 
 #> Number of groups:                                                            100 
 #> Obs per group:                                                                 5 
 #> Wald chi2(1):                                               4.87462988128311e+31 
 #> Prob > chi2:                                                              0.0000 
-#> Convergence:                                                          Successful 
+#> Exogeneity:                                                                 TRUE 
+#> Use first lag of instruments:                                              FALSE 
+#> Standard errors:                                                            CRVE 
 #> -------------------------------------------------------------------------------- 
 #>                             Final GMM bgw estimates 
 #> -------------------------------------------------------------------------------- 
@@ -448,7 +447,7 @@ summary(mod)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 14:57:33 
+#>                          Run Date: 2026-07-12 19:06:07 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -459,12 +458,9 @@ summary(mod)
 #> -------------------------------------------------------------------------------- 
 #>                           Fractional logit  regression 
 #> -------------------------------------------------------------------------------- 
-#> Estimator:                                                                 GMMww 
 #> Data type:                                                                 Panel 
-#> Exogeneity:                                                                 TRUE 
-#> Use first lag of instruments:                                               TRUE 
-#> Standard errors:                                                         cluster 
-#> -------------------------------------------------------------------------------- 
+#> Estimator:                                                                 GMMww 
+#> Convergence:                                                          Successful 
 #> Number of obs (initial):                                                     500 
 #> Number of observations:                                                      400 
 #> Number of groups (initial):                                                  100 
@@ -472,7 +468,9 @@ summary(mod)
 #> Obs per group:                                                                 4 
 #> Wald chi2(1):                                               8.09654990520078e+32 
 #> Prob > chi2:                                                              0.0000 
-#> Convergence:                                                          Successful 
+#> Exogeneity:                                                                 TRUE 
+#> Use first lag of instruments:                                               TRUE 
+#> Standard errors:                                                            CRVE 
 #> -------------------------------------------------------------------------------- 
 #>                              Final GMM ww estimates 
 #> -------------------------------------------------------------------------------- 
@@ -481,7 +479,7 @@ summary(mod)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 14:57:33 
+#>                          Run Date: 2026-07-12 19:06:07 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -492,12 +490,9 @@ summary(mod)
 #> -------------------------------------------------------------------------------- 
 #>                           Fractional logit  regression 
 #> -------------------------------------------------------------------------------- 
-#> Estimator:                                                                 GMMww 
 #> Data type:                                                                 Panel 
-#> Exogeneity:                                                                 TRUE 
-#> Use first lag of instruments:                                               TRUE 
-#> Standard errors:                                                          robust 
-#> -------------------------------------------------------------------------------- 
+#> Estimator:                                                                 GMMww 
+#> Convergence:                                                          Successful 
 #> Number of obs (initial):                                                     500 
 #> Number of observations:                                                      400 
 #> Number of groups (initial):                                                  100 
@@ -505,7 +500,9 @@ summary(mod)
 #> Obs per group:                                                                 4 
 #> Wald chi2(1):                                               1.27815198429371e+32 
 #> Prob > chi2:                                                              0.0000 
-#> Convergence:                                                          Successful 
+#> Exogeneity:                                                                 TRUE 
+#> Use first lag of instruments:                                               TRUE 
+#> Standard errors:                                                             HC0 
 #> -------------------------------------------------------------------------------- 
 #>                              Final GMM ww estimates 
 #> -------------------------------------------------------------------------------- 
@@ -514,7 +511,7 @@ summary(mod)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 14:57:33 
+#>                          Run Date: 2026-07-12 19:06:07 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -526,18 +523,17 @@ summary(mod)
 #> -------------------------------------------------------------------------------- 
 #>               Fractional logit (pooled fixed effects)  regression 
 #> -------------------------------------------------------------------------------- 
-#> Estimator:                                                                GMMpfe 
 #> Data type:                                                                 Panel 
-#> Exogeneity:                                                                FALSE 
-#> Use first lag of instruments:                                              FALSE 
-#> Standard errors:                                                         cluster 
-#> -------------------------------------------------------------------------------- 
+#> Estimator:                                                                GMMpfe 
+#> Convergence:                                                          Successful 
 #> Number of observations:                                                      500 
 #> Number of groups:                                                            100 
 #> Obs per group:                                                                 5 
 #> Wald chi2(6):                                                          7156.2911 
 #> Prob > chi2:                                                              0.0000 
-#> Convergence:                                                          Successful 
+#> Exogeneity:                                                                FALSE 
+#> Use first lag of instruments:                                              FALSE 
+#> Standard errors:                                                            CRVE 
 #> -------------------------------------------------------------------------------- 
 #>       Final (Pooled Fixed Effects) Generalized Method of Moments estimates 
 #> -------------------------------------------------------------------------------- 
@@ -558,7 +554,7 @@ summary(mod)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 14:57:33 
+#>                          Run Date: 2026-07-12 19:06:08 
 #> -------------------------------------------------------------------------------- 
 #> 
 # }

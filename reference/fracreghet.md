@@ -297,13 +297,13 @@ mod <- fracreghet(y_adj, X_het, Z_emp, var.endog = X_het[, "mrate"], type="QMLxv
 #> -------------------------------------------------------------------------------- 
 #>         Fractional logit regression with heteroscedasticity/endogeneity 
 #> -------------------------------------------------------------------------------- 
-#> Estimator:                                                                 QMLxv 
 #> Data type:                                                       Cross-sectional 
+#> Estimator:                                                                 QMLxv 
+#> Convergence:                                                          Successful 
 #> Number of observations:                                                     1534 
-#> Standard errors:                                                          robust 
 #> Wald chi2(6):                                                          1991.8748 
 #> Prob > chi2:                                                              0.0000 
-#> Convergence:                                                          Successful 
+#> Standard errors:                                                             HC0 
 #> -------------------------------------------------------------------------------- 
 #>                   Final Quasi-Maximum Likelihood xv estimates 
 #> -------------------------------------------------------------------------------- 
@@ -333,7 +333,7 @@ mod <- fracreghet(y_adj, X_het, Z_emp, var.endog = X_het[, "mrate"], type="QMLxv
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 14:57:30 
+#>                          Run Date: 2026-07-12 19:06:03 
 #> -------------------------------------------------------------------------------- 
 #> 
 summary(mod)
@@ -345,19 +345,19 @@ mod <- fracreghet(y_adj, X_het, Z_emp, var.endog = X_het[, "mrate"], type="QMLxv
 #> -------------------------------------------------------------------------------- 
 #>         Fractional logit regression with heteroscedasticity/endogeneity 
 #> -------------------------------------------------------------------------------- 
-#> Estimator:                                                                 QMLxv 
 #> Data type:                                                       Cross-sectional 
-#> Number of observations:                                                     1534 
-#> Standard errors:                                                          robust 
-#> Wald chi2(6):                                                       2243425.9703 
-#> Prob > chi2:                                                              0.0000 
+#> Estimator:                                                                 QMLxv 
 #> Convergence:                                                          Successful 
+#> Number of observations:                                                     1534 
+#> Wald chi2(6):                                                       2243425.9766 
+#> Prob > chi2:                                                              0.0000 
+#> Standard errors:                                                             HC0 
 #> -------------------------------------------------------------------------------- 
 #>                   Final Quasi-Maximum Likelihood xv estimates 
 #> -------------------------------------------------------------------------------- 
 #>             Odds Ratio Robust Std.Err.  z value [90% Conf. Interval] Pr(>|z|)
 #> (Intercept)    0.89977         0.67684 -0.14040    0.26108     3.101    0.888
-#> mrate         41.32156        28.49225  5.39703   13.29273   128.452 6.78e-08
+#> mrate         41.32157        28.49225  5.39703   13.29273   128.452 6.78e-08
 #> ltotemp        0.93231         0.04986 -1.31060    0.85380     1.018    0.190
 #> vhat           0.06111         0.04279 -3.99157    0.01931     0.193 6.56e-05
 #>                
@@ -381,7 +381,7 @@ mod <- fracreghet(y_adj, X_het, Z_emp, var.endog = X_het[, "mrate"], type="QMLxv
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 14:57:30 
+#>                          Run Date: 2026-07-12 19:06:03 
 #> -------------------------------------------------------------------------------- 
 #> 
  
@@ -410,13 +410,13 @@ mod <- fracreghet(y = y_endog, x = X, type = "GMMx", link = "logit")
 #> -------------------------------------------------------------------------------- 
 #>         Fractional logit regression with heteroscedasticity/endogeneity 
 #> -------------------------------------------------------------------------------- 
-#> Estimator:                                                                  GMMx 
 #> Data type:                                                       Cross-sectional 
+#> Estimator:                                                                  GMMx 
+#> Convergence:                                                          Successful 
 #> Number of observations:                                                     1000 
-#> Standard errors:                                                          robust 
 #> Wald chi2(2):                                                         42761.0276 
 #> Prob > chi2:                                                              0.0000 
-#> Convergence:                                                          Successful 
+#> Standard errors:                                                             HC0 
 #> -------------------------------------------------------------------------------- 
 #>                               Final GMMx estimates 
 #> -------------------------------------------------------------------------------- 
@@ -431,7 +431,7 @@ mod <- fracreghet(y = y_endog, x = X, type = "GMMx", link = "logit")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 14:57:30 
+#>                          Run Date: 2026-07-12 19:06:03 
 #> -------------------------------------------------------------------------------- 
 #> 
 summary(mod)
@@ -442,13 +442,13 @@ mod <- fracreghet(y = y_endog, x = X, z = Z, type = "GMMz", link = "logit")
 #> -------------------------------------------------------------------------------- 
 #>         Fractional logit regression with heteroscedasticity/endogeneity 
 #> -------------------------------------------------------------------------------- 
-#> Estimator:                                                                  GMMz 
 #> Data type:                                                       Cross-sectional 
-#> Number of observations:                                                     1000 
-#> Standard errors:                                                          robust 
-#> Wald chi2(2):                                                         14903.8563 
-#> Prob > chi2:                                                              0.0000 
+#> Estimator:                                                                  GMMz 
 #> Convergence:                                                          Successful 
+#> Number of observations:                                                     1000 
+#> Wald chi2(2):                                                         14903.8562 
+#> Prob > chi2:                                                              0.0000 
+#> Standard errors:                                                             HC0 
 #> -------------------------------------------------------------------------------- 
 #>                               Final GMMz estimates 
 #> -------------------------------------------------------------------------------- 
@@ -463,7 +463,7 @@ mod <- fracreghet(y = y_endog, x = X, z = Z, type = "GMMz", link = "logit")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 14:57:30 
+#>                          Run Date: 2026-07-12 19:06:03 
 #> -------------------------------------------------------------------------------- 
 #> 
 summary(mod)
@@ -475,11 +475,11 @@ mod <- fracreghet(y = y_endog, x = X, z = Z, var.endog = var.endog, type = "GMMx
 #> -------------------------------------------------------------------------------- 
 #>         Fractional logit regression with heteroscedasticity/endogeneity 
 #> -------------------------------------------------------------------------------- 
-#> Estimator:                                                                 GMMxv 
 #> Data type:                                                       Cross-sectional 
-#> Number of observations:                                                     1000 
-#> Standard errors:                                                          robust 
+#> Estimator:                                                                 GMMxv 
 #> Convergence:                                                          Successful 
+#> Number of observations:                                                     1000 
+#> Standard errors:                                                             HC0 
 #> -------------------------------------------------------------------------------- 
 #>                              Final GMMxv estimates 
 #> -------------------------------------------------------------------------------- 
@@ -509,7 +509,7 @@ mod <- fracreghet(y = y_endog, x = X, z = Z, var.endog = var.endog, type = "GMMx
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 14:57:30 
+#>                          Run Date: 2026-07-12 19:06:03 
 #> -------------------------------------------------------------------------------- 
 #> 
 summary(mod)
@@ -520,11 +520,11 @@ mod <- fracreghet(y = y_endog, x = X, z = Z, var.endog = var.endog, type = "QMLx
 #> -------------------------------------------------------------------------------- 
 #>         Fractional logit regression with heteroscedasticity/endogeneity 
 #> -------------------------------------------------------------------------------- 
-#> Estimator:                                                                 QMLxv 
 #> Data type:                                                       Cross-sectional 
-#> Number of observations:                                                     1000 
-#> Standard errors:                                                          robust 
+#> Estimator:                                                                 QMLxv 
 #> Convergence:                                                          Successful 
+#> Number of observations:                                                     1000 
+#> Standard errors:                                                             HC0 
 #> -------------------------------------------------------------------------------- 
 #>                   Final Quasi-Maximum Likelihood xv estimates 
 #> -------------------------------------------------------------------------------- 
@@ -554,7 +554,7 @@ mod <- fracreghet(y = y_endog, x = X, z = Z, var.endog = var.endog, type = "QMLx
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 14:57:30 
+#>                          Run Date: 2026-07-12 19:06:03 
 #> -------------------------------------------------------------------------------- 
 #> 
 summary(mod)
