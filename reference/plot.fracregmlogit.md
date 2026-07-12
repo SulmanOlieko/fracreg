@@ -104,7 +104,7 @@ data("fracreg_spending")
 X = fracreg_spending[,2:5]
 y = fracreg_spending[,6:11]
 results1 = fracregmlogit(y, X)
-#> [1] "Fractional logit model estimation completed. Time: 0.1 seconds"
+#> [1] "Fractional logit model estimation completed. Time: 0.2 seconds"
 
 # Define a willingness to pay vector
 wtp.vec = c(1, 1, 1, 1, 1, 1)

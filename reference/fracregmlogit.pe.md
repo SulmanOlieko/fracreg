@@ -135,7 +135,7 @@ data("fracreg_spending")
 X = fracreg_spending[,2:5]
 y = fracreg_spending[,6:11]
 results1 = fracregmlogit(y, X)
-#> [1] "Fractional logit model estimation completed. Time: 0.1 seconds"
+#> [1] "Fractional logit model estimation completed. Time: 0.2 seconds"
 
 # Calculate marginal effects at the mean (without standard errors for speed)
 pe_marg = fracregmlogit.pe(results1, effect="marginal", se=FALSE)
@@ -177,6 +177,6 @@ summary(pe_disc)
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> 
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 10:08:53 
+#>                          Run Date: 2026-07-12 11:35:08 
 #> -------------------------------------------------------------------------------- 
 ```

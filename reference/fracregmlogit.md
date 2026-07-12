@@ -176,7 +176,7 @@ y = fracreg_spending[,6:11]
 
 # Fit the fractional multinomial logit model
 results1 = fracregmlogit(y, X)
-#> [1] "Fractional logit model estimation completed. Time: 0.1 seconds"
+#> [1] "Fractional logit model estimation completed. Time: 0.2 seconds"
 
 # View estimates
 summary(results1)
@@ -250,7 +250,7 @@ summary(results1)
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> 
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 10:08:51 
+#>                          Run Date: 2026-07-12 11:35:06 
 #> -------------------------------------------------------------------------------- 
 
 # Compute marginal effects
@@ -314,7 +314,7 @@ summary(pe)
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> 
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 10:08:51 
+#>                          Run Date: 2026-07-12 11:35:06 
 #> -------------------------------------------------------------------------------- 
 
 # Plot effects for 'houseval'

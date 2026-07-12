@@ -144,7 +144,7 @@ KR standard error can be computationally intensive, it is advised to calculate i
 <span class="r-in"><span><span class="va">X</span> <span class="op">=</span> <span class="va">fracreg_spending</span><span class="op">[</span>,<span class="fl">2</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span></span>
 <span class="r-in"><span><span class="va">y</span> <span class="op">=</span> <span class="va">fracreg_spending</span><span class="op">[</span>,<span class="fl">6</span><span class="op">:</span><span class="fl">11</span><span class="op">]</span></span></span>
 <span class="r-in"><span><span class="va">results1</span> <span class="op">=</span> <span class="fu"><a href="fracregmlogit.html">fracregmlogit</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">X</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Fractional logit model estimation completed. Time: 0.1 seconds"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Fractional logit model estimation completed. Time: 0.2 seconds"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Calculate marginal effects at the mean (without standard errors for speed)</span></span></span>
 <span class="r-in"><span><span class="va">pe_marg</span> <span class="op">=</span> <span class="fu">fracregmlogit.pe</span><span class="op">(</span><span class="va">results1</span>, effect<span class="op">=</span><span class="st">"marginal"</span>, se<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
@@ -186,7 +186,7 @@ KR standard error can be computationally intensive, it is advised to calculate i
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 10:08:53 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 11:35:08 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 </code></pre></div>
     </div>
