@@ -28,6 +28,10 @@
 
 #### Documentation & Website
 
+- **Roxygen2 Migration:** Fully automated package documentation by
+  migrating all manual `.Rd` files into `roxygen2` comments embedded
+  directly within the R source files, ensuring airtight synchronization
+  between code and documentation.
 - **Citations & References:** Added citations for the foundational
   `fmlogit` (Ji and Woodill) and `fracridge` (Rokem and Kay) packages
   across manual pages, README, and vignettes, formatting URLs properly
@@ -45,6 +49,15 @@
 
 #### Bug Fixes & Under-the-Hood Improvements
 
+- **Namespace Imports:** Added comprehensive `@importFrom` tags for base
+  R `stats`, `graphics`, and `grid` functions, alongside `ggplot2`,
+  eliminating all undefined global function NOTEs during checking.
+- **S3 Method Registration:** Explicitly registered S3 methods (like
+  `summary` and `plot`) using `@exportS3Method` to comply with strict
+  `R CMD check` standards.
+- **CRAN Compliance:** Wrapped computationally heavy examples (like
+  `plot.fracregmlogit.pe`) in `\donttest{}` blocks to strictly respect
+  CRAN’s 5-second execution limit.
 - Resolved `length > 1` logical condition errors in `plot.fracregmlogit`
   standard error rendering by properly adopting
   [`match.arg()`](https://rdrr.io/r/base/match.arg.html).

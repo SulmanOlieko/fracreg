@@ -59,6 +59,8 @@
 <div class="section level4">
 <h4 id="documentation--website-1-0-1">Documentation &amp; Website<a class="anchor" aria-label="anchor" href="#documentation--website-1-0-1"></a></h4>
 <ul><li>
+<strong>Roxygen2 Migration:</strong> Fully automated package documentation by migrating all manual <code>.Rd</code> files into <code>roxygen2</code> comments embedded directly within the R source files, ensuring airtight synchronization between code and documentation.</li>
+<li>
 <strong>Citations &amp; References:</strong> Added citations for the foundational <code>fmlogit</code> (Ji and Woodill) and <code>fracridge</code> (Rokem and Kay) packages across manual pages, README, and vignettes, formatting URLs properly for rendering.</li>
 <li>
 <strong>Logo &amp; Badges:</strong> Improved the package hex logo and added status badges to the <code>README</code>.</li>
@@ -69,7 +71,13 @@
 </ul></div>
 <div class="section level4">
 <h4 id="bug-fixes--under-the-hood-improvements-1-0-1">Bug Fixes &amp; Under-the-Hood Improvements<a class="anchor" aria-label="anchor" href="#bug-fixes--under-the-hood-improvements-1-0-1"></a></h4>
-<ul><li>Resolved <code>length &gt; 1</code> logical condition errors in <code>plot.fracregmlogit</code> standard error rendering by properly adopting <code><a href="https://rdrr.io/r/base/match.arg.html" class="external-link">match.arg()</a></code>.</li>
+<ul><li>
+<strong>Namespace Imports:</strong> Added comprehensive <code>@importFrom</code> tags for base R <code>stats</code>, <code>graphics</code>, and <code>grid</code> functions, alongside <code>ggplot2</code>, eliminating all undefined global function NOTEs during checking.</li>
+<li>
+<strong>S3 Method Registration:</strong> Explicitly registered S3 methods (like <code>summary</code> and <code>plot</code>) using <code>@exportS3Method</code> to comply with strict <code>R CMD check</code> standards.</li>
+<li>
+<strong>CRAN Compliance:</strong> Wrapped computationally heavy examples (like <code>plot.fracregmlogit.pe</code>) in <code>\donttest{}</code> blocks to strictly respect CRAN’s 5-second execution limit.</li>
+<li>Resolved <code>length &gt; 1</code> logical condition errors in <code>plot.fracregmlogit</code> standard error rendering by properly adopting <code><a href="https://rdrr.io/r/base/match.arg.html" class="external-link">match.arg()</a></code>.</li>
 <li>Resolved WTP matrix subsetting issues by enforcing <code>drop = FALSE</code>.</li>
 <li>Cleaned up legacy <code>fmlogit</code> code dependencies and unified the namespace fully under <code>fracregmlogit</code>.</li>
 <li>Fixed <code>NA/NaN</code> evaluation errors in <code>nlminb</code> during <code>fracreghet</code> estimations.</li>

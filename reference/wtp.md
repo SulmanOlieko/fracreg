@@ -68,7 +68,7 @@ data("fracreg_spending")
 X = fracreg_spending[,2:5]
 y = fracreg_spending[,6:11]
 results1 = fracregmlogit(y, X)
-#> [1] "Fractional logit model estimation completed. Time: 0.2 seconds"
+#> [1] "Fractional logit model estimation completed. Time: 0.1 seconds"
 pe = fracregmlogit.pe(results1)
 # Assuming arbitrary WTP values for the 6 choices
 wtp_est = wtp(pe, wtp.vec = c(1, 2, 3, 4, 5, 6), varlist = "houseval")
