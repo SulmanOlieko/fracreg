@@ -14,3 +14,5 @@
 ^CRAN-SUBMISSION$
 ^sitemap\.xml$
 ^scratch$
+^fracreg_.*\.pdf$
+^fracreg_.*\.tar\.gz$

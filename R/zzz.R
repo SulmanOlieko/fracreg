@@ -13,7 +13,7 @@ fracregStartupMessage <- function() {
   )
   base_msg <- paste0(
     "\n\n* Please cite the 'fracreg' package as:\n",
-    "Owili, SO. (2026). fracreg: Fractional Response Regressions. R package version 1.0.0.\n\n",
+    "Owili, SO. (2026). fracreg: Fractional Response Regressions. R package version 1.0.1.\n\n",
     "See also: citation(\"fracreg\")\n\n",
     "* For any questions, suggestions, or comments on the 'fracreg' package, you can contact the authors directly or visit:\n",
     "  https://github.com/SulmanOlieko/fracreg/issues\n"
@@ -49,7 +49,7 @@ fracregStartupMessage <- function() {
   # 4. Pad the version text so it hits the exact right edge
   version_msg <- paste0(
     "\n",
-    sprintf(paste0("%", align_width, "s"), "version 1.0.0")
+    sprintf(paste0("%", align_width, "s"), "version 1.0.1")
   )
 
   return(paste0(art_msg, version_msg, base_msg))
@@ -64,7 +64,7 @@ fracregStartupMessage <- function() {
   } else {
     msg <- paste0(
       "\n* Please cite the 'fracreg' package as:\n",
-      "Owili, SO. (2026). fracreg: Fractional Response Regressions. R package version 1.0.0.\n\n",
+      "Owili, SO. (2026). fracreg: Fractional Response Regressions. R package version 1.0.1.\n\n",
       "See also: citation(\"fracreg\")\n\n",
       "* For any questions, suggestions, or comments on the 'fracreg' package, you can contact the authors directly or visit:\n",
       "  https://github.com/SulmanOlieko/fracreg/issues\n"

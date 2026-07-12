@@ -62,7 +62,7 @@ wtp = function(object, wtp.vec, varlist=NULL, indv.obs=FALSE){
   tabout[,2] = wtp_se
   tabout[,3] = tabout[,1] / tabout[,2]
   tabout[,4] = 2*(1-pnorm(abs(tabout[,3])))
-  colnames(tabout) = c("estimate","std","z","p-value")
+  colnames(tabout) = c("Coefficient", "Std. Error", "z value", "Pr(>|z|)")
   rownames(tabout) = varlist
   }else tabout = wtp_mean
   if(indv.obs){

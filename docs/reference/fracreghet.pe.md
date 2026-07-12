@@ -150,13 +150,13 @@ res_emp <- fracreghet(y_adj, X_het, Z_emp, var.endog = X_het[, "mrate"],
 #> -------------------------------------------------------------------------------- 
 #>         Fractional logit regression with heteroscedasticity/endogeneity 
 #> -------------------------------------------------------------------------------- 
-#> Estimator:                                                                 QMLxv 
 #> Data type:                                                       Cross-sectional 
+#> Estimator:                                                                 QMLxv 
+#> Convergence:                                                          Successful 
 #> Number of observations:                                                     1534 
-#> Standard errors:                                                          robust 
 #> Wald chi2(6):                                                          1991.8748 
 #> Prob > chi2:                                                              0.0000 
-#> Convergence:                                                          Successful 
+#> Standard errors:                                                             HC0 
 #> -------------------------------------------------------------------------------- 
 #>                   Final Quasi-Maximum Likelihood xv estimates 
 #> -------------------------------------------------------------------------------- 
@@ -186,7 +186,7 @@ res_emp <- fracreghet(y_adj, X_het, Z_emp, var.endog = X_het[, "mrate"],
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 16:40:49 
+#>                          Run Date: 2026-07-12 21:42:31 
 #> -------------------------------------------------------------------------------- 
 #> 
 pe_res <- fracreghet.pe(res_emp, which.x="mrate")
@@ -199,12 +199,14 @@ summary(pe_res)
 #>                           Fractional logit regression 
 #>                                 Estimator: QMLxv 
 #> -------------------------------------------------------------------------------- 
-#>       Estimate Std. Error z value Pr(>|z|)    
-#> mrate  0.39498    0.09827   4.019 5.84e-05 ***
+#> 
+#> Note: Standard errors computed using the Delta method
+#>         dy/dx Std. Error z value Pr(>|z|)    
+#> mrate 0.39498    0.09827   4.019 5.84e-05 ***
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 16:40:49 
+#>                          Run Date: 2026-07-12 21:42:32 
 #> -------------------------------------------------------------------------------- 
  
 ### Simulated Examples
@@ -225,13 +227,13 @@ mod <- fracreghet(y,X,type="GMMx")
 #> -------------------------------------------------------------------------------- 
 #>         Fractional logit regression with heteroscedasticity/endogeneity 
 #> -------------------------------------------------------------------------------- 
-#> Estimator:                                                                  GMMx 
 #> Data type:                                                       Cross-sectional 
+#> Estimator:                                                                  GMMx 
+#> Convergence:                                                          Successful 
 #> Number of observations:                                                      250 
-#> Standard errors:                                                          robust 
 #> Wald chi2(2):                                                           366.0228 
 #> Prob > chi2:                                                              0.0000 
-#> Convergence:                                                          Successful 
+#> Standard errors:                                                             HC0 
 #> -------------------------------------------------------------------------------- 
 #>                               Final GMMx estimates 
 #> -------------------------------------------------------------------------------- 
@@ -246,7 +248,7 @@ mod <- fracreghet(y,X,type="GMMx")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 16:40:49 
+#>                          Run Date: 2026-07-12 21:42:32 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -261,12 +263,14 @@ summary(pe_res)
 #>                           Fractional logit regression 
 #>                                 Estimator: GMMx 
 #> -------------------------------------------------------------------------------- 
-#>    Estimate Std. Error z value Pr(>|z|)    
-#> X1  0.16698    0.00957   17.45   <2e-16 ***
+#> 
+#> Note: Standard errors computed using the Delta method
+#>      dy/dx Std. Error z value Pr(>|z|)    
+#> X1 0.16698    0.00957   17.45   <2e-16 ***
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 16:40:49 
+#>                          Run Date: 2026-07-12 21:42:32 
 #> -------------------------------------------------------------------------------- 
 
 #Naive estimator of conditional partial effects for all covariates,
@@ -281,13 +285,15 @@ summary(pe_res)
 #>                           Fractional logit regression 
 #>                                 Estimator: GMMx 
 #> -------------------------------------------------------------------------------- 
-#>    Estimate Std. Error z value Pr(>|z|)    
-#> X1  0.22878    0.01322   17.31   <2e-16 ***
-#> X2  0.20655    0.01447   14.28   <2e-16 ***
+#> 
+#> Note: Standard errors computed using the Delta method
+#>      dy/dx Std. Error z value Pr(>|z|)    
+#> X1 0.22878    0.01322   17.31   <2e-16 ***
+#> X2 0.20655    0.01447   14.28   <2e-16 ***
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 16:40:49 
+#>                          Run Date: 2026-07-12 21:42:32 
 #> -------------------------------------------------------------------------------- 
 #> 
 #> Note: covariates evaluated at the following values:

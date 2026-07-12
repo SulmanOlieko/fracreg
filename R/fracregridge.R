@@ -102,7 +102,7 @@ fracregridge <- function(y, x, fracs = seq(0.1, 1.0, by=0.1), tol = 1e-10, inter
 	}
 
 	if(length(x.names)!=length(unique(x.names))) stop("some covariate names in x are identical")
-	if(length(y)!=nrow(x)) stop("the number of observations for y and x are different")
+	if(NROW(y)!=nrow(x)) stop("the number of observations for y and x are different")
 	
 	if(any(diff(fracs) < 0)) stop("The 'fracs' input must be sorted in ascending order.")
 	
@@ -240,14 +240,22 @@ fracregridge <- function(y, x, fracs = seq(0.1, 1.0, by=0.1), tol = 1e-10, inter
 	        zval <- est / std_err
 	        pval <- 2 * pnorm(-abs(zval))
 	        
-	        tab <- cbind(Estimate = est, `Std. Error` = std_err, `z value` = zval, `Pr(>|z|)` = pval)
+	        tab <- cbind(Coefficient = est, `Std. Error` = std_err, `z value` = zval, `Pr(>|z|)` = pval)
 	        rownames(tab) <- x.names
+	        
+	        if (nn > df_alpha && !is.na(sigma2) && sigma2 > 0) {
+	            W <- tryCatch(as.numeric(t(beta) %*% t(v_t) %*% diag(1/D) %*% v_t %*% beta / sigma2), error = function(e) NA)
+	            p_W <- if(!is.na(W)) 1 - pchisq(W, df = pp) else NA
+	        } else {
+	            W <- NA
+	            p_W <- NA
+	        }
 	        
 	        list_name <- paste0("target_", colnames(y_mat)[ii], "_frac_", fracs[jj])
 	        if (bb == 1) list_name <- paste0("frac_", fracs[jj])
 	        
 	        table.info[[list_name]] <- tab
-	        stats.info[[list_name]] <- list(n_obs = nn, R2 = cor(y_mat[, ii], y_pred)^2, df_alpha = df_alpha)
+	        stats.info[[list_name]] <- list(n_obs = nn, R2 = cor(y_mat[, ii], y_pred)^2, df_alpha = df_alpha, W = W, p_W = p_W, df_W = pp)
 	    }
 	}
 	

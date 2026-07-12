@@ -78,18 +78,11 @@ fracreghet.table <- function(p,p.var,x.names,type,link,converged,N,var.type,adju
 		cat(.fracreg.center(paste("Fractional", link, "regression with heteroscedasticity/endogeneity")), "\n")
 		cat(.fracreg.sep(), "\n")
 		
-		.fracreg.cat.right("Estimator:", type)
 		.fracreg.cat.right("Data type:", "Cross-sectional")
-		
-		if(adjust!=0)
-		{
-			if(is.numeric(adjust)) .fracreg.cat.right("Adjustment:", paste(adjust,"added to all observations"))
-			else .fracreg.cat.right("Adjustment:", "all boundary observations dropped")
-		}
-		
+		.fracreg.cat.right("Estimator:", type)
+		.fracreg.cat.right("Convergence:", "Successful")
 		.fracreg.cat.right("Number of observations:", N)
 		if(!is.null(LL)) .fracreg.cat.right("Log pseudolikelihood:", round(LL, 4))
-		.fracreg.cat.right("Standard errors:", var.type)
 		
 		if(any(type==c("GMMz","LINz")) & dfJ>0)
 		{
@@ -100,7 +93,20 @@ fracreghet.table <- function(p,p.var,x.names,type,link,converged,N,var.type,adju
 			.fracreg.cat.right(paste0("Wald chi2(", df_wald, "):"), round(Wald, 4))
 			.fracreg.cat.right("Prob > chi2:", sprintf("%.4f", p_wald))
 		}
-		.fracreg.cat.right("Convergence:", "Successful")
+		
+		if(adjust!=0)
+		{
+			if(is.numeric(adjust)) .fracreg.cat.right("Adjustment:", paste(adjust,"added to all observations"))
+			else .fracreg.cat.right("Adjustment:", "all boundary observations dropped")
+		}
+		
+		if(var.type == "robust") {
+			.fracreg.cat.right("Standard errors:", "HC0")
+		} else if(var.type == "cluster") {
+			.fracreg.cat.right("Standard errors:", "CRVE")
+		} else {
+			.fracreg.cat.right("Standard errors:", var.type)
+		}
 		
 		cat(.fracreg.sep(), "\n")
 		type_full <- type

@@ -82,13 +82,9 @@ fracregpd.table <- function(p,p.var,x.names,x.exogenous,lags,type,link,converged
 			"")
 		cat(.fracreg.center(paste("Fractional", link, model_desc, "regression")), "\n")
 		cat(.fracreg.sep(), "\n")
-		.fracreg.cat.right("Estimator:", type)
 		.fracreg.cat.right("Data type:", "Panel")
-		.fracreg.cat.right("Exogeneity:", x.exogenous)
-		.fracreg.cat.right("Use first lag of instruments:", lags)
-		if(bootstrap==F) .fracreg.cat.right("Standard errors:", var.type)
-		if(bootstrap==T) .fracreg.cat.right("Standard errors:", "bootstrap")
-		cat(.fracreg.sep(), "\n")
+		.fracreg.cat.right("Estimator:", type)
+		.fracreg.cat.right("Convergence:", "Successful")
 		
 		if(N.ini!=N | NT.ini!=NT) .fracreg.cat.right("Number of obs (initial):", NT.ini)
 		.fracreg.cat.right("Number of observations:", NT)
@@ -96,7 +92,7 @@ fracregpd.table <- function(p,p.var,x.names,x.exogenous,lags,type,link,converged
 		.fracreg.cat.right("Number of groups:", N)
 		.fracreg.cat.right("Obs per group:", NT/N)
 		if(!is.null(LL)) .fracreg.cat.right("Log pseudolikelihood:", round(LL, 4))
-
+		
 		if(type!="QMLcre" & dfJ>0)
 		{
 			p.value.J <- 1-pchisq(J,dfJ)
@@ -106,7 +102,20 @@ fracregpd.table <- function(p,p.var,x.names,x.exogenous,lags,type,link,converged
 			.fracreg.cat.right(paste0("Wald chi2(", df_wald, "):"), round(Wald, 4))
 			.fracreg.cat.right("Prob > chi2:", sprintf("%.4f", p_wald))
 		}
-		.fracreg.cat.right("Convergence:", "Successful")
+		
+		.fracreg.cat.right("Exogeneity:", x.exogenous)
+		.fracreg.cat.right("Use first lag of instruments:", lags)
+		
+		if(bootstrap==F) {
+			if(var.type == "robust") {
+				.fracreg.cat.right("Standard errors:", "HC0")
+			} else if(var.type == "cluster") {
+				.fracreg.cat.right("Standard errors:", "CRVE")
+			} else {
+				.fracreg.cat.right("Standard errors:", var.type)
+			}
+		}
+		if(bootstrap==T) .fracreg.cat.right("Standard errors:", "bootstrap")
 		cat(.fracreg.sep(), "\n")
 
 		type_full <- switch(type,

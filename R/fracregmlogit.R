@@ -311,6 +311,7 @@ fracregmlogit=function(y, X, beta0 = NULL, MLEmethod = "CG", maxit = 5e+05,
   }
   
   listmat = list()
+  wald_list = list()
   for (i in 1:(j - 1)) {
     tabout = matrix(ncol = 4, nrow = k + 1)
     tabout[, 1:2] = t(rbind(betamat[i, ], sigmat[i, ]))
@@ -320,11 +321,30 @@ fracregmlogit=function(y, X, beta0 = NULL, MLEmethod = "CG", maxit = 5e+05,
     if (length(Xnames) > 0) 
       rownames(tabout) = Xnames
     listmat[[i]] = tabout
+    
+    if (k > 0) {
+      beta_slope = betamat[i, 1:k]
+      V_slope = vcov[[i + 1]][1:k, 1:k]
+      W = tryCatch(as.numeric(t(beta_slope) %*% solve(V_slope) %*% beta_slope), error = function(e) NA)
+      p_W = if(!is.na(W)) 1 - pchisq(W, df = k) else NA
+      wald_list[[i]] = list(W = W, p = p_W, df = k)
+    } else {
+      wald_list[[i]] = list(W = NA, p = NA, df = 0)
+    }
   }
-  if (length(ynames) > 0) 
+  
+  y_bar = colMeans(y)
+  LL0 = n * sum(y_bar * log(y_bar + 1e-16))
+  pseudo_R2 = 1 - opt$maximum / LL0
+
+  if (length(ynames) > 0) {
     names(listmat) = ynames[2:j]
+    names(wald_list) = ynames[2:j]
+  }
   outlist = list()
   outlist$estimates = listmat
+  outlist$wald = wald_list
+  outlist$pseudo_R2 = pseudo_R2
   outlist$baseline = ynames[1]
   outlist$likelihood = opt$maximum
   outlist$conv_code = opt$code

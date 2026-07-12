@@ -9,8 +9,8 @@ fracregmlogit(
   X,
   beta0 = NULL,
   MLEmethod = "CG",
-  maxit = 5e+05,
-  abstol = 1e-05,
+  maxit = 500000,
+  abstol = 0.00001,
   cluster = NULL,
   reps = 1000,
   ...

@@ -69,11 +69,11 @@ fracreg.table <- function(y,yhat,p,p.var,x.names,type,link,converged,var.type,R2
 			if(type=="3Pfrac") cat(.fracreg.center(paste("Part 3: Fractional", link, "regression")), "\n")
 			cat(.fracreg.sep(), "\n")
 
-			if(!is.null(method)) .fracreg.cat.right("Estimator:", method)
 			.fracreg.cat.right("Data type:", "Cross-sectional")
+			if(!is.null(method)) .fracreg.cat.right("Estimator:", method)
+			.fracreg.cat.right("Convergence:", "Successful")
 			.fracreg.cat.right("Number of observations:", n)
 			if(!is.null(var.cluster) && var.type=="cluster") .fracreg.cat.right("Number of clusters:", length(unique(var.cluster)))
-			.fracreg.cat.right("Pseudo R-squared:", round(R2, 5))
 			if(!is.null(LL)) {
 				if(!is.null(method) && method == "ML") {
 					.fracreg.cat.right("Log-likelihood:", round(LL, 4))
@@ -81,17 +81,26 @@ fracreg.table <- function(y,yhat,p,p.var,x.names,type,link,converged,var.type,R2
 					.fracreg.cat.right("Log pseudolikelihood:", round(LL, 4))
 				}
 			}
+			.fracreg.cat.right("Pseudo R-squared:", round(R2, 5))
 			if(!is.na(Wald)) {
 				.fracreg.cat.right(paste0("Wald chi2(", df_wald, "):"), round(Wald, 4))
 				.fracreg.cat.right("Prob > chi2:", sprintf("%.4f", p_wald))
 			}
-			if(var.type!="standard") .fracreg.cat.right("Standard errors:", var.type)
+			if(var.type!="standard") {
+				if(var.type == "robust") {
+					robust_type <- if(is.null(dfc) || !dfc) "HC0" else "HC1"
+					.fracreg.cat.right("Standard errors:", robust_type)
+				} else if(var.type == "cluster") {
+					.fracreg.cat.right("Standard errors:", "CRVE")
+				} else {
+					.fracreg.cat.right("Standard errors:", var.type)
+				}
+			}
 			if(is.null(dfc) || !dfc) {
 				.fracreg.cat.right("Small sample correction:", "FALSE")
 			} else {
 				.fracreg.cat.right("Small sample correction:", "TRUE")
 			}
-			.fracreg.cat.right("Convergence:", "Successful")
 			
 			cat(.fracreg.sep(), "\n")
 			method_full <- method
@@ -116,8 +125,8 @@ fracreg.table <- function(y,yhat,p,p.var,x.names,type,link,converged,var.type,R2
 			if(type=="3P") cat(.fracreg.center(paste("Three-part fractional regression: binary", link[1], ", binary", link[2], "+ fractional", link[3])) , "\n")
 			cat(.fracreg.sep(), "\n")
 			.fracreg.cat.right("Data type:", "Cross-sectional")
-			.fracreg.cat.right("Pseudo R-squared:", round(R2, 5))
 			.fracreg.cat.right("Convergence:", "Successful")
+			.fracreg.cat.right("Pseudo R-squared:", round(R2, 5))
 			cat(.fracreg.sep(), "\n")
 			cat(.fracreg.center(paste("Run Date:", format(Sys.time(), "%Y-%m-%d %H:%M:%S"))), "\n")
 			cat(.fracreg.sep(), "\n")

@@ -142,14 +142,15 @@ Toggle to see the output
     #> -------------------------------------------------------------------------------- 
     #>                           Fractional logit regression 
     #> -------------------------------------------------------------------------------- 
-    #> Estimator:                                                                   QML 
     #> Data type:                                                       Cross-sectional 
+    #> Estimator:                                                                   QML 
+    #> Convergence:                                                          Successful 
     #> Number of observations:                                                     1534 
-    #> Pseudo R-squared:                                                        0.14667 
     #> Log pseudolikelihood:                                                  -553.1626 
+    #> Pseudo R-squared:                                                        0.14667 
     #> Wald chi2(4):                                                           147.3049 
     #> Prob > chi2:                                                              0.0000 
-    #> Standard errors:                                                          robust 
+    #> Standard errors:                                                             HC0 
     #> Small sample correction:                                                   FALSE 
     #> Convergence:                                                          Successful 
     #> -------------------------------------------------------------------------------- 
@@ -170,7 +171,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-12 16:29:46 
+    #>                          Run Date: 2026-07-12 21:23:58 
     #> --------------------------------------------------------------------------------
 
 </details>
@@ -193,14 +194,15 @@ Toggle to see the output
     #> -------------------------------------------------------------------------------- 
     #>                           Fractional logit regression 
     #> -------------------------------------------------------------------------------- 
-    #> Estimator:                                                                   QML 
     #> Data type:                                                       Cross-sectional 
+    #> Estimator:                                                                   QML 
+    #> Convergence:                                                          Successful 
     #> Number of observations:                                                     1534 
-    #> Pseudo R-squared:                                                        0.14667 
     #> Log pseudolikelihood:                                                  -553.1626 
+    #> Pseudo R-squared:                                                        0.14667 
     #> Wald chi2(4):                                                           147.3049 
     #> Prob > chi2:                                                              0.0000 
-    #> Standard errors:                                                          robust 
+    #> Standard errors:                                                             HC0 
     #> Small sample correction:                                                   FALSE 
     #> Convergence:                                                          Successful 
     #> -------------------------------------------------------------------------------- 
@@ -221,7 +223,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-12 16:29:47 
+    #>                          Run Date: 2026-07-12 21:24:01 
     #> --------------------------------------------------------------------------------
 
 </details>
@@ -244,11 +246,12 @@ Toggle to see the output
     #> -------------------------------------------------------------------------------- 
     #>                         Part 1: Binary logit regression 
     #> -------------------------------------------------------------------------------- 
-    #> Estimator:                                                                    ML 
     #> Data type:                                                       Cross-sectional 
+    #> Estimator:                                                                    ML 
+    #> Convergence:                                                          Successful 
     #> Number of observations:                                                     1534 
-    #> Pseudo R-squared:                                                         0.1485 
     #> Log-likelihood:                                                        -938.1759 
+    #> Pseudo R-squared:                                                         0.1485 
     #> Wald chi2(4):                                                           173.5169 
     #> Prob > chi2:                                                              0.0000 
     #> Small sample correction:                                                   FALSE 
@@ -276,14 +279,15 @@ Toggle to see the output
     #> -------------------------------------------------------------------------------- 
     #>                       Part 2: Fractional logit regression 
     #> -------------------------------------------------------------------------------- 
-    #> Estimator:                                                                   QML 
     #> Data type:                                                       Cross-sectional 
+    #> Estimator:                                                                   QML 
+    #> Convergence:                                                          Successful 
     #> Number of observations:                                                      852 
-    #> Pseudo R-squared:                                                        0.10004 
     #> Log pseudolikelihood:                                                  -450.8391 
+    #> Pseudo R-squared:                                                        0.10004 
     #> Wald chi2(4):                                                            65.4063 
     #> Prob > chi2:                                                              0.0000 
-    #> Standard errors:                                                          robust 
+    #> Standard errors:                                                             HC0 
     #> Small sample correction:                                                   FALSE 
     #> Convergence:                                                          Successful 
     #> -------------------------------------------------------------------------------- 
@@ -310,10 +314,10 @@ Toggle to see the output
     #>         Two-part fractional regression: binary logit + fractional logit 
     #> -------------------------------------------------------------------------------- 
     #> Data type:                                                       Cross-sectional 
-    #> Pseudo R-squared:                                                        0.11243 
     #> Convergence:                                                          Successful 
+    #> Pseudo R-squared:                                                        0.11243 
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-12 16:29:47 
+    #>                          Run Date: 2026-07-12 21:24:01 
     #> --------------------------------------------------------------------------------
 
 </details>
@@ -337,11 +341,12 @@ Toggle to see the output
     #> -------------------------------------------------------------------------------- 
     #>                         Part 1: Binary logit regression 
     #> -------------------------------------------------------------------------------- 
-    #> Estimator:                                                                    ML 
     #> Data type:                                                       Cross-sectional 
+    #> Estimator:                                                                    ML 
+    #> Convergence:                                                          Successful 
     #> Number of observations:                                                     1534 
-    #> Pseudo R-squared:                                                        0.00324 
     #> Log-likelihood:                                                        -216.6222 
+    #> Pseudo R-squared:                                                        0.00324 
     #> Wald chi2(4):                                                             3.7679 
     #> Prob > chi2:                                                              0.4383 
     #> Small sample correction:                                                   FALSE 
@@ -369,11 +374,12 @@ Toggle to see the output
     #> -------------------------------------------------------------------------------- 
     #>                         Part 2: Binary logit regression 
     #> -------------------------------------------------------------------------------- 
-    #> Estimator:                                                                    ML 
     #> Data type:                                                       Cross-sectional 
+    #> Estimator:                                                                    ML 
+    #> Convergence:                                                          Successful 
     #> Number of observations:                                                     1484 
-    #> Pseudo R-squared:                                                        0.15199 
     #> Log-likelihood:                                                        -903.5457 
+    #> Pseudo R-squared:                                                        0.15199 
     #> Wald chi2(4):                                                            172.201 
     #> Prob > chi2:                                                              0.0000 
     #> Small sample correction:                                                   FALSE 
@@ -401,14 +407,15 @@ Toggle to see the output
     #> -------------------------------------------------------------------------------- 
     #>                       Part 3: Fractional logit regression 
     #> -------------------------------------------------------------------------------- 
-    #> Estimator:                                                                   QML 
     #> Data type:                                                       Cross-sectional 
+    #> Estimator:                                                                   QML 
+    #> Convergence:                                                          Successful 
     #> Number of observations:                                                      826 
-    #> Pseudo R-squared:                                                        0.09937 
     #> Log pseudolikelihood:                                                  -437.3715 
+    #> Pseudo R-squared:                                                        0.09937 
     #> Wald chi2(4):                                                            62.3685 
     #> Prob > chi2:                                                              0.0000 
-    #> Standard errors:                                                          robust 
+    #> Standard errors:                                                             HC0 
     #> Small sample correction:                                                   FALSE 
     #> Convergence:                                                          Successful 
     #> -------------------------------------------------------------------------------- 
@@ -435,10 +442,10 @@ Toggle to see the output
     #> Three-part fractional regression: binary logit , binary logit + fractional logit 
     #> -------------------------------------------------------------------------------- 
     #> Data type:                                                       Cross-sectional 
-    #> Pseudo R-squared:                                                        0.07934 
     #> Convergence:                                                          Successful 
+    #> Pseudo R-squared:                                                        0.07934 
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-12 16:29:47 
+    #>                          Run Date: 2026-07-12 21:24:01 
     #> --------------------------------------------------------------------------------
 
 </details>
@@ -479,14 +486,15 @@ Toggle to see the output
     #> -------------------------------------------------------------------------------- 
     #>                           Fractional logit regression 
     #> -------------------------------------------------------------------------------- 
-    #> Estimator:                                                                   QML 
     #> Data type:                                                       Cross-sectional 
+    #> Estimator:                                                                   QML 
+    #> Convergence:                                                          Successful 
     #> Number of observations:                                                     1000 
-    #> Pseudo R-squared:                                                         0.3903 
     #> Log pseudolikelihood:                                                   -614.973 
+    #> Pseudo R-squared:                                                         0.3903 
     #> Wald chi2(2):                                                           472.2453 
     #> Prob > chi2:                                                              0.0000 
-    #> Standard errors:                                                          robust 
+    #> Standard errors:                                                             HC0 
     #> Small sample correction:                                                   FALSE 
     #> Convergence:                                                          Successful 
     #> -------------------------------------------------------------------------------- 
@@ -503,7 +511,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-12 16:29:47 
+    #>                          Run Date: 2026-07-12 21:24:01 
     #> --------------------------------------------------------------------------------
 
 </details>
@@ -527,11 +535,12 @@ Toggle to see the output
     #> -------------------------------------------------------------------------------- 
     #>                         Part 1: Binary logit regression 
     #> -------------------------------------------------------------------------------- 
-    #> Estimator:                                                                    ML 
     #> Data type:                                                       Cross-sectional 
+    #> Estimator:                                                                    ML 
+    #> Convergence:                                                          Successful 
     #> Number of observations:                                                     1000 
-    #> Pseudo R-squared:                                                        0.14527 
     #> Log-likelihood:                                                        -295.2068 
+    #> Pseudo R-squared:                                                        0.14527 
     #> Wald chi2(2):                                                           102.5171 
     #> Prob > chi2:                                                              0.0000 
     #> Small sample correction:                                                   FALSE 
@@ -569,14 +578,15 @@ Toggle to see the output
     #> -------------------------------------------------------------------------------- 
     #>                       Part 2: Fractional probit regression 
     #> -------------------------------------------------------------------------------- 
-    #> Estimator:                                                                   QML 
     #> Data type:                                                       Cross-sectional 
+    #> Estimator:                                                                   QML 
+    #> Convergence:                                                          Successful 
     #> Number of observations:                                                      881 
-    #> Pseudo R-squared:                                                        0.32474 
     #> Log pseudolikelihood:                                                  -555.3304 
+    #> Pseudo R-squared:                                                        0.32474 
     #> Wald chi2(2):                                                           391.6944 
     #> Prob > chi2:                                                              0.0000 
-    #> Standard errors:                                                          robust 
+    #> Standard errors:                                                             HC0 
     #> Small sample correction:                                                   FALSE 
     #> Convergence:                                                          Successful 
     #> -------------------------------------------------------------------------------- 
@@ -616,11 +626,12 @@ Toggle to see the output
     #> -------------------------------------------------------------------------------- 
     #>                        Part 1: Binary cloglog regression 
     #> -------------------------------------------------------------------------------- 
-    #> Estimator:                                                                    ML 
     #> Data type:                                                       Cross-sectional 
+    #> Estimator:                                                                    ML 
+    #> Convergence:                                                          Successful 
     #> Number of observations:                                                     1000 
-    #> Pseudo R-squared:                                                        0.14837 
     #> Log-likelihood:                                                        -291.7986 
+    #> Pseudo R-squared:                                                        0.14837 
     #> Wald chi2(2):                                                           100.5683 
     #> Prob > chi2:                                                              0.0000 
     #> Small sample correction:                                                   FALSE 
@@ -640,14 +651,15 @@ Toggle to see the output
     #> -------------------------------------------------------------------------------- 
     #>                       Part 2: Fractional logit regression 
     #> -------------------------------------------------------------------------------- 
-    #> Estimator:                                                                   QML 
     #> Data type:                                                       Cross-sectional 
+    #> Estimator:                                                                   QML 
+    #> Convergence:                                                          Successful 
     #> Number of observations:                                                      881 
-    #> Pseudo R-squared:                                                        0.32412 
     #> Log pseudolikelihood:                                                  -555.4465 
+    #> Pseudo R-squared:                                                        0.32412 
     #> Wald chi2(2):                                                           368.0384 
     #> Prob > chi2:                                                              0.0000 
-    #> Standard errors:                                                          robust 
+    #> Standard errors:                                                             HC0 
     #> Small sample correction:                                                   FALSE 
     #> Convergence:                                                          Successful 
     #> -------------------------------------------------------------------------------- 
@@ -670,10 +682,10 @@ Toggle to see the output
     #>        Two-part fractional regression: binary cloglog + fractional logit 
     #> -------------------------------------------------------------------------------- 
     #> Data type:                                                       Cross-sectional 
-    #> Pseudo R-squared:                                                        0.38829 
     #> Convergence:                                                          Successful 
+    #> Pseudo R-squared:                                                        0.38829 
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-12 16:29:47 
+    #>                          Run Date: 2026-07-12 21:24:01 
     #> --------------------------------------------------------------------------------
 
 </details>
@@ -696,11 +708,12 @@ Toggle to see the output
     #> -------------------------------------------------------------------------------- 
     #>                         Part 1: Binary logit regression 
     #> -------------------------------------------------------------------------------- 
-    #> Estimator:                                                                    ML 
     #> Data type:                                                       Cross-sectional 
+    #> Estimator:                                                                    ML 
+    #> Convergence:                                                          Successful 
     #> Number of observations:                                                     1000 
-    #> Pseudo R-squared:                                                        0.14527 
     #> Log-likelihood:                                                        -295.2068 
+    #> Pseudo R-squared:                                                        0.14527 
     #> Wald chi2(2):                                                           102.5171 
     #> Prob > chi2:                                                              0.0000 
     #> Small sample correction:                                                   FALSE 
@@ -720,11 +733,12 @@ Toggle to see the output
     #> -------------------------------------------------------------------------------- 
     #>                         Part 2: Binary probit regression 
     #> -------------------------------------------------------------------------------- 
-    #> Estimator:                                                                    ML 
     #> Data type:                                                       Cross-sectional 
+    #> Estimator:                                                                    ML 
+    #> Convergence:                                                          Successful 
     #> Number of observations:                                                      881 
-    #> Pseudo R-squared:                                                        0.18634 
     #> Log-likelihood:                                                        -348.8644 
+    #> Pseudo R-squared:                                                        0.18634 
     #> Wald chi2(2):                                                           123.5731 
     #> Prob > chi2:                                                              0.0000 
     #> Small sample correction:                                                   FALSE 
@@ -748,14 +762,15 @@ Toggle to see the output
     #> -------------------------------------------------------------------------------- 
     #>                       Part 3: Fractional logit regression 
     #> -------------------------------------------------------------------------------- 
-    #> Estimator:                                                                   QML 
     #> Data type:                                                       Cross-sectional 
+    #> Estimator:                                                                   QML 
+    #> Convergence:                                                          Successful 
     #> Number of observations:                                                      715 
-    #> Pseudo R-squared:                                                        0.24292 
     #> Log pseudolikelihood:                                                  -484.9654 
+    #> Pseudo R-squared:                                                        0.24292 
     #> Wald chi2(2):                                                            261.436 
     #> Prob > chi2:                                                              0.0000 
-    #> Standard errors:                                                          robust 
+    #> Standard errors:                                                             HC0 
     #> Small sample correction:                                                   FALSE 
     #> Convergence:                                                          Successful 
     #> -------------------------------------------------------------------------------- 
@@ -778,10 +793,10 @@ Toggle to see the output
     #> Three-part fractional regression: binary logit , binary probit + fractional logit 
     #> -------------------------------------------------------------------------------- 
     #> Data type:                                                       Cross-sectional 
-    #> Pseudo R-squared:                                                        0.38917 
     #> Convergence:                                                          Successful 
+    #> Pseudo R-squared:                                                        0.38917 
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-12 16:29:47 
+    #>                          Run Date: 2026-07-12 21:24:02 
     #> --------------------------------------------------------------------------------
 
 </details>
@@ -819,7 +834,9 @@ Toggle to see the output
     #> -------------------------------------------------------------------------------- 
     #>                           Fractional logit regression 
     #> -------------------------------------------------------------------------------- 
-    #>          Estimate Std. Error z value Pr(>|z|)    
+    #> 
+    #> Note: Standard errors computed using the Delta method
+    #>             dy/dx Std. Error z value Pr(>|z|)    
     #> mrate   1.018e-01  1.456e-02   6.989 2.77e-12 ***
     #> age     2.980e-03  5.293e-04   5.630 1.80e-08 ***
     #> totemp -8.736e-07  3.279e-07  -2.665  0.00771 ** 
@@ -827,7 +844,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-12 16:29:47 
+    #>                          Run Date: 2026-07-12 21:24:02 
     #> --------------------------------------------------------------------------------
 
 </details>
@@ -866,13 +883,15 @@ Toggle to see the output
     #> -------------------------------------------------------------------------------- 
     #>                           Fractional logit regression 
     #> -------------------------------------------------------------------------------- 
-    #>    Estimate Std. Error z value Pr(>|z|)    
+    #> 
+    #> Note: Standard errors computed using the Delta method
+    #>       dy/dx Std. Error z value Pr(>|z|)    
     #> X1 0.161653   0.009584   16.87   <2e-16 ***
     #> X2 0.165141   0.012853   12.85   <2e-16 ***
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-12 16:29:48 
+    #>                          Run Date: 2026-07-12 21:24:03 
     #> --------------------------------------------------------------------------------
 
 </details>
@@ -900,13 +919,15 @@ Toggle to see the output
     #> -------------------------------------------------------------------------------- 
     #>               Binary logit + Fractional probit two-part regression 
     #> -------------------------------------------------------------------------------- 
-    #>    Estimate Std. Error z value Pr(>|z|)    
-    #> X1  0.08479    0.01192   7.115 1.12e-12 ***
-    #> X2  0.09068    0.01249   7.259 3.89e-13 ***
+    #> 
+    #> Note: Standard errors computed using the Delta method
+    #>      dy/dx Std. Error z value Pr(>|z|)    
+    #> X1 0.08479    0.01192   7.115 1.12e-12 ***
+    #> X2 0.09068    0.01249   7.259 3.89e-13 ***
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-12 16:29:48 
+    #>                          Run Date: 2026-07-12 21:24:03 
     #> --------------------------------------------------------------------------------
 
 </details>
@@ -935,12 +956,14 @@ Toggle to see the output
     #> -------------------------------------------------------------------------------- 
     #>               Fractional logit component of a two-part regression 
     #> -------------------------------------------------------------------------------- 
-    #>    Estimate Std. Error z value Pr(>|z|)    
-    #> X2  0.17106    0.01895   9.026   <2e-16 ***
+    #> 
+    #> Note: Standard errors computed using the Delta method
+    #>      dy/dx Std. Error z value Pr(>|z|)    
+    #> X2 0.17106    0.01895   9.026   <2e-16 ***
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-12 16:29:48 
+    #>                          Run Date: 2026-07-12 21:24:03 
     #> -------------------------------------------------------------------------------- 
     #> 
     #> Note: covariates evaluated at median (or mode, for dummies) values
@@ -972,13 +995,15 @@ Toggle to see the output
     #> -------------------------------------------------------------------------------- 
     #>     Three-part regression - binary logit , binary probit + fractional logit 
     #> -------------------------------------------------------------------------------- 
-    #>    Estimate Std. Error z value Pr(>|z|)    
-    #> X1  0.15535    0.01440  10.790  < 2e-16 ***
-    #> X2  0.11405    0.01854   6.153 7.62e-10 ***
+    #> 
+    #> Note: Standard errors computed using the Delta method
+    #>      dy/dx Std. Error z value Pr(>|z|)    
+    #> X1 0.15535    0.01440  10.790  < 2e-16 ***
+    #> X2 0.11405    0.01854   6.153 7.62e-10 ***
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-12 16:29:48 
+    #>                          Run Date: 2026-07-12 21:24:03 
     #> --------------------------------------------------------------------------------
 
 </details>
@@ -1027,7 +1052,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-12 16:29:48 
+    #>                          Run Date: 2026-07-12 21:24:04 
     #> --------------------------------------------------------------------------------
 
 </details>
@@ -1075,7 +1100,7 @@ Toggle to see the output
     #> GGOFF - LM       1.612   0.447
     #> GGOFF - Wald     1.336   0.513
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-12 16:29:49 
+    #>                          Run Date: 2026-07-12 21:24:05 
     #> --------------------------------------------------------------------------------
 
 </details>
@@ -1107,7 +1132,7 @@ Toggle to see the output
     #> GOFF2 - LR     0.017   0.895
     #> GGOFF - LR     0.024   0.988
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-12 16:29:49 
+    #>                          Run Date: 2026-07-12 21:24:05 
     #> --------------------------------------------------------------------------------
 
 </details>
@@ -1148,7 +1173,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-12 16:29:49 
+    #>                          Run Date: 2026-07-12 21:24:05 
     #> --------------------------------------------------------------------------------
 
 </details>
@@ -1196,7 +1221,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-12 16:29:49 
+    #>                          Run Date: 2026-07-12 21:24:05 
     #> --------------------------------------------------------------------------------
 
 </details>
@@ -1228,7 +1253,7 @@ Toggle to see the output
     #>       Statistic p-value
     #> LR(3)     0.976   0.614
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-12 16:29:49 
+    #>                          Run Date: 2026-07-12 21:24:05 
     #> --------------------------------------------------------------------------------
 
 </details>
@@ -1276,7 +1301,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-12 16:29:49 
+    #>                          Run Date: 2026-07-12 21:24:06 
     #> --------------------------------------------------------------------------------
 
 </details>
@@ -1328,7 +1353,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-12 16:29:50 
+    #>                          Run Date: 2026-07-12 21:24:07 
     #> --------------------------------------------------------------------------------
 
 </details>
@@ -1368,7 +1393,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-12 16:29:50 
+    #>                          Run Date: 2026-07-12 21:24:07 
     #> --------------------------------------------------------------------------------
 
 </details>
@@ -1409,13 +1434,13 @@ Toggle to see the output
     #> -------------------------------------------------------------------------------- 
     #>         Fractional logit regression with heteroscedasticity/endogeneity 
     #> -------------------------------------------------------------------------------- 
-    #> Estimator:                                                                 QMLxv 
     #> Data type:                                                       Cross-sectional 
+    #> Estimator:                                                                 QMLxv 
+    #> Convergence:                                                          Successful 
     #> Number of observations:                                                     1534 
-    #> Standard errors:                                                          robust 
     #> Wald chi2(6):                                                          1991.8748 
     #> Prob > chi2:                                                              0.0000 
-    #> Convergence:                                                          Successful 
+    #> Standard errors:                                                             HC0 
     #> -------------------------------------------------------------------------------- 
     #>                   Final Quasi-Maximum Likelihood xv estimates 
     #> -------------------------------------------------------------------------------- 
@@ -1445,7 +1470,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-12 16:29:50 
+    #>                          Run Date: 2026-07-12 21:24:09 
     #> --------------------------------------------------------------------------------
 
 </details>
@@ -1468,13 +1493,13 @@ Toggle to see the output
     #> -------------------------------------------------------------------------------- 
     #>         Fractional logit regression with heteroscedasticity/endogeneity 
     #> -------------------------------------------------------------------------------- 
-    #> Estimator:                                                                 QMLxv 
     #> Data type:                                                       Cross-sectional 
+    #> Estimator:                                                                 QMLxv 
+    #> Convergence:                                                          Successful 
     #> Number of observations:                                                     1534 
-    #> Standard errors:                                                          robust 
     #> Wald chi2(6):                                                       2243425.7812 
     #> Prob > chi2:                                                              0.0000 
-    #> Convergence:                                                          Successful 
+    #> Standard errors:                                                             HC0 
     #> -------------------------------------------------------------------------------- 
     #>                   Final Quasi-Maximum Likelihood xv estimates 
     #> -------------------------------------------------------------------------------- 
@@ -1504,7 +1529,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-12 16:29:52 
+    #>                          Run Date: 2026-07-12 21:24:11 
     #> --------------------------------------------------------------------------------
 
 </details>
@@ -1546,13 +1571,13 @@ Toggle to see the output
     #> -------------------------------------------------------------------------------- 
     #>         Fractional logit regression with heteroscedasticity/endogeneity 
     #> -------------------------------------------------------------------------------- 
-    #> Estimator:                                                                  GMMx 
     #> Data type:                                                       Cross-sectional 
+    #> Estimator:                                                                  GMMx 
+    #> Convergence:                                                          Successful 
     #> Number of observations:                                                     1000 
-    #> Standard errors:                                                          robust 
     #> Wald chi2(2):                                                         42761.0276 
     #> Prob > chi2:                                                              0.0000 
-    #> Convergence:                                                          Successful 
+    #> Standard errors:                                                             HC0 
     #> -------------------------------------------------------------------------------- 
     #>                               Final GMMx estimates 
     #> -------------------------------------------------------------------------------- 
@@ -1567,7 +1592,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-12 16:29:52 
+    #>                          Run Date: 2026-07-12 21:24:11 
     #> --------------------------------------------------------------------------------
 
 </details>
@@ -1590,13 +1615,13 @@ Toggle to see the output
     #> -------------------------------------------------------------------------------- 
     #>         Fractional logit regression with heteroscedasticity/endogeneity 
     #> -------------------------------------------------------------------------------- 
-    #> Estimator:                                                                  GMMz 
     #> Data type:                                                       Cross-sectional 
+    #> Estimator:                                                                  GMMz 
+    #> Convergence:                                                          Successful 
     #> Number of observations:                                                     1000 
-    #> Standard errors:                                                          robust 
     #> Wald chi2(2):                                                         14903.8562 
     #> Prob > chi2:                                                              0.0000 
-    #> Convergence:                                                          Successful 
+    #> Standard errors:                                                             HC0 
     #> -------------------------------------------------------------------------------- 
     #>                               Final GMMz estimates 
     #> -------------------------------------------------------------------------------- 
@@ -1611,7 +1636,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-12 16:29:52 
+    #>                          Run Date: 2026-07-12 21:24:11 
     #> --------------------------------------------------------------------------------
 
 </details>
@@ -1635,11 +1660,11 @@ Toggle to see the output
     #> -------------------------------------------------------------------------------- 
     #>         Fractional logit regression with heteroscedasticity/endogeneity 
     #> -------------------------------------------------------------------------------- 
-    #> Estimator:                                                                 GMMxv 
     #> Data type:                                                       Cross-sectional 
-    #> Number of observations:                                                     1000 
-    #> Standard errors:                                                          robust 
+    #> Estimator:                                                                 GMMxv 
     #> Convergence:                                                          Successful 
+    #> Number of observations:                                                     1000 
+    #> Standard errors:                                                             HC0 
     #> -------------------------------------------------------------------------------- 
     #>                              Final GMMxv estimates 
     #> -------------------------------------------------------------------------------- 
@@ -1669,7 +1694,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-12 16:29:52 
+    #>                          Run Date: 2026-07-12 21:24:11 
     #> --------------------------------------------------------------------------------
 
 </details>
@@ -1692,11 +1717,11 @@ Toggle to see the output
     #> -------------------------------------------------------------------------------- 
     #>         Fractional logit regression with heteroscedasticity/endogeneity 
     #> -------------------------------------------------------------------------------- 
-    #> Estimator:                                                                 QMLxv 
     #> Data type:                                                       Cross-sectional 
-    #> Number of observations:                                                     1000 
-    #> Standard errors:                                                          robust 
+    #> Estimator:                                                                 QMLxv 
     #> Convergence:                                                          Successful 
+    #> Number of observations:                                                     1000 
+    #> Standard errors:                                                             HC0 
     #> -------------------------------------------------------------------------------- 
     #>                   Final Quasi-Maximum Likelihood xv estimates 
     #> -------------------------------------------------------------------------------- 
@@ -1726,7 +1751,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-12 16:29:52 
+    #>                          Run Date: 2026-07-12 21:24:11 
     #> --------------------------------------------------------------------------------
 
 </details>
@@ -1764,13 +1789,13 @@ Toggle to see the output
     #> -------------------------------------------------------------------------------- 
     #>         Fractional logit regression with heteroscedasticity/endogeneity 
     #> -------------------------------------------------------------------------------- 
-    #> Estimator:                                                                 QMLxv 
     #> Data type:                                                       Cross-sectional 
+    #> Estimator:                                                                 QMLxv 
+    #> Convergence:                                                          Successful 
     #> Number of observations:                                                     1534 
-    #> Standard errors:                                                          robust 
     #> Wald chi2(6):                                                          1991.8748 
     #> Prob > chi2:                                                              0.0000 
-    #> Convergence:                                                          Successful 
+    #> Standard errors:                                                             HC0 
     #> -------------------------------------------------------------------------------- 
     #>                   Final Quasi-Maximum Likelihood xv estimates 
     #> -------------------------------------------------------------------------------- 
@@ -1800,7 +1825,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-12 16:29:52 
+    #>                          Run Date: 2026-07-12 21:24:13 
     #> --------------------------------------------------------------------------------
 
 </details>
@@ -1825,12 +1850,14 @@ Toggle to see the output
     #>                           Fractional logit regression 
     #>                                 Estimator: QMLxv 
     #> -------------------------------------------------------------------------------- 
-    #>       Estimate Std. Error z value Pr(>|z|)    
-    #> mrate  0.39498    0.09827   4.019 5.84e-05 ***
+    #> 
+    #> Note: Standard errors computed using the Delta method
+    #>         dy/dx Std. Error z value Pr(>|z|)    
+    #> mrate 0.39498    0.09827   4.019 5.84e-05 ***
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-12 16:29:53 
+    #>                          Run Date: 2026-07-12 21:24:13 
     #> --------------------------------------------------------------------------------
 
 </details>
@@ -1864,13 +1891,13 @@ Toggle to see the output
     #> -------------------------------------------------------------------------------- 
     #>         Fractional logit regression with heteroscedasticity/endogeneity 
     #> -------------------------------------------------------------------------------- 
-    #> Estimator:                                                                  GMMx 
     #> Data type:                                                       Cross-sectional 
+    #> Estimator:                                                                  GMMx 
+    #> Convergence:                                                          Successful 
     #> Number of observations:                                                      250 
-    #> Standard errors:                                                          robust 
     #> Wald chi2(2):                                                           368.8403 
     #> Prob > chi2:                                                              0.0000 
-    #> Convergence:                                                          Successful 
+    #> Standard errors:                                                             HC0 
     #> -------------------------------------------------------------------------------- 
     #>                               Final GMMx estimates 
     #> -------------------------------------------------------------------------------- 
@@ -1885,7 +1912,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-12 16:29:53 
+    #>                          Run Date: 2026-07-12 21:24:13 
     #> --------------------------------------------------------------------------------
 
 </details>
@@ -1912,12 +1939,14 @@ Toggle to see the output
     #>                           Fractional logit regression 
     #>                                 Estimator: GMMx 
     #> -------------------------------------------------------------------------------- 
-    #>    Estimate Std. Error z value Pr(>|z|)    
+    #> 
+    #> Note: Standard errors computed using the Delta method
+    #>       dy/dx Std. Error z value Pr(>|z|)    
     #> X1 0.166732   0.009667   17.25   <2e-16 ***
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-12 16:29:53 
+    #>                          Run Date: 2026-07-12 21:24:14 
     #> --------------------------------------------------------------------------------
 
 </details>
@@ -1945,13 +1974,15 @@ Toggle to see the output
     #>                           Fractional logit regression 
     #>                                 Estimator: GMMx 
     #> -------------------------------------------------------------------------------- 
-    #>    Estimate Std. Error z value Pr(>|z|)    
-    #> X1  0.22869    0.01337   17.11   <2e-16 ***
-    #> X2  0.20596    0.01454   14.17   <2e-16 ***
+    #> 
+    #> Note: Standard errors computed using the Delta method
+    #>      dy/dx Std. Error z value Pr(>|z|)    
+    #> X1 0.22869    0.01337   17.11   <2e-16 ***
+    #> X2 0.20596    0.01454   14.17   <2e-16 ***
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-12 16:29:53 
+    #>                          Run Date: 2026-07-12 21:24:14 
     #> -------------------------------------------------------------------------------- 
     #> 
     #> Note: covariates evaluated at the following values:
@@ -1990,13 +2021,13 @@ Toggle to see the output
     #> -------------------------------------------------------------------------------- 
     #>         Fractional logit regression with heteroscedasticity/endogeneity 
     #> -------------------------------------------------------------------------------- 
-    #> Estimator:                                                                  GMMx 
     #> Data type:                                                       Cross-sectional 
+    #> Estimator:                                                                  GMMx 
+    #> Convergence:                                                          Successful 
     #> Number of observations:                                                     1534 
-    #> Standard errors:                                                          robust 
     #> Wald chi2(2):                                                           153.0331 
     #> Prob > chi2:                                                              0.0000 
-    #> Convergence:                                                          Successful 
+    #> Standard errors:                                                             HC0 
     #> -------------------------------------------------------------------------------- 
     #>                               Final GMMx estimates 
     #> -------------------------------------------------------------------------------- 
@@ -2011,7 +2042,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-12 16:29:53 
+    #>                          Run Date: 2026-07-12 21:24:15 
     #> --------------------------------------------------------------------------------
 
 </details>
@@ -2041,7 +2072,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-12 16:29:54 
+    #>                          Run Date: 2026-07-12 21:24:15 
     #> --------------------------------------------------------------------------------
 
 </details>
@@ -2075,13 +2106,13 @@ Toggle to see the output
     #> -------------------------------------------------------------------------------- 
     #>         Fractional logit regression with heteroscedasticity/endogeneity 
     #> -------------------------------------------------------------------------------- 
-    #> Estimator:                                                                  GMMx 
     #> Data type:                                                       Cross-sectional 
+    #> Estimator:                                                                  GMMx 
+    #> Convergence:                                                          Successful 
     #> Number of observations:                                                      250 
-    #> Standard errors:                                                          robust 
     #> Wald chi2(2):                                                           344.3728 
     #> Prob > chi2:                                                              0.0000 
-    #> Convergence:                                                          Successful 
+    #> Standard errors:                                                             HC0 
     #> -------------------------------------------------------------------------------- 
     #>                               Final GMMx estimates 
     #> -------------------------------------------------------------------------------- 
@@ -2096,7 +2127,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-12 16:29:54 
+    #>                          Run Date: 2026-07-12 21:24:15 
     #> --------------------------------------------------------------------------------
 
 </details>
@@ -2131,7 +2162,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-12 16:29:54 
+    #>                          Run Date: 2026-07-12 21:24:15 
     #> --------------------------------------------------------------------------------
 
 </details>
@@ -2169,19 +2200,18 @@ Toggle to see the output
     #> -------------------------------------------------------------------------------- 
     #>            Fractional probit (correlated random effects)  regression 
     #> -------------------------------------------------------------------------------- 
-    #> Estimator:                                                                QMLcre 
     #> Data type:                                                                 Panel 
-    #> Exogeneity:                                                                 TRUE 
-    #> Use first lag of instruments:                                              FALSE 
-    #> Standard errors:                                                         cluster 
-    #> -------------------------------------------------------------------------------- 
+    #> Estimator:                                                                QMLcre 
+    #> Convergence:                                                          Successful 
     #> Number of observations:                                                     1534 
     #> Number of groups:                                                            767 
     #> Obs per group:                                                                 2 
     #> Log pseudolikelihood:                                                  -554.0205 
     #> Wald chi2(9):                                                          3191.0501 
     #> Prob > chi2:                                                              0.0000 
-    #> Convergence:                                                          Successful 
+    #> Exogeneity:                                                                 TRUE 
+    #> Use first lag of instruments:                                              FALSE 
+    #> Standard errors:                                                            CRVE 
     #> -------------------------------------------------------------------------------- 
     #>       Final (Correlated Random Effects) Quasi-Maximum Likelihood estimates 
     #> -------------------------------------------------------------------------------- 
@@ -2208,7 +2238,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-12 16:29:54 
+    #>                          Run Date: 2026-07-12 21:24:17 
     #> --------------------------------------------------------------------------------
 
 </details>
@@ -2257,19 +2287,18 @@ Toggle to see the output
     #> -------------------------------------------------------------------------------- 
     #>            Fractional probit (correlated random effects)  regression 
     #> -------------------------------------------------------------------------------- 
-    #> Estimator:                                                                QMLcre 
     #> Data type:                                                                 Panel 
-    #> Exogeneity:                                                                 TRUE 
-    #> Use first lag of instruments:                                              FALSE 
-    #> Standard errors:                                                         cluster 
-    #> -------------------------------------------------------------------------------- 
+    #> Estimator:                                                                QMLcre 
+    #> Convergence:                                                          Successful 
     #> Number of observations:                                                      500 
     #> Number of groups:                                                            100 
     #> Obs per group:                                                                 5 
     #> Log pseudolikelihood:                                                  -313.6436 
     #> Wald chi2(3):                                                          2156.6004 
     #> Prob > chi2:                                                              0.0000 
-    #> Convergence:                                                          Successful 
+    #> Exogeneity:                                                                 TRUE 
+    #> Use first lag of instruments:                                              FALSE 
+    #> Standard errors:                                                            CRVE 
     #> -------------------------------------------------------------------------------- 
     #>       Final (Correlated Random Effects) Quasi-Maximum Likelihood estimates 
     #> -------------------------------------------------------------------------------- 
@@ -2284,7 +2313,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-12 16:29:56 
+    #>                          Run Date: 2026-07-12 21:24:19 
     #> --------------------------------------------------------------------------------
 
 </details>
@@ -2307,18 +2336,17 @@ Toggle to see the output
     #> -------------------------------------------------------------------------------- 
     #>                           Fractional logit  regression 
     #> -------------------------------------------------------------------------------- 
-    #> Estimator:                                                                GMMbgw 
     #> Data type:                                                                 Panel 
-    #> Exogeneity:                                                                 TRUE 
-    #> Use first lag of instruments:                                              FALSE 
-    #> Standard errors:                                                         cluster 
-    #> -------------------------------------------------------------------------------- 
+    #> Estimator:                                                                GMMbgw 
+    #> Convergence:                                                          Successful 
     #> Number of observations:                                                      500 
     #> Number of groups:                                                            100 
     #> Obs per group:                                                                 5 
     #> Wald chi2(1):                                               4.88095376809867e+31 
     #> Prob > chi2:                                                              0.0000 
-    #> Convergence:                                                          Successful 
+    #> Exogeneity:                                                                 TRUE 
+    #> Use first lag of instruments:                                              FALSE 
+    #> Standard errors:                                                            CRVE 
     #> -------------------------------------------------------------------------------- 
     #>                             Final GMM bgw estimates 
     #> -------------------------------------------------------------------------------- 
@@ -2329,7 +2357,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-12 16:29:56 
+    #>                          Run Date: 2026-07-12 21:24:19 
     #> --------------------------------------------------------------------------------
 
 </details>
@@ -2352,12 +2380,9 @@ Toggle to see the output
     #> -------------------------------------------------------------------------------- 
     #>                           Fractional logit  regression 
     #> -------------------------------------------------------------------------------- 
-    #> Estimator:                                                                 GMMww 
     #> Data type:                                                                 Panel 
-    #> Exogeneity:                                                                 TRUE 
-    #> Use first lag of instruments:                                               TRUE 
-    #> Standard errors:                                                         cluster 
-    #> -------------------------------------------------------------------------------- 
+    #> Estimator:                                                                 GMMww 
+    #> Convergence:                                                          Successful 
     #> Number of obs (initial):                                                     500 
     #> Number of observations:                                                      400 
     #> Number of groups (initial):                                                  100 
@@ -2365,7 +2390,9 @@ Toggle to see the output
     #> Obs per group:                                                                 4 
     #> Wald chi2(1):                                               8.12351101825493e+32 
     #> Prob > chi2:                                                              0.0000 
-    #> Convergence:                                                          Successful 
+    #> Exogeneity:                                                                 TRUE 
+    #> Use first lag of instruments:                                               TRUE 
+    #> Standard errors:                                                            CRVE 
     #> -------------------------------------------------------------------------------- 
     #>                              Final GMM ww estimates 
     #> -------------------------------------------------------------------------------- 
@@ -2374,7 +2401,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-12 16:29:56 
+    #>                          Run Date: 2026-07-12 21:24:19 
     #> --------------------------------------------------------------------------------
 
 </details>
@@ -2397,12 +2424,9 @@ Toggle to see the output
     #> -------------------------------------------------------------------------------- 
     #>                           Fractional logit  regression 
     #> -------------------------------------------------------------------------------- 
-    #> Estimator:                                                                 GMMww 
     #> Data type:                                                                 Panel 
-    #> Exogeneity:                                                                 TRUE 
-    #> Use first lag of instruments:                                               TRUE 
-    #> Standard errors:                                                          robust 
-    #> -------------------------------------------------------------------------------- 
+    #> Estimator:                                                                 GMMww 
+    #> Convergence:                                                          Successful 
     #> Number of obs (initial):                                                     500 
     #> Number of observations:                                                      400 
     #> Number of groups (initial):                                                  100 
@@ -2410,7 +2434,9 @@ Toggle to see the output
     #> Obs per group:                                                                 4 
     #> Wald chi2(1):                                               1.28107689657633e+32 
     #> Prob > chi2:                                                              0.0000 
-    #> Convergence:                                                          Successful 
+    #> Exogeneity:                                                                 TRUE 
+    #> Use first lag of instruments:                                               TRUE 
+    #> Standard errors:                                                             HC0 
     #> -------------------------------------------------------------------------------- 
     #>                              Final GMM ww estimates 
     #> -------------------------------------------------------------------------------- 
@@ -2419,7 +2445,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-12 16:29:56 
+    #>                          Run Date: 2026-07-12 21:24:19 
     #> --------------------------------------------------------------------------------
 
 </details>
@@ -2443,18 +2469,17 @@ Toggle to see the output
     #> -------------------------------------------------------------------------------- 
     #>               Fractional logit (pooled fixed effects)  regression 
     #> -------------------------------------------------------------------------------- 
-    #> Estimator:                                                                GMMpfe 
     #> Data type:                                                                 Panel 
-    #> Exogeneity:                                                                FALSE 
-    #> Use first lag of instruments:                                              FALSE 
-    #> Standard errors:                                                         cluster 
-    #> -------------------------------------------------------------------------------- 
+    #> Estimator:                                                                GMMpfe 
+    #> Convergence:                                                          Successful 
     #> Number of observations:                                                      500 
     #> Number of groups:                                                            100 
     #> Obs per group:                                                                 5 
     #> Wald chi2(6):                                                          7156.2911 
     #> Prob > chi2:                                                              0.0000 
-    #> Convergence:                                                          Successful 
+    #> Exogeneity:                                                                FALSE 
+    #> Use first lag of instruments:                                              FALSE 
+    #> Standard errors:                                                            CRVE 
     #> -------------------------------------------------------------------------------- 
     #>       Final (Pooled Fixed Effects) Generalized Method of Moments estimates 
     #> -------------------------------------------------------------------------------- 
@@ -2475,7 +2500,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-12 16:29:57 
+    #>                          Run Date: 2026-07-12 21:24:23 
     #> --------------------------------------------------------------------------------
 
 </details>
@@ -2501,7 +2526,9 @@ Toggle to see the output
     #> -------------------------------------------------------------------------------- 
     #>                      Panel Data Fractional logit regression 
     #> -------------------------------------------------------------------------------- 
-    #>            Estimate Std. Error z value Pr(>|z|)    
+    #> 
+    #> Note: Standard errors computed using the Delta method
+    #>               dy/dx Std. Error z value Pr(>|z|)    
     #> x_panel    0.123495   0.003909  31.590   <2e-16 ***
     #> var_endog  0.195516   0.001732 112.895   <2e-16 ***
     #> time.2    -0.019048   0.012100  -1.574   0.1154    
@@ -2511,7 +2538,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-12 16:29:57 
+    #>                          Run Date: 2026-07-12 21:24:23 
     #> --------------------------------------------------------------------------------
 
 </details>
@@ -2559,19 +2586,22 @@ Toggle to see the output
     #> -------------------------------------------------------------------------------- 
     #> Data type:                                                       Cross-sectional 
     #> Convergence:                                                          Successful 
+    #> Standard errors:                                                   homoskedastic 
     #> -------------------------------------------------------------------------------- 
     #>                            Target Fraction: frac_0.2 
     #> -------------------------------------------------------------------------------- 
     #> Number of observations:                                                     1534 
     #> Pseudo R-squared:                                                        0.04571 
     #> Degrees of freedom:                                                      1531.43 
+    #> Wald chi2(5):                                                          7427.4748 
+    #> Prob > chi2:                                                              0.0000 
     #> -------------------------------------------------------------------------------- 
-    #>              Estimate Std. Error z value Pr(>|z|)    
-    #> (Intercept) 1.218e-01  2.623e-03  46.434   <2e-16 ***
-    #> mrate       6.721e-02  3.418e-03  19.662   <2e-16 ***
-    #> age         3.471e-02  7.071e-04  49.080   <2e-16 ***
-    #> totemp      1.033e-06  9.158e-07   1.127     0.26    
-    #> sole        6.265e-02  2.701e-03  23.196   <2e-16 ***
+    #>             Coefficient Std. Error z value Pr(>|z|)    
+    #> (Intercept)   1.218e-01  2.623e-03  46.434   <2e-16 ***
+    #> mrate         6.721e-02  3.418e-03  19.662   <2e-16 ***
+    #> age           3.471e-02  7.071e-04  49.080   <2e-16 ***
+    #> totemp        1.033e-06  9.158e-07   1.127     0.26    
+    #> sole          6.265e-02  2.701e-03  23.196   <2e-16 ***
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
@@ -2580,13 +2610,15 @@ Toggle to see the output
     #> Number of observations:                                                     1534 
     #> Pseudo R-squared:                                                        0.06873 
     #> Degrees of freedom:                                                      1530.76 
+    #> Wald chi2(5):                                                         12909.0207 
+    #> Prob > chi2:                                                              0.0000 
     #> -------------------------------------------------------------------------------- 
-    #>              Estimate Std. Error z value Pr(>|z|)    
-    #> (Intercept) 2.741e-01  4.766e-03  57.513   <2e-16 ***
-    #> mrate       1.007e-01  5.152e-03  19.549   <2e-16 ***
-    #> age         2.461e-02  6.189e-04  39.769   <2e-16 ***
-    #> totemp      8.942e-07  6.957e-07   1.285    0.199    
-    #> sole        1.115e-01  4.878e-03  22.855   <2e-16 ***
+    #>             Coefficient Std. Error z value Pr(>|z|)    
+    #> (Intercept)   2.741e-01  4.766e-03  57.513   <2e-16 ***
+    #> mrate         1.007e-01  5.152e-03  19.549   <2e-16 ***
+    #> age           2.461e-02  6.189e-04  39.769   <2e-16 ***
+    #> totemp        8.942e-07  6.957e-07   1.285    0.199    
+    #> sole          1.115e-01  4.878e-03  22.855   <2e-16 ***
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
@@ -2595,13 +2627,15 @@ Toggle to see the output
     #> Number of observations:                                                     1534 
     #> Pseudo R-squared:                                                        0.08697 
     #> Degrees of freedom:                                                      1530.11 
+    #> Wald chi2(5):                                                         22975.8691 
+    #> Prob > chi2:                                                              0.0000 
     #> -------------------------------------------------------------------------------- 
-    #>              Estimate Std. Error z value Pr(>|z|)    
-    #> (Intercept) 4.439e-01  6.218e-03  71.390   <2e-16 ***
-    #> mrate       9.801e-02  5.457e-03  17.960   <2e-16 ***
-    #> age         1.586e-02  5.288e-04  29.996   <2e-16 ***
-    #> totemp      5.080e-07  5.229e-07   0.971    0.331    
-    #> sole        1.246e-01  6.223e-03  20.027   <2e-16 ***
+    #>             Coefficient Std. Error z value Pr(>|z|)    
+    #> (Intercept)   4.439e-01  6.218e-03  71.390   <2e-16 ***
+    #> mrate         9.801e-02  5.457e-03  17.960   <2e-16 ***
+    #> age           1.586e-02  5.288e-04  29.996   <2e-16 ***
+    #> totemp        5.080e-07  5.229e-07   0.971    0.331    
+    #> sole          1.246e-01  6.223e-03  20.027   <2e-16 ***
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
@@ -2610,13 +2644,15 @@ Toggle to see the output
     #> Number of observations:                                                     1534 
     #> Pseudo R-squared:                                                        0.10095 
     #> Degrees of freedom:                                                      1529.52 
+    #> Wald chi2(5):                                                         38093.0055 
+    #> Prob > chi2:                                                              0.0000 
     #> -------------------------------------------------------------------------------- 
-    #>               Estimate Std. Error z value Pr(>|z|)    
-    #> (Intercept)  6.162e-01  7.193e-03  85.673   <2e-16 ***
-    #> mrate        7.665e-02  5.176e-03  14.808   <2e-16 ***
-    #> age          8.729e-03  4.567e-04  19.114   <2e-16 ***
-    #> totemp      -1.493e-07  4.081e-07  -0.366    0.714    
-    #> sole         9.781e-02  7.001e-03  13.970   <2e-16 ***
+    #>             Coefficient Std. Error z value Pr(>|z|)    
+    #> (Intercept)   6.162e-01  7.193e-03  85.673   <2e-16 ***
+    #> mrate         7.665e-02  5.176e-03  14.808   <2e-16 ***
+    #> age           8.729e-03  4.567e-04  19.114   <2e-16 ***
+    #> totemp       -1.493e-07  4.081e-07  -0.366    0.714    
+    #> sole          9.781e-02  7.001e-03  13.970   <2e-16 ***
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
@@ -2625,17 +2661,19 @@ Toggle to see the output
     #> Number of observations:                                                     1534 
     #> Pseudo R-squared:                                                        0.11402 
     #> Degrees of freedom:                                                         1529 
+    #> Wald chi2(5):                                                         47362.8169 
+    #> Prob > chi2:                                                              0.0000 
     #> -------------------------------------------------------------------------------- 
-    #>               Estimate Std. Error z value Pr(>|z|)    
-    #> (Intercept)  7.827e-01  8.711e-03  89.853  < 2e-16 ***
-    #> mrate        5.062e-02  5.259e-03   9.625  < 2e-16 ***
-    #> age          2.822e-03  4.487e-04   6.289 3.20e-10 ***
-    #> totemp      -9.814e-07  3.689e-07  -2.660  0.00782 ** 
-    #> sole         4.137e-02  8.275e-03   4.999 5.77e-07 ***
+    #>             Coefficient Std. Error z value Pr(>|z|)    
+    #> (Intercept)   7.827e-01  8.711e-03  89.853  < 2e-16 ***
+    #> mrate         5.062e-02  5.259e-03   9.625  < 2e-16 ***
+    #> age           2.822e-03  4.487e-04   6.289 3.20e-10 ***
+    #> totemp       -9.814e-07  3.689e-07  -2.660  0.00782 ** 
+    #> sole          4.137e-02  8.275e-03   4.999 5.77e-07 ***
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-12 16:29:57 
+    #>                          Run Date: 2026-07-12 21:24:23 
     #> --------------------------------------------------------------------------------
 
 </details>
@@ -2677,9 +2715,13 @@ Toggle to see the output
     #> -------------------------------------------------------------------------------- 
     #>                           Fractional Ridge Regression 
     #> -------------------------------------------------------------------------------- 
+    #> 
+    #> Note: Fractional Ridge Regression is a linear model without a link function.
+    #> Therefore, the partial effects are mathematically identical to the coefficients themselves.
+    #> 
     #>                            Target Fraction: frac_0.2 
     #> -------------------------------------------------------------------------------- 
-    #>              Estimate Std. Error z value Pr(>|z|)    
+    #>                 dy/dx Std. Error z value Pr(>|z|)    
     #> (Intercept) 1.218e-01  2.623e-03  46.434   <2e-16 ***
     #> mrate       6.721e-02  3.418e-03  19.662   <2e-16 ***
     #> age         3.471e-02  7.071e-04  49.080   <2e-16 ***
@@ -2690,7 +2732,7 @@ Toggle to see the output
     #> -------------------------------------------------------------------------------- 
     #>                            Target Fraction: frac_0.4 
     #> -------------------------------------------------------------------------------- 
-    #>              Estimate Std. Error z value Pr(>|z|)    
+    #>                 dy/dx Std. Error z value Pr(>|z|)    
     #> (Intercept) 2.741e-01  4.766e-03  57.513   <2e-16 ***
     #> mrate       1.007e-01  5.152e-03  19.549   <2e-16 ***
     #> age         2.461e-02  6.189e-04  39.769   <2e-16 ***
@@ -2701,7 +2743,7 @@ Toggle to see the output
     #> -------------------------------------------------------------------------------- 
     #>                            Target Fraction: frac_0.6 
     #> -------------------------------------------------------------------------------- 
-    #>              Estimate Std. Error z value Pr(>|z|)    
+    #>                 dy/dx Std. Error z value Pr(>|z|)    
     #> (Intercept) 4.439e-01  6.218e-03  71.390   <2e-16 ***
     #> mrate       9.801e-02  5.457e-03  17.960   <2e-16 ***
     #> age         1.586e-02  5.288e-04  29.996   <2e-16 ***
@@ -2712,7 +2754,7 @@ Toggle to see the output
     #> -------------------------------------------------------------------------------- 
     #>                            Target Fraction: frac_0.8 
     #> -------------------------------------------------------------------------------- 
-    #>               Estimate Std. Error z value Pr(>|z|)    
+    #>                  dy/dx Std. Error z value Pr(>|z|)    
     #> (Intercept)  6.162e-01  7.193e-03  85.673   <2e-16 ***
     #> mrate        7.665e-02  5.176e-03  14.808   <2e-16 ***
     #> age          8.729e-03  4.567e-04  19.114   <2e-16 ***
@@ -2723,7 +2765,7 @@ Toggle to see the output
     #> -------------------------------------------------------------------------------- 
     #>                             Target Fraction: frac_1 
     #> -------------------------------------------------------------------------------- 
-    #>               Estimate Std. Error z value Pr(>|z|)    
+    #>                  dy/dx Std. Error z value Pr(>|z|)    
     #> (Intercept)  7.827e-01  8.711e-03  89.853  < 2e-16 ***
     #> mrate        5.062e-02  5.259e-03   9.625  < 2e-16 ***
     #> age          2.822e-03  4.487e-04   6.289 3.20e-10 ***
@@ -2732,7 +2774,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-12 16:29:57 
+    #>                          Run Date: 2026-07-12 21:24:23 
     #> --------------------------------------------------------------------------------
 
 </details>
@@ -2821,9 +2863,13 @@ Toggle to see the output
     #> -------------------------------------------------------------------------------- 
     #>                           Fractional Ridge Regression 
     #> -------------------------------------------------------------------------------- 
+    #> 
+    #> Note: Fractional Ridge Regression is a linear model without a link function.
+    #> Therefore, the partial effects are mathematically identical to the coefficients themselves.
+    #> 
     #>                            Target Fraction: frac_0.3 
     #> -------------------------------------------------------------------------------- 
-    #>              Estimate Std. Error z value Pr(>|z|)  
+    #>                 dy/dx Std. Error z value Pr(>|z|)  
     #> (Intercept)  0.025969   0.026424   0.983   0.3257  
     #> X1          -0.015190   0.026179  -0.580   0.5618  
     #> X2          -0.029635   0.026080  -1.136   0.2558  
@@ -2840,7 +2886,7 @@ Toggle to see the output
     #> -------------------------------------------------------------------------------- 
     #>                            Target Fraction: frac_0.5 
     #> -------------------------------------------------------------------------------- 
-    #>             Estimate Std. Error z value Pr(>|z|)  
+    #>                dy/dx Std. Error z value Pr(>|z|)  
     #> (Intercept)  0.04343    0.04478   0.970   0.3322  
     #> X1          -0.02528    0.04490  -0.563   0.5735  
     #> X2          -0.05063    0.04501  -1.125   0.2607  
@@ -2857,7 +2903,7 @@ Toggle to see the output
     #> -------------------------------------------------------------------------------- 
     #>                            Target Fraction: frac_0.8 
     #> -------------------------------------------------------------------------------- 
-    #>              Estimate Std. Error z value Pr(>|z|)  
+    #>                 dy/dx Std. Error z value Pr(>|z|)  
     #> (Intercept)  0.069956   0.074554   0.938   0.3481  
     #> X1          -0.040061   0.075645  -0.530   0.5964  
     #> X2          -0.083912   0.076139  -1.102   0.2704  
@@ -2872,7 +2918,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-12 16:29:58 
+    #>                          Run Date: 2026-07-12 21:24:23 
     #> --------------------------------------------------------------------------------
 
 </details>
@@ -2905,7 +2951,7 @@ mn_fit <- fracregmlogit(y, X)
 Toggle to see the output
 </summary>
 
-    #> [1] "Fractional logit model estimation completed. Time: 25.9 seconds"
+    #> [1] "Fractional logit model estimation completed. Time: 53.2 seconds"
 
 </details>
 
@@ -2926,78 +2972,96 @@ Toggle to see the output
     #> -------------------------------------------------------------------------------- 
     #>                        Fractional multinomial logit model 
     #> -------------------------------------------------------------------------------- 
+    #> Data type:                                                       Cross-sectional 
+    #> Convergence:                                                          Successful 
     #> Number of observations:                                                      392 
-    #> Baseline choice:                                                       governing 
     #> Log pseudolikelihood:                                                  -672.9218 
-    #> Standard errors:                                                          robust 
+    #> Pseudo R-squared:                                                        0.00612 
+    #> Baseline choice:                                                       governing 
+    #> Standard errors:                                                             HC0 
     #> 
     #> -------------------------------------------------------------------------------- 
     #>                                  Choice: safety 
     #> -------------------------------------------------------------------------------- 
-    #>              Coefficient  Std.Err. z value Pr(>|z|)    
-    #> houseval       -0.131348  0.036779  -3.571 0.000355 ***
-    #> popdens        -0.004797  0.020959  -0.229 0.818975    
-    #> noleft          0.087694  0.045501   1.927 0.053945 .  
-    #> minorityleft    0.192299  0.044135   4.357 1.32e-05 ***
-    #> tot             0.002264  0.001230   1.841 0.065672 .  
-    #> constant        0.730425  0.064200  11.377  < 2e-16 ***
+    #> Wald chi2(5):                                                            42.6552 
+    #> Prob > chi2:                                                              0.0000 
+    #> -------------------------------------------------------------------------------- 
+    #>              Coefficient Robust Std.Err. z value Pr(>|z|)    
+    #> houseval       -0.131348        0.036779  -3.571 0.000355 ***
+    #> popdens        -0.004797        0.020959  -0.229 0.818975    
+    #> noleft          0.087694        0.045501   1.927 0.053945 .  
+    #> minorityleft    0.192299        0.044135   4.357 1.32e-05 ***
+    #> tot             0.002264        0.001230   1.841 0.065672 .  
+    #> constant        0.730425        0.064200  11.377  < 2e-16 ***
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> 
     #> -------------------------------------------------------------------------------- 
     #>                                Choice: education 
     #> -------------------------------------------------------------------------------- 
-    #>              Coefficient   Std.Err. z value Pr(>|z|)    
-    #> houseval      -0.6211385  0.1082111  -5.740 9.46e-09 ***
-    #> popdens        0.0649866  0.0332356   1.955   0.0505 .  
-    #> noleft        -0.3564520  0.0915540  -3.893 9.89e-05 ***
-    #> minorityleft   0.0444751  0.0934247   0.476   0.6340    
-    #> tot            0.0035277  0.0004931   7.155 8.40e-13 ***
-    #> constant       1.1827132  0.1661415   7.119 1.09e-12 ***
+    #> Wald chi2(5):                                                           287.5004 
+    #> Prob > chi2:                                                              0.0000 
+    #> -------------------------------------------------------------------------------- 
+    #>              Coefficient Robust Std.Err. z value Pr(>|z|)    
+    #> houseval      -0.6211385       0.1082111  -5.740 9.46e-09 ***
+    #> popdens        0.0649866       0.0332356   1.955   0.0505 .  
+    #> noleft        -0.3564520       0.0915540  -3.893 9.89e-05 ***
+    #> minorityleft   0.0444751       0.0934247   0.476   0.6340    
+    #> tot            0.0035277       0.0004931   7.155 8.40e-13 ***
+    #> constant       1.1827132       0.1661415   7.119 1.09e-12 ***
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> 
     #> -------------------------------------------------------------------------------- 
     #>                                Choice: recreation 
     #> -------------------------------------------------------------------------------- 
-    #>              Coefficient   Std.Err. z value Pr(>|z|)    
-    #> houseval      -0.2189646  0.0400569  -5.466 4.59e-08 ***
-    #> popdens        0.0498017  0.0173550   2.870  0.00411 ** 
-    #> noleft         0.0204309  0.0428769   0.477  0.63372    
-    #> minorityleft   0.2264688  0.0416128   5.442 5.26e-08 ***
-    #> tot            0.0029646  0.0004319   6.865 6.65e-12 ***
-    #> constant       0.3959927  0.0665686   5.949 2.70e-09 ***
+    #> Wald chi2(5):                                                           211.0916 
+    #> Prob > chi2:                                                              0.0000 
+    #> -------------------------------------------------------------------------------- 
+    #>              Coefficient Robust Std.Err. z value Pr(>|z|)    
+    #> houseval      -0.2189646       0.0400569  -5.466 4.59e-08 ***
+    #> popdens        0.0498017       0.0173550   2.870  0.00411 ** 
+    #> noleft         0.0204309       0.0428769   0.477  0.63372    
+    #> minorityleft   0.2264688       0.0416128   5.442 5.26e-08 ***
+    #> tot            0.0029646       0.0004319   6.865 6.65e-12 ***
+    #> constant       0.3959927       0.0665686   5.949 2.70e-09 ***
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> 
     #> -------------------------------------------------------------------------------- 
     #>                                  Choice: social 
     #> -------------------------------------------------------------------------------- 
-    #>              Coefficient   Std.Err. z value Pr(>|z|)    
-    #> houseval      -0.5957521  0.0653649  -9.114  < 2e-16 ***
-    #> popdens        0.1571058  0.0226909   6.924  4.4e-12 ***
-    #> noleft        -0.1364815  0.0598455  -2.281   0.0226 *  
-    #> minorityleft   0.1467306  0.0592471   2.477   0.0133 *  
-    #> tot            0.0044516  0.0005819   7.650  2.0e-14 ***
-    #> constant       1.6604219  0.1105264  15.023  < 2e-16 ***
+    #> Wald chi2(5):                                                           444.6684 
+    #> Prob > chi2:                                                              0.0000 
+    #> -------------------------------------------------------------------------------- 
+    #>              Coefficient Robust Std.Err. z value Pr(>|z|)    
+    #> houseval      -0.5957521       0.0653649  -9.114  < 2e-16 ***
+    #> popdens        0.1571058       0.0226909   6.924  4.4e-12 ***
+    #> noleft        -0.1364815       0.0598455  -2.281   0.0226 *  
+    #> minorityleft   0.1467306       0.0592471   2.477   0.0133 *  
+    #> tot            0.0044516       0.0005819   7.650  2.0e-14 ***
+    #> constant       1.6604219       0.1105264  15.023  < 2e-16 ***
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> 
     #> -------------------------------------------------------------------------------- 
     #>                              Choice: urbanplanning 
     #> -------------------------------------------------------------------------------- 
-    #>              Coefficient   Std.Err. z value Pr(>|z|)    
-    #> houseval      -0.1500415  0.0746389  -2.010  0.04441 *  
-    #> popdens        0.1110778  0.0384526   2.889  0.00387 ** 
-    #> noleft         0.0433842  0.0830757   0.522  0.60151    
-    #> minorityleft   0.2500362  0.0766200   3.263  0.00110 ** 
-    #> tot            0.0050419  0.0006371   7.914 2.44e-15 ***
-    #> constant       0.9281153  0.1247764   7.438 1.02e-13 ***
+    #> Wald chi2(5):                                                            216.018 
+    #> Prob > chi2:                                                              0.0000 
+    #> -------------------------------------------------------------------------------- 
+    #>              Coefficient Robust Std.Err. z value Pr(>|z|)    
+    #> houseval      -0.1500415       0.0746389  -2.010  0.04441 *  
+    #> popdens        0.1110778       0.0384526   2.889  0.00387 ** 
+    #> noleft         0.0433842       0.0830757   0.522  0.60151    
+    #> minorityleft   0.2500362       0.0766200   3.263  0.00110 ** 
+    #> tot            0.0050419       0.0006371   7.914 2.44e-15 ***
+    #> constant       0.9281153       0.1247764   7.438 1.02e-13 ***
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> 
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-12 16:30:24 
+    #>                          Run Date: 2026-07-12 21:25:17 
     #> --------------------------------------------------------------------------------
 
 </details>
@@ -3017,9 +3081,14 @@ Toggle to see the output
 </summary>
 
     #> 
+    #> 
     #> -------------------------------------------------------------------------------- 
-    #>             discrete effect at the mean, standard error not computed 
+    #>                           Conditional partial effects 
     #> -------------------------------------------------------------------------------- 
+    #>                     Fractional multinomial logit regression 
+    #> -------------------------------------------------------------------------------- 
+    #> 
+    #> Note: discrete effect at the mean, standard error not computed 
     #> Effects:
     #>                     noleft minorityleft
     #> governing      0.004095926 -0.015337133
@@ -3029,7 +3098,7 @@ Toggle to see the output
     #> social        -0.022157069 -0.004293711
     #> urbanplanning  0.021425007  0.021045805
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-12 16:30:24 
+    #>                          Run Date: 2026-07-12 21:25:17 
     #> --------------------------------------------------------------------------------
 
 </details>

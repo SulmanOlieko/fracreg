@@ -7,7 +7,8 @@
 * **Odds Ratios:** Added support for computing Odds Ratios and adjustable confidence intervals (`level`) in output summaries.
 * **Offset Parameter:** Added support for an `offset` parameter in model specifications.
 * **S3 Methods & Output Display:** Standardised console output by adding dedicated `summary()` and `print()` S3 methods across the package to align with R's standard practices. Changed output tables to say "regression" rather than "model" for clarity.
-
+* **Econometric Terminology & Standardization:** Renamed `Estimate` column headers to `dy/dx` universally across all partial effects tables (`fracreg.pe`, `fracreghet.pe`, `fracregmlogit.pe`, `fracregpd.pe`, `fracregridge.pe`), while enforcing `Coefficient` for non-partial effects outputs.
+* **Standard Error Annotations:** Output tables now dynamically label column headers according to standard error type (e.g. `Robust Std.Err.`, `Cluster Std.Err.`) and cleanly append specific methodological notes to the tables (e.g., Delta Method, Krinsky-Robb, HC0, CRVE).
 ### Documentation & Website
 * **Roxygen2 Migration:** Fully automated package documentation by migrating all manual `.Rd` files into `roxygen2` comments embedded directly within the R source files, ensuring airtight synchronization between code and documentation.
 * **Citations & References:** Added citations for the foundational `fmlogit` (Ji and Woodill) and `fracridge` (Rokem and Kay) packages across manual pages, README, and vignettes, formatting URLs properly for rendering.

@@ -531,6 +531,7 @@ summary.fracregridge <- function(object, ...) {
     
     .fracreg.cat.right("Data type:", "Cross-sectional")
     .fracreg.cat.right("Convergence:", "Successful")
+    .fracreg.cat.right("Standard errors:", "homoskedastic")
     cat(.fracreg.sep(), "\n")
     
     for (name in names(object$table.info)) {
@@ -541,6 +542,10 @@ summary.fracregridge <- function(object, ...) {
             .fracreg.cat.right("Number of observations:", stats$n_obs)
             .fracreg.cat.right("Pseudo R-squared:", round(stats$R2, 5))
             .fracreg.cat.right("Degrees of freedom:", round(stats$n_obs - stats$df_alpha, 2))
+            if (!is.null(stats$W) && !is.na(stats$W)) {
+                .fracreg.cat.right(paste0("Wald chi2(", stats$df_W, "):"), round(stats$W, 4))
+                .fracreg.cat.right("Prob > chi2:", sprintf("%.4f", stats$p_W))
+            }
             cat(.fracreg.sep(), "\n")
         }
         suppressWarnings(stats::printCoefmat(object$table.info[[name]], P.values=TRUE, has.Pvalue=TRUE, digits=4, signif.legend=TRUE))
@@ -561,10 +566,15 @@ summary.fracregridge.pe <- function(object, ...) {
     cat(.fracreg.center("Fractional Ridge Regression"), "\n")
     cat(.fracreg.sep(), "\n")
     
+    cat("\nNote: Fractional Ridge Regression is a linear model without a link function.\n")
+    cat("Therefore, the partial effects are mathematically identical to the coefficients themselves.\n\n")
+    
     for (name in names(object$table.info)) {
         cat(.fracreg.center(paste("Target Fraction:", name)), "\n")
         cat(.fracreg.sep(), "\n")
-        suppressWarnings(stats::printCoefmat(object$table.info[[name]], P.values=TRUE, has.Pvalue=TRUE, digits=4, signif.legend=TRUE))
+        res <- object$table.info[[name]]
+        colnames(res)[1] <- "dy/dx"
+        suppressWarnings(stats::printCoefmat(res, P.values=TRUE, has.Pvalue=TRUE, digits=4, signif.legend=TRUE))
         cat(.fracreg.sep(), "\n")
     }
     cat(.fracreg.center(paste("Run Date:", format(Sys.time(), "%Y-%m-%d %H:%M:%S"))), "\n")
@@ -646,16 +656,22 @@ summary.fracregmlogit <- function(object, ...) {
     cat(.fracreg.center("Fractional multinomial logit model"), "\n")
     cat(.fracreg.sep(), "\n")
     
+    .fracreg.cat.right("Data type:", "Cross-sectional")
+    .fracreg.cat.right("Convergence:", "Successful")
     .fracreg.cat.right("Number of observations:", object$count["Obs"])
-    .fracreg.cat.right("Baseline choice:", object$baseline)
     if (!is.null(object$likelihood)) {
         .fracreg.cat.right("Log pseudolikelihood:", round(object$likelihood, 4))
     }
+    if (!is.null(object$pseudo_R2)) {
+        .fracreg.cat.right("Pseudo R-squared:", round(object$pseudo_R2, 5))
+    }
+    .fracreg.cat.right("Baseline choice:", object$baseline)
+    
     if (object$reps > 0) {
         .fracreg.cat.right("Standard errors:", "bootstrap")
         .fracreg.cat.right("Bootstrap reps:", object$reps)
     } else {
-        .fracreg.cat.right("Standard errors:", "robust")
+        .fracreg.cat.right("Standard errors:", "HC0")
     }
     cat("\n")
 
@@ -664,8 +680,15 @@ summary.fracregmlogit <- function(object, ...) {
         cat(.fracreg.center(paste("Choice:", names(object$estimates)[i])), "\n")
         cat(.fracreg.sep(), "\n")
         
+        if (!is.null(object$wald[[i]]) && !is.na(object$wald[[i]]$W)) {
+            .fracreg.cat.right(paste0("Wald chi2(", object$wald[[i]]$df, "):"), round(object$wald[[i]]$W, 4))
+            .fracreg.cat.right("Prob > chi2:", sprintf("%.4f", object$wald[[i]]$p))
+            cat(.fracreg.sep(), "\n")
+        }
+        
         res <- object$estimates[[i]]
-        colnames(res) <- c("Coefficient", "Std.Err.", "z value", "Pr(>|z|)")
+        se_type <- if (object$reps > 0) "Bootstrap" else "Robust"
+        colnames(res) <- c("Coefficient", paste(se_type, "Std.Err."), "z value", "Pr(>|z|)")
         rownames(res)[rownames(res) == "(Intercept)"] <- "(Intercept)"
         stats::printCoefmat(res, P.values = TRUE, has.Pvalue = TRUE, digits = 4, signif.legend = TRUE)
         cat("\n")
@@ -682,8 +705,13 @@ summary.fracregmlogit <- function(object, ...) {
 print.fracregmlogit.pe <- function(x, ...) {
     cat("\n")
     cat(.fracreg.sep(), "\n")
-    cat(.fracreg.center(x$expl), "\n")
+    if(grepl("average across observations", x$expl)) {
+        cat(.fracreg.center("Average partial effects"), "\n")
+    } else {
+        cat(.fracreg.center("Conditional partial effects"), "\n")
+    }
     cat(.fracreg.sep(), "\n")
+    cat("\nNote:", x$expl, "\n")
     cat("\nEffects:\n")
     print.default(x$effects)
     cat("\n")
@@ -693,10 +721,17 @@ print.fracregmlogit.pe <- function(x, ...) {
 #' @export
 #' @exportS3Method summary fracregmlogit.pe
 summary.fracregmlogit.pe <- function(object, ...) {
-    cat("\n")
+    cat("\n\n")
     cat(.fracreg.sep(), "\n")
-    cat(.fracreg.center(object$expl), "\n")
+    if(grepl("average across observations", object$expl)) {
+        cat(.fracreg.center("Average partial effects"), "\n")
+    } else {
+        cat(.fracreg.center("Conditional partial effects"), "\n")
+    }
     cat(.fracreg.sep(), "\n")
+    cat(.fracreg.center("Fractional multinomial logit regression"), "\n")
+    cat(.fracreg.sep(), "\n")
+    cat("\nNote:", object$expl, "\n")
     
     if(!is.null(object$ztable)){
         for(i in 1:length(object$ztable)){
@@ -706,7 +741,7 @@ summary.fracregmlogit.pe <- function(object, ...) {
             cat(.fracreg.sep(), "\n")
             
             res <- object$ztable[[i]]
-            colnames(res) <- c("Estimate", "Std. Error", "z value", "Pr(>|z|)")
+            colnames(res) <- c("dy/dx", "Std. Error", "z value", "Pr(>|z|)")
             stats::printCoefmat(res, P.values = TRUE, has.Pvalue = TRUE, digits = 4, signif.legend = TRUE)
         }
         cat("\n")
@@ -729,11 +764,23 @@ summary.fracregmlogit.pe <- function(object, ...) {
 summary.fracregmlogit.wtp = function(object, ...) {
   if(!inherits(object, "fracregmlogit.wtp")) stop("Expect an fracregmlogit.wtp object. Wrong object type given.")
   if (is.null(dim(object$wtp))) return(object$wtp)
-  if(is.null(colnames(object$wtp)) || colnames(object$wtp)[1]!="estimate") return(object$wtp) # no need to summary.
+  if(is.null(colnames(object$wtp)) || colnames(object$wtp)[1]!="Coefficient") return(object$wtp) # no need to summary.
   
-  cat("\nFractional Multinomial Logit Model - Willingness to Pay\n")
+  cat("\n")
+  cat(.fracreg.sep(), "\n")
+  cat(.fracreg.center("Willingness to Pay"), "\n")
+  cat(.fracreg.sep(), "\n")
+  cat(.fracreg.center("Fractional multinomial logit regression"), "\n")
+  cat(.fracreg.sep(), "\n\n")
+  
+  cat("Note: Krinsky-Robb standard error calculated\n")
   stats::printCoefmat(object$wtp, digits = max(3, getOption("digits") - 2), 
                       signif.stars = TRUE, P.values = TRUE, has.Pvalue = TRUE)
+  
   cat("\n")
+  cat(.fracreg.sep(), "\n")
+  cat(.fracreg.center(paste("Run Date:", format(Sys.time(), "%Y-%m-%d %H:%M:%S"))), "\n")
+  cat(.fracreg.sep(), "\n\n")
+  
   invisible(object)
 }
