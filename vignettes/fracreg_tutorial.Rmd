@@ -751,7 +751,7 @@ plot(mn_fit, wtp.vec = 1:6, varlist = "noleft")
 
 ## Conclusion
 
-With `fracreg`, `fracreghet`, `fracregpd`, `fracregmlogit`, and `fracregridge`, you have a complete, mathematically robust toolkit for modelling fractional responses bounded between $[0,1]$, regardless of inflation, endogeneity, unobserved panel effects, multinomial structure, or multicollinearity.
+With `fracreg`, `fracreghet`, `fracregpd`, `fracregmlogit`, and `fracregridge`, you have a complete toolkit for modelling fractional responses bounded between $[0,1]$, regardless of inflation, endogeneity, unobserved panel effects, multinomial structure, or multicollinearity.
 
 
 ## Acknowledgements
