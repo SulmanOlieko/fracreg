@@ -71,6 +71,15 @@ multicollinear, high-dimensional datasets.
     [`fracregridge.pe()`](https://sulmanolieko.github.io/fracreg/reference/fracregridge.pe.md),
     and
     [`fracregmlogit.pe()`](https://sulmanolieko.github.io/fracreg/reference/fracregmlogit.pe.md)).
+8.  **Native S3 Integration & NA Handling**: Provides standard
+    extractors ([`coef()`](https://rdrr.io/r/stats/coef.html),
+    [`predict()`](https://rdrr.io/r/stats/predict.html),
+    [`fitted()`](https://sulmanolieko.github.io/fracreg/reference/fitted.fracregmlogit.md),
+    [`residuals()`](https://rdrr.io/r/stats/residuals.html),
+    [`vcov()`](https://rdrr.io/r/stats/vcov.html),
+    [`logLik()`](https://rdrr.io/r/stats/logLik.html),
+    [`nobs()`](https://rdrr.io/r/stats/nobs.html)) and native
+    `na.action` missing data handling across all estimators.
 
 ------------------------------------------------------------------------
 
@@ -155,7 +164,6 @@ Toggle to see the output
 #> Prob > chi2:                                                              0.0000 
 #> Standard errors:                                                             HC0 
 #> Small sample correction:                                                   FALSE 
-#> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
 #>                     Final Quasi-Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
@@ -174,7 +182,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 21:23:58 
+#>                          Run Date: 2026-07-13 01:09:45 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -203,7 +211,6 @@ Toggle to see the output
 #> Prob > chi2:                                                              0.0000 
 #> Standard errors:                                                             HC0 
 #> Small sample correction:                                                   FALSE 
-#> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
 #>                     Final Quasi-Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
@@ -222,7 +229,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 21:24:01 
+#>                          Run Date: 2026-07-13 01:09:46 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -250,7 +257,6 @@ Toggle to see the output
 #> Wald chi2(4):                                                           173.5169 
 #> Prob > chi2:                                                              0.0000 
 #> Small sample correction:                                                   FALSE 
-#> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
 #>                        Final Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
@@ -284,7 +290,6 @@ Toggle to see the output
 #> Prob > chi2:                                                              0.0000 
 #> Standard errors:                                                             HC0 
 #> Small sample correction:                                                   FALSE 
-#> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
 #>                     Final Quasi-Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
@@ -312,7 +317,7 @@ Toggle to see the output
 #> Convergence:                                                          Successful 
 #> Pseudo R-squared:                                                        0.11243 
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 21:24:01 
+#>                          Run Date: 2026-07-13 01:09:46 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -341,7 +346,6 @@ Toggle to see the output
 #> Wald chi2(4):                                                             3.7679 
 #> Prob > chi2:                                                              0.4383 
 #> Small sample correction:                                                   FALSE 
-#> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
 #>                        Final Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
@@ -374,7 +378,6 @@ Toggle to see the output
 #> Wald chi2(4):                                                            172.201 
 #> Prob > chi2:                                                              0.0000 
 #> Small sample correction:                                                   FALSE 
-#> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
 #>                        Final Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
@@ -408,7 +411,6 @@ Toggle to see the output
 #> Prob > chi2:                                                              0.0000 
 #> Standard errors:                                                             HC0 
 #> Small sample correction:                                                   FALSE 
-#> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
 #>                     Final Quasi-Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
@@ -436,7 +438,7 @@ Toggle to see the output
 #> Convergence:                                                          Successful 
 #> Pseudo R-squared:                                                        0.07934 
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 21:24:01 
+#>                          Run Date: 2026-07-13 01:09:46 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -483,7 +485,6 @@ Toggle to see the output
 #> Prob > chi2:                                                              0.0000 
 #> Standard errors:                                                             HC0 
 #> Small sample correction:                                                   FALSE 
-#> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
 #>                     Final Quasi-Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
@@ -498,7 +499,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 21:24:01 
+#>                          Run Date: 2026-07-13 01:09:46 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -527,7 +528,6 @@ Toggle to see the output
 #> Wald chi2(2):                                                           102.5171 
 #> Prob > chi2:                                                              0.0000 
 #> Small sample correction:                                                   FALSE 
-#> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
 #>                        Final Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
@@ -567,7 +567,6 @@ Toggle to see the output
 #> Prob > chi2:                                                              0.0000 
 #> Standard errors:                                                             HC0 
 #> Small sample correction:                                                   FALSE 
-#> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
 #>                     Final Quasi-Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
@@ -610,7 +609,6 @@ Toggle to see the output
 #> Wald chi2(2):                                                           100.5683 
 #> Prob > chi2:                                                              0.0000 
 #> Small sample correction:                                                   FALSE 
-#> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
 #>                        Final Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
@@ -636,7 +634,6 @@ Toggle to see the output
 #> Prob > chi2:                                                              0.0000 
 #> Standard errors:                                                             HC0 
 #> Small sample correction:                                                   FALSE 
-#> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
 #>                     Final Quasi-Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
@@ -660,7 +657,7 @@ Toggle to see the output
 #> Convergence:                                                          Successful 
 #> Pseudo R-squared:                                                        0.38829 
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 21:24:01 
+#>                          Run Date: 2026-07-13 01:09:47 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -688,7 +685,6 @@ Toggle to see the output
 #> Wald chi2(2):                                                           102.5171 
 #> Prob > chi2:                                                              0.0000 
 #> Small sample correction:                                                   FALSE 
-#> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
 #>                        Final Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
@@ -713,7 +709,6 @@ Toggle to see the output
 #> Wald chi2(2):                                                           123.5731 
 #> Prob > chi2:                                                              0.0000 
 #> Small sample correction:                                                   FALSE 
-#> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
 #>                        Final Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
@@ -743,7 +738,6 @@ Toggle to see the output
 #> Prob > chi2:                                                              0.0000 
 #> Standard errors:                                                             HC0 
 #> Small sample correction:                                                   FALSE 
-#> Convergence:                                                          Successful 
 #> -------------------------------------------------------------------------------- 
 #>                     Final Quasi-Maximum Likelihood estimates 
 #> -------------------------------------------------------------------------------- 
@@ -767,7 +761,7 @@ Toggle to see the output
 #> Convergence:                                                          Successful 
 #> Pseudo R-squared:                                                        0.38917 
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 21:24:02 
+#>                          Run Date: 2026-07-13 01:09:47 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -812,7 +806,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 21:24:02 
+#>                          Run Date: 2026-07-13 01:09:47 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -855,7 +849,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 21:24:03 
+#>                          Run Date: 2026-07-13 01:09:47 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -887,7 +881,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 21:24:03 
+#>                          Run Date: 2026-07-13 01:09:47 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -919,7 +913,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 21:24:03 
+#>                          Run Date: 2026-07-13 01:09:47 
 #> -------------------------------------------------------------------------------- 
 #> 
 #> Note: covariates evaluated at median (or mode, for dummies) values
@@ -955,7 +949,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 21:24:03 
+#>                          Run Date: 2026-07-13 01:09:47 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -1000,7 +994,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 21:24:04 
+#>                          Run Date: 2026-07-13 01:09:47 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -1044,7 +1038,7 @@ Toggle to see the output
 #> GGOFF - LM       1.612   0.447
 #> GGOFF - Wald     1.336   0.513
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 21:24:05 
+#>                          Run Date: 2026-07-13 01:09:47 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -1072,7 +1066,7 @@ Toggle to see the output
 #> GOFF2 - LR     0.017   0.895
 #> GGOFF - LR     0.024   0.988
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 21:24:05 
+#>                          Run Date: 2026-07-13 01:09:47 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -1109,7 +1103,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 21:24:05 
+#>                          Run Date: 2026-07-13 01:09:47 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -1153,7 +1147,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 21:24:05 
+#>                          Run Date: 2026-07-13 01:09:47 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -1181,7 +1175,7 @@ Toggle to see the output
 #>       Statistic p-value
 #> LR(3)     0.976   0.614
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 21:24:05 
+#>                          Run Date: 2026-07-13 01:09:47 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -1225,7 +1219,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 21:24:06 
+#>                          Run Date: 2026-07-13 01:09:48 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -1273,7 +1267,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 21:24:07 
+#>                          Run Date: 2026-07-13 01:09:48 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -1309,7 +1303,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 21:24:07 
+#>                          Run Date: 2026-07-13 01:09:48 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -1383,7 +1377,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 21:24:09 
+#>                          Run Date: 2026-07-13 01:09:49 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -1438,7 +1432,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 21:24:11 
+#>                          Run Date: 2026-07-13 01:09:49 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -1497,7 +1491,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 21:24:11 
+#>                          Run Date: 2026-07-13 01:09:49 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -1537,7 +1531,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 21:24:11 
+#>                          Run Date: 2026-07-13 01:09:49 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -1591,7 +1585,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 21:24:11 
+#>                          Run Date: 2026-07-13 01:09:49 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -1644,7 +1638,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 21:24:11 
+#>                          Run Date: 2026-07-13 01:09:50 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -1715,7 +1709,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 21:24:13 
+#>                          Run Date: 2026-07-13 01:09:50 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -1743,7 +1737,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 21:24:13 
+#>                          Run Date: 2026-07-13 01:09:51 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -1794,7 +1788,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 21:24:13 
+#>                          Run Date: 2026-07-13 01:09:51 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -1824,7 +1818,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 21:24:14 
+#>                          Run Date: 2026-07-13 01:09:51 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -1856,7 +1850,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 21:24:14 
+#>                          Run Date: 2026-07-13 01:09:51 
 #> -------------------------------------------------------------------------------- 
 #> 
 #> Note: covariates evaluated at the following values:
@@ -1912,7 +1906,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 21:24:15 
+#>                          Run Date: 2026-07-13 01:09:51 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -1938,7 +1932,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 21:24:15 
+#>                          Run Date: 2026-07-13 01:09:51 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -1989,7 +1983,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 21:24:15 
+#>                          Run Date: 2026-07-13 01:09:51 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -2020,7 +2014,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 21:24:15 
+#>                          Run Date: 2026-07-13 01:09:51 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -2094,7 +2088,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 21:24:17 
+#>                          Run Date: 2026-07-13 01:09:51 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -2165,7 +2159,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 21:24:19 
+#>                          Run Date: 2026-07-13 01:09:53 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -2205,7 +2199,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 21:24:19 
+#>                          Run Date: 2026-07-13 01:09:53 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -2245,7 +2239,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 21:24:19 
+#>                          Run Date: 2026-07-13 01:09:53 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -2285,7 +2279,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 21:24:19 
+#>                          Run Date: 2026-07-13 01:09:53 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -2336,7 +2330,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 21:24:23 
+#>                          Run Date: 2026-07-13 01:09:53 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -2370,7 +2364,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 21:24:23 
+#>                          Run Date: 2026-07-13 01:09:53 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -2501,7 +2495,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 21:24:23 
+#>                          Run Date: 2026-07-13 01:09:53 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -2594,7 +2588,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 21:24:23 
+#>                          Run Date: 2026-07-13 01:09:53 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -2726,7 +2720,7 @@ Toggle to see the output
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 21:24:23 
+#>                          Run Date: 2026-07-13 01:09:54 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -2755,7 +2749,7 @@ mn_fit <- fracregmlogit(y, X)
 Toggle to see the output
 
 ``` R
-#> [1] "Fractional logit model estimation completed. Time: 53.2 seconds"
+#> [1] "Fractional logit model estimation completed. Time: 17.4 seconds"
 ```
 
 ``` r
@@ -2861,7 +2855,7 @@ Toggle to see the output
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> 
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 21:25:17 
+#>                          Run Date: 2026-07-13 01:10:11 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -2894,7 +2888,7 @@ Toggle to see the output
 #> social        -0.022157069 -0.004293711
 #> urbanplanning  0.021425007  0.021045805
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 21:25:17 
+#>                          Run Date: 2026-07-13 01:10:11 
 #> --------------------------------------------------------------------------------
 ```
 
@@ -3531,6 +3525,82 @@ models.
 - [`fracreghet.reset()`](https://sulmanolieko.github.io/fracreg/reference/fracreghet.reset.md)
   : RESET Test for Fractional Response Regressions under Neglected
   Heterogeneity
+
+## Model Extractors & Utility Functions
+
+S3 methods for extracting components from fitted models and data
+cleaning.
+
+- [`fracreg_clean_data()`](https://sulmanolieko.github.io/fracreg/reference/fracreg_clean_data.md)
+  : Clean Data for Fractional Regression Models
+- [`coef(`*`<fracreg>`*`)`](https://sulmanolieko.github.io/fracreg/reference/coef.fracreg.md)
+  : Extract Model Coefficients for fracreg
+- [`coef(`*`<fracreghet>`*`)`](https://sulmanolieko.github.io/fracreg/reference/coef.fracreghet.md)
+  : Extract Model Coefficients for fracreghet
+- [`coef(`*`<fracregmlogit>`*`)`](https://sulmanolieko.github.io/fracreg/reference/coef.fracregmlogit.md)
+  : Extract Model Coefficients for fracregmlogit
+- [`coef(`*`<fracregpd>`*`)`](https://sulmanolieko.github.io/fracreg/reference/coef.fracregpd.md)
+  : Extract Model Coefficients for fracregpd
+- [`coef(`*`<fracregridge>`*`)`](https://sulmanolieko.github.io/fracreg/reference/coef.fracregridge.md)
+  : Extract Model Coefficients for fracregridge
+- [`fitted(`*`<fracreg>`*`)`](https://sulmanolieko.github.io/fracreg/reference/fitted.fracreg.md)
+  : Extract Fitted Values for fracreg
+- [`fitted(`*`<fracreghet>`*`)`](https://sulmanolieko.github.io/fracreg/reference/fitted.fracreghet.md)
+  : Extract Fitted Values for fracreghet
+- [`fitted(`*`<fracregmlogit>`*`)`](https://sulmanolieko.github.io/fracreg/reference/fitted.fracregmlogit.md)
+  [`residuals(`*`<fracregmlogit>`*`)`](https://sulmanolieko.github.io/fracreg/reference/fitted.fracregmlogit.md)
+  [`predict(`*`<fracregmlogit>`*`)`](https://sulmanolieko.github.io/fracreg/reference/fitted.fracregmlogit.md)
+  : Extract Fitted Values, Residuals, and Predictions
+- [`fitted(`*`<fracregpd>`*`)`](https://sulmanolieko.github.io/fracreg/reference/fitted.fracregpd.md)
+  : Extract Fitted Values for fracregpd
+- [`fitted(`*`<fracregridge>`*`)`](https://sulmanolieko.github.io/fracreg/reference/fitted.fracregridge.md)
+  : Extract Fitted Values for fracregridge
+- [`residuals(`*`<fracreg>`*`)`](https://sulmanolieko.github.io/fracreg/reference/residuals.fracreg.md)
+  : Extract Model Residuals for fracreg
+- [`residuals(`*`<fracreghet>`*`)`](https://sulmanolieko.github.io/fracreg/reference/residuals.fracreghet.md)
+  : Extract Model Residuals for fracreghet
+- [`residuals(`*`<fracregpd>`*`)`](https://sulmanolieko.github.io/fracreg/reference/residuals.fracregpd.md)
+  : Extract Model Residuals for fracregpd
+- [`residuals(`*`<fracregridge>`*`)`](https://sulmanolieko.github.io/fracreg/reference/residuals.fracregridge.md)
+  : Extract Model Residuals for fracregridge
+- [`predict(`*`<fracreg>`*`)`](https://sulmanolieko.github.io/fracreg/reference/predict.fracreg.md)
+  : Predict Method for fracreg
+- [`predict(`*`<fracreghet>`*`)`](https://sulmanolieko.github.io/fracreg/reference/predict.fracreghet.md)
+  : Predict Method for fracreghet
+- [`predict(`*`<fracregpd>`*`)`](https://sulmanolieko.github.io/fracreg/reference/predict.fracregpd.md)
+  : Predict Method for fracregpd
+- [`predict(`*`<fracregridge>`*`)`](https://sulmanolieko.github.io/fracreg/reference/predict.fracregridge.md)
+  : Predict Method for fracregridge
+- [`vcov(`*`<fracreg>`*`)`](https://sulmanolieko.github.io/fracreg/reference/vcov.fracreg.md)
+  : Extract Covariance Matrix for fracreg
+- [`vcov(`*`<fracreghet>`*`)`](https://sulmanolieko.github.io/fracreg/reference/vcov.fracreghet.md)
+  : Extract Covariance Matrix for fracreghet
+- [`vcov(`*`<fracregmlogit>`*`)`](https://sulmanolieko.github.io/fracreg/reference/vcov.fracregmlogit.md)
+  : Extract Covariance Matrix for fracregmlogit
+- [`vcov(`*`<fracregpd>`*`)`](https://sulmanolieko.github.io/fracreg/reference/vcov.fracregpd.md)
+  : Extract Covariance Matrix for fracregpd
+- [`vcov(`*`<fracregridge>`*`)`](https://sulmanolieko.github.io/fracreg/reference/vcov.fracregridge.md)
+  : Extract Covariance Matrix for fracregridge
+- [`logLik(`*`<fracreg>`*`)`](https://sulmanolieko.github.io/fracreg/reference/logLik.fracreg.md)
+  : Extract Log-Likelihood for fracreg
+- [`logLik(`*`<fracreghet>`*`)`](https://sulmanolieko.github.io/fracreg/reference/logLik.fracreghet.md)
+  : Extract Log-Likelihood for fracreghet
+- [`logLik(`*`<fracregmlogit>`*`)`](https://sulmanolieko.github.io/fracreg/reference/logLik.fracregmlogit.md)
+  : Extract Log-Likelihood for fracregmlogit
+- [`logLik(`*`<fracregpd>`*`)`](https://sulmanolieko.github.io/fracreg/reference/logLik.fracregpd.md)
+  : Extract Log-Likelihood for fracregpd
+- [`logLik(`*`<fracregridge>`*`)`](https://sulmanolieko.github.io/fracreg/reference/logLik.fracregridge.md)
+  : Extract Log-Likelihood for fracregridge
+- [`nobs(`*`<fracreg>`*`)`](https://sulmanolieko.github.io/fracreg/reference/nobs.fracreg.md)
+  : Extract the Number of Observations for fracreg
+- [`nobs(`*`<fracreghet>`*`)`](https://sulmanolieko.github.io/fracreg/reference/nobs.fracreghet.md)
+  : Extract the Number of Observations for fracreghet
+- [`nobs(`*`<fracregmlogit>`*`)`](https://sulmanolieko.github.io/fracreg/reference/nobs.fracregmlogit.md)
+  : Extract the Number of Observations for fracregmlogit
+- [`nobs(`*`<fracregpd>`*`)`](https://sulmanolieko.github.io/fracreg/reference/nobs.fracregpd.md)
+  : Extract the Number of Observations for fracregpd
+- [`nobs(`*`<fracregridge>`*`)`](https://sulmanolieko.github.io/fracreg/reference/nobs.fracregridge.md)
+  : Extract the Number of Observations for fracregridge
 
 # Articles
 

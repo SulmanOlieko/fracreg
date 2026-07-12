@@ -15,6 +15,7 @@ fracregmlogit(
   abstol = 0.00001,
   cluster = NULL,
   reps = 1000,
+  na.action = stats::na.omit,
   ...
 )
 ```
@@ -61,6 +62,12 @@ fracregmlogit(
 
   Number of bootstrap replications to be computed for clustered standard
   errors.
+
+- na.action:
+
+  A function specifying how to handle missing values, default is
+  [`stats::na.omit`](https://rdrr.io/r/stats/na.fail.html). If `NULL`,
+  no action is taken.
 
 - ...:
 
@@ -268,7 +275,7 @@ summary(results1)
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> 
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 19:06:05 
+#>                          Run Date: 2026-07-12 22:39:33 
 #> -------------------------------------------------------------------------------- 
 
 # Compute marginal effects
@@ -337,7 +344,7 @@ summary(pe)
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> 
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 19:06:05 
+#>                          Run Date: 2026-07-12 22:39:33 
 #> -------------------------------------------------------------------------------- 
 
 # Plot effects for 'houseval'
