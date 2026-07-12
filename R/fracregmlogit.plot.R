@@ -43,9 +43,7 @@
 #' 
 #' # Plot WTP for 'popdens'
 #' plot(results1, wtp.vec=wtp.vec, varlist="popdens")
-#' @export plot.fracregmlogit
-
-
+#' @exportS3Method plot fracregmlogit
 plot.fracregmlogit = function(x, wtp.vec=NULL, varlist=NULL, against=NULL, mfrow=NULL, t=500, effect=c("discrete","marginal"), type=NULL, plot.show=TRUE, ...){
   effect = match.arg(effect)
   object <- x
@@ -141,6 +139,7 @@ plot.fracregmlogit = function(x, wtp.vec=NULL, varlist=NULL, against=NULL, mfrow
 #' @seealso \code{\link{fracregmlogit.pe}}
 #' 
 #' @examples
+#' \donttest{
 #' data("fracreg_spending")
 #' X = fracreg_spending[,2:5]
 #' y = fracreg_spending[,6:11]
@@ -151,10 +150,8 @@ plot.fracregmlogit = function(x, wtp.vec=NULL, varlist=NULL, against=NULL, mfrow
 #' 
 #' # Plot effects
 #' plot(effect1, X=results1$X, against.x = "houseval", group.x = "popdens", group.algebra = ">10")
-#' @export plot.fracregmlogit.pe
-
-
-
+#' }
+#' @exportS3Method plot fracregmlogit.pe
 plot.fracregmlogit.pe = function(x, varlist=NULL, X=NULL, y=NULL, 
                                 against=NULL,against.x=NULL,against.y=NULL,
                                 group.x=NULL, group.algebra=NULL,

@@ -6,8 +6,15 @@ effects in fractional response models.
 ## Usage
 
 ``` r
-fracreg.pe(object, APE = TRUE, CPE = FALSE, at = NULL, which.x = NULL, 
-           variance = TRUE, table = FALSE)
+fracreg.pe(
+  object,
+  APE = TRUE,
+  CPE = FALSE,
+  at = NULL,
+  which.x = NULL,
+  variance = TRUE,
+  table = FALSE
+)
 ```
 
 ## Arguments
@@ -50,6 +57,25 @@ fracreg.pe(object, APE = TRUE, CPE = FALSE, at = NULL, which.x = NULL,
   a logical value indicating whether a summary table with the results
   should be printed.
 
+## Value
+
+`fracreg.pe` returns a list with the following element:
+
+- PE.p:
+
+  a named vector of partial effects.
+
+If `variance = TRUE` or `table = TRUE`, the previous list also contains
+the following element:
+
+- PE.sd:
+
+  a named vector of standard errors of the estimated partial effects.
+
+When both average and conditional partial effects are requested, two
+lists containing the previous elements are returned, indexed by the
+prefixes `ape` and `cpe`.
+
 ## Details
 
 `fracreg.pe` calculates partial effects for fractional response models
@@ -85,25 +111,6 @@ that was previously chosen for estimating the model. See Ramalho,
 Ramalho and Murteira (2011) and Fang and Ma (2013) for details on the
 computation of partial effects in the fractional response framework.
 
-## Value
-
-`fracreg.pe` returns a list with the following element:
-
-- PE.p:
-
-  a named vector of partial effects.
-
-If `variance = TRUE` or `table = TRUE`, the previous list also contains
-the following element:
-
-- PE.sd:
-
-  a named vector of standard errors of the estimated partial effects.
-
-When both average and conditional partial effects are requested, two
-lists containing the previous elements are returned, indexed by the
-prefixes `ape` and `cpe`.
-
 ## References
 
 Ramalho, E.A., J.J.S. Ramalho and J.M.R. Murteira (2011), "Alternative
@@ -113,10 +120,6 @@ models", *Journal of Economic Surveys*, 25(1), 19-68.
 Fang, K., & Ma, S. (2013), "Three-part model for fractional response
 variables with application to Chinese household health insurance
 coverage", *Journal of Applied Statistics*, 40(5), 925-940.
-
-## Author
-
-Sulman Olieko Owili \<oliekosulman@gmail.com\>
 
 ## See also
 
@@ -128,6 +131,10 @@ and
 for specification tests.  
 [`fracreg.ptest`](https://sulmanolieko.github.io/fracreg/reference/fracreg.ptest.md),
 for non-nested hypothesis tests.
+
+## Author
+
+Sulman Olieko Owili \<oliekosulman@gmail.com\>
 
 ## Examples
 
@@ -156,7 +163,7 @@ summary(pe_res)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 13:47:23 
+#>                          Run Date: 2026-07-12 15:58:20 
 #> -------------------------------------------------------------------------------- 
 
 ### Simulated Examples
@@ -188,7 +195,7 @@ summary(pe_res)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 13:47:23 
+#>                          Run Date: 2026-07-12 15:58:20 
 #> -------------------------------------------------------------------------------- 
 
 #Computing average partial effects for a binary logit + fractional probit
@@ -209,7 +216,7 @@ summary(pe_res)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 13:47:23 
+#>                          Run Date: 2026-07-12 15:58:20 
 #> -------------------------------------------------------------------------------- 
 
 #Computing conditional partial effects for X2 in the logit component
@@ -230,7 +237,7 @@ summary(pe_res)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 13:47:23 
+#>                          Run Date: 2026-07-12 15:58:20 
 #> -------------------------------------------------------------------------------- 
 #> 
 #> Note: covariates evaluated at median (or mode, for dummies) values
@@ -255,6 +262,6 @@ summary(pe_res)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 13:47:23 
+#>                          Run Date: 2026-07-12 15:58:20 
 #> -------------------------------------------------------------------------------- 
 ```

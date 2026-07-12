@@ -1,14 +1,23 @@
-#' Partial Effects for Fractional Panel Data Regression
+#' @title Partial Effects for Fractional Panel Data Regression
 #'
-#' @param object an object of class \code{fracregpd}
+#' @description
+#' Computes Average Partial Effects (APEs) for fractional panel data models fit using \code{fracregpd}. In correlated random effects (CRE) models, the time-averages of the covariates are used merely to control for unobserved heterogeneity, and as such, they are automatically filtered out when computing the structural partial effects. Standard errors are computed using the Delta method and the bootstrapped parameter variance matrix.
+#' @param object An object of class \code{fracregpd}.
 #' @param APE logical. Compute Average Partial Effects?
-#' @param CPE logical. Compute Conditional Partial Effects? (Not currently supported for fracregpd).
+#' @param CPE logical. Compute Conditional Partial Effects? (Not currently supported for panel data models).
 #' @param at numeric vector. The values at which to evaluate the CPE.
-#' @param which.x character vector. Variables for which to compute partial effects. By default, auxiliary CRE parameters (like `_mean`) are excluded.
-#' @param variance logical. Compute standard errors using Delta method?
-#' @param table logical. Print the table?
+#' @param which.x character vector. Variables for which to compute partial effects. By default, auxiliary CRE parameters (like \code{_mean} and \code{vhat}) are automatically excluded so that partial effects are only computed for the main structural parameters.
+#' @param variance logical. Compute standard errors using the Delta method?
+#' @param table logical. Print the resulting partial effects table?
 #' @param ... further arguments passed to or from other methods.
 #'
+#' @return
+#' An object of class \code{fracreg.pe} containing the standard coefficient tables with Average Partial Effects.
+#'
+#' @author Sulman Olieko Owili <oliekosulman@gmail.com>
+#'
+#' @seealso
+#' \code{\link{fracregpd}}, \code{\link{fracreg.pe}}
 #' @export
 fracregpd.pe <- function(object, APE=TRUE, CPE=FALSE, at=NULL, which.x=NULL, variance=TRUE, table=FALSE, ...) {
     if(missing(object)) stop("object is missing")

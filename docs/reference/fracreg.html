@@ -46,92 +46,104 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">fracreg</span><span class="op">(</span><span class="va">y</span>, <span class="va">x</span>, x2 <span class="op">=</span> <span class="va">x</span>, <span class="va">linkbin</span>, <span class="va">linkfrac</span>, type <span class="op">=</span> <span class="st">"1P"</span>, inflation <span class="op">=</span> <span class="fl">0</span>, </span>
-<span>        intercept <span class="op">=</span> <span class="cn">TRUE</span>, table <span class="op">=</span> <span class="cn">FALSE</span>, variance <span class="op">=</span> <span class="cn">TRUE</span>, var.type <span class="op">=</span> <span class="st">"default"</span>, </span>
-<span>        var.eim <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">var.cluster</span>, dfc <span class="op">=</span> <span class="cn">FALSE</span>, offset <span class="op">=</span> <span class="cn">NULL</span>, </span>
-<span>        or <span class="op">=</span> <span class="cn">FALSE</span>, level <span class="op">=</span> <span class="fl">0.95</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">fracreg</span><span class="op">(</span></span>
+<span>  <span class="va">y</span>,</span>
+<span>  <span class="va">x</span>,</span>
+<span>  x2 <span class="op">=</span> <span class="va">x</span>,</span>
+<span>  <span class="va">linkbin</span>,</span>
+<span>  <span class="va">linkfrac</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"1P"</span>,</span>
+<span>  inflation <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  intercept <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  table <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  variance <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  var.type <span class="op">=</span> <span class="st">"default"</span>,</span>
+<span>  var.eim <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  <span class="va">var.cluster</span>,</span>
+<span>  dfc <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  offset <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  or <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  level <span class="op">=</span> <span class="fl">0.95</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <p></p>
+
+
 <dl><dt id="arg-y">y<a class="anchor" aria-label="anchor" href="#arg-y"></a></dt>
 <dd><p>a numeric vector containing the values of the response variable.</p></dd>
 
-  <dt id="arg-x">x<a class="anchor" aria-label="anchor" href="#arg-x"></a></dt>
+
+<dt id="arg-x">x<a class="anchor" aria-label="anchor" href="#arg-x"></a></dt>
 <dd><p>a numeric matrix, with column names, containing the values of the covariates.</p></dd>
 
-  <dt id="arg-x-">x2<a class="anchor" aria-label="anchor" href="#arg-x-"></a></dt>
-<dd><p>a numeric matrix, with column names, containing the values of the covariates in the fractional component of two-part
-models if option <code>type = "2P"</code> is defined. Defaults to <code>x</code>.</p></dd>
 
-  <dt id="arg-linkbin">linkbin<a class="anchor" aria-label="anchor" href="#arg-linkbin"></a></dt>
+<dt id="arg-x-">x2<a class="anchor" aria-label="anchor" href="#arg-x-"></a></dt>
+<dd><p>a numeric matrix, with column names, containing the values of the covariates in the fractional component of two-part models if option <code>type = "2P"</code> is defined. Defaults to <code>x</code>.</p></dd>
+
+
+<dt id="arg-linkbin">linkbin<a class="anchor" aria-label="anchor" href="#arg-linkbin"></a></dt>
 <dd><p>a description of the link function to use in the binary component of a two-part fractional response model, or a vector of two link functions for the two binary components of a three-part model (e.g. <code>c("logit", "probit")</code>). Available options: <code>logit</code>, <code>probit</code>, <code>cauchit</code>, <code>loglog</code>, <code>cloglog</code>.</p></dd>
 
-  <dt id="arg-linkfrac">linkfrac<a class="anchor" aria-label="anchor" href="#arg-linkfrac"></a></dt>
+
+<dt id="arg-linkfrac">linkfrac<a class="anchor" aria-label="anchor" href="#arg-linkfrac"></a></dt>
 <dd><p>a description of the link function to use in standard fractional response models or in the fractional component of a two-part fractional response model. Available options: <code>logit</code>, <code>probit</code>, <code>cauchit</code>, <code>loglog</code>, <code>cloglog</code>.</p></dd>
 
-  <dt id="arg-type">type<a class="anchor" aria-label="anchor" href="#arg-type"></a></dt>
+
+<dt id="arg-type">type<a class="anchor" aria-label="anchor" href="#arg-type"></a></dt>
 <dd><p>a description of the model to estimate: a standard one-part model (<code>1P</code>, the default), a two-part model (<code>2P</code>), the binary component of a two-part model (<code>2Pbin</code>), the fractional component of a two-part model (<code>2Pfrac</code>), or a three-part model (<code>3P</code>) for double boundary inflation.</p></dd>
 
-  <dt id="arg-inflation">inflation<a class="anchor" aria-label="anchor" href="#arg-inflation"></a></dt>
+
+<dt id="arg-inflation">inflation<a class="anchor" aria-label="anchor" href="#arg-inflation"></a></dt>
 <dd><p>a numeric value indicating which of the extreme values of <code>0</code> (the default) or <code>1</code> is the relevant boundary value for defining two-part fractional response models.</p></dd>
 
-  <dt id="arg-intercept">intercept<a class="anchor" aria-label="anchor" href="#arg-intercept"></a></dt>
+
+<dt id="arg-intercept">intercept<a class="anchor" aria-label="anchor" href="#arg-intercept"></a></dt>
 <dd><p>a logical value indicating whether the model should include a constant term or not.</p></dd>
 
-  <dt id="arg-table">table<a class="anchor" aria-label="anchor" href="#arg-table"></a></dt>
+
+<dt id="arg-table">table<a class="anchor" aria-label="anchor" href="#arg-table"></a></dt>
 <dd><p>a logical value indicating whether a summary table with the regression results should be printed.</p></dd>
 
-  <dt id="arg-variance">variance<a class="anchor" aria-label="anchor" href="#arg-variance"></a></dt>
+
+<dt id="arg-variance">variance<a class="anchor" aria-label="anchor" href="#arg-variance"></a></dt>
 <dd><p>a logical value indicating whether the variance of the estimated parameters should be calculated. Defaults to <code>TRUE</code> whenever <code>table = TRUE</code>.</p></dd>
 
-  <dt id="arg-var-type">var.type<a class="anchor" aria-label="anchor" href="#arg-var-type"></a></dt>
+
+<dt id="arg-var-type">var.type<a class="anchor" aria-label="anchor" href="#arg-var-type"></a></dt>
 <dd><p>a description of the type of variance of the estimated parameters to be calculated. Options are <code>standard</code> (recommended for models estimated by maximum likelihood, such as the binary component of two-part models), <code>robust</code> (recommended for models estimated by quasi-maximum likelihood, such as standard fractional response models or the fractional component of a two-part fractional response model), <code>cluster</code> (recommended in the case of panel data) and <code>default</code> (implements the <code>standard</code> or <code>robust</code> versions as appropriate).</p></dd>
 
-  <dt id="arg-var-eim">var.eim<a class="anchor" aria-label="anchor" href="#arg-var-eim"></a></dt>
+
+<dt id="arg-var-eim">var.eim<a class="anchor" aria-label="anchor" href="#arg-var-eim"></a></dt>
 <dd><p>a logical value indicating whether the expected information matrix should be used in the calculation of the variance. When false, the observation information matrix will be used. Defaults to <code>TRUE</code>.</p></dd>
 
-  <dt id="arg-var-cluster">var.cluster<a class="anchor" aria-label="anchor" href="#arg-var-cluster"></a></dt>
+
+<dt id="arg-var-cluster">var.cluster<a class="anchor" aria-label="anchor" href="#arg-var-cluster"></a></dt>
 <dd><p>a numeric vector containing the values of the variable that specifies to which cluster each observation belongs.</p></dd>
 
-  <dt id="arg-dfc">dfc<a class="anchor" aria-label="anchor" href="#arg-dfc"></a></dt>
+
+<dt id="arg-dfc">dfc<a class="anchor" aria-label="anchor" href="#arg-dfc"></a></dt>
 <dd><p>a logical value indicating whether a degrees of freedom correction should be applied to the covariance matrix. Defaults to <code>FALSE</code>.</p></dd>
 
-  <dt id="arg-offset">offset<a class="anchor" aria-label="anchor" href="#arg-offset"></a></dt>
+
+<dt id="arg-offset">offset<a class="anchor" aria-label="anchor" href="#arg-offset"></a></dt>
 <dd><p>an optional numeric vector containing an offset. It must be of the same dimension as the response variable. It specifies that the variable should be included in the model with its coefficient constrained to 1.</p></dd>
 
-  <dt id="arg-or">or<a class="anchor" aria-label="anchor" href="#arg-or"></a></dt>
+
+<dt id="arg-or">or<a class="anchor" aria-label="anchor" href="#arg-or"></a></dt>
 <dd><p>a logical value indicating whether to report odds ratios. Only valid when the link function is <code>"logit"</code>. Defaults to <code>FALSE</code>.</p></dd>
 
-  <dt id="arg-level">level<a class="anchor" aria-label="anchor" href="#arg-level"></a></dt>
+
+<dt id="arg-level">level<a class="anchor" aria-label="anchor" href="#arg-level"></a></dt>
 <dd><p>a numeric value between 0 and 1 indicating the confidence level for the confidence intervals. Defaults to <code>0.95</code>.</p></dd>
 
-  <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
+
+<dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>Arguments to pass to <a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a>.</p></dd>
 
 </dl></div>
-    <div class="section level2">
-    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p><code>fracreg</code> estimates one-part, two-part hurdle, and three-part double-inflated fractional response models; see Ramalho, Ramalho and Murteira (2011) and Fang and Ma (2013) for details on those models.</p>
-<p><strong>One-Part Fractional Response Regressions (<code>type = "1P"</code>):</strong>
-The standard one-part model assumes that the conditional expectation of the fractional response \(y_i \in [0,1]\) is given by:
-$$E(y_i|x_i) = G(x_i \beta)$$
-where \(G(\cdot)\) is a known non-linear link function mapping the linear predictor to the unit interval (e.g., logit, probit). The parameters \(\beta\) are estimated by maximising the Bernoulli-based quasi-log-likelihood function:
-$$\ln L_i(\beta) = y_i \ln[G(x_i \beta)] + (1 - y_i) \ln[1 - G(x_i \beta)]$$
-This estimator requires only the correct specification of the conditional mean to yield consistent parameter estimates (Papke and Wooldridge, 1996).</p>
-<p><strong>Two-Part Hurdle Models (<code>type = "2P"</code>):</strong>
-When the data exhibits a boundary mass (e.g., at \(y_i = 0\)), the two-part hurdle model handles the boundary values separately from the interior fractional values. Let \(y_i^*\) be a binary indicator such that \(y_i^* = 1\) if \(y_i &gt; 0\) and \(y_i^* = 0\) otherwise. The probability of observing a boundary value is modelled as:
-$$P(y_i = 0 | x_{1i}) = 1 - F(x_{1i} \gamma_1)$$
-$$P(y_i &gt; 0 | x_{1i}) = F(x_{1i} \gamma_1)$$
-where \(F(\cdot)\) is a binary link function. Conditional on observing an interior fractional value, the response is modelled as:
-$$E(y_i | x_{2i}, y_i &gt; 0) = G(x_{2i} \beta_2)$$
-The unconditional mean of the response is therefore:
-$$E(y_i|x_i) = F(x_{1i} \gamma_1) \times G(x_{2i} \beta_2)$$</p>
-<p><strong>Three-Part Double Inflated Models (<code>type = "3P"</code>):</strong>
-For data containing boundary mass at both \(0\) and \(1\), the three-part model estimates two separate binary mechanisms for each boundary and a fractional component for the interior values \((0, 1)\), extending the two-part logic to double inflation (Fang and Ma, 2013).</p>
-<p><code>fracreg</code> uses the standard <a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a> command to perform the estimations. Therefore, <code>fracreg</code> is essentially a convenience command, allowing estimation of several alternative fractional response models using the same command. In addition, <code>fracreg</code> provides an R-squared measure for all models (calculated as the square of the correlation coefficient between the actual and fitted values of the dependent variable), calculates the fitted values of the dependent variable in two-part models and stores the information needed to implement some very useful commands for fractional response models: <a href="fracreg.reset.html">fracreg.reset</a> (RESET test), <a href="fracreg.ptest.html">fracreg.ptest</a> (P test), <a href="fracreg.ggoff.html">fracreg.ggoff</a> (GGOFF tests) and <a href="fracreg.pe.html">fracreg.pe</a> (partial effects).</p>
-    </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>When <code>type = "1P" or "2Pfrac"</code>, <code>fracreg</code> returns a list with the following elements:</p>
@@ -231,8 +243,31 @@ For data containing boundary mass at both \(0\) and \(1\), the three-part model 
 
 </dl></div>
     <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p><code>fracreg</code> estimates one-part, two-part hurdle, and three-part double-inflated fractional response models; see Ramalho, Ramalho and Murteira (2011) and Fang and Ma (2013) for details on those models.</p>
+<p><strong>One-Part Fractional Response Regressions (<code>type = "1P"</code>):</strong>
+The standard one-part model assumes that the conditional expectation of the fractional response \(y_i \in [0,1]\) is given by:
+$$E(y_i|x_i) = G(x_i \beta)$$
+where \(G(\cdot)\) is a known non-linear link function mapping the linear predictor to the unit interval (e.g., logit, probit). The parameters \(\beta\) are estimated by maximising the Bernoulli-based quasi-log-likelihood function:
+$$\ln L_i(\beta) = y_i \ln[G(x_i \beta)] + (1 - y_i) \ln[1 - G(x_i \beta)]$$
+This estimator requires only the correct specification of the conditional mean to yield consistent parameter estimates (Papke and Wooldridge, 1996).</p>
+<p><strong>Two-Part Hurdle Models (<code>type = "2P"</code>):</strong>
+When the data exhibits a boundary mass (e.g., at \(y_i = 0\)), the two-part hurdle model handles the boundary values separately from the interior fractional values. Let \(y_i^*\) be a binary indicator such that \(y_i^* = 1\) if \(y_i &gt; 0\) and \(y_i^* = 0\) otherwise. The probability of observing a boundary value is modelled as:
+$$P(y_i = 0 | x_{1i}) = 1 - F(x_{1i} \gamma_1)$$
+$$P(y_i &gt; 0 | x_{1i}) = F(x_{1i} \gamma_1)$$
+where \(F(\cdot)\) is a binary link function. Conditional on observing an interior fractional value, the response is modelled as:
+$$E(y_i | x_{2i}, y_i &gt; 0) = G(x_{2i} \beta_2)$$
+The unconditional mean of the response is therefore:
+$$E(y_i|x_i) = F(x_{1i} \gamma_1) \times G(x_{2i} \beta_2)$$</p>
+<p><strong>Three-Part Double Inflated Models (<code>type = "3P"</code>):</strong>
+For data containing boundary mass at both \(0\) and \(1\), the three-part model estimates two separate binary mechanisms for each boundary and a fractional component for the interior values \((0, 1)\), extending the two-part logic to double inflation (Fang and Ma, 2013).</p>
+<p><code>fracreg</code> uses the standard <a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a> command to perform the estimations. Therefore, <code>fracreg</code> is essentially a convenience command, allowing estimation of several alternative fractional response models using the same command. In addition, <code>fracreg</code> provides an R-squared measure for all models (calculated as the square of the correlation coefficient between the actual and fitted values of the dependent variable), calculates the fitted values of the dependent variable in two-part models and stores the information needed to implement some very useful commands for fractional response models: <a href="fracreg.reset.html">fracreg.reset</a> (RESET test), <a href="fracreg.ptest.html">fracreg.ptest</a> (P test), <a href="fracreg.ggoff.html">fracreg.ggoff</a> (GGOFF tests) and <a href="fracreg.pe.html">fracreg.pe</a> (partial effects).</p>
+    </div>
+    <div class="section level2">
     <h2 id="odds-ratios">Odds Ratios<a class="anchor" aria-label="anchor" href="#odds-ratios"></a></h2>
-    <p>When <code>or=TRUE</code> and the fractional link function (<code>linkfrac</code> or <code>link</code>) is <code>"logit"</code>, the model additionally computes odds ratios for the coefficients.
+
+
+<p>When <code>or=TRUE</code> and the fractional link function (<code>linkfrac</code> or <code>link</code>) is <code>"logit"</code>, the model additionally computes odds ratios for the coefficients.
 Odds Ratios are exponentiated coefficients.
 The corresponding standard errors for the odds ratios are calculated using the Delta method.
 The confidence intervals for the odds ratios are calculated using the adjusted standard errors and the specified <code>level</code> (defaulting to 95%).
@@ -247,12 +282,12 @@ estimating and testing empirical strategies for fractional response models",
 <p>Fang, K., &amp; Ma, S. (2013), "Three-part model for fractional response variables with application to Chinese household health insurance coverage", <em>Journal of Applied Statistics</em>, 40(5), 925-940.</p>
     </div>
     <div class="section level2">
-    <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
-    <p>Sulman Olieko Owili &lt;oliekosulman@gmail.com&gt;</p>
-    </div>
-    <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><code><a href="fracreg.reset.html">fracreg.reset</a></code> and <code><a href="fracreg.ggoff.html">fracreg.ggoff</a></code>, for specification tests.<br><code><a href="fracreg.ptest.html">fracreg.ptest</a></code>, for non-nested hypothesis tests.<br><code><a href="fracreg.pe.html">fracreg.pe</a></code>, for computing partial effects.<br><code>fracreghet</code>, for fitting cross-sectional fractional response models with unobserved heterogeneity.<br><code>fracregpd</code>, for fitting panel data fractional response models.</p></div>
+    </div>
+    <div class="section level2">
+    <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
+    <p>Sulman Olieko Owili &lt;oliekosulman@gmail.com&gt;</p>
     </div>
 
     <div class="section level2">
@@ -298,7 +333,7 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 13:47:21 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 15:58:17 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
@@ -337,7 +372,7 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 13:47:21 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 15:58:17 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
@@ -417,7 +452,7 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-out co"><span class="r-pr">#&gt;</span> Pseudo R-squared:                                                        0.11243 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Convergence:                                                          Successful </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 13:47:21 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 15:58:17 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
@@ -530,7 +565,7 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-out co"><span class="r-pr">#&gt;</span> Pseudo R-squared:                                                        0.07934 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Convergence:                                                          Successful </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 13:47:21 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 15:58:17 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
@@ -583,7 +618,7 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 13:47:21 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 15:58:17 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
@@ -717,7 +752,7 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-out co"><span class="r-pr">#&gt;</span> Pseudo R-squared:                                                        0.38829 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Convergence:                                                          Successful </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 13:47:21 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 15:58:17 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
@@ -813,7 +848,7 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-out co"><span class="r-pr">#&gt;</span> Pseudo R-squared:                                                        0.38917 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Convergence:                                                          Successful </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 13:47:22 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 15:58:18 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 </code></pre></div>

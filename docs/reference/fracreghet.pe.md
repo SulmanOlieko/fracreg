@@ -6,8 +6,16 @@ effects in fractional response models under unobserved heterogeneity.
 ## Usage
 
 ``` r
-fracreghet.pe(object, smearing = T, APE = T, CPE = F, at = NULL, 
-              which.x = NULL, table = FALSE, variance = T)
+fracreghet.pe(
+  object,
+  smearing = T,
+  APE = T,
+  CPE = F,
+  at = NULL,
+  which.x = NULL,
+  table = FALSE,
+  variance = T
+)
 ```
 
 ## Arguments
@@ -55,6 +63,25 @@ fracreghet.pe(object, smearing = T, APE = T, CPE = F, at = NULL,
   partial effects should be calculated. Defaults to `TRUE` whenever
   `table = TRUE`.
 
+## Value
+
+`fracreghet.pe` returns a list with the following element:
+
+- PE.p:
+
+  a named vector of partial effects.
+
+If `variance = TRUE` or `table = TRUE`, the previous list also contains
+the following element:
+
+- PE.sd:
+
+  a named vector of standard errors of the estimated partial effects.
+
+When both average and conditional partial effects are requested, two
+lists containing the previous elements are returned, indexed by the
+prefixes `ape` and `cpe`.
+
 ## Details
 
 `fracreghet.pe` calculates partial effects for fractional response
@@ -84,25 +111,6 @@ that was previously chosen for estimating the model. See Ramalho and
 Ramalho (2017) for details on the computation of partial effects for
 fractional response models under unobserved heterogeneity.
 
-## Value
-
-`fracreghet.pe` returns a list with the following element:
-
-- PE.p:
-
-  a named vector of partial effects.
-
-If `variance = TRUE` or `table = TRUE`, the previous list also contains
-the following element:
-
-- PE.sd:
-
-  a named vector of standard errors of the estimated partial effects.
-
-When both average and conditional partial effects are requested, two
-lists containing the previous elements are returned, indexed by the
-prefixes `ape` and `cpe`.
-
 ## References
 
 Ramalho, E. A., & Ramalho, J. J. S. (2017), "Moment-based estimation of
@@ -110,16 +118,16 @@ nonlinear regression models with boundary outcomes and endogeneity, with
 applications to nonnegative and fractional responses", *Econometric
 Reviews*, 36(4), 397-420.
 
-## Author
-
-Sulman Olieko Owili \<oliekosulman@gmail.com\>
-
 ## See also
 
 [`fracreghet`](https://sulmanolieko.github.io/fracreg/reference/fracreghet.md),
 for fitting fractional response models under unobserved heterogeneity.  
 [`fracreghet.reset`](https://sulmanolieko.github.io/fracreg/reference/fracreghet.reset.md),
 for the RESET test.  
+
+## Author
+
+Sulman Olieko Owili \<oliekosulman@gmail.com\>
 
 ## Examples
 
@@ -178,7 +186,7 @@ res_emp <- fracreghet(y_adj, X_het, Z_emp, var.endog = X_het[, "mrate"],
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 13:47:28 
+#>                          Run Date: 2026-07-12 15:58:27 
 #> -------------------------------------------------------------------------------- 
 #> 
 pe_res <- fracreghet.pe(res_emp, which.x="mrate")
@@ -196,7 +204,7 @@ summary(pe_res)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 13:47:28 
+#>                          Run Date: 2026-07-12 15:58:27 
 #> -------------------------------------------------------------------------------- 
  
 ### Simulated Examples
@@ -238,7 +246,7 @@ mod <- fracreghet(y,X,type="GMMx")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 13:47:28 
+#>                          Run Date: 2026-07-12 15:58:27 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -258,7 +266,7 @@ summary(pe_res)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 13:47:28 
+#>                          Run Date: 2026-07-12 15:58:27 
 #> -------------------------------------------------------------------------------- 
 
 #Naive estimator of conditional partial effects for all covariates,
@@ -279,7 +287,7 @@ summary(pe_res)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 13:47:28 
+#>                          Run Date: 2026-07-12 15:58:27 
 #> -------------------------------------------------------------------------------- 
 #> 
 #> Note: covariates evaluated at the following values:

@@ -8,10 +8,25 @@ issues.
 ## Usage
 
 ``` r
-fracreghet(y, x, z = x, var.endog, start, type = "GMMx", link = "logit", 
-           intercept = T, table = T, variance = T, 
-           var.type = "robust", var.cluster, adjust = 0, offset = NULL, 
-           or = FALSE, level = 0.95, ...)
+fracreghet(
+  y,
+  x,
+  z = x,
+  var.endog,
+  start,
+  type = "GMMx",
+  link = "logit",
+  intercept = T,
+  table = T,
+  variance = T,
+  var.type = "robust",
+  var.cluster,
+  adjust = 0,
+  offset = NULL,
+  or = FALSE,
+  level = 0.95,
+  ...
+)
 ```
 
 ## Arguments
@@ -108,47 +123,6 @@ fracreghet(y, x, z = x, var.endog, start, type = "GMMx", link = "logit",
 
   Arguments to pass to [nlminb](https://rdrr.io/r/stats/nlminb.html).
 
-## Details
-
-`fracreghet` computes the GMM estimators proposed in Ramalho and Ramalho
-(2017) for fractional response models with unobserved heterogeneity:
-GMMx, which allows for neglected heterogeneity but not for endogeneity;
-GMMxv, which allows both issues and assumes a linear reduced form for
-the endogeneous covariate (or for a transformation of it); and GMMz,
-which also allows for both issues but does not require the assumption of
-a reduced form for the endogenous covariate. In addition, `fracreghet`
-also computes three linearised estimators (LINx, LINxv and LINz) that
-have similar features to their GMM counterparts. It also provides a QML
-estimator (QMLxv) that addresses endogeneity using a Control Function
-(CF) approach, which includes the first-stage reduced-form residuals as
-an additional regressor in the main fractional equation, providing a
-Hausman-type test for endogeneity.
-
-**Control Function (CF) Approach - QMLxv:** When a continuous regressor
-\\y\_{2i}\\ is endogenous, the CF approach (Papke and Wooldridge, 2008;
-Terza et al., 2008) uses a two-stage procedure. First, a linear reduced
-form is estimated: \$\$y\_{2i} = z_i \pi + v_i\$\$ where \\z_i\\
-includes all exogenous variables and external instruments. The residuals
-\\\hat{v}\_i\\ are then included in the fractional response model:
-\$\$E(y\_{1i} \| z_i, y\_{2i}, v_i) = G(x_i \beta + \gamma
-\hat{v}\_i)\$\$ A test of \\H_0: \gamma = 0\\ serves as a robust
-Hausman-type test for endogeneity.
-
-**Generalised Method of Moments (GMM):** For estimators like GMMz, which
-do not strictly require a linear reduced form, the estimation relies on
-population orthogonality conditions between the instruments \\Z_i\\ and
-the model residuals: \$\$E\[Z\_{i} (y_i - G(x_i \beta))\] = 0\$\$ or via
-specific transformations of the dependent variable to eliminate
-unobserved heterogeneity (Ramalho and Ramalho, 2017).
-
-For overidentified models, `fracreghet` calculates Hansen's J statistic.
-For `GMMx` and `LINx`, `fracreghet` stores the information needed to
-implement the RESET test
-([fracreghet.reset](https://sulmanolieko.github.io/fracreg/reference/fracreghet.reset.md)).
-For all estimators, `fracreghet` stores the information needed to
-calculate partial effects
-([fracreghet.pe](https://sulmanolieko.github.io/fracreg/reference/fracreghet.pe.md)).
-
 ## Value
 
 `fracreghet` returns a list with the following elements:
@@ -220,6 +194,47 @@ If `var.type = "cluster"`, the list also contains the following element:
 
   the variable that specifies to which cluster each observation belongs.
 
+## Details
+
+`fracreghet` computes the GMM estimators proposed in Ramalho and Ramalho
+(2017) for fractional response models with unobserved heterogeneity:
+GMMx, which allows for neglected heterogeneity but not for endogeneity;
+GMMxv, which allows both issues and assumes a linear reduced form for
+the endogeneous covariate (or for a transformation of it); and GMMz,
+which also allows for both issues but does not require the assumption of
+a reduced form for the endogenous covariate. In addition, `fracreghet`
+also computes three linearised estimators (LINx, LINxv and LINz) that
+have similar features to their GMM counterparts. It also provides a QML
+estimator (QMLxv) that addresses endogeneity using a Control Function
+(CF) approach, which includes the first-stage reduced-form residuals as
+an additional regressor in the main fractional equation, providing a
+Hausman-type test for endogeneity.
+
+**Control Function (CF) Approach - QMLxv:** When a continuous regressor
+\\y\_{2i}\\ is endogenous, the CF approach (Papke and Wooldridge, 2008;
+Terza et al., 2008) uses a two-stage procedure. First, a linear reduced
+form is estimated: \$\$y\_{2i} = z_i \pi + v_i\$\$ where \\z_i\\
+includes all exogenous variables and external instruments. The residuals
+\\\hat{v}\_i\\ are then included in the fractional response model:
+\$\$E(y\_{1i} \| z_i, y\_{2i}, v_i) = G(x_i \beta + \gamma
+\hat{v}\_i)\$\$ A test of \\H_0: \gamma = 0\\ serves as a robust
+Hausman-type test for endogeneity.
+
+**Generalised Method of Moments (GMM):** For estimators like GMMz, which
+do not strictly require a linear reduced form, the estimation relies on
+population orthogonality conditions between the instruments \\Z_i\\ and
+the model residuals: \$\$E\[Z\_{i} (y_i - G(x_i \beta))\] = 0\$\$ or via
+specific transformations of the dependent variable to eliminate
+unobserved heterogeneity (Ramalho and Ramalho, 2017).
+
+For overidentified models, `fracreghet` calculates Hansen's J statistic.
+For `GMMx` and `LINx`, `fracreghet` stores the information needed to
+implement the RESET test
+([fracreghet.reset](https://sulmanolieko.github.io/fracreg/reference/fracreghet.reset.md)).
+For all estimators, `fracreghet` stores the information needed to
+calculate partial effects
+([fracreghet.pe](https://sulmanolieko.github.io/fracreg/reference/fracreghet.pe.md)).
+
 ## Odds Ratios
 
 When `or=TRUE` and the fractional link function (`linkfrac` or `link`)
@@ -247,10 +262,6 @@ Terza, J. V., Basu, A., and Rathouz, P. J. (2008), "Two-stage residual
 inclusion estimation: addressing endogeneity in health econometric
 modeling", *Journal of Health Economics*, 27(3), 531-543.
 
-## Author
-
-Sulman Olieko Owili \<oliekosulman@gmail.com\>
-
 ## See also
 
 [`fracreghet.reset`](https://sulmanolieko.github.io/fracreg/reference/fracreghet.reset.md),
@@ -261,6 +272,10 @@ for computing partial effects.
 for fitting standard cross-sectional fractional response models.  
 [`fracregpd`](https://sulmanolieko.github.io/fracreg/reference/fracregpd.md),
 for fitting panel data fractional response models.
+
+## Author
+
+Sulman Olieko Owili \<oliekosulman@gmail.com\>
 
 ## Examples
 
@@ -318,7 +333,7 @@ mod <- fracreghet(y_adj, X_het, Z_emp, var.endog = X_het[, "mrate"], type="QMLxv
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 13:47:26 
+#>                          Run Date: 2026-07-12 15:58:24 
 #> -------------------------------------------------------------------------------- 
 #> 
 summary(mod)
@@ -366,7 +381,7 @@ mod <- fracreghet(y_adj, X_het, Z_emp, var.endog = X_het[, "mrate"], type="QMLxv
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 13:47:27 
+#>                          Run Date: 2026-07-12 15:58:25 
 #> -------------------------------------------------------------------------------- 
 #> 
  
@@ -416,7 +431,7 @@ mod <- fracreghet(y = y_endog, x = X, type = "GMMx", link = "logit")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 13:47:27 
+#>                          Run Date: 2026-07-12 15:58:25 
 #> -------------------------------------------------------------------------------- 
 #> 
 summary(mod)
@@ -448,7 +463,7 @@ mod <- fracreghet(y = y_endog, x = X, z = Z, type = "GMMz", link = "logit")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 13:47:27 
+#>                          Run Date: 2026-07-12 15:58:25 
 #> -------------------------------------------------------------------------------- 
 #> 
 summary(mod)
@@ -494,7 +509,7 @@ mod <- fracreghet(y = y_endog, x = X, z = Z, var.endog = var.endog, type = "GMMx
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 13:47:27 
+#>                          Run Date: 2026-07-12 15:58:25 
 #> -------------------------------------------------------------------------------- 
 #> 
 summary(mod)
@@ -539,7 +554,7 @@ mod <- fracreghet(y = y_endog, x = X, z = Z, var.endog = var.endog, type = "QMLx
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-12 13:47:27 
+#>                          Run Date: 2026-07-12 15:58:25 
 #> -------------------------------------------------------------------------------- 
 #> 
 summary(mod)

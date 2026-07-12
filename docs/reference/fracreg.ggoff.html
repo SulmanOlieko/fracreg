@@ -51,22 +51,28 @@
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <p></p>
+
+
 <dl><dt id="arg-object">object<a class="anchor" aria-label="anchor" href="#arg-object"></a></dt>
 <dd><p>an object containing the results of an <code>fracreg</code> command.</p></dd>
 
-  <dt id="arg-version">version<a class="anchor" aria-label="anchor" href="#arg-version"></a></dt>
-<dd><p>a vector containing the test versions to use. Available options: <code>Wald</code>, <code>LM</code> (the default) and, only
-for the binary component of two-part models, <code>LR</code>. More than one option may be chosen.</p></dd>
 
-  <dt id="arg-table">table<a class="anchor" aria-label="anchor" href="#arg-table"></a></dt>
+<dt id="arg-version">version<a class="anchor" aria-label="anchor" href="#arg-version"></a></dt>
+<dd><p>a vector containing the test versions to use. Available options: <code>Wald</code>, <code>LM</code> (the default) and, only for the binary component of two-part models, <code>LR</code>. More than one option may be chosen.</p></dd>
+
+
+<dt id="arg-table">table<a class="anchor" aria-label="anchor" href="#arg-table"></a></dt>
 <dd><p>a logical value indicating whether a summary table with the test results should be printed.</p></dd>
 
-  <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
-<dd><p>Arguments to pass to <a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a>, which is used to estimate the model under the alternative hypothesis when
-<code>version</code> is a vector containing <code>"Wald"</code> or <code>"LR"</code>.</p></dd>
+
+<dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
+<dd><p>Arguments to pass to <a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a>, which is used to estimate the model under the alternative hypothesis when <code>version</code> is a vector containing <code>"Wald"</code> or <code>"LR"</code>.</p></dd>
 
 </dl></div>
+    <div class="section level2">
+    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
+    <p><code>fracreg.ggoff</code> returns a named vector with the test results.</p>
+    </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p><code>fracreg.ggoff</code> applies the GGOFF, GOFF1 and GOOFF2 test statistics to fractional response
@@ -81,21 +87,17 @@ where \(g(\cdot)\) and \(g'(\cdot)\) are the first and second derivatives of \(G
 <p>When the <code>Wald</code> version is implemented, it is taken into account the option that was chosen for computing standard errors in the model under evaluation. For the <code>LM</code> version, a robust version is computed in cases (i) and (iii) and a conventional version in case (ii). See Ramalho, Ramalho and Murteira (2014) for details on the application of the GGOFF, GOFF1 and GOOFF2 tests in the fractional response framework.</p>
     </div>
     <div class="section level2">
-    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p><code>fracreg.ggoff</code> returns a named vector with the test results.</p>
-    </div>
-    <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
     <p>Ramalho, E.A., J.J.S. Ramalho and J.M.R. Murteira (2014), "A generalized goodness-of-functional form test for binary and fractional response models", <em>Manchester School</em>, 82(4), 488-507.</p>
 <p>Pregibon, D. (1980), "Goodness of Link Tests for Generalized Linear Models", <em>Journal of the Royal Statistical Society: Series C (Applied Statistics)</em>, 29(1), 15-24.</p>
     </div>
     <div class="section level2">
-    <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
-    <p>Sulman Olieko Owili &lt;oliekosulman@gmail.com&gt;</p>
-    </div>
-    <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><code><a href="fracreg.html">fracreg</a></code>, for fitting fractional response models.<br><code><a href="fracreg.reset.html">fracreg.reset</a></code>, for asymptotically equivalent specification tests.<br><code><a href="fracreg.ptest.html">fracreg.ptest</a></code>, for non-nested hypothesis tests.<br><code><a href="fracreg.pe.html">fracreg.pe</a></code>, for computing partial effects.</p></div>
+    </div>
+    <div class="section level2">
+    <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
+    <p>Sulman Olieko Owili &lt;oliekosulman@gmail.com&gt;</p>
     </div>
 
     <div class="section level2">
@@ -122,7 +124,7 @@ where \(g(\cdot)\) and \(g'(\cdot)\) are the first and second derivatives of \(G
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 13:47:22 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 15:58:19 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">### Simulated Examples</span></span></span>
@@ -159,7 +161,7 @@ where \(g(\cdot)\) and \(g'(\cdot)\) are the first and second derivatives of \(G
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 13:47:22 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 15:58:19 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#Testing the probit specification of the binary component of a two-part fractional</span></span></span>
@@ -179,7 +181,7 @@ where \(g(\cdot)\) and \(g'(\cdot)\) are the first and second derivatives of \(G
 <span class="r-out co"><span class="r-pr">#&gt;</span> GOFF2 - LR     0.039   0.844</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> GGOFF - LR     0.717   0.699</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 13:47:22 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 15:58:19 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 </code></pre></div>
     </div>

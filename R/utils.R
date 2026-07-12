@@ -639,9 +639,7 @@ print.fracregmlogit <- function(x, ...) {
 #' summary(effects1)
 #' 
 #' @rdname summary.fracregmlogit
-#' @export summary.fracregmlogit
-#' @export summary.fracregmlogit.pe
-#' @export summary.fracregmlogit.wtp
+#' @exportS3Method summary fracregmlogit
 summary.fracregmlogit <- function(object, ...) {
     cat("\n")
     cat(.fracreg.sep(), "\n")
@@ -693,6 +691,7 @@ print.fracregmlogit.pe <- function(x, ...) {
 }
 
 #' @export
+#' @exportS3Method summary fracregmlogit.pe
 summary.fracregmlogit.pe <- function(object, ...) {
     cat("\n")
     cat(.fracreg.sep(), "\n")

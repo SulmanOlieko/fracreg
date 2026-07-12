@@ -51,21 +51,28 @@
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <p></p>
+
+
 <dl><dt id="arg-object-">object1<a class="anchor" aria-label="anchor" href="#arg-object-"></a></dt>
 <dd><p>an object containing the results of an <code>fracreg</code> command.</p></dd>
 
-  <dt id="arg-object-">object2<a class="anchor" aria-label="anchor" href="#arg-object-"></a></dt>
+
+<dt id="arg-object-">object2<a class="anchor" aria-label="anchor" href="#arg-object-"></a></dt>
 <dd><p>an object containing the results of another <code>fracreg</code> command.</p></dd>
 
-  <dt id="arg-version">version<a class="anchor" aria-label="anchor" href="#arg-version"></a></dt>
-<dd><p>a vector containing the test versions to use. Available options: <code>Wald</code> (the default) and <code>LM</code>.
-Both options may be chosen at the same time and are computed in a robust way.</p></dd>
 
-  <dt id="arg-table">table<a class="anchor" aria-label="anchor" href="#arg-table"></a></dt>
+<dt id="arg-version">version<a class="anchor" aria-label="anchor" href="#arg-version"></a></dt>
+<dd><p>a vector containing the test versions to use. Available options: <code>Wald</code> (the default) and <code>LM</code>.  Both options may be chosen at the same time and are computed in a robust way.</p></dd>
+
+
+<dt id="arg-table">table<a class="anchor" aria-label="anchor" href="#arg-table"></a></dt>
 <dd><p>a logical value indicating whether a summary table with the test results should be printed.</p></dd>
 
 </dl></div>
+    <div class="section level2">
+    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
+    <p><code>fracreg.reset</code> returns a named vector with the test results.</p>
+    </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p><code>fracreg.ptest</code> applies the P test statistic proposed by Davidson and
@@ -77,10 +84,6 @@ where \(\hat{y}_{M1} = G(x\hat{\beta})\) and \(\hat{y}_{M2} = H(z\hat{\theta})\)
 <p>In addition, <code>fracreg.ptest</code> may be used to test one-part models against two-part or three-part models and in cases where the link functions are the same but the regressors are non-nested. See Ramalho, Ramalho and Murteira (2011) for details on the application of the P test in the fractional response framework.</p>
     </div>
     <div class="section level2">
-    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p><code>fracreg.reset</code> returns a named vector with the test results.</p>
-    </div>
-    <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
     <p>Davidson, R. and J.G. MacKinnon (1981), "Several tests for model specification
 on the presence of alternative hypotheses", <em>Econometrica</em>, 49(3), 781-793.</p>
@@ -89,12 +92,12 @@ estimating and testing empirical strategies for fractional response models",
 <em>Journal of Economic Surveys</em>, 25(1), 19-68.</p>
     </div>
     <div class="section level2">
-    <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
-    <p>Sulman Olieko Owili &lt;oliekosulman@gmail.com&gt;</p>
-    </div>
-    <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><code><a href="fracreg.html">fracreg</a></code>, for fitting fractional response models.<br><code><a href="fracreg.reset.html">fracreg.reset</a></code> and <code><a href="fracreg.ggoff.html">fracreg.ggoff</a></code>, for specification tests.<br><code><a href="fracreg.pe.html">fracreg.pe</a></code>, for computing partial effects.</p></div>
+    </div>
+    <div class="section level2">
+    <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
+    <p>Sulman Olieko Owili &lt;oliekosulman@gmail.com&gt;</p>
     </div>
 
     <div class="section level2">
@@ -127,7 +130,7 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 13:47:24 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 15:58:21 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">### Simulated Examples</span></span></span>
@@ -168,7 +171,7 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 13:47:24 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 15:58:21 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#Testing a logit one-part fractional response model versus a binary logit +</span></span></span>
@@ -197,7 +200,7 @@ estimating and testing empirical strategies for fractional response models",
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 13:47:24 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-12 15:58:21 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 </code></pre></div>
     </div>

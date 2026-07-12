@@ -20,10 +20,6 @@ tests such as RESET, P test, and GGOFF tests.
 | Date:    | 2026-07-05 |
 | License: | GPL-3      |
 
-## Author
-
-Sulman Olieko Owili \<oliekosulman@gmail.com\>
-
 ## Acknowledgements
 
 This package builds upon, consolidates, and modernises the fractional
@@ -75,3 +71,13 @@ package repository. \<https://github.com/f1kidd/fmlogit\>.
 
 Rokem, A., and Kay, K., *fracridge: Fractional Ridge Regression*.
 Package repository. \<https://github.com/nrdg/fracridge\>.
+
+## See also
+
+Useful links:
+
+- <https://sulmanolieko.github.io/fracreg/>
+
+## Author
+
+Sulman Olieko Owili \<oliekosulman@gmail.com\>

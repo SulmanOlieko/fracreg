@@ -28,7 +28,7 @@
 #' # Predict using the first observation from the original dataset
 #' pred = predict(results1, newdata = X[1,])
 #' @rdname fitted.fracregmlogit
-#' @export fitted.fracregmlogit
+#' @exportS3Method fitted fracregmlogit
 #' 
 
 
@@ -45,7 +45,7 @@ fitted.fracregmlogit <- function(object, ...) {
 }
 
 #' @rdname fitted.fracregmlogit
-#' @export residuals.fracregmlogit
+#' @exportS3Method residuals fracregmlogit
 #' 
 residuals.fracregmlogit <- function(object, ...) {
   yhat = fitted(object)
@@ -53,7 +53,7 @@ residuals.fracregmlogit <- function(object, ...) {
 }
 
 #' @rdname fitted.fracregmlogit
-#' @export predict.fracregmlogit
+#' @exportS3Method predict fracregmlogit
 #' 
 predict.fracregmlogit <- function(object, newdata=NULL, newbeta = NULL, ...) {
   if(length(newdata)==0) return(fitted(object))
