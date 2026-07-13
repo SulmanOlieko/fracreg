@@ -8,3 +8,5 @@
 .Rcheck
 docs/
 build_site.R
+.DS_Store
+local_lib/

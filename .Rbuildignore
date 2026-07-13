@@ -16,3 +16,5 @@
 ^scratch$
 ^fracreg_.*\.pdf$
 ^fracreg_.*\.tar\.gz$
+^\.DS_Store$
+^local_lib$
