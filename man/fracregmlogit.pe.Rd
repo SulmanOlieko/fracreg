@@ -8,7 +8,7 @@ fracregmlogit.pe(
   object,
   effect = c("marginal", "discrete"),
   marg.type = "atmean",
-  se = F,
+  se = FALSE,
   varlist = NULL,
   at = NULL,
   R = 1000

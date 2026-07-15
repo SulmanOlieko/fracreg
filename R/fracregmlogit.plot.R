@@ -73,7 +73,7 @@ plot.fracregmlogit = function(x, wtp.vec=NULL, varlist=NULL, against=NULL, mfrow
     for(i in 1:t){
       newdata = colMeans(X[,-K])
       newdata[ag_No] = ag_vec[i]
-      wtp_mat[i,] = wtp(fracregmlogit.pe(object,effect=effect,se=F,varlist=varlist,at=newdata),wtp.vec)[[1]]
+      wtp_mat[i,] = wtp(fracregmlogit.pe(object,effect=effect,se=FALSE,varlist=varlist,at=newdata),wtp.vec)[[1]]
     }
   }else{
     against="ObsNo"
@@ -82,7 +82,7 @@ plot.fracregmlogit = function(x, wtp.vec=NULL, varlist=NULL, against=NULL, mfrow
     colnames(wtp_mat) = varlist
     for(i in 1:N){
       newdata = X[i,-K]
-      wtp_mat[i,] = wtp(fracregmlogit.pe(object,effect=effect,se=F,varlist=varlist,at=newdata),wtp.vec)[[1]]
+      wtp_mat[i,] = wtp(fracregmlogit.pe(object,effect=effect,se=FALSE,varlist=varlist,at=newdata),wtp.vec)[[1]]
     }
   }
   # plotting
@@ -187,13 +187,13 @@ plot.fracregmlogit.pe = function(x, varlist=NULL, X=NULL, y=NULL,
   if(is.null(against) & is.null(against.x) & is.null(against.y)){
     M.against=1:N 
     ag.name = "ObsNo"
-  }else if(is.null(against.x)==F){
+  }else if(is.null(against.x)==FALSE){
     M.against = X[,against.x]
     if(is.null(M.against)){
       stop("against.x not found in variable list. Please double check your spelling")
     }
     ag.name = against.x
-  }else if(is.null(against.y)==F){
+  }else if(is.null(against.y)==FALSE){
     M.against = y[,against.y] 
     ag.name = against.y
   }else{M.against=against}
@@ -201,8 +201,8 @@ plot.fracregmlogit.pe = function(x, varlist=NULL, X=NULL, y=NULL,
   
   # determine group variables
   if(is.null(group.x) & is.null(group.algebra)) {M.group=NULL; g.name=NULL}
-  if(is.null(group.x)==F) {M.group = X[,group.x]; g.name.display <- g.name <- group.x;}
-  if(is.null(group.algebra)==F) {
+  if(is.null(group.x)==FALSE) {M.group = X[,group.x]; g.name.display <- g.name <- group.x;}
+  if(is.null(group.algebra)==FALSE) {
     M.group = eval(parse(text=paste("X[,",'"',group.x,'"',"]",group.algebra,sep="")))
     M.group = ifelse(M.group,"Yes","No")
     g.name = group.x
@@ -215,14 +215,14 @@ plot.fracregmlogit.pe = function(x, varlist=NULL, X=NULL, y=NULL,
     temp.data = cbind(object$marg.list[[c]],M.against)
     temp.data = as.data.frame(temp.data)
     colnames(temp.data) = c(colnames(object$marg.list[[c]]),ag.name)
-    if(is.null(M.group)==F){
+    if(is.null(M.group)==FALSE){
       temp.data = cbind(temp.data,as.factor(M.group))
       colnames(temp.data)[ncol(temp.data)] = g.name
     }
     for(i in 1:j){
       g <- ggplot(temp.data,aes_string(ag.name,ynames[i],color=g.name)) + geom_point() 
       g <- g + geom_hline(yintercept = 0) + theme_classic() + ggtitle(paste("Effects on", Xnames[c]))
-      if(is.null(M.group)==F) g <- g + theme(legend.title = element_text(colour="black"))+
+      if(is.null(M.group)==FALSE) g <- g + theme(legend.title = element_text(colour="black"))+
         scale_color_discrete(name=g.name.display)
       print(g,vp = viewport(layout.pos.row = ifelse(i%%jr==0,jr,i%%jr), layout.pos.col = (i-1) %/%js + 1) )
   }

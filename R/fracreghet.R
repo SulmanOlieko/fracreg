@@ -127,11 +127,11 @@ fracreghet.est <- function(type,x,z,link,start,Hy,variance,var.type,var.cluster,
 		z <- x
 	}
 
-	GMM.est <- T
+	GMM.est <- TRUE
 	if(any(type==c("GMMx","GMMxv")) & !any(Hy==0))
 	{
 		results <- tryCatch(glm(Hy ~ x-1,family=Gamma(link=log),maxit=100,offset=offset),error=function(e) return(NULL))
-		if(any(is.null(results))) converged <- F
+		if(any(is.null(results))) converged <- FALSE
 		else
 		{
 			p <- results$coefficients
@@ -139,9 +139,9 @@ fracreghet.est <- function(type,x,z,link,start,Hy,variance,var.type,var.cluster,
 			converged <- results$converged*(1-results$boundary)
 		}
 
-		if(converged==T) GMM.est <- F
+		if(converged==TRUE) GMM.est <- FALSE
 	}
-	if(GMM.est==T)
+	if(GMM.est==TRUE)
 	{
 		GMMn <- function(p)
 		{
@@ -163,7 +163,7 @@ fracreghet.est <- function(type,x,z,link,start,Hy,variance,var.type,var.cluster,
 
 		if(type=="GMMz" & ncol(z)>ncol(x))
 		{
-			fi.inv <- fracreghet.var(type,p,XB,x,z,link,Hy,var.type,var.cluster,T,gixv,vhat)$fi.inv
+			fi.inv <- fracreghet.var(type,p,XB,x,z,link,Hy,var.type,var.cluster,TRUE,gixv,vhat)$fi.inv
 			if(!is.character(fi.inv))
 			{
 				S <- fi.inv
@@ -176,7 +176,7 @@ fracreghet.est <- function(type,x,z,link,start,Hy,variance,var.type,var.cluster,
 			Qn <- results$objective
 		}
 
-		converged <- ifelse(results$convergence==0,T,F)
+		converged <- ifelse(results$convergence==0,TRUE,FALSE)
 	}
 
 	ret.list <- list(p=p,XB=XB,converged=converged)
@@ -188,10 +188,10 @@ fracreghet.est <- function(type,x,z,link,start,Hy,variance,var.type,var.cluster,
 		ret.list[["LL"]] <- LL
 	}
 
-	if(variance==F | converged==F) return(ret.list)
+	if(variance==FALSE | converged==FALSE) return(ret.list)
 
 	if(any(type==c("GMMxv","QMLxv"))) z <- z.in
-	p.var <- fracreghet.var(type,p,XB,x,z,link,Hy,var.type,var.cluster,F,gixv,vhat)$p.var
+	p.var <- fracreghet.var(type,p,XB,x,z,link,Hy,var.type,var.cluster,FALSE,gixv,vhat)$p.var
 	ret.list[["p.var"]] <- p.var
 
 	return(ret.list)
@@ -265,7 +265,7 @@ fracreghet.var <- function(type,p,XB,x,z,link,Hy,var.type,id,step.one,gixv,vhat)
 	fi.inv <- tryCatch(solve(fi),error=function(e) NaN)
 	if(any(is.nan(fi.inv))) fi.inv <- "singular"
 
-	if(step.one==T) return(list(fi.inv=fi.inv))
+	if(step.one==TRUE) return(list(fi.inv=fi.inv))
 
 	Gn <- fracreghet.Gn(type,x,z,z.in,u,bet,p)
 
@@ -449,7 +449,7 @@ fracreghet.var <- function(type,p,XB,x,z,link,Hy,var.type,id,step.one,gixv,vhat)
 #' mod <- fracreghet(y = y_endog, x = X, z = Z, var.endog = var.endog, type = "QMLxv", link = "logit")
 #' summary(mod)
 #' @export
-fracreghet <- function(y,x,z=x,var.endog,start,type="GMMx",link="logit",intercept=T,table=T,variance=T,var.type="robust",var.cluster,adjust=0,offset=NULL,or=FALSE,level=0.95,na.action=stats::na.omit,...)
+fracreghet <- function(y,x,z=x,var.endog,start,type="GMMx",link="logit",intercept=TRUE,table=TRUE,variance=TRUE,var.type="robust",var.cluster,adjust=0,offset=NULL,or=FALSE,level=0.95,na.action=stats::na.omit,...)
 {
 	cl <- match.call()
 	LL <- NULL
@@ -484,10 +484,10 @@ fracreghet <- function(y,x,z=x,var.endog,start,type="GMMx",link="logit",intercep
 	if(!is.numeric(adjust) & adjust!="drop") stop("adjust not defined properly")
 	if(any(type==c("GMMxv","LINxv","QMLxv")) & missing(var.endog)) stop(sQuote(type)," requires var.endog to be specified")
 	if(all(type!=c("GMMxv","LINxv","QMLxv")) & !missing(var.endog)) stop("var.endog should not be specified for this estimator")
-	if(table==T & variance==F)
+	if(table==TRUE & variance==FALSE)
 	{
-		variance <- T
-		warning("option variance changed from F to T, as required by table=T")
+		variance <- TRUE
+		warning("option variance changed from FALSE to TRUE, as required by table=TRUE")
 	}
 	if(all(var.type!=c("robust","cluster"))) stop(sQuote(var.type)," - var.type not recognised")
 	if(var.type=="cluster" & missing(var.cluster)) stop("option cluster for covariance matrix but no var.cluster supplied")
@@ -513,7 +513,7 @@ fracreghet <- function(y,x,z=x,var.endog,start,type="GMMx",link="logit",intercep
 	if(is.null(x.names)) stop("x has no column names")
 	if(is.null(z.names)) stop("z has no column names")
 
-	if(intercept==T)
+	if(intercept==TRUE)
 	{
 		x <- cbind(1,x)
 		z <- cbind(1,z)
@@ -634,11 +634,11 @@ fracreghet <- function(y,x,z=x,var.endog,start,type="GMMx",link="logit",intercep
 			if(kz>k) J <- N*t(Hy-XB)%*%z%*%fi.inv%*%t(z)%*%(Hy-XB)
 		}
 
-		converged <- T
-		if(variance==T) results <- fracreghet.var(type,p,XB,x,z,link,Hy,var.type,var.cluster,F,gixv,vhat)
+		converged <- TRUE
+		if(variance==TRUE) results <- fracreghet.var(type,p,XB,x,z,link,Hy,var.type,var.cluster,FALSE,gixv,vhat)
 	}
 
-	if(variance==T & converged==T) p.var <- results$p.var
+	if(variance==TRUE & converged==TRUE) p.var <- results$p.var
 	else p.var <- "singular"
 
 	x.names.in <- x.names
@@ -650,7 +650,7 @@ fracreghet <- function(y,x,z=x,var.endog,start,type="GMMx",link="logit",intercep
 	}
 	names(p) <- x.names
 
-	if(table==T) fracreghet.table(p,p.var,x.names,type,link,converged,N,var.type,adjust,k,J,dfJ,LL=LL,or=or,level=level)
+	if(table==TRUE) fracreghet.table(p,p.var,x.names,type,link,converged,N,var.type,adjust,k,J,dfJ,LL=LL,or=or,level=level)
 
 	formula <- y ~ x - 1
 
@@ -658,7 +658,7 @@ fracreghet <- function(y,x,z=x,var.endog,start,type="GMMx",link="logit",intercep
 	if(!is.null(offset)) res[["offset"]] <- offset
 	if(any(type==c("GMMz","LINz")) & kz>k) res[["J"]] <- J
 
-	if(variance==T & converged==T)
+	if(variance==TRUE & converged==TRUE)
 	{
 		if(is.character(p.var)) p.var <- matrix(NA,nrow=length(p),ncol=length(p))
 		dimnames(p.var) <- list(x.names,x.names)

@@ -6,13 +6,13 @@
 \usage{
 fracreghet.pe(
   object,
-  smearing = T,
-  APE = T,
-  CPE = F,
+  smearing = TRUE,
+  APE = TRUE,
+  CPE = FALSE,
   at = NULL,
   which.x = NULL,
   table = FALSE,
-  variance = T
+  variance = TRUE
 )
 }
 \arguments{

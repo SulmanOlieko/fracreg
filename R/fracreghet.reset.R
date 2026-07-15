@@ -81,7 +81,7 @@ fracreghet.reset <- function(object,lastpower.vec=3,version="Wald",table=FALSE,.
 	if(all(object$type!=c("GMMx","LINx"))) stop("fracreghet.reset is only implemented for GMMx and LINx estimators")
 	if(all(version!="LM") & all(version!="Wald")) stop("test version not correctly specified")
 	if(any(version=="LM") & object$type=="LINx") stop("LM version not implemented for LINx; choose Wald version")
-	if(is.null(object$var.type)) stop("fracreghet command was run with variance = F")
+	if(is.null(object$var.type)) stop("fracreghet command was run with variance = FALSE")
 
 	### 2. Recovering definitions and estimates
 
@@ -186,16 +186,16 @@ fracreghet.reset <- function(object,lastpower.vec=3,version="Wald",table=FALSE,.
 
 			if(type=="GMMx")
 			{
-				results <- fracreghet.est(type,X,X,link,c(object$p,rep(0,df)),Hy,T,var.type,var.cluster,NA,NA,...)
+				results <- fracreghet.est(type,X,X,link,c(object$p,rep(0,df)),Hy,TRUE,var.type,var.cluster,NA,NA,...)
 				converged <- results$converged
 			}
 			if(type=="LINx")
 			{
 				results <- lm(Hy ~ 0+X)
-				converged <- T
+				converged <- TRUE
 			}
 
-			if(converged==T)
+			if(converged==TRUE)
 			{
 				if(type=="GMMx")
 				{
@@ -206,7 +206,7 @@ fracreghet.reset <- function(object,lastpower.vec=3,version="Wald",table=FALSE,.
 				{ 
 					p1 <- results$coefficients
 					XB <- results$fitted.values
-					p.var1 <- fracreghet.var(type,p1,XB,X,X,link,Hy,var.type,var.cluster,F,NA,NA)$p.var
+					p.var1 <- fracreghet.var(type,p1,XB,X,X,link,Hy,var.type,var.cluster,FALSE,NA,NA)$p.var
 				}
 
 				if(!is.character(p.var1))
@@ -234,7 +234,7 @@ fracreghet.reset <- function(object,lastpower.vec=3,version="Wald",table=FALSE,.
 	}
 
 	table.info <- list(test.which="RESET",S=S,Sp=Sp,ver=ver,title1=title1,title2=title2)
-	if(any(!is.na(S)) & table==T) do.call(fracreghet.tests.table, table.info)
+	if(any(!is.na(S)) & table==TRUE) do.call(fracreghet.tests.table, table.info)
 	if(all(is.na(S))) warning("RESET test could not be computed; either algorithm did not converge (Wald version) or covariance matrix is singular (Wald/LM versions)")
 
 	### 4. Return results

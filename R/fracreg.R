@@ -269,7 +269,7 @@ fracreg <- function(y,x,x2=x,linkbin,linkfrac,type="1P",inflation=0,intercept=TR
 	if(table==TRUE & variance==FALSE)
 	{
 		variance <- TRUE
-		warning("option variance changed from F to TRUE, as required by table=T")
+		warning("option variance changed from FALSE to TRUE, as required by table=TRUE")
 	}
 
 	if(all(var.type!=c("standard","robust","cluster","default"))) stop(sQuote(var.type)," - var.type not recognised")

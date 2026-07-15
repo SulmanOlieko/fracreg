@@ -197,7 +197,7 @@ fracregmlogit=function(y, X, beta0 = NULL, MLEmethod = "CG", maxit = 5e+05,
   }
 
   QMLE_Obs <- function(betas) {
-    betas = matrix(betas, nrow = j - 1, byrow = T)
+    betas = matrix(betas, nrow = j - 1, byrow = TRUE)
     betamat = rbind(rep(0, k + 1), betas)
     
     # Pre-calculate to save time
@@ -214,7 +214,7 @@ fracregmlogit=function(y, X, beta0 = NULL, MLEmethod = "CG", maxit = 5e+05,
   }
   
   grad_Obs <- function(betas) {
-    betas = matrix(betas, nrow = j - 1, byrow = T)
+    betas = matrix(betas, nrow = j - 1, byrow = TRUE)
     betamat = rbind(rep(0, k + 1), betas)
     
     Xbeta = X %*% t(betamat)
@@ -242,14 +242,14 @@ fracregmlogit=function(y, X, beta0 = NULL, MLEmethod = "CG", maxit = 5e+05,
   }
   opt <- maxLik::maxLik(QMLE_Obs, grad = grad_Obs, start = beta0, method = MLEmethod, 
                 control = list(iterlim = maxit, tol = abstol), ...)
-  betamat = matrix(opt$estimate, ncol = k + 1, byrow = T)
+  betamat = matrix(opt$estimate, ncol = k + 1, byrow = TRUE)
   betamat_aug = rbind(rep(0, k + 1), betamat)
   colnames(betamat_aug) = Xnames
   rownames(betamat_aug) = ynames
   sigmat = matrix(nrow = j - 1, ncol = k + 1)
   vcov = list()
   
-  if(is.null(cluster)==F){
+  if(is.null(cluster)==FALSE){
     cluster = cluster[row.remain]
     clusters <- names(table(cluster))
     for (i in 1:j) {

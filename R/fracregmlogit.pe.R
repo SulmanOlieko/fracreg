@@ -71,7 +71,7 @@
 #' summary(pe_disc)
 #' @export fracregmlogit.pe
 fracregmlogit.pe<-function(object,effect=c("marginal","discrete"),
-                          marg.type="atmean",se=F,varlist = NULL,at=NULL,R=1000){
+                          marg.type="atmean",se=FALSE,varlist = NULL,at=NULL,R=1000){
   effect = match.arg(effect)
   j=length(object$estimates)+1; K=dim(object$estimates[[1]])[1]; N=dim(object$y)[1]
   betamat = object$coefficient
@@ -111,7 +111,7 @@ fracregmlogit.pe<-function(object,effect=c("marginal","discrete"),
       if(marg.type == "aveacr"){
         # this is the average marginal effect for all observations
         beta_bar = as.vector(yhat %*% betamat[,c])
-        betak_long = matrix(rep(betamat[,c],N),nrow=N,byrow=T)
+        betak_long = matrix(rep(betamat[,c],N),nrow=N,byrow=TRUE)
         marg_mat =  yhat * (betak_long-beta_bar)
         xmarg[,c1] = colMeans(marg_mat)
         marg_list[[c1]] = marg_mat
@@ -224,7 +224,7 @@ fracregmlogit.pe<-function(object,effect=c("marginal","discrete"),
   rownames(xmarg) <- rownames(se_mat) <-colnames(object$y)
   outlist=list()
   outlist$effects = xmarg
-  if(se==T){outlist$se = se_mat; outlist$ztable = listmat}
+  if(se==TRUE){outlist$se = se_mat; outlist$ztable = listmat}
   if(marg.type=="aveacr") {names(marg_list)=varlist; outlist$marg.list = marg_list}
   marg.type.out = ifelse(marg.type=="atmean","at the mean,","average across observations,")
 
@@ -232,6 +232,6 @@ fracregmlogit.pe<-function(object,effect=c("marginal","discrete"),
   outlist$R = ifelse(se,R,0)
 
   outlist$expl = paste(effect,"effect",marg.type.out,
-                       ifelse(se==T,"Krinsky-Robb standard error calculated","standard error not computed"))
+                       ifelse(se==TRUE,"Krinsky-Robb standard error calculated","standard error not computed"))
   return(structure(outlist,class="fracregmlogit.pe"))
 }

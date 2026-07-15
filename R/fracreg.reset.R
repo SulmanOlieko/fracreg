@@ -103,7 +103,7 @@ fracreg.reset <- function(object,lastpower.vec=3,version="LM",table=FALSE,...)
 
 	if(any(version=="Wald"))
 	{
-		if(is.null(object$var.type)) stop("Wald test required but fracreg command was run with variance = F")
+		if(is.null(object$var.type)) stop("Wald test required but fracreg command was run with variance = FALSE")
 		var.type <- object$var.type
 		var.eim <- object$var.eim
 		dfc <- object$dfc

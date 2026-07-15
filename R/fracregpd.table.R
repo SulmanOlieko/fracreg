@@ -1,6 +1,6 @@
 fracregpd.table <- function(p,p.var,x.names,x.exogenous,lags,type,link,converged,N.ini,N,NT.ini,NT,J,dfJ,k,var.type,bootstrap,LL=NULL,or=FALSE,level=0.95)
 {
-	if(converged==T)
+	if(converged==TRUE)
 	{
 		if(!is.character(p.var))
 		{
@@ -106,7 +106,7 @@ fracregpd.table <- function(p,p.var,x.names,x.exogenous,lags,type,link,converged
 		.fracreg.cat.right("Exogeneity:", x.exogenous)
 		.fracreg.cat.right("Use first lag of instruments:", lags)
 		
-		if(bootstrap==F) {
+		if(bootstrap==FALSE) {
 			if(var.type == "robust") {
 				.fracreg.cat.right("Standard errors:", "HC0")
 			} else if(var.type == "cluster") {
@@ -115,7 +115,7 @@ fracregpd.table <- function(p,p.var,x.names,x.exogenous,lags,type,link,converged
 				.fracreg.cat.right("Standard errors:", var.type)
 			}
 		}
-		if(bootstrap==T) .fracreg.cat.right("Standard errors:", "bootstrap")
+		if(bootstrap==TRUE) .fracreg.cat.right("Standard errors:", "bootstrap")
 		cat(.fracreg.sep(), "\n")
 
 		type_full <- switch(type,
@@ -132,7 +132,7 @@ fracregpd.table <- function(p,p.var,x.names,x.exogenous,lags,type,link,converged
 		cat(.fracreg.center(paste("Final", type_full, "estimates")), "\n")
 		cat(.fracreg.sep(), "\n")
 
-		if(type!="QMLcre" | x.exogenous==T) {
+		if(type!="QMLcre" | x.exogenous==TRUE) {
 			printCoefmat(res_table, P.values = TRUE, has.Pvalue = TRUE, digits = 4, signif.legend = TRUE)
 		}
 		else

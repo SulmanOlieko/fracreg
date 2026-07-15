@@ -124,21 +124,21 @@ fracreg.pe <- function(object,APE=TRUE,CPE=FALSE,at=NULL,which.x=NULL,variance=T
 
 	if(object$type!="2P" & object$type!="3P")
 	{
-		if(is.null(object$p.var)) stop("fracreg command was run with variance = F")
+		if(is.null(object$p.var)) stop("fracreg command was run with variance = FALSE")
 	}
 	else if (object$type=="2P")
 	{
-		if(is.null(object$resBIN$p.var)) stop("fracreg command was run with variance = F")
+		if(is.null(object$resBIN$p.var)) stop("fracreg command was run with variance = FALSE")
 	}
 	else if (object$type=="3P")
 	{
-		if(is.null(object$resBIN0$p.var)) stop("fracreg command was run with variance = F")
+		if(is.null(object$resBIN0$p.var)) stop("fracreg command was run with variance = FALSE")
 	}
 
 	if(table==TRUE & variance==FALSE)
 	{
 		variance <- TRUE
-		warning("option variance changed from F to TRUE, as required by table=T")
+		warning("option variance changed from FALSE to TRUE, as required by table=TRUE")
 	}
 
 	### 2. Recovering definitions and estimates and other definitions

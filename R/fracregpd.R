@@ -134,7 +134,7 @@ fracregpd.Gn <- function(type,x.exogenous,id,Ti,Hy,x,z,XB,link,at,at1,NT,k,p,z.i
 		bet <- g^2/(yhat*(1-yhat))
 		Gn <- -t(z*bet)%*%x
 
-		if(x.exogenous==F)
+		if(x.exogenous==FALSE)
 		{
 			G12 <- t(x*(bet*p[k]))%*%z.in
 			G12[k,] <- G12[k,]-apply(u*z.in,2,sum)
@@ -153,20 +153,20 @@ fracregpd.Gn <- function(type,x.exogenous,id,Ti,Hy,x,z,XB,link,at,at1,NT,k,p,z.i
 
 fracregpd.est <- function(type,x.exogenous,lags,id,Ti,Hy,x,z,link,var.type,start,at,at1,variance,NT,k,kz,gixv,vhat,bootstrap,offset=NULL,...)
 {
-	if(type=="QMLcre" & x.exogenous==F)
+	if(type=="QMLcre" & x.exogenous==FALSE)
 	{
 		z.in <- z
 		z <- x
 		kz <- ncol(z)
 	}
 
-	GMM.est <- T
-	if(x.exogenous==T & ((any(type==c("GMMpre","GMMcre")) & !any(Hy==0) & lags==F) | type=="QMLcre"))
+	GMM.est <- TRUE
+	if(x.exogenous==TRUE & ((any(type==c("GMMpre","GMMcre")) & !any(Hy==0) & lags==FALSE) | type=="QMLcre"))
 	{
 		if(type=="QMLcre") results <- tryCatch(glm(Hy ~ x-1,family=quasibinomial(link=fracregpd.links(link)),maxit=100,offset=offset),error=function(e) return(NULL))
 		if(any(type==c("GMMpre","GMMcre"))) results <- tryCatch(glm(Hy ~ x-1,family=Gamma(link=log),maxit=100,offset=offset),error=function(e) return(NULL))
 
-		if(any(is.null(results))) converged <- F
+		if(any(is.null(results))) converged <- FALSE
 		else
 		{
 			p <- results$coefficients
@@ -174,9 +174,9 @@ fracregpd.est <- function(type,x.exogenous,lags,id,Ti,Hy,x,z,link,var.type,start
 			converged <- results$converged*(1-results$boundary)
 		}
 
-		if(converged==T) GMM.est <- F
+		if(converged==TRUE) GMM.est <- FALSE
 	}
-	if(GMM.est==T)
+	if(GMM.est==TRUE)
 	{
 		GMMn <- function(p)
 		{
@@ -197,7 +197,7 @@ fracregpd.est <- function(type,x.exogenous,lags,id,Ti,Hy,x,z,link,var.type,start
 
 		if(type!="QMLcre" & kz>k)
 		{
-			fi.inv <- fracregpd.var(type,x.exogenous,var.type,id,Ti,Hy,x,z,XB,link,at,at1,NT,k,kz,T,gixv,vhat,p)$fi.inv
+			fi.inv <- fracregpd.var(type,x.exogenous,var.type,id,Ti,Hy,x,z,XB,link,at,at1,NT,k,kz,TRUE,gixv,vhat,p)$fi.inv
 			if(!is.character(fi.inv))
 			{
 				S <- fi.inv
@@ -210,7 +210,7 @@ fracregpd.est <- function(type,x.exogenous,lags,id,Ti,Hy,x,z,link,var.type,start
 			Qn <- results$objective
 		}
 
-		converged <- ifelse(results$convergence==0,T,F)
+		converged <- ifelse(results$convergence==0,TRUE,FALSE)
 	}
 
 	ret.list <- list(p=p,converged=converged)
@@ -224,10 +224,10 @@ fracregpd.est <- function(type,x.exogenous,lags,id,Ti,Hy,x,z,link,var.type,start
 	
 	ret.list[["xbhat"]] <- XB
 
-	if(variance==F | converged==F | bootstrap==T) return(ret.list)
+	if(variance==FALSE | converged==FALSE | bootstrap==TRUE) return(ret.list)
 
-	if(type=="QMLcre" & x.exogenous==F) z <- z.in
-	p.var <- fracregpd.var(type,x.exogenous,var.type,id,Ti,Hy,x,z,XB,link,at,at1,NT,k,kz,F,gixv,vhat,p)$p.var
+	if(type=="QMLcre" & x.exogenous==FALSE) z <- z.in
+	p.var <- fracregpd.var(type,x.exogenous,var.type,id,Ti,Hy,x,z,XB,link,at,at1,NT,k,kz,FALSE,gixv,vhat,p)$p.var
 	ret.list[["p.var"]] <- p.var
 
 	return(ret.list)
@@ -235,7 +235,7 @@ fracregpd.est <- function(type,x.exogenous,lags,id,Ti,Hy,x,z,link,var.type,start
 
 fracregpd.var <- function(type,x.exogenous,var.type,id,Ti,Hy,x,z,XB,link,at,at1,NT,k,kz,step.one,gixv,vhat,p)
 {
-	if(type=="QMLcre" & x.exogenous==F)
+	if(type=="QMLcre" & x.exogenous==FALSE)
 	{
 		z.in <- z
 		z <- x
@@ -249,7 +249,7 @@ fracregpd.var <- function(type,x.exogenous,var.type,id,Ti,Hy,x,z,XB,link,at,at1,
 	if(var.type=="robust")
 	{
 		gi <- results$gi
-		if(type=="QMLcre" & x.exogenous==F) gi <- rbind(gi,gixv)
+		if(type=="QMLcre" & x.exogenous==FALSE) gi <- rbind(gi,gixv)
 		fi <- (1/NT)*gi%*%t(gi)
 	}
 
@@ -263,7 +263,7 @@ fracregpd.var <- function(type,x.exogenous,var.type,id,Ti,Hy,x,z,XB,link,at,at1,
 			ui <- u[id==j]
 			zu <- t(Zi)%*%ui
 
-			if(type=="QMLcre" & x.exogenous==F)
+			if(type=="QMLcre" & x.exogenous==FALSE)
 			{
 				Zi <- matrix(z.in[id==j,],ncol=ncol(z.in))
 				vi <- vhat[id==j]
@@ -280,7 +280,7 @@ fracregpd.var <- function(type,x.exogenous,var.type,id,Ti,Hy,x,z,XB,link,at,at1,
 	fi.inv <- tryCatch(solve(fi),error=function(e) NaN)
 	if(any(is.nan(fi.inv))) fi.inv <- "singular"
 
-	if(step.one==T) return(list(fi.inv=fi.inv))
+	if(step.one==TRUE) return(list(fi.inv=fi.inv))
 
 	Gn <- fracregpd.Gn(type,x.exogenous,id,Ti,Hy,x,z,XB,link,at,at1,NT,k,p,z.in,u)
 
@@ -465,7 +465,7 @@ fracregpd.var <- function(type,x.exogenous,var.type,id,Ti,Hy,x,z,XB,link,at,at1,
 #' summary(mod)
 #' }
 #' @export
-fracregpd <- function(id,time,y,x,z,var.endog,x.exogenous=T,lags,start,type,GMMww.cor=T,link="logit",intercept=T,table=FALSE,variance=T,var.type="cluster",tdummies=F,bootstrap=F,B=200,offset=NULL,or=FALSE,level=0.95,na.action=stats::na.omit,...)
+fracregpd <- function(id,time,y,x,z,var.endog,x.exogenous=TRUE,lags,start,type,GMMww.cor=TRUE,link="logit",intercept=TRUE,table=FALSE,variance=TRUE,var.type="cluster",tdummies=FALSE,bootstrap=FALSE,B=200,offset=NULL,or=FALSE,level=0.95,na.action=stats::na.omit,...)
 {
 	cl <- match.call()
 	
@@ -506,14 +506,14 @@ fracregpd <- function(id,time,y,x,z,var.endog,x.exogenous=T,lags,start,type,GMMw
 	if(any(type==c("GMMc","GMMww","GMMbgw","GMMpre","GMMpfe","GMMcre")) & all(link!=c("logit","cloglog"))) stop("type and link not compatible")
 	if(any(type==c("GMMc","GMMww","GMMbgw","GMMpre","GMMpfe","GMMcre")) & any(y==1)) stop("estimator does not allow y = 1")
 	if(type=="QMLcre" & link!="probit") stop("type and link not compatible")
-	if(!missing(z) & x.exogenous==T) stop("z must not be specified in case of exogeneity")
-	if(missing(z) & x.exogenous==F) stop("z needs to be specified in case of endogeneity")
-	if(type=="QMLcre" & x.exogenous==F & missing(var.endog)) stop("QMLcre under endogeneity requires var.endog to be specified")
-	if((type!="QMLcre" | x.exogenous==T) & !missing(var.endog)) stop("var.endog should not be specified for this estimator")
-	if(table==T & variance==F)
+	if(!missing(z) & x.exogenous==TRUE) stop("z must not be specified in case of exogeneity")
+	if(missing(z) & x.exogenous==FALSE) stop("z needs to be specified in case of endogeneity")
+	if(type=="QMLcre" & x.exogenous==FALSE & missing(var.endog)) stop("QMLcre under endogeneity requires var.endog to be specified")
+	if((type!="QMLcre" | x.exogenous==TRUE) & !missing(var.endog)) stop("var.endog should not be specified for this estimator")
+	if(table==TRUE & variance==FALSE)
 	{
-		variance <- T
-		warning("option variance changed from F to T, as required by table=T")
+		variance <- TRUE
+		warning("option variance changed from FALSE to TRUE, as required by table=TRUE")
 	}
 	if(all(var.type!=c("robust","cluster"))) stop(sQuote(var.type)," - var.type not recognised")
 
@@ -544,8 +544,8 @@ fracregpd <- function(id,time,y,x,z,var.endog,x.exogenous=T,lags,start,type,GMMw
 	if(is.null(x.names)) stop("x has no column names")
 	if(is.null(z.names)) stop("z has no column names")
 
-	if(any(type==c("GMMc","GMMww","GMMbgw","GMMpfe","GMMcre","QMLcre"))) intercept <- F
-	if(intercept==T)
+	if(any(type==c("GMMc","GMMww","GMMbgw","GMMpfe","GMMcre","QMLcre"))) intercept <- FALSE
+	if(intercept==TRUE)
 	{
 		x <- cbind(1,x)
 		z <- cbind(1,z)
@@ -555,8 +555,8 @@ fracregpd <- function(id,time,y,x,z,var.endog,x.exogenous=T,lags,start,type,GMMw
 
 	if(length(x.names)!=length(unique(x.names))) stop("some covariate names in x are identical")
 	if(length(z.names)!=length(unique(z.names))) stop("some instrument names in z are identical")
-	if(identical(x.names,z.names) & x.exogenous==F) stop("instruments and covariates are identical")
-	if(!identical(x.names,z.names) & x.exogenous==T) stop("instruments should not be specified for this estimator")
+	if(identical(x.names,z.names) & x.exogenous==FALSE) stop("instruments and covariates are identical")
+	if(!identical(x.names,z.names) & x.exogenous==TRUE) stop("instruments should not be specified for this estimator")
 	if(length(x.names)>length(z.names)) stop("number of instruments not enough")
 
 	if(any(length(y)!=c(nrow(x),nrow(z)))) stop("the number of observations for y, x and/or z is different")
@@ -570,11 +570,11 @@ fracregpd <- function(id,time,y,x,z,var.endog,x.exogenous=T,lags,start,type,GMMw
 
 	if(missing(lags))
 	{
-		if(any(type==c("GMMc","GMMww"))) lags <- T
-		if(any(type==c("GMMbgw","GMMpre","GMMpfe","GMMcre","QMLcre"))) lags <- F
+		if(any(type==c("GMMc","GMMww"))) lags <- TRUE
+		if(any(type==c("GMMbgw","GMMpre","GMMpfe","GMMcre","QMLcre"))) lags <- FALSE
 	}
 	if(!is.logical(lags)) stop("lags must be logical")
-	if(any(type==c("GMMcre","QMLcre")) & lags==T) stop("GMMcre/QMLcre cannot be used with lagged instruments")
+	if(any(type==c("GMMcre","QMLcre")) & lags==TRUE) stop("GMMcre/QMLcre cannot be used with lagged instruments")
 
 	N.ini <- length(unique(id))
 	Ti.ini <- as.vector(by(id,id,length))
@@ -589,7 +589,7 @@ fracregpd <- function(id,time,y,x,z,var.endog,x.exogenous=T,lags,start,type,GMMw
 
 			if(all(x.dif==0)) stop("Time-invariant covariates not allowed")
 
-			if(any(type==c("GMMcre","QMLcre")) & x.exogenous==T)
+			if(any(type==c("GMMcre","QMLcre")) & x.exogenous==TRUE)
 			{
 				if(j==1) x.m <- cbind(xm)
 				if(j>1) x.m <- cbind(x.m,xm)
@@ -602,7 +602,7 @@ fracregpd <- function(id,time,y,x,z,var.endog,x.exogenous=T,lags,start,type,GMMw
 
 			if(all(z.dif==0)) stop("Time-invariant instruments not allowed")
 
-			if(any(type==c("GMMcre","QMLcre")) & x.exogenous==F)
+			if(any(type==c("GMMcre","QMLcre")) & x.exogenous==FALSE)
 			{
 				if(j==1) z.m <- cbind(zm)
 				if(j>1) z.m <- cbind(z.m,zm)
@@ -610,11 +610,11 @@ fracregpd <- function(id,time,y,x,z,var.endog,x.exogenous=T,lags,start,type,GMMw
 		}
 	}
 
-	T.ord <- rep(NA,NT.ini)
+	TRUE.ord <- rep(NA,NT.ini)
 
-	if(tdummies==T)
+	if(tdummies==TRUE)
 	{
-		if(lags==T) out <- 2
+		if(lags==TRUE) out <- 2
 		else out <- 1
 
 		td <- matrix(0,nrow=NT.ini,ncol=length(unique(time))-out)
@@ -624,8 +624,8 @@ fracregpd <- function(id,time,y,x,z,var.endog,x.exogenous=T,lags,start,type,GMMw
 	for(j in sort(unique(time)))
 	{
 		a <- a+1
-		T.ord[time==j] <- a
-		if(tdummies==T)
+		TRUE.ord[time==j] <- a
+		if(tdummies==TRUE)
 		{
 			if(a>out)
 			{
@@ -652,60 +652,60 @@ fracregpd <- function(id,time,y,x,z,var.endog,x.exogenous=T,lags,start,type,GMMw
 
 	ord <- order(id,time)
 	id <- id[ord]
-	T.ord <- T.ord[ord]
+	TRUE.ord <- TRUE.ord[ord]
 	y <- y[ord]
 	x <- cbind(x[ord,])
-	if(tdummies==T) td <- cbind(td[ord,])
+	if(tdummies==TRUE) td <- cbind(td[ord,])
 	if(type=="GMMpfe" & any(y==0)) D <- D[ord,]
 	z <- cbind(z[ord,])
 	if(!is.null(offset)) offset <- offset[ord]
 
-	if(any(type==c("GMMc","GMMww")) | lags==T)
+	if(any(type==c("GMMc","GMMww")) | lags==TRUE)
 	{
-		at <- rep(F,NT.ini)
-		at1 <- rep(F,NT.ini)
+		at <- rep(FALSE,NT.ini)
+		at1 <- rep(FALSE,NT.ini)
 
 		if(any(Ti.ini!=max(Ti.ini)))
 		{
-			keep <- rep(F,NT.ini)
+			keep <- rep(FALSE,NT.ini)
 
 			for(j in 1:NT.ini)
 			{
-				if(j==1 & (T.ord[2]-T.ord[1])==1 & id[1]==id[2]) at1[1] <- T
+				if(j==1 & (TRUE.ord[2]-TRUE.ord[1])==1 & id[1]==id[2]) at1[1] <- TRUE
 				if(j>1 & j<NT.ini)
 				{
-					if((T.ord[j]-T.ord[j-1])==1 & id[j]==id[j-1]) at[j] <- T
-					if((T.ord[j+1]-T.ord[j])==1 & id[j]==id[j+1]) at1[j] <- T
+					if((TRUE.ord[j]-TRUE.ord[j-1])==1 & id[j]==id[j-1]) at[j] <- TRUE
+					if((TRUE.ord[j+1]-TRUE.ord[j])==1 & id[j]==id[j+1]) at1[j] <- TRUE
 				}
-				if(j==NT.ini & (T.ord[NT.ini]-T.ord[NT.ini-1])==1 & id[NT.ini]==id[NT.ini-1]) at[NT.ini] <- T
+				if(j==NT.ini & (TRUE.ord[NT.ini]-TRUE.ord[NT.ini-1])==1 & id[NT.ini]==id[NT.ini-1]) at[NT.ini] <- TRUE
 			}
 
-			keep <- at==T | at1==T
-			id <- id[keep==T]
-			y <- y[keep==T]
-			x <- cbind(x[keep==T,])
-			if(tdummies==T) td <- cbind(td[keep==T,])
-			if(type=="GMMpfe" & any(y==0)) D <- D[keep==T,]
-			z <- cbind(z[keep==T,])
-			at <- at[keep==T]
-			at1 <- at1[keep==T]
-			if(!is.null(offset)) offset <- offset[keep==T]
+			keep <- at==TRUE | at1==TRUE
+			id <- id[keep==TRUE]
+			y <- y[keep==TRUE]
+			x <- cbind(x[keep==TRUE,])
+			if(tdummies==TRUE) td <- cbind(td[keep==TRUE,])
+			if(type=="GMMpfe" & any(y==0)) D <- D[keep==TRUE,]
+			z <- cbind(z[keep==TRUE,])
+			at <- at[keep==TRUE]
+			at1 <- at1[keep==TRUE]
+			if(!is.null(offset)) offset <- offset[keep==TRUE]
 		}
 		else
 		{
-			at[T.ord!=1] <- T
-			at1[T.ord!=max(Ti.ini)] <- T			
+			at[TRUE.ord!=1] <- TRUE
+			at1[TRUE.ord!=max(Ti.ini)] <- TRUE			
 		}
 
 		z.full <- z
 		id.full <- id
 
-		if(lags==T)
+		if(lags==TRUE)
 		{
 			z <- cbind(z[at1,])
 			id <- id[at1]
 		}
-		if(lags==F)
+		if(lags==FALSE)
 		{
 			z <- cbind(z[at,])
 			id <- id[at]
@@ -713,14 +713,14 @@ fracregpd <- function(id,time,y,x,z,var.endog,x.exogenous=T,lags,start,type,GMMw
 	}
 	else
 	{
-		at <- rep(T,NT.ini)
-		at1 <- rep(T,NT.ini)
+		at <- rep(TRUE,NT.ini)
+		at1 <- rep(TRUE,NT.ini)
 
 		z.full <- z
 		id.full <- id
 	}
 
-	if(tdummies==T)
+	if(tdummies==TRUE)
 	{
 		x <- cbind(x,td)
 		z <- cbind(z,td[at,])
@@ -758,7 +758,7 @@ fracregpd <- function(id,time,y,x,z,var.endog,x.exogenous=T,lags,start,type,GMMw
 			Ti.unique <- Ti.unique[Ti.unique!=1]
 			Ti.unique <- sort(Ti.unique)
 
-			T.dum <- matrix(NA,nrow=NT.ini,ncol=length(Ti.unique))
+			TRUE.dum <- matrix(NA,nrow=NT.ini,ncol=length(Ti.unique))
 			a <- 0
 
 			Ti.ini.exp <- rep(Ti.ini,Ti.ini)
@@ -766,22 +766,22 @@ fracregpd <- function(id,time,y,x,z,var.endog,x.exogenous=T,lags,start,type,GMMw
 			for(j in Ti.unique)
 			{
 				a <- a+1
-				T.dum[,a] <- Ti.ini.exp==j
+				TRUE.dum[,a] <- Ti.ini.exp==j
 			}
 
-			if(x.exogenous==T)
+			if(x.exogenous==TRUE)
 			{
-				x.m.aug <- T.dum*x.m[,1]
-				if(ncol(x.m)>1) for(j in 2:ncol(x.m)) x.m.aug <- cbind(x.m.aug,T.dum*x.m[,j])
-				x.m <- cbind(T.dum,x.m.aug)
+				x.m.aug <- TRUE.dum*x.m[,1]
+				if(ncol(x.m)>1) for(j in 2:ncol(x.m)) x.m.aug <- cbind(x.m.aug,TRUE.dum*x.m[,j])
+				x.m <- cbind(TRUE.dum,x.m.aug)
 				x.m.names <- c(paste("(Intercept)",Ti.unique,sep="_"),paste(rep(paste(xa.names,"mean",sep="_"),each=length(Ti.unique)),rep(Ti.unique,length(xa.names)),sep="_"))
 				x.m <- cbind(x.m[Ti.ini.exp!=1,])
 			}
-			if(x.exogenous==F)
+			if(x.exogenous==FALSE)
 			{
-				z.m.aug <- T.dum*z.m[,1]
-				if(ncol(z.m)>1) for(j in 2:ncol(z.m)) z.m.aug <- cbind(z.m.aug,T.dum*z.m[,j])
-				z.m <- cbind(T.dum,z.m.aug)
+				z.m.aug <- TRUE.dum*z.m[,1]
+				if(ncol(z.m)>1) for(j in 2:ncol(z.m)) z.m.aug <- cbind(z.m.aug,TRUE.dum*z.m[,j])
+				z.m <- cbind(TRUE.dum,z.m.aug)
 				z.m.names <- c(paste("(Intercept)",Ti.unique,sep="_"),paste(rep(paste(za.names,"mean",sep="_"),each=length(Ti.unique)),rep(Ti.unique,length(za.names)),sep="_"))
 				z.m <- cbind(z.m[Ti.ini.exp!=1,])
 			}
@@ -791,24 +791,24 @@ fracregpd <- function(id,time,y,x,z,var.endog,x.exogenous=T,lags,start,type,GMMw
 			x <- cbind(x[Ti.ini.exp!=1,])
 			z <- cbind(z[Ti.ini.exp!=1,])
 			at <- at[Ti.ini.exp!=1]
-			if(type=="QMLcre" & x.exogenous==F) var.endog <- var.endog[Ti.ini.exp!=1]
+			if(type=="QMLcre" & x.exogenous==FALSE) var.endog <- var.endog[Ti.ini.exp!=1]
 			if(!is.null(offset)) offset <- offset[Ti.ini.exp!=1]
 		}
 		else
 		{
-			if(x.exogenous==T)
+			if(x.exogenous==TRUE)
 			{
 				x.m <- cbind(1,x.m)
 				x.m.names <- c("(Intercept)_mean",paste(xa.names,"mean",sep="_"))
 			}
-			if(x.exogenous==F)	
+			if(x.exogenous==FALSE)	
 			{
 				z.m <- cbind(1,z.m)
 				z.m.names <- c("(Intercept)_mean",paste(za.names,"mean",sep="_"))
 			}
 		}
 
-		if(x.exogenous==F)
+		if(x.exogenous==FALSE)
 		{
 			x <- cbind(x,z.m)
 			z <- cbind(z,z.m)
@@ -860,10 +860,10 @@ fracregpd <- function(id,time,y,x,z,var.endog,x.exogenous=T,lags,start,type,GMMw
 	if(any(type==c("GMMc","GMMww","GMMbgw","GMMpre","GMMpfe","GMMcre"))) Hy <- fracregpd.links(link)$H1(y)
 	if(type=="QMLcre") Hy <- y
 
-	if(type=="GMMww" & GMMww.cor==T)
+	if(type=="GMMww" & GMMww.cor==TRUE)
 	{
-		x <- x-matrix(apply(x,2,mean),nrow=nrow(x),ncol=k,byrow=T)
-		z <- z-matrix(apply(z.full,2,mean),nrow=nrow(z),ncol=kz,byrow=T)
+		x <- x-matrix(apply(x,2,mean),nrow=nrow(x),ncol=k,byrow=TRUE)
+		z <- z-matrix(apply(z.full,2,mean),nrow=nrow(z),ncol=kz,byrow=TRUE)
 	}
 
 	if(missing(start)) start <- rep(0,k)
@@ -880,9 +880,9 @@ fracregpd <- function(id,time,y,x,z,var.endog,x.exogenous=T,lags,start,type,GMMw
 		J <- NT*Qn
 	}
 
-	if(variance==T & converged==T)
+	if(variance==TRUE & converged==TRUE)
 	{
- 		if(bootstrap==F) p.var <- results$p.var
+ 		if(bootstrap==FALSE) p.var <- results$p.var
 		else
 		{
 			Ti.full <- as.vector(by(id.full,id.full,length))
@@ -891,7 +891,7 @@ fracregpd <- function(id,time,y,x,z,var.endog,x.exogenous=T,lags,start,type,GMMw
 
 			for(j in 1:B)
 			{
-				index.id <- sample(unique(id),N,replace=T)
+				index.id <- sample(unique(id),N,replace=TRUE)
 				a <- 1
 				aa <- 1
 
@@ -926,19 +926,19 @@ fracregpd <- function(id,time,y,x,z,var.endog,x.exogenous=T,lags,start,type,GMMw
 				Hy.B <- Hy[ref]
 				x.B <- cbind(x[ref,])
 				z.B <- cbind(z.full[ref,])
-				if(type=="QMLcre" & x.exogenous==F) var.endog.B <- var.endog[ref]
+				if(type=="QMLcre" & x.exogenous==FALSE) var.endog.B <- var.endog[ref]
 				at.B <- at[ref]
 				at1.B <- at1[ref]
 				if(!is.null(offset)) offset.B <- offset[ref] else offset.B <- NULL
 
-				if(any(type==c("GMMc","GMMww")) | lags==T)
+				if(any(type==c("GMMc","GMMww")) | lags==TRUE)
 				{
-					if(lags==T)
+					if(lags==TRUE)
 					{
 						z.B <- cbind(z.B[at1.B,])
 						id.B <- id.B[at1.B]
 					}
-					if(lags==F)
+					if(lags==FALSE)
 					{
 						z.B <- cbind(z.B[at.B,])
 						id.B <- id.B[at.B]
@@ -948,43 +948,43 @@ fracregpd <- function(id,time,y,x,z,var.endog,x.exogenous=T,lags,start,type,GMMw
 				Ti.B <- as.vector(by(id.B,id.B,length))
 				NT.B <- sum(at.B)
 
-				if(type=="QMLcre" & x.exogenous==F)
+				if(type=="QMLcre" & x.exogenous==FALSE)
 				{
 					results <- lm(var.endog.B ~ 0+z.B)
 					PIres <- results$coefficients
 				}
 
 				results <- fracregpd.est(type,x.exogenous,lags,id.B,Ti.B,Hy.B,x.B,z.B,link,var.type,start,at.B,at1.B,variance,NT.B,k,kz,NA,NA,bootstrap,offset=offset.B,...)
-				if(results$converged==T)
+				if(results$converged==TRUE)
 				{
-					if(table==T) cat("1")
+					if(table==TRUE) cat("1")
 
 					pres <- results$p
-					if(type=="QMLcre" & x.exogenous==F) pres <- c(pres,PIres)
+					if(type=="QMLcre" & x.exogenous==FALSE) pres <- c(pres,PIres)
 					pboot[j,] <- pres
 				}
-				else if(table==T) cat("0")
+				else if(table==TRUE) cat("0")
 
-				if(any(j==seq(50,100000,50)) & table==T) cat("\n"
+				if(any(j==seq(50,100000,50)) & table==TRUE) cat("\n"
 )			}
 
 			p.var <- matrix(NA,nrow=length(x.names),ncol=length(x.names))
-			diag(p.var) <- apply(pboot,2,var,na.rm=T)
+			diag(p.var) <- apply(pboot,2,var,na.rm=TRUE)
 		}
 	}
 	else p.var <- "singular"
 
-	if(type=="QMLcre" & x.exogenous==F) p <- c(p,PIhat)
+	if(type=="QMLcre" & x.exogenous==FALSE) p <- c(p,PIhat)
 
 	table.info <- list(p=p,p.var=p.var,x.names=x.names,x.exogenous=x.exogenous,lags=lags,type=type,link=link,converged=converged,N.ini=N.ini,N=N,NT.ini=NT.ini,NT=NT,J=J,dfJ=dfJ,k=k,var.type=var.type,bootstrap=bootstrap,LL=LL,or=or,level=level)
-	if(table==T) do.call(fracregpd.table, table.info)
+	if(table==TRUE) do.call(fracregpd.table, table.info)
 
 	names(p) <- x.names
 	res <- list(call=cl, type=type,link=link,Hy=Hy,p=p,converged=converged,table.info=table.info,x=x,xbhat=results$xbhat)
 	if(!is.null(offset)) res[["offset"]] <- offset
 	if(dfJ>0) res[["J"]] <- J
 
-	if(variance==T & converged==T)
+	if(variance==TRUE & converged==TRUE)
 	{ 
 		if(is.character(p.var)) p.var <- matrix(NA,nrow=length(p),ncol=length(p))
 		dimnames(p.var) <- list(x.names,x.names)

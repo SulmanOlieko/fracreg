@@ -88,7 +88,7 @@
 #' pe_res <- fracreghet.pe(mod,smearing=FALSE,APE=FALSE,CPE=TRUE,at=c(1,-1))
 #' summary(pe_res)
 #' @export
-fracreghet.pe <- function(object,smearing=T,APE=T,CPE=F,at=NULL,which.x=NULL,table=FALSE,variance=T)
+fracreghet.pe <- function(object,smearing=TRUE,APE=TRUE,CPE=FALSE,at=NULL,which.x=NULL,table=FALSE,variance=TRUE)
 {
 	### 1. Error and warning messages
 
@@ -96,15 +96,15 @@ fracreghet.pe <- function(object,smearing=T,APE=T,CPE=F,at=NULL,which.x=NULL,tab
 	if(is.null(object$class)) stop("object is not the output of an fracreghet command")
 	if(object$class!="fracreghet") stop("object is not the output of an fracreghet command")
 
-	if(all(c(APE,CPE)==F)) stop("You must specify at least one option: APE and/or CPE")
-	if(CPE==F & !is.null(at)) stop("option at is only required for cpe")
+	if(all(c(APE,CPE)==FALSE)) stop("You must specify at least one option: APE and/or CPE")
+	if(CPE==FALSE & !is.null(at)) stop("option at is only required for cpe")
 
 	if(object$converged==0) stop("object is not the output of a successful (converged) fracreghet command")
 
-	if(table==T & variance==F)
+	if(table==TRUE & variance==FALSE)
 	{
-		variance <- T
-		warning("option variance changed from F to T, as required by table=T")
+		variance <- TRUE
+		warning("option variance changed from FALSE to TRUE, as required by table=TRUE")
 	}
 
 	### 2. Recovering definitions and estimates and other definitions
@@ -142,7 +142,7 @@ fracreghet.pe <- function(object,smearing=T,APE=T,CPE=F,at=NULL,which.x=NULL,tab
 
 	### 3. Average partial effects
 
-	if(smearing==T) title1 <- "(conditional only on observables, based on the smearing estimator)"
+	if(smearing==TRUE) title1 <- "(conditional only on observables, based on the smearing estimator)"
 	else title1 <- "(conditional on both observables and unobservables, with error term = 0)"
 
 	title2 <- paste("Fractional",link,"regression")
@@ -155,7 +155,7 @@ fracreghet.pe <- function(object,smearing=T,APE=T,CPE=F,at=NULL,which.x=NULL,tab
 		title <- c(title,title4)
 	}
 
-	if(APE==T)
+	if(APE==TRUE)
 	{
 		PE.type <- "APE"
 
@@ -163,12 +163,12 @@ fracreghet.pe <- function(object,smearing=T,APE=T,CPE=F,at=NULL,which.x=NULL,tab
  		else p.pe <- matrix(rep(p,each=n),ncol=k)
 		dimnames(p.pe) <- list(NULL,xvar.names)
 
-		if(smearing==F)
+		if(smearing==FALSE)
 		{
 			g <- fracreghet.links(link)$mu.eta(xbhat)
 			what <- NA
 		}
-		if(smearing==T)
+		if(smearing==TRUE)
 		{
 			if(type=="QMLxv") what <- x[,npar+1]*pv
 
@@ -189,20 +189,20 @@ fracreghet.pe <- function(object,smearing=T,APE=T,CPE=F,at=NULL,which.x=NULL,tab
 
 		resAPE <- list(PE.p=PE.p)
 
-		if(variance==T)
+		if(variance==TRUE)
 		{
 			PE.sd <- fracreghet.pe.var(x,npar,which.x,x.names,xvar.names,type,p,xbhat,g,link,p.var,smearing,what,n)
 			resAPE[["PE.sd"]] <- PE.sd
 		}
 
 		table.info.APE <- list(PE.p=PE.p,PE.sd=if(variance) PE.sd else NA,PE.type=PE.type,which.x=which.x,xvar.names=xvar.names,title=title,adjust=adjust,at=at)
-		if(table==T) do.call(fracreghet.pe.table, table.info.APE)
+		if(table==TRUE) do.call(fracreghet.pe.table, table.info.APE)
 		resAPE[["table.info"]] <- table.info.APE
 	}
 
 	### 4. Conditional partial effects
 
-	if(CPE==T)
+	if(CPE==TRUE)
 	{
 		PE.type <- "CPE"
 
@@ -224,7 +224,7 @@ fracreghet.pe <- function(object,smearing=T,APE=T,CPE=F,at=NULL,which.x=NULL,tab
 					xm <- xm[-npar]
 					xdum <- xdum[-npar]
 				}
-				xm[xdum==T] <- round(xm,0)[xdum==T]
+				xm[xdum==TRUE] <- round(xm,0)[xdum==TRUE]
 			}
 			else
 			{
@@ -248,9 +248,9 @@ fracreghet.pe <- function(object,smearing=T,APE=T,CPE=F,at=NULL,which.x=NULL,tab
 
 		xmbhat <- as.vector(xm%*%p)
 
-		if(smearing==F) g <- fracreghet.links(link)$mu.eta(xmbhat)
+		if(smearing==FALSE) g <- fracreghet.links(link)$mu.eta(xmbhat)
 
-		if(smearing==T)
+		if(smearing==TRUE)
 		{
 			if(type=="QMLxv") what <- x[,npar]*pv
 			if(any(type==c("LINx","LINxv","LINz"))) what <- Hy-xbhat
@@ -268,22 +268,22 @@ fracreghet.pe <- function(object,smearing=T,APE=T,CPE=F,at=NULL,which.x=NULL,tab
 
 		resCPE <- list(PE.p=PE.p)
 
-		if(variance==T)
+		if(variance==TRUE)
 		{
 			PE.sd <- fracreghet.pe.var(x,npar,which.x,x.names,xvar.names,type,p,xbhat,g,link,p.var,smearing,what,n)
 			resCPE[["PE.sd"]] <- PE.sd
 		}
 
 		table.info.CPE <- list(PE.p=PE.p,PE.sd=if(variance) PE.sd else NA,PE.type=PE.type,which.x=which.x,xvar.names=xvar.names,title=title,adjust=adjust,at=at)
-		if(table==T) do.call(fracreghet.pe.table, table.info.CPE)
+		if(table==TRUE) do.call(fracreghet.pe.table, table.info.CPE)
 		resCPE[["table.info"]] <- table.info.CPE
 	}
 
 	### 5. Return results
 
-	if(APE==T & CPE==T) res <- list(ape=resAPE,cpe=resCPE)
-	else if(APE==T & CPE==F) res <- resAPE
-	else if(APE==F & CPE==T) res <- resCPE
+	if(APE==TRUE & CPE==TRUE) res <- list(ape=resAPE,cpe=resCPE)
+	else if(APE==TRUE & CPE==FALSE) res <- resAPE
+	else if(APE==FALSE & CPE==TRUE) res <- resCPE
 	
 	class(res) <- "fracreghet.pe"
 	return(invisible(res))
@@ -291,8 +291,8 @@ fracreghet.pe <- function(object,smearing=T,APE=T,CPE=F,at=NULL,which.x=NULL,tab
 
 fracreghet.pe.var <- function(x,npar,which.x,x.names,xvar.names,type,p,xbhat,g,link,p.var,smearing,what,N)
 {
-	if(smearing==F) gd <- fracreghet.links(link)$gd(xbhat)
-	if(smearing==T) 
+	if(smearing==FALSE) gd <- fracreghet.links(link)$gd(xbhat)
+	if(smearing==TRUE) 
 	{
 		gd <- rep(NA,N)
 		for(j in 1:N) gd[j] <- mean(fracreghet.links(link)$gd(xbhat[j]+what))

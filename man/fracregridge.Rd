@@ -8,7 +8,7 @@ fracregridge(
   y,
   x,
   fracs = seq(0.1, 1, by = 0.1),
-  tol = 0.0000000001,
+  tol = 1e-10,
   intercept = TRUE,
   na.action = stats::na.omit,
   ...

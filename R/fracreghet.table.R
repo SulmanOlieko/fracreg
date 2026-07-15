@@ -1,6 +1,6 @@
 fracreghet.table <- function(p,p.var,x.names,type,link,converged,N,var.type,adjust,k,J,dfJ,LL=NULL,or=FALSE,level=0.95)
 {
-	if(converged==T)
+	if(converged==TRUE)
 	{
 		stars <- rep("",length(p))
 
