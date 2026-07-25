@@ -189,7 +189,7 @@ certain scenarios. BHHH is slower, but has better convergence properties.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Fit the fractional multinomial logit model</span></span></span>
 <span class="r-in"><span><span class="va">results1</span> <span class="op">=</span> <span class="fu">fracregmlogit</span><span class="op">(</span><span class="va">y</span>, <span class="va">X</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Fractional logit model estimation completed. Time: 0.2 seconds"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Fractional logit model estimation completed. Time: 0.1 seconds"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># View estimates</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">results1</span><span class="op">)</span></span></span>
@@ -281,7 +281,7 @@ certain scenarios. BHHH is slower, but has better convergence properties.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-25 16:51:21 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-25 16:56:57 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Compute marginal effects</span></span></span>
@@ -301,12 +301,12 @@ certain scenarios. BHHH is slower, but has better convergence properties.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                Variable: houseval </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                   dy/dx Std. Error z value Pr(&gt;|z|)    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> governing      0.030201   0.002824  10.695  &lt; 2e-16 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> safety         0.032588   0.007748   4.206 2.60e-05 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> education     -0.036609   0.012461  -2.938  0.00331 ** </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> recreation     0.010542   0.004624   2.280  0.02261 *  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> social        -0.071189   0.012229  -5.822 5.83e-09 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> urbanplanning  0.034467   0.014019   2.459  0.01395 *  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> governing      0.030201   0.002813  10.735  &lt; 2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> safety         0.032588   0.007731   4.215 2.50e-05 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> education     -0.036609   0.012684  -2.886   0.0039 ** </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> recreation     0.010542   0.004601   2.291   0.0220 *  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> social        -0.071189   0.012230  -5.821 5.86e-09 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> urbanplanning  0.034467   0.014094   2.445   0.0145 *  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -314,12 +314,12 @@ certain scenarios. BHHH is slower, but has better convergence properties.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                Variable: popdens </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                   dy/dx Std. Error z value Pr(&gt;|z|)    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> governing     -0.010226   0.001010 -10.129  &lt; 2e-16 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> safety        -0.017586   0.003071  -5.726 1.03e-08 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> education     -0.001956   0.003452  -0.567   0.5710    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> recreation    -0.004263   0.001956  -2.180   0.0293 *  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> social         0.021371   0.004055   5.270 1.37e-07 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> urbanplanning  0.012661   0.005571   2.273   0.0230 *  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> governing     -0.010226   0.001051  -9.731  &lt; 2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> safety        -0.017586   0.003171  -5.546 2.92e-08 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> education     -0.001956   0.003383  -0.578   0.5632    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> recreation    -0.004263   0.001990  -2.142   0.0322 *  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> social         0.021371   0.004097   5.216 1.83e-07 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> urbanplanning  0.012661   0.005417   2.337   0.0194 *  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -327,12 +327,12 @@ certain scenarios. BHHH is slower, but has better convergence properties.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                 Variable: noleft </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                   dy/dx Std. Error z value Pr(&gt;|z|)    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> governing      0.004927   0.002792   1.765 0.077589 .  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> safety         0.024764   0.007928   3.124 0.001786 ** </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> education     -0.036251   0.010421  -3.479 0.000504 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> recreation     0.007975   0.004839   1.648 0.099301 .  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> social        -0.021787   0.013042  -1.671 0.094810 .  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> urbanplanning  0.020371   0.016423   1.240 0.214814    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> governing      0.004927   0.002893   1.703 0.088593 .  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> safety         0.024764   0.008124   3.048 0.002300 ** </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> education     -0.036251   0.010299  -3.520 0.000432 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> recreation     0.007975   0.004813   1.657 0.097497 .  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> social        -0.021787   0.013045  -1.670 0.094898 .  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> urbanplanning  0.020371   0.016230   1.255 0.209407    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -340,17 +340,17 @@ certain scenarios. BHHH is slower, but has better convergence properties.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                              Variable: minorityleft </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                   dy/dx Std. Error z value Pr(&gt;|z|)    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> governing     -0.014898   0.002774  -5.370 7.87e-08 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> safety         0.006177   0.009269   0.666   0.5052    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> education     -0.013687   0.010025  -1.365   0.1722    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> recreation     0.007938   0.004602   1.725   0.0846 .  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> social        -0.004648   0.012155  -0.382   0.7022    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> urbanplanning  0.019118   0.015076   1.268   0.2048    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> governing     -0.014898   0.002699  -5.520  3.4e-08 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> safety         0.006177   0.009318   0.663   0.5074    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> education     -0.013687   0.010088  -1.357   0.1749    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> recreation     0.007938   0.004680   1.696   0.0898 .  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> social        -0.004648   0.012152  -0.382   0.7021    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> urbanplanning  0.019118   0.015016   1.273   0.2029    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-25 16:51:21 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-25 16:56:57 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Plot effects for 'houseval'</span></span></span>
