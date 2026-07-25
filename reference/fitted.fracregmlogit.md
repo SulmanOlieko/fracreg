@@ -39,6 +39,23 @@ predict(object, newdata = NULL, newbeta = NULL, ...)
   baseline coefficient. Useful for constructing confidence intervals via
   simulation or bootstrapping.
 
+## Value
+
+An object of class `data.frame` containing numeric values where each
+column corresponds to one of the choice alternatives in the response
+variable matrix and each row corresponds to an observation.
+Specifically:
+
+- `fitted`: Returns the estimated fitted fractional response values
+  (choice shares or predicted conditional probabilities).
+
+- `residuals`: Returns the response residuals (the actual observed
+  shares minus the estimated fitted shares).
+
+- `predict`: Returns the predicted choice shares or conditional
+  probabilities computed from the specified model object and `newdata`
+  or `newbeta`.
+
 ## See also
 
 [`fracregmlogit`](https://sulmanolieko.github.io/fracreg/reference/fracregmlogit.md)
