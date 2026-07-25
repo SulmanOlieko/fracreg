@@ -22,6 +22,12 @@ coef.fracregmlogit <- function(object, ...) {
 #' Feeds into \code{object$coefficient}, which contains the baseline coefficient. Useful for constructing
 #' confidence intervals via simulation or bootstrapping. 
 #' @param ... Additional arguments.
+#' @return An object of class \code{data.frame} containing numeric values where each column corresponds to one of the choice alternatives in the response variable matrix and each row corresponds to an observation. Specifically:
+#' \itemize{
+#'   \item \code{fitted}: Returns the estimated fitted fractional response values (choice shares or predicted conditional probabilities).
+#'   \item \code{residuals}: Returns the response residuals (the actual observed shares minus the estimated fitted shares).
+#'   \item \code{predict}: Returns the predicted choice shares or conditional probabilities computed from the specified model object and \code{newdata} or \code{newbeta}.
+#' }
 #' @seealso \code{\link{fracregmlogit}}
 #' @examples
 #' data("fracreg_spending")
