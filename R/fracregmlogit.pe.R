@@ -205,23 +205,30 @@ fracregmlogit.pe<-function(object,effect=c("marginal","discrete"),
     }
   }
   
+  xmarg <- t(xmarg)
+  if(se) se_mat <- t(se_mat)
+  
+  colnames(xmarg) <- ynames
+  rownames(xmarg) <- varlist
+  if(se) {
+      colnames(se_mat) <- ynames
+      rownames(se_mat) <- varlist
+  }
+  
   # generating hypothesis testing tables.
   listmat = list()
   if(se){
-    for(i in 1:k){
-      tabout = matrix(ncol=4,nrow=j)
+    for(i in 1:j){
+      tabout = matrix(ncol=4,nrow=k)
       tabout[,1:2] = cbind(xmarg[,i],se_mat[,i])
       tabout[,3] = tabout[,1] / tabout[,2]
       tabout[,4] = 2*(1-pnorm(abs(tabout[,3])))
       colnames(tabout) = c("estimate","std","z","p-value")
-      rownames(tabout) = ynames
+      rownames(tabout) = varlist
       listmat[[i]] = tabout
     }
-    names(listmat)=varlist
+    names(listmat)=ynames
   }
-  
-  colnames(xmarg) <- colnames(se_mat) <- varlist
-  rownames(xmarg) <- rownames(se_mat) <-colnames(object$y)
   outlist=list()
   outlist$effects = xmarg
   if(se==TRUE){outlist$se = se_mat; outlist$ztable = listmat}

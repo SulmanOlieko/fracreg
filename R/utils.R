@@ -1090,9 +1090,9 @@ print.summary.fracregmlogit <- function(x, ...) {
 
 #' @export
 print.fracregmlogit.pe <- function(x, ...) {
-    cat("\nPartial Effects for Fractional Multinomial Logit\n")
-    cat("\nNote:", x$expl, "\n")
-    cat("\nEffects:\n")
+    cat("\nFractional multinomial logit regression\n")
+    cat("\nPartial effects:\n")
+    cat("\nNote:", x$expl, "\n\n")
     print.default(x$effects)
     cat("\n")
     invisible(x)
@@ -1144,7 +1144,7 @@ print.summary.fracregmlogit.pe <- function(x, ...) {
         for(i in 1:length(x$coefficients)){
             cat("\n")
             cat(.fracreg.sep(), "\n")
-            cat(.fracreg.center(paste("Variable:", names(x$coefficients)[i])), "\n")
+            cat(.fracreg.center(paste("Choice:", names(x$coefficients)[i])), "\n")
             cat(.fracreg.sep(), "\n")
             
             res <- x$coefficients[[i]]
