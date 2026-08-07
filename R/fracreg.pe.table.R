@@ -19,7 +19,7 @@ summary_fracreg_pe_table <- function(PE.p,PE.sd,PE.type,which.x,xvar.names,title
     return(ans)
 }
 
-print_fracreg_pe_table <- function(x)
+print_fracreg_pe_table <- function(x, subcomponent = FALSE, print.banner = TRUE)
 {
     res <- x$coefficients
     PE.type <- x$PE.type
@@ -28,21 +28,29 @@ print_fracreg_pe_table <- function(x)
     xvar.names <- x$xvar.names
     PE.sd <- x$PE.sd
 
-	cat("\n\n")
-	cat(.fracreg.sep(), "\n")
-	if(PE.type=="APE") cat(.fracreg.center("Average partial effects"), "\n")
-	if(PE.type=="CPE") cat(.fracreg.center("Conditional partial effects"), "\n")
-	cat(.fracreg.sep(), "\n")
-	
-	cat(.fracreg.center(title), "\n")
-	cat(.fracreg.sep(), "\n")
+    if (!subcomponent) {
+        if(print.banner) {
+            cat("\n")
+            cat(.fracreg.sep(), "\n")
+            if(PE.type=="APE") cat(.fracreg.center("Average partial effects"), "\n")
+            if(PE.type=="CPE") cat(.fracreg.center("Conditional partial effects"), "\n")
+        } else {
+            cat("\n")
+        }
+        
+        cat(.fracreg.sep(), "\n")
+        cat(.fracreg.center(title), "\n")
+        cat(.fracreg.sep(), "\n")
+    }
 	
 	if(!is.na(PE.sd[1])) cat("\nNote: Standard errors computed using the Delta method\n")
-	stats::printCoefmat(res, P.values = TRUE, has.Pvalue = TRUE, digits = 4, signif.legend = TRUE)
+	stats::printCoefmat(res, P.values = TRUE, has.Pvalue = TRUE, digits = 4, signif.legend = !subcomponent)
 	
-	cat(.fracreg.sep(), "\n")
-	cat(.fracreg.center(paste("Run Date:", format(Sys.time(), "%Y-%m-%d %H:%M:%S"))), "\n")
-	cat(.fracreg.sep(), "\n")
+    if (!subcomponent) {
+        cat(.fracreg.sep(), "\n")
+        cat(.fracreg.center(paste("Run Date:", format(Sys.time(), "%Y-%m-%d %H:%M:%S"))), "\n")
+        cat(.fracreg.sep(), "\n")
+    }
 	
 	if(PE.type=="CPE")
 	{

@@ -393,7 +393,7 @@ fracreg <- function(y,x,x2=x,linkbin,linkfrac,type="1P",inflation=0,intercept=TR
 		formula <- yb ~ x - 1
 		names(p) <- x.names
 
-		resBIN <- list(call=cl, class=class,formula=formula,type=type,link=linkbin,method=method,p=p,yhat=yhat1,xbhat=xbhat,converged=converged1,LL=LL,x.names=x.names,table.info=table.info)
+		resBIN <- list(call=cl, class=class,formula=formula,type="2Pbin",link=linkbin,method=method,p=p,yhat=yhat1,xbhat=xbhat,converged=converged1,LL=LL,x.names=x.names,table.info=table.info)
 		if(variance==TRUE)
 		{ 
 			dimnames(p.var) <- list(x.names,x.names)
@@ -444,7 +444,7 @@ fracreg <- function(y,x,x2=x,linkbin,linkfrac,type="1P",inflation=0,intercept=TR
 		formula <- yy ~ xx2 - 1
 		names(p) <- x2.names
 
-		resFRAC <- list(call=cl, class=class,formula=formula,type=type,link=linkfrac,method=method,p=p,yhat=yhat,xbhat=xbhat,converged=converged2,x.names=x2.names,table.info=table.info)
+		resFRAC <- list(call=cl, class=class,formula=formula,type=ty,link=linkfrac,method=method,p=p,yhat=yhat,xbhat=xbhat,converged=converged2,x.names=x2.names,table.info=table.info)
 		if(variance==TRUE)
 		{ 
 			dimnames(p.var) <- list(x2.names,x2.names)

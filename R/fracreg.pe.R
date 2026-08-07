@@ -156,6 +156,9 @@ fracreg.pe <- function(object,APE=TRUE,CPE=FALSE,at=NULL,which.x=NULL,variance=T
 		if(type=="1P") title <- paste("Fractional",linka,"regression")
 		if(type=="2Pbin") title <- paste("Binary",linka,"component of a two-part regression")
 		if(type=="2Pfrac") title <- paste("Fractional",linka,"component of a two-part regression")
+		if(type=="3Pbin0") title <- paste("Binary",linka,"component 1 of a three-part regression")
+		if(type=="3Pbin1") title <- paste("Binary",linka,"component 2 of a three-part regression")
+		if(type=="3Pfrac") title <- paste("Fractional",linka,"component of a three-part regression")
 	}
 	if(type=="3P")
 	{
@@ -379,6 +382,18 @@ fracreg.pe <- function(object,APE=TRUE,CPE=FALSE,at=NULL,which.x=NULL,variance=T
 	if(APE==TRUE & CPE==TRUE) res <- list(ape=resAPE,cpe=resCPE)
 	else if(APE==TRUE & CPE==FALSE) res <- resAPE
 	else if(APE==FALSE & CPE==TRUE) res <- resCPE
+	
+	if(type=="2P")
+	{
+		res[["resBIN"]] <- fracreg.pe(object$resBIN, table=FALSE, APE=APE, CPE=CPE, at=at, which.x=which.x, variance=variance)
+		res[["resFRAC"]] <- fracreg.pe(object$resFRAC, table=FALSE, APE=APE, CPE=CPE, at=at, which.x=which.x, variance=variance)
+	}
+	if(type=="3P")
+	{
+		res[["resBIN0"]] <- fracreg.pe(object$resBIN0, table=FALSE, APE=APE, CPE=CPE, at=at, which.x=which.x, variance=variance)
+		res[["resBIN1"]] <- fracreg.pe(object$resBIN1, table=FALSE, APE=APE, CPE=CPE, at=at, which.x=which.x, variance=variance)
+		res[["resFRAC"]] <- fracreg.pe(object$resFRAC, table=FALSE, APE=APE, CPE=CPE, at=at, which.x=which.x, variance=variance)
+	}
 	
 	class(res) <- "fracreg.pe"
 	return(invisible(res))

@@ -513,45 +513,145 @@ summary.fracreg.pe <- function(object, ...) {
     ans <- list()
     if(!is.null(object$table.info)) {
         ans$main <- do.call(summary_fracreg_pe_table, object$table.info)
-        ans$coefficients <- ans$main$coefficients
+        ans$coefficients <- list(overall = ans$main$coefficients)
     } else if(!is.null(object$ape) || !is.null(object$cpe)) {
         ans$ape <- if(!is.null(object$ape$table.info)) do.call(summary_fracreg_pe_table, object$ape$table.info) else NULL
         ans$cpe <- if(!is.null(object$cpe$table.info)) do.call(summary_fracreg_pe_table, object$cpe$table.info) else NULL
         
         coef_list <- list()
-        if(!is.null(ans$ape)) coef_list$ape <- ans$ape$coefficients
-        if(!is.null(ans$cpe)) coef_list$cpe <- ans$cpe$coefficients
+        if(!is.null(ans$ape)) coef_list$ape_overall <- ans$ape$coefficients
+        if(!is.null(ans$cpe)) coef_list$cpe_overall <- ans$cpe$coefficients
         ans$coefficients <- coef_list
     }
+
+    # Extract summaries for components if they exist
+    for (comp in c("resBIN0", "resBIN1", "resBIN", "resFRAC")) {
+        if (!is.null(object[[comp]])) {
+            comp_sum <- summary(object[[comp]])
+            ans[[comp]] <- comp_sum
+            
+            clean_comp <- sub("^res", "", comp)
+            if (!is.null(comp_sum$coefficients)) {
+                if (is.list(comp_sum$coefficients)) {
+                    for (nm in names(comp_sum$coefficients)) {
+                        ans$coefficients[[paste0(clean_comp, "_", nm)]] <- comp_sum$coefficients[[nm]]
+                    }
+                } else {
+                    ans$coefficients[[clean_comp]] <- comp_sum$coefficients
+                }
+            }
+        }
+    }
+
+    # Reorder coefficients so overall blocks are at the bottom for tidy()
+    overall_names <- intersect(names(ans$coefficients), c("overall", "ape_overall", "cpe_overall"))
+    other_names <- setdiff(names(ans$coefficients), overall_names)
+    ans$coefficients <- ans$coefficients[c(other_names, overall_names)]
+
+    # Unlist if only one 'overall' block so standard logic remains backward compatible
+    if (length(ans$coefficients) == 1 && names(ans$coefficients)[1] %in% c("overall", "ape_overall", "cpe_overall")) {
+        ans$coefficients <- ans$coefficients[[1]]
+    }
+
     class(ans) <- "summary.fracreg.pe"
     return(ans)
 }
 
 #' @export
-print.summary.fracreg.pe <- function(x, ...) {
-    if(!is.null(x$main)) print_fracreg_pe_table(x$main)
-    if(!is.null(x$ape)) print_fracreg_pe_table(x$ape)
-    if(!is.null(x$cpe)) print_fracreg_pe_table(x$cpe)
+print.summary.fracreg.pe <- function(x, subcomponent = FALSE, ...) {
+    
+    has_subcomponents <- !is.null(x$resBIN) || !is.null(x$resBIN0) || !is.null(x$resBIN1) || !is.null(x$resFRAC)
+    
+    # Print the banner at the top if it's the main call AND we have subcomponents
+    if(!subcomponent && has_subcomponents) {
+        pe_obj <- if(!is.null(x$main)) x$main else if(!is.null(x$ape)) x$ape else if(!is.null(x$cpe)) x$cpe
+        if(!is.null(pe_obj)) {
+            cat("\n\n")
+            cat(.fracreg.sep(), "\n")
+            if(pe_obj$PE.type=="APE") cat(.fracreg.center("Average partial effects"), "\n")
+            if(pe_obj$PE.type=="CPE") cat(.fracreg.center("Conditional partial effects"), "\n")
+            cat(.fracreg.sep(), "\n")
+        }
+    }
+
+    if(!is.null(x$resBIN)) {
+        cat("\nBinary Component:\n")
+        print.summary.fracreg.pe(x$resBIN, subcomponent = TRUE)
+    }
+    if(!is.null(x$resFRAC)) {
+        cat("\nFractional Component:\n")
+        print.summary.fracreg.pe(x$resFRAC, subcomponent = TRUE)
+    }
+    if(!is.null(x$resBIN0)) {
+        cat("\nBinary Component 1 (y > 0):\n")
+        print.summary.fracreg.pe(x$resBIN0, subcomponent = TRUE)
+    }
+    if(!is.null(x$resBIN1)) {
+        cat("\nBinary Component 2 (y = 1 | y > 0):\n")
+        print.summary.fracreg.pe(x$resBIN1, subcomponent = TRUE)
+    }
+    if(!is.null(x$main) || !is.null(x$ape) || !is.null(x$cpe)) {
+        # Ensure only necessary spacing
+    }
+    if(!is.null(x$main)) print_fracreg_pe_table(x$main, subcomponent, print.banner = !has_subcomponents)
+    if(!is.null(x$ape)) print_fracreg_pe_table(x$ape, subcomponent, print.banner = !has_subcomponents)
+    if(!is.null(x$cpe)) print_fracreg_pe_table(x$cpe, subcomponent, print.banner = !has_subcomponents)
+    
     invisible(x)
 }
 
 #' @export
 print.fracreg.pe <- function(x, ...) {
-    cat("\nPartial Effects for Fractional Regression\n")
-    if(!is.null(x$ape)) {
-        cat("\nAverage Partial Effects (APE):\n")
-        print.default(x$ape$table.info$PE.p)
+    print_pe_object <- function(obj) {
+        if(!is.null(obj$table.info) && !is.null(obj$table.info$title)) {
+            title <- obj$table.info$title
+        } else {
+            title <- "Fractional response regression"
+        }
+        
+        pe_type_name <- if(!is.null(obj$table.info) && !is.null(obj$table.info$PE.type)) obj$table.info$PE.type else "Average"
+        if(pe_type_name == "APE") pe_type_name <- "Average partial effects"
+        if(pe_type_name == "CPE") pe_type_name <- "Conditional partial effects"
+        
+        cat(paste0("\n", title, "\n"))
+        
+        cat(paste0("\n", pe_type_name, ":\n"))
+        if(!is.null(obj$resBIN0)) {
+            cat("Component 1 (Binary 0):\n")
+            print.default(if(!is.null(obj$resBIN0$table.info)) obj$resBIN0$table.info$PE.p else obj$resBIN0$PE.p)
+            cat("\n")
+        }
+        if(!is.null(obj$resBIN1)) {
+            cat("Component 2 (Binary 1):\n")
+            print.default(if(!is.null(obj$resBIN1$table.info)) obj$resBIN1$table.info$PE.p else obj$resBIN1$PE.p)
+            cat("\n")
+        }
+        if(!is.null(obj$resBIN)) {
+            cat("Binary Component:\n")
+            print.default(if(!is.null(obj$resBIN$table.info)) obj$resBIN$table.info$PE.p else obj$resBIN$PE.p)
+            cat("\n")
+        }
+        if(!is.null(obj$resFRAC)) {
+            cat("Fractional Component:\n")
+            print.default(if(!is.null(obj$resFRAC$table.info)) obj$resFRAC$table.info$PE.p else obj$resFRAC$PE.p)
+            cat("\n")
+        }
+        if(is.null(obj$resBIN0) && is.null(obj$resBIN1) && is.null(obj$resBIN) && is.null(obj$resFRAC)) {
+            if(!is.null(obj$table.info)) print.default(obj$table.info$PE.p)
+            else print.default(obj$PE.p)
+            cat("\n")
+        } else {
+            cat("Overall:\n")
+            if(!is.null(obj$table.info)) print.default(obj$table.info$PE.p)
+            else print.default(obj$PE.p)
+            cat("\n")
+        }
     }
-    if(!is.null(x$cpe)) {
-        cat("\nConditional Partial Effects (CPE):\n")
-        print.default(x$cpe$table.info$PE.p)
-    }
-    if(!is.null(x$table.info)) {
-        if(x$table.info$PE.type == "APE") cat("\nAverage Partial Effects (APE):\n")
-        else cat("\nConditional Partial Effects (CPE):\n")
-        print.default(x$table.info$PE.p)
-    }
-    cat("\n")
+    
+    if(!is.null(x$ape)) print_pe_object(x$ape)
+    if(!is.null(x$cpe)) print_pe_object(x$cpe)
+    if(is.null(x$ape) && is.null(x$cpe)) print_pe_object(x)
+    
     invisible(x)
 }
 
