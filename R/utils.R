@@ -313,17 +313,46 @@ fracreg.pe.var <- function(x,npar,which.x,x.names,xvar.names,type,pa,xbhata,ga,l
 
 #' @export
 summary.fracreg <- function(object, ...) {
-    if(!is.null(object$resBIN0) && !is.null(object$resBIN0$table.info)) do.call(fracreg.table, object$resBIN0$table.info)
-    if(!is.null(object$resBIN1) && !is.null(object$resBIN1$table.info)) do.call(fracreg.table, object$resBIN1$table.info)
-    if(!is.null(object$resBIN) && !is.null(object$resBIN$table.info)) do.call(fracreg.table, object$resBIN$table.info)
-    if(!is.null(object$resFRAC) && !is.null(object$resFRAC$table.info)) do.call(fracreg.table, object$resFRAC$table.info)
-    if(!is.null(object$table.info)) do.call(fracreg.table, object$table.info)
-    invisible(object)
+    ans <- list()
+    ans$call <- object$call
+    ans$type <- object$type
+    ans$link <- object$link
+    ans$p <- object$p
+    ans$table.info <- object$table.info
+    
+    if(!is.null(object$resBIN0) && !is.null(object$resBIN0$table.info)) ans$resBIN0 <- do.call(summary_fracreg_table, object$resBIN0$table.info)
+    if(!is.null(object$resBIN1) && !is.null(object$resBIN1$table.info)) ans$resBIN1 <- do.call(summary_fracreg_table, object$resBIN1$table.info)
+    if(!is.null(object$resBIN) && !is.null(object$resBIN$table.info)) ans$resBIN <- do.call(summary_fracreg_table, object$resBIN$table.info)
+    if(!is.null(object$resFRAC) && !is.null(object$resFRAC$table.info)) ans$resFRAC <- do.call(summary_fracreg_table, object$resFRAC$table.info)
+    if(!is.null(object$table.info)) ans$main <- do.call(summary_fracreg_table, object$table.info)
+    
+    if (ans$type %in% c("1P", "2Pbin", "2Pfrac")) {
+         if(!is.null(ans$main) && !is.null(ans$main$coefficients)) ans$coefficients <- ans$main$coefficients
+    } else {
+         coef_list <- list()
+         if(!is.null(ans$resBIN0) && !is.null(ans$resBIN0$coefficients)) coef_list$BIN0 <- ans$resBIN0$coefficients
+         if(!is.null(ans$resBIN1) && !is.null(ans$resBIN1$coefficients)) coef_list$BIN1 <- ans$resBIN1$coefficients
+         if(!is.null(ans$resBIN) && !is.null(ans$resBIN$coefficients)) coef_list$BIN <- ans$resBIN$coefficients
+         if(!is.null(ans$resFRAC) && !is.null(ans$resFRAC$coefficients)) coef_list$FRAC <- ans$resFRAC$coefficients
+         ans$coefficients <- coef_list
+    }
+    class(ans) <- "summary.fracreg"
+    return(ans)
+}
+
+#' @export
+print.summary.fracreg <- function(x, ...) {
+    if(!is.null(x$resBIN0)) print_fracreg_table(x$resBIN0)
+    if(!is.null(x$resBIN1)) print_fracreg_table(x$resBIN1)
+    if(!is.null(x$resBIN)) print_fracreg_table(x$resBIN)
+    if(!is.null(x$resFRAC)) print_fracreg_table(x$resFRAC)
+    if(!is.null(x$main)) print_fracreg_table(x$main)
+    invisible(x)
 }
 
 #' @export
 print.fracreg <- function(x, ...) {
-        title <- "Fractional response regression"
+    title <- "Fractional response regression"
     if(!is.null(x$type)) {
         if(x$type == "1P") title <- paste("Fractional", x$link, "regression")
         if(x$type == "2Pbin") title <- paste("Part 1: Binary", x$link, "regression")
@@ -335,30 +364,45 @@ print.fracreg <- function(x, ...) {
         if(x$type == "3P") title <- paste("Three-part fractional regression: binary", x$link[1], ", binary", x$link[2], "+ fractional", x$link[3])
     }
     cat(paste0("\n", title, "\n"))
+    cat(paste0("\nCall:  "))
     if(!is.null(x$call)) {
-        cat("\nCall:\n")
         print(x$call)
     }
-    
+    cat("\nCoefficients:\n")
     if(!is.null(x$resBIN0)) {
-        cat("\nComponent 1 (Binary 0):\nCoefficients:\n")
+        cat("Component 1 (Binary 0):\n")
         print.default(x$resBIN0$p)
+        cat("\n")
     }
     if(!is.null(x$resBIN1)) {
-        cat("\nComponent 2 (Binary 1):\nCoefficients:\n")
+        cat("Component 2 (Binary 1):\n")
         print.default(x$resBIN1$p)
+        cat("\n")
     }
     if(!is.null(x$resBIN)) {
-        cat("\nBinary Component:\nCoefficients:\n")
+        cat("Binary Component:\n")
         print.default(x$resBIN$p)
+        cat("\n")
     }
     if(!is.null(x$resFRAC)) {
-        cat("\nFractional Component:\nCoefficients:\n")
+        cat("Fractional Component:\n")
         print.default(x$resFRAC$p)
+        cat("\n")
     }
     if(is.null(x$resBIN0) && is.null(x$resBIN1) && is.null(x$resBIN) && is.null(x$resFRAC) && !is.null(x$p)) {
-        cat("\nCoefficients:\n")
         print.default(x$p)
+        cat("\n")
+    }
+    
+    if (!is.null(x$table.info) && !is.null(x$table.info$y)) {
+        n <- length(x$table.info$y)
+        k <- length(x$p)
+        if(is.null(k)) k <- 0
+        df.residual <- max(0, n - k)
+        cat(paste0("Degrees of Freedom: ", n, " Total; ", df.residual, " Residual\n"))
+    }
+    if (!is.null(x$table.info) && !is.null(x$table.info$LL)) {
+        cat(paste0("Log-likelihood/Log-pseudolikelihood: ", round(x$table.info$LL, 4), "\n"))
     }
     cat("\n")
     invisible(x)
@@ -366,24 +410,50 @@ print.fracreg <- function(x, ...) {
 
 #' @export
 summary.fracregpd <- function(object, ...) {
-    if(!is.null(object$table.info)) do.call(fracregpd.table, object$table.info)
-    invisible(object)
+    ans <- list()
+    ans$call <- object$call
+    ans$type <- object$type
+    ans$link <- object$link
+    ans$p <- object$p
+    ans$table.info <- object$table.info
+    if(!is.null(object$table.info)) {
+        ans$main <- do.call(summary_fracregpd_table, object$table.info)
+        ans$coefficients <- ans$main$coefficients
+    }
+    class(ans) <- "summary.fracregpd"
+    return(ans)
+}
+
+#' @export
+print.summary.fracregpd <- function(x, ...) {
+    if(!is.null(x$main)) print_fracregpd_table(x$main)
+    invisible(x)
 }
 
 #' @export
 print.fracregpd <- function(x, ...) {
-        model_desc <- "panel data"
+    model_desc <- "panel data"
     if (!is.null(x$type) && x$type %in% c("QMLcre", "GMMcre")) model_desc <- "correlated random effects"
     link_str <- if(!is.null(x$link)) x$link else ""
     title <- paste("Fractional", link_str, model_desc, "regression")
     cat(paste0("\n", title, "\n"))
+    cat(paste0("\nCall:  "))
     if(!is.null(x$call)) {
-        cat("\nCall:\n")
         print(x$call)
     }
+    cat("\nCoefficients:\n")
     if(!is.null(x$p)) {
-        cat("\nCoefficients:\n")
         print.default(x$p)
+        cat("\n")
+    }
+    if (!is.null(x$table.info) && !is.null(x$table.info$N)) {
+        n <- x$table.info$NT
+        k <- length(x$p)
+        df.residual <- max(0, n - k)
+        cat(paste0("Degrees of Freedom: ", n, " Total; ", df.residual, " Residual\n"))
+    }
+    if (!is.null(x$table.info) && !is.null(x$table.info$LL)) {
+        cat(paste0("Log-likelihood/Log-pseudolikelihood: ", round(x$table.info$LL, 4), "\n"))
     }
     cat("\n")
     invisible(x)
@@ -391,22 +461,48 @@ print.fracregpd <- function(x, ...) {
 
 #' @export
 summary.fracreghet <- function(object, ...) {
-    if(!is.null(object$table.info)) do.call(fracreghet.table, object$table.info)
-    invisible(object)
+    ans <- list()
+    ans$call <- object$call
+    ans$type <- object$type
+    ans$link <- object$link
+    ans$p <- object$p
+    ans$table.info <- object$table.info
+    if(!is.null(object$table.info)) {
+        ans$main <- do.call(summary_fracreghet_table, object$table.info)
+        ans$coefficients <- ans$main$coefficients
+    }
+    class(ans) <- "summary.fracreghet"
+    return(ans)
+}
+
+#' @export
+print.summary.fracreghet <- function(x, ...) {
+    if(!is.null(x$main)) print_fracreghet_table(x$main)
+    invisible(x)
 }
 
 #' @export
 print.fracreghet <- function(x, ...) {
-        link_str <- if(!is.null(x$link)) x$link else ""
+    link_str <- if(!is.null(x$link)) x$link else ""
     title <- paste("Fractional", link_str, "regression with heteroscedasticity/endogeneity")
     cat(paste0("\n", title, "\n"))
+    cat(paste0("\nCall:  "))
     if(!is.null(x$call)) {
-        cat("\nCall:\n")
         print(x$call)
     }
+    cat("\nCoefficients:\n")
     if(!is.null(x$p)) {
-        cat("\nCoefficients:\n")
         print.default(x$p)
+        cat("\n")
+    }
+    if (!is.null(x$table.info) && !is.null(x$table.info$N)) {
+        n <- x$table.info$N
+        k <- length(x$p)
+        df.residual <- max(0, n - k)
+        cat(paste0("Degrees of Freedom: ", n, " Total; ", df.residual, " Residual\n"))
+    }
+    if (!is.null(x$table.info) && !is.null(x$table.info$LL)) {
+        cat(paste0("Log-likelihood/Log-pseudolikelihood: ", round(x$table.info$LL, 4), "\n"))
     }
     cat("\n")
     invisible(x)
@@ -414,13 +510,29 @@ print.fracreghet <- function(x, ...) {
 
 #' @export
 summary.fracreg.pe <- function(object, ...) {
+    ans <- list()
     if(!is.null(object$table.info)) {
-        do.call(fracreg.pe.table, object$table.info)
+        ans$main <- do.call(summary_fracreg_pe_table, object$table.info)
+        ans$coefficients <- ans$main$coefficients
     } else if(!is.null(object$ape) || !is.null(object$cpe)) {
-        if(!is.null(object$ape$table.info)) do.call(fracreg.pe.table, object$ape$table.info)
-        if(!is.null(object$cpe$table.info)) do.call(fracreg.pe.table, object$cpe$table.info)
+        ans$ape <- if(!is.null(object$ape$table.info)) do.call(summary_fracreg_pe_table, object$ape$table.info) else NULL
+        ans$cpe <- if(!is.null(object$cpe$table.info)) do.call(summary_fracreg_pe_table, object$cpe$table.info) else NULL
+        
+        coef_list <- list()
+        if(!is.null(ans$ape)) coef_list$ape <- ans$ape$coefficients
+        if(!is.null(ans$cpe)) coef_list$cpe <- ans$cpe$coefficients
+        ans$coefficients <- coef_list
     }
-    invisible(object)
+    class(ans) <- "summary.fracreg.pe"
+    return(ans)
+}
+
+#' @export
+print.summary.fracreg.pe <- function(x, ...) {
+    if(!is.null(x$main)) print_fracreg_pe_table(x$main)
+    if(!is.null(x$ape)) print_fracreg_pe_table(x$ape)
+    if(!is.null(x$cpe)) print_fracreg_pe_table(x$cpe)
+    invisible(x)
 }
 
 #' @export
@@ -445,13 +557,28 @@ print.fracreg.pe <- function(x, ...) {
 
 #' @export
 summary.fracregpd.pe <- function(object, ...) {
+    ans <- list()
     if(!is.null(object$table.info)) {
-        do.call(fracreg.pe.table, object$table.info)
+        ans$main <- do.call(summary_fracreg_pe_table, object$table.info)
+        ans$coefficients <- ans$main$coefficients
     } else if(!is.null(object$ape) || !is.null(object$cpe)) {
-        if(!is.null(object$ape$table.info)) do.call(fracreg.pe.table, object$ape$table.info)
-        if(!is.null(object$cpe$table.info)) do.call(fracreg.pe.table, object$cpe$table.info)
+        ans$ape <- if(!is.null(object$ape$table.info)) do.call(summary_fracreg_pe_table, object$ape$table.info) else NULL
+        ans$cpe <- if(!is.null(object$cpe$table.info)) do.call(summary_fracreg_pe_table, object$cpe$table.info) else NULL
+        coef_list <- list()
+        if(!is.null(ans$ape)) coef_list$ape <- ans$ape$coefficients
+        if(!is.null(ans$cpe)) coef_list$cpe <- ans$cpe$coefficients
+        ans$coefficients <- coef_list
     }
-    invisible(object)
+    class(ans) <- "summary.fracregpd.pe"
+    return(ans)
+}
+
+#' @export
+print.summary.fracregpd.pe <- function(x, ...) {
+    if(!is.null(x$main)) print_fracreg_pe_table(x$main)
+    if(!is.null(x$ape)) print_fracreg_pe_table(x$ape)
+    if(!is.null(x$cpe)) print_fracreg_pe_table(x$cpe)
+    invisible(x)
 }
 
 #' @export
@@ -476,13 +603,28 @@ print.fracregpd.pe <- function(x, ...) {
 
 #' @export
 summary.fracreghet.pe <- function(object, ...) {
+    ans <- list()
     if(!is.null(object$table.info)) {
-        do.call(fracreghet.pe.table, object$table.info)
+        ans$main <- do.call(summary_fracreghet_pe_table, object$table.info)
+        ans$coefficients <- ans$main$coefficients
     } else if(!is.null(object$ape) || !is.null(object$cpe)) {
-        if(!is.null(object$ape$table.info)) do.call(fracreghet.pe.table, object$ape$table.info)
-        if(!is.null(object$cpe$table.info)) do.call(fracreghet.pe.table, object$cpe$table.info)
+        ans$ape <- if(!is.null(object$ape$table.info)) do.call(summary_fracreghet_pe_table, object$ape$table.info) else NULL
+        ans$cpe <- if(!is.null(object$cpe$table.info)) do.call(summary_fracreghet_pe_table, object$cpe$table.info) else NULL
+        coef_list <- list()
+        if(!is.null(ans$ape)) coef_list$ape <- ans$ape$coefficients
+        if(!is.null(ans$cpe)) coef_list$cpe <- ans$cpe$coefficients
+        ans$coefficients <- coef_list
     }
-    invisible(object)
+    class(ans) <- "summary.fracreghet.pe"
+    return(ans)
+}
+
+#' @export
+print.summary.fracreghet.pe <- function(x, ...) {
+    if(!is.null(x$main)) print_fracreghet_pe_table(x$main)
+    if(!is.null(x$ape)) print_fracreghet_pe_table(x$ape)
+    if(!is.null(x$cpe)) print_fracreghet_pe_table(x$cpe)
+    invisible(x)
 }
 
 #' @export
@@ -507,9 +649,20 @@ print.fracreghet.pe <- function(x, ...) {
 
 #' @export
 summary.fracreg.reset <- function(object, ...) {
+    ans <- list()
     ti <- attr(object, "table.info")
-    if(!is.null(ti)) do.call(fracreg.tests.table, ti)
-    invisible(object)
+    if(!is.null(ti)) {
+        ans$main <- do.call(summary_fracreg_tests_table, ti)
+        ans$coefficients <- ans$main$coefficients
+    }
+    class(ans) <- "summary.fracreg.reset"
+    return(ans)
+}
+
+#' @export
+print.summary.fracreg.reset <- function(x, ...) {
+    if(!is.null(x$main)) print_fracreg_tests_table(x$main)
+    invisible(x)
 }
 
 #' @export
@@ -522,9 +675,20 @@ print.fracreg.reset <- function(x, ...) {
 
 #' @export
 summary.fracreghet.reset <- function(object, ...) {
+    ans <- list()
     ti <- attr(object, "table.info")
-    if(!is.null(ti)) do.call(fracreghet.tests.table, ti)
-    invisible(object)
+    if(!is.null(ti)) {
+        ans$main <- do.call(summary_fracreghet_tests_table, ti)
+        ans$coefficients <- ans$main$coefficients
+    }
+    class(ans) <- "summary.fracreghet.reset"
+    return(ans)
+}
+
+#' @export
+print.summary.fracreghet.reset <- function(x, ...) {
+    if(!is.null(x$main)) print_fracreghet_tests_table(x$main)
+    invisible(x)
 }
 
 #' @export
@@ -537,9 +701,20 @@ print.fracreghet.reset <- function(x, ...) {
 
 #' @export
 summary.fracreg.ggoff <- function(object, ...) {
+    ans <- list()
     ti <- attr(object, "table.info")
-    if(!is.null(ti)) do.call(fracreg.tests.table, ti)
-    invisible(object)
+    if(!is.null(ti)) {
+        ans$main <- do.call(summary_fracreg_tests_table, ti)
+        ans$coefficients <- ans$main$coefficients
+    }
+    class(ans) <- "summary.fracreg.ggoff"
+    return(ans)
+}
+
+#' @export
+print.summary.fracreg.ggoff <- function(x, ...) {
+    if(!is.null(x$main)) print_fracreg_tests_table(x$main)
+    invisible(x)
 }
 
 #' @export
@@ -552,9 +727,20 @@ print.fracreg.ggoff <- function(x, ...) {
 
 #' @export
 summary.fracreg.ptest <- function(object, ...) {
+    ans <- list()
     ti <- attr(object, "table.info")
-    if(!is.null(ti)) do.call(fracreg.tests.table, ti)
-    invisible(object)
+    if(!is.null(ti)) {
+        ans$main <- do.call(summary_fracreg_tests_table, ti)
+        ans$coefficients <- ans$main$coefficients
+    }
+    class(ans) <- "summary.fracreg.ptest"
+    return(ans)
+}
+
+#' @export
+print.summary.fracreg.ptest <- function(x, ...) {
+    if(!is.null(x$main)) print_fracreg_tests_table(x$main)
+    invisible(x)
 }
 
 #' @export
@@ -568,18 +754,35 @@ print.fracreg.ptest <- function(x, ...) {
 #' @export
 print.fracregridge <- function(x, ...) {
     cat("\nFractional Ridge Regression\n")
+    cat(paste0("\nCall:  "))
     if(!is.null(x$call)) {
-        cat("\nCall:\n")
         print(x$call)
     }
-    cat("\nRidge Coefficients at Target Fractions:\n")
+    cat("\nCoefficients:\n")
     print(x$coef)
+    cat("\n")
+    if (!is.null(x$y) && !is.null(x$coef)) {
+        n <- nrow(x$y)
+        k <- nrow(x$coef)
+        df.residual <- max(0, n - k)
+        cat(paste0("Degrees of Freedom: ", n, " Total; ", df.residual, " Residual\n"))
+    }
     cat("\n")
     invisible(x)
 }
 
 #' @export
 summary.fracregridge <- function(object, ...) {
+    ans <- list()
+    ans$table.info <- object$table.info
+    ans$stats.info <- object$stats.info
+    ans$coefficients <- object$table.info
+    class(ans) <- "summary.fracregridge"
+    return(ans)
+}
+
+#' @export
+print.summary.fracregridge <- function(x, ...) {
     cat("\n")
     cat(.fracreg.sep(), "\n")
     cat(.fracreg.center("Fractional Ridge Regression"), "\n")
@@ -590,11 +793,11 @@ summary.fracregridge <- function(object, ...) {
     .fracreg.cat.right("Standard errors:", "homoskedastic")
     cat(.fracreg.sep(), "\n")
     
-    for (name in names(object$table.info)) {
+    for (name in names(x$table.info)) {
         cat(.fracreg.center(paste("Target Fraction:", name)), "\n")
         cat(.fracreg.sep(), "\n")
-        if(!is.null(object$stats.info)) {
-            stats <- object$stats.info[[name]]
+        if(!is.null(x$stats.info)) {
+            stats <- x$stats.info[[name]]
             .fracreg.cat.right("Number of observations:", stats$n_obs)
             .fracreg.cat.right("Pseudo R-squared:", round(stats$R2, 5))
             .fracreg.cat.right("Degrees of freedom:", round(stats$n_obs - stats$df_alpha, 2))
@@ -604,17 +807,26 @@ summary.fracregridge <- function(object, ...) {
             }
             cat(.fracreg.sep(), "\n")
         }
-        suppressWarnings(stats::printCoefmat(object$table.info[[name]], P.values=TRUE, has.Pvalue=TRUE, digits=4, signif.legend=TRUE))
+        suppressWarnings(stats::printCoefmat(x$table.info[[name]], P.values=TRUE, has.Pvalue=TRUE, digits=4, signif.legend=TRUE))
         cat(.fracreg.sep(), "\n")
     }
     
     cat(.fracreg.center(paste("Run Date:", format(Sys.time(), "%Y-%m-%d %H:%M:%S"))), "\n")
     cat(.fracreg.sep(), "\n\n")
-    invisible(object)
+    invisible(x)
 }
 
 #' @export
 summary.fracregridge.pe <- function(object, ...) {
+    ans <- list()
+    ans$table.info <- object$table.info
+    ans$coefficients <- object$table.info
+    class(ans) <- "summary.fracregridge.pe"
+    return(ans)
+}
+
+#' @export
+print.summary.fracregridge.pe <- function(x, ...) {
     cat("\n\n")
     cat(.fracreg.sep(), "\n")
     cat(.fracreg.center("Average partial effects"), "\n")
@@ -625,17 +837,17 @@ summary.fracregridge.pe <- function(object, ...) {
     cat("\nNote: Fractional Ridge Regression is a linear model without a link function.\n")
     cat("Therefore, the partial effects are mathematically identical to the coefficients themselves.\n\n")
     
-    for (name in names(object$table.info)) {
+    for (name in names(x$table.info)) {
         cat(.fracreg.center(paste("Target Fraction:", name)), "\n")
         cat(.fracreg.sep(), "\n")
-        res <- object$table.info[[name]]
+        res <- x$table.info[[name]]
         colnames(res)[1] <- "dy/dx"
         suppressWarnings(stats::printCoefmat(res, P.values=TRUE, has.Pvalue=TRUE, digits=4, signif.legend=TRUE))
         cat(.fracreg.sep(), "\n")
     }
     cat(.fracreg.center(paste("Run Date:", format(Sys.time(), "%Y-%m-%d %H:%M:%S"))), "\n")
     cat(.fracreg.sep(), "\n\n")
-    invisible(object)
+    invisible(x)
 }
 
 #' @export
@@ -649,21 +861,7 @@ print.fracregridge.pe <- function(x, ...) {
     invisible(x)
 }
 
-#' @export
-print.fracregmlogit <- function(x, ...) {
-    cat("\n")
-    cat(.fracreg.sep(), "\n")
-    cat(.fracreg.center("Fractional multinomial logit model"), "\n")
-    cat(.fracreg.sep(), "\n")
-    if(!is.null(x$call)) {
-        cat("\nCall:\n")
-        print(x$call)
-    }
-    cat("\nCoefficients:\n")
-    print.default(x$coefficient)
-    cat("\n")
-    invisible(x)
-}
+
 
 #' Generate Summary Tables for fracregmlogit Objects
 #' 
@@ -704,9 +902,57 @@ print.fracregmlogit <- function(x, ...) {
 #' effects1 = fracregmlogit.pe(results1, effect="marginal", se=FALSE)
 #' summary(effects1)
 #' 
+#' @export
+print.fracregmlogit <- function(x, ...) {
+    cat("\nFractional Multinomial Logit Regression\n")
+    cat(paste0("\nCall:  "))
+    if(!is.null(x$call)) {
+        print(x$call)
+    }
+    cat("\nCoefficients:\n")
+    print.default(t(x$coefficient[-1, , drop = FALSE]))
+    cat("\n")
+    if (!is.null(x$count)) {
+        n <- unname(x$count["Obs"])
+        k <- unname(x$count["Explanatories"]) + 1
+        df.residual <- max(0, n - k)
+        cat(paste0("Degrees of Freedom: ", n, " Total; ", df.residual, " Residual\n"))
+    }
+    if (!is.null(x$likelihood)) {
+        cat(paste0("Log-likelihood/Log-pseudolikelihood: ", round(x$likelihood, 4), "\n"))
+    }
+    cat("\n")
+    invisible(x)
+}
+
 #' @rdname summary.fracregmlogit
 #' @exportS3Method summary fracregmlogit
 summary.fracregmlogit <- function(object, ...) {
+    ans <- list()
+    ans$count <- object$count
+    ans$likelihood <- object$likelihood
+    ans$pseudo_R2 <- object$pseudo_R2
+    ans$baseline <- object$baseline
+    ans$reps <- object$reps
+    ans$estimates <- object$estimates
+    ans$wald <- object$wald
+    
+    # Store coefficients for broom::tidy
+    coef_list <- list()
+    for(i in 1:length(object$estimates)){
+        res <- object$estimates[[i]]
+        se_type <- if (object$reps > 0) "Bootstrap" else "Robust"
+        colnames(res) <- c("Coefficient", paste(se_type, "Std.Err."), "z value", "Pr(>|z|)")
+        rownames(res)[rownames(res) == "(Intercept)"] <- "(Intercept)"
+        coef_list[[names(object$estimates)[i]]] <- res
+    }
+    ans$coefficients <- coef_list
+    class(ans) <- "summary.fracregmlogit"
+    return(ans)
+}
+
+#' @export
+print.summary.fracregmlogit <- function(x, ...) {
     cat("\n")
     cat(.fracreg.sep(), "\n")
     cat(.fracreg.center("Fractional multinomial logit model"), "\n")
@@ -714,38 +960,35 @@ summary.fracregmlogit <- function(object, ...) {
     
     .fracreg.cat.right("Data type:", "Cross-sectional")
     .fracreg.cat.right("Convergence:", "Successful")
-    .fracreg.cat.right("Number of observations:", object$count["Obs"])
-    if (!is.null(object$likelihood)) {
-        .fracreg.cat.right("Log pseudolikelihood:", round(object$likelihood, 4))
+    .fracreg.cat.right("Number of observations:", x$count["Obs"])
+    if (!is.null(x$likelihood)) {
+        .fracreg.cat.right("Log pseudolikelihood:", round(x$likelihood, 4))
     }
-    if (!is.null(object$pseudo_R2)) {
-        .fracreg.cat.right("Pseudo R-squared:", round(object$pseudo_R2, 5))
+    if (!is.null(x$pseudo_R2)) {
+        .fracreg.cat.right("Pseudo R-squared:", round(x$pseudo_R2, 5))
     }
-    .fracreg.cat.right("Baseline choice:", object$baseline)
+    .fracreg.cat.right("Baseline choice:", x$baseline)
     
-    if (object$reps > 0) {
+    if (x$reps > 0) {
         .fracreg.cat.right("Standard errors:", "bootstrap")
-        .fracreg.cat.right("Bootstrap reps:", object$reps)
+        .fracreg.cat.right("Bootstrap reps:", x$reps)
     } else {
         .fracreg.cat.right("Standard errors:", "HC0")
     }
     cat("\n")
 
-    for(i in 1:length(object$estimates)){
+    for(i in 1:length(x$coefficients)){
         cat(.fracreg.sep(), "\n")
-        cat(.fracreg.center(paste("Choice:", names(object$estimates)[i])), "\n")
+        cat(.fracreg.center(paste("Choice:", names(x$coefficients)[i])), "\n")
         cat(.fracreg.sep(), "\n")
         
-        if (!is.null(object$wald[[i]]) && !is.na(object$wald[[i]]$W)) {
-            .fracreg.cat.right(paste0("Wald chi2(", object$wald[[i]]$df, "):"), round(object$wald[[i]]$W, 4))
-            .fracreg.cat.right("Prob > chi2:", sprintf("%.4f", object$wald[[i]]$p))
+        if (!is.null(x$wald[[i]]) && !is.na(x$wald[[i]]$W)) {
+            .fracreg.cat.right(paste0("Wald chi2(", x$wald[[i]]$df, "):"), round(x$wald[[i]]$W, 4))
+            .fracreg.cat.right("Prob > chi2:", sprintf("%.4f", x$wald[[i]]$p))
             cat(.fracreg.sep(), "\n")
         }
         
-        res <- object$estimates[[i]]
-        se_type <- if (object$reps > 0) "Bootstrap" else "Robust"
-        colnames(res) <- c("Coefficient", paste(se_type, "Std.Err."), "z value", "Pr(>|z|)")
-        rownames(res)[rownames(res) == "(Intercept)"] <- "(Intercept)"
+        res <- x$coefficients[[i]]
         stats::printCoefmat(res, P.values = TRUE, has.Pvalue = TRUE, digits = 4, signif.legend = TRUE)
         cat("\n")
     }
@@ -754,19 +997,12 @@ summary.fracregmlogit <- function(object, ...) {
     cat(.fracreg.center(paste("Run Date:", format(Sys.time(), "%Y-%m-%d %H:%M:%S"))), "\n")
     cat(.fracreg.sep(), "\n")
 
-    invisible(object)
+    invisible(x)
 }
 
 #' @export
 print.fracregmlogit.pe <- function(x, ...) {
-    cat("\n")
-    cat(.fracreg.sep(), "\n")
-    if(grepl("average across observations", x$expl)) {
-        cat(.fracreg.center("Average partial effects"), "\n")
-    } else {
-        cat(.fracreg.center("Conditional partial effects"), "\n")
-    }
-    cat(.fracreg.sep(), "\n")
+    cat("\nPartial Effects for Fractional Multinomial Logit\n")
     cat("\nNote:", x$expl, "\n")
     cat("\nEffects:\n")
     print.default(x$effects)
@@ -777,9 +1013,36 @@ print.fracregmlogit.pe <- function(x, ...) {
 #' @export
 #' @exportS3Method summary fracregmlogit.pe
 summary.fracregmlogit.pe <- function(object, ...) {
+    ans <- list()
+    ans$expl <- object$expl
+    ans$ztable <- object$ztable
+    ans$effects <- object$effects
+    
+    coef_list <- list()
+    if(!is.null(object$ztable)){
+        for(i in 1:length(object$ztable)){
+            res <- object$ztable[[i]]
+            colnames(res) <- c("dy/dx", "Std. Error", "z value", "Pr(>|z|)")
+            coef_list[[names(object$ztable)[i]]] <- res
+        }
+    } else {
+        for(i in 1:ncol(object$effects)){
+            res <- matrix(object$effects[,i], ncol=1)
+            rownames(res) <- rownames(object$effects)
+            colnames(res) <- c("dy/dx")
+            coef_list[[colnames(object$effects)[i]]] <- res
+        }
+    }
+    ans$coefficients <- coef_list
+    class(ans) <- "summary.fracregmlogit.pe"
+    return(ans)
+}
+
+#' @export
+print.summary.fracregmlogit.pe <- function(x, ...) {
     cat("\n\n")
     cat(.fracreg.sep(), "\n")
-    if(grepl("average across observations", object$expl)) {
+    if(grepl("average across observations", x$expl)) {
         cat(.fracreg.center("Average partial effects"), "\n")
     } else {
         cat(.fracreg.center("Conditional partial effects"), "\n")
@@ -787,30 +1050,29 @@ summary.fracregmlogit.pe <- function(object, ...) {
     cat(.fracreg.sep(), "\n")
     cat(.fracreg.center("Fractional multinomial logit regression"), "\n")
     cat(.fracreg.sep(), "\n")
-    cat("\nNote:", object$expl, "\n")
+    cat("\nNote:", x$expl, "\n")
     
-    if(!is.null(object$ztable)){
-        for(i in 1:length(object$ztable)){
+    if(!is.null(x$ztable)){
+        for(i in 1:length(x$coefficients)){
             cat("\n")
             cat(.fracreg.sep(), "\n")
-            cat(.fracreg.center(paste("Variable:", names(object$ztable)[i])), "\n")
+            cat(.fracreg.center(paste("Variable:", names(x$coefficients)[i])), "\n")
             cat(.fracreg.sep(), "\n")
             
-            res <- object$ztable[[i]]
-            colnames(res) <- c("dy/dx", "Std. Error", "z value", "Pr(>|z|)")
+            res <- x$coefficients[[i]]
             stats::printCoefmat(res, P.values = TRUE, has.Pvalue = TRUE, digits = 4, signif.legend = TRUE)
         }
         cat("\n")
     } else {
         cat("Effects:\n")
-        print.default(object$effects)
+        print.default(x$effects)
     }
     
     cat(.fracreg.sep(), "\n")
     cat(.fracreg.center(paste("Run Date:", format(Sys.time(), "%Y-%m-%d %H:%M:%S"))), "\n")
     cat(.fracreg.sep(), "\n")
 
-    invisible(object)
+    invisible(x)
 }
 ############
 # generate willingness to pay tables
@@ -819,8 +1081,17 @@ summary.fracregmlogit.pe <- function(object, ...) {
 #' @export
 summary.fracregmlogit.wtp = function(object, ...) {
   if(!inherits(object, "fracregmlogit.wtp")) stop("Expect an fracregmlogit.wtp object. Wrong object type given.")
-  if (is.null(dim(object$wtp))) return(object$wtp)
-  if(is.null(colnames(object$wtp)) || colnames(object$wtp)[1]!="Coefficient") return(object$wtp) # no need to summary.
+  ans <- list()
+  ans$wtp <- object$wtp
+  ans$coefficients <- object$wtp
+  class(ans) <- "summary.fracregmlogit.wtp"
+  return(ans)
+}
+
+#' @export
+print.summary.fracregmlogit.wtp = function(x, ...) {
+  if (is.null(dim(x$wtp))) { print(x$wtp); return(invisible(x)) }
+  if(is.null(colnames(x$wtp)) || colnames(x$wtp)[1]!="Coefficient") { print(x$wtp); return(invisible(x)) } 
   
   cat("\n")
   cat(.fracreg.sep(), "\n")
@@ -830,7 +1101,7 @@ summary.fracregmlogit.wtp = function(object, ...) {
   cat(.fracreg.sep(), "\n\n")
   
   cat("Note: Krinsky-Robb standard error calculated\n")
-  stats::printCoefmat(object$wtp, digits = max(3, getOption("digits") - 2), 
+  stats::printCoefmat(x$wtp, digits = max(3, getOption("digits") - 2), 
                       signif.stars = TRUE, P.values = TRUE, has.Pvalue = TRUE)
   
   cat("\n")
@@ -838,5 +1109,295 @@ summary.fracregmlogit.wtp = function(object, ...) {
   cat(.fracreg.center(paste("Run Date:", format(Sys.time(), "%Y-%m-%d %H:%M:%S"))), "\n")
   cat(.fracreg.sep(), "\n\n")
   
-  invisible(object)
+  invisible(x)
 }
+
+#' @exportS3Method broom::tidy
+tidy.fracreg <- function(x, conf.int = FALSE, conf.level = 0.95, ...) {
+    res <- summary(x)$coefficients
+    
+    if(is.list(res) && !is.data.frame(res)) {
+        out <- do.call(rbind, lapply(names(res), function(nm) {
+            d <- as.data.frame(res[[nm]])
+            colnames(d)[colnames(d) %in% c("Coefficient", "dy/dx", "Odds Ratio", "Estimate")] <- "estimate"
+            colnames(d)[grepl("Std\\. ?Err", colnames(d), ignore.case = TRUE)] <- "std.error"
+            colnames(d)[colnames(d) == "z value"] <- "statistic"
+            colnames(d)[colnames(d) == "Pr(>|z|)"] <- "p.value"
+            
+            data.frame(
+                component = nm,
+                term = rownames(d),
+                estimate = if (!is.null(d$estimate)) as.numeric(d$estimate) else rep(NA_real_, nrow(d)),
+                std.error = if (!is.null(d$std.error)) as.numeric(d$std.error) else rep(NA_real_, nrow(d)),
+                statistic = if (!is.null(d$statistic)) as.numeric(d$statistic) else rep(NA_real_, nrow(d)),
+                p.value = if (!is.null(d$p.value)) as.numeric(d$p.value) else rep(NA_real_, nrow(d)),
+                stringsAsFactors = FALSE
+            )
+        }))
+    } else {
+        d <- as.data.frame(res)
+        colnames(d)[colnames(d) %in% c("Coefficient", "dy/dx", "Odds Ratio", "Estimate")] <- "estimate"
+        colnames(d)[grepl("Std\\. ?Err", colnames(d), ignore.case = TRUE)] <- "std.error"
+        colnames(d)[colnames(d) == "z value"] <- "statistic"
+        colnames(d)[colnames(d) == "Pr(>|z|)"] <- "p.value"
+        
+        out <- data.frame(
+            term = rownames(d),
+            estimate = if (!is.null(d$estimate)) as.numeric(d$estimate) else rep(NA_real_, nrow(d)),
+            std.error = if (!is.null(d$std.error)) as.numeric(d$std.error) else rep(NA_real_, nrow(d)),
+            statistic = if (!is.null(d$statistic)) as.numeric(d$statistic) else rep(NA_real_, nrow(d)),
+            p.value = if (!is.null(d$p.value)) as.numeric(d$p.value) else rep(NA_real_, nrow(d)),
+            stringsAsFactors = FALSE
+        )
+    }
+    
+    rownames(out) <- NULL
+    
+    if (conf.int) {
+        alpha <- 1 - conf.level
+        z_crit <- qnorm(1 - alpha / 2)
+        out$conf.low <- out$estimate - z_crit * out$std.error
+        out$conf.high <- out$estimate + z_crit * out$std.error
+    }
+    
+    if (requireNamespace("tibble", quietly = TRUE)) {
+        out <- tibble::as_tibble(out)
+    }
+    
+    out
+}
+
+#' @exportS3Method broom::glance
+glance.fracreg <- function(x, ...) {
+    out <- data.frame(
+        nobs = nobs(x),
+        logLik = as.numeric(logLik(x)),
+        stringsAsFactors = FALSE
+    )
+    if (requireNamespace("tibble", quietly = TRUE)) {
+        out <- tibble::as_tibble(out)
+    }
+    out
+}
+
+#' @exportS3Method stats::formula
+formula.fracreg <- function(x, ...) {
+    # Extract original call
+    cl <- x$call
+    
+    # Try to extract variable names
+    x_names <- cl$xnames
+    
+    # If xnames is not stored, attempt to evaluate x to get its colnames
+    if (is.null(x_names)) {
+        x_val <- tryCatch(eval(cl$x, envir = parent.frame()), error = function(e) NULL)
+        if (!is.null(x_val) && inherits(x_val, "fracreg")) {
+            x_val <- tryCatch(eval(cl$x, envir = globalenv()), error = function(e) NULL)
+        } else if (is.null(x_val)) {
+            x_val <- tryCatch(eval(cl$x, envir = globalenv()), error = function(e) NULL)
+        }
+        if (is.matrix(x_val) || is.data.frame(x_val)) {
+            x_names <- colnames(x_val)
+        }
+    }
+    
+    # Construct formula string
+    if (is.null(x_names)) {
+        x_vars <- "1"
+    } else {
+        # Remove intercept if it's there
+        x_vars <- x_names[x_names != "(Intercept)"]
+        if (length(x_vars) == 0) x_vars <- "1"
+    }
+    
+    f <- stats::as.formula(paste("y ~", paste(x_vars, collapse = " + ")))
+    # Set the formula environment to parent.frame() to avoid capturing
+    # the local execution environment where `x` is the model object.
+    environment(f) <- parent.frame()
+    return(f)
+}
+
+#' @exportS3Method stats::model.frame
+model.frame.fracreg <- function(formula, ...) {
+    object <- formula
+    if (!is.null(object$call$formula)) {
+        return(stats::model.frame(stats::formula(object), data = eval(object$call$data, envir = parent.frame())))
+    } else if (!is.null(object$x) && !is.null(object$y)) {
+        y_name <- "y"
+        if (is.character(object$call$y) || is.symbol(object$call$y)) y_name <- as.character(object$call$y)
+        
+        df <- data.frame(y = as.vector(object$y))
+        colnames(df)[1] <- y_name
+        df <- cbind(df, as.data.frame(object$x))
+        return(df)
+    } else {
+        env <- parent.frame()
+        x_val <- tryCatch(eval(object$call$x, envir = env), error = function(e) NULL)
+        if (!is.null(x_val) && inherits(x_val, "fracreg")) {
+            x_val <- tryCatch(eval(object$call$x, envir = globalenv()), error = function(e) NULL)
+        } else if (is.null(x_val)) {
+            x_val <- tryCatch(eval(object$call$x, envir = globalenv()), error = function(e) NULL)
+        }
+        
+        y_val <- tryCatch(eval(object$call$y, envir = env), error = function(e) NULL)
+        if (!is.null(y_val) && inherits(y_val, "fracreg")) {
+            y_val <- tryCatch(eval(object$call$y, envir = globalenv()), error = function(e) NULL)
+        } else if (is.null(y_val)) {
+            y_val <- tryCatch(eval(object$call$y, envir = globalenv()), error = function(e) NULL)
+        }
+        if (is.null(x_val) || is.null(y_val)) {
+            stop("Unable to construct model.frame: original 'x' or 'y' variables are not accessible from the current environment.")
+        }
+        
+        y_name <- "y"
+        if (is.character(object$call$y) || is.symbol(object$call$y)) y_name <- as.character(object$call$y)
+        else if (!is.null(colnames(y_val))) y_name <- colnames(y_val)[1]
+        
+        df <- data.frame(y = as.vector(y_val))
+        colnames(df)[1] <- y_name
+        
+        if (is.matrix(x_val) || is.data.frame(x_val)) {
+             df <- cbind(df, as.data.frame(x_val))
+        } else {
+             df$x <- as.vector(x_val)
+             if (is.character(object$call$x) || is.symbol(object$call$x)) colnames(df)[2] <- as.character(object$call$x)
+        }
+        
+        f <- stats::formula(object)
+        attr(df, "terms") <- stats::terms(f)
+        class(df) <- "data.frame"
+        return(df)
+    }
+}
+
+#' @exportS3Method stats::model.matrix
+model.matrix.fracreg <- function(object, ...) {
+    env <- parent.frame()
+    
+    # Evaluate variables in the caller's environment, falling back to globalenv()
+    x_val <- tryCatch(eval(object$call$x, envir = env), error = function(e) NULL)
+    if (!is.null(x_val) && inherits(x_val, "fracreg")) {
+        x_val <- tryCatch(eval(object$call$x, envir = globalenv()), error = function(e) NULL)
+    } else if (is.null(x_val)) {
+        x_val <- tryCatch(eval(object$call$x, envir = globalenv()), error = function(e) NULL)
+    }
+    
+    if (is.null(x_val)) {
+        stop("Unable to construct model.matrix: original 'x' variable is not accessible from the current environment.")
+    }
+    
+    mat <- as.matrix(x_val)
+    
+    # Ensure intercept is prepended if needed
+    coef_names <- names(coef(object))
+    if (is.null(coef_names) && object$type %in% c("2P", "3P")) {
+        coef_names <- unlist(lapply(summary(object)$coefficients, rownames))
+    }
+    
+    if ("(Intercept)" %in% coef_names) {
+        mat <- cbind("(Intercept)" = 1, mat)
+    }
+    
+    return(mat)
+}
+
+#' @exportS3Method stats::family
+family.fracreg <- function(object, ...) {
+    link_name <- object$call$linkfrac
+    if (is.null(link_name)) link_name <- "logit"
+    else {
+        link_name <- tryCatch(eval(link_name, envir = parent.frame()), error = function(e) "logit")
+        if (!is.character(link_name)) {
+            link_name <- as.character(object$call$linkfrac)
+        }
+    }
+    
+    if (link_name %in% c("logit", "probit", "cauchit", "cloglog")) {
+        return(stats::quasibinomial(link = link_name))
+    }
+    return(stats::gaussian())
+}
+
+#' @exportS3Method stats::family
+family.fracregpd <- family.fracreg
+#' @exportS3Method stats::family
+family.fracreghet <- family.fracreg
+#' @exportS3Method stats::family
+family.fracregridge <- family.fracreg
+#' @exportS3Method stats::family
+family.fracregmlogit <- family.fracreg
+
+#' @exportS3Method stats::terms
+terms.fracreg <- function(x, ...) {
+    if (!is.null(x$call$formula)) {
+        return(stats::terms(stats::formula(x), data = eval(x$call$data, envir = parent.frame())))
+    } else {
+        mf <- stats::model.frame(x)
+        return(attr(mf, "terms"))
+    }
+}
+
+#' @exportS3Method stats::terms
+terms.fracreghet <- terms.fracreg
+#' @exportS3Method stats::terms
+terms.fracregpd <- terms.fracreg
+#' @exportS3Method stats::terms
+terms.fracregridge <- terms.fracreg
+#' @exportS3Method stats::terms
+terms.fracregmlogit <- terms.fracreg
+
+#' @exportS3Method broom::tidy
+tidy.fracreghet <- tidy.fracreg
+#' @exportS3Method broom::tidy
+tidy.fracregpd <- tidy.fracreg
+#' @exportS3Method broom::tidy
+tidy.fracregridge <- tidy.fracreg
+#' @exportS3Method broom::tidy
+tidy.fracregmlogit <- tidy.fracreg
+
+#' @exportS3Method broom::tidy
+tidy.fracreg.pe <- tidy.fracreg
+#' @exportS3Method broom::tidy
+tidy.fracreghet.pe <- tidy.fracreg
+#' @exportS3Method broom::tidy
+tidy.fracregpd.pe <- tidy.fracreg
+#' @exportS3Method broom::tidy
+tidy.fracregridge.pe <- tidy.fracreg
+#' @exportS3Method broom::tidy
+tidy.fracregmlogit.pe <- tidy.fracreg
+
+#' @exportS3Method broom::glance
+glance.fracreghet <- glance.fracreg
+#' @exportS3Method broom::glance
+glance.fracregpd <- glance.fracreg
+#' @exportS3Method broom::glance
+glance.fracregridge <- glance.fracreg
+#' @exportS3Method broom::glance
+glance.fracregmlogit <- glance.fracreg
+
+#' @exportS3Method stats::formula
+formula.fracreghet <- formula.fracreg
+#' @exportS3Method stats::formula
+formula.fracregpd <- formula.fracreg
+#' @exportS3Method stats::formula
+formula.fracregridge <- formula.fracreg
+#' @exportS3Method stats::formula
+formula.fracregmlogit <- formula.fracreg
+
+#' @exportS3Method stats::model.frame
+model.frame.fracreghet <- model.frame.fracreg
+#' @exportS3Method stats::model.frame
+model.frame.fracregpd <- model.frame.fracreg
+#' @exportS3Method stats::model.frame
+model.frame.fracregridge <- model.frame.fracreg
+#' @exportS3Method stats::model.frame
+model.frame.fracregmlogit <- model.frame.fracreg
+
+#' @exportS3Method stats::model.matrix
+model.matrix.fracreghet <- model.matrix.fracreg
+#' @exportS3Method stats::model.matrix
+model.matrix.fracregpd <- model.matrix.fracreg
+#' @exportS3Method stats::model.matrix
+model.matrix.fracregridge <- model.matrix.fracreg
+#' @exportS3Method stats::model.matrix
+model.matrix.fracregmlogit <- model.matrix.fracreg

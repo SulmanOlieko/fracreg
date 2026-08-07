@@ -38,6 +38,29 @@ An object of class \code{fracreg.pe} containing the standard coefficient tables 
 \description{
 Computes Average Partial Effects (APEs) for fractional panel data models fit using \code{fracregpd}. In correlated random effects (CRE) models, the time-averages of the covariates are used merely to control for unobserved heterogeneity, and as such, they are automatically filtered out when computing the structural partial effects. Standard errors are computed using the Delta method and the bootstrapped parameter variance matrix.
 }
+\examples{
+\donttest{
+# Simulate Panel Data
+N <- 50
+T <- 5
+id <- rep(1:N, each=T)
+time <- rep(1:T, N)
+x1 <- rnorm(N*T)
+x2 <- rnorm(N*T)
+z1 <- rnorm(N*T)
+y <- exp(x1 - x2 + rnorm(N*T))/(1 + exp(x1 - x2 + rnorm(N*T)))
+X <- cbind(x1 = x1, x2 = x2)
+Z <- cbind(z1 = z1)
+
+# Estimate panel data model
+mod_pd <- fracregpd(id=id, time=time, y=y, x=X, z=Z, 
+                    var.endog=c("x2"), type="GMMbgw", link="logit")
+
+# Compute Average Partial Effects
+pe_res <- fracregpd.pe(mod_pd)
+summary(pe_res)
+}
+}
 \seealso{
 \code{\link{fracregpd}}, \code{\link{fracreg.pe}}
 }

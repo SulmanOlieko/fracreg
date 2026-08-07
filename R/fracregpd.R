@@ -980,7 +980,8 @@ fracregpd <- function(id,time,y,x,z,var.endog,x.exogenous=TRUE,lags,start,type,G
 	if(table==TRUE) do.call(fracregpd.table, table.info)
 
 	names(p) <- x.names
-	res <- list(call=cl, type=type,link=link,Hy=Hy,p=p,converged=converged,table.info=table.info,x=x,xbhat=results$xbhat)
+	colnames(x) <- x.names
+	res <- list(call=cl, type=type,link=link,Hy=Hy,p=p,converged=converged,table.info=table.info,x=x,y=y,xbhat=results$xbhat)
 	if(!is.null(offset)) res[["offset"]] <- offset
 	if(dfJ>0) res[["J"]] <- J
 

@@ -104,6 +104,7 @@
 
 fracregmlogit=function(y, X, beta0 = NULL, MLEmethod = "CG", maxit = 5e+05, 
                           abstol = 1e-05,cluster=NULL,reps=1000, na.action=stats::na.omit, ...){
+  cl <- match.call()
   start.time = proc.time()
   
   if (!missing(y) && !missing(X)) {
@@ -150,7 +151,7 @@ fracregmlogit=function(y, X, beta0 = NULL, MLEmethod = "CG", maxit = 5e+05,
   if(k==1){
     # check if the input X is constant
     if(length(unique(X))==1){ # X is constant
-      Xnames = "constant"
+      Xnames = "(Intercept)"
       X = as.matrix(as.numeric(X),nrow=1)
       colnames(X) = Xnames
       X = as.matrix(X)
@@ -159,16 +160,16 @@ fracregmlogit=function(y, X, beta0 = NULL, MLEmethod = "CG", maxit = 5e+05,
       Xnames = "X1"
       X = as.matrix(X)
       k = dim(X)[2]
-      X = cbind(X, rep(1, n))
-      Xnames = c(Xnames, "constant")
+      X = cbind(rep(1, n), X)
+      Xnames = c("(Intercept)", Xnames)
       colnames(X) = Xnames
     }
   }else{ # normal cases
     X = X[, apply(X, 2, function(x) length(unique(x)) != 1)]
     Xnames = colnames(X)
     k = dim(X)[2]
-    X = cbind(X, rep(1, n))
-    Xnames = c(Xnames, "constant")
+    X = cbind(rep(1, n), X)
+    Xnames = c("(Intercept)", Xnames)
     colnames(X) = Xnames
   }
   
@@ -188,8 +189,9 @@ fracregmlogit=function(y, X, beta0 = NULL, MLEmethod = "CG", maxit = 5e+05,
     if (qr(X)$rank == dim(X)[2]) 
       print("Model may suffer from multicollinearity problems.")
     break
-    if ((k + 1) %in% collinear) 
-      collinear = collinear[-length(collinear)]
+    if (1 %in% collinear) 
+      collinear = setdiff(collinear, 1)
+    if (length(collinear) == 0) break
     X = X[, -collinear[length(collinear)]]
     Xnames = colnames(X)
     k = k - 1
@@ -336,8 +338,8 @@ fracregmlogit=function(y, X, beta0 = NULL, MLEmethod = "CG", maxit = 5e+05,
     listmat[[i]] = tabout
     
     if (k > 0) {
-      beta_slope = betamat[i, 1:k]
-      V_slope = vcov[[i + 1]][1:k, 1:k]
+      beta_slope = betamat[i, 2:(k+1)]
+      V_slope = vcov[[i + 1]][2:(k+1), 2:(k+1)]
       W = tryCatch(as.numeric(t(beta_slope) %*% solve(V_slope) %*% beta_slope), error = function(e) NA)
       p_W = if(!is.na(W)) 1 - pchisq(W, df = k) else NA
       wald_list[[i]] = list(W = W, p = p_W, df = k)
@@ -372,9 +374,8 @@ fracregmlogit=function(y, X, beta0 = NULL, MLEmethod = "CG", maxit = 5e+05,
   outlist$vcov = vcov
   outlist$cluster = cluster
   outlist$reps=ifelse(is.null(cluster),0,reps)
+  outlist$call = cl
   
-  print(paste("Fractional logit model estimation completed. Time:", 
-              round(proc.time()[3] - start.time[3], 1), "seconds"))
   return(structure(outlist, class = "fracregmlogit"))
 }
 

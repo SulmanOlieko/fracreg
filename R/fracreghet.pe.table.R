@@ -1,4 +1,4 @@
-fracreghet.pe.table <- function(PE.p,PE.sd,PE.type,which.x,xvar.names,title,adjust,at)
+summary_fracreghet_pe_table <- function(PE.p,PE.sd,PE.type,which.x,xvar.names,title,adjust,at)
 {
 	z.ratio <- PE.p/PE.sd
 	p.value <- 2*(1-pnorm(abs(z.ratio)))
@@ -6,6 +6,29 @@ fracreghet.pe.table <- function(PE.p,PE.sd,PE.type,which.x,xvar.names,title,adju
 	res <- cbind(`dy/dx` = PE.p, `Std. Error` = PE.sd, `z value` = z.ratio, `Pr(>|z|)` = p.value)
 	rownames(res) <- which.x
 	rownames(res)[rownames(res) == "(Intercept)"] <- "(Intercept)"
+
+    ans <- list(
+        coefficients = res,
+        PE.type = PE.type,
+        title = title,
+        adjust = adjust,
+        at = at,
+        which.x = which.x,
+        xvar.names = xvar.names,
+        PE.sd = PE.sd
+    )
+    return(ans)
+}
+
+print_fracreghet_pe_table <- function(x)
+{
+    res <- x$coefficients
+    PE.type <- x$PE.type
+    title <- x$title
+    adjust <- x$adjust
+    at <- x$at
+    xvar.names <- x$xvar.names
+    PE.sd <- x$PE.sd
 
 	cat("\n\n")
 	cat(.fracreg.sep(), "\n")
@@ -20,7 +43,7 @@ fracreghet.pe.table <- function(PE.p,PE.sd,PE.type,which.x,xvar.names,title,adju
 	cat(.fracreg.sep(), "\n")
 	
 	if(!is.na(PE.sd[1])) cat("\nNote: Standard errors computed using the Delta method\n")
-	printCoefmat(res, P.values = TRUE, has.Pvalue = TRUE, digits = 4, signif.legend = TRUE)
+	stats::printCoefmat(res, P.values = TRUE, has.Pvalue = TRUE, digits = 4, signif.legend = TRUE)
 	
 	cat(.fracreg.sep(), "\n")
 	cat(.fracreg.center(paste("Run Date:", format(Sys.time(), "%Y-%m-%d %H:%M:%S"))), "\n")
@@ -45,5 +68,11 @@ fracreghet.pe.table <- function(PE.p,PE.sd,PE.type,which.x,xvar.names,title,adju
 			print(at)
 		}
 	}
+}
+
+fracreghet.pe.table <- function(PE.p,PE.sd,PE.type,which.x,xvar.names,title,adjust,at)
+{
+    ans <- summary_fracreghet_pe_table(PE.p,PE.sd,PE.type,which.x,xvar.names,title,adjust,at)
+    print_fracreghet_pe_table(ans)
 }
 

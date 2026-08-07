@@ -1,4 +1,4 @@
-fracreg.tests.table <- function(test.which,S,Sp,ver,title1,title2=NA,n.ver=NA,test.ggoff=NA)
+summary_fracreg_tests_table <- function(test.which,S,Sp,ver,title1,title2=NA,n.ver=NA,test.ggoff=NA)
 {
 	stars <- rep("",length(S))
 	stars[Sp<=0.01] <- "***"
@@ -14,6 +14,24 @@ fracreg.tests.table <- function(test.which,S,Sp,ver,title1,title2=NA,n.ver=NA,te
 		rownames(res) <- paste(test.ggoff[-1], ver[-1], sep=" - ")
 	}
 
+    ans <- list(
+        coefficients = res,
+        test.which = test.which,
+        title1 = title1,
+        title2 = title2,
+        n.ver = n.ver
+    )
+    return(ans)
+}
+
+print_fracreg_tests_table <- function(x)
+{
+    test.which <- x$test.which
+    title1 <- x$title1
+    title2 <- x$title2
+    n.ver <- x$n.ver
+    res <- x$coefficients
+
 	cat("\n")
 	cat(.fracreg.sep(), "\n")
 	cat(.fracreg.center(paste(test.which, "test")), "\n")
@@ -23,7 +41,7 @@ fracreg.tests.table <- function(test.which,S,Sp,ver,title1,title2=NA,n.ver=NA,te
 	{
 		cat("H0:", title1, "\n")
 		cat(.fracreg.sep(), "\n")
-		printCoefmat(res, P.values = TRUE, has.Pvalue = TRUE, digits = 4, signif.legend = TRUE)
+		stats::printCoefmat(res, P.values = TRUE, has.Pvalue = TRUE, digits = 4, signif.legend = TRUE)
 	}
 	else
 	{
@@ -41,5 +59,11 @@ fracreg.tests.table <- function(test.which,S,Sp,ver,title1,title2=NA,n.ver=NA,te
 	cat(.fracreg.sep(), "\n")
 	cat(.fracreg.center(paste("Run Date:", format(Sys.time(), "%Y-%m-%d %H:%M:%S"))), "\n")
 	cat(.fracreg.sep(), "\n")
+}
+
+fracreg.tests.table <- function(test.which,S,Sp,ver,title1,title2=NA,n.ver=NA,test.ggoff=NA)
+{
+    ans <- summary_fracreg_tests_table(test.which,S,Sp,ver,title1,title2,n.ver,test.ggoff)
+    print_fracreg_tests_table(ans)
 }
 

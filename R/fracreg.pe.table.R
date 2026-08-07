@@ -1,4 +1,4 @@
-fracreg.pe.table <- function(PE.p,PE.sd,PE.type,which.x,xvar.names,title,at)
+summary_fracreg_pe_table <- function(PE.p,PE.sd,PE.type,which.x,xvar.names,title,at)
 {
 	z.ratio <- PE.p/PE.sd
 	p.value <- 2*(1-pnorm(abs(z.ratio)))
@@ -6,6 +6,27 @@ fracreg.pe.table <- function(PE.p,PE.sd,PE.type,which.x,xvar.names,title,at)
 	res <- cbind(`dy/dx` = PE.p, `Std. Error` = PE.sd, `z value` = z.ratio, `Pr(>|z|)` = p.value)
 	rownames(res) <- which.x
 	rownames(res)[rownames(res) == "(Intercept)"] <- "(Intercept)"
+
+    ans <- list(
+        coefficients = res,
+        PE.type = PE.type,
+        title = title,
+        at = at,
+        which.x = which.x,
+        xvar.names = xvar.names,
+        PE.sd = PE.sd
+    )
+    return(ans)
+}
+
+print_fracreg_pe_table <- function(x)
+{
+    res <- x$coefficients
+    PE.type <- x$PE.type
+    title <- x$title
+    at <- x$at
+    xvar.names <- x$xvar.names
+    PE.sd <- x$PE.sd
 
 	cat("\n\n")
 	cat(.fracreg.sep(), "\n")
@@ -42,5 +63,11 @@ fracreg.pe.table <- function(PE.p,PE.sd,PE.type,which.x,xvar.names,title,at)
 			print(at)
 		}
 	}
+}
+
+fracreg.pe.table <- function(PE.p,PE.sd,PE.type,which.x,xvar.names,title,at)
+{
+    ans <- summary_fracreg_pe_table(PE.p,PE.sd,PE.type,which.x,xvar.names,title,at)
+    print_fracreg_pe_table(ans)
 }
 

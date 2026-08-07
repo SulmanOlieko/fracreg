@@ -9,8 +9,8 @@
 #' the mean of all covariates. Also takes "aveacr", the averaged effects across all observations. See details. 
 #' @param se Whether to calculate standard errors for those margins. See details. 
 #' @param varlist A string vector which provides the names of variables to calculate 
-#' the marginal effect for. If missing, all variables except the constant will be calculated. 
-#' Use "constant" if you wish to compute the marginal effect of the constant. 
+#' the marginal effect for. If missing, all variables except the (Intercept) will be calculated. 
+#' Use "(Intercept)" if you wish to compute the marginal effect of the intercept. 
 #' @param at Specify values of the X-matrix at which the partial effect will be retrieved. Expects a vector input
 #' of length K-1. Only supported for \code{marg.type="atmean"}. See \code{predict.fracregmlogit(newdata)}. 
 #' @param R Number of times to sample for the Krinsky-Robb standard error. Default to 1000. 
@@ -79,8 +79,8 @@ fracregmlogit.pe<-function(object,effect=c("marginal","discrete"),
   # determine variables
   Xnames = colnames(object$X); ynames = colnames(object$y)
   if(length(varlist)==0){
-    varlist=Xnames[-K]
-    var_colNo = c(1:(K-1))
+    varlist=Xnames[-1]
+    var_colNo = c(2:K)
     k = length(var_colNo)
   }else{
     var_colNo = unlist(lapply(varlist, function(x) {which(Xnames == x)}))
@@ -118,7 +118,7 @@ fracregmlogit.pe<-function(object,effect=c("marginal","discrete"),
       }
       if(marg.type == "atmean"){
         # this is the marginal effect at the mean
-        if(is.null(at)) at = colMeans(object$X[,-K])
+        if(is.null(at)) at = colMeans(object$X[,-1])
         yhat_mean = predict(object,newdata=at)
         beta_bar = sum(yhat_mean * betamat[,c])
         betak = betamat[,c]
@@ -129,7 +129,7 @@ fracregmlogit.pe<-function(object,effect=c("marginal","discrete"),
     
     if (se == TRUE) {
       # Vectorized Multivariate Krinsky-Robb standard error calculation for marginal effects
-      x_mean = c(colMeans(object$X[,-K]), 1)
+      x_mean = c(1, colMeans(object$X[,-1]))
       
       Xbeta_R = matrix(0, nrow=R, ncol=j)
       for (i in 2:j) {
@@ -157,7 +157,7 @@ fracregmlogit.pe<-function(object,effect=c("marginal","discrete"),
     for(c in var_colNo){
       c1 = which(var_colNo == c)
       if(marg.type == "aveacr"){
-        Xmin <- Xmax <- object$X[,-K]
+        Xmin <- Xmax <- object$X[,-1]
         Xmin[,c] = min(object$X[,c])
         Xmax[,c] = max(object$X[,c])
         yhat_min = predict(object,newdata=Xmin)
@@ -167,7 +167,7 @@ fracregmlogit.pe<-function(object,effect=c("marginal","discrete"),
         marg_list[[c1]] = ydisc
       }
       if(marg.type == "atmean"){
-        if(is.null(at)) at = colMeans(object$X[,-K])
+        if(is.null(at)) at = colMeans(object$X[,-1])
         Xmin <- Xmax <- at
         Xmin[c] = min(object$X[,c])
         Xmax[c] = max(object$X[,c])
@@ -183,7 +183,7 @@ fracregmlogit.pe<-function(object,effect=c("marginal","discrete"),
       for (c in var_colNo) {
         c1 = which(var_colNo == c)
         
-        Xmin <- Xmax <- c(colMeans(object$X[,-K]), 1)
+        Xmin <- Xmax <- c(1, colMeans(object$X[,-1]))
         Xmin[c] = min(object$X[,c])
         Xmax[c] = max(object$X[,c])
         

@@ -1,12 +1,13 @@
-fracreg.table <- function(y,yhat,p,p.var,x.names,type,link,converged,var.type,R2=NA,LL=NULL,method=NULL,var.cluster=NULL,dfc=NULL,or=FALSE,level=0.95)
+summary_fracreg_table <- function(y,yhat,p,p.var,x.names,type,link,converged,var.type,R2=NA,LL=NULL,method=NULL,var.cluster=NULL,dfc=NULL,or=FALSE,level=0.95)
 {
+    ans <- list(type=type, link=link, converged=converged, R2=NA, LL=LL, method=method, var.type=var.type, var.cluster=var.cluster, dfc=dfc, or=or, level=level)
 	if(converged==TRUE)
 	{
-		R2 <- cor(y,yhat)^2
+		ans$R2 <- cor(y,yhat)^2
 
 		if(type!="2P" & type!="3P")
 		{
-			n <- length(y)
+			ans$n <- length(y)
 			
 			Wald <- NA
 			p_wald <- NA
@@ -29,6 +30,9 @@ fracreg.table <- function(y,yhat,p,p.var,x.names,type,link,converged,var.type,R2
 					}
 				}
 			}
+			ans$Wald <- Wald
+			ans$p_wald <- p_wald
+			ans$df_wald <- df_wald
 
 			p.sd <- diag(p.var)^0.5
 			z.ratio <- p/p.sd
@@ -58,6 +62,34 @@ fracreg.table <- function(y,yhat,p,p.var,x.names,type,link,converged,var.type,R2
 			colnames(res)[2] <- paste0(tools::toTitleCase(se_type), " Std.Err.")
 			rownames(res) <- x.names
 			rownames(res)[rownames(res) == "(Intercept)"] <- "(Intercept)"
+			
+			ans$coefficients <- res
+		}
+	}
+	return(ans)
+}
+
+print_fracreg_table <- function(x)
+{
+	type <- x$type
+	link <- x$link
+	converged <- x$converged
+	R2 <- x$R2
+	method <- x$method
+	LL <- x$LL
+	var.type <- x$var.type
+	var.cluster <- x$var.cluster
+	dfc <- x$dfc
+	
+	if(converged==TRUE)
+	{
+		if(type!="2P" & type!="3P")
+		{
+			n <- x$n
+			Wald <- x$Wald
+			p_wald <- x$p_wald
+			df_wald <- x$df_wald
+			res <- x$coefficients
 
 			cat("\n")
 			cat(.fracreg.sep(), "\n")
@@ -142,3 +174,8 @@ fracreg.table <- function(y,yhat,p,p.var,x.names,type,link,converged,var.type,R2
 	cat("\n")
 }
 
+fracreg.table <- function(y,yhat,p,p.var,x.names,type,link,converged,var.type,R2=NA,LL=NULL,method=NULL,var.cluster=NULL,dfc=NULL,or=FALSE,level=0.95)
+{
+    ans <- summary_fracreg_table(y,yhat,p,p.var,x.names,type,link,converged,var.type,R2,LL,method,var.cluster,dfc,or,level)
+    print_fracreg_table(ans)
+}

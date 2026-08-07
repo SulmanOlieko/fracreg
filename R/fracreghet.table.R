@@ -1,5 +1,6 @@
-fracreghet.table <- function(p,p.var,x.names,type,link,converged,N,var.type,adjust,k,J,dfJ,LL=NULL,or=FALSE,level=0.95)
+summary_fracreghet_table <- function(p,p.var,x.names,type,link,converged,N,var.type,adjust,k,J,dfJ,LL=NULL,or=FALSE,level=0.95)
 {
+	ans <- list(type=type, link=link, converged=converged, N=N, LL=LL, var.type=var.type, adjust=adjust, k=k, J=J, dfJ=dfJ, or=or, level=level)
 	if(converged==TRUE)
 	{
 		stars <- rep("",length(p))
@@ -72,6 +73,34 @@ fracreghet.table <- function(p,p.var,x.names,type,link,converged,N,var.type,adju
 				}
 			}
 		}
+		
+		ans$Wald <- Wald
+		ans$df_wald <- df_wald
+		ans$p_wald <- p_wald
+		ans$coefficients <- res
+	}
+	
+	return(ans)
+}
+
+print_fracreghet_table <- function(ans)
+{
+	type <- ans$type
+	link <- ans$link
+	N <- ans$N
+	LL <- ans$LL
+	var.type <- ans$var.type
+	adjust <- ans$adjust
+	k <- ans$k
+	J <- ans$J
+	dfJ <- ans$dfJ
+	
+	if(ans$converged==TRUE)
+	{
+		res <- ans$coefficients
+		Wald <- ans$Wald
+		df_wald <- ans$df_wald
+		p_wald <- ans$p_wald
 
 		cat("\n")
 		cat(.fracreg.sep(), "\n")
@@ -116,14 +145,14 @@ fracreghet.table <- function(p,p.var,x.names,type,link,converged,N,var.type,adju
 		cat(.fracreg.center(paste("Final", type_full, "estimates")), "\n")
 		cat(.fracreg.sep(), "\n")
 		
-		if(all(type!=c("GMMxv","LINxv","QMLxv"))) printCoefmat(res, P.values = TRUE, has.Pvalue = TRUE, digits = 4, signif.legend = TRUE, na.print = ".")
+		if(all(type!=c("GMMxv","LINxv","QMLxv"))) stats::printCoefmat(res, P.values = TRUE, has.Pvalue = TRUE, digits = 4, signif.legend = TRUE, na.print = ".")
 		if(any(type==c("GMMxv","LINxv","QMLxv")))
 		{
-			printCoefmat(res[1:k, , drop = FALSE], P.values = TRUE, has.Pvalue = TRUE, digits = 4, signif.legend = TRUE, na.print = ".")
+			stats::printCoefmat(res[1:k, , drop = FALSE], P.values = TRUE, has.Pvalue = TRUE, digits = 4, signif.legend = TRUE, na.print = ".")
 			cat("\n")
 			cat(.fracreg.center("Reduced form:"), "\n")
 			cat(.fracreg.sep(), "\n")
-			printCoefmat(res[-(1:k), , drop = FALSE], P.values = TRUE, has.Pvalue = TRUE, digits = 4, signif.legend = TRUE, na.print = ".")
+			stats::printCoefmat(res[-(1:k), , drop = FALSE], P.values = TRUE, has.Pvalue = TRUE, digits = 4, signif.legend = TRUE, na.print = ".")
 		}
 		cat(.fracreg.sep(), "\n")
 		cat(.fracreg.center(paste("Run Date:", format(Sys.time(), "%Y-%m-%d %H:%M:%S"))), "\n")
@@ -139,3 +168,8 @@ fracreghet.table <- function(p,p.var,x.names,type,link,converged,N,var.type,adju
 	cat("\n")
 }
 
+fracreghet.table <- function(p,p.var,x.names,type,link,converged,N,var.type,adjust,k,J,dfJ,LL=NULL,or=FALSE,level=0.95)
+{
+	ans <- summary_fracreghet_table(p,p.var,x.names,type,link,converged,N,var.type,adjust,k,J,dfJ,LL,or,level)
+	print_fracreghet_table(ans)
+}

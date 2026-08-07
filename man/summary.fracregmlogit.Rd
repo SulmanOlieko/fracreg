@@ -2,16 +2,19 @@
 % Please edit documentation in R/utils.R
 \name{summary.fracregmlogit}
 \alias{summary.fracregmlogit}
+\alias{print.fracregmlogit}
 \alias{summary.fracregmlogit.pe}
 \alias{summary.fracregmlogit.wtp}
 \title{Generate Summary Tables for fracregmlogit Objects}
 \usage{
+\method{print}{fracregmlogit}(x, ...)
+
 \method{summary}{fracregmlogit}(object, ...)
 }
 \arguments{
-\item{object}{an object with class "fracregmlogit", "fracregmlogit.pe", or "fracregmlogit.wtp".}
-
 \item{...}{Additional arguments passed to the printCoefmat function.}
+
+\item{object}{an object with class "fracregmlogit", "fracregmlogit.pe", or "fracregmlogit.wtp".}
 }
 \value{
 Returns the object invisibly.

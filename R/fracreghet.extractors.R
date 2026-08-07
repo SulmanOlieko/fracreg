@@ -101,6 +101,8 @@ logLik.fracreghet <- function(object, ...) {
 vcov.fracreghet <- function(object, ...) {
     if(!is.null(object$p.var)) {
         return(object$p.var)
+    } else if (!is.null(object$table.info$p.var)) {
+        return(object$table.info$p.var)
     }
     return(NULL)
 }

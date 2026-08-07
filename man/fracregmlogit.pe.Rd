@@ -26,8 +26,8 @@ the mean of all covariates. Also takes "aveacr", the averaged effects across all
 \item{se}{Whether to calculate standard errors for those margins. See details.}
 
 \item{varlist}{A string vector which provides the names of variables to calculate 
-the marginal effect for. If missing, all variables except the constant will be calculated. 
-Use "constant" if you wish to compute the marginal effect of the constant.}
+the marginal effect for. If missing, all variables except the (Intercept) will be calculated. 
+Use "(Intercept)" if you wish to compute the marginal effect of the intercept.}
 
 \item{at}{Specify values of the X-matrix at which the partial effect will be retrieved. Expects a vector input
 of length K-1. Only supported for \code{marg.type="atmean"}. See \code{predict.fracregmlogit(newdata)}.}

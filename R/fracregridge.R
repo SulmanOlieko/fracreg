@@ -286,6 +286,7 @@ fracregridge <- function(y, x, fracs = seq(0.1, 1.0, by=0.1), tol = 1e-10, inter
 	
 	res <- list(call = cl, 
 	            y = y_mat,
+	            x = x,
 	            coef = coef_final, 
 	            alphas = alphas_res, 
 	            fracs = fracs, 

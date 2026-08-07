@@ -18,6 +18,29 @@
 #'
 #' @seealso
 #' \code{\link{fracregpd}}, \code{\link{fracreg.pe}}
+#'
+#' @examples
+#' \donttest{
+#' # Simulate Panel Data
+#' N <- 50
+#' T <- 5
+#' id <- rep(1:N, each=T)
+#' time <- rep(1:T, N)
+#' x1 <- rnorm(N*T)
+#' x2 <- rnorm(N*T)
+#' z1 <- rnorm(N*T)
+#' y <- exp(x1 - x2 + rnorm(N*T))/(1 + exp(x1 - x2 + rnorm(N*T)))
+#' X <- cbind(x1 = x1, x2 = x2)
+#' Z <- cbind(z1 = z1)
+#' 
+#' # Estimate panel data model
+#' mod_pd <- fracregpd(id=id, time=time, y=y, x=X, z=Z, 
+#'                     var.endog=c("x2"), type="GMMbgw", link="logit")
+#' 
+#' # Compute Average Partial Effects
+#' pe_res <- fracregpd.pe(mod_pd)
+#' summary(pe_res)
+#' }
 #' @export
 fracregpd.pe <- function(object, APE=TRUE, CPE=FALSE, at=NULL, which.x=NULL, variance=TRUE, table=FALSE, ...) {
     if(missing(object)) stop("object is missing")
@@ -90,7 +113,7 @@ fracregpd.pe <- function(object, APE=TRUE, CPE=FALSE, at=NULL, which.x=NULL, var
             PE.sd <- NA
         }
 
-        table.info.APE <- list(PE.p=PE.p,PE.sd=if(variance) PE.sd else NA,PE.type=PE.type,which.x=which.x,xvar.names=xvar.names,title=title)
+        table.info.APE <- list(PE.p=PE.p,PE.sd=if(variance) PE.sd else NA,PE.type=PE.type,which.x=which.x,xvar.names=xvar.names,title=title,at=at)
         if(table==TRUE) do.call(fracreg.pe.table, table.info.APE)
         resAPE[["table.info"]] <- table.info.APE
     }

@@ -13,7 +13,7 @@ fracreghet(
   type = "GMMx",
   link = "logit",
   intercept = TRUE,
-  table = TRUE,
+  table = FALSE,
   variance = TRUE,
   var.type = "robust",
   var.cluster,

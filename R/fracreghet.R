@@ -449,7 +449,7 @@ fracreghet.var <- function(type,p,XB,x,z,link,Hy,var.type,id,step.one,gixv,vhat)
 #' mod <- fracreghet(y = y_endog, x = X, z = Z, var.endog = var.endog, type = "QMLxv", link = "logit")
 #' summary(mod)
 #' @export
-fracreghet <- function(y,x,z=x,var.endog,start,type="GMMx",link="logit",intercept=TRUE,table=TRUE,variance=TRUE,var.type="robust",var.cluster,adjust=0,offset=NULL,or=FALSE,level=0.95,na.action=stats::na.omit,...)
+fracreghet <- function(y,x,z=x,var.endog,start,type="GMMx",link="logit",intercept=TRUE,table=FALSE,variance=TRUE,var.type="robust",var.cluster,adjust=0,offset=NULL,or=FALSE,level=0.95,na.action=stats::na.omit,...)
 {
 	cl <- match.call()
 	LL <- NULL
@@ -650,11 +650,13 @@ fracreghet <- function(y,x,z=x,var.endog,start,type="GMMx",link="logit",intercep
 	}
 	names(p) <- x.names
 
-	if(table==TRUE) fracreghet.table(p,p.var,x.names,type,link,converged,N,var.type,adjust,k,J,dfJ,LL=LL,or=or,level=level)
+	table.info <- list(p=p,p.var=p.var,x.names=x.names,type=type,link=link,converged=converged,N=N,var.type=var.type,adjust=adjust,k=k,J=J,dfJ=dfJ,LL=LL,or=or,level=level)
+
+	if(table==TRUE) do.call(fracreghet.table, table.info)
 
 	formula <- y ~ x - 1
 
-	res <- list(class=class,formula=formula,type=type,link=link,adjust=adjust,p=p,Hy=Hy,xbhat=as.vector(XB),converged=converged,x.names=x.names.in)
+	res <- list(call=cl, class=class,formula=formula,type=type,link=link,adjust=adjust,p=p,Hy=Hy,xbhat=as.vector(XB),converged=converged,x.names=x.names.in,table.info=table.info)
 	if(!is.null(offset)) res[["offset"]] <- offset
 	if(any(type==c("GMMz","LINz")) & kz>k) res[["J"]] <- J
 

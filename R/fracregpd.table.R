@@ -1,5 +1,6 @@
-fracregpd.table <- function(p,p.var,x.names,x.exogenous,lags,type,link,converged,N.ini,N,NT.ini,NT,J,dfJ,k,var.type,bootstrap,LL=NULL,or=FALSE,level=0.95)
+summary_fracregpd_table <- function(p,p.var,x.names,x.exogenous,lags,type,link,converged,N.ini,N,NT.ini,NT,J,dfJ,k,var.type,bootstrap,LL=NULL,or=FALSE,level=0.95)
 {
+    ans <- list(type=type, link=link, converged=converged, LL=LL, x.exogenous=x.exogenous, lags=lags, N.ini=N.ini, N=N, NT.ini=NT.ini, NT=NT, J=J, dfJ=dfJ, k=k, var.type=var.type, bootstrap=bootstrap, or=or, level=level)
 	if(converged==TRUE)
 	{
 		if(!is.character(p.var))
@@ -70,6 +71,45 @@ fracregpd.table <- function(p,p.var,x.names,x.exogenous,lags,type,link,converged
 				}
 			}
 		}
+		if(type!="QMLcre" | x.exogenous==TRUE) {
+			ans$coefficients <- res_table
+		} else {
+			ans$coefficients <- list(
+				"Final Quasi-Maximum Likelihood estimates" = res_table[1:k, , drop=FALSE],
+				"Reduced form:" = res_table[-(1:k), , drop=FALSE]
+			)
+		}
+		ans$Wald <- Wald
+		ans$p_wald <- p_wald
+		ans$df_wald <- df_wald
+	}
+	return(ans)
+}
+
+print_fracregpd_table <- function(x)
+{
+	type <- x$type
+	link <- x$link
+	converged <- x$converged
+	LL <- x$LL
+	x.exogenous <- x$x.exogenous
+	lags <- x$lags
+	N.ini <- x$N.ini
+	N <- x$N
+	NT.ini <- x$NT.ini
+	NT <- x$NT
+	J <- x$J
+	dfJ <- x$dfJ
+	k <- x$k
+	var.type <- x$var.type
+	bootstrap <- x$bootstrap
+	
+	if(converged==TRUE)
+	{
+		Wald <- x$Wald
+		p_wald <- x$p_wald
+		df_wald <- x$df_wald
+		res_table <- x$coefficients
 
 		cat("\n")
 		cat(.fracreg.sep(), "\n")
@@ -133,15 +173,15 @@ fracregpd.table <- function(p,p.var,x.names,x.exogenous,lags,type,link,converged
 		cat(.fracreg.sep(), "\n")
 
 		if(type!="QMLcre" | x.exogenous==TRUE) {
-			printCoefmat(res_table, P.values = TRUE, has.Pvalue = TRUE, digits = 4, signif.legend = TRUE)
+			stats::printCoefmat(res_table, P.values = TRUE, has.Pvalue = TRUE, digits = 4, signif.legend = TRUE)
 		}
 		else
 		{
-			printCoefmat(res_table[1:k, , drop=FALSE], P.values = TRUE, has.Pvalue = TRUE, digits = 4, signif.legend = TRUE)
+			stats::printCoefmat(res_table[1:k, , drop=FALSE], P.values = TRUE, has.Pvalue = TRUE, digits = 4, signif.legend = TRUE)
 			cat("\n")
 			cat(.fracreg.center("Reduced form:"), "\n")
 			cat(.fracreg.sep(), "\n")
-			printCoefmat(res_table[-(1:k), , drop=FALSE], P.values = TRUE, has.Pvalue = TRUE, digits = 4, signif.legend = TRUE)
+			stats::printCoefmat(res_table[-(1:k), , drop=FALSE], P.values = TRUE, has.Pvalue = TRUE, digits = 4, signif.legend = TRUE)
 		}
 
 		cat(.fracreg.sep(), "\n")
@@ -160,3 +200,8 @@ fracregpd.table <- function(p,p.var,x.names,x.exogenous,lags,type,link,converged
 	cat("\n")
 }
 
+fracregpd.table <- function(p,p.var,x.names,x.exogenous,lags,type,link,converged,N.ini,N,NT.ini,NT,J,dfJ,k,var.type,bootstrap,LL=NULL,or=FALSE,level=0.95)
+{
+    ans <- summary_fracregpd_table(p,p.var,x.names,x.exogenous,lags,type,link,converged,N.ini,N,NT.ini,NT,J,dfJ,k,var.type,bootstrap,LL,or,level)
+    print_fracregpd_table(ans)
+}
