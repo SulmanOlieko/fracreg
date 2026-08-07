@@ -866,7 +866,7 @@ summary.fracregridge <- function(object, ...) {
 print.summary.fracregridge <- function(x, ...) {
     cat("\n")
     cat(.fracreg.sep(), "\n")
-    cat(.fracreg.center("Fractional Ridge Regression"), "\n")
+    cat(.fracreg.center("Fractional ridge regression"), "\n")
     cat(.fracreg.sep(), "\n")
     
     .fracreg.cat.right("Data type:", "Cross-sectional")
@@ -875,7 +875,7 @@ print.summary.fracregridge <- function(x, ...) {
     cat(.fracreg.sep(), "\n")
     
     for (name in names(x$table.info)) {
-        cat(.fracreg.center(paste("Target Fraction:", name)), "\n")
+        cat(.fracreg.center(paste("Target Fraction:", sub(".*frac_", "", name))), "\n")
         cat(.fracreg.sep(), "\n")
         if(!is.null(x$stats.info)) {
             stats <- x$stats.info[[name]]
@@ -912,14 +912,14 @@ print.summary.fracregridge.pe <- function(x, ...) {
     cat(.fracreg.sep(), "\n")
     cat(.fracreg.center("Average partial effects"), "\n")
     cat(.fracreg.sep(), "\n")
-    cat(.fracreg.center("Fractional Ridge Regression"), "\n")
+    cat(.fracreg.center("Fractional ridge regression"), "\n")
     cat(.fracreg.sep(), "\n")
     
-    cat("\nNote: Fractional Ridge Regression is a linear model without a link function.\n")
+    cat("\nNote: Fractional ridge regression is a linear model without a link function.\n")
     cat("Therefore, the partial effects are mathematically identical to the coefficients themselves.\n\n")
     
     for (name in names(x$table.info)) {
-        cat(.fracreg.center(paste("Target Fraction:", name)), "\n")
+        cat(.fracreg.center(paste("Target Fraction:", sub(".*frac_", "", name))), "\n")
         cat(.fracreg.sep(), "\n")
         res <- x$table.info[[name]]
         colnames(res)[1] <- "dy/dx"
@@ -933,12 +933,19 @@ print.summary.fracregridge.pe <- function(x, ...) {
 
 #' @export
 print.fracregridge.pe <- function(x, ...) {
-    cat("\nPartial Effects for Fractional Ridge Regression\n")
-    if(!is.null(x$call)) {
-        cat("\nCall:\n")
-        print(x$call)
+    cat("\nFractional ridge regression\n")
+    cat("\nAverage partial effects:\n")
+    
+    cat("\nNote: Fractional ridge regression is a linear model without a link function.\n")
+    cat("Therefore, the partial effects are mathematically identical to the coefficients themselves.\n\n")
+    
+    for (name in names(x$table.info)) {
+        cat(paste0("Target Fraction: ", sub(".*frac_", "", name), "\n"))
+        res <- x$table.info[[name]]
+        colnames(res)[1] <- "dy/dx"
+        print.default(res[,"dy/dx", drop=FALSE])
+        cat("\n")
     }
-    cat("\n")
     invisible(x)
 }
 
@@ -1206,7 +1213,7 @@ tidy.fracreg <- function(x, conf.int = FALSE, conf.level = 0.95, ...) {
             colnames(d)[colnames(d) == "Pr(>|z|)"] <- "p.value"
             
             data.frame(
-                component = nm,
+                component = sub("^frac_", "", nm),
                 term = rownames(d),
                 estimate = if (!is.null(d$estimate)) as.numeric(d$estimate) else rep(NA_real_, nrow(d)),
                 std.error = if (!is.null(d$std.error)) as.numeric(d$std.error) else rep(NA_real_, nrow(d)),
