@@ -85,7 +85,7 @@ fracregpd.pe <- function(object, APE=TRUE, CPE=FALSE, at=NULL, which.x=NULL, var
     x <- object$x
     xbhata <- object$xbhat
     
-    title <- paste("Panel Data Fractional", linka, "regression")
+    title <- paste("Panel data fractional", linka, "regression")
     type <- "1P" # Treat structurally as 1P for PE variance computation
 
     resAPE <- list()

@@ -663,51 +663,6 @@ print.fracreg.pe <- function(x, ...) {
     invisible(x)
 }
 
-#' @export
-summary.fracregpd.pe <- function(object, ...) {
-    ans <- list()
-    if(!is.null(object$table.info)) {
-        ans$main <- do.call(summary_fracreg_pe_table, object$table.info)
-        ans$coefficients <- ans$main$coefficients
-    } else if(!is.null(object$ape) || !is.null(object$cpe)) {
-        ans$ape <- if(!is.null(object$ape$table.info)) do.call(summary_fracreg_pe_table, object$ape$table.info) else NULL
-        ans$cpe <- if(!is.null(object$cpe$table.info)) do.call(summary_fracreg_pe_table, object$cpe$table.info) else NULL
-        coef_list <- list()
-        if(!is.null(ans$ape)) coef_list$ape <- ans$ape$coefficients
-        if(!is.null(ans$cpe)) coef_list$cpe <- ans$cpe$coefficients
-        ans$coefficients <- coef_list
-    }
-    class(ans) <- "summary.fracregpd.pe"
-    return(ans)
-}
-
-#' @export
-print.summary.fracregpd.pe <- function(x, ...) {
-    if(!is.null(x$main)) print_fracreg_pe_table(x$main)
-    if(!is.null(x$ape)) print_fracreg_pe_table(x$ape)
-    if(!is.null(x$cpe)) print_fracreg_pe_table(x$cpe)
-    invisible(x)
-}
-
-#' @export
-print.fracregpd.pe <- function(x, ...) {
-    cat("\nPartial Effects for Fractional Panel Data Regression\n")
-    if(!is.null(x$ape)) {
-        cat("\nAverage Partial Effects (APE):\n")
-        print.default(x$ape$table.info$PE.p)
-    }
-    if(!is.null(x$cpe)) {
-        cat("\nConditional Partial Effects (CPE):\n")
-        print.default(x$cpe$table.info$PE.p)
-    }
-    if(!is.null(x$table.info)) {
-        if(x$table.info$PE.type == "APE") cat("\nAverage Partial Effects (APE):\n")
-        else cat("\nConditional Partial Effects (CPE):\n")
-        print.default(x$table.info$PE.p)
-    }
-    cat("\n")
-    invisible(x)
-}
 
 #' @export
 summary.fracreghet.pe <- function(object, ...) {
