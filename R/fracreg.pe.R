@@ -383,6 +383,9 @@ fracreg.pe <- function(object,APE=TRUE,CPE=FALSE,at=NULL,which.x=NULL,variance=T
 	else if(APE==TRUE & CPE==FALSE) res <- resAPE
 	else if(APE==FALSE & CPE==TRUE) res <- resCPE
 	
+	res[["link"]] <- object$link
+	res[["inf"]] <- object$inf
+	
 	if(type=="2P")
 	{
 		res[["resBIN"]] <- fracreg.pe(object$resBIN, table=FALSE, APE=APE, CPE=CPE, at=at, which.x=which.x, variance=variance)

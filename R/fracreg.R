@@ -549,12 +549,12 @@ fracreg <- function(y,x,x2=x,linkbin,linkfrac,type="1P",inflation=0,intercept=TR
 		return(invisible(resFRAC))
 	}
 	if(type=="2P") {
-		res <- list(call=cl, resBIN=resBIN,resFRAC=resFRAC,class=class,type=type,ybase=ybase,x2base=x2base,yhat2P=yhat,converged=converged,table.info=table.info)
+		res <- list(call=cl, resBIN=resBIN,resFRAC=resFRAC,class=class,type=type,link=c(linkbin,linkfrac),ybase=ybase,x2base=x2base,yhat2P=yhat,converged=converged,table.info=table.info,inf=inflation)
 		class(res) <- "fracreg"
 		return(invisible(res))
 	}
 	if(type=="3P") {
-		res <- list(call=cl, resBIN0=resBIN0,resBIN1=resBIN1,resFRAC=resFRAC,class=class,type=type,ybase=ybase,x2base=x2base,yhat3P=yhat,converged=converged,table.info=table.info)
+		res <- list(call=cl, resBIN0=resBIN0,resBIN1=resBIN1,resFRAC=resFRAC,class=class,type=type,link=c(linkbin,linkfrac),ybase=ybase,x2base=x2base,yhat3P=yhat,converged=converged,table.info=table.info)
 		class(res) <- "fracreg"
 		return(invisible(res))
 	}

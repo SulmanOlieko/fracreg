@@ -360,8 +360,8 @@ print.fracreg <- function(x, ...) {
         if(x$type == "3Pbin0") title <- paste("Part 1: Binary", x$link, "regression")
         if(x$type == "3Pbin1") title <- paste("Part 2: Binary", x$link, "regression")
         if(x$type == "3Pfrac") title <- paste("Part 3: Fractional", x$link, "regression")
-        if(x$type == "2P") title <- paste("Two-part fractional regression: binary", x$link[1], "+ fractional", x$link[2])
-        if(x$type == "3P") title <- paste("Three-part fractional regression: binary", x$link[1], ", binary", x$link[2], "+ fractional", x$link[3])
+        if(x$type == "2P") title <- paste0("Two-part fractional regression: binary ", x$link[1], " + fractional ", x$link[2])
+        if(x$type == "3P") title <- paste0("Three-part fractional regression: binary ", x$link[1], ", binary ", x$link[2], " + fractional ", x$link[3])
     }
     cat(paste0("\n", title, "\n"))
     cat(paste0("\nCall:  "))
@@ -370,22 +370,24 @@ print.fracreg <- function(x, ...) {
     }
     cat("\nCoefficients:\n")
     if(!is.null(x$resBIN0)) {
-        cat("Component 1 (Binary 0):\n")
+        cat(paste0("Binary ", x$link[1], " regression (Pr(y > 0)):\n"))
         print.default(x$resBIN0$p)
         cat("\n")
     }
     if(!is.null(x$resBIN1)) {
-        cat("Component 2 (Binary 1):\n")
+        cat(paste0("Binary ", x$link[2], " regression (Pr(y = 1 | y > 0)):\n"))
         print.default(x$resBIN1$p)
         cat("\n")
     }
     if(!is.null(x$resBIN)) {
-        cat("Binary Component:\n")
+        cond_str <- if (!is.null(x$inf) && x$inf == 1) "Pr(y = 1)" else "Pr(y > 0)"
+        cat(paste0("Binary ", x$link[1], " regression (", cond_str, "):\n"))
         print.default(x$resBIN$p)
         cat("\n")
     }
     if(!is.null(x$resFRAC)) {
-        cat("Fractional Component:\n")
+        link_idx <- if (x$type == "3P") 3 else 2
+        cat(paste0("Fractional ", x$link[link_idx], " regression (Fractional Component):\n"))
         print.default(x$resFRAC$p)
         cat("\n")
     }
@@ -511,6 +513,8 @@ print.fracreghet <- function(x, ...) {
 #' @export
 summary.fracreg.pe <- function(object, ...) {
     ans <- list()
+    ans$link <- object$link
+    ans$inf <- object$inf
     if(!is.null(object$table.info)) {
         ans$main <- do.call(summary_fracreg_pe_table, object$table.info)
         ans$coefficients <- list(overall = ans$main$coefficients)
@@ -574,21 +578,23 @@ print.summary.fracreg.pe <- function(x, subcomponent = FALSE, ...) {
         }
     }
 
-    if(!is.null(x$resBIN)) {
-        cat("\nBinary Component:\n")
-        print.summary.fracreg.pe(x$resBIN, subcomponent = TRUE)
-    }
-    if(!is.null(x$resFRAC)) {
-        cat("\nFractional Component:\n")
-        print.summary.fracreg.pe(x$resFRAC, subcomponent = TRUE)
-    }
     if(!is.null(x$resBIN0)) {
-        cat("\nBinary Component 1 (y > 0):\n")
+        cat(paste0("\nBinary ", x$link[1], " regression (Pr(y > 0)):\n"))
         print.summary.fracreg.pe(x$resBIN0, subcomponent = TRUE)
     }
     if(!is.null(x$resBIN1)) {
-        cat("\nBinary Component 2 (y = 1 | y > 0):\n")
+        cat(paste0("\nBinary ", x$link[2], " regression (Pr(y = 1 | y > 0)):\n"))
         print.summary.fracreg.pe(x$resBIN1, subcomponent = TRUE)
+    }
+    if(!is.null(x$resBIN)) {
+        cond_str <- if (!is.null(x$inf) && x$inf == 1) "Pr(y = 1)" else "Pr(y > 0)"
+        cat(paste0("\nBinary ", x$link[1], " regression (", cond_str, "):\n"))
+        print.summary.fracreg.pe(x$resBIN, subcomponent = TRUE)
+    }
+    if(!is.null(x$resFRAC)) {
+        link_idx <- if (is.null(x$resBIN0)) 2 else 3
+        cat(paste0("\nFractional ", x$link[link_idx], " regression (Fractional Component):\n"))
+        print.summary.fracreg.pe(x$resFRAC, subcomponent = TRUE)
     }
     if(!is.null(x$main) || !is.null(x$ape) || !is.null(x$cpe)) {
         # Ensure only necessary spacing
@@ -617,22 +623,24 @@ print.fracreg.pe <- function(x, ...) {
         
         cat(paste0("\n", pe_type_name, ":\n"))
         if(!is.null(obj$resBIN0)) {
-            cat("Component 1 (Binary 0):\n")
+            cat(paste0("Binary ", obj$link[1], " regression (Pr(y > 0)):\n"))
             print.default(if(!is.null(obj$resBIN0$table.info)) obj$resBIN0$table.info$PE.p else obj$resBIN0$PE.p)
             cat("\n")
         }
         if(!is.null(obj$resBIN1)) {
-            cat("Component 2 (Binary 1):\n")
+            cat(paste0("Binary ", obj$link[2], " regression (Pr(y = 1 | y > 0)):\n"))
             print.default(if(!is.null(obj$resBIN1$table.info)) obj$resBIN1$table.info$PE.p else obj$resBIN1$PE.p)
             cat("\n")
         }
         if(!is.null(obj$resBIN)) {
-            cat("Binary Component:\n")
+            cond_str <- if (!is.null(obj$inf) && obj$inf == 1) "Pr(y = 1)" else "Pr(y > 0)"
+            cat(paste0("Binary ", obj$link[1], " regression (", cond_str, "):\n"))
             print.default(if(!is.null(obj$resBIN$table.info)) obj$resBIN$table.info$PE.p else obj$resBIN$PE.p)
             cat("\n")
         }
         if(!is.null(obj$resFRAC)) {
-            cat("Fractional Component:\n")
+            link_idx <- if (is.null(obj$resBIN0)) 2 else 3
+            cat(paste0("Fractional ", obj$link[link_idx], " regression (Fractional Component):\n"))
             print.default(if(!is.null(obj$resFRAC$table.info)) obj$resFRAC$table.info$PE.p else obj$resFRAC$PE.p)
             cat("\n")
         }
@@ -729,21 +737,39 @@ print.summary.fracreghet.pe <- function(x, ...) {
 
 #' @export
 print.fracreghet.pe <- function(x, ...) {
-    cat("\nPartial Effects for Fractional Regression with Heteroskedasticity\n")
-    if(!is.null(x$ape)) {
-        cat("\nAverage Partial Effects (APE):\n")
-        print.default(x$ape$table.info$PE.p)
+    print_pe_object <- function(obj) {
+        if(!is.null(obj$table.info) && !is.null(obj$table.info$title)) {
+            title_vec <- obj$table.info$title
+        } else {
+            title_vec <- c("", "Fractional regression with heteroscedasticity/endogeneity")
+        }
+        
+        pe_type_name <- if(!is.null(obj$table.info) && !is.null(obj$table.info$PE.type)) obj$table.info$PE.type else "Average"
+        if(pe_type_name == "APE") pe_type_name <- "Average partial effects"
+        if(pe_type_name == "CPE") pe_type_name <- "Conditional partial effects"
+        
+        # Format the main title using the components of title_vec
+        title_str <- paste(title_vec[-1], collapse = "\n")
+        
+        # Append title_vec[1] (e.g. "(conditional on observables...)") to the PE type
+        if (nzchar(title_vec[1])) {
+            pe_type_full <- paste(pe_type_name, title_vec[1])
+        } else {
+            pe_type_full <- pe_type_name
+        }
+        
+        cat(paste0("\n", title_str, "\n"))
+        cat(paste0("\n", pe_type_full, ":\n"))
+        
+        if(!is.null(obj$table.info)) print.default(obj$table.info$PE.p)
+        else print.default(obj$PE.p)
+        cat("\n")
     }
-    if(!is.null(x$cpe)) {
-        cat("\nConditional Partial Effects (CPE):\n")
-        print.default(x$cpe$table.info$PE.p)
-    }
-    if(!is.null(x$table.info)) {
-        if(x$table.info$PE.type == "APE") cat("\nAverage Partial Effects (APE):\n")
-        else cat("\nConditional Partial Effects (CPE):\n")
-        print.default(x$table.info$PE.p)
-    }
-    cat("\n")
+    
+    if(!is.null(x$ape)) print_pe_object(x$ape)
+    if(!is.null(x$cpe)) print_pe_object(x$cpe)
+    if(is.null(x$ape) && is.null(x$cpe)) print_pe_object(x)
+    
     invisible(x)
 }
 

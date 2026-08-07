@@ -30,12 +30,13 @@ print_fracreghet_pe_table <- function(x)
     xvar.names <- x$xvar.names
     PE.sd <- x$PE.sd
 
-	cat("\n\n")
+	cat("\n")
 	cat(.fracreg.sep(), "\n")
-	if(PE.type=="APE") cat(.fracreg.center(paste("Average partial effects", title[1])), "\n")
-	if(PE.type=="CPE") cat(.fracreg.center(paste("Conditional partial effects", title[1])), "\n")
+	if(PE.type=="APE") cat(.fracreg.center("Average partial effects"), "\n")
+	if(PE.type=="CPE") cat(.fracreg.center("Conditional partial effects"), "\n")
 	cat(.fracreg.sep(), "\n")
 	
+	if(nzchar(title[1])) cat(.fracreg.center(title[1]), "\n")
 	cat(.fracreg.center(title[2]), "\n")
 	cat(.fracreg.center(title[3]), "\n")
 	
@@ -68,6 +69,7 @@ print_fracreghet_pe_table <- function(x)
 			print(at)
 		}
 	}
+	cat("\nNote: Partial effects for the reduced form are omitted because it is a linear model where they strictly equal the estimated coefficients.\n")
 }
 
 fracreghet.pe.table <- function(PE.p,PE.sd,PE.type,which.x,xvar.names,title,adjust,at)
