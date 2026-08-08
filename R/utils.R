@@ -748,7 +748,12 @@ print.summary.fracreg.reset <- function(x, ...) {
 
 #' @export
 print.fracreg.reset <- function(x, ...) {
-    cat("\nRESET Test for Fractional Regression\n\n")
+    ti <- attr(x, "table.info")
+    if(!is.null(ti) && !is.null(ti$title1)) {
+        cat(paste0("\nRESET Test for ", ti$title1, "\n\n"))
+    } else {
+        cat("\nRESET Test for Fractional Regression\n\n")
+    }
     print.default(c(x))
     cat("\n")
     invisible(x)
@@ -774,7 +779,12 @@ print.summary.fracreghet.reset <- function(x, ...) {
 
 #' @export
 print.fracreghet.reset <- function(x, ...) {
-    cat("\nRESET Test for Fractional Regression with Heteroskedasticity\n\n")
+    ti <- attr(x, "table.info")
+    if(!is.null(ti) && !is.null(ti$title1)) {
+        cat(paste0("\nRESET Test for ", ti$title1, " with Heteroskedasticity\n\n"))
+    } else {
+        cat("\nRESET Test for Fractional Regression with Heteroskedasticity\n\n")
+    }
     print.default(c(x))
     cat("\n")
     invisible(x)
@@ -800,7 +810,12 @@ print.summary.fracreg.ggoff <- function(x, ...) {
 
 #' @export
 print.fracreg.ggoff <- function(x, ...) {
-    cat("\nGOFF Test for Fractional Regression\n\n")
+    ti <- attr(x, "table.info")
+    if(!is.null(ti) && !is.null(ti$title1)) {
+        cat(paste0("\nGOFF Test for ", ti$title1, "\n\n"))
+    } else {
+        cat("\nGOFF Test for Fractional Regression\n\n")
+    }
     print.default(c(x))
     cat("\n")
     invisible(x)
@@ -826,7 +841,12 @@ print.summary.fracreg.ptest <- function(x, ...) {
 
 #' @export
 print.fracreg.ptest <- function(x, ...) {
-    cat("\nP-Test for Fractional Regression\n\n")
+    ti <- attr(x, "table.info")
+    if(!is.null(ti) && !is.null(ti$title1)) {
+        cat(paste0("\nP-Test for ", ti$title1, "\n\n"))
+    } else {
+        cat("\nP-Test for Fractional Regression\n\n")
+    }
     print.default(c(x))
     cat("\n")
     invisible(x)
@@ -1266,6 +1286,27 @@ tidy.fracreg <- function(x, conf.int = FALSE, conf.level = 0.95, ...) {
     out
 }
 
+tidy_fracreg_test <- function(x, ...) {
+    res <- summary(x)$coefficients
+    d <- as.data.frame(res)
+    
+    out <- data.frame(
+        term = rownames(d),
+        statistic = if (!is.null(d[["Statistic"]])) as.numeric(d[["Statistic"]]) else rep(NA_real_, nrow(d)),
+        p.value = if (!is.null(d[["p-value"]])) as.numeric(d[["p-value"]]) else rep(NA_real_, nrow(d)),
+        stringsAsFactors = FALSE
+    )
+    
+    rownames(out) <- NULL
+    
+    if (requireNamespace("tibble", quietly = TRUE)) {
+        out <- tibble::as_tibble(out)
+    }
+    
+    out
+}
+
+
 #' @exportS3Method broom::glance
 glance.fracreg <- function(x, ...) {
     out <- data.frame(
@@ -1468,6 +1509,15 @@ tidy.fracregmlogit.pe <- tidy.fracreg
 #' @exportS3Method broom::tidy
 tidy.fracregmlogit.wtp <- tidy.fracreg
 
+#' @exportS3Method broom::tidy
+tidy.fracreg.reset <- tidy_fracreg_test
+#' @exportS3Method broom::tidy
+tidy.fracreghet.reset <- tidy_fracreg_test
+#' @exportS3Method broom::tidy
+tidy.fracreg.ggoff <- tidy_fracreg_test
+#' @exportS3Method broom::tidy
+tidy.fracreg.ptest <- tidy_fracreg_test
+
 #' @exportS3Method broom::glance
 glance.fracreghet <- glance.fracreg
 #' @exportS3Method broom::glance
@@ -1505,16 +1555,10 @@ model.matrix.fracregridge <- model.matrix.fracreg
 model.matrix.fracregmlogit <- model.matrix.fracreg
 
 #' @exportS3Method gtsummary::tbl_regression
-tbl_regression.fracreg <- function(x, intercept = TRUE, ...) {
+tbl_regression.fracreg <- function(x, ...) {
   if (!requireNamespace("gtsummary", quietly = TRUE)) {
     stop("Package 'gtsummary' is required for tbl_regression.")
   }
   
-  # Strip fracreg classes to safely trigger the default gtsummary::tbl_regression
-  classes_to_remove <- c("fracreg", "fracreg1P", "fracreg2P", "fracreg2Pfrac", 
-                         "fracreg2Pbin", "fracreg3P", "fracreghet", "fracregpd", 
-                         "fracregridge", "fracregmlogit")
-  class(x) <- setdiff(class(x), classes_to_remove)
-  
-  gtsummary::tbl_regression(x, intercept = intercept, ...)
+  NextMethod()
 }
