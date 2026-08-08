@@ -7,7 +7,7 @@
 #' the min to the max. 
 #' @param marg.type Type of marginal or discrete effects to be computed. Default to "atmean", the effect at 
 #' the mean of all covariates. Also takes "aveacr", the averaged effects across all observations. See details. 
-#' @param se Whether to calculate standard errors for those margins. See details. 
+#' @param se Whether to calculate standard errors for those margins. Default to TRUE. See details. 
 #' @param varlist A string vector which provides the names of variables to calculate 
 #' the marginal effect for. If missing, all variables except the (Intercept) will be calculated. 
 #' Use "(Intercept)" if you wish to compute the marginal effect of the intercept. 
@@ -71,7 +71,7 @@
 #' summary(pe_disc)
 #' @export fracregmlogit.pe
 fracregmlogit.pe<-function(object,effect=c("marginal","discrete"),
-                          marg.type="atmean",se=FALSE,varlist = NULL,at=NULL,R=1000){
+                          marg.type="atmean",se=TRUE,varlist = NULL,at=NULL,R=1000){
   effect = match.arg(effect)
   j=length(object$estimates)+1; K=dim(object$estimates[[1]])[1]; N=dim(object$y)[1]
   betamat = object$coefficient
@@ -128,26 +128,46 @@ fracregmlogit.pe<-function(object,effect=c("marginal","discrete"),
     }
     
     if (se == TRUE) {
-      # Vectorized Multivariate Krinsky-Robb standard error calculation for marginal effects
-      x_mean = c(1, colMeans(object$X[,-1]))
-      
-      Xbeta_R = matrix(0, nrow=R, ncol=j)
-      for (i in 2:j) {
-        Xbeta_R[, i] = betamat_R[, i, ] %*% x_mean
-      }
-      exp_Xbeta_R = exp(Xbeta_R)
-      yhat_R = exp_Xbeta_R / rowSums(exp_Xbeta_R) # R x j
-      
-      for (c in var_colNo) {
-        c1 = which(var_colNo == c)
+      if (marg.type == "atmean") {
+        if(is.null(at)) at = colMeans(object$X[,-1])
+        x_eval = c(1, at)
         
-        # Calculate the beta_bar (weighted average parameter) for each of the R draws
-        beta_bar_R = rowSums(yhat_R * betamat_R[, , c])
+        Xbeta_R = matrix(0, nrow=R, ncol=j)
+        for (i in 2:j) {
+          Xbeta_R[, i] = betamat_R[, i, ] %*% x_eval
+        }
+        exp_Xbeta_R = exp(Xbeta_R)
+        yhat_R = exp_Xbeta_R / rowSums(exp_Xbeta_R) # R x j
         
-        # Calculate the marginal effect spread across the R draws for each choice j
-        for (i in 1:j) {
-          marg_matrix_i = yhat_R[, i] * (betamat_R[, i, c] - beta_bar_R)
-          se_mat[i, c1] = sd(marg_matrix_i)
+        for (c in var_colNo) {
+          c1 = which(var_colNo == c)
+          beta_bar_R = rowSums(yhat_R * betamat_R[, , c])
+          for (i in 1:j) {
+            marg_matrix_i = yhat_R[, i] * (betamat_R[, i, c] - beta_bar_R)
+            se_mat[i, c1] = sd(marg_matrix_i)
+          }
+        }
+      } else if (marg.type == "aveacr") {
+        X_mat = as.matrix(object$X)
+        for (c in var_colNo) {
+          c1 = which(var_colNo == c)
+          marg_R_matrix = matrix(0, nrow=R, ncol=j)
+          for (r in 1:R) {
+             beta_r = betamat_R[r, , ] 
+             Xbeta_n = X_mat %*% t(beta_r)
+             exp_Xbeta_n = exp(Xbeta_n)
+             yhat_n = exp_Xbeta_n / rowSums(exp_Xbeta_n)
+             
+             beta_c = beta_r[, c]
+             beta_bar_n = as.vector(yhat_n %*% beta_c)
+             
+             betak_long = matrix(beta_c, nrow=N, ncol=j, byrow=TRUE)
+             marg_n = yhat_n * (betak_long - beta_bar_n)
+             marg_R_matrix[r, ] = colMeans(marg_n)
+          }
+          for (i in 1:j) {
+             se_mat[i, c1] = sd(marg_R_matrix[, i])
+          }
         }
       }
     }
@@ -179,27 +199,61 @@ fracregmlogit.pe<-function(object,effect=c("marginal","discrete"),
     }
     
     if (se == TRUE) {
-      # Vectorized Multivariate Krinsky-Robb standard error calculation for discrete effects
-      for (c in var_colNo) {
-        c1 = which(var_colNo == c)
-        
-        Xmin <- Xmax <- c(1, colMeans(object$X[,-1]))
-        Xmin[c] = min(object$X[,c])
-        Xmax[c] = max(object$X[,c])
-        
-        Xbeta_min_R = matrix(0, nrow=R, ncol=j)
-        Xbeta_max_R = matrix(0, nrow=R, ncol=j)
-        for (i in 2:j) {
-          Xbeta_min_R[, i] = betamat_R[, i, ] %*% Xmin
-          Xbeta_max_R[, i] = betamat_R[, i, ] %*% Xmax
+      if (marg.type == "atmean") {
+        for (c in var_colNo) {
+          c1 = which(var_colNo == c)
+          if(is.null(at)) at = colMeans(object$X[,-1])
+          Xmin <- Xmax <- c(1, at)
+          Xmin[c] = min(object$X[,c])
+          Xmax[c] = max(object$X[,c])
+          
+          Xbeta_min_R = matrix(0, nrow=R, ncol=j)
+          Xbeta_max_R = matrix(0, nrow=R, ncol=j)
+          
+          for (i in 2:j) {
+            Xbeta_min_R[, i] = betamat_R[, i, ] %*% Xmin
+            Xbeta_max_R[, i] = betamat_R[, i, ] %*% Xmax
+          }
+          exp_Xbeta_min_R = exp(Xbeta_min_R)
+          exp_Xbeta_max_R = exp(Xbeta_max_R)
+          
+          yhat_min_R = exp_Xbeta_min_R / rowSums(exp_Xbeta_min_R)
+          yhat_max_R = exp_Xbeta_max_R / rowSums(exp_Xbeta_max_R)
+          
+          marg_matrix = yhat_max_R - yhat_min_R
+          
+          for (i in 1:j) {
+            se_mat[i, c1] = sd(marg_matrix[, i])
+          }
         }
-        
-        yhat_min_R = exp(Xbeta_min_R) / rowSums(exp(Xbeta_min_R))
-        yhat_max_R = exp(Xbeta_max_R) / rowSums(exp(Xbeta_max_R))
-        
-        ydisc_R = yhat_max_R - yhat_min_R # R x j
-        for (i in 1:j) {
-          se_mat[i, c1] = sd(ydisc_R[, i])
+      } else if (marg.type == "aveacr") {
+        X_mat = as.matrix(object$X)
+        for (c in var_colNo) {
+          c1 = which(var_colNo == c)
+          
+          Xmin_mat <- Xmax_mat <- X_mat
+          Xmin_mat[, c] = min(X_mat[, c])
+          Xmax_mat[, c] = max(X_mat[, c])
+          
+          marg_R_matrix = matrix(0, nrow=R, ncol=j)
+          for (r in 1:R) {
+            beta_r = betamat_R[r, , ]
+            
+            Xbeta_min_n = Xmin_mat %*% t(beta_r)
+            exp_Xbeta_min_n = exp(Xbeta_min_n)
+            yhat_min_n = exp_Xbeta_min_n / rowSums(exp_Xbeta_min_n)
+            
+            Xbeta_max_n = Xmax_mat %*% t(beta_r)
+            exp_Xbeta_max_n = exp(Xbeta_max_n)
+            yhat_max_n = exp_Xbeta_max_n / rowSums(exp_Xbeta_max_n)
+            
+            ydisc_n = yhat_max_n - yhat_min_n
+            marg_R_matrix[r, ] = colMeans(ydisc_n)
+          }
+          
+          for (i in 1:j) {
+            se_mat[i, c1] = sd(marg_R_matrix[, i])
+          }
         }
       }
     }

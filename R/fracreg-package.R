@@ -7,8 +7,8 @@
 #' \tabular{ll}{
 #' Package: \tab fracreg\cr
 #' Type: \tab Package\cr
-#' Version: \tab 1.0.0\cr
-#' Date: \tab 2026-07-05\cr
+#' Version: \tab 1.1.0\cr
+#' Date: \tab 2026-08-08\cr
 #' License: \tab GPL-3\cr
 #' }
 #'

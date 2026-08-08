@@ -161,8 +161,8 @@ plot.fracregmlogit.pe = function(x, varlist=NULL, X=NULL, y=NULL,
   requireNamespace("grid", quietly = TRUE)
   
   if(is.null(object[["marg.list"]])) stop("Please choose marg.type=aveacr when calculating effects")
-  k = ncol(object$effects); j = nrow(object$effects); N = nrow(object$marg.list[[1]]); 
-  Xnames = colnames(object$effects) ; ynames = rownames(object$effects)
+  k = nrow(object$effects); j = ncol(object$effects); N = nrow(object$marg.list[[1]]); 
+  Xnames = rownames(object$effects) ; ynames = colnames(object$effects)
   # X = object$X; y=object$y
   
   # determine variable list

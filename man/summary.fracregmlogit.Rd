@@ -12,6 +12,8 @@
 \method{summary}{fracregmlogit}(object, ...)
 }
 \arguments{
+\item{x}{an object of class "fracregmlogit", "fracregmlogit.pe", or "fracregmlogit.wtp" (used by print methods).}
+
 \item{...}{Additional arguments passed to the printCoefmat function.}
 
 \item{object}{an object with class "fracregmlogit", "fracregmlogit.pe", or "fracregmlogit.wtp".}

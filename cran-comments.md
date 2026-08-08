@@ -1,6 +1,6 @@
 ## Resubmission
 
-This is a resubmission. I have bumped the package to version 1.0.1 to include new features detailed in `NEWS.md`. In this version, I have also fully addressed the previous CRAN feedback:
+This is a resubmission. I have bumped the package to version 1.1.0 to include new features detailed in `NEWS.md`. In this version, I have also fully addressed the previous CRAN feedback:
 
 * Added the required `\value` tag to `fitted.fracregmlogit.Rd` explicitly describing the output structure (`data.frame` class) and meaning for the exported `fitted`, `residuals`, and `predict` S3 methods on `fracregmlogit` objects.
 * Removed the starting phrase "This package" and similar variations from the description field.

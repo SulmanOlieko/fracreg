@@ -8,7 +8,7 @@ fracregmlogit.pe(
   object,
   effect = c("marginal", "discrete"),
   marg.type = "atmean",
-  se = FALSE,
+  se = TRUE,
   varlist = NULL,
   at = NULL,
   R = 1000
@@ -23,7 +23,7 @@ the min to the max.}
 \item{marg.type}{Type of marginal or discrete effects to be computed. Default to "atmean", the effect at 
 the mean of all covariates. Also takes "aveacr", the averaged effects across all observations. See details.}
 
-\item{se}{Whether to calculate standard errors for those margins. See details.}
+\item{se}{Whether to calculate standard errors for those margins. Default to TRUE. See details.}
 
 \item{varlist}{A string vector which provides the names of variables to calculate 
 the marginal effect for. If missing, all variables except the (Intercept) will be calculated. 

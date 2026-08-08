@@ -39,23 +39,23 @@
 #' @export wtp
 wtp = function(object, wtp.vec, varlist=NULL, indv.obs=FALSE){
   if(!inherits(object, "fracregmlogit.pe")) stop("Expect an fracregmlogit.pe object. Wrong object type given.")
-  j=nrow(object$effects); k=ncol(object$effects)
-  Xnames = colnames(object$effects); ynames = rownames(object$effects)
+  j=ncol(object$effects); k=nrow(object$effects)
+  Xnames = rownames(object$effects); ynames = colnames(object$effects)
+  
   if(length(varlist)==0){
     varlist=Xnames
-    var_colNo = c(1:k)
-    k = length(var_colNo)
   }else{
-    var_colNo = which(varlist %in% Xnames)
-    k = length(var_colNo)
+    if (!all(varlist %in% Xnames)) stop("Some variables in varlist not found in object.")
   }
+  k = length(varlist)
   if(length(wtp.vec)!=j) stop("Wrong length of wtp.vec. Please check specification again.")
+  
   # wtp calcs
-  betamat = object$effects[,varlist, drop=FALSE]; semat = object$se[,varlist, drop=FALSE]
-  wtp_mean = wtp.vec %*% betamat
+  betamat = object$effects[varlist, , drop=FALSE]; semat = object$se[varlist, , drop=FALSE]
+  wtp_mean = as.vector(betamat %*% wtp.vec)
 
   if(object$R>0){ # prevent a bug that does not output R in the fracregmlogit.pe module. 
-  wtp_se = sqrt(wtp.vec^2 %*% semat^2)
+  wtp_se = as.vector(sqrt((semat^2) %*% (wtp.vec^2)))
   # output tables
   tabout = matrix(ncol=4,nrow=k)
   tabout[,1] = wtp_mean
@@ -66,10 +66,13 @@ wtp = function(object, wtp.vec, varlist=NULL, indv.obs=FALSE){
   rownames(tabout) = varlist
   }else tabout = wtp_mean
   if(indv.obs){
+    if(is.null(object$marg.list)) {
+      stop("Individual observations (indv.obs=TRUE) require marg.type='aveacr' in fracregmlogit.pe.")
+    }
     wtp_mat = matrix(ncol = k, nrow=nrow(object$marg.list[[1]]))
-    for(c in var_colNo){
-      c1 = which(var_colNo == c)
-      wtp_mat[,c1] = as.matrix(object$marg.list[[c1]]) %*% wtp.vec
+    for(c1 in 1:length(varlist)){
+      v = varlist[c1]
+      wtp_mat[,c1] = as.matrix(object$marg.list[[v]]) %*% wtp.vec
     }
     colnames(wtp_mat) = varlist
   }

@@ -29,13 +29,14 @@
 #' x1 <- rnorm(N*T)
 #' x2 <- rnorm(N*T)
 #' z1 <- rnorm(N*T)
-#' y <- exp(x1 - x2 + rnorm(N*T))/(1 + exp(x1 - x2 + rnorm(N*T)))
+#' u <- rnorm(N*T)
+#' y <- exp(x1 - x2 + u)/(1 + exp(x1 - x2 + u))
 #' X <- cbind(x1 = x1, x2 = x2)
-#' Z <- cbind(z1 = z1)
+#' Z <- cbind(x1 = x1, z1 = z1)
 #' 
 #' # Estimate panel data model
 #' mod_pd <- fracregpd(id=id, time=time, y=y, x=X, z=Z, 
-#'                     var.endog=c("x2"), type="GMMbgw", link="logit")
+#'                     x.exogenous=FALSE, type="GMMbgw", link="logit")
 #' 
 #' # Compute Average Partial Effects
 #' pe_res <- fracregpd.pe(mod_pd)

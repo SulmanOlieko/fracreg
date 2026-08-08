@@ -961,6 +961,7 @@ print.fracregridge.pe <- function(x, ...) {
 #' @aliases summary.fracregmlogit.wtp
 #' 
 #' @param object an object with class "fracregmlogit", "fracregmlogit.pe", or "fracregmlogit.wtp".
+#' @param x an object of class "fracregmlogit", "fracregmlogit.pe", or "fracregmlogit.wtp" (used by print methods).
 #' @param ... Additional arguments passed to the printCoefmat function.
 #' @return Returns the object invisibly.
 #' 
@@ -1177,6 +1178,15 @@ summary.fracregmlogit.wtp = function(object, ...) {
 }
 
 #' @export
+print.fracregmlogit.wtp = function(x, ...) {
+    cat("\nFractional multinomial logit regression\n")
+    cat("\nWillingness to Pay:\n\n")
+    print.default(x$wtp)
+    cat("\n")
+    invisible(x)
+}
+
+#' @export
 print.summary.fracregmlogit.wtp = function(x, ...) {
   if (is.null(dim(x$wtp))) { print(x$wtp); return(invisible(x)) }
   if(is.null(colnames(x$wtp)) || colnames(x$wtp)[1]!="Coefficient") { print(x$wtp); return(invisible(x)) } 
@@ -1207,13 +1217,14 @@ tidy.fracreg <- function(x, conf.int = FALSE, conf.level = 0.95, ...) {
     if(is.list(res) && !is.data.frame(res)) {
         out <- do.call(rbind, lapply(names(res), function(nm) {
             d <- as.data.frame(res[[nm]])
+            comp <- sub("^frac_", "", nm)
             colnames(d)[colnames(d) %in% c("Coefficient", "dy/dx", "Odds Ratio", "Estimate")] <- "estimate"
             colnames(d)[grepl("Std\\. ?Err", colnames(d), ignore.case = TRUE)] <- "std.error"
             colnames(d)[colnames(d) == "z value"] <- "statistic"
             colnames(d)[colnames(d) == "Pr(>|z|)"] <- "p.value"
             
             data.frame(
-                component = sub("^frac_", "", nm),
+                component = ifelse(comp == "BIN", "BIN0", comp),
                 term = rownames(d),
                 estimate = if (!is.null(d$estimate)) as.numeric(d$estimate) else rep(NA_real_, nrow(d)),
                 std.error = if (!is.null(d$std.error)) as.numeric(d$std.error) else rep(NA_real_, nrow(d)),
@@ -1454,6 +1465,9 @@ tidy.fracregridge.pe <- tidy.fracreg
 #' @exportS3Method broom::tidy
 tidy.fracregmlogit.pe <- tidy.fracreg
 
+#' @exportS3Method broom::tidy
+tidy.fracregmlogit.wtp <- tidy.fracreg
+
 #' @exportS3Method broom::glance
 glance.fracreghet <- glance.fracreg
 #' @exportS3Method broom::glance
@@ -1489,3 +1503,18 @@ model.matrix.fracregpd <- model.matrix.fracreg
 model.matrix.fracregridge <- model.matrix.fracreg
 #' @exportS3Method stats::model.matrix
 model.matrix.fracregmlogit <- model.matrix.fracreg
+
+#' @exportS3Method gtsummary::tbl_regression
+tbl_regression.fracreg <- function(x, intercept = TRUE, ...) {
+  if (!requireNamespace("gtsummary", quietly = TRUE)) {
+    stop("Package 'gtsummary' is required for tbl_regression.")
+  }
+  
+  # Strip fracreg classes to safely trigger the default gtsummary::tbl_regression
+  classes_to_remove <- c("fracreg", "fracreg1P", "fracreg2P", "fracreg2Pfrac", 
+                         "fracreg2Pbin", "fracreg3P", "fracreghet", "fracregpd", 
+                         "fracregridge", "fracregmlogit")
+  class(x) <- setdiff(class(x), classes_to_remove)
+  
+  gtsummary::tbl_regression(x, intercept = intercept, ...)
+}
