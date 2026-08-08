@@ -7,19 +7,27 @@ willingness to pay from fracregmlogit-type objects.
 
 ``` r
 # S3 method for class 'fracregmlogit'
+print(x, ...)
+
+# S3 method for class 'fracregmlogit'
 summary(object, ...)
 ```
 
 ## Arguments
 
-- object:
+- x:
 
-  an object with class "fracregmlogit", "fracregmlogit.pe", or
-  "fracregmlogit.wtp".
+  an object of class "fracregmlogit", "fracregmlogit.pe", or
+  "fracregmlogit.wtp" (used by print methods).
 
 - ...:
 
   Additional arguments passed to the printCoefmat function.
+
+- object:
+
+  an object with class "fracregmlogit", "fracregmlogit.pe", or
+  "fracregmlogit.wtp".
 
 ## Value
 
@@ -56,7 +64,6 @@ y = fracreg_spending[,6:11]
 
 # generate fracregmlogit summary
 results1 = fracregmlogit(y, X)
-#> [1] "Fractional logit model estimation completed. Time: 0.2 seconds"
 summary(results1)
 #> 
 #> -------------------------------------------------------------------------------- 
@@ -77,11 +84,11 @@ summary(results1)
 #> Prob > chi2:                                                              0.0000 
 #> -------------------------------------------------------------------------------- 
 #>              Coefficient Robust Std.Err. z value Pr(>|z|)    
+#> (Intercept)      0.74898         0.06527  11.475  < 2e-16 ***
 #> houseval        -0.14001         0.03712  -3.772 0.000162 ***
-#> popdens          0.01158         0.01875   0.618 0.536751    
-#> noleft           0.08254         0.04572   1.805 0.071049 .  
+#> popdens          0.01158         0.01875   0.618 0.536748    
+#> noleft           0.08254         0.04572   1.805 0.071048 .  
 #> minorityleft     0.18936         0.04450   4.255 2.09e-05 ***
-#> constant         0.74898         0.06527  11.475  < 2e-16 ***
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> 
@@ -92,41 +99,41 @@ summary(results1)
 #> Prob > chi2:                                                              0.0000 
 #> -------------------------------------------------------------------------------- 
 #>              Coefficient Robust Std.Err. z value Pr(>|z|)    
+#> (Intercept)      1.21527         0.16536   7.349 1.99e-13 ***
 #> houseval        -0.63715         0.10737  -5.934 2.96e-09 ***
 #> popdens          0.09276         0.03044   3.048  0.00231 ** 
 #> noleft          -0.36480         0.09164  -3.981 6.87e-05 ***
 #> minorityleft     0.03874         0.09353   0.414  0.67875    
-#> constant         1.21527         0.16536   7.349 1.99e-13 ***
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> 
 #> -------------------------------------------------------------------------------- 
 #>                                Choice: recreation 
 #> -------------------------------------------------------------------------------- 
-#> Wald chi2(4):                                                           137.7053 
+#> Wald chi2(4):                                                           137.7055 
 #> Prob > chi2:                                                              0.0000 
 #> -------------------------------------------------------------------------------- 
 #>              Coefficient Robust Std.Err. z value Pr(>|z|)    
+#> (Intercept)      0.42086         0.06640   6.339 2.32e-10 ***
 #> houseval        -0.23088         0.03969  -5.817 5.98e-09 ***
 #> popdens          0.07204         0.01577   4.569 4.89e-06 ***
 #> noleft           0.01385         0.04307   0.322    0.748    
 #> minorityleft     0.22266         0.04195   5.307 1.11e-07 ***
-#> constant         0.42086         0.06640   6.339 2.32e-10 ***
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> 
 #> -------------------------------------------------------------------------------- 
 #>                                  Choice: social 
 #> -------------------------------------------------------------------------------- 
-#> Wald chi2(4):                                                           313.0896 
+#> Wald chi2(4):                                                           313.0898 
 #> Prob > chi2:                                                              0.0000 
 #> -------------------------------------------------------------------------------- 
 #>              Coefficient Robust Std.Err. z value Pr(>|z|)    
+#> (Intercept)      1.70671         0.11044  15.453   <2e-16 ***
 #> houseval        -0.62082         0.06543  -9.488   <2e-16 ***
 #> popdens          0.19818         0.01998   9.917   <2e-16 ***
 #> noleft          -0.14671         0.05997  -2.446   0.0144 *  
 #> minorityleft     0.13606         0.05900   2.306   0.0211 *  
-#> constant         1.70671         0.11044  15.453   <2e-16 ***
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> 
@@ -137,16 +144,16 @@ summary(results1)
 #> Prob > chi2:                                                              0.0000 
 #> -------------------------------------------------------------------------------- 
 #>              Coefficient Robust Std.Err. z value Pr(>|z|)    
+#> (Intercept)      0.98183         0.12528   7.837 4.66e-15 ***
 #> houseval        -0.17859         0.07388  -2.417  0.01564 *  
 #> popdens          0.16048         0.03381   4.746 2.07e-06 ***
 #> noleft           0.03022         0.08359   0.361  0.71773    
 #> minorityleft     0.23444         0.07791   3.009  0.00262 ** 
-#> constant         0.98183         0.12528   7.837 4.66e-15 ***
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> 
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-31 09:18:49 
+#>                          Run Date: 2026-08-08 13:39:38 
 #> -------------------------------------------------------------------------------- 
 
 # generate marginal effects summary
@@ -162,14 +169,17 @@ summary(effects1)
 #> 
 #> Note: marginal effect at the mean, standard error not computed 
 #> Effects:
-#>                  houseval      popdens       noleft minorityleft
-#> governing      0.03034691 -0.010268477  0.005080197 -0.014758737
-#> safety         0.03319717 -0.017802902  0.025010114  0.006114876
-#> education     -0.03693917 -0.001846496 -0.036332555 -0.013701221
-#> recreation     0.01074902 -0.004363436  0.008070371  0.007956663
-#> social        -0.07220130  0.021568719 -0.022384532 -0.004810849
-#> urbanplanning  0.03484736  0.012712591  0.020556405  0.019199268
+#>                 governing       safety    education   recreation      social
+#> houseval      0.016582441  0.037399658 -0.033349193  0.014380452 -0.08253115
+#> popdens      -0.005346520 -0.016829235 -0.005301123 -0.004836799  0.02585608
+#> noleft        0.003632683  0.024286998 -0.039396801  0.008530112 -0.02213837
+#> minorityleft -0.006262282  0.005279057 -0.016170900  0.005881345 -0.00612738
+#>              urbanplanning
+#> houseval       0.047517787
+#> popdens        0.006457602
+#> noleft         0.025085383
+#> minorityleft   0.017400159
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-31 09:18:49 
+#>                          Run Date: 2026-08-08 13:39:38 
 #> -------------------------------------------------------------------------------- 
 ```

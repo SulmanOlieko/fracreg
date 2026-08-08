@@ -68,7 +68,6 @@ df <- na.omit(fracreg_spending)
 X = df[,2:5]
 y = df[,6:11]
 results1 = fracregmlogit(y, X)
-#> [1] "Fractional logit model estimation completed. Time: 0.3 seconds"
 
 # Extract fitted values
 fit = fitted(results1)

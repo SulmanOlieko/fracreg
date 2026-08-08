@@ -9,7 +9,7 @@ likelihood estimation following Papke and Wooldridge (1996)."><meta property="og
 
     <a class="navbar-brand me-2" href="../index.html">fracreg</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -189,7 +189,6 @@ certain scenarios. BHHH is slower, but has better convergence properties.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Fit the fractional multinomial logit model</span></span></span>
 <span class="r-in"><span><span class="va">results1</span> <span class="op">=</span> <span class="fu">fracregmlogit</span><span class="op">(</span><span class="va">y</span>, <span class="va">X</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Fractional logit model estimation completed. Time: 0.2 seconds"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># View estimates</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">results1</span><span class="op">)</span></span></span>
@@ -212,11 +211,11 @@ certain scenarios. BHHH is slower, but has better convergence properties.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Prob &gt; chi2:                                                              0.0000 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              Coefficient Robust Std.Err. z value Pr(&gt;|z|)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)      0.74898         0.06527  11.475  &lt; 2e-16 ***</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> houseval        -0.14001         0.03712  -3.772 0.000162 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> popdens          0.01158         0.01875   0.618 0.536751    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> noleft           0.08254         0.04572   1.805 0.071049 .  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> popdens          0.01158         0.01875   0.618 0.536748    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> noleft           0.08254         0.04572   1.805 0.071048 .  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> minorityleft     0.18936         0.04450   4.255 2.09e-05 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> constant         0.74898         0.06527  11.475  &lt; 2e-16 ***</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -227,41 +226,41 @@ certain scenarios. BHHH is slower, but has better convergence properties.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Prob &gt; chi2:                                                              0.0000 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              Coefficient Robust Std.Err. z value Pr(&gt;|z|)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)      1.21527         0.16536   7.349 1.99e-13 ***</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> houseval        -0.63715         0.10737  -5.934 2.96e-09 ***</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> popdens          0.09276         0.03044   3.048  0.00231 ** </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> noleft          -0.36480         0.09164  -3.981 6.87e-05 ***</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> minorityleft     0.03874         0.09353   0.414  0.67875    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> constant         1.21527         0.16536   7.349 1.99e-13 ***</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                Choice: recreation </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Wald chi2(4):                                                           137.7053 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Wald chi2(4):                                                           137.7055 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Prob &gt; chi2:                                                              0.0000 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              Coefficient Robust Std.Err. z value Pr(&gt;|z|)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)      0.42086         0.06640   6.339 2.32e-10 ***</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> houseval        -0.23088         0.03969  -5.817 5.98e-09 ***</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> popdens          0.07204         0.01577   4.569 4.89e-06 ***</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> noleft           0.01385         0.04307   0.322    0.748    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> minorityleft     0.22266         0.04195   5.307 1.11e-07 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> constant         0.42086         0.06640   6.339 2.32e-10 ***</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                  Choice: social </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Wald chi2(4):                                                           313.0896 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Wald chi2(4):                                                           313.0898 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Prob &gt; chi2:                                                              0.0000 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              Coefficient Robust Std.Err. z value Pr(&gt;|z|)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)      1.70671         0.11044  15.453   &lt;2e-16 ***</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> houseval        -0.62082         0.06543  -9.488   &lt;2e-16 ***</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> popdens          0.19818         0.01998   9.917   &lt;2e-16 ***</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> noleft          -0.14671         0.05997  -2.446   0.0144 *  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> minorityleft     0.13606         0.05900   2.306   0.0211 *  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> constant         1.70671         0.11044  15.453   &lt;2e-16 ***</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -272,16 +271,16 @@ certain scenarios. BHHH is slower, but has better convergence properties.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Prob &gt; chi2:                                                              0.0000 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              Coefficient Robust Std.Err. z value Pr(&gt;|z|)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)      0.98183         0.12528   7.837 4.66e-15 ***</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> houseval        -0.17859         0.07388  -2.417  0.01564 *  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> popdens          0.16048         0.03381   4.746 2.07e-06 ***</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> noleft           0.03022         0.08359   0.361  0.71773    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> minorityleft     0.23444         0.07791   3.009  0.00262 ** </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> constant         0.98183         0.12528   7.837 4.66e-15 ***</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-31 09:18:37 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-08-08 13:39:26 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Compute marginal effects</span></span></span>
@@ -298,59 +297,73 @@ certain scenarios. BHHH is slower, but has better convergence properties.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Note: marginal effect average across observations, Krinsky-Robb standard error calculated </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                Variable: houseval </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                Choice: governing </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                   dy/dx Std. Error z value Pr(&gt;|z|)    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> governing      0.030201   0.002813  10.735  &lt; 2e-16 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> safety         0.032588   0.007731   4.215 2.50e-05 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> education     -0.036609   0.012684  -2.886   0.0039 ** </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> recreation     0.010542   0.004601   2.291   0.0220 *  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> social        -0.071189   0.012230  -5.821 5.86e-09 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> urbanplanning  0.034467   0.014094   2.445   0.0145 *  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                  dy/dx Std. Error z value Pr(&gt;|z|)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> houseval      0.030201   0.002580  11.706  &lt; 2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> popdens      -0.010226   0.001078  -9.489  &lt; 2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> noleft        0.004927   0.002650   1.859    0.063 .  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> minorityleft -0.014898   0.002863  -5.204 1.95e-07 ***</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                Variable: popdens </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                  Choice: safety </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                   dy/dx Std. Error z value Pr(&gt;|z|)    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> governing     -0.010226   0.001051  -9.731  &lt; 2e-16 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> safety        -0.017586   0.003171  -5.546 2.92e-08 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> education     -0.001956   0.003383  -0.578   0.5632    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> recreation    -0.004263   0.001990  -2.142   0.0322 *  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> social         0.021371   0.004097   5.216 1.83e-07 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> urbanplanning  0.012661   0.005417   2.337   0.0194 *  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                  dy/dx Std. Error z value Pr(&gt;|z|)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> houseval      0.032588   0.007982   4.083 4.45e-05 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> popdens      -0.017586   0.003569  -4.927 8.34e-07 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> noleft        0.024764   0.008827   2.805  0.00503 ** </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> minorityleft  0.006177   0.007677   0.805  0.42105    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                 Variable: noleft </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                Choice: education </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                   dy/dx Std. Error z value Pr(&gt;|z|)    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> governing      0.004927   0.002893   1.703 0.088593 .  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> safety         0.024764   0.008124   3.048 0.002300 ** </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> education     -0.036251   0.010299  -3.520 0.000432 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> recreation     0.007975   0.004813   1.657 0.097497 .  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> social        -0.021787   0.013045  -1.670 0.094898 .  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> urbanplanning  0.020371   0.016230   1.255 0.209407    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                  dy/dx Std. Error z value Pr(&gt;|z|)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> houseval     -0.036609   0.013292  -2.754 0.005883 ** </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> popdens      -0.001956   0.003310  -0.591 0.554561    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> noleft       -0.036251   0.009988  -3.629 0.000284 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> minorityleft -0.013687   0.009873  -1.386 0.165667    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                              Variable: minorityleft </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                Choice: recreation </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                   dy/dx Std. Error z value Pr(&gt;|z|)    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> governing     -0.014898   0.002699  -5.520  3.4e-08 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> safety         0.006177   0.009318   0.663   0.5074    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> education     -0.013687   0.010088  -1.357   0.1749    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> recreation     0.007938   0.004680   1.696   0.0898 .  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> social        -0.004648   0.012152  -0.382   0.7021    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> urbanplanning  0.019118   0.015016   1.273   0.2029    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                  dy/dx Std. Error z value Pr(&gt;|z|)  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> houseval      0.010542   0.004708   2.239   0.0252 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> popdens      -0.004263   0.001956  -2.180   0.0293 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> noleft        0.007975   0.004670   1.708   0.0877 .</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> minorityleft  0.007938   0.005641   1.407   0.1594  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-31 09:18:37 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                  Choice: social </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                  dy/dx Std. Error z value Pr(&gt;|z|)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> houseval     -0.071189   0.013617  -5.228 1.71e-07 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> popdens       0.021371   0.003522   6.067 1.30e-09 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> noleft       -0.021787   0.011404  -1.911   0.0561 .  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> minorityleft -0.004648   0.010406  -0.447   0.6551    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                              Choice: urbanplanning </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                dy/dx Std. Error z value Pr(&gt;|z|)  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> houseval     0.03447    0.01481   2.328   0.0199 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> popdens      0.01266    0.00534   2.371   0.0177 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> noleft       0.02037    0.01659   1.228   0.2194  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> minorityleft 0.01912    0.01616   1.183   0.2368  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-08-08 13:39:26 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Plot effects for 'houseval'</span></span></span>

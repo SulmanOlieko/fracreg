@@ -123,7 +123,6 @@ data("fracreg_spending")
 X = fracreg_spending[,2:5]
 y = fracreg_spending[,6:11]
 results1 = fracregmlogit(y, X)
-#> [1] "Fractional logit model estimation completed. Time: 0.2 seconds"
 
 # Calculate marginal effects with marg.type="aveacr" (no standard errors for speed)
 effect1 = fracregmlogit.pe(results1, effect="marginal", marg.type="aveacr", se=FALSE)

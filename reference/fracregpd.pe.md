@@ -74,3 +74,44 @@ tables with Average Partial Effects.
 ## Author
 
 Sulman Olieko Owili \<oliekosulman@gmail.com\>
+
+## Examples
+
+``` r
+# \donttest{
+# Simulate Panel Data
+N <- 50
+T <- 5
+id <- rep(1:N, each=T)
+time <- rep(1:T, N)
+x1 <- rnorm(N*T)
+x2 <- rnorm(N*T)
+z1 <- rnorm(N*T)
+u <- rnorm(N*T)
+y <- exp(x1 - x2 + u)/(1 + exp(x1 - x2 + u))
+X <- cbind(x1 = x1, x2 = x2)
+Z <- cbind(x1 = x1, z1 = z1)
+
+# Estimate panel data model
+mod_pd <- fracregpd(id=id, time=time, y=y, x=X, z=Z, 
+                    x.exogenous=FALSE, type="GMMbgw", link="logit")
+
+# Compute Average Partial Effects
+pe_res <- fracregpd.pe(mod_pd)
+summary(pe_res)
+#> 
+#> -------------------------------------------------------------------------------- 
+#>                             Average partial effects 
+#> -------------------------------------------------------------------------------- 
+#>                      Panel data fractional logit regression 
+#> -------------------------------------------------------------------------------- 
+#> 
+#> Note: Standard errors computed using the Delta method
+#>         dy/dx Std. Error z value Pr(>|z|)
+#> x1  9.893e-02  1.027e+07       0        1
+#> x2 -2.073e-01  2.300e+07       0        1
+#> -------------------------------------------------------------------------------- 
+#>                          Run Date: 2026-08-08 13:39:29 
+#> -------------------------------------------------------------------------------- 
+# }
+```

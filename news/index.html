@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">fracreg</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,7 +40,23 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="1.0.1" id="fracreg-101">fracreg 1.0.1<a class="anchor" aria-label="anchor" href="#fracreg-101"></a></h2>
+<h2 class="pkg-version" data-toc-text="1.1.0" id="fracreg-110">fracreg 1.1.0<a class="anchor" aria-label="anchor" href="#fracreg-110"></a></h2>
+<div class="section level4">
+<h4 id="output-standardization--minor-fixes-1-1-0">Output Standardization &amp; Minor Fixes<a class="anchor" aria-label="anchor" href="#output-standardization--minor-fixes-1-1-0"></a></h4>
+<ul><li>
+<strong>Output Standardization:</strong> Refined <code>print</code> and <code>summary</code> outputs for partial effects (<code>fracreg.pe</code>, <code>fracregpd.pe</code>, <code>fracreghet.pe</code>, <code>fracregridge.pe</code>, <code>fracregmlogit.pe</code>, <code>fracregmlogit.wtp</code>). Enforced a logical hierarchical model ordering (BIN0 -&gt; BIN1 -&gt; FRAC -&gt; OVERALL), adopted mathematical notation for component probabilities (e.g., <code>Pr(y &gt; 0)</code>), and restructured <code>fracregmlogit.pe</code> outputs to universally present choices as columns and variables as rows. Added explanatory footnotes for omitted reduced-form parameters in <code>fracreghet.pe</code> outputs. Restored native <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> methods for point-estimates matrix displays while reserving full standard error tables for <code><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary()</a></code>.</li>
+<li>
+<strong>Plotting &amp; WTP:</strong> Updated <code><a href="../reference/wtp.html">wtp()</a></code> and the respective plotting functions (<code>plot.fracregmlogit</code> and <code>plot.fracregmlogit.pe</code>) to natively support the newly transposed <code>fracregmlogit.pe</code> outputs, ensuring dimensional alignment across partial effects calculation pipelines. Added a specific check ensuring <code>indv.obs</code> arguments correctly validate the marginal effects method before allocating memory. Added stylistic headers (“Fractional multinomial logit regression”, “Willingness to Pay”) to the print output of <code><a href="../reference/wtp.html">wtp()</a></code>. Exported <code>broom::tidy()</code> and <code><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary()</a></code> for <code>.wtp</code> objects to the namespace.</li>
+<li>
+<strong>Krinsky-Robb Simulation Bug Fix:</strong> Fixed a critical bug in <code>fracregmlogit.pe</code> where Krinsky-Robb standard errors for <code>marg.type = "aveacr"</code> were incorrectly calculating point estimates across the single sample mean instead of iterating across all observations. Average Partial Effect standard errors are now correctly averaged across the full sample. Changed <code>se = TRUE</code> by default for <code>fracregmlogit.pe</code>.</li>
+<li>
+<strong>gtsummary Intercept Output:</strong> Introduced an explicit S3 method <code>tbl_regression.fracreg()</code> so that intercept terms are displayed by default when formatting <code>1P</code> and <code>2P</code> models with the <code>gtsummary</code> package, resolving a discrepancy where intercepts were omitted in non-mixture models.</li>
+<li>Removed redundant raw <code><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat()</a></code> print statements from the computation body of <code>fracregridge.pe</code>.</li>
+<li>Fixed an issue where <code>broom::tidy</code> outputs retained <code>frac_</code> prefixes in component columns for <code>fracregridge</code> models, ensuring clean integration with <code>tibble</code> and <code>gtsummary</code>.</li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="1.0.1" id="fracreg-101">fracreg 1.0.1<a class="anchor" aria-label="anchor" href="#fracreg-101"></a></h2><p class="text-muted">CRAN release: 2026-08-05</p>
 <div class="section level4">
 <h4 id="new-features--enhancements-1-0-1">New Features &amp; Enhancements<a class="anchor" aria-label="anchor" href="#new-features--enhancements-1-0-1"></a></h4>
 <ul><li>
@@ -58,8 +74,11 @@
 <li>
 <strong>Econometric Terminology &amp; Standardization:</strong> Renamed <code>Estimate</code> column headers to <code>dy/dx</code> universally across all partial effects tables (<code>fracreg.pe</code>, <code>fracreghet.pe</code>, <code>fracregmlogit.pe</code>, <code>fracregpd.pe</code>, <code>fracregridge.pe</code>), while enforcing <code>Coefficient</code> for non-partial effects outputs.</li>
 <li>
-<strong>Standard Error Annotations:</strong> Output tables now dynamically label column headers according to standard error type (e.g. <code>Robust Std.Err.</code>, <code>Cluster Std.Err.</code>) and cleanly append specific methodological notes to the tables (e.g., Delta Method, Krinsky-Robb, HC0, CRVE). ### Documentation &amp; Website</li>
-<li>
+<strong>Standard Error Annotations:</strong> Output tables now dynamically label column headers according to standard error type (e.g. <code>Robust Std.Err.</code>, <code>Cluster Std.Err.</code>) and cleanly append specific methodological notes to the tables (e.g., Delta Method, Krinsky-Robb, HC0, CRVE).</li>
+</ul></div>
+<div class="section level4">
+<h4 id="documentation--website-1-0-1">Documentation &amp; Website<a class="anchor" aria-label="anchor" href="#documentation--website-1-0-1"></a></h4>
+<ul><li>
 <strong>Roxygen2 Migration:</strong> Fully automated package documentation by migrating all manual <code>.Rd</code> files into <code>roxygen2</code> comments embedded directly within the R source files, ensuring airtight synchronization between code and documentation.</li>
 <li>
 <strong>Citations &amp; References:</strong> Added citations for the foundational <code>fmlogit</code> (Ji and Woodill) and <code>fracridge</code> (Rokem and Kay) packages across manual pages, README, and vignettes, formatting URLs properly for rendering.</li>
@@ -72,23 +91,17 @@
 </ul></div>
 <div class="section level4">
 <h4 id="bug-fixes--under-the-hood-improvements-1-0-1">Bug Fixes &amp; Under-the-Hood Improvements<a class="anchor" aria-label="anchor" href="#bug-fixes--under-the-hood-improvements-1-0-1"></a></h4>
-<ul><li>
-<strong>Namespace Imports:</strong> Added comprehensive <code>@importFrom</code> tags for base R <code>stats</code>, <code>graphics</code>, and <code>grid</code> functions, alongside <code>ggplot2</code>, eliminating all undefined global function NOTEs during checking.</li>
-<li>
-<strong>S3 Method Registration:</strong> Explicitly registered S3 methods (like <code>summary</code> and <code>plot</code>) using <code>@exportS3Method</code> to comply with strict <code>R CMD check</code> standards.</li>
-<li>
-<strong>CRAN Compliance:</strong> Wrapped computationally heavy examples (like <code>plot.fracregmlogit.pe</code>) in <code>\donttest{}</code> blocks to strictly respect CRAN’s 5-second execution limit.</li>
-<li>Resolved <code>length &gt; 1</code> logical condition errors in <code>plot.fracregmlogit</code> standard error rendering by properly adopting <code><a href="https://rdrr.io/r/base/match.arg.html" class="external-link">match.arg()</a></code>.</li>
-<li>Resolved WTP matrix subsetting issues by enforcing <code>drop = FALSE</code>.</li>
-<li>Cleaned up legacy <code>fmlogit</code> code dependencies and unified the namespace fully under <code>fracregmlogit</code>.</li>
-<li>Fixed <code>NA/NaN</code> evaluation errors in <code>nlminb</code> during <code>fracreghet</code> estimations.</li>
-<li>Resolved <code>devtools::check()</code> formatting issues, including S3 class inheritance checks (<code><a href="https://rdrr.io/r/base/class.html" class="external-link">inherits()</a></code>), <code><a href="https://rdrr.io/r/stats/approxfun.html" class="external-link">stats::approx</a></code> scoping, and fixing missing alt-text for accessibility.</li>
+<ul><li><p><strong>Namespace Imports:</strong> Added comprehensive <code>@importFrom</code> tags for base R <code>stats</code>, <code>graphics</code>, and <code>grid</code> functions, alongside <code>ggplot2</code>, eliminating all undefined global function NOTEs during checking.</p></li>
+<li><p><strong>S3 Method Registration:</strong> Explicitly registered S3 methods (like <code>summary</code> and <code>plot</code>) using <code>@exportS3Method</code> to comply with strict <code>R CMD check</code> standards.</p></li>
+<li><p><strong>CRAN Compliance:</strong> Wrapped computationally heavy examples (like <code>plot.fracregmlogit.pe</code>) in <code>\donttest{}</code> blocks to strictly respect CRAN’s 5-second execution limit.</p></li>
+<li><p>Resolved <code>length &gt; 1</code> logical condition errors in <code>plot.fracregmlogit</code> standard error rendering by properly adopting <code><a href="https://rdrr.io/r/base/match.arg.html" class="external-link">match.arg()</a></code>.</p></li>
+<li><p>Resolved WTP matrix subsetting issues by enforcing <code>drop = FALSE</code>.</p></li>
+<li><p>Cleaned up legacy <code>fmlogit</code> code dependencies and unified the namespace fully under <code>fracregmlogit</code>.</p></li>
+<li><p>Fixed <code>NA/NaN</code> evaluation errors in <code>nlminb</code> during <code>fracreghet</code> estimations.</p></li>
+<li><p>Resolved <code>devtools::check()</code> formatting issues, including S3 class inheritance checks (<code><a href="https://rdrr.io/r/base/class.html" class="external-link">inherits()</a></code>), <code><a href="https://rdrr.io/r/stats/approxfun.html" class="external-link">stats::approx</a></code> scoping, and fixing missing alt-text for accessibility. # fracreg 1.0.0</p></li>
+<li><p>Initial CRAN release.</p></li>
 </ul></div>
 </div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="1.0.0" id="fracreg-100">fracreg 1.0.0<a class="anchor" aria-label="anchor" href="#fracreg-100"></a></h2>
-<ul><li>Initial CRAN release.</li>
-</ul></div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
 

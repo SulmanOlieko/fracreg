@@ -124,13 +124,13 @@ mod_401k <- fracregridge(y = y_401k, x = X_401k, fracs = seq(0.2, 1.0, by = 0.2)
 summary(mod_401k)
 #> 
 #> -------------------------------------------------------------------------------- 
-#>                           Fractional Ridge Regression 
+#>                           Fractional ridge regression 
 #> -------------------------------------------------------------------------------- 
 #> Data type:                                                       Cross-sectional 
 #> Convergence:                                                          Successful 
 #> Standard errors:                                                   homoskedastic 
 #> -------------------------------------------------------------------------------- 
-#>                            Target Fraction: frac_0.2 
+#>                               Target Fraction: 0.2 
 #> -------------------------------------------------------------------------------- 
 #> Number of observations:                                                     1534 
 #> Pseudo R-squared:                                                        0.04571 
@@ -147,7 +147,7 @@ summary(mod_401k)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                            Target Fraction: frac_0.4 
+#>                               Target Fraction: 0.4 
 #> -------------------------------------------------------------------------------- 
 #> Number of observations:                                                     1534 
 #> Pseudo R-squared:                                                        0.06873 
@@ -164,7 +164,7 @@ summary(mod_401k)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                            Target Fraction: frac_0.6 
+#>                               Target Fraction: 0.6 
 #> -------------------------------------------------------------------------------- 
 #> Number of observations:                                                     1534 
 #> Pseudo R-squared:                                                        0.08697 
@@ -181,7 +181,7 @@ summary(mod_401k)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                            Target Fraction: frac_0.8 
+#>                               Target Fraction: 0.8 
 #> -------------------------------------------------------------------------------- 
 #> Number of observations:                                                     1534 
 #> Pseudo R-squared:                                                        0.10095 
@@ -198,7 +198,7 @@ summary(mod_401k)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                             Target Fraction: frac_1 
+#>                                Target Fraction: 1 
 #> -------------------------------------------------------------------------------- 
 #> Number of observations:                                                     1534 
 #> Pseudo R-squared:                                                        0.11402 
@@ -215,29 +215,25 @@ summary(mod_401k)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-31 09:18:40 
+#>                          Run Date: 2026-08-08 13:39:30 
 #> -------------------------------------------------------------------------------- 
 #> 
 
 # Compute Average Partial Effects for Ridge
 pe_401k <- fracregridge.pe(mod_401k)
-#> 
-#> Note: Fractional Ridge Regression is a linear model without a link function.
-#> Therefore, the partial effects are mathematically identical to the coefficients themselves.
-#> 
 summary(pe_401k)
 #> 
 #> 
 #> -------------------------------------------------------------------------------- 
 #>                             Average partial effects 
 #> -------------------------------------------------------------------------------- 
-#>                           Fractional Ridge Regression 
+#>                           Fractional ridge regression 
 #> -------------------------------------------------------------------------------- 
 #> 
-#> Note: Fractional Ridge Regression is a linear model without a link function.
+#> Note: Fractional ridge regression is a linear model without a link function.
 #> Therefore, the partial effects are mathematically identical to the coefficients themselves.
 #> 
-#>                            Target Fraction: frac_0.2 
+#>                               Target Fraction: 0.2 
 #> -------------------------------------------------------------------------------- 
 #>                 dy/dx Std. Error z value Pr(>|z|)    
 #> (Intercept) 1.218e-01  2.623e-03  46.434   <2e-16 ***
@@ -248,7 +244,7 @@ summary(pe_401k)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                            Target Fraction: frac_0.4 
+#>                               Target Fraction: 0.4 
 #> -------------------------------------------------------------------------------- 
 #>                 dy/dx Std. Error z value Pr(>|z|)    
 #> (Intercept) 2.741e-01  4.766e-03  57.513   <2e-16 ***
@@ -259,7 +255,7 @@ summary(pe_401k)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                            Target Fraction: frac_0.6 
+#>                               Target Fraction: 0.6 
 #> -------------------------------------------------------------------------------- 
 #>                 dy/dx Std. Error z value Pr(>|z|)    
 #> (Intercept) 4.439e-01  6.218e-03  71.390   <2e-16 ***
@@ -270,7 +266,7 @@ summary(pe_401k)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                            Target Fraction: frac_0.8 
+#>                               Target Fraction: 0.8 
 #> -------------------------------------------------------------------------------- 
 #>                  dy/dx Std. Error z value Pr(>|z|)    
 #> (Intercept)  6.162e-01  7.193e-03  85.673   <2e-16 ***
@@ -281,7 +277,7 @@ summary(pe_401k)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                             Target Fraction: frac_1 
+#>                                Target Fraction: 1 
 #> -------------------------------------------------------------------------------- 
 #>                  dy/dx Std. Error z value Pr(>|z|)    
 #> (Intercept)  7.827e-01  8.711e-03  89.853  < 2e-16 ***
@@ -292,7 +288,7 @@ summary(pe_401k)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-31 09:18:40 
+#>                          Run Date: 2026-08-08 13:39:30 
 #> -------------------------------------------------------------------------------- 
 #> 
 
@@ -313,10 +309,9 @@ print(mod_sim)
 #> 
 #> Fractional Ridge Regression
 #> 
-#> Call:
-#> fracregridge(y = y, x = X, fracs = c(0.3, 0.5, 0.8))
+#> Call:  fracregridge(y = y, x = X, fracs = c(0.3, 0.5, 0.8))
 #> 
-#> Ridge Coefficients at Target Fractions:
+#> Coefficients:
 #>                 frac_0.3     frac_0.5    frac_0.8
 #> (Intercept)  0.025969041  0.043431002  0.06995586
 #> X1          -0.015190037 -0.025277903 -0.04006089
@@ -330,26 +325,24 @@ print(mod_sim)
 #> X9           0.001567879  0.002529806  0.00567404
 #> X10          0.020836124  0.031879315  0.04441221
 #> 
+#> Degrees of Freedom: 100 Total; 89 Residual
+#> 
 
 # Compute Partial Effects
 pe_sim <- fracregridge.pe(mod_sim)
-#> 
-#> Note: Fractional Ridge Regression is a linear model without a link function.
-#> Therefore, the partial effects are mathematically identical to the coefficients themselves.
-#> 
 summary(pe_sim)
 #> 
 #> 
 #> -------------------------------------------------------------------------------- 
 #>                             Average partial effects 
 #> -------------------------------------------------------------------------------- 
-#>                           Fractional Ridge Regression 
+#>                           Fractional ridge regression 
 #> -------------------------------------------------------------------------------- 
 #> 
-#> Note: Fractional Ridge Regression is a linear model without a link function.
+#> Note: Fractional ridge regression is a linear model without a link function.
 #> Therefore, the partial effects are mathematically identical to the coefficients themselves.
 #> 
-#>                            Target Fraction: frac_0.3 
+#>                               Target Fraction: 0.3 
 #> -------------------------------------------------------------------------------- 
 #>                 dy/dx Std. Error z value Pr(>|z|)  
 #> (Intercept)  0.025969   0.026424   0.983   0.3257  
@@ -366,7 +359,7 @@ summary(pe_sim)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                            Target Fraction: frac_0.5 
+#>                               Target Fraction: 0.5 
 #> -------------------------------------------------------------------------------- 
 #>                dy/dx Std. Error z value Pr(>|z|)  
 #> (Intercept)  0.04343    0.04478   0.970   0.3322  
@@ -383,7 +376,7 @@ summary(pe_sim)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                            Target Fraction: frac_0.8 
+#>                               Target Fraction: 0.8 
 #> -------------------------------------------------------------------------------- 
 #>                 dy/dx Std. Error z value Pr(>|z|)  
 #> (Intercept)  0.069956   0.074554   0.938   0.3481  
@@ -400,7 +393,7 @@ summary(pe_sim)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-31 09:18:40 
+#>                          Run Date: 2026-08-08 13:39:30 
 #> -------------------------------------------------------------------------------- 
 #> 
 set.seed(123)
@@ -414,10 +407,9 @@ print(mod)
 #> 
 #> Fractional Ridge Regression
 #> 
-#> Call:
-#> fracregridge(y = y, x = x, fracs = c(0.3, 0.5, 0.8))
+#> Call:  fracregridge(y = y, x = x, fracs = c(0.3, 0.5, 0.8))
 #> 
-#> Ridge Coefficients at Target Fractions:
+#> Coefficients:
 #>                 frac_0.3     frac_0.5    frac_0.8
 #> (Intercept)  0.025969041  0.043431002  0.06995586
 #> x1          -0.015190037 -0.025277903 -0.04006089
@@ -431,16 +423,18 @@ print(mod)
 #> x9           0.001567879  0.002529806  0.00567404
 #> x10          0.020836124  0.031879315  0.04441221
 #> 
+#> Degrees of Freedom: 100 Total; 89 Residual
+#> 
 summary(mod)
 #> 
 #> -------------------------------------------------------------------------------- 
-#>                           Fractional Ridge Regression 
+#>                           Fractional ridge regression 
 #> -------------------------------------------------------------------------------- 
 #> Data type:                                                       Cross-sectional 
 #> Convergence:                                                          Successful 
 #> Standard errors:                                                   homoskedastic 
 #> -------------------------------------------------------------------------------- 
-#>                            Target Fraction: frac_0.3 
+#>                               Target Fraction: 0.3 
 #> -------------------------------------------------------------------------------- 
 #> Number of observations:                                                      100 
 #> Pseudo R-squared:                                                        0.09027 
@@ -463,7 +457,7 @@ summary(mod)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                            Target Fraction: frac_0.5 
+#>                               Target Fraction: 0.5 
 #> -------------------------------------------------------------------------------- 
 #> Number of observations:                                                      100 
 #> Pseudo R-squared:                                                        0.09187 
@@ -486,7 +480,7 @@ summary(mod)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                            Target Fraction: frac_0.8 
+#>                               Target Fraction: 0.8 
 #> -------------------------------------------------------------------------------- 
 #> Number of observations:                                                      100 
 #> Pseudo R-squared:                                                        0.09327 
@@ -509,7 +503,7 @@ summary(mod)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-31 09:18:40 
+#>                          Run Date: 2026-08-08 13:39:30 
 #> -------------------------------------------------------------------------------- 
 #> 
 ```

@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">fracreg</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -50,7 +50,7 @@
 <span>  <span class="va">object</span>,</span>
 <span>  effect <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"marginal"</span>, <span class="st">"discrete"</span><span class="op">)</span>,</span>
 <span>  marg.type <span class="op">=</span> <span class="st">"atmean"</span>,</span>
-<span>  se <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  se <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  varlist <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  at <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  R <span class="op">=</span> <span class="fl">1000</span></span>
@@ -76,13 +76,13 @@ the mean of all covariates. Also takes "aveacr", the averaged effects across all
 
 
 <dt id="arg-se">se<a class="anchor" aria-label="anchor" href="#arg-se"></a></dt>
-<dd><p>Whether to calculate standard errors for those margins. See details.</p></dd>
+<dd><p>Whether to calculate standard errors for those margins. Default to TRUE. See details.</p></dd>
 
 
 <dt id="arg-varlist">varlist<a class="anchor" aria-label="anchor" href="#arg-varlist"></a></dt>
 <dd><p>A string vector which provides the names of variables to calculate
-the marginal effect for. If missing, all variables except the constant will be calculated.
-Use "constant" if you wish to compute the marginal effect of the constant.</p></dd>
+the marginal effect for. If missing, all variables except the (Intercept) will be calculated.
+Use "(Intercept)" if you wish to compute the marginal effect of the intercept.</p></dd>
 
 
 <dt id="arg-at">at<a class="anchor" aria-label="anchor" href="#arg-at"></a></dt>
@@ -144,7 +144,6 @@ KR standard error can be computationally intensive, it is advised to calculate i
 <span class="r-in"><span><span class="va">X</span> <span class="op">=</span> <span class="va">fracreg_spending</span><span class="op">[</span>,<span class="fl">2</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span></span>
 <span class="r-in"><span><span class="va">y</span> <span class="op">=</span> <span class="va">fracreg_spending</span><span class="op">[</span>,<span class="fl">6</span><span class="op">:</span><span class="fl">11</span><span class="op">]</span></span></span>
 <span class="r-in"><span><span class="va">results1</span> <span class="op">=</span> <span class="fu"><a href="fracregmlogit.html">fracregmlogit</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">X</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Fractional logit model estimation completed. Time: 0.2 seconds"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Calculate marginal effects at the mean (without standard errors for speed)</span></span></span>
 <span class="r-in"><span><span class="va">pe_marg</span> <span class="op">=</span> <span class="fu">fracregmlogit.pe</span><span class="op">(</span><span class="va">results1</span>, effect<span class="op">=</span><span class="st">"marginal"</span>, se<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
@@ -165,33 +164,59 @@ KR standard error can be computationally intensive, it is advised to calculate i
 <span class="r-out co"><span class="r-pr">#&gt;</span> Note: discrete effect at the mean, Krinsky-Robb standard error calculated </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                Variable: houseval </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                Choice: governing </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                  dy/dx Std. Error z value Pr(&gt;|z|)    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> governing      0.09494    0.01105   8.594  &lt; 2e-16 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> safety         0.08406    0.02428   3.462 0.000537 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> education     -0.09363    0.02477  -3.780 0.000157 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> recreation     0.01958    0.01422   1.377 0.168481    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> social        -0.18532    0.02983  -6.212 5.23e-10 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> urbanplanning  0.08037    0.04111   1.955 0.050581 .  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                dy/dx Std. Error z value Pr(&gt;|z|)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)  0.00000    0.00000     NaN      NaN    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> popdens     -0.02383    0.00444  -5.368 7.98e-08 ***</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                 Variable: noleft </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                  Choice: safety </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                   dy/dx Std. Error z value Pr(&gt;|z|)    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> governing      0.004907   0.002498   1.965  0.04946 *  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> safety         0.024975   0.008218   3.039  0.00237 ** </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> education     -0.035370   0.009543  -3.706  0.00021 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> recreation     0.007870   0.005160   1.525  0.12718    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> social        -0.022586   0.011468  -1.970  0.04889 *  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> urbanplanning  0.020206   0.015703   1.287  0.19819    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                dy/dx Std. Error z value Pr(&gt;|z|)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)  0.00000    0.00000     NaN      NaN    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> popdens     -0.07750    0.01102  -7.031 2.06e-12 ***</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-31 09:18:39 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                Choice: education </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                dy/dx Std. Error z value Pr(&gt;|z|)  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)  0.00000    0.00000     NaN      NaN  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> popdens     -0.03498    0.01906  -1.835   0.0665 .</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                Choice: recreation </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                dy/dx Std. Error z value Pr(&gt;|z|)  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)  0.00000    0.00000     NaN      NaN  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> popdens     -0.02783    0.01308  -2.128   0.0333 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                  Choice: social </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>               dy/dx Std. Error z value Pr(&gt;|z|)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept) 0.00000    0.00000     NaN      NaN    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> popdens     0.14039    0.03919   3.582  0.00034 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                              Choice: urbanplanning </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>               dy/dx Std. Error z value Pr(&gt;|z|)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept) 0.00000    0.00000     NaN      NaN</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> popdens     0.02376    0.05093   0.466    0.641</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-08-08 13:39:27 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 </code></pre></div>
     </div>

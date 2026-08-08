@@ -10,7 +10,7 @@ fracregmlogit.pe(
   object,
   effect = c("marginal", "discrete"),
   marg.type = "atmean",
-  se = FALSE,
+  se = TRUE,
   varlist = NULL,
   at = NULL,
   R = 1000
@@ -36,14 +36,15 @@ fracregmlogit.pe(
 
 - se:
 
-  Whether to calculate standard errors for those margins. See details.
+  Whether to calculate standard errors for those margins. Default to
+  TRUE. See details.
 
 - varlist:
 
   A string vector which provides the names of variables to calculate the
-  marginal effect for. If missing, all variables except the constant
-  will be calculated. Use "constant" if you wish to compute the marginal
-  effect of the constant.
+  marginal effect for. If missing, all variables except the (Intercept)
+  will be calculated. Use "(Intercept)" if you wish to compute the
+  marginal effect of the intercept.
 
 - at:
 
@@ -135,7 +136,6 @@ data("fracreg_spending")
 X = fracreg_spending[,2:5]
 y = fracreg_spending[,6:11]
 results1 = fracregmlogit(y, X)
-#> [1] "Fractional logit model estimation completed. Time: 0.2 seconds"
 
 # Calculate marginal effects at the mean (without standard errors for speed)
 pe_marg = fracregmlogit.pe(results1, effect="marginal", se=FALSE)
@@ -156,32 +156,58 @@ summary(pe_disc)
 #> Note: discrete effect at the mean, Krinsky-Robb standard error calculated 
 #> 
 #> -------------------------------------------------------------------------------- 
-#>                                Variable: houseval 
+#>                                Choice: governing 
 #> -------------------------------------------------------------------------------- 
-#>                  dy/dx Std. Error z value Pr(>|z|)    
-#> governing      0.09494    0.01105   8.594  < 2e-16 ***
-#> safety         0.08406    0.02428   3.462 0.000537 ***
-#> education     -0.09363    0.02477  -3.780 0.000157 ***
-#> recreation     0.01958    0.01422   1.377 0.168481    
-#> social        -0.18532    0.02983  -6.212 5.23e-10 ***
-#> urbanplanning  0.08037    0.04111   1.955 0.050581 .  
+#>                dy/dx Std. Error z value Pr(>|z|)    
+#> (Intercept)  0.00000    0.00000     NaN      NaN    
+#> popdens     -0.02383    0.00444  -5.368 7.98e-08 ***
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> 
 #> -------------------------------------------------------------------------------- 
-#>                                 Variable: noleft 
+#>                                  Choice: safety 
 #> -------------------------------------------------------------------------------- 
-#>                   dy/dx Std. Error z value Pr(>|z|)    
-#> governing      0.004907   0.002498   1.965  0.04946 *  
-#> safety         0.024975   0.008218   3.039  0.00237 ** 
-#> education     -0.035370   0.009543  -3.706  0.00021 ***
-#> recreation     0.007870   0.005160   1.525  0.12718    
-#> social        -0.022586   0.011468  -1.970  0.04889 *  
-#> urbanplanning  0.020206   0.015703   1.287  0.19819    
+#>                dy/dx Std. Error z value Pr(>|z|)    
+#> (Intercept)  0.00000    0.00000     NaN      NaN    
+#> popdens     -0.07750    0.01102  -7.031 2.06e-12 ***
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> 
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-07-31 09:18:39 
+#>                                Choice: education 
+#> -------------------------------------------------------------------------------- 
+#>                dy/dx Std. Error z value Pr(>|z|)  
+#> (Intercept)  0.00000    0.00000     NaN      NaN  
+#> popdens     -0.03498    0.01906  -1.835   0.0665 .
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> 
+#> -------------------------------------------------------------------------------- 
+#>                                Choice: recreation 
+#> -------------------------------------------------------------------------------- 
+#>                dy/dx Std. Error z value Pr(>|z|)  
+#> (Intercept)  0.00000    0.00000     NaN      NaN  
+#> popdens     -0.02783    0.01308  -2.128   0.0333 *
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> 
+#> -------------------------------------------------------------------------------- 
+#>                                  Choice: social 
+#> -------------------------------------------------------------------------------- 
+#>               dy/dx Std. Error z value Pr(>|z|)    
+#> (Intercept) 0.00000    0.00000     NaN      NaN    
+#> popdens     0.14039    0.03919   3.582  0.00034 ***
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> 
+#> -------------------------------------------------------------------------------- 
+#>                              Choice: urbanplanning 
+#> -------------------------------------------------------------------------------- 
+#>               dy/dx Std. Error z value Pr(>|z|)
+#> (Intercept) 0.00000    0.00000     NaN      NaN
+#> popdens     0.02376    0.05093   0.466    0.641
+#> 
+#> -------------------------------------------------------------------------------- 
+#>                          Run Date: 2026-08-08 13:39:27 
 #> -------------------------------------------------------------------------------- 
 ```

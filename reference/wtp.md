@@ -68,12 +68,24 @@ data("fracreg_spending")
 X = fracreg_spending[,2:5]
 y = fracreg_spending[,6:11]
 results1 = fracregmlogit(y, X)
-#> [1] "Fractional logit model estimation completed. Time: 0.2 seconds"
 pe = fracregmlogit.pe(results1)
 # Assuming arbitrary WTP values for the 6 choices
 wtp_est = wtp(pe, wtp.vec = c(1, 2, 3, 4, 5, 6), varlist = "houseval")
 summary(wtp_est)
-#>        houseval
-#> [1,] -0.1230025
+#> 
+#> -------------------------------------------------------------------------------- 
+#>                                Willingness to Pay 
+#> -------------------------------------------------------------------------------- 
+#>                     Fractional multinomial logit regression 
+#> -------------------------------------------------------------------------------- 
+#> 
+#> Note: Krinsky-Robb standard error calculated
+#>          Coefficient Std. Error z value Pr(>|z|)
+#> houseval   -0.078693   0.120347 -0.6539   0.5132
+#> 
+#> -------------------------------------------------------------------------------- 
+#>                          Run Date: 2026-08-08 13:39:39 
+#> -------------------------------------------------------------------------------- 
+#> 
 # }
 ```

@@ -79,15 +79,41 @@ mod <- fracregridge(y, X, fracs = c(0.3, 0.5))
 
 # Compute Partial Effects (identical to coefficients)
 pe <- fracregridge.pe(mod)
-#> 
-#> Note: Fractional Ridge Regression is a linear model without a link function.
-#> Therefore, the partial effects are mathematically identical to the coefficients themselves.
-#> 
 print(pe)
 #> 
-#> Partial Effects for Fractional Ridge Regression
+#> Fractional ridge regression
 #> 
-#> Call:
-#> fracregridge.pe(object = mod)
+#> Average partial effects:
+#> 
+#> Note: Fractional ridge regression is a linear model without a link function.
+#> Therefore, the partial effects are mathematically identical to the coefficients themselves.
+#> 
+#> Target Fraction: 0.3
+#>                    dy/dx
+#> (Intercept)  0.025969041
+#> X1          -0.015190037
+#> X2          -0.029634697
+#> X3          -0.017972923
+#> X4          -0.048194568
+#> X5          -0.013807840
+#> X6          -0.013152916
+#> X7           0.048353290
+#> X8          -0.006353284
+#> X9           0.001567879
+#> X10          0.020836124
+#> 
+#> Target Fraction: 0.5
+#>                    dy/dx
+#> (Intercept)  0.043431002
+#> X1          -0.025277903
+#> X2          -0.050625055
+#> X3          -0.035289788
+#> X4          -0.081684776
+#> X5          -0.021406027
+#> X6          -0.022143313
+#> X7           0.078031858
+#> X8          -0.014086532
+#> X9           0.002529806
+#> X10          0.031879315
 #> 
 ```

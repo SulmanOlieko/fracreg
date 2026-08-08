@@ -123,7 +123,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-31 09:18:53 
+    #>                          Run Date: 2026-08-08 13:39:43 
     #> --------------------------------------------------------------------------------
 
 ``` r
@@ -168,7 +168,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-31 09:18:53 
+    #>                          Run Date: 2026-08-08 13:39:43 
     #> --------------------------------------------------------------------------------
 
 ``` r
@@ -254,7 +254,7 @@ Toggle to see the output
     #> Convergence:                                                          Successful 
     #> Pseudo R-squared:                                                        0.11243 
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-31 09:18:54 
+    #>                          Run Date: 2026-08-08 13:39:43 
     #> --------------------------------------------------------------------------------
 
 ``` r
@@ -373,7 +373,7 @@ Toggle to see the output
     #> Convergence:                                                          Successful 
     #> Pseudo R-squared:                                                        0.07934 
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-31 09:18:54 
+    #>                          Run Date: 2026-08-08 13:39:43 
     #> --------------------------------------------------------------------------------
 
 ``` r
@@ -432,7 +432,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-31 09:18:54 
+    #>                          Run Date: 2026-08-08 13:39:43 
     #> --------------------------------------------------------------------------------
 
 #### 2.1.2 Binary Logit Component of a Two-Part Model
@@ -600,7 +600,7 @@ Toggle to see the output
     #> Convergence:                                                          Successful 
     #> Pseudo R-squared:                                                        0.38829 
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-31 09:18:54 
+    #>                          Run Date: 2026-08-08 13:39:43 
     #> --------------------------------------------------------------------------------
 
 #### 2.1.5 Three-Part Double-Inflated Model
@@ -709,7 +709,7 @@ Toggle to see the output
     #> Convergence:                                                          Successful 
     #> Pseudo R-squared:                                                        0.38917 
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-31 09:18:54 
+    #>                          Run Date: 2026-08-08 13:39:43 
     #> --------------------------------------------------------------------------------
 
 ### 2.2 Partial Effects (`fracreg.pe`)
@@ -739,7 +739,6 @@ summary(pe_res)
 Toggle to see the output
 
     #> 
-    #> 
     #> -------------------------------------------------------------------------------- 
     #>                             Average partial effects 
     #> -------------------------------------------------------------------------------- 
@@ -755,7 +754,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-31 09:18:54 
+    #>                          Run Date: 2026-08-08 13:39:43 
     #> --------------------------------------------------------------------------------
 
 ``` r
@@ -782,7 +781,6 @@ summary(pe_res)
 Toggle to see the output
 
     #> 
-    #> 
     #> -------------------------------------------------------------------------------- 
     #>                             Average partial effects 
     #> -------------------------------------------------------------------------------- 
@@ -796,7 +794,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-31 09:18:54 
+    #>                          Run Date: 2026-08-08 13:39:43 
     #> --------------------------------------------------------------------------------
 
 #### 2.2.2 APEs for a Two-Part Model
@@ -823,6 +821,22 @@ Toggle to see the output
     #> -------------------------------------------------------------------------------- 
     #>                             Average partial effects 
     #> -------------------------------------------------------------------------------- 
+    #> 
+    #> Binary logit regression (Pr(y = 1)):
+    #> 
+    #> Note: Standard errors computed using the Delta method
+    #>      dy/dx Std. Error z value Pr(>|z|)    
+    #> X1 0.10163    0.01549   6.560 5.37e-11 ***
+    #> X2 0.10992    0.01649   6.665 2.64e-11 ***
+    #> 
+    #> Fractional probit regression (Fractional Component):
+    #> 
+    #> Note: Standard errors computed using the Delta method
+    #>      dy/dx Std. Error z value Pr(>|z|)    
+    #> X1 0.14809    0.01068   13.86   <2e-16 ***
+    #> X2 0.14840    0.01407   10.55   <2e-16 ***
+    #> 
+    #> -------------------------------------------------------------------------------- 
     #>               Binary logit + Fractional probit two-part regression 
     #> -------------------------------------------------------------------------------- 
     #> 
@@ -833,7 +847,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-31 09:18:54 
+    #>                          Run Date: 2026-08-08 13:39:43 
     #> --------------------------------------------------------------------------------
 
 #### 2.2.3 Conditional Partial Effects (CPE)
@@ -855,7 +869,6 @@ summary(pe_res)
 Toggle to see the output
 
     #> 
-    #> 
     #> -------------------------------------------------------------------------------- 
     #>                           Conditional partial effects 
     #> -------------------------------------------------------------------------------- 
@@ -868,7 +881,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-31 09:18:54 
+    #>                          Run Date: 2026-08-08 13:39:43 
     #> -------------------------------------------------------------------------------- 
     #> 
     #> Note: covariates evaluated at median (or mode, for dummies) values
@@ -897,6 +910,29 @@ Toggle to see the output
     #> -------------------------------------------------------------------------------- 
     #>                             Average partial effects 
     #> -------------------------------------------------------------------------------- 
+    #> 
+    #> Binary logit regression (Pr(y > 0)):
+    #> 
+    #> Note: Standard errors computed using the Delta method
+    #>        dy/dx Std. Error z value Pr(>|z|)
+    #> X1  0.006772   0.016605   0.408    0.683
+    #> X2 -0.020995   0.017401  -1.207    0.228
+    #> 
+    #> Binary probit regression (Pr(y = 1 | y > 0)):
+    #> 
+    #> Note: Standard errors computed using the Delta method
+    #>      dy/dx Std. Error z value Pr(>|z|)    
+    #> X1 0.11296    0.02152   5.249 1.53e-07 ***
+    #> X2 0.06011    0.02444   2.460   0.0139 *  
+    #> 
+    #> Fractional logit regression (Fractional Component):
+    #> 
+    #> Note: Standard errors computed using the Delta method
+    #>      dy/dx Std. Error z value Pr(>|z|)    
+    #> X1 0.14591    0.01227  11.893   <2e-16 ***
+    #> X2 0.14019    0.01645   8.521   <2e-16 ***
+    #> 
+    #> -------------------------------------------------------------------------------- 
     #>     Three-part regression - binary logit , binary probit + fractional logit 
     #> -------------------------------------------------------------------------------- 
     #> 
@@ -907,7 +943,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-31 09:18:54 
+    #>                          Run Date: 2026-08-08 13:39:44 
     #> --------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------
@@ -953,7 +989,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-31 09:18:54 
+    #>                          Run Date: 2026-08-08 13:39:44 
     #> --------------------------------------------------------------------------------
 
 ``` r
@@ -995,7 +1031,7 @@ Toggle to see the output
     #> GGOFF - LM       1.612   0.447
     #> GGOFF - Wald     1.336   0.513
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-31 09:18:54 
+    #>                          Run Date: 2026-08-08 13:39:44 
     #> --------------------------------------------------------------------------------
 
 #### 3.1.2 GGOFF Test for the Binary Component
@@ -1025,7 +1061,7 @@ Toggle to see the output
     #> GOFF2 - LR     0.017   0.895
     #> GGOFF - LR     0.024   0.988
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-31 09:18:54 
+    #>                          Run Date: 2026-08-08 13:39:44 
     #> --------------------------------------------------------------------------------
 
 ### 3.2 RESET Test (`fracreg.reset`)
@@ -1061,7 +1097,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-31 09:18:55 
+    #>                          Run Date: 2026-08-08 13:39:44 
     #> --------------------------------------------------------------------------------
 
 ``` r
@@ -1103,7 +1139,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-31 09:18:55 
+    #>                          Run Date: 2026-08-08 13:39:44 
     #> --------------------------------------------------------------------------------
 
 #### 3.2.2 RESET Test for the Binary Component
@@ -1133,7 +1169,7 @@ Toggle to see the output
     #>       Statistic p-value
     #> LR(3)     0.976   0.614
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-31 09:18:55 
+    #>                          Run Date: 2026-08-08 13:39:44 
     #> --------------------------------------------------------------------------------
 
 ### 3.3 P-Test for Non-Nested Models (`fracreg.ptest`)
@@ -1177,7 +1213,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-31 09:18:55 
+    #>                          Run Date: 2026-08-08 13:39:44 
     #> --------------------------------------------------------------------------------
 
 ``` r
@@ -1223,7 +1259,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-31 09:18:55 
+    #>                          Run Date: 2026-08-08 13:39:44 
     #> --------------------------------------------------------------------------------
 
 #### 3.3.2 P-Test: 1P vs. 2P Model
@@ -1262,7 +1298,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-31 09:18:55 
+    #>                          Run Date: 2026-08-08 13:39:44 
     #> --------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------
@@ -1299,6 +1335,7 @@ y_adj[y_adj == 1] <- 0.999
 
 Z_emp <- cbind(age = fracreg_k401k$age, ltotemp = fracreg_k401k$ltotemp) 
 mod <- fracreghet(y_adj, X_het, Z_emp, var.endog = X_het[, "mrate"], type="QMLxv", link="logit") 
+summary(mod)
 ```
 
 Toggle to see the output
@@ -1343,15 +1380,15 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-31 09:18:55 
+    #>                          Run Date: 2026-08-08 13:39:44 
     #> --------------------------------------------------------------------------------
 
 ``` r
 
-summary(mod)
 
 # Compute the same QMLxv estimator reporting Odds Ratios with 90% confidence intervals
 mod <- fracreghet(y_adj, X_het, Z_emp, var.endog = X_het[, "mrate"], type="QMLxv", link="logit", or=TRUE, level=0.90)
+summary(mod)
 ```
 
 Toggle to see the output
@@ -1364,7 +1401,7 @@ Toggle to see the output
     #> Estimator:                                                                 QMLxv 
     #> Convergence:                                                          Successful 
     #> Number of observations:                                                     1534 
-    #> Wald chi2(6):                                                       2243425.9703 
+    #> Wald chi2(6):                                                       2243425.9766 
     #> Prob > chi2:                                                              0.0000 
     #> Standard errors:                                                             HC0 
     #> -------------------------------------------------------------------------------- 
@@ -1372,7 +1409,7 @@ Toggle to see the output
     #> -------------------------------------------------------------------------------- 
     #>             Odds Ratio Robust Std.Err.  z value [90% Conf. Interval] Pr(>|z|)
     #> (Intercept)    0.89977         0.67684 -0.14040    0.26108     3.101    0.888
-    #> mrate         41.32156        28.49225  5.39703   13.29273   128.452 6.78e-08
+    #> mrate         41.32157        28.49225  5.39703   13.29273   128.452 6.78e-08
     #> ltotemp        0.93231         0.04986 -1.31060    0.85380     1.018    0.190
     #> vhat           0.06111         0.04279 -3.99157    0.01931     0.193 6.56e-05
     #>                
@@ -1396,12 +1433,11 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-31 09:18:55 
+    #>                          Run Date: 2026-08-08 13:39:45 
     #> --------------------------------------------------------------------------------
 
 ``` r
 
-summary(mod)
  
 ### Simulated Examples 
  
@@ -1424,6 +1460,7 @@ Z <- cbind(x1 = x1, z1 = z1)
  
 # Exogeneity (assuming var.endog is exogenous for comparison), GMMx estimator 
 mod <- fracreghet(y = y_endog, x = X, type = "GMMx", link = "logit") 
+summary(mod)
 ```
 
 Toggle to see the output
@@ -1453,14 +1490,8 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-31 09:18:55 
+    #>                          Run Date: 2026-08-08 13:39:45 
     #> --------------------------------------------------------------------------------
-
-``` r
-
-summary(mod)
- 
-```
 
 #### 4.1.2 GMMz Estimator
 
@@ -1473,6 +1504,7 @@ is more robust to first-stage misspecification.
 
 # Endogeneity, GMMz estimator 
 mod <- fracreghet(y = y_endog, x = X, z = Z, type = "GMMz", link = "logit") 
+summary(mod)
 ```
 
 Toggle to see the output
@@ -1485,7 +1517,7 @@ Toggle to see the output
     #> Estimator:                                                                  GMMz 
     #> Convergence:                                                          Successful 
     #> Number of observations:                                                     1000 
-    #> Wald chi2(2):                                                         14903.8563 
+    #> Wald chi2(2):                                                         14903.8562 
     #> Prob > chi2:                                                              0.0000 
     #> Standard errors:                                                             HC0 
     #> -------------------------------------------------------------------------------- 
@@ -1502,14 +1534,8 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-31 09:18:55 
+    #>                          Run Date: 2026-08-08 13:39:45 
     #> --------------------------------------------------------------------------------
-
-``` r
-
-summary(mod)
- 
-```
 
 #### 4.1.3 GMMxv Estimator
 
@@ -1523,6 +1549,7 @@ endogeneity.
 # Endogeneity, GMMxv estimator 
 mod <- fracreghet(y = y_endog, x = X, z = Z, var.endog = var.endog, type = "GMMxv", link = "logit") 
 #> Warning in dgamma(y, 1/disp, scale = mu * disp, log = TRUE): NaNs produced
+summary(mod)
 ```
 
 Toggle to see the output
@@ -1565,14 +1592,8 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-31 09:18:55 
+    #>                          Run Date: 2026-08-08 13:39:45 
     #> --------------------------------------------------------------------------------
-
-``` r
-
-summary(mod)
- 
-```
 
 #### 4.1.4 QMLxv Control Function Estimator
 
@@ -1585,6 +1606,7 @@ Likelihood estimation to absorb the endogeneity.
 
 # Endogeneity, QMLxv control function approach 
 mod <- fracreghet(y = y_endog, x = X, z = Z, var.endog = var.endog, type = "QMLxv", link = "logit") 
+summary(mod)
 ```
 
 Toggle to see the output
@@ -1627,13 +1649,8 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-31 09:18:56 
+    #>                          Run Date: 2026-08-08 13:39:45 
     #> --------------------------------------------------------------------------------
-
-``` r
-
-summary(mod)
-```
 
 ### 4.1 Partial Effects for Endogenous Models (`fracreghet.pe`)
 
@@ -1664,10 +1681,10 @@ summary(pe_res)
 Toggle to see the output
 
     #> 
-    #> 
     #> -------------------------------------------------------------------------------- 
-    #> Average partial effects (conditional only on observables, based on the smearing estimator) 
+    #>                             Average partial effects 
     #> -------------------------------------------------------------------------------- 
+    #>        (conditional only on observables, based on the smearing estimator) 
     #>                           Fractional logit regression 
     #>                                 Estimator: QMLxv 
     #> -------------------------------------------------------------------------------- 
@@ -1678,8 +1695,10 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-31 09:18:56 
-    #> --------------------------------------------------------------------------------
+    #>                          Run Date: 2026-08-08 13:39:45 
+    #> -------------------------------------------------------------------------------- 
+    #> 
+    #> Note: Partial effects for the reduced form are omitted because it is a linear model where they strictly equal the estimated coefficients.
 
 ``` r
 
@@ -1707,10 +1726,10 @@ summary(pe_res)
 Toggle to see the output
 
     #> 
-    #> 
     #> -------------------------------------------------------------------------------- 
-    #> Average partial effects (conditional only on observables, based on the smearing estimator) 
+    #>                             Average partial effects 
     #> -------------------------------------------------------------------------------- 
+    #>        (conditional only on observables, based on the smearing estimator) 
     #>                           Fractional logit regression 
     #>                                 Estimator: GMMx 
     #> -------------------------------------------------------------------------------- 
@@ -1721,8 +1740,10 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-31 09:18:56 
-    #> --------------------------------------------------------------------------------
+    #>                          Run Date: 2026-08-08 13:39:45 
+    #> -------------------------------------------------------------------------------- 
+    #> 
+    #> Note: Partial effects for the reduced form are omitted because it is a linear model where they strictly equal the estimated coefficients.
 
 #### 4.1.2 Naive Estimator for CPEs
 
@@ -1741,10 +1762,10 @@ summary(pe_res)
 Toggle to see the output
 
     #> 
-    #> 
     #> -------------------------------------------------------------------------------- 
-    #> Conditional partial effects (conditional on both observables and unobservables, with error term = 0) 
+    #>                           Conditional partial effects 
     #> -------------------------------------------------------------------------------- 
+    #>     (conditional on both observables and unobservables, with error term = 0) 
     #>                           Fractional logit regression 
     #>                                 Estimator: GMMx 
     #> -------------------------------------------------------------------------------- 
@@ -1756,13 +1777,15 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-31 09:18:56 
+    #>                          Run Date: 2026-08-08 13:39:45 
     #> -------------------------------------------------------------------------------- 
     #> 
     #> Note: covariates evaluated at the following values:
     #> 
     #> X1 X2 
-    #>  1 -1
+    #>  1 -1 
+    #> 
+    #> Note: Partial effects for the reduced form are omitted because it is a linear model where they strictly equal the estimated coefficients.
 
 ### 4.2 RESET Test for Endogenous Models (`fracreghet.reset`)
 
@@ -1804,7 +1827,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-31 09:18:56 
+    #>                          Run Date: 2026-08-08 13:39:45 
     #> --------------------------------------------------------------------------------
 
 ``` r
@@ -1848,7 +1871,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-31 09:18:56 
+    #>                          Run Date: 2026-08-08 13:39:45 
     #> --------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------
@@ -1924,7 +1947,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-31 09:18:56 
+    #>                          Run Date: 2026-08-08 13:39:46 
     #> --------------------------------------------------------------------------------
 
 ``` r
@@ -1993,7 +2016,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-31 09:18:56 
+    #>                          Run Date: 2026-08-08 13:39:46 
     #> --------------------------------------------------------------------------------
 
 #### 5.1.2 Standard Panel GMM (GMMbgw)
@@ -2036,7 +2059,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-31 09:18:56 
+    #>                          Run Date: 2026-08-08 13:39:46 
     #> --------------------------------------------------------------------------------
 
 #### 5.1.3 Generalized Method of Moments (GMMww)
@@ -2079,7 +2102,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-31 09:18:57 
+    #>                          Run Date: 2026-08-08 13:39:46 
     #> --------------------------------------------------------------------------------
 
 #### 5.1.4 GMMww with Lagged Covariates
@@ -2123,7 +2146,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-31 09:18:57 
+    #>                          Run Date: 2026-08-08 13:39:46 
     #> --------------------------------------------------------------------------------
 
 #### 5.1.5 Endogenous Panel GMM (GMMpfe)
@@ -2179,7 +2202,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-31 09:18:57 
+    #>                          Run Date: 2026-08-08 13:39:47 
     #> --------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------
@@ -2225,13 +2248,13 @@ Toggle to see the output
 
     #> 
     #> -------------------------------------------------------------------------------- 
-    #>                           Fractional Ridge Regression 
+    #>                           Fractional ridge regression 
     #> -------------------------------------------------------------------------------- 
     #> Data type:                                                       Cross-sectional 
     #> Convergence:                                                          Successful 
     #> Standard errors:                                                   homoskedastic 
     #> -------------------------------------------------------------------------------- 
-    #>                            Target Fraction: frac_0.2 
+    #>                               Target Fraction: 0.2 
     #> -------------------------------------------------------------------------------- 
     #> Number of observations:                                                     1534 
     #> Pseudo R-squared:                                                        0.04571 
@@ -2248,7 +2271,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                            Target Fraction: frac_0.4 
+    #>                               Target Fraction: 0.4 
     #> -------------------------------------------------------------------------------- 
     #> Number of observations:                                                     1534 
     #> Pseudo R-squared:                                                        0.06873 
@@ -2265,7 +2288,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                            Target Fraction: frac_0.6 
+    #>                               Target Fraction: 0.6 
     #> -------------------------------------------------------------------------------- 
     #> Number of observations:                                                     1534 
     #> Pseudo R-squared:                                                        0.08697 
@@ -2282,7 +2305,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                            Target Fraction: frac_0.8 
+    #>                               Target Fraction: 0.8 
     #> -------------------------------------------------------------------------------- 
     #> Number of observations:                                                     1534 
     #> Pseudo R-squared:                                                        0.10095 
@@ -2299,7 +2322,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                             Target Fraction: frac_1 
+    #>                                Target Fraction: 1 
     #> -------------------------------------------------------------------------------- 
     #> Number of observations:                                                     1534 
     #> Pseudo R-squared:                                                        0.11402 
@@ -2316,7 +2339,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-31 09:18:57 
+    #>                          Run Date: 2026-08-08 13:39:47 
     #> --------------------------------------------------------------------------------
 
 ``` r
@@ -2324,16 +2347,6 @@ Toggle to see the output
 
 # Compute Average Partial Effects for Ridge
 pe_401k <- fracregridge.pe(mod_401k)
-```
-
-Toggle to see the output
-
-    #> 
-    #> Note: Fractional Ridge Regression is a linear model without a link function.
-    #> Therefore, the partial effects are mathematically identical to the coefficients themselves.
-
-``` r
-
 summary(pe_401k)
 ```
 
@@ -2344,13 +2357,13 @@ Toggle to see the output
     #> -------------------------------------------------------------------------------- 
     #>                             Average partial effects 
     #> -------------------------------------------------------------------------------- 
-    #>                           Fractional Ridge Regression 
+    #>                           Fractional ridge regression 
     #> -------------------------------------------------------------------------------- 
     #> 
-    #> Note: Fractional Ridge Regression is a linear model without a link function.
+    #> Note: Fractional ridge regression is a linear model without a link function.
     #> Therefore, the partial effects are mathematically identical to the coefficients themselves.
     #> 
-    #>                            Target Fraction: frac_0.2 
+    #>                               Target Fraction: 0.2 
     #> -------------------------------------------------------------------------------- 
     #>                 dy/dx Std. Error z value Pr(>|z|)    
     #> (Intercept) 1.218e-01  2.623e-03  46.434   <2e-16 ***
@@ -2361,7 +2374,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                            Target Fraction: frac_0.4 
+    #>                               Target Fraction: 0.4 
     #> -------------------------------------------------------------------------------- 
     #>                 dy/dx Std. Error z value Pr(>|z|)    
     #> (Intercept) 2.741e-01  4.766e-03  57.513   <2e-16 ***
@@ -2372,7 +2385,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                            Target Fraction: frac_0.6 
+    #>                               Target Fraction: 0.6 
     #> -------------------------------------------------------------------------------- 
     #>                 dy/dx Std. Error z value Pr(>|z|)    
     #> (Intercept) 4.439e-01  6.218e-03  71.390   <2e-16 ***
@@ -2383,7 +2396,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                            Target Fraction: frac_0.8 
+    #>                               Target Fraction: 0.8 
     #> -------------------------------------------------------------------------------- 
     #>                  dy/dx Std. Error z value Pr(>|z|)    
     #> (Intercept)  6.162e-01  7.193e-03  85.673   <2e-16 ***
@@ -2394,7 +2407,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                             Target Fraction: frac_1 
+    #>                                Target Fraction: 1 
     #> -------------------------------------------------------------------------------- 
     #>                  dy/dx Std. Error z value Pr(>|z|)    
     #> (Intercept)  7.827e-01  8.711e-03  89.853  < 2e-16 ***
@@ -2405,7 +2418,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-31 09:18:57 
+    #>                          Run Date: 2026-08-08 13:39:47 
     #> --------------------------------------------------------------------------------
 
 ### 6.2 Simulated Data Example
@@ -2436,10 +2449,9 @@ Toggle to see the output
     #> 
     #> Fractional Ridge Regression
     #> 
-    #> Call:
-    #> fracregridge(y = y_sim, x = X_sim, fracs = c(0.3, 0.5, 0.8))
+    #> Call:  fracregridge(y = y_sim, x = X_sim, fracs = c(0.3, 0.5, 0.8))
     #> 
-    #> Ridge Coefficients at Target Fractions:
+    #> Coefficients:
     #>                 frac_0.3     frac_0.5    frac_0.8
     #> (Intercept)  0.025969041  0.043431002  0.06995586
     #> X1          -0.015190037 -0.025277903 -0.04006089
@@ -2452,22 +2464,14 @@ Toggle to see the output
     #> X8          -0.006353284 -0.014086532 -0.03160760
     #> X9           0.001567879  0.002529806  0.00567404
     #> X10          0.020836124  0.031879315  0.04441221
+    #> 
+    #> Degrees of Freedom: 100 Total; 89 Residual
 
 ``` r
 
 
 # Compute Partial Effects
 pe_sim <- fracregridge.pe(mod_sim)
-```
-
-Toggle to see the output
-
-    #> 
-    #> Note: Fractional Ridge Regression is a linear model without a link function.
-    #> Therefore, the partial effects are mathematically identical to the coefficients themselves.
-
-``` r
-
 summary(pe_sim)
 ```
 
@@ -2478,13 +2482,13 @@ Toggle to see the output
     #> -------------------------------------------------------------------------------- 
     #>                             Average partial effects 
     #> -------------------------------------------------------------------------------- 
-    #>                           Fractional Ridge Regression 
+    #>                           Fractional ridge regression 
     #> -------------------------------------------------------------------------------- 
     #> 
-    #> Note: Fractional Ridge Regression is a linear model without a link function.
+    #> Note: Fractional ridge regression is a linear model without a link function.
     #> Therefore, the partial effects are mathematically identical to the coefficients themselves.
     #> 
-    #>                            Target Fraction: frac_0.3 
+    #>                               Target Fraction: 0.3 
     #> -------------------------------------------------------------------------------- 
     #>                 dy/dx Std. Error z value Pr(>|z|)  
     #> (Intercept)  0.025969   0.026424   0.983   0.3257  
@@ -2501,7 +2505,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                            Target Fraction: frac_0.5 
+    #>                               Target Fraction: 0.5 
     #> -------------------------------------------------------------------------------- 
     #>                dy/dx Std. Error z value Pr(>|z|)  
     #> (Intercept)  0.04343    0.04478   0.970   0.3322  
@@ -2518,7 +2522,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                            Target Fraction: frac_0.8 
+    #>                               Target Fraction: 0.8 
     #> -------------------------------------------------------------------------------- 
     #>                 dy/dx Std. Error z value Pr(>|z|)  
     #> (Intercept)  0.069956   0.074554   0.938   0.3481  
@@ -2535,7 +2539,7 @@ Toggle to see the output
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-31 09:18:57 
+    #>                          Run Date: 2026-08-08 13:39:47 
     #> --------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------
@@ -2568,14 +2572,6 @@ y <- fracreg_spending[, c("governing", "safety", "education", "recreation", "soc
 
 # Fit the Fractional Multinomial Logit model
 mn_fit <- fracregmlogit(y, X)
-```
-
-Toggle to see the output
-
-    #> [1] "Fractional logit model estimation completed. Time: 8.3 seconds"
-
-``` r
-
 
 # View estimates
 summary(mn_fit)
@@ -2602,81 +2598,81 @@ Toggle to see the output
     #> Prob > chi2:                                                              0.0000 
     #> -------------------------------------------------------------------------------- 
     #>              Coefficient Robust Std.Err. z value Pr(>|z|)    
-    #> houseval       -0.131349        0.036779  -3.571 0.000355 ***
-    #> popdens        -0.004797        0.020959  -0.229 0.818973    
-    #> noleft          0.087694        0.045501   1.927 0.053946 .  
-    #> minorityleft    0.192298        0.044135   4.357 1.32e-05 ***
-    #> tot             0.002264        0.001230   1.841 0.065673 .  
-    #> constant        0.730426        0.064200  11.377  < 2e-16 ***
+    #> (Intercept)     0.730439        0.064200  11.378  < 2e-16 ***
+    #> houseval       -0.131353        0.036779  -3.571 0.000355 ***
+    #> popdens        -0.004797        0.020959  -0.229 0.818951    
+    #> noleft          0.087689        0.045501   1.927 0.053957 .  
+    #> minorityleft    0.192293        0.044135   4.357 1.32e-05 ***
+    #> tot             0.002264        0.001230   1.841 0.065677 .  
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> 
     #> -------------------------------------------------------------------------------- 
     #>                                Choice: education 
     #> -------------------------------------------------------------------------------- 
-    #> Wald chi2(5):                                                           287.5003 
+    #> Wald chi2(5):                                                           287.4992 
     #> Prob > chi2:                                                              0.0000 
     #> -------------------------------------------------------------------------------- 
     #>              Coefficient Robust Std.Err. z value Pr(>|z|)    
-    #> houseval      -0.6211389       0.1082111  -5.740 9.46e-09 ***
-    #> popdens        0.0649866       0.0332356   1.955   0.0505 .  
-    #> noleft        -0.3564523       0.0915540  -3.893 9.89e-05 ***
-    #> minorityleft   0.0444748       0.0934247   0.476   0.6340    
-    #> tot            0.0035277       0.0004931   7.155 8.40e-13 ***
-    #> constant       1.1827142       0.1661415   7.119 1.09e-12 ***
+    #> (Intercept)    1.1827277       0.1661416   7.119 1.09e-12 ***
+    #> houseval      -0.6211445       0.1082112  -5.740 9.46e-09 ***
+    #> popdens        0.0649859       0.0332356   1.955   0.0505 .  
+    #> noleft        -0.3564567       0.0915540  -3.893 9.88e-05 ***
+    #> minorityleft   0.0444696       0.0934246   0.476   0.6341    
+    #> tot            0.0035276       0.0004931   7.154 8.40e-13 ***
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> 
     #> -------------------------------------------------------------------------------- 
     #>                                Choice: recreation 
     #> -------------------------------------------------------------------------------- 
-    #> Wald chi2(5):                                                           211.0914 
+    #> Wald chi2(5):                                                           211.0898 
     #> Prob > chi2:                                                              0.0000 
     #> -------------------------------------------------------------------------------- 
     #>              Coefficient Robust Std.Err. z value Pr(>|z|)    
-    #> houseval      -0.2189650       0.0400569  -5.466 4.59e-08 ***
-    #> popdens        0.0498017       0.0173550   2.870  0.00411 ** 
-    #> noleft         0.0204306       0.0428769   0.476  0.63372    
-    #> minorityleft   0.2264684       0.0416128   5.442 5.26e-08 ***
-    #> tot            0.0029646       0.0004319   6.865 6.65e-12 ***
-    #> constant       0.3959937       0.0665686   5.949 2.70e-09 ***
+    #> (Intercept)    0.3960070       0.0665687   5.949 2.70e-09 ***
+    #> houseval      -0.2189703       0.0400569  -5.466 4.59e-08 ***
+    #> popdens        0.0498010       0.0173550   2.870  0.00411 ** 
+    #> noleft         0.0204260       0.0428769   0.476  0.63380    
+    #> minorityleft   0.2264631       0.0416128   5.442 5.26e-08 ***
+    #> tot            0.0029646       0.0004319   6.865 6.66e-12 ***
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> 
     #> -------------------------------------------------------------------------------- 
     #>                                  Choice: social 
     #> -------------------------------------------------------------------------------- 
-    #> Wald chi2(5):                                                           444.6684 
+    #> Wald chi2(5):                                                           444.6676 
     #> Prob > chi2:                                                              0.0000 
     #> -------------------------------------------------------------------------------- 
     #>              Coefficient Robust Std.Err. z value Pr(>|z|)    
-    #> houseval      -0.5957525       0.0653649  -9.114  < 2e-16 ***
-    #> popdens        0.1571057       0.0226909   6.924  4.4e-12 ***
-    #> noleft        -0.1364818       0.0598455  -2.281   0.0226 *  
-    #> minorityleft   0.1467303       0.0592471   2.477   0.0133 *  
+    #> (Intercept)    1.6604352       0.1105265  15.023  < 2e-16 ***
+    #> houseval      -0.5957574       0.0653650  -9.114  < 2e-16 ***
+    #> popdens        0.1571051       0.0226909   6.924  4.4e-12 ***
+    #> noleft        -0.1364859       0.0598455  -2.281   0.0226 *  
+    #> minorityleft   0.1467254       0.0592470   2.477   0.0133 *  
     #> tot            0.0044515       0.0005819   7.650  2.0e-14 ***
-    #> constant       1.6604229       0.1105264  15.023  < 2e-16 ***
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> 
     #> -------------------------------------------------------------------------------- 
     #>                              Choice: urbanplanning 
     #> -------------------------------------------------------------------------------- 
-    #> Wald chi2(5):                                                           216.0178 
+    #> Wald chi2(5):                                                           216.0163 
     #> Prob > chi2:                                                              0.0000 
     #> -------------------------------------------------------------------------------- 
     #>              Coefficient Robust Std.Err. z value Pr(>|z|)    
-    #> houseval      -0.1500418       0.0746389  -2.010  0.04441 *  
-    #> popdens        0.1110777       0.0384526   2.889  0.00387 ** 
-    #> noleft         0.0433839       0.0830757   0.522  0.60152    
-    #> minorityleft   0.2500358       0.0766200   3.263  0.00110 ** 
+    #> (Intercept)    0.9281283       0.1247764   7.438 1.02e-13 ***
+    #> houseval      -0.1500466       0.0746389  -2.010  0.04440 *  
+    #> popdens        0.1110771       0.0384526   2.889  0.00387 ** 
+    #> noleft         0.0433797       0.0830757   0.522  0.60155    
+    #> minorityleft   0.2500309       0.0766200   3.263  0.00110 ** 
     #> tot            0.0050419       0.0006371   7.914 2.44e-15 ***
-    #> constant       0.9281162       0.1247764   7.438 1.02e-13 ***
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     #> 
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-31 09:19:06 
+    #>                          Run Date: 2026-08-08 13:39:55 
     #> --------------------------------------------------------------------------------
 
 ``` r
@@ -2697,17 +2693,60 @@ Toggle to see the output
     #>                     Fractional multinomial logit regression 
     #> -------------------------------------------------------------------------------- 
     #> 
-    #> Note: discrete effect at the mean, standard error not computed 
-    #> Effects:
-    #>                     noleft minorityleft
-    #> governing      0.004095953 -0.015337101
-    #> safety         0.024367667  0.005089801
-    #> education     -0.035394639 -0.013924696
-    #> recreation     0.007663092  0.007419915
-    #> social        -0.022157074 -0.004293717
-    #> urbanplanning  0.021425001  0.021045798
+    #> Note: discrete effect at the mean, Krinsky-Robb standard error calculated 
+    #> 
     #> -------------------------------------------------------------------------------- 
-    #>                          Run Date: 2026-07-31 09:19:06 
+    #>                                Choice: governing 
+    #> -------------------------------------------------------------------------------- 
+    #>                   dy/dx Std. Error z value Pr(>|z|)   
+    #> noleft        0.0003228  0.0027516   0.117  0.90661   
+    #> minorityleft -0.0073188  0.0026085  -2.806  0.00502 **
+    #> ---
+    #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    #> 
+    #> -------------------------------------------------------------------------------- 
+    #>                                  Choice: safety 
+    #> -------------------------------------------------------------------------------- 
+    #>                 dy/dx Std. Error z value Pr(>|z|)  
+    #> noleft       0.018650   0.008907   2.094   0.0363 *
+    #> minorityleft 0.004872   0.008286   0.588   0.5565  
+    #> ---
+    #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    #> 
+    #> -------------------------------------------------------------------------------- 
+    #>                                Choice: education 
+    #> -------------------------------------------------------------------------------- 
+    #>                  dy/dx Std. Error z value Pr(>|z|)  
+    #> noleft       -0.017494   0.009573  -1.827   0.0676 .
+    #> minorityleft -0.017209   0.010103  -1.703   0.0885 .
+    #> ---
+    #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    #> 
+    #> -------------------------------------------------------------------------------- 
+    #>                                Choice: recreation 
+    #> -------------------------------------------------------------------------------- 
+    #>                 dy/dx Std. Error z value Pr(>|z|)
+    #> noleft       0.005778   0.005670   1.019    0.308
+    #> minorityleft 0.005583   0.005503   1.014    0.310
+    #> 
+    #> -------------------------------------------------------------------------------- 
+    #>                                  Choice: social 
+    #> -------------------------------------------------------------------------------- 
+    #>                  dy/dx Std. Error z value Pr(>|z|)   
+    #> noleft       -0.032389   0.012085  -2.680  0.00736 **
+    #> minorityleft -0.004287   0.012058  -0.356  0.72221   
+    #> ---
+    #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    #> 
+    #> -------------------------------------------------------------------------------- 
+    #>                              Choice: urbanplanning 
+    #> -------------------------------------------------------------------------------- 
+    #>                dy/dx Std. Error z value Pr(>|z|)
+    #> noleft       0.02513    0.01653   1.520    0.128
+    #> minorityleft 0.01836    0.01474   1.245    0.213
+    #> 
+    #> -------------------------------------------------------------------------------- 
+    #>                          Run Date: 2026-08-08 13:39:55 
     #> --------------------------------------------------------------------------------
 
 ### 7.2 Willingness to Pay (WTP)
@@ -2731,8 +2770,20 @@ summary(wtp_est)
 
 Toggle to see the output
 
-    #>            noleft
-    #> [1,] -0.004935625
+    #> 
+    #> -------------------------------------------------------------------------------- 
+    #>                                Willingness to Pay 
+    #> -------------------------------------------------------------------------------- 
+    #>                     Fractional multinomial logit regression 
+    #> -------------------------------------------------------------------------------- 
+    #> 
+    #> Note: Krinsky-Robb standard error calculated
+    #>        Coefficient Std. Error z value Pr(>|z|)
+    #> noleft  -0.0029003  0.1231102 -0.0236   0.9812
+    #> 
+    #> -------------------------------------------------------------------------------- 
+    #>                          Run Date: 2026-08-08 13:39:55 
+    #> --------------------------------------------------------------------------------
 
 ``` r
 
@@ -2771,398 +2822,398 @@ Toggle to see the output
     #> 
     #> [[2]]
     #>               noleft
-    #>   [1,] -5.597160e-03
-    #>   [2,]  4.169557e-02
-    #>   [3,] -7.172176e-03
-    #>   [4,] -9.333253e-03
-    #>   [5,] -7.531053e-03
-    #>   [6,] -1.352611e-02
-    #>   [7,] -2.253060e-03
-    #>   [8,]  3.037516e-03
-    #>   [9,] -5.325909e-03
-    #>  [10,] -8.820900e-03
-    #>  [11,]  1.137553e-02
-    #>  [12,]  3.988503e-03
-    #>  [13,]  6.776626e-03
-    #>  [14,] -6.913745e-04
-    #>  [15,] -1.274111e-02
-    #>  [16,] -8.575048e-03
-    #>  [17,] -6.701305e-03
-    #>  [18,] -1.066096e-02
-    #>  [19,]  4.069579e-03
-    #>  [20,] -2.358951e-03
-    #>  [21,]  6.230514e-02
-    #>  [22,] -6.242535e-03
-    #>  [23,] -7.009334e-03
-    #>  [24,] -4.357026e-04
-    #>  [25,]  1.202211e-03
-    #>  [26,] -8.280564e-03
-    #>  [27,]  7.725688e-03
-    #>  [28,]  2.068654e-03
-    #>  [29,] -1.059751e-02
-    #>  [30,] -1.712998e-03
-    #>  [31,] -9.660868e-03
-    #>  [32,] -2.953664e-03
-    #>  [33,] -5.852672e-03
-    #>  [34,] -1.075242e-02
-    #>  [35,] -5.776408e-03
-    #>  [36,] -3.439880e-03
-    #>  [37,] -4.755048e-03
-    #>  [38,] -1.115345e-02
-    #>  [39,] -1.188426e-02
-    #>  [40,] -8.929519e-03
-    #>  [41,] -7.263759e-03
-    #>  [42,] -5.313490e-03
-    #>  [43,] -9.068826e-03
-    #>  [44,] -8.050426e-03
-    #>  [45,] -7.206075e-03
-    #>  [46,] -7.493598e-03
-    #>  [47,]  4.197840e-03
-    #>  [48,] -7.126055e-03
-    #>  [49,] -9.778985e-03
-    #>  [50,] -1.232323e-02
-    #>  [51,] -7.484368e-03
-    #>  [52,] -1.278176e-02
-    #>  [53,] -4.231305e-03
-    #>  [54,] -8.074711e-03
-    #>  [55,] -1.001272e-02
-    #>  [56,]  1.944063e-03
-    #>  [57,] -5.272176e-03
-    #>  [58,] -4.072459e-03
-    #>  [59,] -4.641955e-03
-    #>  [60,] -5.757882e-03
-    #>  [61,] -8.121219e-03
-    #>  [62,] -6.598221e-03
-    #>  [63,]  4.741280e-03
-    #>  [64,] -1.092814e-02
-    #>  [65,] -5.777973e-03
-    #>  [66,] -8.925466e-03
-    #>  [67,]  2.952644e-03
-    #>  [68,] -9.596983e-03
-    #>  [69,] -8.029379e-03
-    #>  [70,] -9.698340e-03
-    #>  [71,]  1.751219e-03
-    #>  [72,]  1.498280e-02
-    #>  [73,] -4.170240e-03
-    #>  [74,] -9.428003e-03
-    #>  [75,] -8.075995e-03
-    #>  [76,] -6.140943e-03
-    #>  [77,] -4.049426e-03
-    #>  [78,] -3.675728e-03
-    #>  [79,] -1.347536e-03
-    #>  [80,] -9.044668e-03
-    #>  [81,] -8.612692e-03
-    #>  [82,]  6.075093e-04
-    #>  [83,]  5.811498e-03
-    #>  [84,] -8.537052e-03
-    #>  [85,]  9.359344e-05
-    #>  [86,] -6.162293e-03
-    #>  [87,] -3.685667e-03
-    #>  [88,] -2.452593e-03
-    #>  [89,] -4.931313e-03
-    #>  [90,] -2.211211e-03
-    #>  [91,] -1.179128e-02
-    #>  [92,]  7.739389e-03
-    #>  [93,] -6.874545e-03
-    #>  [94,] -9.224012e-03
-    #>  [95,] -7.784632e-03
-    #>  [96,] -6.979871e-03
-    #>  [97,] -5.384615e-03
-    #>  [98,] -1.498815e-03
-    #>  [99,] -5.823505e-03
-    #> [100,] -1.152637e-02
-    #> [101,] -1.473974e-03
-    #> [102,] -1.155302e-02
-    #> [103,] -8.420436e-03
-    #> [104,]  1.061063e-02
-    #> [105,] -8.259759e-03
-    #> [106,]  1.053509e-03
-    #> [107,]  1.260477e-03
-    #> [108,]  9.451334e-03
-    #> [109,] -9.151848e-03
-    #> [110,] -9.595190e-03
-    #> [111,] -3.580752e-03
-    #> [112,] -2.627979e-03
-    #> [113,] -2.249944e-03
-    #> [114,] -6.409929e-03
-    #> [115,] -3.704480e-03
-    #> [116,] -9.496236e-03
-    #> [117,] -2.954098e-03
-    #> [118,] -8.352211e-03
-    #> [119,] -9.638603e-03
-    #> [120,] -7.343633e-03
-    #> [121,] -9.655194e-03
-    #> [122,] -3.094490e-03
-    #> [123,] -6.722666e-03
-    #> [124,]  3.059805e-03
-    #> [125,]  1.303546e-02
-    #> [126,] -1.125465e-02
-    #> [127,] -1.031334e-02
-    #> [128,] -6.425987e-03
-    #> [129,] -8.052508e-03
-    #> [130,] -5.633998e-03
-    #> [131,] -9.278446e-03
-    #> [132,] -6.484117e-03
-    #> [133,] -1.253518e-02
-    #> [134,]  1.990908e-02
-    #> [135,] -1.087487e-02
-    #> [136,] -2.889290e-03
-    #> [137,] -7.904745e-03
-    #> [138,] -8.051019e-03
-    #> [139,] -2.413776e-03
-    #> [140,] -3.198350e-03
-    #> [141,] -7.539965e-03
-    #> [142,] -9.037160e-03
-    #> [143,]  7.488284e-05
-    #> [144,] -8.065904e-03
-    #> [145,] -1.587664e-03
-    #> [146,] -4.105459e-03
-    #> [147,] -9.205880e-03
-    #> [148,] -3.338828e-03
-    #> [149,]  8.108864e-03
-    #> [150,] -1.233869e-02
-    #> [151,] -6.802927e-03
-    #> [152,] -8.399079e-03
-    #> [153,] -6.173523e-03
-    #> [154,] -9.656695e-04
-    #> [155,]  2.379680e-03
-    #> [156,]  4.059206e-03
-    #> [157,] -8.840884e-03
-    #> [158,] -7.980340e-03
-    #> [159,] -8.867040e-03
-    #> [160,] -3.067578e-03
-    #> [161,] -1.032630e-02
-    #> [162,] -6.625222e-04
-    #> [163,] -1.582798e-03
-    #> [164,]  1.363589e-03
-    #> [165,]  1.146495e-02
-    #> [166,] -7.692955e-03
-    #> [167,] -1.150363e-03
-    #> [168,] -9.824956e-03
-    #> [169,] -1.170137e-02
-    #> [170,] -5.201422e-03
-    #> [171,]  2.833440e-03
-    #> [172,]  6.249000e-03
-    #> [173,] -9.623778e-03
-    #> [174,] -3.403912e-03
-    #> [175,] -7.375693e-03
-    #> [176,]  7.594675e-03
-    #> [177,] -9.401548e-03
-    #> [178,] -1.102675e-02
-    #> [179,]  1.577066e-03
-    #> [180,] -9.088633e-03
-    #> [181,] -5.379991e-03
-    #> [182,] -1.212211e-02
-    #> [183,] -4.290880e-03
-    #> [184,] -4.153427e-03
-    #> [185,] -1.190827e-02
-    #> [186,]  8.693651e-03
-    #> [187,] -3.804715e-03
-    #> [188,]  2.128449e-02
-    #> [189,] -4.684394e-04
-    #> [190,] -4.644482e-03
-    #> [191,] -8.401022e-03
-    #> [192,] -1.009902e-02
-    #> [193,] -7.566527e-03
-    #> [194,] -9.128750e-03
-    #> [195,] -3.690277e-03
-    #> [196,] -1.196830e-02
-    #> [197,] -4.908911e-03
-    #> [198,] -1.320961e-02
-    #> [199,] -7.406966e-03
-    #> [200,] -2.071168e-03
-    #> [201,] -7.235023e-03
-    #> [202,] -1.300904e-02
-    #> [203,] -3.465638e-03
-    #> [204,] -5.419649e-03
-    #> [205,] -8.923685e-03
-    #> [206,] -9.263811e-03
-    #> [207,]  1.148503e-02
-    #> [208,]  7.117985e-03
-    #> [209,] -1.040309e-02
-    #> [210,] -7.549724e-03
-    #> [211,] -8.554541e-03
-    #> [212,] -7.756254e-03
-    #> [213,] -9.453412e-03
-    #> [214,] -3.084579e-03
-    #> [215,] -2.894169e-03
-    #> [216,] -1.589613e-03
-    #> [217,]  1.052131e-03
-    #> [218,] -5.332564e-03
-    #> [219,] -5.664397e-03
-    #> [220,] -1.107057e-02
-    #> [221,] -5.965466e-03
-    #> [222,] -6.766587e-03
-    #> [223,] -9.834762e-03
-    #> [224,] -7.256248e-03
-    #> [225,] -1.117647e-02
-    #> [226,] -6.984427e-03
-    #> [227,] -9.287764e-03
-    #> [228,] -1.011978e-02
-    #> [229,] -8.110289e-03
-    #> [230,] -3.627790e-03
-    #> [231,]  4.265970e-03
-    #> [232,] -4.207182e-03
-    #> [233,] -1.167847e-02
-    #> [234,] -4.417685e-03
-    #> [235,] -7.332344e-03
-    #> [236,] -5.187018e-03
-    #> [237,] -6.462507e-03
-    #> [238,] -7.437205e-03
-    #> [239,] -2.836172e-03
-    #> [240,] -1.028847e-02
-    #> [241,] -8.325878e-03
-    #> [242,] -1.002159e-02
-    #> [243,] -1.057862e-02
-    #> [244,] -6.990529e-03
-    #> [245,] -7.616689e-03
-    #> [246,] -9.920503e-04
-    #> [247,] -1.123974e-02
-    #> [248,] -8.290832e-03
-    #> [249,] -2.219521e-04
-    #> [250,] -8.513881e-03
-    #> [251,] -7.558617e-03
-    #> [252,] -4.689500e-03
-    #> [253,] -5.933395e-03
-    #> [254,] -6.613780e-03
-    #> [255,] -2.139460e-03
-    #> [256,] -9.490576e-03
-    #> [257,] -8.307811e-03
-    #> [258,] -1.029326e-02
-    #> [259,]  7.728056e-03
-    #> [260,] -2.333399e-04
-    #> [261,]  1.042301e-02
-    #> [262,] -1.165981e-02
-    #> [263,] -1.213864e-02
-    #> [264,] -6.803330e-04
-    #> [265,] -3.180218e-03
-    #> [266,] -8.388324e-03
-    #> [267,] -1.048140e-02
-    #> [268,] -1.116644e-02
-    #> [269,] -5.367975e-03
-    #> [270,] -8.036514e-03
-    #> [271,]  3.475617e-03
-    #> [272,] -1.641465e-03
-    #> [273,] -5.753695e-03
-    #> [274,] -9.134808e-03
-    #> [275,]  9.338365e-03
-    #> [276,] -8.597573e-03
-    #> [277,]  5.848531e-05
-    #> [278,] -9.060124e-03
-    #> [279,] -1.515879e-03
-    #> [280,]  5.689488e-02
-    #> [281,]  8.367630e-03
-    #> [282,] -1.460703e-02
-    #> [283,] -8.525250e-03
-    #> [284,] -1.202608e-03
-    #> [285,] -3.028267e-03
-    #> [286,] -2.614864e-03
-    #> [287,] -1.062307e-02
-    #> [288,] -8.283855e-03
-    #> [289,]  1.946838e-02
-    #> [290,] -9.776550e-03
-    #> [291,] -8.549095e-03
-    #> [292,] -6.595384e-03
-    #> [293,] -2.736142e-06
-    #> [294,] -9.859168e-03
-    #> [295,] -5.135547e-03
-    #> [296,] -1.069668e-02
-    #> [297,] -1.039464e-02
-    #> [298,] -5.014793e-03
-    #> [299,]  2.906712e-03
-    #> [300,] -5.349065e-04
-    #> [301,]  2.268113e-03
-    #> [302,] -7.616948e-03
-    #> [303,] -1.028515e-02
-    #> [304,] -9.103709e-03
-    #> [305,]  1.067021e-02
-    #> [306,] -5.663939e-04
-    #> [307,] -9.318810e-03
-    #> [308,]  4.861969e-04
-    #> [309,] -7.399825e-03
-    #> [310,] -2.345480e-03
-    #> [311,] -7.301666e-03
-    #> [312,] -6.216311e-03
-    #> [313,] -3.624472e-03
-    #> [314,] -1.001156e-02
-    #> [315,] -1.223508e-02
-    #> [316,] -2.941794e-03
-    #> [317,] -8.588983e-03
-    #> [318,] -5.835763e-04
-    #> [319,]  8.513765e-03
-    #> [320,] -9.523851e-03
-    #> [321,] -6.614882e-03
-    #> [322,] -3.968143e-03
-    #> [323,] -8.137912e-03
-    #> [324,] -6.529572e-03
-    #> [325,] -6.533181e-03
-    #> [326,] -4.494976e-03
-    #> [327,]  1.577418e-03
-    #> [328,] -6.301297e-03
-    #> [329,] -7.012787e-03
-    #> [330,] -7.959079e-03
-    #> [331,]  2.534034e-05
-    #> [332,]  5.886517e-03
-    #> [333,] -6.215697e-03
-    #> [334,] -7.514457e-03
-    #> [335,] -9.716591e-03
-    #> [336,] -5.919838e-03
-    #> [337,] -6.954228e-03
-    #> [338,] -2.618781e-03
-    #> [339,] -8.964417e-03
-    #> [340,]  3.995751e-03
-    #> [341,] -1.169166e-02
-    #> [342,] -7.411945e-03
-    #> [343,] -7.651077e-03
-    #> [344,] -3.485253e-03
-    #> [345,] -9.929263e-03
-    #> [346,] -8.610653e-03
-    #> [347,] -9.924218e-03
-    #> [348,] -3.972743e-03
-    #> [349,] -2.959982e-03
-    #> [350,] -1.237775e-02
-    #> [351,] -1.339724e-02
-    #> [352,] -9.817544e-03
-    #> [353,] -5.646882e-03
-    #> [354,] -4.075024e-03
-    #> [355,] -6.831519e-03
-    #> [356,] -5.971423e-03
-    #> [357,] -8.967911e-03
-    #> [358,] -8.578228e-03
-    #> [359,] -8.958923e-03
-    #> [360,]  2.630576e-03
-    #> [361,] -4.733595e-03
-    #> [362,] -1.192757e-02
-    #> [363,] -8.134595e-03
-    #> [364,] -5.164526e-03
-    #> [365,] -5.537140e-03
-    #> [366,] -5.871242e-03
-    #> [367,] -8.951163e-03
-    #> [368,]  2.060776e-03
-    #> [369,] -2.849329e-03
-    #> [370,] -6.010293e-03
-    #> [371,] -7.502442e-03
-    #> [372,] -8.470716e-03
-    #> [373,] -7.003451e-03
-    #> [374,] -1.028947e-02
-    #> [375,] -7.581220e-03
-    #> [376,] -5.812026e-03
-    #> [377,] -4.246312e-03
-    #> [378,]  7.741185e-03
-    #> [379,] -7.575466e-03
-    #> [380,] -9.532026e-03
-    #> [381,] -9.685381e-03
-    #> [382,] -1.139125e-02
-    #> [383,] -9.656470e-03
-    #> [384,] -5.842391e-03
-    #> [385,] -4.247856e-03
-    #> [386,] -9.810095e-03
-    #> [387,] -7.474048e-03
-    #> [388,] -1.032721e-02
-    #> [389,] -4.154980e-03
-    #> [390,] -9.305537e-03
-    #> [391,]  4.034845e-03
-    #> [392,] -2.122739e-03
+    #>   [1,] -5.598854e-03
+    #>   [2,]  1.947691e-02
+    #>   [3,] -7.610176e-03
+    #>   [4,] -9.407539e-03
+    #>   [5,] -8.263849e-03
+    #>   [6,] -1.354069e-02
+    #>   [7,] -2.897260e-03
+    #>   [8,]  2.405588e-03
+    #>   [9,] -5.684884e-03
+    #>  [10,] -8.971919e-03
+    #>  [11,]  7.715002e-03
+    #>  [12,]  6.915716e-04
+    #>  [13,] -1.255854e-03
+    #>  [14,] -2.234417e-03
+    #>  [15,] -1.280000e-02
+    #>  [16,] -8.633698e-03
+    #>  [17,] -6.764194e-03
+    #>  [18,] -1.065028e-02
+    #>  [19,] -1.119340e-04
+    #>  [20,] -4.248981e-03
+    #>  [21,]  1.104562e-02
+    #>  [22,] -6.224539e-03
+    #>  [23,] -7.119823e-03
+    #>  [24,] -6.586711e-03
+    #>  [25,]  9.038284e-04
+    #>  [26,] -8.324465e-03
+    #>  [27,]  4.782521e-04
+    #>  [28,] -5.375073e-04
+    #>  [29,] -1.073197e-02
+    #>  [30,] -2.530772e-03
+    #>  [31,] -1.031508e-02
+    #>  [32,] -3.040353e-03
+    #>  [33,] -6.047038e-03
+    #>  [34,] -1.076244e-02
+    #>  [35,] -5.909659e-03
+    #>  [36,] -3.586903e-03
+    #>  [37,] -4.701642e-03
+    #>  [38,] -1.117985e-02
+    #>  [39,] -1.207208e-02
+    #>  [40,] -9.110558e-03
+    #>  [41,] -7.396853e-03
+    #>  [42,] -5.605949e-03
+    #>  [43,] -9.539017e-03
+    #>  [44,] -8.209897e-03
+    #>  [45,] -7.920193e-03
+    #>  [46,] -7.818359e-03
+    #>  [47,]  2.999515e-03
+    #>  [48,] -7.292930e-03
+    #>  [49,] -9.987825e-03
+    #>  [50,] -1.235784e-02
+    #>  [51,] -8.166522e-03
+    #>  [52,] -1.286443e-02
+    #>  [53,] -4.607253e-03
+    #>  [54,] -8.309164e-03
+    #>  [55,] -1.012658e-02
+    #>  [56,]  1.821426e-03
+    #>  [57,] -5.847346e-03
+    #>  [58,] -4.634895e-03
+    #>  [59,] -5.031743e-03
+    #>  [60,] -5.963923e-03
+    #>  [61,] -8.492884e-03
+    #>  [62,] -7.245164e-03
+    #>  [63,] -2.257415e-03
+    #>  [64,] -1.114970e-02
+    #>  [65,] -6.521955e-03
+    #>  [66,] -9.271598e-03
+    #>  [67,]  2.033763e-03
+    #>  [68,] -9.783927e-03
+    #>  [69,] -8.482927e-03
+    #>  [70,] -1.002320e-02
+    #>  [71,]  1.230245e-03
+    #>  [72,]  1.308569e-02
+    #>  [73,] -5.343928e-03
+    #>  [74,] -9.636662e-03
+    #>  [75,] -8.131686e-03
+    #>  [76,] -6.745575e-03
+    #>  [77,] -4.714038e-03
+    #>  [78,] -4.022970e-03
+    #>  [79,] -1.482641e-03
+    #>  [80,] -9.479402e-03
+    #>  [81,] -9.077293e-03
+    #>  [82,] -4.495311e-04
+    #>  [83,]  3.683801e-03
+    #>  [84,] -8.967541e-03
+    #>  [85,] -9.079677e-04
+    #>  [86,] -6.163238e-03
+    #>  [87,] -3.834142e-03
+    #>  [88,] -4.064429e-03
+    #>  [89,] -5.317392e-03
+    #>  [90,] -2.811435e-03
+    #>  [91,] -1.183620e-02
+    #>  [92,]  2.310135e-03
+    #>  [93,] -6.933637e-03
+    #>  [94,] -9.392247e-03
+    #>  [95,] -8.042752e-03
+    #>  [96,] -7.181138e-03
+    #>  [97,] -6.090108e-03
+    #>  [98,] -1.852381e-03
+    #>  [99,] -8.444797e-03
+    #> [100,] -1.153635e-02
+    #> [101,] -1.823285e-03
+    #> [102,] -1.186612e-02
+    #> [103,] -8.495658e-03
+    #> [104,]  2.926322e-03
+    #> [105,] -8.495694e-03
+    #> [106,] -2.800565e-03
+    #> [107,]  9.195199e-04
+    #> [108,]  1.117515e-03
+    #> [109,] -9.679737e-03
+    #> [110,] -9.992904e-03
+    #> [111,] -4.730572e-03
+    #> [112,] -2.704436e-03
+    #> [113,] -2.525097e-03
+    #> [114,] -6.451570e-03
+    #> [115,] -4.131519e-03
+    #> [116,] -1.038064e-02
+    #> [117,] -3.555941e-03
+    #> [118,] -8.771981e-03
+    #> [119,] -9.890811e-03
+    #> [120,] -7.720109e-03
+    #> [121,] -9.793562e-03
+    #> [122,] -4.307873e-03
+    #> [123,] -7.379533e-03
+    #> [124,]  1.567603e-03
+    #> [125,]  1.056375e-02
+    #> [126,] -1.129856e-02
+    #> [127,] -1.028816e-02
+    #> [128,] -6.531394e-03
+    #> [129,] -8.253127e-03
+    #> [130,] -5.778853e-03
+    #> [131,] -9.384508e-03
+    #> [132,] -6.967463e-03
+    #> [133,] -1.262078e-02
+    #> [134,]  1.385889e-02
+    #> [135,] -1.083462e-02
+    #> [136,] -7.090411e-03
+    #> [137,] -7.958103e-03
+    #> [138,] -8.628959e-03
+    #> [139,] -3.133813e-03
+    #> [140,] -3.370332e-03
+    #> [141,] -7.815314e-03
+    #> [142,] -9.206213e-03
+    #> [143,] -4.336083e-04
+    #> [144,] -8.077976e-03
+    #> [145,] -2.549950e-03
+    #> [146,] -4.414385e-03
+    #> [147,] -9.398115e-03
+    #> [148,] -5.102839e-03
+    #> [149,]  4.706209e-03
+    #> [150,] -1.245213e-02
+    #> [151,] -7.070327e-03
+    #> [152,] -8.829713e-03
+    #> [153,] -6.843928e-03
+    #> [154,] -2.127594e-03
+    #> [155,]  1.158059e-03
+    #> [156,]  4.783059e-04
+    #> [157,] -8.988268e-03
+    #> [158,] -8.687988e-03
+    #> [159,] -8.950051e-03
+    #> [160,] -3.273317e-03
+    #> [161,] -1.045214e-02
+    #> [162,] -2.838142e-03
+    #> [163,] -3.245044e-03
+    #> [164,]  3.148915e-05
+    #> [165,]  8.704610e-03
+    #> [166,] -8.400509e-03
+    #> [167,] -1.854410e-03
+    #> [168,] -9.801467e-03
+    #> [169,] -1.172643e-02
+    #> [170,] -5.338011e-03
+    #> [171,]  2.015288e-03
+    #> [172,]  4.979274e-03
+    #> [173,] -9.569083e-03
+    #> [174,] -3.568949e-03
+    #> [175,] -7.412216e-03
+    #> [176,]  7.025432e-03
+    #> [177,] -9.600163e-03
+    #> [178,] -1.111764e-02
+    #> [179,]  8.042417e-04
+    #> [180,] -9.133616e-03
+    #> [181,] -5.870149e-03
+    #> [182,] -1.214722e-02
+    #> [183,] -4.670361e-03
+    #> [184,] -4.463847e-03
+    #> [185,] -1.191072e-02
+    #> [186,]  3.744473e-03
+    #> [187,] -3.891586e-03
+    #> [188,]  1.528163e-02
+    #> [189,] -1.221664e-03
+    #> [190,] -4.915570e-03
+    #> [191,] -8.721642e-03
+    #> [192,] -1.009661e-02
+    #> [193,] -7.628408e-03
+    #> [194,] -9.192919e-03
+    #> [195,] -3.858843e-03
+    #> [196,] -1.195107e-02
+    #> [197,] -5.028167e-03
+    #> [198,] -1.339013e-02
+    #> [199,] -7.686808e-03
+    #> [200,] -2.176133e-03
+    #> [201,] -7.631159e-03
+    #> [202,] -1.298518e-02
+    #> [203,] -4.121600e-03
+    #> [204,] -5.522212e-03
+    #> [205,] -9.009378e-03
+    #> [206,] -9.511223e-03
+    #> [207,]  1.040695e-02
+    #> [208,]  1.940570e-03
+    #> [209,] -1.062995e-02
+    #> [210,] -7.643976e-03
+    #> [211,] -8.563306e-03
+    #> [212,] -7.959956e-03
+    #> [213,] -9.433846e-03
+    #> [214,] -3.209404e-03
+    #> [215,] -3.150984e-03
+    #> [216,] -2.387284e-03
+    #> [217,] -7.153031e-04
+    #> [218,] -5.670886e-03
+    #> [219,] -6.323098e-03
+    #> [220,] -1.111397e-02
+    #> [221,] -5.925548e-03
+    #> [222,] -7.399698e-03
+    #> [223,] -9.956110e-03
+    #> [224,] -7.299961e-03
+    #> [225,] -1.132823e-02
+    #> [226,] -7.113894e-03
+    #> [227,] -9.448984e-03
+    #> [228,] -1.019893e-02
+    #> [229,] -8.152148e-03
+    #> [230,] -3.653059e-03
+    #> [231,]  2.727981e-03
+    #> [232,] -4.551678e-03
+    #> [233,] -1.172625e-02
+    #> [234,] -4.562168e-03
+    #> [235,] -8.218960e-03
+    #> [236,] -5.250022e-03
+    #> [237,] -6.993540e-03
+    #> [238,] -7.474405e-03
+    #> [239,] -3.874375e-03
+    #> [240,] -1.083441e-02
+    #> [241,] -8.430320e-03
+    #> [242,] -1.028667e-02
+    #> [243,] -1.086752e-02
+    #> [244,] -7.085297e-03
+    #> [245,] -7.576289e-03
+    #> [246,] -1.892620e-03
+    #> [247,] -1.162052e-02
+    #> [248,] -8.591166e-03
+    #> [249,] -9.919356e-04
+    #> [250,] -8.738679e-03
+    #> [251,] -7.579555e-03
+    #> [252,] -5.653748e-03
+    #> [253,] -6.007387e-03
+    #> [254,] -6.723396e-03
+    #> [255,] -2.589610e-03
+    #> [256,] -9.611075e-03
+    #> [257,] -8.339605e-03
+    #> [258,] -1.034724e-02
+    #> [259,]  6.449653e-03
+    #> [260,] -5.453678e-04
+    #> [261,]  7.807255e-03
+    #> [262,] -1.190980e-02
+    #> [263,] -1.225839e-02
+    #> [264,] -7.026296e-04
+    #> [265,] -3.534063e-03
+    #> [266,] -9.039158e-03
+    #> [267,] -1.041918e-02
+    #> [268,] -1.124720e-02
+    #> [269,] -6.150881e-03
+    #> [270,] -8.219340e-03
+    #> [271,]  2.273634e-03
+    #> [272,] -1.731304e-03
+    #> [273,] -5.824994e-03
+    #> [274,] -9.284898e-03
+    #> [275,]  8.094266e-03
+    #> [276,] -8.595659e-03
+    #> [277,] -1.528955e-03
+    #> [278,] -9.066420e-03
+    #> [279,] -3.612434e-03
+    #> [280,]  1.061575e-02
+    #> [281,]  8.192020e-03
+    #> [282,] -1.455340e-02
+    #> [283,] -8.812395e-03
+    #> [284,] -1.469500e-03
+    #> [285,] -3.639738e-03
+    #> [286,] -2.807088e-03
+    #> [287,] -1.057517e-02
+    #> [288,] -8.283281e-03
+    #> [289,]  1.545140e-02
+    #> [290,] -9.695313e-03
+    #> [291,] -8.974447e-03
+    #> [292,] -6.694284e-03
+    #> [293,] -1.173783e-04
+    #> [294,] -9.899151e-03
+    #> [295,] -5.181071e-03
+    #> [296,] -1.103900e-02
+    #> [297,] -1.056806e-02
+    #> [298,] -5.546009e-03
+    #> [299,]  2.493672e-03
+    #> [300,] -2.497729e-03
+    #> [301,]  1.162192e-03
+    #> [302,] -8.480914e-03
+    #> [303,] -1.052029e-02
+    #> [304,] -9.326039e-03
+    #> [305,]  8.126301e-03
+    #> [306,] -1.696894e-03
+    #> [307,] -9.493063e-03
+    #> [308,]  1.863949e-04
+    #> [309,] -7.722495e-03
+    #> [310,] -2.712192e-03
+    #> [311,] -7.345542e-03
+    #> [312,] -6.245210e-03
+    #> [313,] -3.628836e-03
+    #> [314,] -1.004603e-02
+    #> [315,] -1.228634e-02
+    #> [316,] -3.471334e-03
+    #> [317,] -8.496891e-03
+    #> [318,] -1.634942e-03
+    #> [319,]  8.509398e-04
+    #> [320,] -9.725645e-03
+    #> [321,] -7.165937e-03
+    #> [322,] -4.550288e-03
+    #> [323,] -8.196571e-03
+    #> [324,] -7.555617e-03
+    #> [325,] -6.571531e-03
+    #> [326,] -4.990407e-03
+    #> [327,]  1.357978e-03
+    #> [328,] -6.225577e-03
+    #> [329,] -7.268842e-03
+    #> [330,] -8.533163e-03
+    #> [331,] -1.207973e-03
+    #> [332,]  4.608005e-03
+    #> [333,] -6.600236e-03
+    #> [334,] -8.155322e-03
+    #> [335,] -9.723216e-03
+    #> [336,] -6.908020e-03
+    #> [337,] -7.237832e-03
+    #> [338,] -3.098171e-03
+    #> [339,] -8.913110e-03
+    #> [340,]  2.397142e-03
+    #> [341,] -1.171867e-02
+    #> [342,] -7.446317e-03
+    #> [343,] -7.712823e-03
+    #> [344,] -3.783772e-03
+    #> [345,] -1.021129e-02
+    #> [346,] -8.919352e-03
+    #> [347,] -1.007298e-02
+    #> [348,] -5.308508e-03
+    #> [349,] -4.117933e-03
+    #> [350,] -1.233761e-02
+    #> [351,] -1.361011e-02
+    #> [352,] -9.970790e-03
+    #> [353,] -6.904952e-03
+    #> [354,] -4.347283e-03
+    #> [355,] -7.313139e-03
+    #> [356,] -5.978944e-03
+    #> [357,] -9.183730e-03
+    #> [358,] -8.776306e-03
+    #> [359,] -9.290147e-03
+    #> [360,]  2.381648e-03
+    #> [361,] -5.364837e-03
+    #> [362,] -1.219718e-02
+    #> [363,] -8.367265e-03
+    #> [364,] -5.194363e-03
+    #> [365,] -5.673361e-03
+    #> [366,] -6.472872e-03
+    #> [367,] -9.275085e-03
+    #> [368,]  1.657650e-03
+    #> [369,] -3.023228e-03
+    #> [370,] -6.505736e-03
+    #> [371,] -7.801924e-03
+    #> [372,] -8.525035e-03
+    #> [373,] -7.158055e-03
+    #> [374,] -1.035213e-02
+    #> [375,] -7.747649e-03
+    #> [376,] -5.979195e-03
+    #> [377,] -4.369613e-03
+    #> [378,]  2.092486e-03
+    #> [379,] -7.930378e-03
+    #> [380,] -9.832511e-03
+    #> [381,] -9.789738e-03
+    #> [382,] -1.135378e-02
+    #> [383,] -9.973452e-03
+    #> [384,] -7.304104e-03
+    #> [385,] -4.796923e-03
+    #> [386,] -9.855183e-03
+    #> [387,] -7.577378e-03
+    #> [388,] -1.034961e-02
+    #> [389,] -4.421783e-03
+    #> [390,] -9.486059e-03
+    #> [391,] -2.199229e-03
+    #> [392,] -2.324035e-03
 
 ## Conclusion
 

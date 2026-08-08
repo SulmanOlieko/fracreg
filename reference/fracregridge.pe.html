@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">fracreg</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -115,16 +115,42 @@
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Compute Partial Effects (identical to coefficients)</span></span></span>
 <span class="r-in"><span><span class="va">pe</span> <span class="op">&lt;-</span> <span class="fu">fracregridge.pe</span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Note: Fractional Ridge Regression is a linear model without a link function.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Therefore, the partial effects are mathematically identical to the coefficients themselves.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">pe</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Partial Effects for Fractional Ridge Regression</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Fractional ridge regression</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Call:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> fracregridge.pe(object = mod)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Average partial effects:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Note: Fractional ridge regression is a linear model without a link function.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Therefore, the partial effects are mathematically identical to the coefficients themselves.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Target Fraction: 0.3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                    dy/dx</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)  0.025969041</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X1          -0.015190037</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X2          -0.029634697</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X3          -0.017972923</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X4          -0.048194568</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X5          -0.013807840</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X6          -0.013152916</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X7           0.048353290</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X8          -0.006353284</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X9           0.001567879</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X10          0.020836124</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Target Fraction: 0.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                    dy/dx</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)  0.043431002</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X1          -0.025277903</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X2          -0.050625055</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X3          -0.035289788</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X4          -0.081684776</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X5          -0.021406027</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X6          -0.022143313</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X7           0.078031858</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X8          -0.014086532</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X9           0.002529806</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X10          0.031879315</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 </code></pre></div>
     </div>
