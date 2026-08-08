@@ -42,17 +42,41 @@
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.1.0" id="fracreg-110">fracreg 1.1.0<a class="anchor" aria-label="anchor" href="#fracreg-110"></a></h2>
 <div class="section level4">
-<h4 id="output-standardization--minor-fixes-1-1-0">Output Standardization &amp; Minor Fixes<a class="anchor" aria-label="anchor" href="#output-standardization--minor-fixes-1-1-0"></a></h4>
+<h4 id="output-standardization--aesthetics-1-1-0">Output Standardization &amp; Aesthetics<a class="anchor" aria-label="anchor" href="#output-standardization--aesthetics-1-1-0"></a></h4>
 <ul><li>
-<strong>Output Standardization:</strong> Refined <code>print</code> and <code>summary</code> outputs for partial effects (<code>fracreg.pe</code>, <code>fracregpd.pe</code>, <code>fracreghet.pe</code>, <code>fracregridge.pe</code>, <code>fracregmlogit.pe</code>, <code>fracregmlogit.wtp</code>). Enforced a logical hierarchical model ordering (BIN0 -&gt; BIN1 -&gt; FRAC -&gt; OVERALL), adopted mathematical notation for component probabilities (e.g., <code>Pr(y &gt; 0)</code>), and restructured <code>fracregmlogit.pe</code> outputs to universally present choices as columns and variables as rows. Added explanatory footnotes for omitted reduced-form parameters in <code>fracreghet.pe</code> outputs. Restored native <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> methods for point-estimates matrix displays while reserving full standard error tables for <code><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary()</a></code>.</li>
+<strong>Hierarchical Model Displays:</strong> Refined <code>print</code> and <code>summary</code> outputs for partial effects (<code>fracreg.pe</code>, <code>fracregpd.pe</code>, <code>fracreghet.pe</code>, <code>fracregridge.pe</code>, <code>fracregmlogit.pe</code>, <code>fracregmlogit.wtp</code>). Enforced a logical hierarchical model ordering (BIN0 -&gt; BIN1 -&gt; FRAC -&gt; OVERALL) and adopted clear mathematical notation for component probabilities (e.g., <code>Pr(y &gt; 0)</code>).</li>
 <li>
-<strong>Plotting &amp; WTP:</strong> Updated <code><a href="../reference/wtp.html">wtp()</a></code> and the respective plotting functions (<code>plot.fracregmlogit</code> and <code>plot.fracregmlogit.pe</code>) to natively support the newly transposed <code>fracregmlogit.pe</code> outputs, ensuring dimensional alignment across partial effects calculation pipelines. Added a specific check ensuring <code>indv.obs</code> arguments correctly validate the marginal effects method before allocating memory. Added stylistic headers (“Fractional multinomial logit regression”, “Willingness to Pay”) to the print output of <code><a href="../reference/wtp.html">wtp()</a></code>. Exported <code>broom::tidy()</code> and <code><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary()</a></code> for <code>.wtp</code> objects to the namespace.</li>
+<strong>Matrix Transposition:</strong> Restructured <code>fracregmlogit.pe</code> outputs to universally present discrete choices as columns and covariates as rows, standardizing the multidimensional matrix display.</li>
 <li>
-<strong>Krinsky-Robb Simulation Bug Fix:</strong> Fixed a critical bug in <code>fracregmlogit.pe</code> where Krinsky-Robb standard errors for <code>marg.type = "aveacr"</code> were incorrectly calculating point estimates across the single sample mean instead of iterating across all observations. Average Partial Effect standard errors are now correctly averaged across the full sample. Changed <code>se = TRUE</code> by default for <code>fracregmlogit.pe</code>.</li>
+<strong>Specification Tests Standardization:</strong> Outputs for econometric specification tests (<code>fracreg.reset</code>, <code>fracreghet.reset</code>, <code>fracreg.ggoff</code>, <code>fracreg.ptest</code>) now display dynamic headers indicating precisely which parent model was tested (e.g. “RESET Test for Fractional logit regression”) rather than static generic text.</li>
 <li>
-<strong>gtsummary Intercept Output:</strong> Introduced an explicit S3 method <code>tbl_regression.fracreg()</code> so that intercept terms are displayed by default when formatting <code>1P</code> and <code>2P</code> models with the <code>gtsummary</code> package, resolving a discrepancy where intercepts were omitted in non-mixture models.</li>
-<li>Removed redundant raw <code><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat()</a></code> print statements from the computation body of <code>fracregridge.pe</code>.</li>
-<li>Fixed an issue where <code>broom::tidy</code> outputs retained <code>frac_</code> prefixes in component columns for <code>fracregridge</code> models, ensuring clean integration with <code>tibble</code> and <code>gtsummary</code>.</li>
+<strong>Willingness to Pay (WTP):</strong> Updated <code><a href="../reference/wtp.html">wtp()</a></code> and its plotting functions (<code>plot.fracregmlogit</code>, <code>plot.fracregmlogit.pe</code>) to natively support the newly transposed <code>fracregmlogit.pe</code> outputs. Added stylistic formatting headers to <code>wtp</code> console prints.</li>
+<li>
+<strong>Native Print vs Summary:</strong> Restored native <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> S3 methods across the package to output raw point-estimate matrices while reserving detailed statistical tables (with standard errors, p-values, and confidence intervals) for <code><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary()</a></code> S3 methods.</li>
+</ul></div>
+<div class="section level4">
+<h4 id="tidyverse--gtsummary-integration-1-1-0">Tidyverse &amp; gtsummary Integration<a class="anchor" aria-label="anchor" href="#tidyverse--gtsummary-integration-1-1-0"></a></h4>
+<ul><li>
+<strong>Comprehensive Broom Support:</strong> Exported <code>broom::tidy()</code> S3 methods for all package models, partial effects objects (<code>.pe</code>), willingness-to-pay objects (<code>.wtp</code>), and econometric tests (<code>.reset</code>, <code>.ggoff</code>, <code>.ptest</code>). Tidied tibbles correctly map test outputs to <code>term</code>, <code>statistic</code>, and <code>p.value</code> columns.</li>
+<li>
+<strong>gtsummary Dispatch Resolution:</strong> Re-engineered the <code><a href="https://www.danieldsjoberg.com/gtsummary/reference/tbl_regression.html" class="external-link">gtsummary::tbl_regression()</a></code> integration. <code>tbl_regression.fracreg()</code> now correctly triggers S3 dispatch via <code><a href="https://rdrr.io/r/base/UseMethod.html" class="external-link">NextMethod()</a></code> without inadvertently stripping class attributes, preventing <code>broom::tidy()</code> fallback failures and resolving <code>R CMD check</code> warnings related to unexported <code>gtsummary:::</code> namespaces.</li>
+<li>
+<strong>Intercept Formatting:</strong> The <code>gtsummary</code> integration now correctly lists <code>(Intercept)</code> terms by default for non-mixture (1P) and mixture (2P) fractional models.</li>
+<li>
+<strong>Prefix Cleaning:</strong> Fixed an issue where <code>broom::tidy</code> retained <code>frac_</code> internal prefixes for <code>fracregridge</code> components.</li>
+</ul></div>
+<div class="section level4">
+<h4 id="bug-fixes--code-quality-improvements-1-1-0">Bug Fixes &amp; Code Quality Improvements<a class="anchor" aria-label="anchor" href="#bug-fixes--code-quality-improvements-1-1-0"></a></h4>
+<ul><li>
+<strong>Krinsky-Robb Standard Errors:</strong> Fixed a critical bug in <code>fracregmlogit.pe</code> where standard errors simulated via <code>marg.type = "aveacr"</code> calculated point estimates across a single sample mean instead of averaging across all individual observations. Average Partial Effect standard errors are now accurate across the full sample. Changed <code>se = TRUE</code> by default for <code>fracregmlogit.pe</code>.</li>
+<li>
+<strong>R CMD Check Compliance:</strong> Replaced all instances of <code>T</code> and <code>F</code> with <code>TRUE</code> and <code>FALSE</code> across R source files and <code>roxygen2</code> documentation blocks. Added <code>Depends: R (&gt;= 3.5.0)</code> to DESCRIPTION to comply with serialized dataset formats.</li>
+<li>
+<strong>Documentation Tags:</strong> Systematically added missing <code>\value</code> tags to exported R methods (like <code>fitted</code>, <code>predict</code>, and <code>residuals</code>) and removed redundant introductory phrases like “This package…” from description fields to meet strict CRAN policies.</li>
+<li>
+<strong>Example Scripts &amp; Variances:</strong> Fixed simulation bugs in <code>fracregpd.pe</code> example scripts where random error terms possessed static variances, restoring <code>R CMD check</code> validation.</li>
+<li>
+<strong>GitHub Actions:</strong> Resolved <code>403 Forbidden</code> errors during <code>pkgdown</code> automated documentation deployments by explicitly granting the <code>contents: write</code> permission to the GitHub Actions workflow.</li>
 </ul></div>
 </div>
     <div class="section level2">

@@ -163,7 +163,7 @@ summary(pe_res)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-08-08 14:16:37 
+#>                          Run Date: 2026-08-08 15:50:19 
 #> -------------------------------------------------------------------------------- 
 #> 
 #> Note: Partial effects for the reduced form are omitted because it is a linear model where they strictly equal the estimated coefficients.
@@ -201,7 +201,7 @@ summary(pe_res)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-08-08 14:16:37 
+#>                          Run Date: 2026-08-08 15:50:19 
 #> -------------------------------------------------------------------------------- 
 #> 
 #> Note: Partial effects for the reduced form are omitted because it is a linear model where they strictly equal the estimated coefficients.
@@ -226,7 +226,7 @@ summary(pe_res)
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> -------------------------------------------------------------------------------- 
-#>                          Run Date: 2026-08-08 14:16:37 
+#>                          Run Date: 2026-08-08 15:50:19 
 #> -------------------------------------------------------------------------------- 
 #> 
 #> Note: covariates evaluated at the following values:

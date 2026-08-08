@@ -2,51 +2,76 @@
 
 ## fracreg 1.1.0
 
-#### Output Standardization & Minor Fixes
+#### Output Standardization & Aesthetics
 
-- **Output Standardization:** Refined `print` and `summary` outputs for
-  partial effects (`fracreg.pe`, `fracregpd.pe`, `fracreghet.pe`,
+- **Hierarchical Model Displays:** Refined `print` and `summary` outputs
+  for partial effects (`fracreg.pe`, `fracregpd.pe`, `fracreghet.pe`,
   `fracregridge.pe`, `fracregmlogit.pe`, `fracregmlogit.wtp`). Enforced
   a logical hierarchical model ordering (BIN0 -\> BIN1 -\> FRAC -\>
-  OVERALL), adopted mathematical notation for component probabilities
-  (e.g., `Pr(y > 0)`), and restructured `fracregmlogit.pe` outputs to
-  universally present choices as columns and variables as rows. Added
-  explanatory footnotes for omitted reduced-form parameters in
-  `fracreghet.pe` outputs. Restored native
-  [`print()`](https://rdrr.io/r/base/print.html) methods for
-  point-estimates matrix displays while reserving full standard error
-  tables for [`summary()`](https://rdrr.io/r/base/summary.html).
-- **Plotting & WTP:** Updated
+  OVERALL) and adopted clear mathematical notation for component
+  probabilities (e.g., `Pr(y > 0)`).
+- **Matrix Transposition:** Restructured `fracregmlogit.pe` outputs to
+  universally present discrete choices as columns and covariates as
+  rows, standardizing the multidimensional matrix display.
+- **Specification Tests Standardization:** Outputs for econometric
+  specification tests (`fracreg.reset`, `fracreghet.reset`,
+  `fracreg.ggoff`, `fracreg.ptest`) now display dynamic headers
+  indicating precisely which parent model was tested (e.g. “RESET Test
+  for Fractional logit regression”) rather than static generic text.
+- **Willingness to Pay (WTP):** Updated
   [`wtp()`](https://sulmanolieko.github.io/fracreg/reference/wtp.md) and
-  the respective plotting functions (`plot.fracregmlogit` and
-  `plot.fracregmlogit.pe`) to natively support the newly transposed
-  `fracregmlogit.pe` outputs, ensuring dimensional alignment across
-  partial effects calculation pipelines. Added a specific check ensuring
-  `indv.obs` arguments correctly validate the marginal effects method
-  before allocating memory. Added stylistic headers (“Fractional
-  multinomial logit regression”, “Willingness to Pay”) to the print
-  output of
-  [`wtp()`](https://sulmanolieko.github.io/fracreg/reference/wtp.md).
-  Exported `broom::tidy()` and
-  [`summary()`](https://rdrr.io/r/base/summary.html) for `.wtp` objects
-  to the namespace.
-- **Krinsky-Robb Simulation Bug Fix:** Fixed a critical bug in
-  `fracregmlogit.pe` where Krinsky-Robb standard errors for
-  `marg.type = "aveacr"` were incorrectly calculating point estimates
-  across the single sample mean instead of iterating across all
-  observations. Average Partial Effect standard errors are now correctly
-  averaged across the full sample. Changed `se = TRUE` by default for
-  `fracregmlogit.pe`.
-- **gtsummary Intercept Output:** Introduced an explicit S3 method
-  `tbl_regression.fracreg()` so that intercept terms are displayed by
-  default when formatting `1P` and `2P` models with the `gtsummary`
-  package, resolving a discrepancy where intercepts were omitted in
-  non-mixture models.
-- Removed redundant raw [`cat()`](https://rdrr.io/r/base/cat.html) print
-  statements from the computation body of `fracregridge.pe`.
-- Fixed an issue where `broom::tidy` outputs retained `frac_` prefixes
-  in component columns for `fracregridge` models, ensuring clean
-  integration with `tibble` and `gtsummary`.
+  its plotting functions (`plot.fracregmlogit`, `plot.fracregmlogit.pe`)
+  to natively support the newly transposed `fracregmlogit.pe` outputs.
+  Added stylistic formatting headers to `wtp` console prints.
+- **Native Print vs Summary:** Restored native
+  [`print()`](https://rdrr.io/r/base/print.html) S3 methods across the
+  package to output raw point-estimate matrices while reserving detailed
+  statistical tables (with standard errors, p-values, and confidence
+  intervals) for [`summary()`](https://rdrr.io/r/base/summary.html) S3
+  methods.
+
+#### Tidyverse & gtsummary Integration
+
+- **Comprehensive Broom Support:** Exported `broom::tidy()` S3 methods
+  for all package models, partial effects objects (`.pe`),
+  willingness-to-pay objects (`.wtp`), and econometric tests (`.reset`,
+  `.ggoff`, `.ptest`). Tidied tibbles correctly map test outputs to
+  `term`, `statistic`, and `p.value` columns.
+- **gtsummary Dispatch Resolution:** Re-engineered the
+  [`gtsummary::tbl_regression()`](https://www.danieldsjoberg.com/gtsummary/reference/tbl_regression.html)
+  integration. `tbl_regression.fracreg()` now correctly triggers S3
+  dispatch via [`NextMethod()`](https://rdrr.io/r/base/UseMethod.html)
+  without inadvertently stripping class attributes, preventing
+  `broom::tidy()` fallback failures and resolving `R CMD check` warnings
+  related to unexported `gtsummary:::` namespaces.
+- **Intercept Formatting:** The `gtsummary` integration now correctly
+  lists `(Intercept)` terms by default for non-mixture (1P) and mixture
+  (2P) fractional models.
+- **Prefix Cleaning:** Fixed an issue where `broom::tidy` retained
+  `frac_` internal prefixes for `fracregridge` components.
+
+#### Bug Fixes & Code Quality Improvements
+
+- **Krinsky-Robb Standard Errors:** Fixed a critical bug in
+  `fracregmlogit.pe` where standard errors simulated via
+  `marg.type = "aveacr"` calculated point estimates across a single
+  sample mean instead of averaging across all individual observations.
+  Average Partial Effect standard errors are now accurate across the
+  full sample. Changed `se = TRUE` by default for `fracregmlogit.pe`.
+- **R CMD Check Compliance:** Replaced all instances of `T` and `F` with
+  `TRUE` and `FALSE` across R source files and `roxygen2` documentation
+  blocks. Added `Depends: R (>= 3.5.0)` to DESCRIPTION to comply with
+  serialized dataset formats.
+- **Documentation Tags:** Systematically added missing `\value` tags to
+  exported R methods (like `fitted`, `predict`, and `residuals`) and
+  removed redundant introductory phrases like “This package…” from
+  description fields to meet strict CRAN policies.
+- **Example Scripts & Variances:** Fixed simulation bugs in
+  `fracregpd.pe` example scripts where random error terms possessed
+  static variances, restoring `R CMD check` validation.
+- **GitHub Actions:** Resolved `403 Forbidden` errors during `pkgdown`
+  automated documentation deployments by explicitly granting the
+  `contents: write` permission to the GitHub Actions workflow.
 
 ## fracreg 1.0.1
 
