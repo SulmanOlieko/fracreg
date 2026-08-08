@@ -16,8 +16,8 @@ tests such as RESET, P test, and GGOFF tests.
 |----------|------------|
 | Package: | fracreg    |
 | Type:    | Package    |
-| Version: | 1.0.0      |
-| Date:    | 2026-07-05 |
+| Version: | 1.1.0      |
+| Date:    | 2026-08-08 |
 | License: | GPL-3      |
 
 ## Acknowledgements

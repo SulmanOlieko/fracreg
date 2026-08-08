@@ -54,7 +54,8 @@ Functions for estimating fractional multinomial logit models.
   : Fractional Multinomial Logit Average Partial Effects
 - [`fracreg_spending`](https://sulmanolieko.github.io/fracreg/reference/fracreg_spending.md)
   : Government Spending Data
-- [`summary(`*`<fracregmlogit>`*`)`](https://sulmanolieko.github.io/fracreg/reference/summary.fracregmlogit.md)
+- [`print(`*`<fracregmlogit>`*`)`](https://sulmanolieko.github.io/fracreg/reference/summary.fracregmlogit.md)
+  [`summary(`*`<fracregmlogit>`*`)`](https://sulmanolieko.github.io/fracreg/reference/summary.fracregmlogit.md)
   : Generate Summary Tables for fracregmlogit Objects
 - [`plot(`*`<fracregmlogit>`*`)`](https://sulmanolieko.github.io/fracreg/reference/plot.fracregmlogit.md)
   : Plot Marginal or Discrete Effects of Willingness to Pay

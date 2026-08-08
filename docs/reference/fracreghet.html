@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">fracreg</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -55,7 +55,7 @@
 <span>  type <span class="op">=</span> <span class="st">"GMMx"</span>,</span>
 <span>  link <span class="op">=</span> <span class="st">"logit"</span>,</span>
 <span>  intercept <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  table <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  table <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  variance <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  var.type <span class="op">=</span> <span class="st">"robust"</span>,</span>
 <span>  <span class="va">var.cluster</span>,</span>
@@ -253,6 +253,7 @@ Odds ratios are particularly useful in fractional logit models as they provide a
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">Z_emp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span>age <span class="op">=</span> <span class="va">fracreg_k401k</span><span class="op">$</span><span class="va">age</span>, ltotemp <span class="op">=</span> <span class="va">fracreg_k401k</span><span class="op">$</span><span class="va">ltotemp</span><span class="op">)</span> </span></span>
 <span class="r-in"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu">fracreghet</span><span class="op">(</span><span class="va">y_adj</span>, <span class="va">X_het</span>, <span class="va">Z_emp</span>, var.endog <span class="op">=</span> <span class="va">X_het</span><span class="op">[</span>, <span class="st">"mrate"</span><span class="op">]</span>, type<span class="op">=</span><span class="st">"QMLxv"</span>, link<span class="op">=</span><span class="st">"logit"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Fractional logit regression with heteroscedasticity/endogeneity </span>
@@ -293,57 +294,13 @@ Odds ratios are particularly useful in fractional logit models as they provide a
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-25 19:56:58 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-08-08 16:31:40 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Compute the same QMLxv estimator reporting Odds Ratios with 90% confidence intervals</span></span></span>
 <span class="r-in"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu">fracreghet</span><span class="op">(</span><span class="va">y_adj</span>, <span class="va">X_het</span>, <span class="va">Z_emp</span>, var.endog <span class="op">=</span> <span class="va">X_het</span><span class="op">[</span>, <span class="st">"mrate"</span><span class="op">]</span>, type<span class="op">=</span><span class="st">"QMLxv"</span>, </span></span>
 <span class="r-in"><span>           link<span class="op">=</span><span class="st">"logit"</span>, or<span class="op">=</span><span class="cn">TRUE</span>, level<span class="op">=</span><span class="fl">0.90</span><span class="op">)</span> </span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         Fractional logit regression with heteroscedasticity/endogeneity </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Data type:                                                       Cross-sectional </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Estimator:                                                                 QMLxv </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Convergence:                                                          Successful </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Number of observations:                                                     1534 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Wald chi2(6):                                                       2243425.7812 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Prob &gt; chi2:                                                              0.0000 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Standard errors:                                                             HC0 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                   Final Quasi-Maximum Likelihood xv estimates </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             Odds Ratio Robust Std.Err.  z value [90% Conf. Interval] Pr(&gt;|z|)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)    0.89977         0.67684 -0.14040    0.26108     3.101    0.888</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> mrate         41.32156        28.49224  5.39703   13.29272   128.452 6.78e-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ltotemp        0.93231         0.04986 -1.31060    0.85380     1.018    0.190</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> vhat           0.06111         0.04279 -3.99157    0.01931     0.193 6.56e-05</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> mrate       ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ltotemp        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> vhat        ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                  Reduced form: </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>               Odds Ratio Robust Std.Err.   z value [90% Conf. Interval]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Z_(Intercept)   2.586889        0.247056  9.952107   2.210829     3.027</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Z_age           1.011524        0.002337  4.959966   1.007688     1.015</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Z_ltotemp       0.946168        0.013441 -3.895285   0.924315     0.969</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>               Pr(&gt;|z|)    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Z_(Intercept)  &lt; 2e-16 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Z_age         7.05e-07 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Z_ltotemp     9.81e-05 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-25 19:56:59 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span> </span></span>
 <span class="r-in"><span><span class="co">### Simulated Examples </span></span></span>
 <span class="r-in"><span></span></span>
@@ -366,6 +323,7 @@ Odds ratios are particularly useful in fractional logit models as they provide a
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Exogeneity (assuming var.endog is exogenous for comparison), GMMx estimator</span></span></span>
 <span class="r-in"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu">fracreghet</span><span class="op">(</span>y <span class="op">=</span> <span class="va">y_endog</span>, x <span class="op">=</span> <span class="va">X</span>, type <span class="op">=</span> <span class="st">"GMMx"</span>, link <span class="op">=</span> <span class="st">"logit"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Fractional logit regression with heteroscedasticity/endogeneity </span>
@@ -391,13 +349,13 @@ Odds ratios are particularly useful in fractional logit models as they provide a
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-25 19:56:59 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-08-08 16:31:40 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Endogeneity, GMMz estimator (does not require reduced form for endog)</span></span></span>
 <span class="r-in"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu">fracreghet</span><span class="op">(</span>y <span class="op">=</span> <span class="va">y_endog</span>, x <span class="op">=</span> <span class="va">X</span>, z <span class="op">=</span> <span class="va">Z</span>, type <span class="op">=</span> <span class="st">"GMMz"</span>, link <span class="op">=</span> <span class="st">"logit"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Fractional logit regression with heteroscedasticity/endogeneity </span>
@@ -423,14 +381,14 @@ Odds ratios are particularly useful in fractional logit models as they provide a
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-25 19:56:59 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-08-08 16:31:40 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Endogeneity, GMMxv estimator (assumes linear reduced form for var.endog)</span></span></span>
 <span class="r-in"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu">fracreghet</span><span class="op">(</span>y <span class="op">=</span> <span class="va">y_endog</span>, x <span class="op">=</span> <span class="va">X</span>, z <span class="op">=</span> <span class="va">Z</span>, var.endog <span class="op">=</span> <span class="va">var.endog</span>, type <span class="op">=</span> <span class="st">"GMMxv"</span>, link <span class="op">=</span> <span class="st">"logit"</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>NaNs produced</span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Fractional logit regression with heteroscedasticity/endogeneity </span>
@@ -469,13 +427,13 @@ Odds ratios are particularly useful in fractional logit models as they provide a
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-25 19:56:59 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-08-08 16:31:40 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Endogeneity, QMLxv control function approach</span></span></span>
 <span class="r-in"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu">fracreghet</span><span class="op">(</span>y <span class="op">=</span> <span class="va">y_endog</span>, x <span class="op">=</span> <span class="va">X</span>, z <span class="op">=</span> <span class="va">Z</span>, var.endog <span class="op">=</span> <span class="va">var.endog</span>, type <span class="op">=</span> <span class="st">"QMLxv"</span>, link <span class="op">=</span> <span class="st">"logit"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Fractional logit regression with heteroscedasticity/endogeneity </span>
@@ -514,10 +472,9 @@ Odds ratios are particularly useful in fractional logit models as they provide a
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-07-25 19:56:59 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Run Date: 2026-08-08 16:31:40 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------------- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
