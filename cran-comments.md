@@ -1,12 +1,7 @@
-## Resubmission
+## Update
 
-This is a resubmission. I have bumped the package to version 1.1.0 to include new features detailed in `NEWS.md`. In this version, I have also fully addressed the previous CRAN feedback:
+This is an update to the package currently published on CRAN. I have bumped the package to version 1.1.0 to include new features and bug fixes detailed in `NEWS.md`.
 
-* Added the required `\value` tag to `fitted.fracregmlogit.Rd` explicitly describing the output structure (`data.frame` class) and meaning for the exported `fitted`, `residuals`, and `predict` S3 methods on `fracregmlogit` objects.
-* Removed the starting phrase "This package" and similar variations from the description field.
-* Expanded the RESET acronym to "Regression Equation Specification Error Test" in the description field.
-* Added method references to the description field in the required `authors (year) <doi:...>` format.
-* Replaced all instances of `T` and `F` with `TRUE` and `FALSE` in function default arguments across the R source files and corresponding Rd documentation.
 
 ## Test environments
 
@@ -21,4 +16,4 @@ There was 1 NOTE:
 
 * checking CRAN incoming feasibility ... NOTE
   Maintainer: 'Sulman Olieko Owili <oliekosulman@gmail.com>'
-  New submission
+  Update of a published package
